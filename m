@@ -1,71 +1,138 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBBUYRKEQMGQEDOFYTZQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBX66RKEQMGQES2GBJRI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x737.google.com (mail-qk1-x737.google.com [IPv6:2607:f8b0:4864:20::737])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E373F40B3
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 19:40:34 +0200 (CEST)
-Received: by mail-qk1-x737.google.com with SMTP id x19-20020a05620a099300b003f64d79cbbasf4636592qkx.7
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 10:40:34 -0700 (PDT)
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 812553F416B
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 22:11:12 +0200 (CEST)
+Received: by mail-wm1-x33a.google.com with SMTP id n20-20020a05600c4f9400b002e6dc6a99b9sf3890103wmq.1
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 22 Aug 2021 13:11:12 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629663072; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=rKLTXtxldDncdYmWVzMcgp30yW3og05a6qtKN7mMvg9NLawu7586At5j07nL8xwq0H
+         X+K0OkJcJXIapErpR0sK2b0hDTVUizXhAH2JDouWanvPj1JejmWh2bJWA/pYVEIoYA+m
+         G/ZdjS1bwQzqTHj0e8twzA9e/noRBBNjI4yhEoka/T0Mm8tBPQDowGBkETOhR51dd1eS
+         qBJSNilgQVS/g5XUNhXJ58qEfJGqhTNHKuPBmfm15D/EUvPwspGL6O/nXXDQBVkXk33m
+         0kFDx8RXGOoUzl3++16GNhL8tGH9iBqdVhvd/+68uE5shUfPAcydCfzRgd97bqPJBE0v
+         3xKw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=YSk6KEFif5xcIZ6JoXKEu9EdV95xo7HZnaBh7rfAUfo=;
+        b=NKsDPL6NKiAtxZGwIDwm47sTJd1hnvuvnqY4Cnf3MWHSt7v36/V1CXHgUobKA/Wadz
+         f0NhzGpLoHD3gZu4E/J5elbEKgml4TeNUIBuKQj9QrbQDihBg/Vq0qM9LkAUCqiqCZjY
+         gN+OdoYTagdGr4NNt7vmxILCIaiGgc+2wxjw1o8/0eas0Q5Iu2/+37dMDcgQm8gyv76r
+         v0uxw9ziC+jaVH2Zbimr7BBQGaMb9xp8sekpIM05whjuJFXgZ/39PuYaL+HQrf4TVUrV
+         bd8djhKrI40kt5k1OGCsWl6mQ1UJ5XV4BBjp1md606XNJMWnX5QEIkP/G3phl5D7iUxA
+         gL3A==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=aOgPk+M7;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5poEhA0LjQwojYVFVyoayQYRZdRaVK2piyYzNFEeorE=;
-        b=Hu1vZ4DMWOcH34pj82i26iESfTzHRwCHgdgwLrvSTwdFFeimwCCga3K+LNTWeiTSUH
-         j9yMOeKX9fjsonfHwHYCWtDWMgylZCkiFSni5qb68YpILgTXEZRdYcViD1MrcmCwprOC
-         lnT2QNXVJEqYm47FwlBMXm0KKWvAmgcx1sXGOywoqovXV5PcPRAYuz3u3K869Phrxq8E
-         juprFbWLLR0A/hXsOpN08mwPnFPsGDVpbkR6zcTDrw9YED9DtWGd0KpiDTG34HN35Gmi
-         iSPRnv94FSeISREQI6WIPHgDxBBt+GGCcwHKnu8CQPMNkoGHHz/jZ9F6gNuQnnPmuYoX
-         hZaw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5poEhA0LjQwojYVFVyoayQYRZdRaVK2piyYzNFEeorE=;
-        b=GlY7Yc0PuEqA6nk7CjqEjCT4DtEhoVlMuQFvMKAiw0UZxdH+Y7N7k1YF5CRmpzmoPZ
-         aG2Tjs3dEm+9XxwWprWSZjSyMaoNO4BY5yxZUft+4xN9/fLdQu8CAmkkKMFZh6jtvZal
-         28SG+tC2kkKQKW+0iXfEiP6pYngk6+EUpNEBsvGhxBY+tmBhcVXa9sLJEywFrAtcMFlc
-         LoVpHl8piMgIKpUoO0waA4hAYdzzPTmCRrFIFguyfdjBiiL5GKnje6vb2RGCTnFZV7h+
-         FwxQPRyAyZkzE5dZd+ZgxbT3T5H8+SZnlulJHucmDMBz6RW+jSu2S1l00qRwFIAwUYqG
-         GpiA==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=YSk6KEFif5xcIZ6JoXKEu9EdV95xo7HZnaBh7rfAUfo=;
+        b=dFWXBqsDOoRhEOadKp+hqOLzsEy6h8qV29fxWCKIuOABARUT8EjXaokNL5aaHR7ltj
+         WJaoCByTCs8tJqkE45vXeV/12jgUA4KrGDmASFz8oOBl+avw6PGdf5xnKciqeIE02HVH
+         cuii57Px71jhjW3sNJS5XkX8cqzCA1eOkr5OABXs6ScJ0sIKXwoTV3++fXRvTWhROcj/
+         t9ZYQXMavSmKDLSZ0HkOc+eTbN2kE1kSu0wcwC8QwW/Z2WqI4+UdXtrZWcTntbfzmeCW
+         NjbwEjBitrxCF4t1nzP6ClPIVLL0BGHazC07bbIQTlqGW7GwGPann+G77RRq9LU+ZThv
+         ekxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=5poEhA0LjQwojYVFVyoayQYRZdRaVK2piyYzNFEeorE=;
-        b=SpZNcqQSIW2TfHlNX7ooSxp63OIwlXajqT8vXdwQfo2a5baGumKWSf7HHRXm7X/uPL
-         IwcMpeYVTP4D4UusdfxTFfpTZE+pPpk70m5fZ99wF1y8eV4+LflXE68hfjYuHdY9jgf3
-         U9APYxfu74xzk/i2LhNdCuR1eiNg+owf5ex7kZ0DvKDAWAbgE5b1YU/U9cBO7rqCmNy1
-         7BgyJ6rolbVXLfMqx3+3uZaCzLHl53pscVt1Qf9dm/g4pnKEAmV4CafhQhmvu1OSeSY5
-         JsRMeQxSwLVpFQZZgRLLv/Pg4jtTQyR93AY4chvJKZL0cknuo36raoYKx2H8kZIwmNjH
-         f/uQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=YSk6KEFif5xcIZ6JoXKEu9EdV95xo7HZnaBh7rfAUfo=;
+        b=J9p9g/0tHMRSVZ6U41E/9TNFHX7IN0dQ5H4+amP6A7MTElBZ7Bhl1IAQUY5ZOMn75x
+         +cEo6pubJTqZyApmvZ++k2bwO2N891vBlB/V4vJZzF4P44FxPnOYfmJEFSnfQglZvdKF
+         gqFkRUjX0OEuySuz3gNsbb8MRuFiOdmSkIqAAb8lRCLQMtyDGeL19BnjgDc7kEqrSBhS
+         bTwD4VkOzBO4fCUUORMPMpNmfxdiXY/kiEGR/P7d6XBM7FYvgi5sEGdMSPTTPfx1fzJO
+         PJUWji1LTCMhjl06TukBfhc/J0vwAOxNR9UCKEn4CFmOR2yBHcsZWpeidwUZkPp5+4CA
+         CXIw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530aspEcfjE+wVpabLEa4AWwfXS3CJA6xP38begTjmumWy2C6MgY
-	wZDzrqsUspQOuWgm24skvgw=
-X-Google-Smtp-Source: ABdhPJwmn9+pyXeGqvuW5EYVXPsk5X+8mVU9H33NfkCtZ2Dz0HDUwMlQpWsDy5aOFQNHECyO85sc0g==
-X-Received: by 2002:ac8:140b:: with SMTP id k11mr25821081qtj.48.1629654022907;
-        Sun, 22 Aug 2021 10:40:22 -0700 (PDT)
+X-Gm-Message-State: AOAM530yzxYFsN3aWoKjMMKRmPnjU+Zmq+INnQSwxxvUunvSII2Z440q
+	S0yggYCgNUzUPAj22F2qagM=
+X-Google-Smtp-Source: ABdhPJyUKwFmk96v6ua3DGCtf7EH2F7XNB2aFrb9X1g0ljeHqIG7lYZVx6TJno8D0mYYYpJSKVfELg==
+X-Received: by 2002:a1c:e912:: with SMTP id q18mr13458336wmc.21.1629663072117;
+        Sun, 22 Aug 2021 13:11:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:298b:: with SMTP id r11ls6610510qkp.5.gmail; Sun,
- 22 Aug 2021 10:40:22 -0700 (PDT)
-X-Received: by 2002:a05:620a:4306:: with SMTP id u6mr18303144qko.468.1629654021973;
-        Sun, 22 Aug 2021 10:40:21 -0700 (PDT)
-Date: Sun, 22 Aug 2021 10:40:21 -0700 (PDT)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <560fff74-e071-4713-a1ec-e29b842f7564n@googlegroups.com>
-In-Reply-To: <434c3e0d-3f9d-cef4-faa8-e94248176db8@oth-regensburg.de>
+Received: by 2002:a5d:4a43:: with SMTP id v3ls4138865wrs.2.gmail; Sun, 22 Aug
+ 2021 13:11:11 -0700 (PDT)
+X-Received: by 2002:a5d:5642:: with SMTP id j2mr7779961wrw.264.1629663070891;
+        Sun, 22 Aug 2021 13:11:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629663070; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Lbyly+B5Jefz5Hlb8sILQvfzgEWeIfdHmC3tuHDAp//MtEroTlIpekIPElbPArurZ5
+         JctdZCji02iju0Oi/1BBYfGGxQfolNIm6aq1Mp4hDq2FukS3rHhYjZDV83FmDGTYUmMM
+         tKfaPy3LWNKty6Wc+V9kW0Nn3P1I/LoNCk0ERoWce62p+R8PLrARB9mn0UkyMvfGcTwP
+         PxbbA56MUUNEiikDOS2I0rOFdCXSbucPwRPweME+iQcyUHz4heEHJomg820rrjQVidzT
+         3ruyAlHzgukld1FnOeSLZhcgB7N+InRgQl0fBP2C9/ZKdWXldxodjFL/VWQg+z+wZuOd
+         dWoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=J9+3HhmXr/LgHpaTPgUelq9xSv9r/dRxqIYBwsosNzo=;
+        b=zrW8erNpjwS8mCwvhJJPRcEP1n1FYLuhhNLH+yfIrxLYG59RtntihwBfOQS5/jAtbA
+         CPXYzy0Wig69zKMMo2/nWMY+8J4DLN2lTy0tLAUlVyoNZEMX3O29G8+1t9ncc/tUE1Qr
+         wflLW7nipnM9oT/JkmOElseWvLnebryYLTgt9giIKZvvnqi4Xo4YXDt2NYkKZl2rGkr9
+         ywafqqeejlTUTaKcnArC263eS/kEPGNetStn6n8XDIdFAo9MVT+bGmgnmivV+gGR825W
+         sN5JOchpCcmAkLwcKS4wFPzVlHhqrAFIZ6cMVBBMdhNigGPpsEzp2iQHgRJEQ09hUYI9
+         oFGg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=aOgPk+M7;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id s12si913777wmh.3.2021.08.22.13.11.10
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 22 Aug 2021 13:11:10 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Gt62Q3RSWzyF7;
+	Sun, 22 Aug 2021 22:11:10 +0200 (CEST)
+Received: from [172.23.3.46] (194.95.106.138) by E16S03.hs-regensburg.de
+ (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Sun, 22 Aug
+ 2021 22:11:10 +0200
+Subject: Re: Editing Inmate to add GPIO for Raspberry Pi4
+To: Moustafa Nofal <mustafa13e09940@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
 References: <cd1adc59-e867-4ce1-a6ea-371ae1754cdan@googlegroups.com>
  <434c3e0d-3f9d-cef4-faa8-e94248176db8@oth-regensburg.de>
-Subject: Re: Editing Inmate to add GPIO for Raspberry Pi4
+ <560fff74-e071-4713-a1ec-e29b842f7564n@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Message-ID: <a30c722d-4fc3-fd3a-f2c2-5dd80b2d8887@oth-regensburg.de>
+Date: Sun, 22 Aug 2021 22:11:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4144_1710130345.1629654021214"
-X-Original-Sender: mustafa13e09940@gmail.com
+In-Reply-To: <560fff74-e071-4713-a1ec-e29b842f7564n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=aOgPk+M7;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,132 +145,193 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4144_1710130345.1629654021214
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4145_1777717185.1629654021215"
-
-------=_Part_4145_1777717185.1629654021215
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 
+On 22/08/2021 19:40, Moustafa Nofal wrote:
+>=20
+>=20
+> On Sunday, 22 August 2021 at 15:42:12 UTC+2 Ralf Ramsauer wrote:
+>=20
+>=20
+>=20
+>     On 22/08/2021 12:45, Moustafa Nofal wrote:
+>     >
+>     > Hi,
+>     > I build Jailhouse on RPi4 using 5.3 Kernel and it is working nice. =
+I
+>     > need to toggle a GPIO pin. I tried baremetal code but I figured out=
+,
+>     > that I must map the peripheral using specifically this function:
+>     > p->mem_fd =3D open("/dev/mem", O_RDWR|O_SYNC);
+>     > So, I need the following headers to be included:
+>     > /*For munmap, MAP_FAILED, MAP_SHARED, PROT_READ, PROT_WRITE*/>
+>     #include <sys/mman.h>
+>     > /* For open(), creat() */
+>     > #include <unistd.h>
+>     > /* For O_RDWR */
+>     > #include <fcntl.h>
+>=20
+>     >>Do I understand correctly, that you want those header in your inmat=
+e?
+>     I am not sure about it, but I needed to know the correct procedure.
 
-On Sunday, 22 August 2021 at 15:42:12 UTC+2 Ralf Ramsauer wrote:
+Please do _not_ reply with html mails in future. It's almost impossible
+to figure out where you exactly responded. And please always reply to all.
 
->
->
-> On 22/08/2021 12:45, Moustafa Nofal wrote:=20
-> >=20
-> > Hi,=20
-> > I build Jailhouse on RPi4 using 5.3 Kernel and it is working nice. I=20
-> > need to toggle a GPIO pin. I tried baremetal code but I figured out,=20
-> > that I must map the peripheral using specifically this function:=20
-> > p->mem_fd =3D open("/dev/mem", O_RDWR|O_SYNC);=20
-> > So, I need the following headers to be included:=20
-> > /*For munmap, MAP_FAILED, MAP_SHARED, PROT_READ, PROT_WRITE*/> #include=
-=20
-> <sys/mman.h>=20
-> > /* For open(), creat() */=20
-> > #include <unistd.h>=20
-> > /* For O_RDWR */=20
-> > #include <fcntl.h>=20
->
-> >>Do I understand correctly, that you want those header in your inmate?=
-=20
-> I am not sure about it, but I needed to know the correct procedure.
->
-=20
+>=20
+> =C2=A0
+>=20
+>     > What could be a clean way, to add such headers into jailhouse, I
+>     have my
+>     > own header-which describes addresses of GPIO registers- added to
+>     > /inmates/lib/include, but is there any possible way to add these
+>     headers?
 
-> > What could be a clean way, to add such headers into jailhouse, I have m=
-y=20
-> > own header-which describes addresses of GPIO registers- added to=20
-> > /inmates/lib/include, but is there any possible way to add these=20
-> headers?=20
->
-> >That's not the right approach to solve your issue. Having those standard=
-=20
-> >library functions means that you need tons of logic in your inmate,=20
-> >including a fully-fledged operating systems.=20
->
-> >What you actually want to do:=20
-> >0. Pass the GPIO device to the inmate in your cell's config=20
-> >1. Figure out the memory address of your GPIO controller + pin. For=20
-> >reference, consider looking at datasheets or device trees.=20
->
+Sorry, I think I don't understand the question. Of course, if you have
+custom modifications, you can place you headers there.
 
-I have done this in the inmate file, read the datasheet and device tree and=
-=20
-edited also the .dts file in jailhouse, I wonder, whether it is necessary.=
-=20
+>=20
+>     >That's not the right approach to solve your issue. Having those
+>     standard
+>     >library functions means that you need tons of logic in your inmate,
+>     >including a fully-fledged operating systems.
+>=20
+>     >What you actually want to do:
+>     >0. Pass the GPIO device to the inmate in your cell's config
+>     >1. Figure out the memory address of your GPIO controller + pin. For
+>     >reference, consider looking at datasheets or device trees.
+>=20
+>=20
+> I have done this in the inmate file, read the datasheet and device tree
+> and edited also the .dts file in jailhouse, I wonder, whether it is
+> necessary.
 
-> >2. Map that address to your inmate using map_range()=20
-> >(instead of opening /dev/mem, there is no semantic at all for devices=20
-> >in our tiny libinmate)=20
->
-=20
+The device tree is only required if you use Linux in your inmate. If you
+want to use the bare-metal inmate library, then you only need to adjust
+the configuration of your inmate.
 
-> Yes, that was my problem, I tried accessing the registers directly, but i=
-t=20
-> must be mapped first, there are two solutions for this, either using=20
-> assembly code or use such a function.=20
-> I did not know about map_range, or whether jailhouse uses it, but I will=
-=20
-> check and get back to you.
-> On the other hand, I found mmio_write32() for writing registers, but I=20
-> could not find the source file. Also timer_start(), I do not know where i=
-s=20
-> the definition of this function.=20
-> One more question, I think you must have mapped the timer and UART0=20
-> peripherals, in order to be able to trigger it. I saw the memory region=
-=20
-> structure  in *rpi4-inmate-demo.c *and could understand, how could you=20
-> make it and implemented something similar for the GPIO.  But where the=20
-> initialization of the timer and uart, I mean in which file, or how is tha=
-t=20
-> made
->
-> >3. directly write to the address=20
->
-> >Other than that, have a look at demos/arm/gic-demo.c or=20
-> >demos/x86/apic-demo.c. There we have the cmdline argument that allows=20
-> >for specifying a led-pin, which is nothing else but a GPIO.=20
-> Yes, this part I understand, but my experience was with ARM-Cortex-M, so =
-I=20
-> thought I could just write to the register without mapping it. But thanks=
-=20
-> for the information and would really appreciate, if you could tell in whi=
-ch=20
-> direction shall I dig.=20
->
->
-> >@Jan, BTW, I think I just found a bug in demos/arm/gic-demo.c: Since I=
-=20
-> >introduced arch_mmu_enable(), I forgot to map physical addresses for=20
-> >map_range() for the led_reg. Will provide a patch soon=E2=80=A6=20
->
-> >Ralf=20
-> Best regards,=20
-> Moustafa Noufale
-> >=20
-> > Thanks in advance=20
-> > Moustafa Noufale=20
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.=20
-> > To unsubscribe from this group and stop receiving emails from it, send=
-=20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.=20
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-3=
-71ae1754cdan%40googlegroups.com=20
-> > <
-> https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-3=
-71ae1754cdan%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=20
->
->
+>=20
+>     >2. Map that address to your inmate using map_range()
+>     >(instead of opening /dev/mem, there is no semantic at all for device=
+s
+>     >in our tiny libinmate)
+>=20
+> =C2=A0
+>=20
+>     Yes, that was my problem, I tried accessing the registers directly,
+>     but it must be mapped first, there are two solutions for this,
+>     either using assembly code or use such a function.
+>     I did not know about map_range, or whether jailhouse uses it, but I
+>     will check and get back to you.
+
+map_range is a routine of libinmate, it /belongs/ to jailhouse. Use "git
+grep map_range" to see how it is used.
+
+>     On the other hand, I found mmio_write32() for writing registers, but
+>     I could not find the source file. Also timer_start(), I do not know
+>     where is the definition of this function.
+
+After you mapped the physical memory, you can then access registers with
+mmio_write()-accessors. To find the definition of those routines, just
+use git grep:
+
+lib/arm-common/include/inmate.h:static inline void mmio_write32
+
+>     One more question, I think you must have mapped the timer and UART0
+>     peripherals, in order to be able to trigger it. I saw the memory
+
+In order to trigger what? What is "it"? :)
+
+>     region structure=C2=A0 in *rpi4-inmate-demo.c *and could understand, =
+how
+>     could you make it and implemented something similar for the GPIO.=C2=
+=A0
+>     But where the initialization of the timer and uart, I mean in which
+>     file, or how is that made
+
+On arm, libinmate uses the platform timer. Take a look at
+inmates/lib/arm-common/timing.c.
+
+>=20
+>     >3. directly write to the address
+>=20
+>     >Other than that, have a look at demos/arm/gic-demo.c or
+>     >demos/x86/apic-demo.c. There we have the cmdline argument that allow=
+s
+>     >for specifying a led-pin, which is nothing else but a GPIO.
+>     Yes, this part I understand, but my experience was with
+>     ARM-Cortex-M, so I thought I could just write to the register
+>     without mapping it. But thanks for the information and would really
+>     appreciate, if you could tell in which direction shall I dig.
+
+On ARM, we use virtual memory management for inmates. So you definitely
+need a mapping prior to accessing MMIO registers.
+
+HTH,
+  Ralf
+
+>=20
+>=20
+>     >@Jan, BTW, I think I just found a bug in demos/arm/gic-demo.c: Since=
+ I
+>     >introduced arch_mmu_enable(), I forgot to map physical addresses for
+>     >map_range() for the led_reg. Will provide a patch soon=E2=80=A6
+>=20
+>     >Ralf
+>     Best regards,
+>     Moustafa Noufale
+>     >
+>     > Thanks in advance
+>     > Moustafa Noufale
+>     >
+>     > --
+>     > You received this message because you are subscribed to the Google
+>     > Groups "Jailhouse" group.
+>     > To unsubscribe from this group and stop receiving emails from it,
+>     send
+>     > an email to jailhouse-de...@googlegroups.com
+>     > <mailto:jailhouse-de...@googlegroups.com>.
+>     > To view this discussion on the web visit
+>     >
+>     https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6=
+ea-371ae1754cdan%40googlegroups.com
+>     <https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a=
+6ea-371ae1754cdan%40googlegroups.com>
+>=20
+>     >
+>     <https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a=
+6ea-371ae1754cdan%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
+>     <https://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a=
+6ea-371ae1754cdan%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter=
+>>.
+>=20
+>=20
+> --=20
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/560fff74-e071-4713-a1ec-e=
+29b842f7564n%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/560fff74-e071-4713-a1ec-=
+e29b842f7564n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
+
+--=20
+Mit freundlichen Gr=C3=BC=C3=9Fen
+
+Ralf Ramsauer
+Labor f=C3=BCr Digitalisierung
+Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
+
+Ostbayerische Technische Hochschule Regensburg
+Galgenbergstrasse 32
+93053 Regensburg
+
+Tel.: +49 (0)941 943-9267
+E-Mail: ralf.ramsauer@oth-regensburg.de
+http://www.oth-regensburg.de
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -211,144 +339,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/560fff74-e071-4713-a1ec-e29b842f7564n%40googlegroups.com.
-
-------=_Part_4145_1777717185.1629654021215
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">O=
-n Sunday, 22 August 2021 at 15:42:12 UTC+2 Ralf Ramsauer wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: =
-1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<br>
-<br>On 22/08/2021 12:45, Moustafa Nofal wrote:
-<br>&gt;=20
-<br>&gt; Hi,
-<br>&gt; I build Jailhouse on RPi4 using 5.3 Kernel and it is working nice.=
- I
-<br>&gt; need to toggle a GPIO pin. I tried baremetal code but I figured ou=
-t,
-<br>&gt; that I must map the peripheral using specifically this function:
-<br>&gt; p-&gt;mem_fd =3D open("/dev/mem", O_RDWR|O_SYNC);
-<br>&gt; So, I need the following headers to be included:
-<br>&gt; /*For munmap, MAP_FAILED, MAP_SHARED, PROT_READ, PROT_WRITE*/&gt; =
-#include &lt;sys/mman.h&gt;
-<br>&gt; /* For open(), creat() */
-<br>&gt; #include &lt;unistd.h&gt;
-<br>&gt; /* For O_RDWR */
-<br>&gt; #include &lt;fcntl.h&gt;
-<br>
-<br>&gt;&gt;Do I understand correctly, that you want those header in your i=
-nmate?
-<br>
-I am not sure about it, but I needed to know the correct procedure.<br></bl=
-ockquote><div>&nbsp;</div><blockquote class=3D"gmail_quote" style=3D"margin=
-: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex=
-;">&gt; What could be a clean way, to add such headers into jailhouse, I ha=
-ve my
-<br>&gt; own header-which describes addresses of GPIO registers- added to
-<br>&gt; /inmates/lib/include, but is there any possible way to add these h=
-eaders?
-<br>
-<br>&gt;That's not the right approach to solve your issue. Having those sta=
-ndard
-<br>&gt;library functions means that you need tons of logic in your inmate,
-<br>&gt;including a fully-fledged operating systems.
-<br>
-<br>&gt;What you actually want to do:
-<br>&gt;0. Pass the GPIO device to the inmate in your cell's config
-<br>&gt;1. Figure out the memory address of your GPIO controller + pin. For
-<br>&gt;reference, consider looking at datasheets or device trees.
-<br></blockquote><div><br></div><div>I have done this in the inmate file, r=
-ead the datasheet and device tree and edited also the .dts file in jailhous=
-e, I wonder, whether it is necessary. <br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 2=
-04); padding-left: 1ex;">&gt;2. Map that address to your inmate using map_r=
-ange()
-<br>&gt;(instead of opening /dev/mem, there is no semantic at all for devic=
-es
-<br>&gt;in our tiny libinmate)
-<br></blockquote><div>&nbsp;</div><blockquote class=3D"gmail_quote" style=
-=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding=
--left: 1ex;">Yes, that was my problem, I tried accessing the registers dire=
-ctly, but it must be mapped first, there are two solutions for this, either=
- using assembly code or use such a function. <br>I did not know about map_r=
-ange, or whether jailhouse uses it, but I will check and get back to you.<b=
-r>On the other hand, I found <span>mmio_write32() for writing registers, bu=
-t I could not find the source file. Also timer_start(), I do not know where=
- is the definition of this function. <br>One more question, I think you mus=
-t have mapped the timer and UART0 peripherals, in order to be able to trigg=
-er it. I saw the memory region structure&nbsp; in <span><strong>rpi4-inmate=
--demo.c </strong></span>and could understand, how could you make it and imp=
-lemented something similar for the GPIO.&nbsp; But where the initialization=
- of the timer and uart, I mean in which file, or how is that made</span><br=
-><br>&gt;3. directly write to the address
-<br>
-<br>&gt;Other than that, have a look at demos/arm/gic-demo.c or
-<br>&gt;demos/x86/apic-demo.c. There we have the cmdline argument that allo=
-ws
-<br>&gt;for specifying a led-pin, which is nothing else but a GPIO.
-<br>
-Yes, this part I understand, but my experience was with ARM-Cortex-M, so I =
-thought I could just write to the register without mapping it. But thanks f=
-or the information and would really appreciate, if you could tell in which =
-direction shall I dig. <br><br>
-<br>&gt;@Jan, BTW, I think I just found a bug in demos/arm/gic-demo.c: Sinc=
-e I
-<br>&gt;introduced arch_mmu_enable(), I forgot to map physical addresses fo=
-r
-<br>&gt;map_range() for the led_reg. Will provide a patch soon=E2=80=A6
-<br>
-<br>  &gt;Ralf
-<br>
-Best regards, <br>Moustafa Noufale<br>&gt;=20
-<br>&gt; Thanks in advance
-<br>&gt; Moustafa Noufale
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google
-<br>&gt; Groups "Jailhouse" group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send
-<br>&gt; an email to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">j=
-ailhouse-de...@googlegroups.com</a>
-<br>&gt; &lt;mailto:<a href=3D"" data-email-masked=3D"" rel=3D"nofollow">ja=
-ilhouse-de...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/cd1adc5=
-9-e867-4ce1-a6ea-371ae1754cdan%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den-GB&am=
-p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6=
-ea-371ae1754cdan%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16297395=
-74353000&amp;usg=3DAFQjCNHQmHDS1rSOLuktuNgu623z0fd69Q">https://groups.googl=
-e.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754cdan%40googleg=
-roups.com</a>
-<br>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/cd1=
-adc59-e867-4ce1-a6ea-371ae1754cdan%40googlegroups.com?utm_medium=3Demail&am=
-p;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
-url=3D"https://www.google.com/url?hl=3Den-GB&amp;q=3Dhttps://groups.google.=
-com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754cdan%2540googleg=
-roups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;u=
-st=3D1629739574354000&amp;usg=3DAFQjCNF8OL91wBWj5uUCI6YUMTmfNsFAZQ">https:/=
-/groups.google.com/d/msgid/jailhouse-dev/cd1adc59-e867-4ce1-a6ea-371ae1754c=
-dan%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/560fff74-e071-4713-a1ec-e29b842f7564n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/560fff74-e071-4713-a1ec-e29b842f7564n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_4145_1777717185.1629654021215--
-
-------=_Part_4144_1710130345.1629654021214--
+jailhouse-dev/a30c722d-4fc3-fd3a-f2c2-5dd80b2d8887%40oth-regensburg.de.
