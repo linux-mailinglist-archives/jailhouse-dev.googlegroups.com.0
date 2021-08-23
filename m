@@ -1,141 +1,118 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBCNSR2EQMGQEC735AZY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBCNZR2EQMGQEJWMEKQQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA483F4B13
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Aug 2021 14:48:10 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id 201-20020a1c01d2000000b002e72ba822dcsf4092853wmb.6
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Aug 2021 05:48:10 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1629722890; cv=pass;
+Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E46A3F4B50
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Aug 2021 15:03:06 +0200 (CEST)
+Received: by mail-lj1-x240.google.com with SMTP id y6-20020a05651c154600b001c30dac7e87sf1567919ljp.8
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 23 Aug 2021 06:03:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629723785; cv=pass;
         d=google.com; s=arc-20160816;
-        b=F4KaRCEtIgvVY/PCw7TGUixbiWa4F1Qh478EOnSW4+qQBtjgUQPVEa6xYA5HXwgf5Q
-         BCF4TvFJDRrKlBQfv4lw6c91BEqb6zGSHmMfAVPHaqIgCbDkWsSqFJ3LDEa6VoTN9Iaq
-         RYnUjf4sFBSmzMRb1yf0v5c5AhXSfGKCP0h/9a/qqvmdbwAmAfWEl8xuysYDCyOuXHvr
-         TTdYUMI4JHzoZ8rOkR3zRVAAsrhVBoTzinTd8Tw7pzuVamhBda+sWLSbxwHK6km59ZGd
-         bKHEmEKa0bYSRNcKnuviDPfoBXG2mENjg7Ffm5u3qF81KrTUdUQ8xPIhfXzKEkDAMhIf
-         4DPg==
+        b=sbaSfJ6/euVBuZzo7K+6HmmU+PDwhDu0niVhdlv9bOxe0bLGmNTDB6JAYBf81wXUQY
+         i1Y6EvOBvyqVfHxJEPsiThHf9dR941paVzs1ow8+w5QHTclaNyV1wPSGFfUZ5EfjB8SD
+         WVRywU588+bVT+gCImR+Ccyk02NUPa3810MvPbxNNYuHCVbS+MSKeZWaf9CvXHotEZjW
+         0alGwEVa7yMettaAdiErS8O122ycsc0+8KdDxWLKqpntQ7y9FBuV1W3HQt/jcNcoHfm2
+         vZkE8EQEPraMOJeMaN/LLYoB3LQj8nrU1FYVsvQNTYrHGLwbZ+Z9tBGqQ2HkeAR5eQuk
+         JUxA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=LVFfVGcHv64t9ilda7xsSUBxNnJ6VRiLRuCSyHEOmYM=;
-        b=R4z40fE7PsrpbDUzRXri37ZmDLlxJXPmMybBZyknDc00ICbnUMDt0Xa1dhhvluyyXR
-         gN35xNxqyowaX5TgQxnD5l27jEZQ77fNMWaZMhe6pjwrCnrGYEQ6x52H/CSr/sqfK4c0
-         Mm6gYcdolQjI8t/sIW7kXErgzvUCDsshbU8ZtE5GGbAfD7uleogTpqoLJnHdHK1WGp+2
-         viY/xWfBZ/ZwuTA712q/C+ZVDHnaQo/Cnr3hNV5GcxekrR0vZBZaZ9swP2+FsUx/0Jd1
-         cVgaUDqEJm+ZpRbn/B7432rdmpuSOCYAnj8IthLf1oGdf+JY4zubY5Z/XTvu8ksglNhy
-         NEgw==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=FY1tAn1RvdXyOI/Tqc7lNsM5bYtF8YS0G24+0GiKBXw=;
+        b=lheCpaRYWQ98eWc7GSFGh+h/yTVOyQLesl4JSNT3iyAzCHV/H98D17QnyRYaaJ/k3Y
+         tO3eSlf74F+6paT54wJqe2RgBL67Xu8ZMlwG4lRRW9yCQggmOHqOc5cPP9b79XQWlh0/
+         7p47nr48CCyVKgJ4rAUguG0fZnfHF/5yGoC0UkfwNsPcn7/GZN0lffIposQxodzS00NO
+         3t8aDmyr3GBIao6J1VQrHMCQ/OEHnUe7eG5IluCR5LKnXpStEmxWx3ZmXQjjdEvh0zCx
+         hFVr0rvrIBa3yaK7MOxwLsJZkBHSaODSi8hMv6KUD0TwNknZrfozMSbCd1AC79krdoef
+         KIlQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OYZCiAWW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
+        h=sender:from:to:cc:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=LVFfVGcHv64t9ilda7xsSUBxNnJ6VRiLRuCSyHEOmYM=;
-        b=XBaDVym8MALDlzKntMa+u239P3433Esb53d3GY+hxrKXIVBDtjUHrFspG3V0IKgokY
-         yTLDWKcPwGSWvssfSI2ywgSXjuXM7gC2UQeYzRbqGWcZRKf1aC7yFApsg6tu2LzuMtig
-         8e5ov+ODNtFL5uWkLiHXbrt97xlsFgyyanFx1EbedmGNBuDEAjVtrZJYqytPZloXXJmH
-         SH8vhlnXJUbPXCpHaHhbk586lnxRwTWJ8BDfCnTmO0kuDmpF0/yrOqIfXiGGzzflNEM0
-         Dtp/npHnNCglYN1kS29KaWqwi7mPrqQRsTHtiFz/YwjEdAV6PRQpNO6KXjhWu3ugbGg6
-         OV+A==
+        bh=FY1tAn1RvdXyOI/Tqc7lNsM5bYtF8YS0G24+0GiKBXw=;
+        b=AXCkUVbozlp4ZqH6/n9HD4rEpV4tNO87msMXcP3H/Fq/eJcu7hJYY0rn+p7IYj1Dxt
+         10Gl5RrYv9+J6nS4M1uDReN9ke7U+ld/NnSq/+tEzP0PjQLR+HKZHhW1T9p5lNINPgA/
+         GsDcqXZoVvVa6MyhRmCjcwKdHiqcJaazUG+Mb0sQWIVmhlQkvjJ7gWSdXtLNZ1a61dNn
+         p9eyRC417mSDAx3RXL8/vKk2MhIlDaAFt6Mpd8e0TX2MEufaHAZwImNriDbxe7u0QQW9
+         1ZDrrnGsexiqpRMbw9LPm4OyRaA3tlyMtt17Z+X/8JfZpfmF5eUxeKxj0/I4IXGJG/2X
+         c25A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=LVFfVGcHv64t9ilda7xsSUBxNnJ6VRiLRuCSyHEOmYM=;
-        b=ca5YxdG5e3uSNRsZGAKzIRALYn7xrxK0IjE3apG5WL0eCMs4XvQKuE1bOvXauFKhlY
-         XDZAP6tFUAV8CkjgEFwr234F8nkTwYZOtX0dkvPg2U0NpOBg7aOp+lGpEySL2gNvRQFu
-         K9RacmgsBXXvViZG7+kUdi4FY1G1qEk24bkhFSD6D8tIXm44UVt7ITCnUq5Tf5KDGZ/n
-         19XRl0vuTRyL44gs3QKx96EY9mNN4HAYD8fiO1W/gAKGt7sW7Yrgzvz54set375BWVr8
-         PdDzCw0wnO2qc317dTcMcoFiB7H57PI0AQDyH5OSzbi3l9vvghl8GaHgzTJzPZPTjWQk
-         lbtQ==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=FY1tAn1RvdXyOI/Tqc7lNsM5bYtF8YS0G24+0GiKBXw=;
+        b=EHrku72zq+se2yXCvVtmOsf1V2ZZolUK0ejWrB2hIUI0KsWyaHTteLTpmrXd9Wi0XE
+         DG/ruV4YhehZMPjrQM/Jj/LohqxH8A7elJpu5hMTTsAsS+QYJiI0fViQ3BU3nIRf2n8h
+         hA6DtzrLXf7RuGDprNZJm6U9kLLrNDj2Fabl614NKy5t18bct40Cpjj7aP9vzsxc+ZNW
+         FTLrN8eL7Jw1U4ba3WaO2zfFm/CpP2sLA1/RTKRpLn0voe5nBn+B7sgitHBQNxeG9uMk
+         LX18x93pDdySfkshyOzgJzo5Wdt+ybaZPonSh2aZONOJ1mo+e/KIObViLlBjsqJhin1P
+         dgdA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530hGdrznirBd/TRoaoWT2/ZPuAdT7horAY8Ps7TsxSdnIOPV1N3
-	3UrB7g3tRL0/QtsT3OrWiLI=
-X-Google-Smtp-Source: ABdhPJwtyWA+/GyCU4sBg+taVR0/2BJtnagoHTvGXurwLbn6ZUrN1o+1ZZk2vJF1ZWDbJJqRav4LiQ==
-X-Received: by 2002:a5d:4a8d:: with SMTP id o13mr13530714wrq.156.1629722890095;
-        Mon, 23 Aug 2021 05:48:10 -0700 (PDT)
+X-Gm-Message-State: AOAM531VLyvSSoY8Ga4ugSq+HohQsGZdLyQZFXy2GZfGn3tgLeT5F1YY
+	eRrTrnzEb9nZfupYmpM0Hc0=
+X-Google-Smtp-Source: ABdhPJyqzw8BcM5ZuZgkKvompRtuVbp/5AJVjIpRFmkEazLHQyPUYF0Bms2SEPKRYjuVf3NCQr6Rww==
+X-Received: by 2002:a05:6512:68e:: with SMTP id t14mr25943915lfe.429.1629723785477;
+        Mon, 23 Aug 2021 06:03:05 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:cbd3:: with SMTP id n19ls2153179wmi.0.canary-gmail; Mon,
- 23 Aug 2021 05:48:08 -0700 (PDT)
-X-Received: by 2002:a05:600c:a4b:: with SMTP id c11mr15990259wmq.97.1629722888928;
-        Mon, 23 Aug 2021 05:48:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1629722888; cv=none;
+Received: by 2002:a05:6512:ea5:: with SMTP id bi37ls173444lfb.3.gmail; Mon, 23
+ Aug 2021 06:03:04 -0700 (PDT)
+X-Received: by 2002:a05:6512:951:: with SMTP id u17mr24701430lft.392.1629723783992;
+        Mon, 23 Aug 2021 06:03:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629723783; cv=none;
         d=google.com; s=arc-20160816;
-        b=CfzDYolrAG+yUOOQR59agnkCLSY5oc/K1ICaP5kiw9/NGXB+bvQw4vOFX513a/+mlA
-         G0WaauffpKG8B3vARGn/nv8PSfOYNADeI2Oy0b3Oaur3MRPfCo/PkcO+IfLTiSVqXORH
-         vgpZybKaB5BmdRRhZSqLwstnt1FmoTc+whV1CXeONf/WPaJ6eoLjJuIaWm6X8ef2r6Aq
-         IToeMIi2y1wN6FjElsVkHxvk9FbAYtinIFJ8QSNb3AWs0/dzyoDxJu3JFEDYnxpoz5RE
-         4rK2WSihrUNG04w/yVeRF3luZqVb4QIWWieVFx/7KteFMKwbhO+Fmvm2xNbGzwz13wfU
-         QLAQ==
+        b=rNGcK2uwcfJhKTSGlCTzUDFwZi4UL+Yv9ae4Pgpin/k2zCgvamwN+Ig97t4TPjsxJt
+         WiMIvw8wdqTKQqJbYSQpK8IDIkcJqFn45mDNkYqXQUSxzORm7V5EgJiyPs4WbRcMAqLc
+         w6EV0borQDIAhvIc+EGogIs0ha5wetgvwofWDLayt43UuzV8s2j/jAhKVLCGxP/qqGx5
+         Am7U3JKOrls7boY8WJZZmFP/AZYWeCFnO8k98++WoTmJDsOxb/Y0IGJY1aCNlG2bH3jp
+         kcMoMR26iUc6Gfg5TJ5KZJY9YedcekLQ1+49EDYjvQJe4HpZ300YQEoGzclRfZixnYCa
+         2o2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject
-         :dkim-signature;
-        bh=9y3ElgBIKGma/KcoClvV8y+NdBCx66Es2EK42HjjMVg=;
-        b=gZVPLjf3USQ6bQBh01S8swIcuHqoiU6CKfiBtVYDptMf2AxHrAJfmReEFlkBXxEhIF
-         DfjUcVBsQzKdq/b4oXyhiQ3wG7ybFq8UXwBbb8kcntqjWgAJ4JLCOqD5rp1hguSkIt3v
-         jrsh0WykWeK1E8T4T1G/LSDiQLYbWGZfkCr8e5Epe9eQUHW6wgdYKpwJUSPRUcIvdYrd
-         5oRr4N3ULLvtGokReIVaOKCTw5Bp8y7KN/e8HNbLyJ9GCDznVePvDM199KOYKfGyyKy6
-         xS8eUpNtXZ0dhbz70yBHixWM4xCs9Yl51/LfP66/QMjdVNHyo/erGDkxBPHtb5ykTsos
-         2AAg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from;
+        bh=sB4MTUa7mG9VSOk23e5OKvIbMXaA6GYf0SmR017dURY=;
+        b=kQp+M47fTPROzLSPvSnI4kReRor4Pnw36urnFbvWPxDs5lYR629NvNywJ3i8qBa9/H
+         O/nODVBbtKwXu5JBX1yAOZkyKkIoIt8K/Hqr96VOtdwrc/yS85T+pGN+F4ixCGYrqLAO
+         MF0sgazbBJ6PgBwOZ31GQHT9yGJG/mwQ+n9zvtN7M2mn/jA1bLIBXMau1I/NbPpL0Es4
+         2YRtVvmG/BZEtVqegT5BSkwyEl/7rOPq74o8DK3E/5M76ZaUB/T9MsNK1IveW2YPiUTH
+         l3OD9vYW8fFPBfUh5KhOqryvu8B6IqbVA8MkgRzEBJWw3rLHVBArKIo1S4sXlnjE0hjk
+         T8uQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OYZCiAWW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id u2si1074224wro.0.2021.08.23.05.48.08
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
+        by gmr-mx.google.com with ESMTPS id y15si170248lfa.13.2021.08.23.06.03.02
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 23 Aug 2021 05:48:08 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4GtX8m3dgrzyJp;
-	Mon, 23 Aug 2021 14:48:08 +0200 (CEST)
-Received: from [IPv6:2001:638:a01:8061:5c51:6883:5436:5db]
- (2001:638:a01:8013::138) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Mon, 23 Aug
- 2021 14:48:08 +0200
-Subject: Re: Editing Inmate to add GPIO for Raspberry Pi4
-To: Moustafa Nofal <mustafa13e09940@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <cd1adc59-e867-4ce1-a6ea-371ae1754cdan@googlegroups.com>
- <434c3e0d-3f9d-cef4-faa8-e94248176db8@oth-regensburg.de>
- <560fff74-e071-4713-a1ec-e29b842f7564n@googlegroups.com>
- <a30c722d-4fc3-fd3a-f2c2-5dd80b2d8887@oth-regensburg.de>
- <12f6f39b-14fa-47c4-9fe6-6ca0897e14c0n@googlegroups.com>
+        Mon, 23 Aug 2021 06:03:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+Received: from sd6.buero (unknown [IPv6:2001:638:a01:8061:5c51:6883:5436:5db])
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4GtXTy0B8Jzxtx;
+	Mon, 23 Aug 2021 15:03:02 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Message-ID: <66d9ac5b-8e2c-621d-d948-ff921aa0aa5e@oth-regensburg.de>
-Date: Mon, 23 Aug 2021 14:48:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+To: Jan Kiszka <jan.kiszka@siemens.com>,
+	jailhouse-dev@googlegroups.com
+Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH] inmates: gic-demo: map led_reg
+Date: Mon, 23 Aug 2021 15:02:58 +0200
+Message-Id: <20210823130258.215378-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <12f6f39b-14fa-47c4-9fe6-6ca0897e14c0n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2021.8.23.125416, AntiVirus-Engine: 5.84.0, AntiVirus-Data: 2021.8.22.5840001
+X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
+ HTML_00_01 0.05, HTML_00_10 0.05, BODYTEXTP_SIZE_3000_LESS 0, BODY_SIZE_1500_1599 0, BODY_SIZE_2000_LESS 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, SENDER_NO_AUTH 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_X_MAILER 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_TO_X2 0, __NO_HTML_TAG_RAW 0, __SANE_MSGID 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NAME 0, __TO_NAME_DIFF_FROM_ACC 0, __TO_REAL_NAMES 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=OYZCiAWW;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
+ 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,216 +125,58 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+When I introduced MMU support for inmates, I forgot to map the memory
+for LEDs. Fix that by simply mapping it.
 
+While at it, move the initalisation of led_reg to the top of the routine
+where it should actually be - it should be initialised before the timer
+is armed.
 
-On 23/08/2021 13:04, Moustafa Nofal wrote:
->=20
->     >Please do _not_ reply with html mails in future. It's almost
->     impossible
->     >to figure out where you exactly responded. And please always reply
->     to all.
->     Okay, sure.
+The mapper will take care that the address will be huge page aligned,
+and the size will be aligned to HUGE_PAGE_SIZE, so there's no need to
+align anything on caller site.
 
-Last warning. :)
+Fixes: bca43a784716 ("inmates: arm-common: add MMU support")
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+Only compile-time tested! I currently have no device where i could test
+it.
 
-You answer in html inside response and use strange formatting: it's
-really hard to read your mails and a fiddling finding out the spots
-where you responded.
+Ralf
 
->     >
->     > =C2=A0
->     >
->     > > What could be a clean way, to add such headers into jailhouse, I
->     > have my
->     > > own header-which describes addresses of GPIO registers- added to
->     > > /inmates/lib/include, but is there any possible way to add these
->     > headers?
->=20
->     >>>Sorry, I think I don't understand the question. Of course, if you
->     have
->     >>>custom modifications, you can place you headers there.
->=20
-> =C2=A0
->=20
->     I want to avoid such headers as much as possible.
->=20
-> =C2=A0
->=20
->=20
->=20
->     >>The device tree is only required if you use Linux in your inmate.
->     If you
->     >>want to use the bare-metal inmate library, then you only need to
->     adjust
->     >>the configuration of your inmate.
->     Okay, I understand it now.
->=20
->     >
->     > >2. Map that address to your inmate using map_range()
->     > >(instead of opening /dev/mem, there is no semantic at all for
->     devices
->     > >in our tiny libinmate)
->     >
->     > =C2=A0
->     > Yes, that was my problem, I tried accessing the registers directly,
->     > but it must be mapped first, there are two solutions for this,
->     > either using assembly code or use such a function.
->     > I did not know about map_range, or whether jailhouse uses it, but I
->     > will check and get back to you.
->=20
->     >map_range is a routine of libinmate, it /belongs/ to jailhouse. Use
->     "git
->     >grep map_range" to see how it is used.
->     I tried map_range
->     #define GPIO_BASE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0xFE200000
->     =C2=A0=C2=A0=C2=A0 map_range((void*)GPIO_BASE, 0xb4,MAP_CACHED);
+ inmates/demos/arm/gic-demo.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-You need to use MAP_UNCACHED for MMIO devices. But keep in mind that we
-use huge pages on arm, so 2MiB will get mapped, but that shouldn't be an
-issue in your case.
+diff --git a/inmates/demos/arm/gic-demo.c b/inmates/demos/arm/gic-demo.c
+index 58feea3f..b0102615 100644
+--- a/inmates/demos/arm/gic-demo.c
++++ b/inmates/demos/arm/gic-demo.c
+@@ -56,6 +56,12 @@ static void handle_IRQ(unsigned int irqn)
+ 
+ void inmate_main(void)
+ {
++	led_reg = (void *)(unsigned long)cmdline_parse_int("led-reg", 0);
++	if (led_reg) {
++		map_range(led_reg, 4, MAP_UNCACHED);
++		led_pin = cmdline_parse_int("led-pin", 0);
++	}
++
+ 	printk("Initializing the GIC...\n");
+ 	irq_init(handle_IRQ);
+ 	irq_enable(TIMER_IRQ);
+@@ -65,8 +71,5 @@ void inmate_main(void)
+ 	expected_ticks = timer_get_ticks() + ticks_per_beat;
+ 	timer_start(ticks_per_beat);
+ 
+-	led_reg = (void *)(unsigned long)cmdline_parse_int("led-reg", 0);
+-	led_pin = cmdline_parse_int("led-pin", 0);
+-
+ 	halt();
+ }
+-- 
+2.33.0
 
->     I could not find a signature, but I think I need a void pointer with
->     address as an argument, am I correct?
-
-How can you even not find the signature? There's nothing easier like that:
-$ git grep map_range
-void map_range(void *start, unsigned long size, enum map_type map_type)
-
-But yes, besides you should use MAP_UNCACHED, this looks good.
-
->=20
->=20
->     > On the other hand, I found mmio_write32() for writing registers, bu=
-t
->     > I could not find the source file. Also timer_start(), I do not know
->     > where is the definition of this function.
->=20
->     >After you mapped the physical memory, you can then access registers
->     with
->     >mmio_write()-accessors. To find the definition of those routines, ju=
-st
->     >use git grep:
->=20
->     >lib/arm-common/include/inmate.h:static inline void mmio_write32
->=20
->     Okay, great!, I am not sure about the signature as well, but am sure
-
-OK - I think I don't understand what you refer to with "signature".
-
->     of the address and I added the whole memory starting from 0xFE200000
->     to 0xFE2000B4 to the inmate-demo.c
->=20
->     here
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=
-=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 /*GPIO*/{
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .phys_start =
-=3D 0xfe200000,
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .virt_start =
-=3D 0xfe200000,
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .size =3D 0x=
-b4,
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 .flags =3D J=
-AILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 JAILHOUSE_ME=
-M_IO,
-
-Ok, now things get a bit complicated:
-
-Usually, the finest granularity for assigning memory is the PAGE_SIZE,
-which is, in case of ARM, 4KiB (0x1000). If you map anything below
-0x1000 (e.g., 0xb4), then Jailhouse implements subpaging: The hypervisor
-will trap on access, and dispatch the access. In this case, you must
-specify JAILHOUSE_MEM_IO_${WIDTH} (with WIDTH=3D8,16,32,64), in order to
-allow access within a specified width.
-
->     =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 },
->=20
->     and in gic-demo.c
->=20
->     static void *GPIO_GPFSEL2=3D (void*)0xFE200008;
->     =C2=A0=C2=A0=C2=A0 mmio_write32(GPIO_GPFSEL2, mmio_read32(GPIO_GPFSEL=
-2) ^ (1 << 3));=C2=A0
->     I get from the UART console:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0 FATAL: Invalied MMIO read, address:fe200008, siz=
-e 4.
-
-Otherwise, you will fault, as you can see here. "size 4" tells you that
-the width was 4*8=3D32 bit (obviously, you used mmio_write32).
-
-So now there are two possibilities how you can fix this issue:
-
-1. Change the config flags of the memory region to:
-  .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-           JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32
-
-  Advantage: You *exactly* only map 0xb4 byte of the device
-  Disadvantage: The hypervisor will trap on every access
-
-
-2. Change .size from 0xb4 to 1*PAGE_SIZE. This will map 4KiB instead of
-   0xb4 byte. If there are no other devices behind that physical memory
-   region, then this should be the preferred choice, as no further
-   hypervisor activity will be involved.
-
-  Ralf
-
->=20
->     FATAL: forbidden access (exception class 0x24)
->     I am not sure if the mapping was correct.>
->     > One more question, I think you must have mapped the timer and UART0
->     > peripherals, in order to be able to trigger it. I saw the memory
->=20
->     >In order to trigger what? What is "it"? :)
->     I meant the timer by it :). How is the timer
->     > region structure=C2=A0 in *rpi4-inmate-demo.c *and could understand=
-, how
->     > could you make it and implemented something similar for the GPIO.=
-=C2=A0
->     > But where the initialization of the timer and uart, I mean in which
->     > file, or how is that made>
->     >On arm, libinmate uses the platform timer. Take a look at
->     >inmates/lib/arm-common/timing.c.
->     Okay, thanks
->     >
->     > >3. directly write to the address
->     >
->     > >Other than that, have a look at demos/arm/gic-demo.c or
->     > >demos/x86/apic-demo.c. There we have the cmdline argument that
->     allows
->     > >for specifying a led-pin, which is nothing else but a GPIO.
->     > Yes, this part I understand, but my experience was with
->     > ARM-Cortex-M, so I thought I could just write to the register
->     > without mapping it. But thanks for the information and would really
->     > appreciate, if you could tell in which direction shall I dig.
->=20
->     >On ARM, we use virtual memory management for inmates. So you
->     definitely
->     >need a mapping prior to accessing MMIO registers.
->     Yeah, I could understand.
->=20
->     Best Regards,
->     Moustafa Noufale
->=20
->     =C2=A0
->=20
-> --=20
-> You received this message because you are subscribed to the Google
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send
-> an email to jailhouse-dev+unsubscribe@googlegroups.com
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/12f6f39b-14fa-47c4-9fe6-6=
-ca0897e14c0n%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/12f6f39b-14fa-47c4-9fe6-=
-6ca0897e14c0n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/66d9ac5b-8e2c-621d-d948-ff921aa0aa5e%40oth-regensburg.de.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20210823130258.215378-1-ralf.ramsauer%40oth-regensburg.de.
