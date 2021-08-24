@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBC6DSWEQMGQEU5PU34I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBJGKSWEQMGQENRNLWEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
-	by mail.lfdr.de (Postfix) with ESMTPS id C75D93F6AEA
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 23:15:56 +0200 (CEST)
-Received: by mail-lj1-x23d.google.com with SMTP id b1-20020a05651c098100b001c3bda9881bsf3306059ljq.0
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 14:15:56 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1629839756; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03BB63F6B01
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 23:31:17 +0200 (CEST)
+Received: by mail-lf1-x13c.google.com with SMTP id w18-20020ac25d520000b02903c5ff81b281sf6562910lfd.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 14:31:16 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629840676; cv=pass;
         d=google.com; s=arc-20160816;
-        b=aGRmsvzkWyrqnS8f1NdmFLXmc48FqwgSzGGjrBUSsM6Z+2LKjX5o37LMyZdL7vmZw5
-         DyvVsOoxlXoO4xfIQPrR6EixOYmJuOxcnitdf8i5XPgQsKnM2EVQVH9AFnzvPCZJFdLI
-         oOtU4SmZx8CBV8Pc5VSD4lGvyBBCgmKNN0T4wa706H9OFWGLSaNiE1pVRtMFnUyxyk4w
-         dLHnkD3nUpOkhQJ6X6OEqbXRxET1XTEQOkOzuDZosEUIMhJVHWV8V2zrBrm7xuUt/e/H
-         xHDrePLfkklPmpbB/w6L+8zLuvPh/h6jGnLadHvFVjZZVa7DPqWM+82Jxmehw0PTiL18
-         5tVQ==
+        b=JwzY7JokTq+DRpn17LSopAM4xNUb92G3320ZhPu679GEm17YiOALycxxn1J5NIntP4
+         bCnrb7FxtzAC8DinH+ioljziCjQj+9u0DgBO0bDA2fookT/iR3GrgMUfIUP5t6CnvBlk
+         XkAwFa5bIlejo3eVRfknj5mDb+GzTMFLlKEiqSe3wAIqlkufVjsbnB8BogBsTvPZ+h0P
+         bZaZGvZ1PJnnG0URIkn3ogARfHDKH3RTURkvxfe00j6dX+BF0c1n5zAk3ulh7oiwe6ur
+         eHXqWOmpzIznhXQ4EsmRUF+M+Cuksk5mAuiFdVP2Zf8Fq1IwY1EfTNLfFv1P5MaYRiPr
+         oF1Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-language:in-reply-to
          :mime-version:user-agent:date:message-id:from:references:to:subject
          :sender:dkim-signature;
-        bh=j1H/LrYDHPJERB2SuRyt71RwY6Evfd+mVf4nBWNwi1E=;
-        b=vo6CGcE7sJ5ohNJPrtIhw7dIAi2QPaqywk3y426bYYlWtxns0NOip4CZYZ+Vko1cOX
-         WoofsxL5Fq0t5lnc3t1Y5aarL8VHzdAhOol8/Cjn9clMfuFf70flZk5CTRAhHFqUF5Kg
-         FFsSqiwFjKSOkyd4m2eF8edMmNUQKW65qAzsDZjF8sdffnPVGBExlufLxyQHlFD0vT9U
-         hcYcGxj+m/RvpqbEjPGG3ARV6kXd9H0D4tqUF2z1dyKoDBGesSEm1jlq6fE75a72YBXw
-         kizNNX7YGYufVb3ElKHOw2iOGqDPPjq4ch7soBZMfG1ySnwemh74w6ozCJIhXHK8NirF
-         7f8A==
+        bh=Ng34GazY9yC2p3s0Y2DsWIdfOFr2qeGXn/mKY4YUShM=;
+        b=y7JYOCJ4LCqMWSkY2w/Xy6oRHH9mRwR0WMF4RUL6mJF3iN98On/gyXla3rOcemBCom
+         Ji/70lQ6UG8z80xu0rtuh+hQqQEeyi+Tq8fQxlw0/LTPOjOkfIIJMujsDUGRS8LPUg79
+         FylYiNyYxK4M+a5hVpmVwkR6TlVVuu84zG22X3kOUuC0k4iYq69pc073rC5a0Ow3z9zp
+         LRQK7Ofdo/DVe+/7anMHA6/iVacP/JXUpbygl+Tq3tFs2vqMPQxBClrcPOiXTqHeAnun
+         U8pghB6bqL889SCWKKA+pdkkas9dMA94RRDh76/KL83p4SBpBXm9fwL7hGIeyUBo3+kP
+         o9+A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:in-reply-to:content-language:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=j1H/LrYDHPJERB2SuRyt71RwY6Evfd+mVf4nBWNwi1E=;
-        b=NjwTc73GaNu8KAU9QzdUu/AG00JhSMYlLyXaxnbzdeajGiwGkws57HBUZG88+sa3ac
-         2JwDgv56LvSM6yH9Z3KUJiUJlTM5nYXR1C2htlOjjvxMHgMeiQdeRekat0fKrlWDSA7H
-         EdtCEhpARD4k5YxELUV6NibA0A63szW4OvvMPONWFOJnvuwsSVnigCSDYiqlp5dhyyGd
-         kEh5U4ikjTYZ9Mo193RZEP04xu6ve+5ZB2sCsdw97k8tr4T6d8TKsqNnrBTuvXASSvad
-         //NRUzTMuGBOMa2HSTjV2juBILxJGsz88cd17iP2Ixj0nNgI8Y3zVVMyziIrNVb588Pk
-         PNaA==
+        bh=Ng34GazY9yC2p3s0Y2DsWIdfOFr2qeGXn/mKY4YUShM=;
+        b=qrqRBlZGtx4vahmJ5wzvVrBXXmz7AuQtDHgM1iePigCLso3eDPbNKYW83gFvzlz4M7
+         HbjQeFCUX7nRdrZP1YWLH7QFIPc3Wl5qJoInafig8rcyd7+qbT63fpgDcg2UdY53Dp0i
+         TXrBwkZltMg88zvimcTlLV9h9jy6jBmFxc6kx6oYu6SOxxuZcmE+ijOanwJX1cbDBHHV
+         H5hUrX/b3/yXzkMXrLf3ULsflzKq5pGlftfYarMB0ebm/HsqVP4PhmTyDl1YvgKXFIxx
+         QqTCDD7KRg5aodA4aMFFXYCm8In855Wo6uO0fxKwYRbZXT23K6uhwqpnn32JVexhUfTd
+         OAEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
@@ -49,74 +49,74 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=j1H/LrYDHPJERB2SuRyt71RwY6Evfd+mVf4nBWNwi1E=;
-        b=BAtvk8+Ym9RPq2XJ+QgEyyYLAJTf6GG+5pJuu/dDAcMzyXAKE+AVogYFxR4hhePyVp
-         JDD5Wk/fLIsVXHIA8VvkF1EgNfVFCIw/pXj3OqxzL0p6aCv7Gad3HUONEbKpaUFoO31x
-         Z1d9PWzavP9rbTSBHjZ3PIiEQPc6kwjzfQjLqmyMTxnH3KqBveVfc272sqLI42l0+QL4
-         xdMcsXwnzB74FHOK8Qxp/cgnRL2Hg8eBXabc9P0A+ekpknJHavy5sNp5GWMbi5W9+4X+
-         XlwjyTpDwRLQt0VFWYvs3/mKk+4/lOPGVkG9Uez2f1Hfr8bQCbaMWHClP7+hXgC03XDm
-         GwNg==
+        bh=Ng34GazY9yC2p3s0Y2DsWIdfOFr2qeGXn/mKY4YUShM=;
+        b=oteZuPJAmH5HYm4HN/qUM6KDHrvpcqiw2VPGITy6E5g45waqaydqWTuSDkiWFxgxIb
+         uSg7TcunEJYf2rr3n6ywPA8tWmY8ji6AP4hBjcuq8pyaj0oLcTqQYLn+26kLzJBj1pgH
+         fhhFNyiVg6WM4+sZdlRhXo5tKmwrB87GwiO9thB2c+i69FQsvWbo5/G3d10ZcC+BmqJV
+         n4S1j5WDwYmD5tP5VIeskI9DU9qpdLuJn3qJt+PKQK/8hyOKzoEoE0EI6QKNQ5JalXrt
+         MKrM92HeJvVp2avmBjHdb6YQKRvr7MB18LGVcu8UoWIurTdwz+D+gMUAL/WJ67fLjUxj
+         XRfQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530Sgk3OW4giHdvOrzIfGFlXb0H8BFvdYggfm32mtzFQ/iLcJU1b
-	1Abvrl25oXMclmYsVAj1pig=
-X-Google-Smtp-Source: ABdhPJyh50yiWeAMVHQVGWV0EAqVaPsi7hgTJHvMGCF6oKfFgynDpX5Bf8zv1wRLHb+PwUdRnPKaiQ==
-X-Received: by 2002:a05:651c:981:: with SMTP id b1mr32362075ljq.281.1629839756221;
-        Tue, 24 Aug 2021 14:15:56 -0700 (PDT)
+X-Gm-Message-State: AOAM532Df8njQ0tYJuLEhwWwV0jpyU9hoh8yQCFU2ynU176gEz4qa9yR
+	2FM9Tv5iQN5CptQuZDbR6cU=
+X-Google-Smtp-Source: ABdhPJwfFYon1cL+aZBK0tIgaJmOpXqDEVsfPoGdxXkymMZUtu6CtnmHqkRw7SAvLE1qhonIOrWCXw==
+X-Received: by 2002:a2e:9ec8:: with SMTP id h8mr33470743ljk.454.1629840676473;
+        Tue, 24 Aug 2021 14:31:16 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:4146:: with SMTP id c6ls1338285lfi.2.gmail; Tue, 24 Aug
- 2021 14:15:55 -0700 (PDT)
-X-Received: by 2002:ac2:5463:: with SMTP id e3mr30656510lfn.644.1629839755033;
-        Tue, 24 Aug 2021 14:15:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1629839755; cv=none;
+Received: by 2002:a05:651c:1783:: with SMTP id bn3ls10296ljb.10.gmail; Tue, 24
+ Aug 2021 14:31:14 -0700 (PDT)
+X-Received: by 2002:a2e:b4a5:: with SMTP id q5mr32896875ljm.11.1629840674204;
+        Tue, 24 Aug 2021 14:31:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629840674; cv=none;
         d=google.com; s=arc-20160816;
-        b=itFeu6Ps2oZ9xeUprVulKfUkZ6koTxT7Kk+Ez8vyvPj+hK7xQ9NXvqZRNt5aHxzBek
-         E1wstj2ku2V4CoqwESuvvmeZjimHKDUFbMlRSi20YAPxRjR//eBw2SLgpSxg1n5XJCqq
-         M+Ve+yUxrm8LoFJFkDAOo9mnO0mlp1B6G694s0zufPjKynsNvX7mGFDNLMSkuoKCKXXS
-         QtbQSrPN/G1N5VxpiJTVcaVQqpqNjGNfSfc3bJ2uVR6u11jHIydFV4NIDE3MUmI/X98S
-         CQ7vsnoXyEdDbO/S2ykJa9dTwhh4mbXjSLdmEZ3GI9n7Vw46WydLzVXXbcu2l1jbvWWU
-         RMng==
+        b=xIhQugJIrPfqu2K6eBLwtxV3/IQzjzp11EeOpvZVRDrB+5fAOyXPEOy33DxVTlxQoM
+         TEMG6lx5pHkBzKhM9OTaowD6CRrknjpi7GsA1Fo/nUFwAYwHy8QsiHwzj5E7UAT8/yju
+         IXlsOh9z+EFsYkMlgrDYRECXCWBBSkjpnZcuja4J334cUGMlTa8lVQAc/MAABrp/3hWt
+         ycbZn1TwIPnVHg5/x7LMAOQUgK1wrWoB6AysOd+EhUo6aO7zXlysuwn8s6LmBGYgafT6
+         eYiQj1lxbbgyL5v/kwaOz2dPiHdK9Ndbhs6bBCo/4Hh8nWQR5iFvk0LPrz69efA9osew
+         ONIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:to:subject;
-        bh=1EZn2ahqE7teLhfgOVlOYuNhazhitukUUyEF1Eaehfk=;
-        b=kUQtpZCMHBswoSviLAo0D1crfUj8zE90qfWGLXrk5gaSQ0dMDIFUdMUAZL76nsZiFE
-         TqHuHitK7xUpBHLVKlS5VDkJcKUxkT96gZfLUxvwOePDB1oOfz+NSYU02j64pLTM9w4E
-         NyBqJpJZvbNIv/hHU6+RRjtkuhw+tpDoIdizBtdjabXew0zW03HmLskTIPww+D5SOJ5D
-         eVHCUmDYxXsNSt8bRfsCilmzqlOQDTGlbwy/fhMPj4jXGl3W16AFeeQ6UbrcqrywuJo2
-         QvjIr8scjXNm7x+5Gu3uDzMpngpnU03FL7tPQzmo9iixqPiQ0XTimDInmg8uKtY39B2I
-         UUqw==
+        bh=DTWBl9icMzfYV9vyL439ijWuxq0yFwTst5t2M3vB7zI=;
+        b=Y7WVNsCJ71nubD0ergpcy4XQiDGdyv6jeGUR53uLtjP/hRQAsbey79YLMGcPmL5rtz
+         2qoEyIoyZXOFJ5TBFX96zISRECV+2vvGIKXzbSTCzzMG/z24lxS3EYR8FDbvB8w68ZiG
+         qQ3GK1AhCdAJMDtxCDwRuklW3d0k36nJYh7dv0NSecirhtI6od4MPpCPGwiplM31QM1W
+         +Rx7xWi/CrWbp1LgrQ7dTeWOJkVYeFWlhcN5znKJGUv7l4q48yOh07aZdZJyECP+myKk
+         QRaqDLVOow3byEfftpnpm+bsTCXFl1B2AhV81VNDwCOcA00r5lwPjsJE9paPdWCkTDWn
+         p1Dw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id h2si1116011lft.5.2021.08.24.14.15.54
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id z4si397849lfr.2.2021.08.24.14.31.13
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 24 Aug 2021 14:15:54 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
+        Tue, 24 Aug 2021 14:31:14 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 17OLFsXI006555
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 17OLVDOY020618
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 24 Aug 2021 23:15:54 +0200
+	Tue, 24 Aug 2021 23:31:13 +0200
 Received: from [167.87.75.154] ([167.87.75.154])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 17OLFrm3023421;
-	Tue, 24 Aug 2021 23:15:53 +0200
-Subject: Re: [PATCH 5/6] x86/cat.c: Fix overlap on moving the root COS CBM
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 17OLVC2g031759;
+	Tue, 24 Aug 2021 23:31:13 +0200
+Subject: Re: [PATCH 6/6] x86/cat.c: Add COS re-use in cells with same mask.
 To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>,
         "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-References: <PA4PR02MB6670FDBC485820011AA5E9C4B6B59@PA4PR02MB6670.eurprd02.prod.outlook.com>
+References: <PA4PR02MB6670F14BBC726C44E8200B2CB6B59@PA4PR02MB6670.eurprd02.prod.outlook.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <689479b7-b16e-2716-8802-aa4705cad6f8@siemens.com>
-Date: Tue, 24 Aug 2021 23:15:53 +0200
+Message-ID: <78cee6dc-73bd-c7c2-560e-af59243f5eca@siemens.com>
+Date: Tue, 24 Aug 2021 23:31:12 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <PA4PR02MB6670FDBC485820011AA5E9C4B6B59@PA4PR02MB6670.eurprd02.prod.outlook.com>
+In-Reply-To: <PA4PR02MB6670F14BBC726C44E8200B2CB6B59@PA4PR02MB6670.eurprd02.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -132,115 +132,117 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
 On 02.02.21 17:44, Bram Hooimeijer wrote:
-> Upon cell creation, the ROOT_COS CBM is shrinked to prevent overlap
-> between the ROOT_COS CBM and the CBM of the newly created cell. Here,
-> the new ROOT_COS CBM is prevented from becoming empty, and in doing so,
-> the ROOT_COS CBM potentially moves to free bits.
+> Upon cell creation, check whether there exists a cell with an identical
+> mask as should be created now. In that case, reuse that cell's COS, to
+> increase the number of available COS's.
 > 
-> There are two additional situations that need to be reflected by the
-> code:
-> 1. It is possible that bits which are listed as 'freed' are also taken
-> by the newly created cell. Given that the freed_mask is not yet updated
-> with the newly created cell, it should be checked explicitly whether the
-> freed cells prevent the ROOT_COS CBM from becoming empty after moving to
-> the freed bits.
-> 2. Even if the ROOT_COS CBM is not going empty, it might still overlap
-> with the newly created cell. Hence, moving to free bits should not skip
-> the shrinking, in the else clause.
-> 
-> A minimal example to demostrate this bug for a 10-way (bit) CBM:
-> jailhouse enable: creates a root cell with COS0 and CBM 3FF
-> jailhouse cell create: creates cell1 with COS1 and CBM 1F0
->   The free bits are now 20F, but as the CBM has to be contiguous, the
->   root cell has CBM 200. Free bits are 00F.
-> jailhouse cell create: creates cell2 with COS2 and CBM 3FC
->   Cell cell2 requires the top most bit (200), hence the root COS CBM
->   takes free bits 00F.
->   BUG: Root COS CBM gets bits 00F, overlapping with COS2
->   FIX: Root COS CBM is shrinked to 003, preventing overlap with the new
->   cell cell2.
-> 
-> Fixes: 3f04eb1753bb ("x86: Introduce Cache Allocation Technology support
-> for Intel CPUs")
+> Recent Intel Xeon Processors, which have CAT support, can have up to 28
+> cores. This might exceed the number of COSes available, as this
+> typically relates to the number of cache ways rather than the number of
+> cores on the processor. Therefore, creating a cell per core which is
+> isolated from the root becomes impossible if each core requires a
+> private COS.
 > 
 > Signed-off-by: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
 > ---
->  hypervisor/arch/x86/cat.c | 53 +++++++++++++++++++++------------------
->  1 file changed, 28 insertions(+), 25 deletions(-)
+>  hypervisor/arch/x86/cat.c | 28 ++++++++++++++++++----------
+>  1 file changed, 18 insertions(+), 10 deletions(-)
 > 
 > diff --git a/hypervisor/arch/x86/cat.c b/hypervisor/arch/x86/cat.c
-> index f4c6f5d6..c91560a2 100644
+> index c91560a2..fc943a0d 100644
 > --- a/hypervisor/arch/x86/cat.c
 > +++ b/hypervisor/arch/x86/cat.c
-> @@ -105,32 +105,35 @@ static bool shrink_root_cell_mask(u64 cell_mask)
+> @@ -45,14 +45,22 @@ static void cat_update_cell(struct cell *cell)
+>  			public_per_cpu(cpu)->update_cat = true;
+>  }
 >  
->  		root_cell.arch.cat_mask = 0;
->  		merge_freed_mask_to_root();
-> -	} else {
-> -		/* Shrink the root cell's mask. */
-> -		root_cell.arch.cat_mask &= ~cell_mask;
-> +		/* Check again, as freed bits might also be in cell_mask */
-> +		if ((root_cell.arch.cat_mask & ~cell_mask) == 0)
-> +			return false;
-
-This does not look correct yet. If we fail late here, after the merge,
-we already modified root_cell.arch.cat_mask, no?
-
-> +	}
-> +	/* Shrink the root cell's mask. Might still be required if freed
-> +	 * bits overlap with new mask. */
-> +	root_cell.arch.cat_mask &= ~cell_mask;
+> -static u32 get_free_cos(void)
+> +static u32 get_suitable_cos(struct cell *cell)
+>  {
+> -	struct cell *cell;
+> +	struct cell *other_cell;
+>  	u32 cos = 0;
 >  
-> -		/*
-> -		 * Ensure that the root mask is still contiguous:
-> -		 *
-> -		 * Check if taking out the new cell's mask from the root mask
-> -		 * created two halves there. Then shrink the root mask
-> -		 * additionally by the lower half and add that part to the
-> -		 * freed mask.
-> -		 *
-> -		 * Always removing the lower half simplifies this algorithm at
-> -		 * the price of possibly choosing the smaller sub-mask. Cell
-> -		 * configurations can avoid this by locating non-root cell
-> -		 * masks at the beginning of the L3 cache.
-> -		 */
-> -		lo_mask_start = ffsl(root_cell.arch.cat_mask);
-> -		lo_mask_len = ffzl(root_cell.arch.cat_mask >> lo_mask_start);
-> -		lo_mask = BIT_MASK(lo_mask_start + lo_mask_len - 1,
-> -				   lo_mask_start);
-> -
-> -		if (root_cell.arch.cat_mask & ~lo_mask) {
-> -			root_cell.arch.cat_mask &= ~lo_mask;
-> -			freed_mask |= lo_mask;
-> -		}
-> +	/*
-> +	* Ensure that the root mask is still contiguous:
-> +	*
-> +	* Check if taking out the new cell's mask from the root mask
-> +	* created two halves there. Then shrink the root mask
-> +	* additionally by the lower half and add that part to the
-> +	* freed mask.
-> +	*
-> +	* Always removing the lower half simplifies this algorithm at
-> +	* the price of possibly choosing the smaller sub-mask. Cell
-> +	* configurations can avoid this by locating non-root cell
-> +	* masks at the beginning of the L3 cache.
-> +	*/
-
-Comment indention was damaged.
-
-> +	lo_mask_start = ffsl(root_cell.arch.cat_mask);
-> +	lo_mask_len = ffzl(root_cell.arch.cat_mask >> lo_mask_start);
-> +	lo_mask = BIT_MASK(lo_mask_start + lo_mask_len - 1,
-> +				lo_mask_start);
+> +	/* Check whether a COS can be reused.
+> +	 *
+> +	 * Never reuse the ROOT_COS, as the corresponding CBM can be changed
+> +	 * when new cells are made, collaterally impacting the created cell. */
+> +	for_each_non_root_cell(other_cell)
+> +		if (cell->arch.cat_mask == other_cell->arch.cat_mask)
+> +			return other_cell->arch.cos;
 > +
-> +	if (root_cell.arch.cat_mask & ~lo_mask) {
-> +		root_cell.arch.cat_mask &= ~lo_mask;
-> +		freed_mask |= lo_mask;
->  	}
+>  retry:
+> -	for_each_cell(cell)
+> -		if (cell->arch.cos == cos) {
+> +	for_each_cell(other_cell)
+> +		if (other_cell->arch.cos == cos) {
+>  			cos++;
+>  			goto retry;
+>  		}
+> @@ -166,12 +174,6 @@ static int cat_cell_init(struct cell *cell)
+>  		return 0;
 >  
->  	/* Cells using the root COS are also affected by shrinking. */
+>  	if (cell->config->num_cache_regions > 0) {
+> -		if (cell != &root_cell) {
+> -			cell->arch.cos = get_free_cos();
+> -			if (cell->arch.cos > (u32)cos_max)
+> -				return trace_error(-EBUSY);
+> -		}
+> -
+>  		cache = jailhouse_cell_cache_regions(cell->config);
+>  
+>  		if (cell->config->num_cache_regions != 1 ||
+> @@ -183,6 +185,12 @@ static int cat_cell_init(struct cell *cell)
+>  		cell->arch.cat_mask =
+>  			BIT_MASK(cache->start + cache->size - 1, cache->start);
+>  
+> +		if (cell != &root_cell) {
+> +			cell->arch.cos = get_suitable_cos(cell);
+> +			if (cell->arch.cos > (u32)cos_max)
+> +				return trace_error(-EBUSY);
+> +		}
+> +
+>  		if (cell != &root_cell &&
+>  		    !(cache->flags & JAILHOUSE_CACHE_ROOTSHARED) &&
+>  		    (root_cell.arch.cat_mask & cell->arch.cat_mask) != 0)
 > 
+
+OK, I suppose this patch needs patch 2, right?
+
+I wonder if we cannot achieve this via offline configuration as well.
+These are the new config data structures I plan to introduce:
+
+/* cache types */
+#define JAILHOUSE_CACHE_L2              0x00
+#define JAILHOUSE_CACHE_L3              0x01
+
+/* cache flags */
+#define JAILHOUSE_CACHE_ROOTSHARED      0x01
+#define JAILHOUSE_CACHE_CODE_ONLY       0x02
+#define JAILHOUSE_CACHE_DATA_ONLY       0x04
+
+struct jailhouse_cache {
+        __u32 start;
+        __u32 size;
+        __u16 id;
+        __u8 type;
+        __u8 flags;
+} __attribute__((packed));
+
+#define JAILHOUSE_MAX_CPU_CACHE_REGIONS 4
+
+struct jailhouse_cpu {
+        __u64 phys_id;
+        __u16 cache_regions[JAILHOUSE_MAX_CPU_CACHE_REGIONS];
+} __attribute__((packed));
+
+cache_regions will refer to jailhouse_cache entries by their 'id'. Maybe
+we can also derive the COS ID from that. But this isn't fully thought
+through yet, specifically regarding the scenario of both L2 and L3 cache
+configurations (not sure if such CPUs already exists).
+
+I'm not a fan of too much logic in the hypervisor if allocation could
+already be done upfront.
 
 Jan
 
@@ -251,4 +253,4 @@ Corporate Competence Center Embedded Linux
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/689479b7-b16e-2716-8802-aa4705cad6f8%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/78cee6dc-73bd-c7c2-560e-af59243f5eca%40siemens.com.
