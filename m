@@ -1,136 +1,68 @@
-Return-Path: <jailhouse-dev+bncBDOKTXXSZADRBIHMSKEQMGQEETQH2II@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBKFISOEQMGQEYCUTAMA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43c.google.com (mail-pf1-x43c.google.com [IPv6:2607:f8b0:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A5E3F5A63
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 11:04:34 +0200 (CEST)
-Received: by mail-pf1-x43c.google.com with SMTP id x18-20020a056a000bd200b003e14701b71dsf9948129pfu.21
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 02:04:34 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1629795873; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=vsBUPnb1oehei4MGK3rbyE73DoQ8oODs0nTsAJE/0hak9ZrwjxzO11DfKj7QIhHDd4
-         texNzjD83UODgmMyYXmR/hvMlnoPERdVpOuzKcB45yv2K1VTktjXJNNkPO4uY2RC5aQc
-         ImqhUzZtAQXoUJ0J+UgHP8xqLNLZxAQ8KE8Rhb3QhmowlbCY5zfF7jtJZeh+uOzguLZS
-         FYo6h6dxN8Jzn2T+DAuZeDDJaQvokofcggfKrJ62LVMHgaHfCf+qVT+2PHbZ87d4XXNT
-         oCZlJHPBddrhN+Nn1ghdZEI40dhlADuCiQk7nzTh9yppLyvwM8ym+AR3ZGOgPab1WUm1
-         pUPg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding:cc:to
-         :subject:message-id:date:from:in-reply-to:references:mime-version
-         :sender:dkim-signature:dkim-signature;
-        bh=t7UqkXKVLi4IpngXlpGWE7DYQnaC7a+58IjGroUBONw=;
-        b=MntngPbLTUYBYHeom0j7rFR7Wn3yRwwHp8H8b0CG0hEIfpshOf/CjwwbCQnkmEJzSU
-         OJURfPuEMYZyYzbCeUw/eIQfBNu1ssKIFvgEH9YkAkBWAUg19LvywRfdB/DjJD4oqibn
-         IKcPlA92EJ2qD8MW9RwAT9CkAXmhV+b8eWXzXO1F0/liftZpthNbHcjH67mnQ5CvxCkD
-         7n6gyWZyXNzy30NVm0kAefYQbdd2JE/vwYi7ITUlFhnuPRJK3gU33czfM1Mc6fUX/8SC
-         9Kj+FCN2O9SRjmSd4CwTU8ISGJCYMCNZcXSvI/rVSGeDl1+ApbNOgOo16sqtxPZ8zyg4
-         bIMg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=qwNEe73w;
-       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::844 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qt1-x838.google.com (mail-qt1-x838.google.com [IPv6:2607:f8b0:4864:20::838])
+	by mail.lfdr.de (Postfix) with ESMTPS id 483BC3F5CF1
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 13:12:42 +0200 (CEST)
+Received: by mail-qt1-x838.google.com with SMTP id e3-20020ac80b030000b029028ac1c46c2asf10338050qti.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 24 Aug 2021 04:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=t7UqkXKVLi4IpngXlpGWE7DYQnaC7a+58IjGroUBONw=;
-        b=ITTeB43FL5JrQ7Ccpt0BcaW9ukD8nbdmMKdzOUDrm84i+9C6IbJiNcxd5y0JB7CyzY
-         IFTtiJDGf1NLKGwzBrZhTdrm6goKqLTxmSiIINELwnVycqntS9QFql/YhvkI80A4uA+G
-         sShwzC3P7LbEhQwvuZb9L8M4LeI+dSsSgvKWT8ULjHuRSsW7Gb1jDpk4SpHJVVg8EeZZ
-         MH4GJDh/wOVKMeu73YGgVtDXWhn+rkA6USPze6CFeKlhM00uH02rN5Q4PaOiYEBkByLz
-         55/PKgHMcQDMTepbpzi49f/Lnlk9csCgKK6vR2JOfoWznXRzGJ23+BzkXL7Ht4TljQMW
-         rWfw==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=lOhZkgsmCrk8vAKSGwihLC6yJqVtpGSnQepviS+DhWc=;
+        b=i9TvKWBpEHNg9Rc240JyccDW96T7i4ZBtyu/5AUVWQNOQuTTTw2Lk+4BRF44ZUzqt1
+         +z8JIyhBQCoy6Q4XP1YqLojg0l3LOLdQlHXUGC9pk+dtoLmTeuPtljyFClhxRMX/y6j6
+         By6KFyA0S7dlV3sFms1Ri25Yjlr8HPaBDdKXZVO0B5ED02+DYuv0QGg/ZFKvNtlLfmJB
+         M/+E04iNLeZ8ZNY7Cxqf1ncvGcWtels3yTP8+bXje5JSLBhuyF3fVENpM0l1KuQeiAbw
+         EBFK/oercobRD9R8tAxQAtPQyXjDjub88AdU9wrxpjwzcZHtOqwSO8k8VQsWt74BxSbZ
+         a80Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=t7UqkXKVLi4IpngXlpGWE7DYQnaC7a+58IjGroUBONw=;
-        b=rw4PW4LJCwtH4oq04sTSOqpR861rDFqBZu0snkwLQMhWURi3xjS2lWGxyhZT0FzqWx
-         t4AY6f0ZFurYmgMwgBuAfAmX0PsW25zSzVWGabCtyBxq2zfWKeUn8uqFUB7Nr/EhJZut
-         RIxZA6dhRVtnvTiaYCartbgitieDr1qaYNZem6rdriXRTKRLlRgYcxl7Yj1H5LPCNzIu
-         XgbwMSFCzP9ftkksoS3/1lDVO6PBThYwjd9rVunQp8nqYoFRG8sjVL+hq8OzKZSQUpNP
-         Nw6UB/ukoFFL9q1zsu/5QO4N8Eca0DFdPKCVGls2q+YxcnY89RBWaH9gGuw8AZXkKPW4
-         2tHQ==
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lOhZkgsmCrk8vAKSGwihLC6yJqVtpGSnQepviS+DhWc=;
+        b=kI5WTmgd2nxnFI/5bGb6sVg+stGt0eGubHFC/ZRc1le/8vw8HLH6JDycAmBatAIdkH
+         21HjrHlEtIuKHCdSmtROtqkH6zRxPArn8uvMLWpX0AN6bse5H11QKdlCgA/FF5nGb6H8
+         zvNlfUPjaS65PT2B8a2lO8IlwUfjScimgH1XnM3d52TJWcH5NgVHHj5+/pvbH0b6Qww/
+         FIfwEyCZSB2ZaQKD4Uu4OfG8RLUcY7sZf9KvvUz5be+Nxw+7skSC4+qDA1mfh8bFvcMo
+         xTamrdj1BWgHgGbReIFy8+whikmz4H1KHbey5b06dKccglWVkZsEPMIs5l/eMo+Hagdp
+         AkRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=t7UqkXKVLi4IpngXlpGWE7DYQnaC7a+58IjGroUBONw=;
-        b=VxV0HIXAIopMAOjn7a6n0JkENFaxeJABF110sDRtauaS7nfGQBcWT5gpeFPDoWCITX
-         OrcF9yqeCIKVyIarcjyXtqBqERP4kZqiMeImOLa2Yn1MSdvnL/3jtZ0agdoHDshkg7pW
-         XbKfW8N4ha3kmwNNIl/pOYVDLOQ6uoD8xmluOIgkNIwrXQ9ZsIZYGWb7Z6JI6negDGqR
-         ktFTMFK//T12LgvOSpfhFyOiO8NO3SMD/Ws+opnRgT3rWh63bUWrO8gK+xlCWkafWJrv
-         Q60JlambMNr/9goIWkmUJzfjLgPObCaFQjUWA2qHT7acjMEB/6Ip4teI+62/HBS/xnhp
-         KPaQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=lOhZkgsmCrk8vAKSGwihLC6yJqVtpGSnQepviS+DhWc=;
+        b=qmzZgunFvmAp5hQoTQck4OLEwT/VParSTMma4+sUSn0z0xl6jMwLi2dwEIiWxOXor5
+         riESzSQjEWpacQTJQgcHpPjppqSUNI9HXMwyxAl4BDbd4LFsjbwg2B02FO/UHhjHGZb1
+         aZ1f1NB3CLgFRv0mYuIaqQ0gOzwMn9iZyRWvNd0+EZI7A425g1pP2FiMdpv2aff3RnVn
+         v/CfChpyGS/ILSDQIsJ7VhWEhoUTs9kLA2hgSKHfqMy6FabHIV9tcEHpXuJuAxdhIDqH
+         B/Lcu1m0iR7cZsDVPjlmxflhUwHNSUfvQqzoiRKs1C4R6bOdP8ked11WWh7EeWzKwerB
+         vXfw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532GjEmE4pGJR68ymXAFshCfVTV3nNp4pA5CphUhXg6o6Ioir7UB
-	HkPrMpq1Eax2IgrR01KZ9bk=
-X-Google-Smtp-Source: ABdhPJym2DPZCjMXZtMUqWMYdUJOoNqDCM4ZU/j+2vDJ2AZoikfXCurow5eUSr3EfdIelbuGdaWv6Q==
-X-Received: by 2002:a17:90a:7384:: with SMTP id j4mr3336246pjg.138.1629795872985;
-        Tue, 24 Aug 2021 02:04:32 -0700 (PDT)
+X-Gm-Message-State: AOAM531x4NECquCngTPq0qsmcWIFIZAtUEpMl7fFis+dIsMjoTwe94y8
+	6taJDLNQno+/h+Yzi5g5JIU=
+X-Google-Smtp-Source: ABdhPJyErPOEp8zRCMYZm19g7qDbZvRYhb7Eho0yuCFb3YJfMXiJhOl7pkRt+fjQlryEb/R3ofdhyw==
+X-Received: by 2002:a05:620a:2488:: with SMTP id i8mr26029053qkn.58.1629803560871;
+        Tue, 24 Aug 2021 04:12:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90b:218:: with SMTP id fy24ls1084498pjb.3.canary-gmail;
- Tue, 24 Aug 2021 02:04:32 -0700 (PDT)
-X-Received: by 2002:a17:90a:7a8b:: with SMTP id q11mr3283723pjf.189.1629795872302;
-        Tue, 24 Aug 2021 02:04:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1629795872; cv=none;
-        d=google.com; s=arc-20160816;
-        b=SLBAEJCp4lxKzuXsCoSlchzvC/q468JWQcHKq8TYczV4H3nkPt8fppn+5VDA7OWsdC
-         JqAzIN2pHRlDp2NW8eNTdSiyDOQsO1sNUkzCTAW3kuEjD8qcjP3f6s0cMj5i9Q2bGmvM
-         Ax/tyHVzJFF6vFQF5PGZkiL9Mk3OoVxPkmBkOyLKcoHwg9E7i6HrYwQvW60Q7A0rRLi4
-         I7Iz3DtghhHUpC0d+N0dZediAXW8aa2FLSnjG99xQDOySF/WQRMVDX+YB3ZxF3idH60c
-         HsmyIWhg+IvF/PqmcS/nFXeXxTOzN6gAt3NKtduckZmnIlvMXKX4Za+VB0SdGJDi5Xr4
-         mbhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/+jgcgwKg3hCuablCp+InBeVA9cKfg4VIYtaMSA1Qp4=;
-        b=B3ntAWUWuPgQsdXO7sLKVSiqxxabjfH5zv/X0PgJndqfY34Xyu3HQ9RSigEfVtMR3R
-         CEATpZYfzd+PTU2CwJMFAMxbItIGdVvnWVb4AJtGGciUrffamX5FiLIQj9IKWBptCayi
-         DCh1h4JRm4d7XU1pXU2azcumD+CXcLe/2fVFxC+EkCrwEI6Ybe2yi4eN2Ruzq82XGQXg
-         qAAz7XRCUKne52kUcwedbqaap/cHSZAR4KqrnuB3ts4UbDs8b0Ed12nkXuZGu6lF2Jsh
-         tq2MYIp3YyX0vWukBOnnpgd5HSpM9X28jw4mggd4I/k+NlRuMS1d2dA6hMSGHPZDu6q1
-         F90g==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20161025 header.b=qwNEe73w;
-       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::844 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com. [2607:f8b0:4864:20::844])
-        by gmr-mx.google.com with ESMTPS id i123si1238630pfb.1.2021.08.24.02.04.32
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Aug 2021 02:04:32 -0700 (PDT)
-Received-SPF: pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::844 as permitted sender) client-ip=2607:f8b0:4864:20::844;
-Received: by mail-qt1-x844.google.com with SMTP id l3so16156806qtk.10
-        for <jailhouse-dev@googlegroups.com>; Tue, 24 Aug 2021 02:04:32 -0700 (PDT)
-X-Received: by 2002:ac8:664e:: with SMTP id j14mr34331912qtp.194.1629795871546;
- Tue, 24 Aug 2021 02:04:31 -0700 (PDT)
+Received: by 2002:a05:620a:1a13:: with SMTP id bk19ls3633984qkb.3.gmail; Tue,
+ 24 Aug 2021 04:12:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:2012:: with SMTP id c18mr21200948qka.312.1629803560215;
+        Tue, 24 Aug 2021 04:12:40 -0700 (PDT)
+Date: Tue, 24 Aug 2021 04:12:39 -0700 (PDT)
+From: Moustafa Nofal <mustafa13e09940@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <e76f8186-671f-45c8-afc8-8c85b3988c43n@googlegroups.com>
+Subject: Building a Baremetal OS for Raspberry Pi4
 MIME-Version: 1.0
-References: <CABSBigQ_5F-LfmMxFAtZLpHWfe997LHXUDGfVdhNrzJ3D6c+WQ@mail.gmail.com>
- <05fef2bb-c4bc-a81b-c2be-6f0aa7c3c343@siemens.com>
-In-Reply-To: <05fef2bb-c4bc-a81b-c2be-6f0aa7c3c343@siemens.com>
-From: Dongjiu Geng <gengdongjiu1@gmail.com>
-Date: Tue, 24 Aug 2021 17:04:23 +0800
-Message-ID: <CABSBigTv5cgrVU8fQ6mzg-7uiZBBh=w1gqUYpu1VqiF+c4kppw@mail.gmail.com>
-Subject: Re: arm_domain_dcaches_flush() when arch_domain_reset()
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: jailhouse-dev@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: gengdongjiu1@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20161025 header.b=qwNEe73w;       spf=pass
- (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::844
- as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2120_1179487650.1629803559729"
+X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -143,37 +75,72 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Jan Kiszka <jan.kiszka@siemens.com> =E4=BA=8E2021=E5=B9=B48=E6=9C=8823=E6=
-=97=A5=E5=91=A8=E4=B8=80 =E4=B8=8B=E5=8D=887:12=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 23.08.21 12:04, Dongjiu Geng wrote:
-> > Hi,
-> >      Sorry to disturb you,  I  have a question to consult with you.
-> > when do domain reset why invalid the domain whole normal memory
-> > including VM's memory.
-> >  I think the VM will invalid its cache when booting.
-> >
->
-> The main reason is to avoid leaking anything from the previous domain.
-> See
-> https://github.com/siemens/jailhouse/commit/e27313789869c0f3d93ed4b19424f=
-d859943f94b.
+------=_Part_2120_1179487650.1629803559729
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2121_490992442.1629803559729"
 
-Hi Jan,
-    Thank you very much for your reply and answer, understand it now.
+------=_Part_2121_490992442.1629803559729
+Content-Type: text/plain; charset="UTF-8"
 
->
-> Jan
->
-> --
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
+Hi, thanks for your support for the last three months. 
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+I am trying to make a simple scheduler and include it in the inmate file, 
+in order to implement a rate monotonic scheduler and analyze the results. 
+
+So, basically the most difficult part, is the context switching. I used to 
+combine assembly and C using __asm, but I do not think it is supported in 
+Jailhouse. I found some files in hypervisor/arch and inmates/lib/arm64 that 
+are in assembly. I wrote a simple file in assembly and added it to the 
+directory inmates/lib/arm64 and I got this error:
+error: stray '#' in program ldp x25, x26, [x8], #16
+I tried also adding some assembly code to a header file in 
+inmates/lib/include with different tags for beginning assembly: _asm, __asm 
+, asm and .asm, but I have the same error. I checked also the makefile and 
+I think the file should be built without a problem. 
+
+My question is, whether there is some constraints that I am missing?
+
+Thanks in advance
+Moustafa Noufale
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e76f8186-671f-45c8-afc8-8c85b3988c43n%40googlegroups.com.
+
+------=_Part_2121_490992442.1629803559729
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi, thanks for your support for the last three months. <br><br>I am trying =
+to make a simple scheduler and include it in the inmate file, in order to i=
+mplement a rate monotonic scheduler and analyze the results. <br><br>So, ba=
+sically the most difficult part, is the context switching. I used to combin=
+e assembly and C using __asm, but I do not think it is supported in Jailhou=
+se. I found some files in hypervisor/arch and inmates/lib/arm64 that are in=
+ assembly. I wrote a simple file in assembly and added it to the directory =
+inmates/lib/arm64 and I got this error:<br>error: stray '#' in program ldp =
+x25, x26, [x8], #16<br>I tried also adding some assembly code to a header f=
+ile in inmates/lib/include with different tags for beginning assembly: _asm=
+, __asm , asm and .asm, but I have the same error. I checked also the makef=
+ile and I think the file should be built without a problem. <br><br>My ques=
+tion is, whether there is some constraints that I am missing?<br><br>Thanks=
+ in advance<br>Moustafa Noufale<br>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CABSBigTv5cgrVU8fQ6mzg-7uiZBBh%3Dw1gqUYpu1VqiF%2Bc4kppw%40mai=
-l.gmail.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/e76f8186-671f-45c8-afc8-8c85b3988c43n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/e76f8186-671f-45c8-afc8-8c85b3988c43n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_2121_490992442.1629803559729--
+
+------=_Part_2120_1179487650.1629803559729--
