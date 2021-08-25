@@ -1,128 +1,141 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBQFXTCEQMGQEZHF2LCA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBSXETCEQMGQEO2I5I4Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65873F7354
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 12:30:24 +0200 (CEST)
-Received: by mail-ed1-x53e.google.com with SMTP id k13-20020aa7c04d000000b003bf04c03fc4sf12091075edo.22
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 03:30:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1629887424; cv=pass;
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 599003F74C4
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 14:06:35 +0200 (CEST)
+Received: by mail-lj1-x237.google.com with SMTP id q9-20020a2e9689000000b001b964fa10b3sf8788852lji.18
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 05:06:35 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629893195; cv=pass;
         d=google.com; s=arc-20160816;
-        b=jQNJ8sytQCAAYUh6jTkjWNiDIIlCCq2DJC5l0GWlAzvB8iDsAU2sc0dWSRfR/qSfvu
-         Sxya2bW0ZF+yQRc5v/sDyIAMHWCDY8Tdt8Xa7ifIA+M67BSdP+7QRRXCNNtdE9rKbszI
-         sk0zte+cGOs//PUeCrUUlJ+c1ZBCqeGZlmY6Ka1cP1fKkj4agJ2KXasC+7I1zFrvDWYJ
-         N6WJTQvvlSbh/O+s8jkMdgK+y3wCGxc+WlI+lt91s0w1I3ZKroX3hEM2Gjf7VD7fw25X
-         0CaF/rlgkIFWN69yP78vMkMzS43Jr8GIIhvXEiL6WfSGCixaORKGugKDKebaz4dj1bb4
-         NWRg==
+        b=FJk1GPfmTEgruk30rlSCG6fTuzerd2hvPvkEjWZrg9+a5QTTxuSf88aPN3zM5s4Jrh
+         7X2jFxlM6qToYnpXuiIeG1x2+naw9dN0xzom5CDv0xagRgiZ8nzFQEiVh2/qR9Fg7rMK
+         TXR+GKWmUh8JZGbDS28WbC2f5hFHJ7+KazbmV9fvBgFwGXb1nwKCQgLj8id0eYSAHmbh
+         wUP52RzX0CuIL/c58ocqccOidU1D+drole5LsrIJk51VoKtbc7iebQWEa8Z8OTUd4qXI
+         YopK8BSn6Q61PwoNZkJptC3ewBxMQyY7SCyUOG7FbdwWB1SRDKay6PoG+coioZt97X5E
+         tuqA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:user-agent:date:message-id:from:references:to:subject
-         :sender:dkim-signature;
-        bh=ppHG9p0+7l1REsj7L6QgDzAgTQyJgrG/6GUz+ImXaAM=;
-        b=IHiKqXzOmDv9xrzO13PYiF6+nViRpu3ge0emIWEj+z445XYUQ2SXqZ9t6HUsEJdKGV
-         78IdIaWBnhcfQ/AjixJVTnzbwpW/yzKloe/IyJVsdyC+VLVWSqHOpps1KANdkhG6gJSf
-         8uBWjHAlLr9o50LP47o9QpsoOfnXD5c3Mx0ejcOnSGJbGe0xh1OmYa0iUTM2YEYuso0A
-         360gy4yEgIBhErzgDSP+/zV0J9qMjnuJbRc5pIJ95kFz2y2Owbd0hIWiEhbnKpDKiWcL
-         41Ur7bWR9wP4U+6lauyZ3UDFQ02fs+1+9f6Qw4jetHRBqlUvgB4x+eVxIHCyY9FELURf
-         WsbQ==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=URrdvLw5wdiGfYRCnXJ7ZmBommxLObeLfExTJxNthRs=;
+        b=bqJstNdZncRLDRqmxSKl6gPO/H3cgYyCEue6iydrwoNn/YBVHzBYzK+xDlw/vNh5mr
+         JyQjBOaBPjLgUEgsQdcq+l1prWEOogXo9zLJRGBuNedD7bvC/zI2XkAgAlUPX0ng0U6R
+         gDPZeSs6K/HpVqzcIxMUCerPsoqlQPJRtdCsc4gBf2nUmzsRKbamb+g/8GhV7covFgAu
+         gqHzqhRdCL4CFrfK89gAD07pOLd4vfdIMEPuqGXRUNRH8Mqfp2biRR9wnKX0O4N1iOMf
+         o2tksiKcg3eqMrWQo6lzpBtj3ueUYa4PwU0miPeE60Z76a5EhSnZPGh40XrVJ6VNFZAs
+         r/Wg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AhBQjtXF;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ppHG9p0+7l1REsj7L6QgDzAgTQyJgrG/6GUz+ImXaAM=;
-        b=ZJdfEWtUlEbb5EOsbiuKuXNZRvqun3Esy25G0zUw8rb/WcIupl8CvN7pM4HPvEDwpk
-         9cvoTeN4eZvAWEDscZGpKlTSkWH55s35oBYMhLrejFRbzBXyBW0W3bhhXnho0R2wKCVE
-         ESSkIX6Rr25mRzCeF6ZHCcWcmW6Ub9BsBAii+XrrwMEqGq/lTSnB/YjrHE4xwqHqWpgV
-         WgCsAvXJ1xXxCgERagR0AeCaKmtF4wukzG2gdeUwRPGZgdEVEDOglF2f1DpX26LNLg7k
-         2nAAlfreoXLeOHFZ4Azn/1aGL5+P4mDZl3D/qSwN7WwhhtzUUaXVi+1bXvZopkwqtKSf
-         HQXA==
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=URrdvLw5wdiGfYRCnXJ7ZmBommxLObeLfExTJxNthRs=;
+        b=FsnLwEEK54r70e5stcqW4T5TzYeBR9BQ539VXDY1ZKIO1hNMjg/wNsrlvgSeXUcr6B
+         zZ5qAnyo+OR1L5YvziokYGxgZ8UHLdDJl52js/5b+YnNCO2pg+DGYhF2wFUvWZM6okWx
+         oQfIGcJgBfFs++frM5bQ1jtlqWi7NSpPrNSstStQoqj1MI6CzMqeTvq/mWZAKvNrVT55
+         f8u8lvLKuCehpjb278B6G+kEErkdF1WZ8daAcophSDAa/pnoKkyDmTEIFBjXnd8wVs+a
+         Qxb3DhWgubexoOiJrFg+Ds47Ezwcpi5W0pGB7bcfwmm4C9EgF/zLTTfaNyrAPFz3MPNo
+         jbvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=ppHG9p0+7l1REsj7L6QgDzAgTQyJgrG/6GUz+ImXaAM=;
-        b=ewr3d1e7CHr+LMBj/hbtrMYQKaGXj/+oZjtntQ8oBcKeT2VGOYq5AH0qLFBMwdpaG9
-         ErCebULSb4NwIWWTyLdT097Ebtn8ws+3Dr6skoxo/D4k7SBvPVVa2kfZRZOPvf1KQAup
-         PSr7G4k+sEu/OYK0tju7evzn1npIb0Tcjg3AdJiUoZ+hkwGiOZOBw9n1qnksZWuRPQO2
-         ZoNNBvdJHZQU2BDAeAz6LmObStjULOyeFD9GXedMDlQjDqYG503ImUVVbHMMxTCSGyYk
-         l0KeygHPof1XEArOPShilSu5xu5AJI1bSQrw6ZHiPOADqSuuRcy2INUtMLjcGzXl0pO2
-         hMOA==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=URrdvLw5wdiGfYRCnXJ7ZmBommxLObeLfExTJxNthRs=;
+        b=KcQMD/BdFtQ32oAnmhKqwOlrdfobRQYg6VWD+ovYFT4Jyn+JsEQTA7sVuHfGUDdCmc
+         W6kENFer66kANZFekwE8esuCNtUACF4LZysRmMbJWTSMYoD5R9VPRIdAlHs/jQUcP1dW
+         G1EWWkCB4majfh0k1xBNjYsGEjJmsOsKlUNI+2qY9D2Igex5U0jTH2XeyATPW1uHv4vT
+         7uk5O9st0F0Sb116HcMLob8G2vG6GMDEGPrk7t55gWlsjzl8Fc6Rjrty3lPx6S3lBX/8
+         JOqz6/HUBwhI9XDh9UQcvZKgdapE9PgVDk3QpQ1IlEtGaGHvBeUWzlHr0QEyzz+4D8Nf
+         QFNA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531KC2XjFB44EFOk07jnJe9kjQCI+Zl5WTROmXd5qP+V54y9vwVE
-	gS9Jc6UEhphjY6URSGCnrOQ=
-X-Google-Smtp-Source: ABdhPJz4vKYkL7Ui/5kFgjmrekrM6RWelLhZq0R7tkTZGVPDntT0EmzGGLahM7lZIatwzko/Ua+KZQ==
-X-Received: by 2002:a05:6402:1d8b:: with SMTP id dk11mr7460832edb.267.1629887424569;
-        Wed, 25 Aug 2021 03:30:24 -0700 (PDT)
+X-Gm-Message-State: AOAM530SjkJSvAlUKRPpUSPoP0mL3kgfIHjCJbfJdWhxLZe5D+V558Ii
+	i27BTMGGBsVdScnbfo6z1mA=
+X-Google-Smtp-Source: ABdhPJz/X2HTZ18jH0adHx48U16y1gBND1vL1vMNmA10h3BFYVf6FFxIQOZ65m5cgTU8Do5BdPUx3A==
+X-Received: by 2002:a2e:8954:: with SMTP id b20mr28162164ljk.146.1629893194821;
+        Wed, 25 Aug 2021 05:06:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:7e4f:: with SMTP id z15ls898829ejr.1.gmail; Wed, 25
- Aug 2021 03:30:23 -0700 (PDT)
-X-Received: by 2002:a17:906:c317:: with SMTP id s23mr18251391ejz.83.1629887423157;
-        Wed, 25 Aug 2021 03:30:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1629887423; cv=none;
+Received: by 2002:a2e:8652:: with SMTP id i18ls365588ljj.1.gmail; Wed, 25 Aug
+ 2021 05:06:33 -0700 (PDT)
+X-Received: by 2002:a2e:9cc3:: with SMTP id g3mr35702572ljj.83.1629893193411;
+        Wed, 25 Aug 2021 05:06:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629893193; cv=none;
         d=google.com; s=arc-20160816;
-        b=Ghvanp3SmlWwWqKHi1JfG0bLDiRGQztLCbq2tic/ZEmRy3RMo2FHPmyPmFDP7zn3jE
-         OtFtYx6uYAUCQGkUroopvoixYQ6BmLanbqDjae/g6ywpWXzfECPUzbs4rGcAHhsmLihH
-         QuYLbY6fS6/w2/05rI9k0qIcVoyJvJz70Oiw/Fisje7ycOX2CuibpnYYkMgz7BxfpOcY
-         Qs3NMlhM/ASFuXpet2sJoz4NqlvT24zMfJQlMiWfiIYzYLHat64bQJmu+TdKykwVJZJV
-         cvbaIdQzfX2zM5CjoPMbuA2KIYuyfwqbY2LeVAsJqYB2m034NN1nXxqiAFnL3qqZ5klg
-         1GCg==
+        b=vf10YQJH7ttUfqbtzwqR8x1e4l0xiHOzmVVFftPeOMin6DMpyihh0v10znw5tLQ4FX
+         9LLPmDL+VwL/V3WeGUUIwQ3ZQ5DDYw+fALTUnXa2Sx+92P66CGcnNZCPrcRIUr5dKPvU
+         D+3+JaDEChgxkMb8eZWesBlsSQuTH6hccQnDEXSaXGp04Cr1jGBM+Ed9fuvR6gkqi8zl
+         IEz7PbJGaj+oliPyDPMDE8jh0MXBAC65/GS8kmYvBfy596Gt5d0TARcVtiT6e0pKnkZN
+         SFWQNnZPTzXOXWYvQoOPTiNohuSComPkBQ8rpK0Sf26R08LVKQ/nN35bzCEgGmU3uick
+         lfrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=XAYtlHlvM+DfG+0C8/MwpJFuoVUzv65Vbvoh+CohNog=;
-        b=IP+83G/Olbc2AD3USjINQS98QSyMq9ev2tAFiao6erARaaQ4jgpnWAR9tnPt95bqQv
-         r8rWUsPbA74SI7/Ri4q90klN3D2TgqODAzwKpGC1qiEwlWHIYMpyUnorIgP0U0quxgWX
-         6krYavTJv6WeKcf/ouEVoFcXXHLfLc+bDbniF0RQatu0q3HqjQd1tVIqqEd2BkYK8+5z
-         epkhC/aFgF3smePZ8TbRzk13w5WsGUHvaxKidZaEw2Gh3vCPwlDutRk9+8GM6t+L/wKY
-         ADA5lnVBIRd7sLOEtEyTA84Wo6/U0ZWCLrL3lAJyI2dJwSeN2/PVvffpGzaD6sJZnghT
-         meBQ==
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=IyY4312FxLQEWVpjyKAQQPeQSSgq/b3vFiL97mtJ+hg=;
+        b=JFS14ven6xJLBZ47Lx0S3fgbN3FVU0+Z5bIpfCZOsNXtHQETsNS2rglK4A5oq9e6IY
+         qvJ4uQpK33y7vhvOqEgp7n2I+Q4UlzLgKdm4WNMjS+sMbxBA86a6TA9k7lxN5GIT657B
+         0LAJq32hSka/L49XgkaxEY7CeD11H8TGP2cPUxlzLOh829XoXNhcMVnqJzrf0derli7/
+         /0YzFK2X6AD4/RPlDpRv4JaZycWZLyDQ/MmG8sm2ddJsXpoRQKjGuELzI1r8OYCfdEIM
+         BKjMZKw6bhU/QzzPgoYyOYXbBugnCIV0FAwG1G0J/vmde8I1HiQNr2RW1HA7GiycdBSM
+         /akg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
-        by gmr-mx.google.com with ESMTPS id z12si184692edq.1.2021.08.25.03.30.23
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AhBQjtXF;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id h11si1427185lfc.4.2021.08.25.05.06.32
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 25 Aug 2021 03:30:23 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 17PAUMBq032612
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 25 Aug 2021 12:30:22 +0200
-Received: from [167.87.245.18] ([167.87.245.18])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 17PAUMcb000351;
-	Wed, 25 Aug 2021 12:30:22 +0200
-Subject: Re: [PATCH 2/6] x86/cat.c: Fix CBM for non-root cell w/ root COS.
-To: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
-References: <PA4PR02MB66709EAFB592AB3A984173B0B6B59@PA4PR02MB6670.eurprd02.prod.outlook.com>
- <fc2280e8-7800-2a80-a886-32179af203f2@siemens.com>
- <AS8PR02MB66632609691667C24AB23E92B6C69@AS8PR02MB6663.eurprd02.prod.outlook.com>
- <bea596bb-88de-ed10-9329-782fd41d81a1@siemens.com>
- <AS8PR02MB6663DA419EAE9DE66D965A0EB6C69@AS8PR02MB6663.eurprd02.prod.outlook.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <b33ef7aa-0210-1aab-c1f8-5194d28936f9@siemens.com>
-Date: Wed, 25 Aug 2021 12:30:22 +0200
+        Wed, 25 Aug 2021 05:06:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4Gvl7q2PJ2zyjq;
+	Wed, 25 Aug 2021 14:06:31 +0200 (CEST)
+Received: from [172.16.2.139] (194.95.106.138) by E16S03.hs-regensburg.de
+ (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.12; Wed, 25 Aug
+ 2021 14:06:31 +0200
+Subject: Re: Building a Baremetal OS for Raspberry Pi4
+To: Moustafa Nofal <mustafa13e09940@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <e76f8186-671f-45c8-afc8-8c85b3988c43n@googlegroups.com>
+ <dd34eca0-5093-ef58-2084-0bec72ac1b82@oth-regensburg.de>
+ <ccffba76-599e-4776-9c37-691de5de7cdcn@googlegroups.com>
+ <e69d0408-a3db-7f6f-75db-681719a44391@oth-regensburg.de>
+ <e81df823-0997-4dc4-85f7-8fb3632d9d57n@googlegroups.com>
+ <185ddd7b-09f2-422f-ab16-309ab34c0ee1n@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Message-ID: <52eaa77d-6f8a-ff52-2ac2-cebdad3298a8@oth-regensburg.de>
+Date: Wed, 25 Aug 2021 14:06:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <AS8PR02MB6663DA419EAE9DE66D965A0EB6C69@AS8PR02MB6663.eurprd02.prod.outlook.com>
+In-Reply-To: <185ddd7b-09f2-422f-ab16-309ab34c0ee1n@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=AhBQjtXF;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -135,163 +148,56 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-[re-adding the list]
+Hi Moustafa,
 
-On 25.08.21 12:20, Bram Hooimeijer wrote:
->> On 25.08.21 11:38, Bram Hooimeijer wrote:
->>>> -----Original Message-----
->>>> From: Jan Kiszka
->>>> Sent: dinsdag 24 augustus 2021 23:13
->>>
->>>> On 02.02.21 17:44, Bram Hooimeijer wrote:
->>>>> The procedures for shrinking and extending the cat_mask of the rool
->>>>> cell affect other, non-root, cells as well, if these cell use the root COS.
->>>>> That is, when cells are configured without cache regions. The code
->>>>> is updated to reflect these changes not only in the root-cell, but
->>>>> in the struct corresponding to these non-root cells as well.
->>>>>
->>>>> Fixes: 3f04eb1753bb ("x86: Introduce Cache Allocation Technology
->>>>> support for Intel CPUs")
->>>>>
->>>>> Signed-off-by: Bram Hooimeijer
->>>>> <bram.hooimeijer@prodrive-technologies.com>
->>>>> ---
->>>>>  hypervisor/arch/x86/cat.c | 31 +++++++++++++++++++++++++++----
->>>>>  1 file changed, 27 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/hypervisor/arch/x86/cat.c b/hypervisor/arch/x86/cat.c
->>>>> index f6719b1e..42fd83d9 100644
->>>>> --- a/hypervisor/arch/x86/cat.c
->>>>> +++ b/hypervisor/arch/x86/cat.c
->>>>> @@ -60,6 +60,13 @@ retry:
->>>>>       return cos;
->>>>>  }
->>>>>
->>>>> +/**
->>>>> + * Merge available bits in the CBM back to root by modifying the
->>>>> +cat_mask of
->>>>> + * the root.
->>>>> + *
->>>>> + * It is the callers responsibility to call
->>>>> +cat_update_cell(&root_cell), and
->>>>> + * to modify the cat_mask of the non-root cells sharing the root's COS.
->>>>> + */
->>>>>  static bool merge_freed_mask_to_root(void)  {
->>>>>       bool updated = false;
->>>>> @@ -86,6 +93,7 @@ static bool shrink_root_cell_mask(u64 cell_mask)  {
->>>>>       unsigned int lo_mask_start, lo_mask_len;
->>>>>       u64 lo_mask;
->>>>> +     struct cell *cell;
->>>>>
->>>>>       if ((root_cell.arch.cat_mask & ~cell_mask) == 0) {
->>>>>               /*
->>>>> @@ -125,8 +133,17 @@ static bool shrink_root_cell_mask(u64
->> cell_mask)
->>>>>               }
->>>>>       }
->>>>>
->>>>> -     printk("CAT: Shrunk root cell bitmask to %08llx\n",
->>>>> -            root_cell.arch.cat_mask);
->>>>> +     /* Cells using the root COS are also affected by shrinking. */
->>>>> +     printk("CAT: Set COS %d bitmask to %08llx for root cell",
->>>>> +            root_cell.arch.cos, root_cell.arch.cat_mask);
->>>>> +     for_each_non_root_cell(cell)
->>>>> +             if (cell->arch.cos == root_cell.arch.cos) {
->>>>> +                     cell->arch.cat_mask = root_cell.arch.cat_mask;
->>>>> +                     printk(", %s", cell->config->name);
->>>>> +             }
->>>>> +     printk("\n");
->>>>> +     /* However, updating the bitmask once suffices. This can be done
->>>>> +      * during code execution, no suspense required. (SDM
->>>>> + 17.19.6.3) */
->>>>>       cat_update_cell(&root_cell);
->>>>>
->>>>>       /* Drop this mask from the freed mask in case it was queued
->>>>> there. */ @@ -201,8 +218,14 @@ static void cat_cell_exit(struct cell
->> *cell)
->>>>>       freed_mask |= cell->arch.cat_mask & orig_root_mask;
->>>>>
->>>>>       if (merge_freed_mask_to_root()) {
->>>>> -             printk("CAT: Extended root cell bitmask to %08llx\n",
->>>>> -                    root_cell.arch.cat_mask);
->>>>> +             printk("CAT: Extended COS %d bitmask to %08llx for root cell",
->>>>> +                    root_cell.arch.cos, root_cell.arch.cat_mask);
->>>>> +             for_each_non_root_cell(oth_cell)
->>>>> +                     if (oth_cell->arch.cos == root_cell.arch.cos) {
->>>>> +                             oth_cell->arch.cat_mask = root_cell.arch.cat_mask;
->>>>> +                             printk(", %s", cell->config->name);
->>>>> +                     }
->>>>> +             printk("\n");
->>>>>               cat_update_cell(&root_cell);
->>>>>       }
->>>>>  }
->>>>>
->>>>
->>>> Valid point that arch.cat_mask for the sharing cell gets out of sync.
->>>> But what is the practical impact? We don't run cat_update_cell() for
->>>> sharing cells, and cat_cell_exit() does nothing in that case. This is
->>>> first of all to understand the impact of the issue.
->>>
->>> Fair point. I am not 100% into the details anymore, but I guess you
->>> are right that this does not have a practical impact. Of course, it
->>> can get a practical impact in the future if someone decides to use the
->>> mask for something, so I thought it would be good to fix it regardless.
->>>
->>>>
->>>> If there is impact, I'm considering to use (also) a mask pointer so
->>>> that there is no need to walk all cells on root cell updates.
->>>
->>> Just curious to get a better understanding of jailhouse: would these
->>> walks lead to a performance hit? The other cells would not be
->>> preempted, right? So it is just a list linear in the number of cells?
->>
->> Nope, my concern is just code size growth.
-> 
-> I see, will take that into account in the future. 
-> 
->>
->> But while we may save a walk for updating the masks via indirection, we
->> conceptually still need walks for sharing cells to call cat_update_cell on them.
->> And that is probably the real issue with sharing as it implies stopping that cell
->> which is surely undesired.
-> 
-> I agree that this is undesired. It goes against both Jailhouse's philosophy as well 
-> as the design intent for CAT, which is socket-shared indeed. 
-> 
->>
->> We could only support "silent" sharing, i.e. between cells that have cores on
->> the same socket or otherwise withing the same CAT scope so that the
->> update done for the root cell CPUs automatically updates masks for the
->> other non-root CPUs as well (because the MSRs are shared).
-> 
-> This would indeed be the logical, and expected functioning. I see that this would
-> require Jailhouse to become socket-aware, which might make matters more
-> complex.
+On 25/08/2021 11:12, Moustafa Nofal wrote:
+> Hi Ralf,
+> Thanks for the instructions and your patience, you can find my patch
 
-Well, the refactoring I'm doing have to goal to at least statically (at
-configuration time) model CAT topologies. Those follow the last-level
-cache topology, e.g. 2-cores share a CAT domain on a quad-core Apollo
-Lake SoC. Or each socket has its own domain as it has its L3 cache on
-Xeon processors. That's why I'm adding a cache ID field so that CPUs can
-refer to the same cache instance.
+No worries, I'm on vacation. :)
 
-> 
->> It's a complex beast, this CAT, despite its minimal interface.
-> 
-> Let me look through your other mails and see if I can think of some ways to
-> make it simpler. 
-> 
+> down here:
+> https://github.com/mustafa13e09940/jailhouse_rpi4.git
 
-And I'm trying to bring my refactoring in a sharable form. They seem to
-work on L2, wasn't able to retest on L3 setups again, though.
+There's a .tar.xz inside the git repository. Unzipping it gives me a=E2=80=
+=A6
+dirty Jailhouse git repository(??).
 
-Jan
+Simply use your tools: Fork Jailhouse, Commit your custom changes to
+git, push it, and give me the reference. I can then even leave you some
+comments on github. Please get used to the workflow -- sorry, but I'm
+not able to explain everything from scratch.
 
--- 
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+>=20
+> All changes are in /inmates/lib/include/BSP_BCM2711.h and BCM_OS.h, I
+> also edited gic-demo.c but everything is commented.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b33ef7aa-0210-1aab-c1f8-5194d28936f9%40siemens.com.
+Anyway, I had a look at it. AFAICT, everything compiles fine. The file
+you referenced to was probably inmates/lib/arm64/OS_Scheduler.S, right?
+
+This assembler source isn't referenced in any Makefile, so I don't know
+what to do with it.
+
+  Ralf
+
+> Moustafa Noufale
+>=20
+> --=20
+> You received this message because you are subscribed to the Google
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send
+> an email to jailhouse-dev+unsubscribe@googlegroups.com
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/185ddd7b-09f2-422f-ab16-3=
+09ab34c0ee1n%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/185ddd7b-09f2-422f-ab16-=
+309ab34c0ee1n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/52eaa77d-6f8a-ff52-2ac2-cebdad3298a8%40oth-regensburg.de.
