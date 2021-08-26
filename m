@@ -1,76 +1,132 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBG5ATGEQMGQEG3DVT2Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDOKTXXSZADRBDODTWEQMGQEFTE5NKY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x738.google.com (mail-qk1-x738.google.com [IPv6:2607:f8b0:4864:20::738])
-	by mail.lfdr.de (Postfix) with ESMTPS id C77953F76F3
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 16:13:48 +0200 (CEST)
-Received: by mail-qk1-x738.google.com with SMTP id o4-20020ae9f504000000b003d39d97b227sf16824651qkg.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 25 Aug 2021 07:13:48 -0700 (PDT)
+Received: from mail-qv1-xf38.google.com (mail-qv1-xf38.google.com [IPv6:2607:f8b0:4864:20::f38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C0DF3F84AF
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 11:40:31 +0200 (CEST)
+Received: by mail-qv1-xf38.google.com with SMTP id n14-20020a0c9d4e0000b0290354a5f8c800sf2029997qvf.17
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 02:40:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629970830; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=XayOZ3AWdGJoMJBaao6/atF/468rner9FxWWG9FSHjGoaAXB9bE6MgGS8HuvG9U4nN
+         m9Ca34JLWI9yVzBaLgaP2309S5PwqALjNVfXE2BBcUgpYhDJuYJxijNNUpDjnSLnMMr/
+         MsbjbvZm+2AghN9nJpd5jMaalyykHhOugas8nIi7Oj13awFjCjWL/7AUSlxXfh5j8ivJ
+         aLFkIE6xT20G4qjC3O5fgWrfrJBrQWT0tFM03A/xfh/RozNl0jQ/HapWViZBb+ljekae
+         mIZzAmRwDfLzNGvSVcvoNlvx26bcO6GfadDK7lfrkYJsVJF+t3WzmymXrZpIUs9mE6e/
+         2csg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding:to
+         :subject:message-id:date:from:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=w5MP1lyyWVkFXlqMdvyxTOa7JJP30XEG2h103DAPMg4=;
+        b=Sg5UlwdprzPrnY5Y6xgqxbzl6NvJAhK9fGvQHYSBgKKCF7naeSXwPQMzgg5xQPcayJ
+         ZBa/pvIdkDLZqqi6EMN6SMft3uV8dMZPdIsv0+5ABZ/MNISz0RVmnVwvO9l91pbu7vrL
+         MAHVE82zjLcD+GI+AQ2+rWifyLDJ9ONiWzDOmwdTA1TxnFcJ5zQmWVcHtY/4liCVEJW3
+         bB3lTiiZFTh/TubLCphRBjqbYY+kHEtwTLFfWaEdG3rqw0qsMIbq2gqWUrJsk0DUZqwQ
+         oy7Gt+XOF//uecQ2Wylg7kGiSNDO+Rp7Fe0CgcUpETf3yKN5G2sFnuEr52Yh7q1hx6/s
+         d+rw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=YSWFlzv8;
+       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::743 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=F5pigIV3YghidlxS0VbrqezsAsVaSPT+jJVyjpzeKp4=;
-        b=UdZ9SD+ekT3ogezjhwiMNr7YdRmwGIHC72aMPAgoJx8rENAC9LtrGxfYw35rQF2ja5
-         7x8KPmCe0c86N1cal696z0I/zc/R3v62671HpfS9HiZj8wwEo+RVphihVD5pdtt1OWvJ
-         1zsYOb5eTpygdJ5pbggFtWvlwBkSahdGuh5RdMWc8WQIkt3y7PP0OPZDeATsNA7bLHJn
-         y5KdNrO/yhaRRlhLyUXnNZPfYfGBC1W1qCyGO9fHpB/h9jl2ovntY2zJ87rFP6rt3jp+
-         dWA4SeZ9DGNiyZwX7808evDG6szsLw+rTd4oB4OS3FvFXCmld8TeCxo7zNzJnsCaGau2
-         /w0w==
+        bh=w5MP1lyyWVkFXlqMdvyxTOa7JJP30XEG2h103DAPMg4=;
+        b=XblGuFM/eLj8txwOjbdch72h36NxaIyQS8vYPhAsidpoK1qfgDUj8nd7DJJZHjVoE0
+         u1wFdu0yqjIijh+zdaTHtE+9NQn+3vyvJyewpLbgFnTkNuy+fwmjWam8dkZSU0kKtbas
+         aapNw/7hcU9os5jfm9zvKagNMz0eOdZRn/Wuc3l+5YGx00/kNaUbEG22XsIk8D+lPtE2
+         o4ZGc86X2ulKkAOx5ozU5ppc5iHV+wH+CpSuq3fhEEcFTAzGA9bZVegmZoG3wbVdfkV9
+         KSmbxz+9WCiTUAlsMe3Y2jIAuFvRz17AQTErlCO5wZfbeXOwdx5k2uHtT+KVli/cIvIL
+         fDmw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=F5pigIV3YghidlxS0VbrqezsAsVaSPT+jJVyjpzeKp4=;
-        b=DXGOsTt0oghJTIWUvEHE3i7WVBdhfUUsHIU2GRmUDyhp7QxcyU2H0Gdwo8FjBgTGrB
-         SARagvB9CQrue7H7u//sRD+LY8odjC9tpAAxMWzvKxfktOZTVjlAksP3ku487BBtWD7s
-         3WPVwM94qQDZ1uRKQ3RBK00OE6IQoFhuqZv+WGEVOcda3stQOF+JSLvpQVOPZkAfzvSF
-         /5tRX+eT4NBMq3QquLte8HVBQgHvMfBrZRUWj0ppIKJ2UJnUQrgs2a95L49nZ67M2oWv
-         4CFh1lm65MCVGbdsZzWyFQg6LNmTevNxcEv+jWDszJafnTJOcjdLWVMcZjPL7rhfomIe
-         yuyQ==
+        h=mime-version:from:date:message-id:subject:to
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=w5MP1lyyWVkFXlqMdvyxTOa7JJP30XEG2h103DAPMg4=;
+        b=rUfPtsaPHBHj0e3hgbi3nGY8meH/xbPCDVo3mmaCsgFrcEUr2ja/d7eU72Viyt5Lr1
+         4OnWsLAqTPRgqTfo/roF4PnNg5zpQiKzz+PzOAepxbmWXG4CIIyRIED0aXXDxLnXpDOE
+         XtjfBYKLdYEDjiRSUC6WB8HcAO5anEZwD1KA5RavZX+OWp+54QZTsDKdMN5zWV1cx4kP
+         RbEAGe6dN82LusBqdmhiLqKrevzIYzrQaEpqu7F4nT7CGWmcuJiPij2gfH9FDNuQWmoO
+         m7PawezUboQl6Ev9YBkx/DKM5toc0co7J0Vww6NgmZACcS8ThrPZ9UjqvbE837BMek6J
+         bXxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=F5pigIV3YghidlxS0VbrqezsAsVaSPT+jJVyjpzeKp4=;
-        b=fd05+LqQULfieDMIMsZB0KsKZ6xoso/fbM2oEdyb5+8b22X4m7JEOWlZ8nW/lVjri8
-         AQywRiGAmW3+lSu9kP4RJYLjp5n8Uv0gkyU72okGeuzLaOcpbiS8pPP3MQkhT62Y0GSy
-         8WsafZ7Cf67G+aeg/24sdo6ERNh0Nv9GA283VW8bLLsI5LdaT4RE4KovkIUKfTcLRXs0
-         BIxOqdg5Vo08td9SoMR4RERzFr0b/AA2Ont+l3ty26ZMpV5cKTzGSRMzZndjb2kyRX7Q
-         23ymia+BkOAMdF203mU3lRrf6N6HicnznbVp6s2h7rDuFigifmoLKoGHHdfZnjLDqgox
-         KFjA==
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=w5MP1lyyWVkFXlqMdvyxTOa7JJP30XEG2h103DAPMg4=;
+        b=tM2uJSEhcqFE/zBDL/qAAgJawXxFBLg8//uh5Mu93VshvxFsA9moBTVbcr9ymwfYVC
+         1Ks11HS5m4C/TpRG25SzRXyYAQXazKa61mpKaX9/+82oRPROljE6JhHlXDg23+4pO/ZR
+         SpeJ5WqDPKZKM5koFYUPtaafdIjzJHDUzW9iV2yJLO69Z0NM61l29J74kiNwerb4jz5z
+         Z2F5RiFZODyyx01TLwzoCD5SF1eUH9exQfD7Od+GUH82S1xEev72e7lF4VbSVg2aBXGX
+         kcXVM7lB8Ivtcrm/tpAxHUEyBbQKe5JGMK/JZrBu0sC5BvSiZT4Oi58QhDh7BhSak55J
+         GEqg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532G4Dwt+nsarmYLe5qsgehiKny3/KRpJHNIETq9na+QJ1A2ez5+
-	Gm7iplJaeT7bHKBF96m/5So=
-X-Google-Smtp-Source: ABdhPJxKQQ0eOtmq+4jWSAyLhCKYHQKyAk0VSjcAbK0qRSse+7uRSQO/VFczMyFG+LHLOXdTzfs6eg==
-X-Received: by 2002:a37:a78f:: with SMTP id q137mr31433636qke.289.1629900827883;
-        Wed, 25 Aug 2021 07:13:47 -0700 (PDT)
+X-Gm-Message-State: AOAM532f1nqLpWOLlWRdbS41meabC6z+0FOF/1+FSmlBFbAN12z02J/p
+	7kG/EvHzfQW6nDWpgV73+Wo=
+X-Google-Smtp-Source: ABdhPJwkpUng7I868AapdJ1/2gA0etz2AH9XZvYUWP/jiNKGBNZajQpfxLFUC1ng/Vgg4kZyVxvSAQ==
+X-Received: by 2002:ac8:5c08:: with SMTP id i8mr2379680qti.314.1629970830117;
+        Thu, 26 Aug 2021 02:40:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:298b:: with SMTP id r11ls1242190qkp.5.gmail; Wed,
- 25 Aug 2021 07:13:47 -0700 (PDT)
-X-Received: by 2002:a37:a212:: with SMTP id l18mr23209219qke.115.1629900827135;
-        Wed, 25 Aug 2021 07:13:47 -0700 (PDT)
-Date: Wed, 25 Aug 2021 07:13:46 -0700 (PDT)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <bd489367-cb13-4b27-a8b6-84df5bd8c675n@googlegroups.com>
-In-Reply-To: <52eaa77d-6f8a-ff52-2ac2-cebdad3298a8@oth-regensburg.de>
-References: <e76f8186-671f-45c8-afc8-8c85b3988c43n@googlegroups.com>
- <dd34eca0-5093-ef58-2084-0bec72ac1b82@oth-regensburg.de>
- <ccffba76-599e-4776-9c37-691de5de7cdcn@googlegroups.com>
- <e69d0408-a3db-7f6f-75db-681719a44391@oth-regensburg.de>
- <e81df823-0997-4dc4-85f7-8fb3632d9d57n@googlegroups.com>
- <185ddd7b-09f2-422f-ab16-309ab34c0ee1n@googlegroups.com>
- <52eaa77d-6f8a-ff52-2ac2-cebdad3298a8@oth-regensburg.de>
-Subject: Re: Building a Baremetal OS for Raspberry Pi4
+Received: by 2002:a0c:f4c6:: with SMTP id o6ls1086362qvm.7.gmail; Thu, 26 Aug
+ 2021 02:40:29 -0700 (PDT)
+X-Received: by 2002:ad4:58ea:: with SMTP id di10mr3077005qvb.60.1629970829554;
+        Thu, 26 Aug 2021 02:40:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629970829; cv=none;
+        d=google.com; s=arc-20160816;
+        b=0FnfiIkCk8pXTlFX4zwbQYwKi53zjv7/pwmCfW4kSTgYxHuXOv0TY6zTEW8HNH13w/
+         mxlY7aAylr+0yux1T7/CxYDtVgrJjn6NQIIxdfLRlsJZGnMcPOLBbBfxkjFUzU5nWVgV
+         aOaLG4j3IXheMsCKkyu7UP6KQ4Gd82fyhMHRCwGPrerIYtiN80QLboD4eG19hPIwElxA
+         K7wvvFigEyQV7cQ2U/jWkld/l4jqzAzmfpcLAbVjC5b2E4g3qU+dVJXDIqqmo20F351K
+         xdctQ771wdHeYOfRT2ThMzD+F5NxvR5/nHUqeMvUabZkAvcrOuOn1A8ycCdIARMIVi3q
+         hJ7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=iGe+ff0xx93BVhnTOH2BfT8XCPRu4fqv57IZtLOyE4Q=;
+        b=JPfSeS+FgbTMV8RcU+2wuxP6GxK/1B/AjMciW9hlwPtqWGqDxcdNXhiD+pCFaOZuqq
+         5lesWzCG4TBy2HY8pxUHwatwWKf8T3mgEJ2H9PpRrvFz3GHGYs6Kg5GLv4Xv678RhCmG
+         Uomno/r6GEVHNKFFgcz+i2Nnt2Xpg48xSemsqNHj1htSSn/DjqgcU3Qc8uQQoyokMKSc
+         OS/hjpAj+W577zOwZ+bllymluzPSelGpvr78z/QiTtxAf+UNjvUO6EdXtBfaklb+k/dW
+         7ZQmp1GOBMu23gtKNZYrbac7VB2lZNG5ZpbMggzJhA5UgLaKgNRcPscrzAEDt3HOzU/R
+         izOA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=YSWFlzv8;
+       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::743 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com. [2607:f8b0:4864:20::743])
+        by gmr-mx.google.com with ESMTPS id g18si174094qto.2.2021.08.26.02.40.29
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Aug 2021 02:40:29 -0700 (PDT)
+Received-SPF: pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::743 as permitted sender) client-ip=2607:f8b0:4864:20::743;
+Received: by mail-qk1-x743.google.com with SMTP id t4so2590636qkb.9
+        for <jailhouse-dev@googlegroups.com>; Thu, 26 Aug 2021 02:40:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:1671:: with SMTP id d17mr2752050qko.191.1629970829160;
+ Thu, 26 Aug 2021 02:40:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1622_2010350951.1629900826451"
-X-Original-Sender: mustafa13e09940@gmail.com
+From: Dongjiu Geng <gengdongjiu1@gmail.com>
+Date: Thu, 26 Aug 2021 17:40:19 +0800
+Message-ID: <CABSBigRew4uS4Hg2QAvRgLJM3MvV60ff3E1wvsv+U52u-MYTbA@mail.gmail.com>
+Subject: No need to add spin_loc() and spin_unlock() for cpu_public - cpu_suspended
+To: jailhouse-dev@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: gengdongjiu1@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20161025 header.b=YSWFlzv8;       spf=pass
+ (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::743
+ as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -83,50 +139,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1622_2010350951.1629900826451
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1623_1875373585.1629900826451"
+Hi,
+     I see  cpu_public->cpu_suspended is protected by spinlock,  but I
+see there is no concurrency problem for the cpu_public->cpu_suspended.
+ check_events() is the only place to change cpu_public->cpu_suspended
+variable=EF=BC=8C other CPU can not change is variable, also  check_events(=
+)
+is
+not preempted in the current CPU, because IRQ is masked in the current
+CPU.  So there is no need to add spin_lock for
+cpu_public->cpu_suspended variable.
 
-------=_Part_1623_1875373585.1629900826451
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
->There's a .tar.xz inside the git repository. Unzipping it gives me a=E2=80=
-=A6=20
->dirty Jailhouse git repository(??).=20
+static void check_events(struct public_per_cpu *cpu_public)
+{
+        bool reset =3D false;
 
-Sorry for inconvenience and I will try to do what you said.=20
+        spin_lock(&cpu_public->control_lock);
 
->Anyway, I had a look at it. AFAICT, everything compiles fine. The file=20
->you referenced to was probably inmates/lib/arm64/OS_Scheduler.S, right?=20
->This assembler source isn't referenced in any Makefile, so I don't know=20
->what to do with it.=20
+        while (cpu_public->suspend_cpu) {
+                cpu_public->cpu_suspended =3D true;
 
-Yes, exactly. But if I included it I will it will return an error:
-/home/pi/jailhouse/inmates/lib/include/SCHED.S:12:22: error: stray =E2=80=
-=98#=E2=80=99 in=20
-program
-  ldp x21, x22, [x8], #16
+                spin_unlock(&cpu_public->control_lock);
 
-The error does not recognize=20
-I included also asm-defines.h in the assembly file.
-#include=20
-</home/pi/jailhouse/hypervisor/arch/arm64/include/generated/asm/asm-defines=
-.h>
+                while (cpu_public->suspend_cpu)
+                        cpu_relax();
 
-So, I will try to make it easier for you to understand:
-- Which library shall I include, if I want to add assembly code to=20
-gic-demo? (Context switching code)
-- Shall I write a .S file and Include it in my header file? or add an=20
-assembly function in my header file? using flag __asm for instance?
-- If the second option is possible,  then what is the correct flag that=20
-jailhouse uses?=20
-I tried with Cortex-M processor and that was working, but I think it may be=
-=20
-different here for some reason.
+                spin_lock(&cpu_public->control_lock);
+        }
 
-Thanks in advance,=20
-Moustafa Noufale
+        cpu_public->cpu_suspended =3D false;
+         ..............
+        spin_unlock(&cpu_public->control_lock);
+        ............
+}
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -134,52 +180,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bd489367-cb13-4b27-a8b6-84df5bd8c675n%40googlegroups.com.
-
-------=_Part_1623_1875373585.1629900826451
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-&gt;There's a .tar.xz inside the git repository. Unzipping it gives me a=E2=
-=80=A6
-<br>&gt;dirty Jailhouse git repository(??).
-<br><div><br></div><div>Sorry for inconvenience and I will try to do what y=
-ou said. <br></div><div><br></div><div>&gt;Anyway, I had a look at it. AFAI=
-CT, everything compiles fine. The file
-<br>&gt;you referenced to was probably inmates/lib/arm64/OS_Scheduler.S, ri=
-ght?
-<br></div><div>&gt;This assembler source isn't referenced in any Makefile, =
-so I don't know
-<br>&gt;what to do with it.
-<br><br>Yes, exactly. But if I included it I will it will return an error:<=
-br>/home/pi/jailhouse/inmates/lib/include/SCHED.S:12:22: error: stray =E2=
-=80=98#=E2=80=99 in program<br>&nbsp; ldp x21, x22, [x8], #16</div><div><br=
-></div><div>The error does not recognize <br>I included also asm-defines.h =
-in the assembly file.<br>#include &lt;/home/pi/jailhouse/hypervisor/arch/ar=
-m64/include/generated/asm/asm-defines.h&gt;<br><br>So, I will try to make i=
-t easier for you to understand:<br>- Which library shall I include, if I wa=
-nt to add assembly code to gic-demo? (Context switching code)</div><div>- S=
-hall I write a .S file and Include it in my header file? or add an assembly=
- function in my header file? using flag __asm for instance?</div><div>- If =
-the second option is possible,&nbsp; then what is the correct flag that jai=
-lhouse uses? <br>I tried with Cortex-M processor and that was working, but =
-I think it may be different here for some reason.<br><br>Thanks in advance,=
- <br>Moustafa Noufale<br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/bd489367-cb13-4b27-a8b6-84df5bd8c675n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/bd489367-cb13-4b27-a8b6-84df5bd8c675n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1623_1875373585.1629900826451--
-
-------=_Part_1622_2010350951.1629900826451--
+jailhouse-dev/CABSBigRew4uS4Hg2QAvRgLJM3MvV60ff3E1wvsv%2BU52u-MYTbA%40mail.=
+gmail.com.
