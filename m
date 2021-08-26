@@ -1,68 +1,127 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBI6TTWEQMGQEI6G2N4Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBDFOT2EQMGQEKHHZFPY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x740.google.com (mail-qk1-x740.google.com [IPv6:2607:f8b0:4864:20::740])
-	by mail.lfdr.de (Postfix) with ESMTPS id 117F93F852C
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 12:15:06 +0200 (CEST)
-Received: by mail-qk1-x740.google.com with SMTP id x19-20020a05620a099300b003f64d79cbbasf1527029qkx.7
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 03:15:06 -0700 (PDT)
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id 068CD3F88F1
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 15:28:50 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id s8-20020a508dc8000000b003c19f7fe952sf1523386edh.7
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 26 Aug 2021 06:28:50 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1629984524; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=vxcg9KAD4sOVINKm4tEVkypn0uZ75IVHdjqP1+/KuqPlHSfHAwdFwv0IQwIpTRQIhA
+         dtYSoJe9CvFbX80dKnr9PWMxF5DVWIrwR5UL1G6csX+eLbRpHbprr1eegQzBNjRy5WC8
+         u57MyOwSKHHGqWG0V4k3A9X+vqzL/NZ6/K2qHqwKJrvaqhnZoCx2VajjFDyKjMUXyCjW
+         4B62h4TMX+txzNClgGbDsToEqTy7Q02hpanyeS0tdJiHF4jtff7kxAh0x/ybtlqIQcf3
+         lSiY7sW1X4sIgeQh44zPd86ycY0PHhUGCaPqKIMgwpkbOEG3Tbfp7aACLkQA6hTWldbE
+         0q/A==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=4+M0TSnE1DL9FZsjKjGB9eVmVULfrwnDKfI35Lf9J7w=;
+        b=0Arlp2sHJ4ZELVtN0QAbzHVZsL6vLy76qp1ZE5laxUprCXjTLppHiWUfD+BSDNKori
+         CDwT4hxq4vcj47sILVQ/z3mfmYHEnS6UzuRXRx+rKbd8Xtk+ONpPV0WK+FGXmP8FQOQs
+         CuZnE4Qmqk4Lw14HZRJo4PGFwiFrcAtp9h9rTipSaPZAWlqkaSbAimgyk0qG9zwe02dn
+         uQcJ/5qvIDsON2pljTWt2yINMocs0qd4g/DN9/7oJwWDnJHtj7GP67s8GXL++7tiRabb
+         NcA8FRElGmmrafOpABp5k79J4IDmjKyzVDhWvP0VY8HC6yQzPIXDXv9dMqU9JOXL+rnw
+         PwpQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=XKQATjJRwNYRfUtyGEr0mSDSDVPJKofWafCRb4xtwG8=;
-        b=MOLdA+B7rBzO6C9SaPSAqCC+EQZ7R5YTBlYzMQwr/JQbJGgzM0LnjPscH79gv5rrED
-         zIwI7Og0tpOrLsIri8X+7cNZUMNDH2Ojh3Xn3ohDvrPaKjrkE6XYdFwMsRUDfhetSLIp
-         5pSyhDtFPyP9DRKLzIHKzifR4VlQJk4VCV8qjpP+k3nAgniPt1WehgLa2GUiUiixZO79
-         FrzqGx6wgTEZKDBzADgrgpkYr1IYfSZEsMPUvT6FsgNn69+AgOJZdFkoL/3/RBZ6qla1
-         XVvJW4+0vWwErY2BJVbgmHS4KTZp5/jPRlzZsVIkHDLDTWmPfjXwtuQBSSnbsjCR1JPN
-         JDFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XKQATjJRwNYRfUtyGEr0mSDSDVPJKofWafCRb4xtwG8=;
-        b=Tb+ldLaYuvu02Y4BN8BlDtzHTmdxZNB1AuB35WqwSKMBHwcrVH5Wrl4RTiDZLGZaeu
-         W5+MGorxxO2btkck/B5QsgWGhcAhoHMLdHoLbd6f99wUd0SvVr5NKAcsF6OOH6D3ISYn
-         PHv7jFUUPm+yfrBP4siCiErzcP7ZS4JcbNiM3ieQAcDwc4f2/tBXuhjNYdpyStq22S4z
-         JBvnzJeS0b6XmksD5jtuc+5p6LlpSb0Sso09cWaHqek30WPmdwTy/NEPabE3DsbnScQY
-         UwT5T048nrJUCsOHuXtCvIOlduwuDQz9Amz/77UcOEuLGwLqXEx33DO+t6FsyD6fS+1U
-         2ouQ==
+        bh=4+M0TSnE1DL9FZsjKjGB9eVmVULfrwnDKfI35Lf9J7w=;
+        b=e+nrzlEcvO+OtkILw0rzv+MUzU3X5IUN4XucrcogoqNEQbcwFktM9sg+ieDynStE8S
+         IGe4TLHA4q3eJWJXCa1pphC2GdI9mkiletpVOQwB7HImEDPhGIg2Hb0Ou6awMy8tH6v2
+         3kJVtUxaYjkyJUawR/tvmiCjOm365gu7L5GMP3/owFH5ofCSAz1hY1LCYbNuot23r2yv
+         UlL9z2EWe0jL8qwoT2niq9rhaHQw+tWTnCQnGjMlu6uzgoYOhWGRjRo+EuGUQRJhUMKo
+         6LU0JEhvBJQqODmQPLg3/ZdChc23QcoWZoxJfqWMMrFJDAQHxBX/9zq5RKVt6Eco1Cn/
+         fAug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XKQATjJRwNYRfUtyGEr0mSDSDVPJKofWafCRb4xtwG8=;
-        b=T8JIJzp8NL0AhjDSHLgTo1vb+lyvpspQIybb64Pu1zks2AMjaS48NX392DIFVhB3KD
-         pQ8HwtaIwZDks9Ux1f97mioNT8PppSRg0QTvIEUajObAbLsZgTxjdVOImpJljtTmR4XQ
-         x5qpKY/bLD7WfMhhQ4cxnUYc+DcvNMCrS5+vv3HWPLd4HmEVBVMvdDvdY+Gr03BYWje5
-         UXuC3uVZ84cCueZqKlQK1CBI7WeWO6V3hEVh8vW/RAqfTtmZilpQ5exkws1C/deGdkqM
-         I38EooXlaT5mdo2X7PZFeg+DQ/Tp1azeGDubPUWtIR0tX8tK3cd+2rhZ8g6evd6fBnGr
-         KpFg==
+        bh=4+M0TSnE1DL9FZsjKjGB9eVmVULfrwnDKfI35Lf9J7w=;
+        b=KtcYNRIPxqNXMQW7CaIzGW5j4kep96P4uT/u8BYoCH5iL3LXnaXycl1fv22qpIstJk
+         kmyzeBPCOsjhcWpdfoOrC9BuFjC6qsAhlrcNU64a9DGF/iNUvb/k+3B8f77blL3cKPoN
+         KBXM5mHcD7U+poaPlZ10wWDOiT2irZHU3PwHPZp5P4WdkhRp+3oO5+R30F3vmy0+/cHF
+         q+MRUYG9ndK6eMrqz6zXnCZTy0w5QuXa+XBu+8+PnMY/Kb9voJPTPXUV12NrQb3yVtwO
+         o3qT2biYevoYEYIKWaKsNyHeF1rX/TXrkvLP8FEO+BPb2QF+8sQzixJUSewGNZn42bot
+         WPwg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5319mQZAlPpJVVxXgEnqOO6Z952IhoLKCzE1wu+l7hid3Duh45zo
-	4hcqxNAWGaO6HqgNLLpfn84=
-X-Google-Smtp-Source: ABdhPJzmw+N+/c6RLWFmsXeZ4QMPVDIa59ZpiL6c0zD6pz3du6SJDTfiGGU29YcAiBTwnd7DStDbIA==
-X-Received: by 2002:a37:9d09:: with SMTP id g9mr2809021qke.269.1629972899661;
-        Thu, 26 Aug 2021 03:14:59 -0700 (PDT)
+X-Gm-Message-State: AOAM531E6RcPiPf50YDUn5G3A2cugIelq2Se0Z8BOZR9WMxqbWvebByG
+	jPkhfud7t3xfSsNyeqMB8JM=
+X-Google-Smtp-Source: ABdhPJwRtZow1QEJMvqPRGwlW8T1Moeh7o7tWghr/LKKDgiJiMN0wtgPGJvix1z3XSLNXpi43n3Iow==
+X-Received: by 2002:aa7:c70c:: with SMTP id i12mr4286120edq.256.1629984524756;
+        Thu, 26 Aug 2021 06:28:44 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:f4c6:: with SMTP id o6ls1111602qvm.7.gmail; Thu, 26 Aug
- 2021 03:14:59 -0700 (PDT)
-X-Received: by 2002:ad4:5346:: with SMTP id v6mr2864163qvs.40.1629972898844;
-        Thu, 26 Aug 2021 03:14:58 -0700 (PDT)
-Date: Thu, 26 Aug 2021 03:14:58 -0700 (PDT)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <b4f1c9f2-a2e9-4e6c-a8dc-1f6fd261fee3n@googlegroups.com>
-Subject: FreeRTOS on Raspberry Pi 4
+Received: by 2002:a17:906:35c9:: with SMTP id p9ls2847497ejb.0.gmail; Thu, 26
+ Aug 2021 06:28:43 -0700 (PDT)
+X-Received: by 2002:a17:906:b094:: with SMTP id x20mr4262897ejy.257.1629984523497;
+        Thu, 26 Aug 2021 06:28:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1629984523; cv=none;
+        d=google.com; s=arc-20160816;
+        b=zOfUvalCa84ej4/x4YXdRrM+GNUWdjage35sE9jfsqlxOeSE+7z6xMS9yvZAdTlWso
+         vk7ysUSKK52FxuNTiv/8ulQzYZDn5WNLKHDpDVT4FzOxxUUrveTzuPtrzL49U2M/cNiw
+         yDAUaYj070ebQLSQjUmwIL7kVYKO3FuElMcT5I4KduqrXYSE3HTfMnJqYW0y84b0KOK0
+         qkUK1/GH4xsiNPsV8I+gce7IjU9vhdH6ngg3paY6CEihvRmC54NNhGST8oYeL1Z3Rz8m
+         9LRRB5aR0mzn1PqPdoiAGgLucc2NzCsvS4Iwbva/EZfD9hIz0WmcZCt6R7NFblY7cia/
+         Nckw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=Et7+attuyvvHUIMWNEPGcstWNb3zmvPEIybf1VINnCg=;
+        b=CQZhuO7SQQsK/leGcsv+uZbeJrEqunO4X0G6D4wH4xUyJl5LbcnGsjVJ5+4RilW1eo
+         u7d1iIfrgBVQD9OPBxA5cpRnlQzPUF5BvnmSpZDu50xIYMsKj83bvH5jaZbhM4jT7TVh
+         vD44ERA4ZVW9G2fa/CMGUZsr/P43Mei++DOsqHRFRn6vs6kr1A5pmQSAlKFdhW9CmT0H
+         VI3OIuJTOIp5oaUh0Q4k1W8HRT9kywT8+z3P0Xu9ibi2zyWMUQSpHmZqSDIuFfka/KFY
+         OFs3+BSvbkBdNxw2VDi2QAsJEcLPf1OEvcVYREg0aRdlOdYlj1Z8qPsVfj7QD1+P6b73
+         vpTg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from lizzard.sbs.de (lizzard.sbs.de. [194.138.37.39])
+        by gmr-mx.google.com with ESMTPS id z12si165468edq.1.2021.08.26.06.28.43
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 26 Aug 2021 06:28:43 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as permitted sender) client-ip=194.138.37.39;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by lizzard.sbs.de (8.15.2/8.15.2) with ESMTPS id 17QDSg7e004320
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 26 Aug 2021 15:28:42 +0200
+Received: from [167.87.32.3] ([167.87.32.3])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 17QDSfZh012728;
+	Thu, 26 Aug 2021 15:28:42 +0200
+Subject: Re: No need to add spin_loc() and spin_unlock() for cpu_public -
+ cpu_suspended
+To: Dongjiu Geng <gengdongjiu1@gmail.com>, jailhouse-dev@googlegroups.com
+References: <CABSBigRew4uS4Hg2QAvRgLJM3MvV60ff3E1wvsv+U52u-MYTbA@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <e6df60db-8a0c-a0e6-7880-547edbcf1c6d@siemens.com>
+Date: Thu, 26 Aug 2021 15:28:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2264_151118056.1629972898297"
-X-Original-Sender: mustafa13e09940@gmail.com
+In-Reply-To: <CABSBigRew4uS4Hg2QAvRgLJM3MvV60ff3E1wvsv+U52u-MYTbA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.39 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,117 +134,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2264_151118056.1629972898297
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2265_496976549.1629972898297"
+On 26.08.21 11:40, Dongjiu Geng wrote:
+> Hi,
+>      I see  cpu_public->cpu_suspended is protected by spinlock,  but I
+> see there is no concurrency problem for the cpu_public->cpu_suspended.
+>  check_events() is the only place to change cpu_public->cpu_suspended
+> variable=EF=BC=8C other CPU can not change is variable, also  check_event=
+s()
+> is
+> not preempted in the current CPU, because IRQ is masked in the current
+> CPU.  So there is no need to add spin_lock for
+> cpu_public->cpu_suspended variable.
+>=20
 
-------=_Part_2265_496976549.1629972898297
-Content-Type: text/plain; charset="UTF-8"
+The lock protects (among other things) the consistent view on and
+modifications of suspend_cpu and cpu_suspended. You have on CPU setting
+suspend_cpu as a request and another CPU being the target, evaluating it
+and setting cpu_suspended when actually having reached that state.
 
-Hello, 
-I am trying to use FreeRTOS on Raspberry Pi 4 5.3 kernel and jailhouse 
-forked from:
-https://github.com/siemens/jailhouse.git
+You can't remove the lock without risking racing between the two CPUs.
+Maybe not all of them will lead to inconsistent states, but some can,
+and arguing that those will not happen in reality is much harder (if
+possible at all) than placing these locks here.
 
-Fork Link:
-https://github.com/mustafa13e09940/jailhouse.git
+Jan
 
-I edited string.h and added FreeRTOS source code to inmates/lib/include 
-The problem that I have now is compiling, I got these errors
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
-I tried previously to make my own scheduler on assembly, but I though 
-FreeRTOS would be more feasible. 
-
-I am not sure what modification, that I require to enable Free RTOS on a 
-jailhouse cell.
-
- CC      
-/home/pi/repo_jailhouse/jailhouse/inmates/demos/arm64/../arm/gic-demo.o
-/tmp/ccm8j1fg.s: Assembler messages:
-/tmp/ccm8j1fg.s:987: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:1112: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:1315: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:1486: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:1663: Error: unknown mnemonic `stmdb' -- `stmdb SP!,{R0}'
-/tmp/ccm8j1fg.s:1664: Error: operand 1 must be an integer register -- `mrs 
-R0,CPSR'
-/tmp/ccm8j1fg.s:1665: Error: operand 1 must be a SIMD vector register -- 
-`orr R0,R0,#0xC0'
-/tmp/ccm8j1fg.s:1666: Error: unknown or missing system register name at 
-operand 1 -- `msr CPSR,R0'
-/tmp/ccm8j1fg.s:1667: Error: unknown mnemonic `ldmia' -- `ldmia SP!,{R0}'
-/tmp/ccm8j1fg.s:2161: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:2241: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:2308: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:2352: Error: unknown mnemonic `swi' -- `swi 0'
-/tmp/ccm8j1fg.s:2693: Error: unknown mnemonic `swi' -- `swi 0'
-make[4]: *** [scripts/Makefile.build:281: 
-/home/pi/repo_jailhouse/jailhouse/inmates/demos/arm64/../arm/gic-demo.o] 
-Error 1
-make[3]: *** [scripts/Makefile.build:497: 
-/home/pi/repo_jailhouse/jailhouse/inmates/demos/arm64] Error 2
-make[2]: *** [scripts/Makefile.build:497: 
-/home/pi/repo_jailhouse/jailhouse/inmates] Error 2
-make[1]: *** [Makefile:1629: _module_/home/pi/repo_jailhouse/jailhouse] 
-Error 2
-make: *** [Makefile:40: modules] Error 2
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b4f1c9f2-a2e9-4e6c-a8dc-1f6fd261fee3n%40googlegroups.com.
-
-------=_Part_2265_496976549.1629972898297
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello,&nbsp;<br>I am trying to use FreeRTOS on Raspberry Pi 4 5.3 kernel an=
-d jailhouse forked from:<br>https://github.com/siemens/jailhouse.git<br><br=
->Fork Link:<br>https://github.com/mustafa13e09940/jailhouse.git<br><div><br=
-></div><div>I edited string.h and added FreeRTOS source code to inmates/lib=
-/include&nbsp;<br>The problem that I have now is compiling, I got these err=
-ors<br><br>I tried previously to make my own scheduler on assembly, but I t=
-hough FreeRTOS would be more feasible.&nbsp;<br><br>I am not sure what modi=
-fication, that I require to enable Free RTOS on a jailhouse cell.<br><br><d=
-iv>&nbsp;CC&nbsp; &nbsp; &nbsp; /home/pi/repo_jailhouse/jailhouse/inmates/d=
-emos/arm64/../arm/gic-demo.o</div><div>/tmp/ccm8j1fg.s: Assembler messages:=
-</div><div>/tmp/ccm8j1fg.s:987: Error: unknown mnemonic `swi' -- `swi 0'</d=
-iv><div>/tmp/ccm8j1fg.s:1112: Error: unknown mnemonic `swi' -- `swi 0'</div=
-><div>/tmp/ccm8j1fg.s:1315: Error: unknown mnemonic `swi' -- `swi 0'</div><=
-div>/tmp/ccm8j1fg.s:1486: Error: unknown mnemonic `swi' -- `swi 0'</div><di=
-v>/tmp/ccm8j1fg.s:1663: Error: unknown mnemonic `stmdb' -- `stmdb SP!,{R0}'=
-</div><div>/tmp/ccm8j1fg.s:1664: Error: operand 1 must be an integer regist=
-er -- `mrs R0,CPSR'</div><div>/tmp/ccm8j1fg.s:1665: Error: operand 1 must b=
-e a SIMD vector register -- `orr R0,R0,#0xC0'</div><div>/tmp/ccm8j1fg.s:166=
-6: Error: unknown or missing system register name at operand 1 -- `msr CPSR=
-,R0'</div><div>/tmp/ccm8j1fg.s:1667: Error: unknown mnemonic `ldmia' -- `ld=
-mia SP!,{R0}'</div><div>/tmp/ccm8j1fg.s:2161: Error: unknown mnemonic `swi'=
- -- `swi 0'</div><div>/tmp/ccm8j1fg.s:2241: Error: unknown mnemonic `swi' -=
-- `swi 0'</div><div>/tmp/ccm8j1fg.s:2308: Error: unknown mnemonic `swi' -- =
-`swi 0'</div><div>/tmp/ccm8j1fg.s:2352: Error: unknown mnemonic `swi' -- `s=
-wi 0'</div><div>/tmp/ccm8j1fg.s:2693: Error: unknown mnemonic `swi' -- `swi=
- 0'</div><div>make[4]: *** [scripts/Makefile.build:281: /home/pi/repo_jailh=
-ouse/jailhouse/inmates/demos/arm64/../arm/gic-demo.o] Error 1</div><div>mak=
-e[3]: *** [scripts/Makefile.build:497: /home/pi/repo_jailhouse/jailhouse/in=
-mates/demos/arm64] Error 2</div><div>make[2]: *** [scripts/Makefile.build:4=
-97: /home/pi/repo_jailhouse/jailhouse/inmates] Error 2</div><div>make[1]: *=
-** [Makefile:1629: _module_/home/pi/repo_jailhouse/jailhouse] Error 2</div>=
-<div>make: *** [Makefile:40: modules] Error 2</div></div><div><br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/b4f1c9f2-a2e9-4e6c-a8dc-1f6fd261fee3n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/b4f1c9f2-a2e9-4e6c-a8dc-1f6fd261fee3n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_2265_496976549.1629972898297--
-
-------=_Part_2264_151118056.1629972898297--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/e6df60db-8a0c-a0e6-7880-547edbcf1c6d%40siemens.com.
