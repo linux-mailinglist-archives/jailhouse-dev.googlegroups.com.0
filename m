@@ -1,113 +1,137 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBA5MW6EQMGQEK2QDQLI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDBIZ3EL3UDRB2GZW6EQMGQEDGBEKEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DFCE3FC317
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 31 Aug 2021 09:11:00 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id m16-20020a7bca50000000b002ee5287d4bfsf968474wml.7
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 31 Aug 2021 00:11:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1630393860; cv=pass;
+Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD7A43FC443
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 31 Aug 2021 10:48:40 +0200 (CEST)
+Received: by mail-ed1-x539.google.com with SMTP id ch11-20020a0564021bcb00b003c8021b61c4sf543695edb.23
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 31 Aug 2021 01:48:40 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1630399720; cv=pass;
         d=google.com; s=arc-20160816;
-        b=gHqjKps/jq7enhJT+78DfTxdNlBgBflSbBRimqDKRdo27cc9z1+WkUkpUFqqm3bKF5
-         ZUfcF3rMwohg/ycXLR+mqwaa1m9QfO///c/4NhatX3pJpg+U3prhxX2+ufGmZsm/J4uH
-         sXELHpeihewxzx9knM05pRsBu+4mPnR/LZlB9T77DIofOZ1iCpfwLM1SoR1Xuw2NGonG
-         +W8BLw/RHJLAPTMwyH/zeygjsgklyTIAOD1NeFnwz+lF+aNeUQsglvPLje8bRSQNmau+
-         BwkicOlfJc1Q2HVhQeYEeAS6Mn2pfRp+NCicstNM9ww/oNR1nagpHm5zaaMAhnMiA689
-         cOxA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=Ya/5ofnT6N02/xkvHXqEld2tRvi5sNV1mDCSQMCatbAo9nR5Ax3+kmOEyb/Y1Q4BRm
+         U4bkOfySR5WehJWfSx3cMbkfTxfFMxOb2FLYp/RD7XraDcFD0EkAFfbcR/oUf7SG0tg/
+         QpO+K6diLbLgxGxTye2Ryo56AcX8m/rDP9y6JHzg/7DrR6CD9LNVMQ6OsAuH+kZ9Wd3B
+         CFogNDHSgQ3HpSdsajK33E9LYIgH99bXEOgfuQ5cHcxaU7ENO/oCEFw+Q1tBmBwhPQqd
+         DvzBHp1jWFjn+eCAtHoIMFlbs4HaeyLWQi19GGVZBlYM2l40O6Tbp2DfjjI0hmKRcMl1
+         /0SQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=FFiqzZ8rb0tHcoumkn8JGZuE+2CsmVi3TiqGZV0XCOE=;
-        b=ArMSEgWYngKyQDS/RveG1VlO+YFJTfI1lWpEfc5+h5MBSGNxqAjjKf+kYoU0nTKXk5
-         7R5QrR4bIY992vuUXmb26W/WqP1KJnCI708Z9YSJq5OC/97sKbd5Vf+35gfxLL9xXZdL
-         Z4yzrz1oOPSibFL0PvOfKISoHJ9IWZOMymFsVsLn08ZGByn4HQIYZLSirLdP8gEMx1Nv
-         ycnAh3WlYlOCCUpPPkOf8lgDYs6E5ANgQKDyeHCx4R5fe/SMHGiyznrzOdJUAPDqwSjZ
-         a8Gp8rLzl3KaRv7KVbzlc/NxPZ2k+21XKYMrFeHleTaQMVFiFn85wuvft0CFUvqqeVAO
-         EX/Q==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-language:accept-language
+         :in-reply-to:references:message-id:date:thread-index:thread-topic
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=21S4ES9vDebVrvPrYkxvCqXWWOqCj1XWKqOXgTY1Aus=;
+        b=Zgq2CbnypBLBbQb127UFXpq9NprddZdQQS2HnZf4VTuWhAYOoMp8mJppjkSloVj1UI
+         AfZztup3jHTYR1LPkcBZ/sTYN3adUB4UYIHpdMVEQL3/A46/ccgHrdj4yWOJ7R7NhHXB
+         7EGGMKAN44lcV82HcsKPv5ueglh+b90zN5uljTAvrfCABSmyKHBCUSjr7gRcIKLicvzQ
+         nN+kVd8XSUpwf0D3OAlwXsF3NPe0jr3mE7761aMB1SXzWVMiJ+ZruID3Vysq9e3RnmrS
+         rMrOx380h79CTdWRPmVnmmHn1Go75rme2Bek9dCnjAbfvo/mbZ0sVnjTqdBde8mcB0mb
+         DZuA==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sFBIOU7U;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of zhiqiang.hou@nxp.com designates 40.107.14.55 as permitted sender) smtp.mailfrom=zhiqiang.hou@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=FFiqzZ8rb0tHcoumkn8JGZuE+2CsmVi3TiqGZV0XCOE=;
-        b=nmGU0PhsBIt/lRwhwB63SkkALAkbLpSgJ+ylzet9Ya3GifHyji2MMahRS8dZwjUrA1
-         qP8ttGNp2CkvGG7me/XtnswCsWggQqhs/zbgTv6199urAK4E78xRb6q2xxMtUQijv7hi
-         +jHyitjEm+4lPtAOCQW2yu8JHlyw1Rqlg6aUKOIViX9VoVdPEl07qGiOxE62vqeLHWoy
-         /qmpS3LtgYvJWJSIrQjJVzfvWAhmrO0qgqheB0UTSwPCJU5EtE6GElpGc61eQWZEwgXG
-         didi1LU/4w7QtDGa8mO3NeuE+/Y0T2dQQo0iELG9ToTlVYMWb43ad3KVZiQa6hhl8hKQ
-         9wvQ==
+        h=sender:from:to:cc:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language
+         :content-transfer-encoding:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=21S4ES9vDebVrvPrYkxvCqXWWOqCj1XWKqOXgTY1Aus=;
+        b=egWj7xh9Jtod9s9eSyRECB+B7vtBEbBBkeW8MMHiHv5SjzrS2+d91c75ao9xMnz3Qt
+         pSMEd8gueMLVLGBnritDNcFw+4pTw+u91rD2NtW44+6pbKCChLdbryRBL7s0lEF3Wuo6
+         6sg16gypGwlX02CjWeAeaOImWICZz/t4hYaRNavpNkY7jr8MG6HsPaHZQMLwEK1YVApc
+         v8UOVhkUuUV32aKBdR9uVFZ1Zo7FhDkrYV7pImmAjwLsh0tOPMOdUiuEaNSkxFdhXAsp
+         LWh2PB2T1M36pJHyRQUnpx2nEGLefGq8ddSl3cWf1bfXW7lTFENgyPjJngBkN9SljLy9
+         ZgJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=FFiqzZ8rb0tHcoumkn8JGZuE+2CsmVi3TiqGZV0XCOE=;
-        b=eVHvdASMlm/yEKciOvnB6th/xZJ4+aEKmyaS3C2TkBWy8SN1azwMDQ2T1oz2Yc6f41
-         JzYv93ET1RdA7ZHA4sxPhzFAFSIdnMrB/Tk9vWnkhjdvLXcjnOG2h9j3YfmHLNQn7nXs
-         qud1uttTzbAbQ85EoKcbVBFIJHzoLQjOX7+fDqfwc9uxxCZ1H+Rb/n/6sLjEzEnYXH3j
-         9YfV7xwTZmoXY6KQejmauBc0roAB7lZzE5+aSQXq5B4jZUdVw1s6VTBKoNtsDQfQVo9r
-         NRi0JWYgntvic4a4BhuM93vt1lKVHSDx75JMinYbok17GPZihp0wSgNErPDEXwYqaZNV
-         npxg==
+        h=sender:x-gm-message-state:from:to:cc:subject:thread-topic
+         :thread-index:date:message-id:references:in-reply-to:accept-language
+         :content-language:content-transfer-encoding:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=21S4ES9vDebVrvPrYkxvCqXWWOqCj1XWKqOXgTY1Aus=;
+        b=E79tXo5lOec82hkALFIcwPREsyRPe9DIuN9HWgGXiVa/Crj46KGZsTX0qKKAbfyAoV
+         S9zeHQuFF2R+Wxr1YDEFaB+NKE5V7X5qmrA65gyutYdXtJuwEmJ400SnntcDfOsfYzOH
+         /TAHcnVuM/e+1xyN8DP4ypMLyntzcqzY9FERU/vJ4PrVFZUygUEw5pPGiVmOpwnHqiqR
+         IVxQKTRR/P0fSPwUotrFsjd9/lwGLEWbS68tC/WWJed5ue19X0MgIWjqIXZWaK+yOW4f
+         EdXStyUmJOMYIL34jKben6FFSgwLbFNWKv7lSzutOl94sL/EimerAQ38OQ46JePwA4sj
+         krTw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533HK32/uUpCn3kBGo0vOaK6zPN3ZdONtpArBbd23elqWF56guuW
-	Y8b3rKe5hufSQ6OFwvuyGIk=
-X-Google-Smtp-Source: ABdhPJyvIf+THh7ZyHsEVoxO7/Xbs4dd6+JdNGDc3lBP5mTZHy1hvXtPgGoccCK35ed9oXQB4bx8qQ==
-X-Received: by 2002:a7b:cbc2:: with SMTP id n2mr2594565wmi.155.1630393860066;
-        Tue, 31 Aug 2021 00:11:00 -0700 (PDT)
+X-Gm-Message-State: AOAM530h1RlR6qBB7W1DQ4vljBVY+b9vcGzgGGr4Ixj+VQB3KB0OUz01
+	nO7XbjUQ8phU/b83MvArTz0=
+X-Google-Smtp-Source: ABdhPJxJSN1xSWGeErcmTiwdPb3UtDzz4XWeZqdW9qcsR7vF1D1esPcBU0xztE4IeHVfYDbNsoxy0Q==
+X-Received: by 2002:a17:906:9747:: with SMTP id o7mr29747538ejy.486.1630399720476;
+        Tue, 31 Aug 2021 01:48:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:8b84:: with SMTP id o4ls174846wra.0.gmail; Tue, 31 Aug
- 2021 00:10:59 -0700 (PDT)
-X-Received: by 2002:adf:f50a:: with SMTP id q10mr29375307wro.271.1630393859054;
-        Tue, 31 Aug 2021 00:10:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1630393859; cv=none;
+Received: by 2002:a50:bb62:: with SMTP id y89ls9692590ede.2.gmail; Tue, 31 Aug
+ 2021 01:48:39 -0700 (PDT)
+X-Received: by 2002:a05:6402:17d6:: with SMTP id s22mr28883605edy.185.1630399719363;
+        Tue, 31 Aug 2021 01:48:39 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1630399719; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MQp/2p+DOWnbOAcOFe2eEnATVskVztNrxuLiHf94/3Re4Wvth1SgBoBTH30OqM6PxC
-         CvONJHFjKXY2Rtx1Zzmcbi17qtsIidmRCfT4NEqYEcXf71KggCohFOZZXkBlJ9F8LhnH
-         vbKAR/9ywHSWtHgTclTjgU7kCkFZGL23mFkGQVhsXqGc6vkjuxhSFKH3SIM2yhQqB9sG
-         EOTJLr07w5sFeNtlafHprHhUzsNe+mOPwrDvDfNeSI/OfwYh+Z+z9por5yPzHJIsYdrv
-         0hAKP/BBZsNxaD3FMjgKTPwSJFBEWPX4fOHrMZseC+l6Q9UUoBZegB7n7BRoU7OrfA9m
-         6YZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=ywCOCB1ZCu0rkYtht8BaTgTkDrU+jjs04EpW9vDjaCs=;
-        b=Qf89BAKwhAFT/o9ZMnZ/5AffWAVQXYkkvnBdKRAyLZf2rN5xnPZ8+YFeWGCZJQ1ati
-         8KYPW6uIQFE07IgI3qQVYL6j1uh5JXk8sLFtC+0vHYj+COfwy1I9nE0A7FCqJbk62Pv4
-         +z3+0ZNnxPi/zYiL0RcRms9N45FKSEA+d2p+SLZpy/JRczMhZ0TrId5FpSDBbx2zXoIq
-         BFvEqEFyhFiMo6zfMB8bmX8gFPgCgX6Ql+O7Dez4Plmq4ytYW3sY+8aiRaDWz75W82Nn
-         ngQDumEh3sWX+7RXOdx+chjFaD0UdYZhN2dhzbroKzwTA6L7PKIKYwAIZrXjKf62zDiR
-         wPSg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from thoth.sbs.de (thoth.sbs.de. [192.35.17.2])
-        by gmr-mx.google.com with ESMTPS id q137si99964wme.1.2021.08.31.00.10.58
+        b=DorYoX3LJ0sMUpGhl+cw+h58dOxU+s/tld/za3UB7eRJ679x7/Wl9DJQaNZrWlZqHL
+         pU7GmMhdTADLxbaJmXFg5w1hHISJc6VEnxqmO7Cgf0OjsHIxmdh9NXayoC3rmqNESnr7
+         8A6fijMmdnhnP4/Dvy1KuaZqaqIicvAb0Q3/7/SkD240QnV7Nxxr9FaBgnDHxfxDLj6G
+         O/QMXeFZStqcQICOQdEk9wttvEABdcgBdhpyrrBDhqXdFFhuGotPLRMVoMK9EY2fSE92
+         qTAo6NtywsHMB0OeZ09gFvQQL4ndVF34cIgu+pbgN67g7EDoozD8nLP8HlQUWIla4/Lj
+         R1IQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:dkim-signature;
+        bh=eEUU5JDM9qbFxLytMKX/2RIG/11pOmJ5C+LHXMPEuZI=;
+        b=YfQQ0LwxCTa1s5ASOzlSG7zds8483/Jk+B3RwvqF7BqCRKuT5ip96Y+ee111tvatUK
+         iSpyztabdR+8FT9AbzqGP30+w94DpGvidQzqn8+N2uGQaQlubwp7gs30RI6rnYdIsnPd
+         L4l+CPc90Q9EcTT9oz273M6HRG0+kA5gPbc7ygza4Xk1pbLUCgrOVpenTgUoa6PgNcPn
+         laeESeJ02e16CBddr6XVZkOEFIQ2f3XyT5WCtAWjaizkTKeWY5vxkTYlOGV/Vk2xJXMH
+         CNqiJl9R04hm7BrLKYsxFDP+JeJaEgCHTJ5jZxZPbS06XBO7x84sWQsdOtRc2xq/6vQQ
+         AU1w==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=sFBIOU7U;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of zhiqiang.hou@nxp.com designates 40.107.14.55 as permitted sender) smtp.mailfrom=zhiqiang.hou@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (mail-eopbgr140055.outbound.protection.outlook.com. [40.107.14.55])
+        by gmr-mx.google.com with ESMTPS id qb19si514209ejc.0.2021.08.31.01.48.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 31 Aug 2021 00:10:59 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as permitted sender) client-ip=192.35.17.2;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by thoth.sbs.de (8.15.2/8.15.2) with ESMTPS id 17V7AwHe014037
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 31 Aug 2021 09:10:58 +0200
-Received: from [139.22.37.21] ([139.22.37.21])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 17V7AvTK011552;
-	Tue, 31 Aug 2021 09:10:58 +0200
-Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access address
+        Tue, 31 Aug 2021 01:48:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of zhiqiang.hou@nxp.com designates 40.107.14.55 as permitted sender) client-ip=40.107.14.55;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dqYh4HPDtczCZBDe8wPYndUy78Zu/QuVc4NkS9STcqkSeb3LaXHNPsT2hj8T1D1gxK5WHXyTPE+ozyHE1kRDriXk//5Y3HgGFQ1J0HmAfkusfTjOzRSqOXenKx/bWzwy7kOatOO0Cqj52NJUp+8CWrg7JViVxFMPTVE5pqBkgB+MLYz2uyI3FryrYm0slfcZTpSx9vJpUKrheypZOqLt4+Pc12xub+uOLpolcC5Rzz1fWbMqFawKM6rjtJLvAlrvpBuWM9oLkgVTtOaLPhNPGecN0B7kRFeByYNnIF/dOxX6YslthqUXckpnq6vH131+zUkCeS8e4sP/SHm7sMh7BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eEUU5JDM9qbFxLytMKX/2RIG/11pOmJ5C+LHXMPEuZI=;
+ b=NTnWUvELDmJzoWt0SWT/7sLPjRxTY8wBrZGqWlWhy437mCU0dTSHLp5yMxtSAhLRxR4D6ZwIFHRHPm6zRs5kkcFp4vSNVIljyBZ3UeOP3xgD4OuXm+NyuxG/iwLYSx9ZEN9MkoTr3EOhnlI8qHqQcnoqgEQ5ceKNaA0DZTD/BxYH6/hugbX/ujxFs5LJq8y+eM1JRXcIZJpPg5mBeaV0XdzXIul60+228/H2SnRc3a8i9aQEtDdBYoyoaWGk1iSZq8ObUHadIH6SwGL/cM5VNjDSXPuzxhvV23Agu+SRLNnRZ8WkLnjocnuFv1OBAQQLm+f6vjZafpoZDsON1FWWKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from HE1PR0402MB3371.eurprd04.prod.outlook.com (2603:10a6:7:85::27)
+ by HE1PR0401MB2537.eurprd04.prod.outlook.com (2603:10a6:3:83::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.20; Tue, 31 Aug
+ 2021 08:48:37 +0000
+Received: from HE1PR0402MB3371.eurprd04.prod.outlook.com
+ ([fe80::8d8a:89d:e110:3c3b]) by HE1PR0402MB3371.eurprd04.prod.outlook.com
+ ([fe80::8d8a:89d:e110:3c3b%6]) with mapi id 15.20.4457.024; Tue, 31 Aug 2021
+ 08:48:37 +0000
+From: "Z.Q. Hou" <zhiqiang.hou@nxp.com>
+To: Jan Kiszka <jan.kiszka@siemens.com>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>
+CC: Jiafei Pan <jiafei.pan@nxp.com>, Rui Sousa <rui.sousa@nxp.com>
+Subject: RE: [PATCH] arm: irqchip: Fix the mask according to access address
  and size
-To: "Z.Q. Hou" <zhiqiang.hou@nxp.com>,
-        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Cc: Jiafei Pan <jiafei.pan@nxp.com>, Rui Sousa <rui.sousa@nxp.com>
+Thread-Topic: [PATCH] arm: irqchip: Fix the mask according to access address
+ and size
+Thread-Index: AQHXmxbhYfr68tdfjkGRS5idFHzolauG+uuAgAAZduCABHlagIAAUF/ggAAZuwCAARBj4IAAMEqAgAAWFqA=
+Date: Tue, 31 Aug 2021 08:48:37 +0000
+Message-ID: <HE1PR0402MB337106827ECC0CE4ED356C1784CC9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
 References: <20210827075116.6208-1-Zhiqiang.Hou@nxp.com>
  <2d3cfe41-3c51-34f8-8130-f6b86720d835@siemens.com>
  <HE1PR0402MB337191DE611BA6CC480C104D84CB9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
@@ -115,21 +139,76 @@ References: <20210827075116.6208-1-Zhiqiang.Hou@nxp.com>
  <HE1PR0402MB3371C1CDCCD9EA8CC8938FC684CB9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
  <9ecc5d87-c7b4-ce84-6621-f88cf05fbeff@siemens.com>
  <HE1PR0402MB337140548025A20E651BB4AA84CC9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <4d107c19-ba44-c5db-9452-1552e0b66c93@siemens.com>
-Date: Tue, 31 Aug 2021 09:10:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <HE1PR0402MB337140548025A20E651BB4AA84CC9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
+ <4d107c19-ba44-c5db-9452-1552e0b66c93@siemens.com>
+In-Reply-To: <4d107c19-ba44-c5db-9452-1552e0b66c93@siemens.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b38b5f4f-ab08-41b1-7566-08d96c5c1fa4
+x-ms-traffictypediagnostic: HE1PR0401MB2537:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <HE1PR0401MB2537804C89BB2A6B38666D1784CC9@HE1PR0401MB2537.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 0XXqiCtCkYL107otHY+GiLs3kZTm4U1EcUdWYIxdLm7Z00cl6ceG2BL+VnnTuaEWGQJQIGFhfVnQpaK3T9ydFMn9cYD2fvDO0ZoMVmv79F1FdMAMtPbbdyeXCOa+faoKBuUWwa5R9+SnF6L3woz1v+i0Xpa1BKTMv5eOgotfWYl4oqTo87WsBkCGPb1ozUmuqhtPS52bYKn1slPoyEtXxIUZicg/OmAZMeH8TtK3/YQaz/AnEMg7YE+vylveEGbiRWPmaGzWAyxeRySAdsimTilzZ8HH0lzt403Lpd+hZZcdpTbq6i83ZfXlB9Y8SJigaEyenw9s0yu7Ul9/jr227AocRBeXfBjSnZBzv9RbQ0Ps18v4PHfNJQqixv/TScWRHdGv2Aog1GWBUefuOE998uuwQCaQuDbfHrEDZpjohoDknJuXyhylSmZ9SBgHMCc1wzEKlqLSApstf9yfgw+JJrHCYCXIcMYG+C1s5b0dvky+t6SQyrH9joLNM8fBQQ1xxHaSyG6bk7hIeVSPJpurEqy0oo4K44C2BvsbYkC4K4c9PwAN9nBQ8RNJ4QjCOdyuKKLeyvwgKpZwDlVF7Q2VxOiOEbyTuJqgCQhMb85NRc5C1/l68QWFvvsMlSeJuOmwZ3ouDTqHiKSz+tgt8sHnUvKmDW4il4eRshZE28DrF6+T6iU6LEv3e4HRsyU33LPU19JURBEeJwSTWrksYjxZ0w==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:HE1PR0402MB3371.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(84040400005)(52536014)(38070700005)(71200400001)(186003)(9686003)(122000001)(2906002)(38100700002)(33656002)(7696005)(110136005)(83380400001)(26005)(53546011)(8936002)(4326008)(316002)(54906003)(6506007)(55016002)(66476007)(76116006)(66946007)(66446008)(8676002)(86362001)(66556008)(64756008)(5660300002)(478600001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b1BGTXhTdk5wNWNGZXdzOGRyczZFSVZQVWp5TUZQUDhlZmFVaHVNT05CRFFk?=
+ =?utf-8?B?dW9DbjhueWFSNXRDZjNPYldhRUNHbHFRd0liUDh5enoyays2YWIzVEVGc0V6?=
+ =?utf-8?B?VFBNZlllVFFjMzViUUpjb2pLU3dTaWhidkp5bWxpVXl0a3JhYW0ySXFzdzFD?=
+ =?utf-8?B?MlhkQVVhTTRPTk9nNEhGeGdYa25RT0FGbHJ4T2VyV3k2K2t4S2hlbnZzcmZ1?=
+ =?utf-8?B?ZVpEbjNkZHZUNzYxSm1tNFNaTzhEK3BUOUJZbjBLZkVoRXNnRHBKMGwyWTFH?=
+ =?utf-8?B?WjZjTDNnWXYyenI0VUMvNDRrUHJjN0RSMTB0UmpwM2NmRWpkR2t1R3pkUVpn?=
+ =?utf-8?B?QTZob0xKVmczejhmMTlaVzE2ckY4U3NBeDhXZmNDWWkwRG5LQjkwaUQ3dFVh?=
+ =?utf-8?B?SHBJcVRZMjdVK25IMFdNKzlrMmZyOWhjRlNhazh4eElnMGZaUzBmWTVkUjhJ?=
+ =?utf-8?B?V0VlemdDS2p2V05ncFo3S1B3ZnJNaW00UjUvMWo2WWpINUU5aEdXMWU4NnYr?=
+ =?utf-8?B?R2tQSCtKaEZualUzek5rZ1Y5ZjgxMlFaUDNCK01ocGpLTk80b1ZHUWZZb3d6?=
+ =?utf-8?B?U1hsOHMvNjdNOTlIbkdzTDFaMnM4L1p6QUZ3ek5XRmU1ZkZuN2l0MzkweWhF?=
+ =?utf-8?B?VklWQ1dlSXFCaWpldElJRWpiNmx6UDkvOVNVWkhvRG1zYncyYWdSWTZIK1Jp?=
+ =?utf-8?B?aURUSTJwbnV4NjVKaHNhWlFqeTVncjg4cTdjaFJ5eXByQWNwd1M3Yks1UkQv?=
+ =?utf-8?B?TXMwVC9wQlpIK0JrQTV3VFI4VFJqeWo2L0RKbTVuUjVVUHR6NXJ1Nm5pdmlv?=
+ =?utf-8?B?NkJlcERSRmxFdlNEbVNoVzdZbHJBWmFaeVpHQTVEQzBrZjE3Yy9COEg4T3Nk?=
+ =?utf-8?B?N0hacnVRLzBMU1NzUGJyUFI1eGs3cE9GZDhxSms0YTViTTBwMkdhZEEvRWI2?=
+ =?utf-8?B?TnhnSE9iM0F1NnR2dmFrdGY4MmdOdnlEZjFYTzFMdEZQbzRnWGVMQ0hHZE5j?=
+ =?utf-8?B?am9mL2RpWGpUdng2azBMbXR1Syt3QW9vd25EMk9YR1JvLzVZb1c0RTRsVmdo?=
+ =?utf-8?B?QzJReW9DYmp6V1JwNWxla2habE5SVkIycXNOWnV5Y1BVZm9EcXJOenhzaFd3?=
+ =?utf-8?B?cHRCQ2xLcU53Rms3WnlwV2hiY1lNRGR5L1p2R3llL1E2OXpxaUEwSnVHbi9X?=
+ =?utf-8?B?a2JCRnJhbUFlUlp6eUVIdDBRbHVPbmFSaFNCSW9DTkxzbFcyY1U2R1ZFRUgw?=
+ =?utf-8?B?NE96YStOQitHZ2M3OVVHSFFCb1VHVTBBTVJJdUZwdzB2UDBLeHFoaG9GSXN1?=
+ =?utf-8?B?aVN5dERidU5GVjNpNWJCUi95bWtDNDVmU00rZENnQW1yV3AxZk5kL2E0NVl4?=
+ =?utf-8?B?cTB3ZVJMcTJpMDZRRmViZnN5L2pPRUxTdTY0SUxYRE9ETzNKOGtMU0N2MkdQ?=
+ =?utf-8?B?NUdtWDJIcG1PM1RSU2I5R1ZEWWlvdSsrOHFXbXdqZTNrdDlFS2Vqc1lrVGFC?=
+ =?utf-8?B?T3d4SHowTjgzRis1SEROVU1jakh5Wjdua2FjUzhGZzkxUDM0L3N0bms3TXQv?=
+ =?utf-8?B?QXZnVlErQ0gwUStmNExLUFRqTERPWnJveElIY2hrTDFMbk0xSEt1MWhsVmM0?=
+ =?utf-8?B?d3d4QWJESDJWNFliV0pTT2h5aERqWlR2Tk1raGlSNUViUjBHRzNJRGlvV003?=
+ =?utf-8?B?QjNFTDN5aTA0MGN3NjRSMFJPb3IvQ0g2VTBsZHFaalZIbk1wa3JLdStNQnhV?=
+ =?utf-8?Q?P97GoHvZDTMv8mY4G3/KRQGxCJvy1GKbAi3Qt3E?=
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.2 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB3371.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b38b5f4f-ab08-41b1-7566-08d96c5c1fa4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2021 08:48:37.0979
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QWRRWZnWcScIcH+QlrnuGVPJTOBtIVq4ciTdU6waXA/Rprky0OuUPsLi/4pG+wjETj7SX3mRWO2n0NC58puZUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0401MB2537
+X-Original-Sender: zhiqiang.hou@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=sFBIOU7U;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of
+ zhiqiang.hou@nxp.com designates 40.107.14.55 as permitted sender)
+ smtp.mailfrom=zhiqiang.hou@nxp.com;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,102 +221,127 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 31.08.21 08:55, Z.Q. Hou wrote:
+
+
+> -----Original Message-----
+> From: Jan Kiszka <jan.kiszka@siemens.com>
+> Sent: 2021=E5=B9=B48=E6=9C=8831=E6=97=A5 15:11
+> To: Z.Q. Hou <zhiqiang.hou@nxp.com>; jailhouse-dev@googlegroups.com
+> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
+> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access addre=
+ss
+> and size
 >=20
+> On 31.08.21 08:55, Z.Q. Hou wrote:
+> >
+> >
+> >> -----Original Message-----
+> >> From: Jan Kiszka <jan.kiszka@siemens.com>
+> >> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 20:03
+> >> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+> jailhouse-dev@googlegroups.com
+> >> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
+> >> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
+> >> address and size
+> >>
+> >> On 30.08.21 12:54, Z.Q. Hou wrote:
+> >>>
+> >>>
+> >>>> -----Original Message-----
+> >>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
+> >>>> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 13:43
+> >>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+> >> jailhouse-dev@googlegroups.com
+> >>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
+> >>>> address and size
+> >>>>
+> >>>> On 30.08.21 05:02, Z.Q. Hou wrote:
+> >>>>> Hi Jan,
+> >>>>>
+> >>>>>> -----Original Message-----
+> >>>>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
+> >>>>>> Sent: 2021=E5=B9=B48=E6=9C=8827=E6=97=A5 15:53
+> >>>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+> >> jailhouse-dev@googlegroups.com
+> >>>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to
+> >>>>>> access address and size
+> >>>>>>
+> >>>>>> On 27.08.21 09:51, Zhiqiang Hou wrote:
+> >>>>>>> From: Hou Zhiqiang <Zhiqiang.Hou@nxp.com>
+> >>>>>>>
+> >>>>>>> In function restrict_bitmask_access(), the current access_mask
+> >>>>>>> is implicitly assuming that it always access the whole register,
+> >>>>>>> but some registers are byte-accessible, the Guest may get/set
+> >>>>>>> wrong value when it issue a byte or halfword access to these
+> registers.
+> >>>>>>
+> >>>>>> Can you be more specific in the affected scenarios? At least one
+> >>>>>> example would be good.
+> >>>>>
+> >>>>> Let take GICD_IPRIORITYR as an example, which is a byte-accessible
+> >> register.
+> >>>>> Thinking the SPI INTID 33 is assigned to an inmate cell, and Guest
+> >>>>> wants to set
+> >>>> the priority of 33 by byte-accessing.
+> >>>>>
+> >>>>> Assuming:
+> >>>>> GICD_IPRIORITY8 original value: 0x00000000 Guest set value: 0xa0
+> >>>>>
+> >>>>> Then the current logic like:
+> >>>>> The access_mask is calculated as 0xff00, GICD_IPRIORITY8 read back
+> >>>>> value is
+> >>>> 0x00. Then 0x00 & ~(0xff00) get 0x00, 0x00 | (0xa0 & 0xff00) get
+> >>>> 0x00, then finally 0x00 will be written back.
+> >>>>>
+> >>>>> With this fix, the access_mask will become (0xff00 >> 8) & 0xff =3D
+> >>>>> 0xff, so finally
+> >>>> the 0xa0 will be written back.
+> >>>>>
+> >>>>
+> >>>> OK, indeed a good point. We missed the byte-accessability of
+> >> GICD_IPRIORITYR.
+> >>>>
+> >>>> But this reveals more: We perform a read-modify-write cycle on
+> >>>> behalf of the cell with the cell's idea of access width. That is pot=
+entially
+> unsafe.
+> >>>
+> >>> Can you help understand why there is still potential unsafe with
+> >>> this fix
+> >> patch?
+> >>>
+> >>
+> >> The patch is fine for GICD_IPRIORITYR, so is accepting all accesses
+> >> for that register. The problem is with other registers that do not
+> >> support byte accesses.
+> >
+> > Don't worry, according to the programmer guide the Guest code must not
+> access those registers with Byte-width; even if there is someone do that =
+by
+> mistake, it will trigger an exception before the access is trapped to EL2=
+.
+> >
 >=20
->> -----Original Message-----
->> From: Jan Kiszka <jan.kiszka@siemens.com>
->> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 20:03
->> To: Z.Q. Hou <zhiqiang.hou@nxp.com>; jailhouse-dev@googlegroups.com
->> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
->> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access addr=
-ess
->> and size
->>
->> On 30.08.21 12:54, Z.Q. Hou wrote:
->>>
->>>
->>>> -----Original Message-----
->>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
->>>> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 13:43
->>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
->> jailhouse-dev@googlegroups.com
->>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
->>>> address and size
->>>>
->>>> On 30.08.21 05:02, Z.Q. Hou wrote:
->>>>> Hi Jan,
->>>>>
->>>>>> -----Original Message-----
->>>>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
->>>>>> Sent: 2021=E5=B9=B48=E6=9C=8827=E6=97=A5 15:53
->>>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
->> jailhouse-dev@googlegroups.com
->>>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
->>>>>> address and size
->>>>>>
->>>>>> On 27.08.21 09:51, Zhiqiang Hou wrote:
->>>>>>> From: Hou Zhiqiang <Zhiqiang.Hou@nxp.com>
->>>>>>>
->>>>>>> In function restrict_bitmask_access(), the current access_mask is
->>>>>>> implicitly assuming that it always access the whole register, but
->>>>>>> some registers are byte-accessible, the Guest may get/set wrong
->>>>>>> value when it issue a byte or halfword access to these registers.
->>>>>>
->>>>>> Can you be more specific in the affected scenarios? At least one
->>>>>> example would be good.
->>>>>
->>>>> Let take GICD_IPRIORITYR as an example, which is a byte-accessible
->> register.
->>>>> Thinking the SPI INTID 33 is assigned to an inmate cell, and Guest
->>>>> wants to set
->>>> the priority of 33 by byte-accessing.
->>>>>
->>>>> Assuming:
->>>>> GICD_IPRIORITY8 original value: 0x00000000 Guest set value: 0xa0
->>>>>
->>>>> Then the current logic like:
->>>>> The access_mask is calculated as 0xff00, GICD_IPRIORITY8 read back
->>>>> value is
->>>> 0x00. Then 0x00 & ~(0xff00) get 0x00, 0x00 | (0xa0 & 0xff00) get
->>>> 0x00, then finally 0x00 will be written back.
->>>>>
->>>>> With this fix, the access_mask will become (0xff00 >> 8) & 0xff =3D
->>>>> 0xff, so finally
->>>> the 0xa0 will be written back.
->>>>>
->>>>
->>>> OK, indeed a good point. We missed the byte-accessability of
->> GICD_IPRIORITYR.
->>>>
->>>> But this reveals more: We perform a read-modify-write cycle on behalf
->>>> of the cell with the cell's idea of access width. That is potentially =
-unsafe.
->>>
->>> Can you help understand why there is still potential unsafe with this f=
-ix
->> patch?
->>>
->>
->> The patch is fine for GICD_IPRIORITYR, so is accepting all accesses for =
+> I do worry: We trap the access to EL2 because the memory region is not
+> backed by memory in the first stage translation. And then EL2 will issue =
 that
->> register. The problem is with other registers that do not support byte
->> accesses.
+> request and panic.
+=20
+You're correct, I did some experiments, the byte-width access to non-byte-a=
+ccessible register is also trapped to EL2.
+But what I'm not understanding is the byte-width write access finally trigg=
+er a SError (ESR_EL1: 0xbf000002) to the Guest instead of a exception to EL=
+2, and the Jailhouse does not crash. Do you know the reason of the result?
+
+Thanks,
+Zhiqiang=20
+
 >=20
-> Don't worry, according to the programmer guide the Guest code must not ac=
-cess those registers with Byte-width; even if there is someone do that by m=
-istake, it will trigger an exception before the access is trapped to EL2.
+> Jan
 >=20
-
-I do worry: We trap the access to EL2 because the memory region is not
-backed by memory in the first stage translation. And then EL2 will issue
-that request and panic.
-
-Jan
-
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+> --
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -245,4 +349,5 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4d107c19-ba44-c5db-9452-1552e0b66c93%40siemens.com.
+jailhouse-dev/HE1PR0402MB337106827ECC0CE4ED356C1784CC9%40HE1PR0402MB3371.eu=
+rprd04.prod.outlook.com.
