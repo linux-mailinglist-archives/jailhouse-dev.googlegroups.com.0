@@ -1,190 +1,139 @@
-Return-Path: <jailhouse-dev+bncBDGILGE54ELBB352XWEQMGQE3UCXZ4Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBFV5XWEQMGQEXN3MKGQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x538.google.com (mail-ed1-x538.google.com [IPv6:2a00:1450:4864:20::538])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7C43FD852
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Sep 2021 13:01:04 +0200 (CEST)
-Received: by mail-ed1-x538.google.com with SMTP id o11-20020a056402038b00b003c9e6fd522bsf1084609edv.19
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Sep 2021 04:01:04 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1630494063; cv=pass;
+Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E2E83FD868
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Sep 2021 13:05:59 +0200 (CEST)
+Received: by mail-wm1-x338.google.com with SMTP id g3-20020a1c2003000000b002e751c4f439sf2649830wmg.7
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 01 Sep 2021 04:05:59 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1630494359; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Dh/ljkkOCy4MPBLJs02+1uY+MgCDeCQ1/ylctxqov0YPS2eyEma0RbATa76bXaLoH5
-         lBX5w2AWqrTjCWVlSFExTvAO96Od4nsfNpaUWNIOfLa5fH8lU5Knto/VstFNpjflCXdv
-         7p4O2pG843Bqh7BfQz9Y9JDethA2BIn+eT2kq5d7k+fF8YezZwR5R/vAuGePiWVxgwgA
-         rNaJchyc0UsKWgATpbAT3qs299xtyKJ/Oc+IwyDTP081GpW1mTknsjB7N8xsGhi2vgno
-         A+08ubnBueIHS7HVLK/0i5ZVo8nNaVNs4ZGMuw9U7R5yhnkW8ZFl1IVgnx1rUbAUZf6R
-         DmPQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=zdWq4vsCcED6gdXOG6SLjrFVzi2zFerzQGEFsLFFnarNdXZvVjNCR7IQljXuHslq0O
+         83cyHmm/6QNeEcHhqsU4WOpkT/hHUK0zPju6OJs6GWaS4zJ/DeA4XVe8x2NT4Ayblhzq
+         NH2zvoKCR/uQNM2sN+5JouACD6XyETXqjyuW4Cr5JZPdWYVM+zuWc1DTRDvHw4cuP9Ux
+         at867mvxXAT3GA3HLSYQSgg5sW0jtn1Kso7Tseye2gKnqhgz7x26g4mbf+UGxurcjd8E
+         mvgHVZH0ZQyiO5dY0vcNbAG9JPscHhk65ajJC/yuQRuwaApMCV44BCsd0+16RaiWKrv7
+         /SoQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :to:from:sender:dkim-signature;
-        bh=r5/fyaaNlOhTGZtov3NmY/fT/vfZC1nf/6r7oMNCHx4=;
-        b=0R7UQznj1VuAHSNsFgWHAZs341Kx5TklScYDZ9d2k7YZbJB0IT+6yTH9/mPea/xmsx
-         uLHCrHGCQ+agCveaYCKQO8hp4XWOJYyNXV9+Iaaae5jMM26EYg7DvK3xugDk9E9W5Jov
-         KApNoBRyZ/6yEULBihlMq1o7rQ6PjpXn3uAyWpQ95REJxsN4fOphZIwBA4zZul5bF7NB
-         vTBcrMC72ixYqnDpbciyA9BxPQFDZnuAqwxL5vJB4Kz9WMcnfIkVCxnDPiU7uZBKIrmL
-         2A9EFZAQt6wxJwMMv/WJRXfca4sqv10ZUavs9O+jnWCnm9Cj+qYCRERq/rwOOTASFZuf
-         fypQ==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b="GN31JZ/T";
-       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
-       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe05::711 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=9QfV57ypOzFFOw0DXbK+f7OPT6Ouw0nkNn8trmIDm2Y=;
+        b=gTgVQ7SRp4nNL5u1+fUT76clemZFARDLXgMd+vcI2PYwIFkBV2vqp6j9/IXzlRmdmH
+         O7i/5xJpSx42Lx3KxXyZlkxtQKm/kmCtsoKrq4LkgCLojAY5SCrq32q7aEvEestHLSYC
+         xM1RMV3RUyHeLrVufhuoGkNAdQtNB10cjPEN0HefTpyras4bdt9g3ok2RaHJTLbDpg0d
+         lBZP1PKaQ6oEErvvqjAdlbPVM8AidUjAWCmJYCS3A6h5GjM5iH0lE+KuIcANjtKrR/zU
+         rvnGeoCZWiGdj+yewlOKq56TOTJxN/snEKwEJTUZvZN6iXV4d2z5dpVV0y2q+gOXwzN3
+         pjqw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
-         :accept-language:content-language:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=r5/fyaaNlOhTGZtov3NmY/fT/vfZC1nf/6r7oMNCHx4=;
-        b=PFtqzARvKhcG7H+tzdL234ets33atCUeka2IMDEnXX8i6itgvkl+Snt6yReleJmV6v
-         HDZ6/ftGEc2KdgtFZgJlnzXsVTVjtdyy4B0AWZaMbiAUKqAfDUcanFi0DHavjIhQdDxo
-         kmg/4iolEoBt86qrctIZoVM5HdX79pL/GcKjlJWpZZvGtkOYsxe4ZEzoFWG5SwGnARE+
-         cvtI3om3lRQamo/vRBqIqritQ32OIvFnDw/6LJq73CPZtBKJfZbXttNKk7RfhKkEKAdL
-         pWsz1L525tj7/SqhsqIYbpWP1qeTThvRoviB5zyUF91fg2taQvENKQnuAYz4R+TugZfG
-         QeEg==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=9QfV57ypOzFFOw0DXbK+f7OPT6Ouw0nkNn8trmIDm2Y=;
+        b=n7aAYVP4B3k3ri85+j+OcqkyMhnWMeiLLhs3nh3j0zwFSPnVJGmBgqf4+4l66QOrM1
+         2dJfz80788cAQ0EOMmf0u2z32qa8nMrdcOrMC58kT6FaqqsONcSE1G04G6v/7Ip672sS
+         jHZ9LS7EfZKg6F5S0/heATQOAE7FYzqnj7NrCIgO91uhE/SCURkEEuS+LMEp2hHgtd7Z
+         c2eetERqIi5H6b85N8YwWuMtEaWF5sgNTCflQE0yWD4byCHb563vuEeVNwTTaWU/V4dB
+         BYMxAiiZ5bgIYfr6PlM/GjNkMiI2bol3AgLSo2tR3X5rTA6ZyULnyqzxHXUNF+2s+AFh
+         deuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
-         :date:message-id:accept-language:content-language:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=r5/fyaaNlOhTGZtov3NmY/fT/vfZC1nf/6r7oMNCHx4=;
-        b=Ezh+HynCgHcz9XHH8d+dnJmBa1A1TgVLexkQyIop86KXRtJ0Zz0oJcv1+3reBzm7Zc
-         tlo21HCjAfoG0Hr0Z6fccN7soQViuPa8fVid7L/afrKVG57+NedVmFAsmJF0owt1aVvf
-         wnWBtmpngeCAp9GRtS/OuCoM+gWuCWJEKmZWglWcwGsNrXr6JwMoB+bpTyHkJCy86afz
-         xLPm2wLlZut9mEpYfemaiUbAGoS1BCOPuilnAg3mKvJ65XPZdHjciFgh7dmIBLZYXVvK
-         mdG3jJ0WEiZZ/uxwLpe8Uk8p9k1LwdgKSk5gslh07Yl3cXQXWY2cBRvM1+qFYQZumSWV
-         HUtg==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=9QfV57ypOzFFOw0DXbK+f7OPT6Ouw0nkNn8trmIDm2Y=;
+        b=l/MQ06bB8EyyKUPQFXTQ/Cb/9It6ErT72T4aktbVl96+uZbcJT3/mAOYIR1SfsYqro
+         m4MiGVp0g1mKn6uKv9X32MChsPWxR7eK/5/6E5BWmTOAIJOZss0Tvx1XeNQZ39aIVZh7
+         OiiJUyiQDFFI0/g3HS8mFl5A5Ueq7tBLP2BkARQRbz22QHz6Q0oVqOlr1TIedO8Pcs2M
+         BwhZRkknN9k6sPkpChOURAUtpyVhUcqs8VHFKVSHZ5qffvwI5kw24Kwd7pbEvrVZNl9Z
+         s0pjt2x3Hxv4fb402alYgmPx+OeAGo+jxqAC8miczsh7O1clr8wonP3Phj/C/+5WoYBc
+         uNQQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5306y25a4VVxq8oD7gc//gg1l0AWIx58jiCBhpyeTSYXMAC4hEet
-	EK3F3hD6kqhb5AyL4w/BJZ0=
-X-Google-Smtp-Source: ABdhPJw9DtrTemt/qIp8Kp4kKBn/9VeEQfqke+5b1h57ynB+kmFBB83hD6Z/bxci2UlqsetbSfclSQ==
-X-Received: by 2002:a05:6402:5188:: with SMTP id q8mr35881332edd.138.1630494063797;
-        Wed, 01 Sep 2021 04:01:03 -0700 (PDT)
+X-Gm-Message-State: AOAM533rJBf2QunKT4jm6Hgxij3SF8JgGC27epHwn+qa4oRFz28w1e8T
+	cUl5OHi/aa45yg+lx3KzwMY=
+X-Google-Smtp-Source: ABdhPJxQqUif8a/dMij7Ex5VUziwevO3lFvgK4jLKw66y4Goh0QF2g9vWRt76kRq+fVASEIvpqGw/A==
+X-Received: by 2002:a7b:cd92:: with SMTP id y18mr9183297wmj.78.1630494359061;
+        Wed, 01 Sep 2021 04:05:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:254d:: with SMTP id l13ls1190933edb.3.gmail; Wed,
- 01 Sep 2021 04:01:02 -0700 (PDT)
-X-Received: by 2002:a50:bb68:: with SMTP id y95mr16554606ede.231.1630494062829;
-        Wed, 01 Sep 2021 04:01:02 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1630494062; cv=pass;
+Received: by 2002:adf:ef0d:: with SMTP id e13ls2608886wro.3.gmail; Wed, 01 Sep
+ 2021 04:05:58 -0700 (PDT)
+X-Received: by 2002:adf:b745:: with SMTP id n5mr38002218wre.338.1630494357946;
+        Wed, 01 Sep 2021 04:05:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1630494357; cv=none;
         d=google.com; s=arc-20160816;
-        b=iEVcR/E2dab+u2MVA+8j0xZ0kGsY5E96nDi0sgbSjRhYv+mkAziYQO0P/lo6Q7J2eF
-         /62yx/vNta6KO3O39Zc7zjv1/h4cChwjS0glcOyeTrC74MUxkoE8qVC+H0kRP9VgRJhV
-         EYpUFRg6A7unsA948mYVGfGTcCX05nCf9MO5ymr1bfloH9J58T95gqjfbWzIqAAcLTr8
-         5wliahY1Dev9NsfLepNoVWO/MSEzwa/cXVtZ6zQHlArUJUpJ3AvyqSK2ekm6pPLVIE4o
-         jfENEi6Dplprm10uv2X7eApw2ZVSmvC5UnWx9pg7bPguLR9EpvQwSCwhWq1RGnE7zaqw
-         gh5w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :to:from:dkim-signature;
-        bh=PmfAetMMhTCgOLPlIIKMoKmA0Ljymg9c+hrVu62v8Xw=;
-        b=yJdO/p8U8WJUYVN8mqozuW09Mj006u9o4ntLZjDLSFxoGcoEkibpGBIkQf1cUmilD7
-         ks9hRn89hUSkWLsfHMVjd+Y85shrmKj4f1In1izo1YeB4dOowca3pXm+Mu8LVeoxt1dX
-         thNptXqRIsvzNEZqHWeer7c64QJts0y1QzwR5wtrt7KE1hJhFtuE2uD/qiuWJ3hNc9zK
-         d2ZTRMu6Ae79kuI20n/Xu8kWpJ8K+zLZkPjzEapFD4N+H65jsJQy6qrvcUk+L9nTgTR3
-         Fxqrt3ptedANuJ6HWK5pU5HdAp7efn2FHZxBLyygiUVk+H1oY2VLlLNIKbEVlOafqxx1
-         R4UA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@prodrive-technologies.com header.s=selector1 header.b="GN31JZ/T";
-       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
-       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe05::711 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (mail-he1eur02on0711.outbound.protection.outlook.com. [2a01:111:f400:fe05::711])
-        by gmr-mx.google.com with ESMTPS id e20si670592eds.4.2021.09.01.04.01.02
+        b=YTCKYDrfoJPaJWLzCNB2lfVSL/P3saQ+Cum5s9OFXffAdVkHL4BTMR2wm9s9IKkDZ9
+         KXalwDqGjHYI4KVOj5lZToCHt78MoocmpxqYyIFMbho7pamOFvh/cnejeV0bGBwViqj+
+         Ku0G+5MtKc2UwvJSLgsmpjJU9PtnDdbttsssfXNanvh23Jrc7EjHSJC2PDW+hwQ+YCYt
+         QVSnQpFYfLGEd8TXKwescIslMOpphX2RJ0/TTutzo0BBB2y48k5ytwO+qprjbAEicbW6
+         12a1yT3D0qaZWBr3KvR+s08VYTuA0GXyIz+M5ZeqrwApGECJWLPc+kI4jbkoFsBabvE3
+         vPKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=fxtOqIe6Chmqo+f2720V5gLskWiv/nwcvzSYD5UEdX4=;
+        b=K7rbcJimIeCRdI+SJ8aaCIVurixtbGDZJl7MRlFxLK5YwAohIoTxXPjvjtQMc5j8mx
+         Q14mzwcqFKw9aKwQK3qRXSyh35/+E63QvKQIrf5dMfq1auEnF8vgq4PqeCnHNUePhHxK
+         nAw9HfKFsOqgqF8a6/AxSDK2TeYX6cFD2BagYsNZxls7SpbxxKsYi+oPjZf8qfNHK/9V
+         JcWGM5g9Ci+cC1WynWbspAJnV+ALDGZfE5ChrW2Ny1Bm7Y/uROJcSpDSypi7qoGmbs6r
+         vQMqQpACDmRrDu0oF2DYvWBJ/2PpZsthSB8JJpHhIOlKNYSd+V4ED7Fk+1dwioiqTIda
+         S6Tg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from goliath.siemens.de (goliath.siemens.de. [192.35.17.28])
+        by gmr-mx.google.com with ESMTPS id a1si1027840wrp.1.2021.09.01.04.05.57
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 01 Sep 2021 04:01:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com designates 2a01:111:f400:fe05::711 as permitted sender) client-ip=2a01:111:f400:fe05::711;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=as2hN3CTDZAgCSQS/3kDOENFquXa1yIDOcpNLtFWyT8t74/OU87BQmjJ7th1haHIVIyIoAljQXKGUoVU/iVEbUvp0VrwNjyxK1WmLh+DqTdVkwGVyXHN9waWG5911L9d8Eq7tUMoxVkiEIDgQodBRatpQukTwfH40DHUrsbQGD2WsO5JIEn46ZW/HIDdbDfxnlWXzoR626iqavg/ltOn/F1jwzsuCLDtzbTAd97ZOWPKzfGYFC2lvwCQyF6lgrJh0mF0ISoylBQP0d+L3/XjjnXTt9Yxbg0IG24Pt2w7Xe2dH8VZgcWRJUD3Qr42UhOWT/6b7Nin3d0KFnYmcemNBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version;
- bh=PmfAetMMhTCgOLPlIIKMoKmA0Ljymg9c+hrVu62v8Xw=;
- b=mofYo+L3R49jKgl0cavWman1EupFoY4YSsenCZbYH5DuMtQuWsjAsFC1ipM+uKVUw3KTYpiChcEj5ex3tvmoLHbKK0T6+0udtpbNglp9AiSwPCjct6AHz6aP856pJntZX5gNxNq1RleppTXmMHiQ6Znfg5u+E3DMyScRpvgQcovLWra03FIvzqgee7mbk6JGcWBlxbUhSqjAlFyBly3kLQ3GrVmC8TdvKrg7aMip48lIFa6qKGKNSEYSIpB0z43E9DWsDczEP1W2V2yffcuO4/gnKFrbLoPLMkAO/CZbhzCLtJWgoR1iBZBJJn3XkqAwpFpJVctmR0K50NewZt8UAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=prodrive-technologies.com; dmarc=pass action=none
- header.from=prodrive-technologies.com; dkim=pass
- header.d=prodrive-technologies.com; arc=none
-Received: from AS8PR02MB6663.eurprd02.prod.outlook.com (2603:10a6:20b:257::14)
- by AS8PR02MB7237.eurprd02.prod.outlook.com (2603:10a6:20b:3f1::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.19; Wed, 1 Sep
- 2021 11:01:01 +0000
-Received: from AS8PR02MB6663.eurprd02.prod.outlook.com
- ([fe80::f949:d45b:acb4:e0fb]) by AS8PR02MB6663.eurprd02.prod.outlook.com
- ([fe80::f949:d45b:acb4:e0fb%4]) with mapi id 15.20.4478.017; Wed, 1 Sep 2021
- 11:01:01 +0000
-From: Bram Hooimeijer <bram.hooimeijer@prodrive-technologies.com>
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: Error: FATAL: Unsupported MSI/MSI-X state, device xx:xx.x, cap 5
-Thread-Topic: Error: FATAL: Unsupported MSI/MSI-X state, device xx:xx.x, cap 5
-Thread-Index: AdefHQjbncc1UIsBRdqRgTxiubdggQ==
-Date: Wed, 1 Sep 2021 11:01:01 +0000
-Message-ID: <AS8PR02MB66630A289AFD9FCF2EBFAD7EB6CD9@AS8PR02MB6663.eurprd02.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9a1b9cdc-2ad4-4288-a2d3-08d96d37c93d
-x-ms-traffictypediagnostic: AS8PR02MB7237:
-x-microsoft-antispam-prvs: <AS8PR02MB7237712E5F0A361CEC5B7E8EB6CD9@AS8PR02MB7237.eurprd02.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RvAzfmMormdy+TsVkBgFLnkrJG/7LRJMsHWYjQQEnD9mI9rmbxiWS/pCJSDHV2YSpeIfvnsdP9WRxX4XSJms1dGJmkiHL14sH8FMv9Nxf+ZiO8NVCkNpY4fD/utyqQ6MBCtZNkKKzh9qcOh6sEBTxv81CR0Y5a0dBiX6g+En5gr5aHryTUqkcN5CdmmwUOjlKIMCKtflSTDBgZdIm2sz4uGfVHwgBnkrjbvivtVoIAodwWWYYbEumibAPgwHB8Cz4P2b8A6BqTctZ5dYTpAJpwCaG90caD2lVrcz1RpZv88JhlfUeWZUTvt46FseFwcBzz9CpVOIoIP9kqJsNMkpKqKoav9guuni3YEsgaAeMBvtO3BPFhKHRaMP1VxUiA8iDaAmM5NgGAJL1rPm0syIjkTriqqqfRV17dZpr6EG2VvOSj0+ReiSWv3Rj/9Fs5j8DMOw6J+ei/bWenTw69Ai0savgBs+ce0E+kFcd2bZ3d+QGsQ9GeY5FezHYTMTGX4sODSn8UNuaOOEqGbwog7itMrxUTgo938/rtqOTNPFfY6tUBftzpHLD3n67tbWbp2zK2jtoZId7IBMUeugpmSHaaPVPbJhVz2mhwG3DjXB3RMVNkrmm2H6WofwXO4OStP8Np7U+m8rfCpeI8BlCkM/0l/i6FNPJ9dU2s6+pb791+gh7kfu2arJt/0srjX2Cq6+HE/oZPSSTe8ND7sLTLErkg==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB6663.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(39850400004)(396003)(346002)(376002)(136003)(366004)(83380400001)(6916009)(38100700002)(52536014)(38070700005)(8936002)(44832011)(76116006)(5660300002)(66946007)(33656002)(316002)(66446008)(64756008)(66556008)(66476007)(8676002)(71200400001)(122000001)(86362001)(2906002)(6506007)(9686003)(478600001)(186003)(26005)(55016002)(7696005);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?OOwfHoyukT78ZPSwgs13uyaiUDcFDDKoO3iwwN/KZbic5bwk9ccqDApt0qTe?=
- =?us-ascii?Q?Wko8qec6fUCx21dVyaIpiL2FgqM3Z0SkG+ZviX2aQveLk6F5vPADd5LmPEvK?=
- =?us-ascii?Q?BqDvg1oST68SEVbH3JirQrIH2jwUbo+uUD6gCB/dRhU8Uzq55qYYilsHogmg?=
- =?us-ascii?Q?eNSlwgyJRy3W9qfXyBeK204pDWPO+jDF2sgIOKcWf1IkAU0lGzaH1SN8fGXQ?=
- =?us-ascii?Q?Wcgtf56gydi1rXnoC/yux7hJJBsul0wMApV9BY5kuRL3Crdf0I1R7c9zzXKc?=
- =?us-ascii?Q?Gj12wtqt3/+nnRPx86QAg9yCtJCsigLayNaLarXGxLFf1WjILtU/ZJBeJVSw?=
- =?us-ascii?Q?eO1WCEK6LqObVkCTb5R80nbYTDcgXLQJaF4wm6FYFu0h/JieUD476jRkD1fv?=
- =?us-ascii?Q?mOYCoka9PSYLNjtTpA1YyQ+T3WOjUsCWp8ANA1sa3by+SIuJevKf2lTxOCVS?=
- =?us-ascii?Q?SUUC5qdSecBRsIE7OdENqGJ+zWdUSIEGSNqvvlbdn63Jbmc75Au2id3MuMKh?=
- =?us-ascii?Q?2h3VRl4GMj4/LVoxO5pVVnE0uY40UXDOG15j6UAm7uai/a3h9pX/Z0b6Bj2h?=
- =?us-ascii?Q?OAG6AzZOMULJl/LZ6bNSW94ExZILsncAScYXWuBdmq0liP8v8B4CVZn2q74Y?=
- =?us-ascii?Q?NvjVrcksz7HWp3ytwFqNSjh5RGmn12zxzr+b9fADwam173USKmStwtoS3JAi?=
- =?us-ascii?Q?qpHqMXWJ24Ix/+V2zLq6Z8X7FYqNwfOizC/Un+5GHv4nzM2asr6UIuC60f9k?=
- =?us-ascii?Q?QGHJ7sU7XYxMfG+dcak9kEZpgmMMtdJW3XXQqH6HIax6tg7lyW5icre43onI?=
- =?us-ascii?Q?HoKPRUhvtNlUFzBm6zN/vLH2YPh7TDbOjsOLoWqBeT17pU2Y7QBL9iDjDQs+?=
- =?us-ascii?Q?YikawExMLi5cAC0ayn0u9XF4FLeoAU9XhlnoVWKC5uxhEYrCULCOFnjrthk4?=
- =?us-ascii?Q?FJgYfO4bkmE6cEXGRrNO4Yl4BEftPUFZ+IJEMqDJIraE+TYhASfFUmOwFlC+?=
- =?us-ascii?Q?cs+VNE260bLC5AXFizrAHYnJUdCKm1eNtGnglkjeqqnwMcDIQUo9DAwf0xhM?=
- =?us-ascii?Q?C47D0qav4RUkohAt77WQ/qdBMH3LiprQMpGkgrVMOWt3WhbEvYaNfsHtvReQ?=
- =?us-ascii?Q?Iax2r6Im1ZKlu8C6aUpo+Gzew0JXLcqleU/IoRmz3kP+x34+mXU5B2tTuR2f?=
- =?us-ascii?Q?jcvxLFvFUQWWaOb8pVoJa8LCsYxuhjfDyQwDcy6OvUNdB/NT1EqGG/Vi+eeT?=
- =?us-ascii?Q?/vKWX/MEQ6n2LPIqMmvITY0yuQyJB2Ebv9gFBDD1Mr87xZU/Pi5H2TkcQ3SM?=
- =?us-ascii?Q?Pfs=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="UTF-8"
+        Wed, 01 Sep 2021 04:05:57 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as permitted sender) client-ip=192.35.17.28;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by goliath.siemens.de (8.15.2/8.15.2) with ESMTPS id 181B5vVb013011
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 1 Sep 2021 13:05:57 +0200
+Received: from [167.87.73.68] ([167.87.73.68])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 181B5uLc025302;
+	Wed, 1 Sep 2021 13:05:56 +0200
+Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access address
+ and size
+To: "Z.Q. Hou" <zhiqiang.hou@nxp.com>,
+        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Cc: Jiafei Pan <jiafei.pan@nxp.com>, Rui Sousa <rui.sousa@nxp.com>
+References: <20210827075116.6208-1-Zhiqiang.Hou@nxp.com>
+ <2d3cfe41-3c51-34f8-8130-f6b86720d835@siemens.com>
+ <HE1PR0402MB337191DE611BA6CC480C104D84CB9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+ <dd785b10-ac8d-f483-7483-f8830ed6147f@siemens.com>
+ <HE1PR0402MB3371C1CDCCD9EA8CC8938FC684CB9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+ <9ecc5d87-c7b4-ce84-6621-f88cf05fbeff@siemens.com>
+ <HE1PR0402MB337140548025A20E651BB4AA84CC9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+ <4d107c19-ba44-c5db-9452-1552e0b66c93@siemens.com>
+ <HE1PR0402MB337106827ECC0CE4ED356C1784CC9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+ <2b88eb53-8258-2d0b-d0d1-71c24bf372cb@siemens.com>
+ <HE1PR0402MB33713AC7844D1B67AC8B67F384CD9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <ab9e7f4c-c52a-4c4f-ee77-c8148763184a@siemens.com>
+Date: Wed, 1 Sep 2021 13:05:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-OriginatorOrg: prodrive-technologies.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB6663.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a1b9cdc-2ad4-4288-a2d3-08d96d37c93d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2021 11:01:01.5698
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 612607c9-5af7-4e7f-8976-faf1ae77be60
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eOaeWwM63GoYkAN3btdkPQjtatd3DInGvNJYhZT5is+UmxVMueAxlcSzH/7xcdjproVERfQSWVW4d5O4PdYA3ln+TCfPfK72DTHD6rHi3qfTp4FcqAWAqfrUpjbGsxtX7kmYv9S37hcEDPTSJvkhnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR02MB7237
-X-Original-Sender: bram.hooimeijer@prodrive-technologies.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@prodrive-technologies.com header.s=selector1 header.b="GN31JZ/T";
-       arc=pass (i=1 spf=pass spfdomain=prodrive-technologies.com dkim=pass
- dkdomain=prodrive-technologies.com dmarc=pass fromdomain=prodrive-technologies.com);
-       spf=pass (google.com: domain of bram.hooimeijer@prodrive-technologies.com
- designates 2a01:111:f400:fe05::711 as permitted sender) smtp.mailfrom=bram.hooimeijer@prodrive-technologies.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=prodrive-technologies.com
+In-Reply-To: <HE1PR0402MB33713AC7844D1B67AC8B67F384CD9@HE1PR0402MB3371.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.28 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -197,104 +146,173 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Dear Jailhouse community, 
+On 01.09.21 05:47, Z.Q. Hou wrote:
+>=20
+>=20
+>> -----Original Message-----
+>> From: Jan Kiszka <jan.kiszka@siemens.com>
+>> Sent: 2021=E5=B9=B48=E6=9C=8831=E6=97=A5 21:14
+>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>; jailhouse-dev@googlegroups.com
+>> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
+>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access addr=
+ess
+>> and size
+>>
+>> On 31.08.21 10:48, Z.Q. Hou wrote:
+>>>
+>>>
+>>>> -----Original Message-----
+>>>> From: Jan Kiszka <jan.kiszka@siemens.com>
+>>>> Sent: 2021=E5=B9=B48=E6=9C=8831=E6=97=A5 15:11
+>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+>> jailhouse-dev@googlegroups.com
+>>>> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
+>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
+>>>> address and size
+>>>>
+>>>> On 31.08.21 08:55, Z.Q. Hou wrote:
+>>>>>
+>>>>>
+>>>>>> -----Original Message-----
+>>>>>> From: Jan Kiszka <jan.kiszka@siemens.com>
+>>>>>> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 20:03
+>>>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+>>>> jailhouse-dev@googlegroups.com
+>>>>>> Cc: Jiafei Pan <jiafei.pan@nxp.com>; Rui Sousa <rui.sousa@nxp.com>
+>>>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to access
+>>>>>> address and size
+>>>>>>
+>>>>>> On 30.08.21 12:54, Z.Q. Hou wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>>> -----Original Message-----
+>>>>>>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
+>>>>>>>> Sent: 2021=E5=B9=B48=E6=9C=8830=E6=97=A5 13:43
+>>>>>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+>>>>>> jailhouse-dev@googlegroups.com
+>>>>>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to
+>>>>>>>> access address and size
+>>>>>>>>
+>>>>>>>> On 30.08.21 05:02, Z.Q. Hou wrote:
+>>>>>>>>> Hi Jan,
+>>>>>>>>>
+>>>>>>>>>> -----Original Message-----
+>>>>>>>>>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
+>>>>>>>>>> Sent: 2021=E5=B9=B48=E6=9C=8827=E6=97=A5 15:53
+>>>>>>>>>> To: Z.Q. Hou <zhiqiang.hou@nxp.com>;
+>>>>>> jailhouse-dev@googlegroups.com
+>>>>>>>>>> Subject: Re: [PATCH] arm: irqchip: Fix the mask according to
+>>>>>>>>>> access address and size
+>>>>>>>>>>
+>>>>>>>>>> On 27.08.21 09:51, Zhiqiang Hou wrote:
+>>>>>>>>>>> From: Hou Zhiqiang <Zhiqiang.Hou@nxp.com>
+>>>>>>>>>>>
+>>>>>>>>>>> In function restrict_bitmask_access(), the current access_mask
+>>>>>>>>>>> is implicitly assuming that it always access the whole
+>>>>>>>>>>> register, but some registers are byte-accessible, the Guest
+>>>>>>>>>>> may get/set wrong value when it issue a byte or halfword
+>>>>>>>>>>> access to these
+>>>> registers.
+>>>>>>>>>>
+>>>>>>>>>> Can you be more specific in the affected scenarios? At least
+>>>>>>>>>> one example would be good.
+>>>>>>>>>
+>>>>>>>>> Let take GICD_IPRIORITYR as an example, which is a
+>>>>>>>>> byte-accessible
+>>>>>> register.
+>>>>>>>>> Thinking the SPI INTID 33 is assigned to an inmate cell, and
+>>>>>>>>> Guest wants to set
+>>>>>>>> the priority of 33 by byte-accessing.
+>>>>>>>>>
+>>>>>>>>> Assuming:
+>>>>>>>>> GICD_IPRIORITY8 original value: 0x00000000 Guest set value: 0xa0
+>>>>>>>>>
+>>>>>>>>> Then the current logic like:
+>>>>>>>>> The access_mask is calculated as 0xff00, GICD_IPRIORITY8 read
+>>>>>>>>> back value is
+>>>>>>>> 0x00. Then 0x00 & ~(0xff00) get 0x00, 0x00 | (0xa0 & 0xff00) get
+>>>>>>>> 0x00, then finally 0x00 will be written back.
+>>>>>>>>>
+>>>>>>>>> With this fix, the access_mask will become (0xff00 >> 8) & 0xff
+>>>>>>>>> =3D 0xff, so finally
+>>>>>>>> the 0xa0 will be written back.
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> OK, indeed a good point. We missed the byte-accessability of
+>>>>>> GICD_IPRIORITYR.
+>>>>>>>>
+>>>>>>>> But this reveals more: We perform a read-modify-write cycle on
+>>>>>>>> behalf of the cell with the cell's idea of access width. That is
+>>>>>>>> potentially
+>>>> unsafe.
+>>>>>>>
+>>>>>>> Can you help understand why there is still potential unsafe with
+>>>>>>> this fix
+>>>>>> patch?
+>>>>>>>
+>>>>>>
+>>>>>> The patch is fine for GICD_IPRIORITYR, so is accepting all accesses
+>>>>>> for that register. The problem is with other registers that do not
+>>>>>> support byte accesses.
+>>>>>
+>>>>> Don't worry, according to the programmer guide the Guest code must
+>>>>> not
+>>>> access those registers with Byte-width; even if there is someone do
+>>>> that by mistake, it will trigger an exception before the access is tra=
+pped
+>> to EL2.
+>>>>>
+>>>>
+>>>> I do worry: We trap the access to EL2 because the memory region is
+>>>> not backed by memory in the first stage translation. And then EL2
+>>>> will issue that request and panic.
+>>>
+>>> You're correct, I did some experiments, the byte-width access to
+>> non-byte-accessible register is also trapped to EL2.
+>>> But what I'm not understanding is the byte-width write access finally
+>> trigger a SError (ESR_EL1: 0xbf000002) to the Guest instead of a excepti=
+on
+>> to EL2, and the Jailhouse does not crash. Do you know the reason of the
+>> result?
+>>>
+>>
+>> No, not really. I'm architecturally not fluent in that details, and in t=
+hat state I
+>> would have expected a crash at EL2 as well. Maybe someone else is listen=
+ing
+>> with more detailed knowledge. Or we are in an implementation-specific
+>> behavior region here, and your mileage can vary from SoC to SoC.
+>=20
+> I did the experiments on imx8mp with A53 cores and GIC-500, and looked in=
+to the TRM of GIC-500, it says: " Byte or halfword accesses to registers th=
+at do not permit those access sizes are not successful and return a SLVERR =
+response." According to A53 TRM, the SLVERR is consistent with experimental=
+ results ESR 0xbf000002.
+>=20
+> The last point I'm wondering is, the actual access instruction is issued =
+from EL2, but finally this SError is taken to EL1? This doesn't adhere to t=
+he armv8 exception model that an exception can never be taken to a lower EL=
+. How to explain this?
+> I did one more experiment that in restrict_bitmask_access() check the acc=
+ess size, doesn't perform the access if it's not word-width. The result is =
+the byte-access to the not permitted registers doesn't cause SError, so it =
+confirms that the SError is indeed caused by the EL2 access instruction.
+>=20
 
-Currently I am running into an issue enabling Jailhouse on a x86-based server 
-platform. 
+Hmm, maybe try that with a different silicon as well? Or, to be vendor
+neutral, see what happens inside QEMU. Image available via jailhouse-images=
+.
 
-The error triggered is
-FATAL: Unsupported MSI/MSI-X state, device xx:xx.x, cap 5
-from hypervisor/pci.c, line 833. 
+Jan
 
-This is traced back via
-hypervisor/pci.c: 		pci_config_commit
-hypervisor/arch/x86/pci.c: 	arch_pci_update_msi
-hypervisor/arch/x86/vtd.c:	iommu_map_interrupt
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
-where the check irte.field.sid != device_id fails.
-
-The device for which this fails is a PCI bridge. The check fails for
-vector 8
-sid  0x5F40
-device_id 0x5E00
-
-The device_id corresponds to the upstream switch port, the sid corresponds to 
-the downstream switch port. See the sysconfig snippet below.
-
-The sysconfig discovers 8 msi_vectors for the upstream port, so this failing at
-vector 8 makes quite some sense. However, the value of vectors in
-arch_pci_update_msi is 128! I.e, tries to access up to 128 vector, which seems 
-much too high. This value comes from union pci_msi_registers. Could that be 
-misconfigured in the case of a bridge?
-
-Does anybody have an idea what goes wrong here?
-Is this on the Jailhouse side, or is the switch misconfigured?
-
-PS, Removing the bridges fixes the error.
-
-Thanks for the support!
-
-Best regards, Bram Hooimeijer
-
-    /* PCIDevice: 5e:00.0: Upstream port*/
-    {
-            .type = JAILHOUSE_PCI_TYPE_BRIDGE,
-            .iommu = 6,
-            .domain = 0x0,
-            .bdf = 0x5e00,
-            .bar_mask = {
-                    0xfffc0000, 0x00000000, 0x00000000,
-                    0x00000000, 0x00000000, 0x00000000,
-            },
-            .caps_start = 80,
-            .num_caps = 12,
-            .num_msi_vectors = 8,
-            .msi_64bits = 1,
-            .msi_maskable = 1,
-            .num_msix_vectors = 0,
-            .msix_region_size = 0x0,
-            .msix_address = 0x0,
-    },
-    /* PCIDevice: 5f:08.0 Downstream port*/
-    {
-            .type = JAILHOUSE_PCI_TYPE_BRIDGE,
-            .iommu = 6,
-            .domain = 0x0,
-            .bdf = 0x5f40,
-            .bar_mask = {
-                    0x00000000, 0x00000000, 0x00000000,
-                    0x00000000, 0x00000000, 0x00000000,
-            },
-            .caps_start = 92,
-            .num_caps = 12,
-            .num_msi_vectors = 8,
-            .msi_64bits = 1,
-            .msi_maskable = 1,
-            .num_msix_vectors = 0,
-            .msix_region_size = 0x0,
-            .msix_address = 0x0,
-    },
-    /* PCIDevice: 5f:10.0 Downstream port */
-    {
-            .type = JAILHOUSE_PCI_TYPE_BRIDGE,
-            .iommu = 6,
-            .domain = 0x0,
-            .bdf = 0x5f80,
-            .bar_mask = {
-                    0x00000000, 0x00000000, 0x00000000,
-                    0x00000000, 0x00000000, 0x00000000,
-            },
-            .caps_start = 92,
-            .num_caps = 12,
-            .num_msi_vectors = 8,
-            .msi_64bits = 1,
-            .msi_maskable = 1,
-            .num_msix_vectors = 0,
-            .msix_region_size = 0x0,
-            .msix_address = 0x0,
-    },
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/AS8PR02MB66630A289AFD9FCF2EBFAD7EB6CD9%40AS8PR02MB6663.eurprd02.prod.outlook.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/ab9e7f4c-c52a-4c4f-ee77-c8148763184a%40siemens.com.
