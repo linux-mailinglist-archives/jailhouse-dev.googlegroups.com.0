@@ -1,73 +1,149 @@
-Return-Path: <jailhouse-dev+bncBCWJRXUWVQPBBYWMY6FAMGQESGIT67Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBM6AZOFAMGQED72EGDY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x840.google.com (mail-qt1-x840.google.com [IPv6:2607:f8b0:4864:20::840])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D5441981D
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Sep 2021 17:42:27 +0200 (CEST)
-Received: by mail-qt1-x840.google.com with SMTP id w10-20020ac87e8a000000b002a68361412bsf75131368qtj.7
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Sep 2021 08:42:27 -0700 (PDT)
+Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18DD441ABCD
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Sep 2021 11:28:20 +0200 (CEST)
+Received: by mail-wm1-x33c.google.com with SMTP id j82-20020a1c2355000000b0030cec9c9a66sf1724534wmj.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 28 Sep 2021 02:28:20 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1632821299; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=O1355yCiiLOWNhC6wcilRvfwLLRLaccHvG72kTUCmM+relkrdk38pfKcd5eVxFGvdK
+         U/7ZcaMO5d0kxWEyPwt0mhP2R2OaSeU7Upf1k7efk1AfhVEdJAix+CSopKiL1ED2tIdt
+         /Se2pP0IQatvj7/Yt1QzUGzOPBcH848BGe8GNtUey5ftVKVqoT8heCp/U1fQw5N5Q6j0
+         erXlJtX87Wj+AMxSP7DDk8mgMKEj9cd9fmudiGNuhOyNX7vrfjg0X6jz3meSUkMPNlJo
+         OmRshz665uIO6SfHjKmBn1jFV+CsS0Y9ne9sFIDuBnFq7p0GGrKLC/B6tPFDnpkLL+Af
+         vYDA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:in-reply-to
+         :mime-version:user-agent:date:message-id:from:references:to:subject
+         :sender:dkim-signature;
+        bh=G2Y9CTH86r2YkkdlRDumsKmh9U1L9yxCGBTef6iHUPw=;
+        b=IoLMz089gfdPziC/JcUphzf7rzzVWksnSoeBO3DD0yuUEDJSYEKBe3HNft2H/TQ9hk
+         H1WhjPkJpoixto+GeeiTrbe/bDjIoRtTr4lPTwtVmiDt5RssUZbUEibp42gHIFlnnaCL
+         mkRuyu4SbFVLXb3mVfW1S4jCaJFr1HPeA9ONXwKi69rOeFZvFsSph8rIhnaQW1KCVXu+
+         hrWNzctyeQQTBGTpeWtdvPCnHaqHqYu6LS9aJ9jO9QNvEfIR9B7SDPY2bMlLqdV8qfWh
+         sH4bum7a/oINQdZjOL9jmb2ypNeSznaBVPlnK6cw6HTZ/KykmgE1mo4yAj7w7Np1GZAU
+         DaRg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=q9WYimwn;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Nr1exwQjckUnqgVKA6WIG7185BIj/jL4UwIeWVveNsQ=;
-        b=NF3Dee6yZbWJ+OQa4WDDmP5kwLjPbhNBAYs+eGWu1HDblQ99ras5nHOGrXrQngm2zU
-         Rj6RG4DbxMdbnObJAFkCXR+aKI9I38TFu1c0FxJUnXC0W4vRopjj1aSIVLkHc8ZAMC+5
-         KrhpH8WkmmpbOzdmAfHYxp7SCLwyGfIRQCMbarwtwRGiy8Xo9nzaRSc+LALVsONpQOuF
-         9VmXjZKGsA0Ak/8puV1M8Z4Xn/0w9xz1LI/nbSxPYUaXYmSKLpktn+CVkiOhNOdrYot7
-         0MmeKTFeHEb39/veCNgHLuWGEiEtJlsKqIa24kTvTPrmy8VA1XU4n+/tVOlovF2FmfHv
-         UECw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Nr1exwQjckUnqgVKA6WIG7185BIj/jL4UwIeWVveNsQ=;
-        b=LWW28r+zTLF5pEtQI0jawRtC0wqIWLvtnH/BUyMIjDB9jpgq5v3E4FXBkQvDqftDEB
-         jkpC4+1h6/T92cHh280oBUpwotupvocsbvKuk9RlVhz5rzfC9KgHLb7YJh0hft5MASWr
-         1aigpm3S0pkTVgZeKPw8svCOse/fJuSGDs64yfv12Vp+gA40cpbYPZSVq6bynIMCMi9C
-         vvftWkfbnaYYJC48vtC5ZVSkIIhUKJ+SsqvHMBXcPJCEX6zjYmoi563gxJRrAOjQ46xo
-         nfq6ebTYsKNaGGdaGVlQe3mSUChl3moH8cqiezjTqOsnZrEcE06kzoYa4Xd1Zoc+sR3d
-         VVew==
+        bh=G2Y9CTH86r2YkkdlRDumsKmh9U1L9yxCGBTef6iHUPw=;
+        b=K60TyAmGIUxP4e99hiue/S/ifPbdnln+QHMM3njaNNGYW2KQL5vxehQOmi0NLCg8iv
+         WuTAY1r+ZGkcITuCCJdP+SXs8ckVFUHAWhQk3tzOngrHg6oAsbeWaKHsqfu8+mKTkc7k
+         9eTJKhj3x9wu3k7FHFSkVMr4/y8DfHWmXpw3zecJEOeVBCZf9z8f5M76a87leT4svC2f
+         9T4WglalrR2j9WMtWvaeh8iTrzjHuSBe6rbQ1Kp+fR5tbqNNC6rOH1xNCw05ZO+7V/CL
+         uiM5feONgBro3FFTS5Li06VZBZKw8G8G6Y/fHo4jLrbPzDhUKZUpAEDOmQJJYrW7Aj+a
+         VBlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Nr1exwQjckUnqgVKA6WIG7185BIj/jL4UwIeWVveNsQ=;
-        b=gOdq4DpSIX3ujLr2q/HEgoauf7s7F3j1dP5JY3RF5lN+7XNfgyTMMGvdFornHd1reA
-         SbvcwPmAsO192YMe+lGx0GuJzStPcuG3It4syvs8JCdg9n5dEg6O4Nx8ol+N+uFdX2jN
-         VzbOsZFu/m2X48JqSCOZrw4A9V0iySPD/a52P/3qD35NEL3nUVrFsVPCOJD4NpGsQ3GW
-         kNHaccDo+cTqPswVAg64OdLJItv7/fkYcYRmBH2LGYCtjlMJdkE3YnsIsCTzEkRIlS+3
-         97U7oPRWChFaeSbC1vshIN+62ojXcmHuAJVntryuB51udp+kqiSYxCQjm9x7qq7RKnGV
-         8MUg==
+        bh=G2Y9CTH86r2YkkdlRDumsKmh9U1L9yxCGBTef6iHUPw=;
+        b=xt7HRYw/dl+AGL/JxqaORTl9WMdH/yvuPMJzN47sZoxBKTF0VRd4smctIXTPB5hZEJ
+         5K/ywLgUsFKrUP9/iLsIjRBSzUV/foi6Si3dRXStv2mGBGn2V5TBoh6GYsQ1R9E2k9Hz
+         ZyWBY7hPN9XSm/VUIaYR8QRpznjys1XyQPNrfNPjMaIwVSqaIWEnoKcBVNVxAZ3s0tGL
+         qubl2DaLA0shJIi9bY4jU67XiuA8v75hNSOFrx6TiFSRqZoT8Aqa0LYyFyZrnsWv/Awa
+         AK2B4zq/csUmLbT4UtgzrgQegDECPu0+KOlfTvYI8MkwhSx/YoMxvLT5lq5aTZhXmjWf
+         ZKrQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531zsnVHbrwCPPxL2xSZ0Kl4e0PCfZfXwib+EbApXZChzgHja/t9
-	ehdoPjLIf8AtyPeJK5KqSiE=
-X-Google-Smtp-Source: ABdhPJxS036VkPSvlEDENKNhX1bpgVDPAV2e+7CZXcJni5/ef301HRcsIMQM8qykZ6z5PizVZX0Reg==
-X-Received: by 2002:a37:b606:: with SMTP id g6mr626333qkf.328.1632757346762;
-        Mon, 27 Sep 2021 08:42:26 -0700 (PDT)
+X-Gm-Message-State: AOAM531bTiEh/gBB2NqMmiaEFOfLXwYotjq1hosvjfvFWx2EODOs+9Bn
+	Yk1aQXPRl3NlPIIJjqIbrUw=
+X-Google-Smtp-Source: ABdhPJxhJ+5GdWRDykPJQ3tc3gPNE543pW5nD/BLrCaoUcrvZ4TYiwnSgCJldwjrwFYlJdWY4dcGjg==
+X-Received: by 2002:adf:d1e9:: with SMTP id g9mr5238603wrd.200.1632821299791;
+        Tue, 28 Sep 2021 02:28:19 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:7006:: with SMTP id x6ls10370600qtm.3.gmail; Mon, 27 Sep
- 2021 08:42:25 -0700 (PDT)
-X-Received: by 2002:aed:27d9:: with SMTP id m25mr500476qtg.85.1632757345320;
-        Mon, 27 Sep 2021 08:42:25 -0700 (PDT)
-Date: Mon, 27 Sep 2021 08:42:24 -0700 (PDT)
-From: jiajun huang <huangjiajun145041@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <09168d73-6852-4b4f-b1ef-97d6204ae3dan@googlegroups.com>
-In-Reply-To: <AS8PR02MB66633DD8003EB0A9403A3ED3B6A79@AS8PR02MB6663.eurprd02.prod.outlook.com>
-References: <AQHXsob2wEn+XHosI0Kv0I69aqWsbqu3f+dw>
- <2387af87-2391-4dff-b826-831ffac4d536n@googlegroups.com>
- <AS8PR02MB66633DD8003EB0A9403A3ED3B6A79@AS8PR02MB6663.eurprd02.prod.outlook.com>
-Subject: Re: Crash when creating root cell in x86 -----FATAL: Invalid PIO
- read, port: 5658 size: 4
+Received: by 2002:a05:600c:4646:: with SMTP id n6ls1043762wmo.3.canary-gmail;
+ Tue, 28 Sep 2021 02:28:18 -0700 (PDT)
+X-Received: by 2002:a05:600c:1c9a:: with SMTP id k26mr3520960wms.169.1632821298930;
+        Tue, 28 Sep 2021 02:28:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1632821298; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Jr342ETiSK6QY/BnJJHpwdu4CYBJZU2gJg5Zz1jin1PqqUbnRcdebQKO8lK3SL5xIE
+         XanLxLaHDGj6rGYa3LylekLcCrdT5iHUcRBpLGuZKb8Zz/MmT8ZmqHPVlTnI9f/m1T7H
+         I/HvLvNqceHZ1jTNY+NqbSuh8RDLMJkq0pjgdyf0vWzFznqlFi1AlVfFj61AwgHfLfLD
+         /qg3PiaFwrJJzZKYGTEJ6PTRqOK1+UgpgAmm3gAXR/DJDz3oCEIQbBDSzrRNsrfkDtTI
+         VT4zeEIST7dD1V2a02otMPzG2w1mPnewjR4Isu1sGIZdkfE1KuGI7NPQ13dqCNT2dsjZ
+         r0iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject
+         :dkim-signature;
+        bh=zTTNf3659ZoA0UX1Z7IZMB+xOzUnfdyb0IadPm1X1Og=;
+        b=ZySgunX1pvqb11flvJX4RGwxXy7Lx/s8xXF9EbwjiVV28gNTunXnsk+2+x88+8tT/3
+         3M6PFY9bP8ayAjY6zL3uZj0K9x6lS+EJ7UK7w5+Zsg46jyjNxoExkB2dylAfd0QVnaLT
+         IakQvSNOA0tHDkAXVHJjHEZH5Iuuw5BDwwdwXUZSYFK4tsh2tnJhd65jK6NWyn6X0Jgj
+         Z0a70rRUNv44KVf/3ChDia1uTCmrGUi40dShhqFngiqLTIrVgldsL4dvJv8/Gt6WlRDK
+         wXs+veSODYpxgJSRckopeCxLL49NaLTQlMWzKPhJOVh7DVAL0DV1Oq3nB+xtqYNlKDay
+         ckOw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=q9WYimwn;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.3])
+        by gmr-mx.google.com with ESMTPS id m12si452637wrb.5.2021.09.28.02.28.18
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Sep 2021 02:28:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.178.20] ([94.217.148.121]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MhFhe-1mzHUZ2va6-00eTwP; Tue, 28
+ Sep 2021 11:28:18 +0200
+Subject: Re: cell create gets stuck on zynqmp
+To: Martin Kaistra <martin.kaistra@linutronix.de>,
+ jailhouse-dev@googlegroups.com
+References: <2ee07d25-ca98-8cc0-3299-3a393aa99fd8@linutronix.de>
+ <8092b487-f19d-dc89-98e0-cb68077792f9@web.de>
+ <5066f207-29e7-4576-5b06-c8f260c4d10a@linutronix.de>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <8ae7d02a-325c-1be6-fc2c-8654b5e8bd4b@web.de>
+Date: Tue, 28 Sep 2021 11:28:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4420_1714465735.1632757344683"
-X-Original-Sender: huangjiajun145041@gmail.com
+In-Reply-To: <5066f207-29e7-4576-5b06-c8f260c4d10a@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+X-Provags-ID: V03:K1:kkyTnawTR5XPeYCRrrNlF8s1QOPa5hT57i6/OdUgxygJqPvarhA
+ ttzH6/fCHn4zU59KgrnAr2bgVN/eCuAAqRxeMZTt//b1MvWecht7dF2+Nalvj/VHTIS0nnZ
+ IgrAeGz/mgiZEXKf8Bf3mIYqtclKy08N81JXT2XGQJ0dEAd5WqvzeWiInhtN5kBcSnetQK1
+ Yk61xuSzBQf8z6n/fOJHQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:JqeylwvjAPw=:NxFTLSkQK4d3LjxpKWKOlV
+ gfwzgZudvXOoGThgmFPuhnGaD9hMsrkJdccjNjuZb8O0XNTDMwElCpQAbZ8ULJnTFKnd9h/GB
+ oA+KC2k4cSuNgbqUUMFvv8oIi5tvaoWKbr+BElrLva/XJqanF1c39MrHyZcaasqDFa4rjzteu
+ I9eyM9o7aW+2Zw8Watr5xbw+ESpKR6uQ3TkeIGGN+nQJI1la8jIB85DJm9ZfLxZe2pPYYfBKb
+ vzU4Wf3Sy51E4Je1bJkgfiuVmeAGuYJr09XXCn6ssro4lvr6uggUMm5mcHQs/Et9/RvWSy5as
+ zvchgRnwt1TQtC7FOBuqnIdGMxHK3F6/T81PRsyk2MFWmgbuGY2HO3uJUM3pJW2wNxmWfhHUN
+ 41xqd3/onNRDt2V6kmPvQEAQDvZkqTSiwY/Q2FZiI4pLDvK+KpcjkQCiJP9PEhWbrm3/jsv5p
+ 3P2sVISaDyg4iEQmjKOQFCuc0qkt1LqaWV5BJ92SKdj81H6QCL9tqVgFnKOq3Jzhq7tjjD5TP
+ sEEZ64c52NKQKQxumoO7QELThcK+Ku/9KMOIQzy5jTUBfqH3n8bv91VzVqz0ewtzpw02g2aB3
+ fyZ+57ISHygs9NClru5lLDhCD2LmKFxndNn4v7u9yuxTF5LJ/CBnVoYFsM1XNov1/zJQhiXcM
+ l/jcxT1u9Obgic5yTP/w1RANxCQccrq1ob5rmwHjGZ3YyeQ6UblmR6L3JcCJ3Ulz1e5R2hujD
+ 8bE4OdGT4j9sw80naM/0cbZwCK4ZVclt/uPWRZi8AyO4WM/eqU+8ESsIwawWiS9YMXf3pjCsR
+ oQ8FSmy2uZfWlk1bfRQbB5AZ99uj760a7sPAqc6sL0JJNwYTiBu+mgROk5y5qoiFCIrOgjaEI
+ hL1jTHqSkFETFMfvO4zBQ/182nzqF23ZaBPeO9YvOCIa0kRgT8/5NivHg1/UoVzuJJFFktyX8
+ V7MgXhhGAU2KWABO2+yq06U4nZzsD7sKMoandpj/P2lfULmAkKXf8kLyb5bUFRFm8479PxE4G
+ BCJ6dj1wFwNZ9XHLsrgbWhh6XmbwUQfrTbV3Xjp+Pec+IcXEVEgjUvviGjxxk5wHpVcEBqgT6
+ jeMx4CNrAbhAuY=
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=q9WYimwn;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,125 +156,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4420_1714465735.1632757344683
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4421_1208477026.1632757344683"
-
-------=_Part_4421_1208477026.1632757344683
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi=EF=BC=8C
-Thanks! Your suggestion is very useful. I have solved this problem with the=
-=20
-help of your linkage. jailhouse's default sysconfig.c seems can not be used=
-=20
-directly.
-Thanks,
-Jiajun
-
-=E5=9C=A82021=E5=B9=B49=E6=9C=8827=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC+=
-8 =E4=B8=8B=E5=8D=883:44:35<Bram Hooimeijer> =E5=86=99=E9=81=93=EF=BC=9A
-
-> > Hi,=20
-> > When I tried to execute jailhouse enable sysconfig.cell on x86 platform=
-,=20
-> the machine crashed later. This happens in QEMU as well. So I dumped the=
-=20
-> logs in QEMU and found that there was an error when jailhouse accessed po=
-rt=20
-> 5658 through PIO. Attached is the detailed log information. By the way, m=
-y=20
-> CPU is i5-9600K.
+On 27.09.21 10:30, Martin Kaistra wrote:
+> Am 24.09.21 um 17:46 schrieb Jan Kiszka:
+>>
+>> If suspend_cpu() does not progress, the target CPU is not reacting
+>> properly on the request to leave the guest and service the Jailhouse
+>> commands. Could be that you interrupts are not handles properly. Run
+>> "jailhouse config check" on your setup, maybe you are passing the
+>> interrupt controller through.
+>>
+>> Or are you using SDEI-based management interrupts? Would require a
+>> special TF-A version, so likely does not happen "by chance".
+>>
+>> Jan
+>>
 >
-> Hi,=20
+> Hi Jan,
 >
-> For debugging, please add your sysconfig.c as well. I expect the error ca=
-n=20
-> be=20
-> Fixed by enabling access to PIO range in the corresponding array in=20
-> sysconfig.c.
->
-> More on this can be found here,
->
-> https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-J=
-ailhouse-Tutorial.pdf
->
-> Jan's talk can be found online as well, if you rather listen to it.=20
->
-> Good luck, Bram
->
-> >=20
-> > thanks=EF=BC=8C
-> > Jiajun
+> "jailhouse config check" finds no problems with the root cell and inmate
+> configs.
+> Also, SDEI is not active. gicv2_send_sgi() is being used.
 >
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/09168d73-6852-4b4f-b1ef-97d6204ae3dan%40googlegroups.com.
+Then it would be good to continue debugging, now trying to understand
+what the target CPU is doing.
 
-------=_Part_4421_1208477026.1632757344683
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The CPU that requests the suspend sets suspend_cpu in the target data
+structure, then sends an IPI to that CPU and wait for the other side to
+confirm this via setting cpu_suspended. Check if the target CPU received
+the IPI, left the guest mode or what else it does by instrumenting the
+related code paths (check_events on arm64).
 
-Hi=EF=BC=8C<div>Thanks! Your suggestion is very useful. I have solved this =
-problem with the help of your linkage. jailhouse's default sysconfig.c seem=
-s can not be used directly.</div><div>Thanks,</div><div>Jiajun<br><br></div=
-><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=
-=A82021=E5=B9=B49=E6=9C=8827=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC+8 =E4=
-=B8=8B=E5=8D=883:44:35&lt;Bram Hooimeijer> =E5=86=99=E9=81=93=EF=BC=9A<br/>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">&gt; Hi,=20
-<br>&gt; When I tried to execute jailhouse enable sysconfig.cell on x86 pla=
-tform, the machine crashed later. This happens in QEMU as well. So I dumped=
- the logs in QEMU and found that there was an error when jailhouse accessed=
- port 5658 through PIO. Attached is the detailed log information. By the wa=
-y, my CPU is i5-9600K.
-<br>
-<br>Hi,=20
-<br>
-<br>For debugging, please add your sysconfig.c as well. I expect the error =
-can be=20
-<br>Fixed by enabling access to PIO range in the corresponding array in=20
-<br>sysconfig.c.
-<br>
-<br>More on this can be found here,
-<br><a href=3D"https://events.static.linuxfound.org/sites/events/files/slid=
-es/ELCE2016-Jailhouse-Tutorial.pdf" target=3D"_blank" rel=3D"nofollow" data=
--saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://e=
-vents.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jailhouse-Tu=
-torial.pdf&amp;source=3Dgmail&amp;ust=3D1632843150137000&amp;usg=3DAFQjCNFV=
-5_bdcfdWMmisa7f5X_y_7yISjQ">https://events.static.linuxfound.org/sites/even=
-ts/files/slides/ELCE2016-Jailhouse-Tutorial.pdf</a>
-<br>
-<br>Jan&#39;s talk can be found online as well, if you rather listen to it.=
-=20
-<br>
-<br>Good luck, Bram
-<br>
-<br>&gt;=20
-<br>&gt; thanks=EF=BC=8C
-<br>&gt;  Jiajun
-<br></blockquote></div>
+Jan
 
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/09168d73-6852-4b4f-b1ef-97d6204ae3dan%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/09168d73-6852-4b4f-b1ef-97d6204ae3dan%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_4421_1208477026.1632757344683--
-
-------=_Part_4420_1714465735.1632757344683--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8ae7d02a-325c-1be6-fc2c-8654b5e8bd4b%40web.de.
