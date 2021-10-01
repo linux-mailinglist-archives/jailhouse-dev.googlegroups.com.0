@@ -1,125 +1,135 @@
-Return-Path: <jailhouse-dev+bncBDNPJEGU2MKBBC772WFAMGQEBMQNNCY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW4LL4WQ4PBBA4V3SFAMGQEXXCPIZY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09FF041D60B
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Sep 2021 11:12:44 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id x26-20020a50f19a000000b003da81cce93bsf5566114edl.19
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Sep 2021 02:12:44 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1632993163; cv=pass;
+Received: from mail-pj1-x103c.google.com (mail-pj1-x103c.google.com [IPv6:2607:f8b0:4864:20::103c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CBB041EE59
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  1 Oct 2021 15:17:57 +0200 (CEST)
+Received: by mail-pj1-x103c.google.com with SMTP id o4-20020a17090a5b0400b0019f76ac2577sf1241889pji.9
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 01 Oct 2021 06:17:57 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1633094275; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xVt1wsSPppglcpJdNh78tQOejC9/69R7r6tjtNQo9LxyMeDvWOb80K+ifAX61fXkRK
-         CM5E537SkMqz4sdBHgj7G5BVTzV/ngs14+QBEd/bbHaY8pLOWn0IG0F2h/dZ1jPXMyxY
-         Xmc/BkbWV94IwMDv9r5bq3h12j0HaExyQdS5qKbneTb0snkrejRpcgRZIJ3NIv/tKbaE
-         5T4H7yz5e66tbLw9vgTfDMv7qKDdKp+aI6CWXWx70mqKJlwELa/aA8QiLrEIwI8L/V0P
-         ClUcaJCTF7Xx1gnChjfc/iJwKHuugwiDQjI8ljDS8/x/90jvXFudB5my0D6DC3uu8+tV
-         GfIA==
+        b=nrZGCHTu44IulgOu0uaavGtb50XWTPzlwG5ACzXHQx/tWLLZcjM6jGd1nVffRm7Xxr
+         n3IHhDMuF35bz5z5bOHovFz2qoAsWswcnnJREqpFSlf7BQj0qkPYW67HBl2O7looa1qo
+         jBVtn9Hxfq0t54m5qlUtGaiDVbtU5iyha76/PwRCW7cXzU7FkzU/sjx1JqPWFQAFijFn
+         AR/9vB9o+KHcTGPJ4lsM0OkxzjX1pJ7B9b9gbTMX2/l4IqV2nNpimOM4o0wZd1Hqr+n+
+         bWGEY8P2g5vktyQSnMhlQwP+6kEcPnDGUIVbDfMb/UXsmRsV6+lbQ3ikKaIk2IGXhMQm
+         n/7g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:in-reply-to
-         :mime-version:date:message-id:from:references:cc:to:subject:sender
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
          :dkim-signature;
-        bh=pR5VCL8tSrds8Zs2ttzF5bUnCGgMRVOOvM5wf/Z+Ufc=;
-        b=myJ5MVmy+PDWuU0m9a+np9oikT0Z6xRY6JAdbL6/350foRdinpG+r3jIxjYAUYtJvL
-         IeAee+71cVGL0LP4jpHCLXCAfkx1w3RbfLPx7PB1dkwKy+bJaFopf+FxUDkyJl829L8q
-         vNe5fLyRO+/oguHuLYvEriiiGpD9qtCiv+0GRva1nysr0di7hWLe19zgFKzLmk3x6kWh
-         /bb8HwDhjYh//rWO/COhQZs3smEXzaoqFIaPQ+ku5tJVcHCTndnX6injtCHx/6TPWC18
-         PcEGqD949n8PEDzZBXc4Qh+nOf1Wtz07kQi6C5KsPobPm1bpFFgvo2JJtmMlq2BAeLmI
-         eroQ==
+        bh=SA2snGE6JqABXoE6FzQ4nnV3Hv8/7+5CXks5q8WOKZs=;
+        b=AuLxyS34BSfRHmTyb+X95Qh5mNi54MgQTKFgwqnKRlNriSAonO+U6yBgAOOjeYL9c6
+         gKX5OKQrAoYTipqtd/zlaM1E7gpGjjH848RZqWLlb7loeaZMJwFy+lHSYHOxVrq3RRuR
+         GitOq9437lmXjKVbMgB3J/p/Tj3drWZhvrdU+7ap/RMf/q1j1Flva7E607n9bxU40URv
+         qpRqeMe7B5/3AeUcYX/+h39kCvH4Tr/pko72HoNYz4c4q8UwF3wVfoyDsypIlqj7yaIH
+         81W5ir/CbmAWuMNgSRgFnUgI0qslWYI9K7tRHDRLnOaXlCYVqGnnW5mi8n3Ii6XGMfzr
+         xwtw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=Ikiz83P4;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=wMRM1rQO;
-       spf=pass (google.com: domain of martin.kaistra@linutronix.de designates 193.142.43.55 as permitted sender) smtp.mailfrom=martin.kaistra@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=hUqxgvyo;
+       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::235 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:cc:references:from:message-id:date:mime-version
-         :in-reply-to:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=pR5VCL8tSrds8Zs2ttzF5bUnCGgMRVOOvM5wf/Z+Ufc=;
-        b=f7DJsySi/uwe5z1fYXE5/44zTU4waW4jJ0ZbatMCAfgy9iwfJCLERIJIGeV3LPCWA2
-         y6bkWiAlyfvmonspgCCIxu4Z8Bpmj4ZeAeJUcoFxLc37Ii61xmeqemBCRoxOQEsRnl6Y
-         pId2k74HvVuovp1V54av209CbCtvE1ywq0ZCj8vrq5YBspZAt2wXbpRCF5thKeHdwqX9
-         m8cRCPiW7Ue5RCSrb8o5SSSHezurjkMYRWRM2ocSpk62ljMTVRvrn9NQcDbkvSQm940b
-         ePuHYCaswpYuQ9dRsdp9p4cQgVq9n3AYd9rw2+5dR5DLzsjZNmgAhQ1/+Ccd/LlURHZq
-         aU+Q==
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=SA2snGE6JqABXoE6FzQ4nnV3Hv8/7+5CXks5q8WOKZs=;
+        b=kws0TEDO49Ie0Yl+zFl/eZu8AHpbeQHeyNpVguxfKpyFIQ6iDb4Cljxt+ojfo7IF3O
+         Op6o1o8yx9SdkIEKzZdcxCSlZofOVzKkxc4ymJ/syKoLsnhHpYYhrkrSNf/cFa8nU/Xs
+         EKKXFdQgSu5paVu69jtOEyIV4cwv2lbKC+7zVmVeheJCu0QhXTnFq6OkjO80lfV8JHen
+         fX3z3/W+pmkqBFHm+MpJo2M46xxhiH+FarM3FzwztEtnXZ2M7q5245tq7gkX7eiGa5eL
+         5aF7y0SjiwmncHJKMdr//BRIyYq8f+iWVU+DlFtaW//CRtWDiX6EkKJO2NBwfJBELRU4
+         TDDg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=SA2snGE6JqABXoE6FzQ4nnV3Hv8/7+5CXks5q8WOKZs=;
+        b=Cm65gU/5L16Ipu/KuRe3gDSm3S2zOArrlNA7fBRXQyGUrE4m7S7K6L375Tfzm2eJXF
+         QRcdJITMKCqmYesAVvSzVBgNcXbi014+y+WIbFxiW8YirVJ+lXDNUWt8OKAdV2lFepHi
+         PCzPjikPCcuw+Dml6NrNdhVukAVuluvaxSU9H3NUc3Whbo36EV11SfJ5zTDKzIPc5Tc/
+         onzBVILMoOjsAB40+6Xbi43cZUyzAVnLB/QDB0ztanO51Hh5Jso13Kgj4k9sKmsIBn3/
+         r/cXw0/fcjiMGJUJoxrCfw8++fikt+zmPPGhmvFFrwL3PbuBpqbQpUfWmap508CcW+k3
+         pAjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
-         :date:mime-version:in-reply-to:content-language:x-original-sender
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pR5VCL8tSrds8Zs2ttzF5bUnCGgMRVOOvM5wf/Z+Ufc=;
-        b=ErV0VUIG9g2SH5sjyEo4lH3SHjFLolmOPAG5Ax7kIRF29w1tJ7gccSOEe+ISEMxSrP
-         EVw5r9o9xQEUyspGSHZLNX41w6ZLdKiXuJ4LccG/AeXO/qAdCgGog/7xsGdT+tNBdYI8
-         YcNnYG9nTXyC5X7zkc9ciFgnH0bpERlODg9IpOxcf19ol9q1tl/H9qfVg7zVCBKsyQ/9
-         D0QJzgPNrmVz1PeF13G3D0V9KuFv1keQ57PToFgU3iVBwpvNfK2kMV/ccWcINW02AFMx
-         /tFm9XZ7vGIM2S+68XSZvNukTJMfIER3rl1TZftHcHHVgAiXirmjI1kFwhGDg0GL4Wwb
-         qmPg==
+        bh=SA2snGE6JqABXoE6FzQ4nnV3Hv8/7+5CXks5q8WOKZs=;
+        b=z4F09TCAMzP/HM6ojYZ56Xrqg+4h7bEvI/m6TK8XE18PnTFfdsoW8Fwt7do0sc6Yb8
+         0KCkAloZfC8Dth7b4tVdZSj/QB0JtDi7jj5VshyX30L3AnPCRsJot+CQQ99+zPmDiycg
+         cGszEZqDYRi3115nKwBcWHlrNPYuJcxdo4Lkz1Mi8zQZGNSvnjcTl5rk2tW7gx+v8OMb
+         Z7EFlb31nj5UP1lLjlPlDDGJIjmkzXmmN0u/vIqr9JpuiVtJbzix1FdOupu04zTkUmLw
+         uJUcvQpaDZhC7VQ925TkdcYLLp+9xI7ExyOYd28m5gpbmmIujPetN6sWviLTBdQhb0SK
+         VMJg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531IIGQHYBspKCjQZ7mXFLfI2NUyozUmYdXxGJHxwURnNX+ZkW3y
-	mnHkF6Vpr8iXeFxrbaD1P8o=
-X-Google-Smtp-Source: ABdhPJxzdleRw9EUCncGe1oM2g/Dw3Wm+GmJtp+5VA1Se9pM4oJYlOKZrwKOa4LTy2Jrq+kFXwrJ3Q==
-X-Received: by 2002:a05:6402:1a23:: with SMTP id be3mr5786900edb.372.1632993163813;
-        Thu, 30 Sep 2021 02:12:43 -0700 (PDT)
+X-Gm-Message-State: AOAM530pOnmTTNnbjqIjr10FsbiD0KxrLPrAFx/XYj53Ms1YdRvgysiI
+	5Kl00ZYKs925OEzdRQwR7nY=
+X-Google-Smtp-Source: ABdhPJxf53nDqsEiiOHHwwsYvG7BWtv6uUs3smh8wIzHfxqs4yMb4GJyvRkk+dk4mX/VV7n6mS/UUQ==
+X-Received: by 2002:a65:5c85:: with SMTP id a5mr9757488pgt.126.1633094275157;
+        Fri, 01 Oct 2021 06:17:55 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:d1d6:: with SMTP id bs22ls2260211ejb.3.gmail; Thu,
- 30 Sep 2021 02:12:42 -0700 (PDT)
-X-Received: by 2002:a17:906:a08a:: with SMTP id q10mr5285687ejy.100.1632993162881;
-        Thu, 30 Sep 2021 02:12:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1632993162; cv=none;
+Received: by 2002:a17:902:a409:: with SMTP id p9ls5477484plq.3.gmail; Fri, 01
+ Oct 2021 06:17:54 -0700 (PDT)
+X-Received: by 2002:a17:90b:224b:: with SMTP id hk11mr19549014pjb.231.1633094274378;
+        Fri, 01 Oct 2021 06:17:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1633094274; cv=none;
         d=google.com; s=arc-20160816;
-        b=lNMtshYaDQzJA9CVVCjx41SHk8oFd20euE82wugOivS6OvOaeg+igjXTZQa5d9X78R
-         v0rPRUqdkjJh5XdOdqLkMBPhkgWp5PKytFy1NK9j1O/ueurWcnIw0WGwB/NJN7lzZ+r6
-         JBndAKkk/FMMg0w46p7wYXqh/8hE/JAawffZFspZ18vSkHfEV+Bopj6GSYLwXfPdNay6
-         Nnb1IfwI3A5Y4PT4abZ5V7tl+wAuaWJZV2M3W3jXsJw6htlId9h24FtkHcOgPBSPLFEH
-         KIAlVKY+ANY3Xl6bnr7gqaMTeFVpehetUHH39Pnq2gtX31D3nmfZsm+fCcdIRb0xNz5N
-         Fkrw==
+        b=hmmkalq1ed2na4z8elNlp9tqJjuJnuR4OVchhwrujGLk09lmQexEMBSk5rPC26P0eU
+         oed4PDprnO0xmk8fvjxN6epBhczmDO4fKm3bhnHZ17Ev2+IMC/0lvzt2EXAXetaxMRix
+         OAkYcco0ZNQuiB+NiWMEb9Ro3YRZeC79SHs4mUBGG/R5q2CuDNw++/uHBNcTNN0/YSIg
+         UBtNHZJUpxw82LSRSXOHGKlYDgHSWAIKRalnv5Y9loSXzMpDI5K2DJ+1dUvRrMSICm5K
+         9Qw5CsQT+idMio12HM/cNVEEi9yBmK8s3nW7YLxej25EFVgQGj0+VFKGGLvlP/er7+nh
+         0SUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :date:message-id:from:references:cc:to:dkim-signature:dkim-signature
-         :subject;
-        bh=Z7f+6vukd1Yfn16I+cDagwYhYI1gNE+L73cY20iZ8NE=;
-        b=EPresBOsR4xMkE4NhLKz8CQTjSJMxarZ2be0h78D+wQa9XWlZ3+ywxqjDZ3ZeOKYdH
-         Uz96hg6yOEwwqcIwZyGOMD/0lq7PuS6Cr7KwP/1J4k7qiQzm65nGAvktbzKJNUbx6KVA
-         osdzCyzY/Njx+Y39XLqdaosUGv+JfEdKGTtzeP8+Z8V2nyo05u2psiqdHmxkWqRyVBtJ
-         Hh2QQI6l76Cxt/j9j6kIdM3lisPiU1Bn4vutru4j5ExeonDOsNRvf7YujKkGnuelKxii
-         SDaXk1gv5lFaKRQw54Mr5zeXrWNJk2ltHGJEjQ/+dinozLit1w+MBL6UxLskH8Mi3iCt
-         fVTQ==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yaPDEv8clUObjRUPiSbgS5xYnyQAZKjl30dDl3oSKos=;
+        b=hARxAa9RYk5R7V7t0cqDCiLWmTL9J/Z/K88w9IlTf3i0sZR8tX8/9uAF44tn1/K79/
+         9D33bAjrEWGxM2SV15q3a/ir1UYqgTDxtJbCLGY5uh+CMxDOCN+sCcR3+8kH6N5Yt6+W
+         XzsS54OIsiStW6b0HDoIY0xCM8zUy9y/RDPEvEGz/hXyWkqj3XpUgFYVtxcVWeMQ0I2Q
+         onmtgbPlubQUVO74lZ/YiPbs+eaKpltzceHBHId/udHHhiVUmQiKaPEXqpexncKhXuE7
+         yjJXTs12Dbhxpt4BZqny5f+xEHLcKHjkEDt85FEgAnmTOyYtJcwdahovlAvgbVS3LThe
+         CobA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=Ikiz83P4;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=wMRM1rQO;
-       spf=pass (google.com: domain of martin.kaistra@linutronix.de designates 193.142.43.55 as permitted sender) smtp.mailfrom=martin.kaistra@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
-Received: from galois.linutronix.de (Galois.linutronix.de. [193.142.43.55])
-        by gmr-mx.google.com with ESMTPS id r23si198572edy.3.2021.09.30.02.12.42
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=hUqxgvyo;
+       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::235 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com. [2607:f8b0:4864:20::235])
+        by gmr-mx.google.com with ESMTPS id m1si183613pjv.1.2021.10.01.06.17.54
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Sep 2021 02:12:42 -0700 (PDT)
-Received-SPF: pass (google.com: domain of martin.kaistra@linutronix.de designates 193.142.43.55 as permitted sender) client-ip=193.142.43.55;
-Subject: Re: [PATCH 2/2] arm: gic-v2: clear SGI GICD active flag
-To: Jan Kiszka <jan.kiszka@web.de>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- jailhouse-dev@googlegroups.com
-Cc: Peng Fan <peng.fan@nxp.com>
-References: <20210930070704.2315052-1-peng.fan@oss.nxp.com>
- <20210930070704.2315052-2-peng.fan@oss.nxp.com>
- <de40c4af-207c-f96a-9acf-7b2a33d38957@web.de>
-From: Martin Kaistra <martin.kaistra@linutronix.de>
-Message-ID: <942722a3-4e4e-c797-42d5-31488a063990@linutronix.de>
-Date: Thu, 30 Sep 2021 11:12:42 +0200
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 01 Oct 2021 06:17:54 -0700 (PDT)
+Received-SPF: pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::235 as permitted sender) client-ip=2607:f8b0:4864:20::235;
+Received: by mail-oi1-x235.google.com with SMTP id w206so11406085oiw.4
+        for <jailhouse-dev@googlegroups.com>; Fri, 01 Oct 2021 06:17:54 -0700 (PDT)
+X-Received: by 2002:a05:6808:1494:: with SMTP id e20mr3744474oiw.28.1633094273724;
+ Fri, 01 Oct 2021 06:17:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <de40c4af-207c-f96a-9acf-7b2a33d38957@web.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Language: de-DE
-X-Original-Sender: martin.kaistra@linutronix.de
+References: <20210930070704.2315052-1-peng.fan@oss.nxp.com> <0251aa19-a5bf-e19b-344a-92189307f46b@web.de>
+In-Reply-To: <0251aa19-a5bf-e19b-344a-92189307f46b@web.de>
+From: Peng Fan <van.freenix@gmail.com>
+Date: Fri, 1 Oct 2021 21:17:34 +0800
+Message-ID: <CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1_X9W87BQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm: gic-v3: clear SGI GICR active flag
+To: Jan Kiszka <jan.kiszka@web.de>
+Cc: Peng Fan <peng.fan@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, 
+	jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="00000000000011f26905cd4a648d"
+X-Original-Sender: Van.Freenix@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@linutronix.de header.s=2020 header.b=Ikiz83P4;       dkim=neutral
- (no key) header.i=@linutronix.de header.s=2020e header.b=wMRM1rQO;
-       spf=pass (google.com: domain of martin.kaistra@linutronix.de designates
- 193.142.43.55 as permitted sender) smtp.mailfrom=martin.kaistra@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+ header.i=@gmail.com header.s=20210112 header.b=hUqxgvyo;       spf=pass
+ (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::235
+ as permitted sender) smtp.mailfrom=van.freenix@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,72 +142,231 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Am 30.09.21 um 10:53 schrieb Jan Kiszka:
+--00000000000011f26905cd4a648d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Jan Kiszka <jan.kiszka@web.de>=E4=BA=8E2021=E5=B9=B49=E6=9C=8830=E6=97=A5 =
+=E5=91=A8=E5=9B=9B=E4=B8=8B=E5=8D=884:54=E5=86=99=E9=81=93=EF=BC=9A
+
 > On 30.09.21 09:07, Peng Fan (OSS) wrote:
->> From: Peng Fan <peng.fan@nxp.com>
->>
->> With Linux Kernel 5.15
->> commit 6abbd6988971a ("irqchip/gic, gic-v3: Make SGIs use handle_percpu_devid_irq()"),
->> the on_each_cpu IPI_CALL_FUNC interrupt active flag will not be cleared
->> until interrupt handler finish.
->>
->> Without Jailhouse hypervisor enabled, everything is ok, but when
->> enabling jailhouse, HCR_EL2.[FMO | IMO] is set, that means NS-EL1
->> is actually accessing GICV_DIR when eoi_irq after enter_hypervisor
->> return. It not able to deactive the interrupt that is actually a
->> phyiscal irq which in active state.
->>
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
->> ---
->>
->> Note:
->>   Not tested on Hardware.
->>
->>   hypervisor/arch/arm-common/gic-v2.c | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/hypervisor/arch/arm-common/gic-v2.c b/hypervisor/arch/arm-common/gic-v2.c
->> index 31371de9..8a9f6201 100644
->> --- a/hypervisor/arch/arm-common/gic-v2.c
->> +++ b/hypervisor/arch/arm-common/gic-v2.c
->> @@ -101,6 +101,7 @@ static int gicv2_cpu_init(struct per_cpu *cpu_data)
->>   	unsigned int mnt_irq = system_config->platform_info.arm.maintenance_irq;
->>   	u32 vtr, vmcr;
->>   	u32 cell_gicc_ctlr, cell_gicc_pmr;
->> +	u32 gicd_isacter;
->>   	unsigned int n;
->>
->>   	/*
->> @@ -168,6 +169,10 @@ static int gicv2_cpu_init(struct per_cpu *cpu_data)
->>
->>   	cpu_data->public.gicc_initialized = true;
->>
->> +	/* Deactivate all active SGIs */
->> +	gicd_isacter = mmio_read32(gicd_base + GICD_ISACTIVER);
->> +	mmio_write32(gicd_base + GICD_ICACTIVER, gicd_isacter & 0xffff);
->> +
->>   	/*
->>   	 * Forward any pending physical SGIs to the virtual queue.
->>   	 * We will convert them into self-inject SGIs, ignoring the original
->>
-> 
-> Martin, could this be the issue you are seeing? Are you already using 5.15?
-> 
-> Jan
-> 
+> > From: Peng Fan <peng.fan@nxp.com>
+> >
+> > With Linux Kernel 5.15
+> > commit 6abbd6988971a ("irqchip/gic, gic-v3: Make SGIs use
+> handle_percpu_devid_irq()"),
+> > the on_each_cpu IPI_CALL_FUNC interrupt active flag will not be cleared
+> > until interrupt handler finish.
+> >
+> > Without Jailhouse hypervisor enabled, everything is ok, but when
+> > enabling jailhouse, HCR_EL2.[FMO | IMO] is set, that means NS-EL1
+> > is actually accessing ICV_DIR_EL1 when eoi_irq after enter_hypervisor
+> > return. It not able to deactive the interrupt that is actually a
+> > phyiscal irq which in active state.
+> >
+> > To ARM64, the IPI_CALL_FUNC is using SGI 1 which is same value as
+> > jailhouse SGI_EVENT.
+> >
+> > Then the following `jailhouse cell create` will hang the system, becaus=
+e
+> > the previous 'SGI_EVENT' is in active state and not deactivated, so
+> > the current SGI_EVENT issued not able to interrupt the target cpu core.
+> >
+> > To resolve this issue, let's clear the active bit of SGI_EVENT and
+> > SGI_INJECT before back to Linux.
+> >
+> > Tested on NXP i.MX8MP-EVK
+> >
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > ---
+> >  hypervisor/arch/arm-common/gic-v3.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/hypervisor/arch/arm-common/gic-v3.c
+> b/hypervisor/arch/arm-common/gic-v3.c
+> > index 03cface0..8327a95a 100644
+> > --- a/hypervisor/arch/arm-common/gic-v3.c
+> > +++ b/hypervisor/arch/arm-common/gic-v3.c
+> > @@ -200,7 +200,7 @@ static int gicv3_cpu_init(struct per_cpu *cpu_data)
+> >       unsigned long redist_addr =3D
+> system_config->platform_info.arm.gicr_base;
+> >       unsigned long redist_size =3D GIC_V3_REDIST_SIZE;
+> >       void *redist_base =3D gicr_base;
+> > -     unsigned long gicr_ispendr;
+> > +     unsigned long gicr_ispendr, gicr_isacter;
+> >       unsigned int n;
+> >       void *gicr;
+> >       u64 typer, mpidr;
+> > @@ -291,6 +291,10 @@ static int gicv3_cpu_init(struct per_cpu *cpu_data=
+)
+> >       /* After this, the cells access the virtual interface of the GIC.
+> */
+> >       arm_write_sysreg(ICH_HCR_EL2, ICH_HCR_EN);
+> >
+> > +     /* Clear SGI active flag */
+> > +     gicr_isacter =3D mmio_read32(gicr + GICR_ISACTIVER);
+> > +     mmio_write32(gicr + GICR_ICACTIVER, gicr_isacter & 0xffff);
+> > +
+>
+> Do we also have to migrate this state into the virtual GIC?
 
-Hi Jan,
 
-I am currently running some tests with this patch and it looks 
-promising. I have not been able to reproduce the issue so far.
-
-I am not using 5.15, but the mentioned commit 6abbd6988971a is also 
-present as a cherry-pick in the xilinx-v2021.1 kernel, that I use.
+I think no need. And it will introduce complexity
 
 Thanks,
-Martin
+Peng
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/942722a3-4e4e-c797-42d5-31488a063990%40linutronix.de.
+
+>
+> Jan
+>
+> >       /* Forward any pending physical SGIs to the virtual queue. */
+> >       gicr_ispendr =3D mmio_read32(gicr + GICR_ISPENDR);
+> >       for (n =3D 0; n < 16; n++) {
+> >
+>
+> --
+> You received this message because you are subscribed to the Google Groups
+> "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send an
+> email to jailhouse-dev+unsubscribe@googlegroups.com.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/0251aa19-a5bf-e19b-344a-9=
+2189307f46b%40web.de
+> .
+>
+--
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1_X9W87BQ%40mail.gm=
+ail.com.
+
+--00000000000011f26905cd4a648d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">Jan Kiszka &lt;<a href=3D"mailto:jan.kiszka@web.de">jan.kis=
+zka@web.de</a>&gt;=E4=BA=8E2021=E5=B9=B49=E6=9C=8830=E6=97=A5 =E5=91=A8=E5=
+=9B=9B=E4=B8=8B=E5=8D=884:54=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex">On 30.09.21 09:07, Peng Fan (OSS) wrote:<br>
+&gt; From: Peng Fan &lt;<a href=3D"mailto:peng.fan@nxp.com" target=3D"_blan=
+k">peng.fan@nxp.com</a>&gt;<br>
+&gt;<br>
+&gt; With Linux Kernel 5.15<br>
+&gt; commit 6abbd6988971a (&quot;irqchip/gic, gic-v3: Make SGIs use handle_=
+percpu_devid_irq()&quot;),<br>
+&gt; the on_each_cpu IPI_CALL_FUNC interrupt active flag will not be cleare=
+d<br>
+&gt; until interrupt handler finish.<br>
+&gt;<br>
+&gt; Without Jailhouse hypervisor enabled, everything is ok, but when<br>
+&gt; enabling jailhouse, HCR_EL2.[FMO | IMO] is set, that means NS-EL1<br>
+&gt; is actually accessing ICV_DIR_EL1 when eoi_irq after enter_hypervisor<=
+br>
+&gt; return. It not able to deactive the interrupt that is actually a<br>
+&gt; phyiscal irq which in active state.<br>
+&gt;<br>
+&gt; To ARM64, the IPI_CALL_FUNC is using SGI 1 which is same value as<br>
+&gt; jailhouse SGI_EVENT.<br>
+&gt;<br>
+&gt; Then the following `jailhouse cell create` will hang the system, becau=
+se<br>
+&gt; the previous &#39;SGI_EVENT&#39; is in active state and not deactivate=
+d, so<br>
+&gt; the current SGI_EVENT issued not able to interrupt the target cpu core=
+.<br>
+&gt;<br>
+&gt; To resolve this issue, let&#39;s clear the active bit of SGI_EVENT and=
+<br>
+&gt; SGI_INJECT before back to Linux.<br>
+&gt;<br>
+&gt; Tested on NXP i.MX8MP-EVK<br>
+&gt;<br>
+&gt; Signed-off-by: Peng Fan &lt;<a href=3D"mailto:peng.fan@nxp.com" target=
+=3D"_blank">peng.fan@nxp.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 hypervisor/arch/arm-common/gic-v3.c | 6 +++++-<br>
+&gt;=C2=A0 1 file changed, 5 insertions(+), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/hypervisor/arch/arm-common/gic-v3.c b/hypervisor/arch/arm=
+-common/gic-v3.c<br>
+&gt; index 03cface0..8327a95a 100644<br>
+&gt; --- a/hypervisor/arch/arm-common/gic-v3.c<br>
+&gt; +++ b/hypervisor/arch/arm-common/gic-v3.c<br>
+&gt; @@ -200,7 +200,7 @@ static int gicv3_cpu_init(struct per_cpu *cpu_data=
+)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long redist_addr =3D system_config-=
+&gt;platform_info.arm.gicr_base;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long redist_size =3D GIC_V3_REDIST_=
+SIZE;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *redist_base =3D gicr_base;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0unsigned long gicr_ispendr;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0unsigned long gicr_ispendr, gicr_isacter;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int n;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *gicr;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0u64 typer, mpidr;<br>
+&gt; @@ -291,6 +291,10 @@ static int gicv3_cpu_init(struct per_cpu *cpu_dat=
+a)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* After this, the cells access the virtual =
+interface of the GIC. */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0arm_write_sysreg(ICH_HCR_EL2, ICH_HCR_EN);<b=
+r>
+&gt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* Clear SGI active flag */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0gicr_isacter =3D mmio_read32(gicr + GICR_ISACTIVE=
+R);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0mmio_write32(gicr + GICR_ICACTIVER, gicr_isacter =
+&amp; 0xffff);<br>
+&gt; +<br>
+<br>
+Do we also have to migrate this state into the virtual GIC?</blockquote><di=
+v dir=3D"auto"><br></div><div dir=3D"auto">I think no need. And it will int=
+roduce complexity=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+Thanks,</div><div dir=3D"auto">Peng</div><div dir=3D"auto"><br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex" dir=3D"auto"><br>
+<br>
+Jan<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Forward any pending physical SGIs to the =
+virtual queue. */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0gicr_ispendr =3D mmio_read32(gicr + GICR_ISP=
+ENDR);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0for (n =3D 0; n &lt; 16; n++) {<br>
+&gt;<br>
+<br>
+-- <br>
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev%2Bunsubscribe@googlegroups.com" tar=
+get=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>.<br>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/0251aa19-a5bf-e19b-344a-92189307f46b%40web.de" rel=
+=3D"noreferrer" target=3D"_blank">https://groups.google.com/d/msgid/jailhou=
+se-dev/0251aa19-a5bf-e19b-344a-92189307f46b%40web.de</a>.<br>
+</blockquote></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature" =
+data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1_X9W87B=
+Q%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1=
+_X9W87BQ%40mail.gmail.com</a>.<br />
+
+--00000000000011f26905cd4a648d--
