@@ -1,68 +1,153 @@
-Return-Path: <jailhouse-dev+bncBCWJRXUWVQPBBB7U3SFAMGQEFAVF7DA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBB76A4CFAMGQE7KEGMQI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3e.google.com (mail-qv1-xf3e.google.com [IPv6:2607:f8b0:4864:20::f3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC6141F241
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  1 Oct 2021 18:40:42 +0200 (CEST)
-Received: by mail-qv1-xf3e.google.com with SMTP id ke16-20020a056214301000b003828c7cfd7bsf13747533qvb.8
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 01 Oct 2021 09:40:42 -0700 (PDT)
+Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFB7641FA80
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  2 Oct 2021 11:03:59 +0200 (CEST)
+Received: by mail-wm1-x339.google.com with SMTP id 200-20020a1c00d1000000b0030b3dce20e1sf7109384wma.0
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 02 Oct 2021 02:03:59 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1633165439; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=rT/3VUo2WCt01f7NkmO6bafmysLO5lt++yaVUdUw92IHHCG7ZLRFVohPxYE2g4mhkt
+         Tq7/CGfFRlqDdEucGI47bc3hkAiEkLS4xXSSQWbN6wBx/eJ3gVpUHQrHsQIf/oskXTfv
+         cEJvONIk1Pj/dLc2IqSThfO/IWUf6/BuVJ430y+SPBSzMVxiOWN/Hl4VC/vxSx4dVIF2
+         4j3tMYhmCFKg2MEmGGU8UGU5JY3m+s0AECIsbEmU1S35dE/3ZQMjjL45/iEmpChhCI4E
+         xn4PjkKFzXQ1lCi8MKy78I+u5gRfuSuL1Qqw/g9fvWKQGV9SjtjpE3LZ5JfDPaCMkKVT
+         XNTA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=4BNsPKNRynTS0PeFOrBA0il2GYDpswvj5zJ0+xggPS4=;
+        b=EdU+TnYfuGFBs75k5OrUPIHYKW2Xo92JY0Jva9+5i+mc+ZOSlJgmRhrF6G4+nA/bAg
+         wOxtaowRjB+Pgnt6+KXhNoCCyi/5k69LtEHEMBgmIgCRmYKpJ9Gcn/31uqaY3IOvcyhj
+         kiiDvRjeNOCUUKXoaVjI0mVakc/kElW9vcDwkzRjmV08NNXa7C4Vx+OX7qsyWmH1twmr
+         7XVGc7GIPlaCRqsCUGkMefkuBe9l380xL5q2PBighdkhqsG6aFu6bRf1UKBqjbaHnIMr
+         esZAMJxbiBzOdfZFx+hhv/aQ2zhSPgF3d0ABCZlbfbImJjtjcWWYqXX0zgxzitgSmZTI
+         MXfw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=PkQL2Xhu;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=2joij1swXBv8H4tIGTZB0Kee0YNrVkMdxi8qE5tfPqo=;
-        b=fJ99yYFY6l6kGjG+3be9vArOOwWuoug7lNo66G09exWRcWV1DcR6GTDOl9UK1oB16R
-         ltrJZwo8k4WZLMnUNB4X1Pu/wraO+NSh7rbYTsVerqZuy0VjpBFs3nEPqDzibab72FbY
-         PBOJ55/2CP69F+ccb4gzqL/Rvq0dq2XFSa6VwYxkvaA2O5Y+TQ7QWlmPKX2SSWLQOe08
-         zS2tidl/e1TImHDmOY8HIFsipN7aALwuw5p9bjeDKaYhDURgMM2gvhEo3jTSOY8Sj42E
-         iFFF7sI+psGgum06/iJnpqDWW+V+CUXqAJiE/LWRL2FTfzB+T6MmGK/ZA64VIAJfm7DE
-         EvQw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=2joij1swXBv8H4tIGTZB0Kee0YNrVkMdxi8qE5tfPqo=;
-        b=aJ5CapOqd76PsfUarWT+mW61Ksr7A4SOb3IcpfI/u8iuqjtr3s2RlEqfvlJC0iUUDB
-         IY7cIhZm3VXNHK7ECaDQefRcjvhewqd9bOcQNSOk+vhN1YAZX7Hp4Z1KRvFMFoVjrC1M
-         8oI7UirtU5y0kstV5DODlBJV7r8k0ni7h+dEZQi1Yji/ypBe2qtpdtCYlvZ8CAbPwLHZ
-         FYED2t4FZ6lOD5uF3/PyVomaPpoNCJduv74LdYZzD6Dkz/gtebW2jdkSngL+3BOhNhXP
-         Jhj6dTe502Ksq38AJXt8LKgE8g5OI5MVFow7q4iGHUbAj+mhopNaI4KgL19ckC8fHtE2
-         0moQ==
+        bh=4BNsPKNRynTS0PeFOrBA0il2GYDpswvj5zJ0+xggPS4=;
+        b=BCGaQ0a/vjRUPBQUbG9LBNFlHmkNq4bJo6Qtt1qQqpT7uVWj7K/JJ7PoPw9pD8WCo9
+         7Re2n/ecYfjRRBE7OYWpVe/m5qvPL36CGfEZxuZRDt6VWjeAISd82ndS6cBNiMrp2rLT
+         bFJ4gqJhDWPFw/xDBUMa1x0vmzBGYk9jt9uwCcDamvuJpI9KUJ5H0O2iE1Ow1bPTG5Fh
+         5kwUkbSMCfProoISpdhHT0BlM+PwYBxdcGe0wxg7f2tgauwVQZMnt9iAILw+X6FQGoot
+         Bj5rHvaJXFuFYaOMgWPahTiAP2X/uBbmQGdabUk44PjuyVCu52YX1C3ryswLxsQPUsI5
+         uRTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=2joij1swXBv8H4tIGTZB0Kee0YNrVkMdxi8qE5tfPqo=;
-        b=xkMSKmrIV9j5YVmc7en1y/3OR3PywX8bozlhC4UvdOthHznPXWXwR7GCwewwKLLCWj
-         eY7+VfVhehLA7jcBAjCLY4yb5Qf5F33+IhG8DBdzKVZywAS4rsx4CE2vCJ8tCC2CPcUC
-         PNT4O0t2OW/6EaOpVoTBQgOQ4wJ2QQzwi1a/ha+gGcY3GGk7LEny74K5wfaZRypPqIZe
-         4z8tPtr5qFmIqsjZE2FzsCY4/ZDdUDbQdtASJ6mBPOVdEkRqTbdhxkxNbFRvuA6rfxwj
-         PlWMQ+04wdxLYY7XL9qZnAnvc8e6fM26oUPd/xOaLEe3vQzRMTsLfEUHp8ixgqja02MW
-         s5Mg==
+        bh=4BNsPKNRynTS0PeFOrBA0il2GYDpswvj5zJ0+xggPS4=;
+        b=XUHDPk09yvZ+8HV8n02iEb6DJqG75uUhyHgxrgd0H9KLHsBDdgck/hmog5wmv0+cCD
+         7b3dPIoa+hlOAmi3780mnYql/udd5PY8eEA8LMGOcG4+get61TAvSChSgm/Nyzm0yZ5n
+         e2npVcr2P95aZL6Pf1aNu/129XB71o/ABJRcj1+J9px2NLVf3LVPmJa+sH5hmZ2ZQYxt
+         bbnUh83wRVnobMAw0NGDRJClqWpNh8Is39vCje5iJjNybHadeGp7/jNv89BUKtCRcbZ6
+         5v/S3Fbjw+0qz+S5vyGrH30BaIP2js1zI4V+B6D2uBp3D8qhG575k9+FYjO+wzBX6buR
+         RPVw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530/daCI+kM+iRsYUzY/Zd/3s1J75fkcfQRa7HTKScb+CTpikBJt
-	sVZ5ATRg/F4tdA09Z3roMME=
-X-Google-Smtp-Source: ABdhPJwj3t78MvhhzCjQvEsRdXIhv16egf3A0rdaP4x6kXwadnmPoZ1+c1A3Rp/9Y/XdOckExr2Lqg==
-X-Received: by 2002:a05:6214:4f4:: with SMTP id cl20mr3372025qvb.13.1633106439924;
-        Fri, 01 Oct 2021 09:40:39 -0700 (PDT)
+X-Gm-Message-State: AOAM531C8JNbTKTeHK0FUtv+EXYTOUJjP/uVp3OElj+qC0CnlwEbdsM6
+	56u75zXxK5LYqE28umxe7Uk=
+X-Google-Smtp-Source: ABdhPJwVblwMNnrK/QISwP1WSOFDtdmfgz7BsUVZBnofmrYcjcewMP4Y3XPFJb8muqpRYnEdd802Vw==
+X-Received: by 2002:a05:600c:649:: with SMTP id p9mr3092495wmm.126.1633165439627;
+        Sat, 02 Oct 2021 02:03:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:14a8:: with SMTP id x8ls6414333qkj.8.gmail; Fri, 01
- Oct 2021 09:40:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:62d:: with SMTP id 13mr10774043qkv.216.1633106439330;
-        Fri, 01 Oct 2021 09:40:39 -0700 (PDT)
-Date: Fri, 1 Oct 2021 09:40:38 -0700 (PDT)
-From: jiajun huang <huangjiajun145041@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <56692931-19ec-4a1a-9df9-f7a44eaa1869n@googlegroups.com>
-Subject: Root Cell crash in QEMU
+Received: by 2002:adf:c782:: with SMTP id l2ls17298240wrg.2.gmail; Sat, 02 Oct
+ 2021 02:03:58 -0700 (PDT)
+X-Received: by 2002:adf:9796:: with SMTP id s22mr2385136wrb.224.1633165438721;
+        Sat, 02 Oct 2021 02:03:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1633165438; cv=none;
+        d=google.com; s=arc-20160816;
+        b=roYchxD9YhLY+hjZScErs4desYGcooaC8c24aQ5lnsujf/lLM3epTRpeCDp0ibJ752
+         uUDTT5S7nUa3p8q/PgOGvjdgkNU3N5g1kVOEI3KKmpyhZYZ/fWnfAQSUuRtWxk5GYK4S
+         SbAyo+nTnv/dGpOYKPLLu+rfJq9jMPFNeAqJf7EGAUpFFEiopRtK8X4BkAhErrJimlvQ
+         /1BZKzgXjQVwBvkNMBXiBM4nkg2ztfs6xpQV+hjVa+KHWMEAIVrvSH2tEkAm7oWAkrIm
+         Ds1DH4hysq2HoHOUL4mm3Y+8lGh8Wi0uqgSTsTZXMfOqE17tk54vn4l7tPQCoIw94Qlo
+         dQ7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject
+         :dkim-signature;
+        bh=aVGoy30E+GlRp/YWW4tpqR4b/DnLTj9K/Qq689w0pQ0=;
+        b=KndnNhoqVL5nQhar/JqkCbZt4AUabegEdSIwM3s3g9uPJea/v2Vz6/SbNzU5btS8cw
+         /uqEg7zrx9sNx6RjZrwkr8RMm3dKmmzpnJvI71Sln2Qsr+zSJ7vvY1tzWcgji0J4B8Fi
+         jt4SozbsGK1dlQCyadlw3rJ1ToYqSzorjc0IWQaEzFP3+BuDYDASGob2bZwmzrldDhU2
+         Tzy5aGAmMLe/wIuLe0EvPJoFFCX1HZZ6Ez9JYAk+zeBKFBrv8V/gDMpYSmCyoax8pXrg
+         C1ErVM35rOuhx59QeNZtCJFSONC+gOxFEvQJVr47djjC3lp9K2DmfPKF9QOi//NXLyQo
+         QH4w==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=PkQL2Xhu;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+Received: from mout.web.de (mout.web.de. [212.227.15.3])
+        by gmr-mx.google.com with ESMTPS id p3si448756wrg.2.2021.10.02.02.03.58
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 02 Oct 2021 02:03:58 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [167.87.72.126] ([88.215.84.132]) by smtp.web.de (mrweb003
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 0MFt3u-1mcdKd1iAY-00Eujj; Sat, 02
+ Oct 2021 11:03:57 +0200
+Subject: Re: [PATCH 1/2] arm: gic-v3: clear SGI GICR active flag
+To: Peng Fan <van.freenix@gmail.com>
+Cc: Peng Fan <peng.fan@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+ jailhouse-dev@googlegroups.com
+References: <20210930070704.2315052-1-peng.fan@oss.nxp.com>
+ <0251aa19-a5bf-e19b-344a-92189307f46b@web.de>
+ <CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1_X9W87BQ@mail.gmail.com>
+From: Jan Kiszka <jan.kiszka@web.de>
+Message-ID: <017d4c43-657e-fb64-da41-9dfaceff48e7@web.de>
+Date: Sat, 2 Oct 2021 11:03:55 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1208_1787767723.1633106438579"
-X-Original-Sender: huangjiajun145041@gmail.com
+In-Reply-To: <CAEfxd-9ieAQoDOXNETBPqp01v9ZN6uZG9PTdaerob1_X9W87BQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:WzmaMVeJwadb7NgUYnAtL3r3Ij9kw1fnmi4b6uCIENLXe7nxOBK
+ VFMoCfCMF0FP6g+yEgEESV2wFuY8hv/WFN+ywB80tQGm7J/Mq4Fjdm4vr+PzCjHVTCkxcuN
+ azxpl4nkg0GC66gp43JVZB4J9VEUPW1Pyf3cqJQ3pRAkf/oa4tNJCavK1Xvi8Wkx0F7WFlU
+ wuxLL2zRoAyuyEi1hfGoQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:7TCnSkEk48M=:r1qoi+N/W9TO/v8MwjqoMf
+ l5H2W1XzEd/TwXkUZ1d/uMHJ1heaX2qm/n0Fl/H8aIfefvymi/g89+TbIL63/pN258t5tKhtG
+ qTPo86b5WQSsBwhinz2aXvT0WDZlDI1E7ZQ4TChQAOAatqCriw3Wq+X3ilPDeqjXr/AnmjF5U
+ DjAuQLt/U5rJlS54c+nUpDsop4IbmsNU4omQxwevdhdzrVahQPxLDH+x4IufwL/bp5X3ytWSq
+ Yjfr2tw8ijHgw6pkKWDXvPzuj0rEZhglvfMPswzVdzkWUx04Z4XqVVDqe9enh60L6/yW1Zbwu
+ scx8OgcApD6lEIuTaIjuLoGzWCVgMaKQR7t8ZElUWckKfpGLfuxpmDKT6/f/QpISMNWjwgWY4
+ cBCerstq+M8dXg+dC/pfbURjrj7z/u1A+BaIh8ji3AY2iVAoh2IwJC7mODszwd4o8ZmHjb9Zh
+ xVDyTmudrM6nqik2HwGb5IidRaZMdnEopHAUDjidVxTwJHTPb3ZVyBFszAFQmxJLXWqBnbueW
+ ecCjYWF1ihsQ5OZiQPf9JuZjuUyc694f0o7tTcnr8JvO7A4o7PuxOLkFjkn9aLh27xcGGGSRl
+ kPJWY30Jwsi84S9UjdULdnANHH7+EZ+tUd96cDAwAZf4D9tBpzUaLl8Aee3qzevmy/mA+xokE
+ XZdDXPk5Io0cd5JD/Tg/vN4AniMP8ocfvRo0R7A0stO8zUncW6pbXCoSO4JYjAC7EVeFSp/Tf
+ BcOb/JNnunqRYOmZ+i1+em3yoPtOEHKIuRgokUlUS6vpjYFgmE2N/ytGLEmDIJOqTyzUcIaCx
+ rsrRYEGRSSojKyibawV1k47+rojr/kw6EWOCSmXNs7serb8go4O+v1WoBedtqFWj7ruuITiQD
+ ZIxaJR/nyyBxPijTZFVLHtyiC2sv6o5XdBlGtXetxDmi04uroYKJyd5AlddljR7Q8sSkQTcRV
+ Yr2eSKCL/wHT00H0+TWyTklECJ2+953PM9tvSZtCa2Yu1HoB/VPe1zytNOZ4jd/MAYzmDXxw+
+ IY5MPVMU5N9Xs2an6NfdPOxyAMtgzLc7c2gMjUjAGc90AhA1AtEwwaxvegVWwUcWs37A9bmmo
+ mw8NImoBwzH7FQ=
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=PkQL2Xhu;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
+ sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,68 +160,96 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1208_1787767723.1633106438579
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1209_1060096179.1633106438579"
+On 01.10.21 15:17, Peng Fan wrote:
+>
+>
+> Jan Kiszka <jan.kiszka@web.de <mailto:jan.kiszka@web.de>>=E4=BA=8E2021=E5=
+=B9=B49=E6=9C=8830=E6=97=A5
+> =E5=91=A8=E5=9B=9B=E4=B8=8B=E5=8D=884:54=E5=86=99=E9=81=93=EF=BC=9A
+>
+>     On 30.09.21 09:07, Peng Fan (OSS) wrote:
+>     > From: Peng Fan <peng.fan@nxp.com <mailto:peng.fan@nxp.com>>
+>     >
+>     > With Linux Kernel 5.15
+>     > commit 6abbd6988971a ("irqchip/gic, gic-v3: Make SGIs use
+>     handle_percpu_devid_irq()"),
+>     > the on_each_cpu IPI_CALL_FUNC interrupt active flag will not be
+>     cleared
+>     > until interrupt handler finish.
+>     >
+>     > Without Jailhouse hypervisor enabled, everything is ok, but when
+>     > enabling jailhouse, HCR_EL2.[FMO | IMO] is set, that means NS-EL1
+>     > is actually accessing ICV_DIR_EL1 when eoi_irq after enter_hypervis=
+or
+>     > return. It not able to deactive the interrupt that is actually a
+>     > phyiscal irq which in active state.
+>     >
+>     > To ARM64, the IPI_CALL_FUNC is using SGI 1 which is same value as
+>     > jailhouse SGI_EVENT.
+>     >
+>     > Then the following `jailhouse cell create` will hang the system,
+>     because
+>     > the previous 'SGI_EVENT' is in active state and not deactivated, so
+>     > the current SGI_EVENT issued not able to interrupt the target cpu
+>     core.
+>     >
+>     > To resolve this issue, let's clear the active bit of SGI_EVENT and
+>     > SGI_INJECT before back to Linux.
+>     >
+>     > Tested on NXP i.MX8MP-EVK
+>     >
+>     > Signed-off-by: Peng Fan <peng.fan@nxp.com <mailto:peng.fan@nxp.com>=
+>
+>     > ---
+>     >=C2=A0 hypervisor/arch/arm-common/gic-v3.c | 6 +++++-
+>     >=C2=A0 1 file changed, 5 insertions(+), 1 deletion(-)
+>     >
+>     > diff --git a/hypervisor/arch/arm-common/gic-v3.c
+>     b/hypervisor/arch/arm-common/gic-v3.c
+>     > index 03cface0..8327a95a 100644
+>     > --- a/hypervisor/arch/arm-common/gic-v3.c
+>     > +++ b/hypervisor/arch/arm-common/gic-v3.c
+>     > @@ -200,7 +200,7 @@ static int gicv3_cpu_init(struct per_cpu
+>     *cpu_data)
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long redist_addr =3D
+>     system_config->platform_info.arm.gicr_base;
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long redist_size =3D GIC_V3_REDI=
+ST_SIZE;
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0void *redist_base =3D gicr_base;
+>     > -=C2=A0 =C2=A0 =C2=A0unsigned long gicr_ispendr;
+>     > +=C2=A0 =C2=A0 =C2=A0unsigned long gicr_ispendr, gicr_isacter;
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int n;
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0void *gicr;
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0u64 typer, mpidr;
+>     > @@ -291,6 +291,10 @@ static int gicv3_cpu_init(struct per_cpu
+>     *cpu_data)
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0/* After this, the cells access the virtu=
+al interface of the
+>     GIC. */
+>     >=C2=A0 =C2=A0 =C2=A0 =C2=A0arm_write_sysreg(ICH_HCR_EL2, ICH_HCR_EN)=
+;
+>     >
+>     > +=C2=A0 =C2=A0 =C2=A0/* Clear SGI active flag */
+>     > +=C2=A0 =C2=A0 =C2=A0gicr_isacter =3D mmio_read32(gicr + GICR_ISACT=
+IVER);
+>     > +=C2=A0 =C2=A0 =C2=A0mmio_write32(gicr + GICR_ICACTIVER, gicr_isact=
+er & 0xffff);
+>     > +
+>
+>     Do we also have to migrate this state into the virtual GIC?
+>
+>
+> I think no need. And it will introduce complexity=C2=A0
+>
 
-------=_Part_1209_1060096179.1633106438579
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Likely right, the general interrupt mask will prevent that the root cell
+is seeing any unexpected nesting of SGIs.
 
-Dear Jailhouse community=EF=BC=8C
+Applied both patches, just transplanting the inline comment from patch 2
+to patch 1.
 
-I am currently running into an issue when trying boot jailhouse on QEMU. I=
-=20
-follow the guidelines on https://github.com/siemens/jailhouse/tree/wip/kvm.=
-=20
-When I use the sysconfig.c created by "jailhouse config create -c ttyS0=20
---mem-hv 128M --mem-inmates 1536M configs/x86/sysconfig.c" to enable root=
-=20
-cell, the issue "FATAL: Invalid PIO read, port: 5658 size: 4" and "FATAL:=
-=20
-Invalid MMIO/RAM read" happened. I solved these issues with the help of=20
-https://events.static.linuxfound.org/sites/events/files/slides/ELCE2016-Jai=
-lhouse-Tutorial.pdf.=20
-Attached is the modified sysconfig.c file. However, the root cell will=20
-still crash with no log a few minutes later.=20
-
-Initializing Jailhouse hypervisor v0.12 (5-g06ba27d-dirty) on CPU 0
-Code location: 0xfffffffff0000050
-Using x2APIC
-Page pool usage after early setup: mem 108/32207, remap 0/131072
-Initializing processors:
- CPU 0... (APIC ID 0) OK
- CPU 1... (APIC ID 1) OK
- CPU 3... (APIC ID 3) OK
- CPU 2... (APIC ID 2) OK
-Initializing unit: VT-d
-DMAR unit @0xfed90000/0x1000
-Reserving 24 interrupt(s) for device ff:00.0 at index 0
-Initializing unit: IOAPIC
-Initializing unit: Cache Allocation Technology
-Initializing unit: PCI
-Adding PCI device 00:00.0 to cell "RootCell"
-Adding PCI device 00:01.0 to cell "RootCell"
-Adding PCI device 00:02.0 to cell "RootCell"
-Reserving 5 interrupt(s) for device 00:02.0 at index 24
-Adding PCI device 00:1b.0 to cell "RootCell"
-Reserving 1 interrupt(s) for device 00:1b.0 at index 29
-Adding PCI device 00:1f.0 to cell "RootCell"
-Adding PCI device 00:1f.2 to cell "RootCell"
-Reserving 1 interrupt(s) for device 00:1f.2 at index 30
-Adding PCI device 00:1f.3 to cell "RootCell"
-Page pool usage after late setup: mem 333/32207, remap 65542/131072
-Activating hypervisor
-
-
-I want to know if I need to add all the missing PCI memory regions and PCI=
-=20
-IO ports to sysconfig.c according to the results of /proc/iomem and=20
-/proc/ioports?
-
-Best regards,
-
-Jiajun Huang
+Thanks,
+Jan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -144,643 +257,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/56692931-19ec-4a1a-9df9-f7a44eaa1869n%40googlegroups.com.
-
-------=_Part_1209_1060096179.1633106438579
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Dear Jailhouse community=EF=BC=8C</div><div><br></div><div>I am curren=
-tly running into an issue when trying boot jailhouse on QEMU. I follow the =
-guidelines on https://github.com/siemens/jailhouse/tree/wip/kvm. When I use=
- the sysconfig.c created by "jailhouse config create -c ttyS0 --mem-hv 128M=
- --mem-inmates 1536M configs/x86/sysconfig.c" to enable root cell, the issu=
-e "FATAL: Invalid PIO read, port: 5658 size: 4" and "FATAL: Invalid MMIO/RA=
-M read" happened. I solved these issues with the help of https://events.sta=
-tic.linuxfound.org/sites/events/files/slides/ELCE2016-Jailhouse-Tutorial.pd=
-f. Attached is the modified sysconfig.c file. However, the root cell will s=
-till crash with no log a few minutes later.&nbsp;</div><div><br></div><div>=
-<div>Initializing Jailhouse hypervisor v0.12 (5-g06ba27d-dirty) on CPU 0</d=
-iv><div>Code location: 0xfffffffff0000050</div><div>Using x2APIC</div><div>=
-Page pool usage after early setup: mem 108/32207, remap 0/131072</div><div>=
-Initializing processors:</div><div>&nbsp;CPU 0... (APIC ID 0) OK</div><div>=
-&nbsp;CPU 1... (APIC ID 1) OK</div><div>&nbsp;CPU 3... (APIC ID 3) OK</div>=
-<div>&nbsp;CPU 2... (APIC ID 2) OK</div><div>Initializing unit: VT-d</div><=
-div>DMAR unit @0xfed90000/0x1000</div><div>Reserving 24 interrupt(s) for de=
-vice ff:00.0 at index 0</div><div>Initializing unit: IOAPIC</div><div>Initi=
-alizing unit: Cache Allocation Technology</div><div>Initializing unit: PCI<=
-/div><div>Adding PCI device 00:00.0 to cell "RootCell"</div><div>Adding PCI=
- device 00:01.0 to cell "RootCell"</div><div>Adding PCI device 00:02.0 to c=
-ell "RootCell"</div><div>Reserving 5 interrupt(s) for device 00:02.0 at ind=
-ex 24</div><div>Adding PCI device 00:1b.0 to cell "RootCell"</div><div>Rese=
-rving 1 interrupt(s) for device 00:1b.0 at index 29</div><div>Adding PCI de=
-vice 00:1f.0 to cell "RootCell"</div><div>Adding PCI device 00:1f.2 to cell=
- "RootCell"</div><div>Reserving 1 interrupt(s) for device 00:1f.2 at index =
-30</div><div>Adding PCI device 00:1f.3 to cell "RootCell"</div><div>Page po=
-ol usage after late setup: mem 333/32207, remap 65542/131072</div><div>Acti=
-vating hypervisor</div></div><div><br></div><div><br></div><div>I want to k=
-now if I need to add all the missing PCI memory regions and PCI IO ports to=
- sysconfig.c according to the results of /proc/iomem and /proc/ioports?</di=
-v><div><br></div><div>Best regards,</div><div><br></div><div>Jiajun Huang</=
-div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/56692931-19ec-4a1a-9df9-f7a44eaa1869n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/56692931-19ec-4a1a-9df9-f7a44eaa1869n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1209_1060096179.1633106438579--
-
-------=_Part_1208_1787767723.1633106438579
-Content-Type: application/octet-stream; name=iomem
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=iomem
-X-Attachment-Id: 87be9467-26ee-438a-8a87-8350d07e1f5a
-Content-ID: <87be9467-26ee-438a-8a87-8350d07e1f5a>
-
-00000000-00000fff : Reserved
-00001000-0009fbff : System RAM
-0009fc00-0009ffff : Reserved
-000a0000-000bffff : PCI Bus 0000:00
-000c0000-000c99ff : Video ROM
-000ca000-000cadff : Adapter ROM
-000cb000-000cd3ff : Adapter ROM
-000f0000-000fffff : Reserved
-  000f0000-000fffff : System ROM
-00100000-7ffdefff : System RAM
-7ffdf000-7fffffff : Reserved
-80000000-afffffff : PCI Bus 0000:00
-b0000000-bfffffff : PCI MMCONFIG 0000 [bus 00-ff]
-  b0000000-bfffffff : Reserved
-    b0000000-bfffffff : pnp 00:06
-c0000000-febfffff : PCI Bus 0000:00
-  fd000000-fdffffff : 0000:00:01.0
-  feb40000-feb7ffff : 0000:00:02.0
-  feb80000-feb9ffff : 0000:00:02.0
-    feb80000-feb9ffff : e1000e
-  feba0000-febbffff : 0000:00:02.0
-    feba0000-febbffff : e1000e
-  febd0000-febd3fff : 0000:00:02.0
-    febd0000-febd3fff : e1000e
-  febd4000-febd7fff : 0000:00:1b.0
-    febd4000-febd7fff : ICH HD audio
-  febd8000-febd8fff : 0000:00:01.0
-  febd9000-febd9fff : 0000:00:1f.2
-    febd9000-febd9fff : ahci
-fec00000-fec003ff : IOAPIC 0
-fed00000-fed003ff : HPET 0
-  fed00000-fed003ff : PNP0103:00
-fed1c000-fed1ffff : Reserved
-  fed1f410-fed1f414 : iTCO_wdt.1.auto
-fed90000-fed90fff : dmar0
-fee00000-fee00fff : Local APIC
-feffc000-feffffff : Reserved
-fffc0000-ffffffff : Reserved
-100000000-27fffffff : System RAM
-  186a00000-187800e90 : Kernel code
-  187800e91-1882570ff : Kernel data
-  188518000-1889fffff : Kernel bss
-280000000-a7fffffff : PCI Bus 0000:00
-
-------=_Part_1208_1787767723.1633106438579
-Content-Type: application/octet-stream; name=ioports
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=ioports
-X-Attachment-Id: 90560d35-0819-4317-a744-448541d959b3
-Content-ID: <90560d35-0819-4317-a744-448541d959b3>
-
-0000-0cf7 : PCI Bus 0000:00
-  0000-001f : dma1
-  0020-0021 : pic1
-  0040-0043 : timer0
-  0050-0053 : timer1
-  0060-0060 : keyboard
-  0064-0064 : keyboard
-  0070-0077 : rtc0
-  0080-008f : dma page reg
-  00a0-00a1 : pic2
-  00c0-00df : dma2
-  00f0-00ff : fpu
-  02f8-02ff : serial
-  0378-037a : parport0
-  03c0-03df : vga+
-  03f8-03ff : serial
-  0510-051b : QEMU0002:00
-    0510-051b : fw_cfg_io
-  0600-067f : 0000:00:1f.0
-    0600-0603 : ACPI PM1a_EVT_BLK
-    0604-0605 : ACPI PM1a_CNT_BLK
-    0608-060b : ACPI PM_TMR
-    0620-062f : ACPI GPE0_BLK
-    0630-0633 : iTCO_wdt.1.auto
-    0660-067f : iTCO_wdt.1.auto
-  0700-073f : 0000:00:1f.3
-0cf8-0cff : PCI conf1
-0d00-ffff : PCI Bus 0000:00
-  c040-c05f : 0000:00:02.0
-  c060-c07f : 0000:00:1f.2
-    c060-c07f : ahci
-
-------=_Part_1208_1787767723.1633106438579
-Content-Type: text/x-csrc; charset=US-ASCII; name=sysconfig.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=sysconfig.c
-X-Attachment-Id: fc15fddf-1ed1-450a-83d1-a8a4d3ceb4df
-Content-ID: <fc15fddf-1ed1-450a-83d1-a8a4d3ceb4df>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Copyright (c) Siemens AG, 2014-2017
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- *
- * Alternatively, you can use or redistribute this file under the following
- * BSD license:
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Configuration for QEMU Standard PC (Q35 + ICH9, 2009)
- * created with '/usr/local/libexec/jailhouse/jailhouse config create -c ttyS0 --mem-hv 128M --mem-inmates 1536M configs/x86/sysconfig.c'
- *
- * NOTE: This config expects the following to be appended to your kernel cmdline
- *       "memmap=0x68000000$0x16b000000"
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-	struct jailhouse_system header;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[17];
-	struct jailhouse_irqchip irqchips[1];
-	struct jailhouse_pio pio_regions[26];
-	struct jailhouse_pci_device pci_devices[7];
-	struct jailhouse_pci_capability pci_caps[9];
-} __attribute__((packed)) config = {
-	.header = {
-		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-		.hypervisor_memory = {
-			.phys_start = 0x16b000000,
-			.size = 0x8000000,
-		},
-		.debug_console = {
-			.address = 0x3f8,
-			.type = JAILHOUSE_CON_TYPE_8250,
-			.flags = JAILHOUSE_CON_ACCESS_PIO |
-				 JAILHOUSE_CON_REGDIST_1,
-		},
-		.platform_info = {
-			.pci_mmconfig_base = 0xb0000000,
-			.pci_mmconfig_end_bus = 0xff,
-			.x86 = {
-				.pm_timer_address = 0x608,
-				.vtd_interrupt_limit = 128,
-				.iommu_units = {
-					{
-						.type = JAILHOUSE_IOMMU_INTEL,
-						.base = 0xfed90000,
-						.size = 0x1000,
-					},
-				},
-			},
-		},
-		.root_cell = {
-			.name = "RootCell",
-			.cpu_set_size = sizeof(config.cpus),
-			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-			.num_irqchips = ARRAY_SIZE(config.irqchips),
-			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
-			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-			.num_pci_caps = ARRAY_SIZE(config.pci_caps),
-		},
-	},
-
-	.cpus = {
-		0x000000000000000f,
-	},
-
-	.mem_regions = {
-		/* MemRegion: 00000000-0009fbff : System RAM */
-		{
-			.phys_start = 0x0,
-			.virt_start = 0x0,
-			.size = 0xa0000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000a0000-000bffff : PCI Bus 0000:00 adding */
-		{
-			.phys_start = 0xa0000,
-			.virt_start = 0xa0000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,	
-		},
-		/* MemRegion: 00100000-7ffdefff : System RAM */
-		{
-			.phys_start = 0x100000,
-			.virt_start = 0x100000,
-			.size = 0x7fedf000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: fd000000-fdffffff : 0000:00:01.0 */
-		{
-			.phys_start = 0xfd000000,
-			.virt_start = 0xfd000000,
-			.size = 0x1000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
-		{
-			.phys_start = 0xfeb40000,
-			.virt_start = 0xfeb40000,
-			.size = 0x40000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: feb80000-feb9ffff : e1000e */
-		{
-			.phys_start = 0xfeb80000,
-			.virt_start = 0xfeb80000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: feba0000-febbffff : e1000e */
-		{
-			.phys_start = 0xfeba0000,
-			.virt_start = 0xfeba0000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: febd1000-febd3fff : e1000e */
-		{
-			.phys_start = 0xfebd1000,
-			.virt_start = 0xfebd1000,
-			.size = 0x3000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: febd4000-febd7fff : ICH HD audio */
-		{
-			.phys_start = 0xfebd4000,
-			.virt_start = 0xfebd4000,
-			.size = 0x4000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: febd8000-febd8fff : 0000:00:01.0 */
-		{
-			.phys_start = 0xfebd8000,
-			.virt_start = 0xfebd8000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: febd9000-febd9fff : ahci */
-		{
-			.phys_start = 0xfebd9000,
-			.virt_start = 0xfebd9000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: fed00000-fed003ff : PNP0103:00 */
-		{
-			.phys_start = 0xfed00000,
-			.virt_start = 0xfed00000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: 100000000-168dfffff : System RAM */
-		{
-			.phys_start = 0x100000000,
-			.virt_start = 0x100000000,
-			.size = 0x68e00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 168e00000-16affffff : Kernel */
-		{
-			.phys_start = 0x168e00000,
-			.virt_start = 0x168e00000,
-			.size = 0x2200000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 1d3000000-27fffffff : System RAM */
-		{
-			.phys_start = 0x1d3000000,
-			.virt_start = 0x1d3000000,
-			.size = 0xad000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA,
-		},
-		/* MemRegion: 000c0000-000dffff : ROMs */
-		{
-			.phys_start = 0xc0000,
-			.virt_start = 0xc0000,
-			.size = 0x20000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* MemRegion: 173000000-1d2ffffff : JAILHOUSE Inmate Memory */
-		{
-			.phys_start = 0x173000000,
-			.virt_start = 0x173000000,
-			.size = 0x60000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-	},
-
-	.irqchips = {
-		/* IOAPIC 0, GSI base 0 */
-		{
-			.address = 0xfec00000,
-			.id = 0xff00,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-			},
-		},
-	},
-
-	.pio_regions = {
-		/* Port I/O: 0000-001f : dma1 */
-		PIO_RANGE(0x0, 0x20), 
-		/* Port I/O: 0020-0021 : pic1 */
-		PIO_RANGE(0x20, 0x2), 
-		/* Port I/O: 0040-0043 : timer0 */
-		PIO_RANGE(0x40, 0x4),
-		/* Port I/O: 0050-0053 : timer1 */
-		PIO_RANGE(0x50, 0x4), 
-		/* Port I/O: 0060-0060 : keyboard */
-		PIO_RANGE(0x60, 0x1),
-		/* Port I/O: 0064-0064 : keyboard */
-		PIO_RANGE(0x64, 0x1),
-		/* Port I/O: 0070-0077 : rtc0 */
-		PIO_RANGE(0x70, 0x8),
-		/* Port I/O: 0080-008f : dma page reg */
-		PIO_RANGE(0x80, 0x10), 
-		/* Port I/O: 00a0-00a1 : pic2 */
-		PIO_RANGE(0xa0, 0x2), 
-		/* Port I/O: 00c0-00df : dma2 */
-		PIO_RANGE(0xc0, 0x20), 
-		/* Port I/O: 00f0-00ff : fpu */
-		PIO_RANGE(0xf0, 0x10), 
-		/* Port I/O: 02f8-02ff : serial */
-		PIO_RANGE(0x2f8, 0x8),
-		/* Port I/O: 0378-037a : parport0 */
-		PIO_RANGE(0x378, 0x3), 
-		/* Port I/O: 03c0-03df : vga+ */
-		PIO_RANGE(0x3c0, 0x20),
-		/* Port I/O: 03f8-03ff : serial */
-		PIO_RANGE(0x3f8, 0x8),
-		/* Port I/O: 0510-051b : fw_cfg_io */
-		PIO_RANGE(0x510, 0xc), 
-		/* Port I/O: 0600-0603 : ACPI PM1a_EVT_BLK */
-		PIO_RANGE(0x600, 0x4), 
-		/* Port I/O: 0604-0605 : ACPI PM1a_CNT_BLK */
-		PIO_RANGE(0x604, 0x2), 
-		/* Port I/O: 0608-060b : ACPI PM_TMR */
-		PIO_RANGE(0x608, 0x4), 
-		/* Port I/O: 0620-062f : ACPI GPE0_BLK */
-		PIO_RANGE(0x620, 0x10), 
-		/* Port I/O: 0630-0633 : iTCO_wdt.1.auto */
-		PIO_RANGE(0x630, 0x4), 
-		/* Port I/O: 0660-067f : iTCO_wdt.1.auto */
-		PIO_RANGE(0x660, 0x20), 
-		/* Port I/O: 0700-073f : 0000:00:1f.3 */
-		PIO_RANGE(0x700, 0x40), 
-		/* Port I/O: c040-c05f : 0000:00:02.0 */
-		PIO_RANGE(0xc040, 0x20),
-		/* Port I/O: c060-c07f : 0000:00:1f.2 */
-		PIO_RANGE(0xc060, 0x20),
-		PIO_RANGE(0x5658, 0x4),
-	},
-
-	.pci_devices = {
-		/* PCIDevice: 00:00.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x0,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:01.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x8,
-			.bar_mask = {
-				0xff000000, 0x00000000, 0xfffff000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:02.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0x10,
-			.bar_mask = {
-				0xfffe0000, 0xfffe0000, 0xffffffe0,
-				0xffffc000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 6,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.msi_maskable = 0,
-			.num_msix_vectors = 5,
-			.msix_region_size = 0x1000,
-			.msix_address = 0xfebd0000,
-		},
-		/* PCIDevice: 00:1b.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0xd8,
-			.bar_mask = {
-				0xffffc000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 6,
-			.num_caps = 1,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1f.0 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0xf8,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0x00000000, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1f.2 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0xfa,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0xffffffe0, 0xfffff000,
-			},
-			.caps_start = 7,
-			.num_caps = 2,
-			.num_msi_vectors = 1,
-			.msi_64bits = 1,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-		/* PCIDevice: 00:1f.3 */
-		{
-			.type = JAILHOUSE_PCI_TYPE_DEVICE,
-			.iommu = 0,
-			.domain = 0x0,
-			.bdf = 0xfb,
-			.bar_mask = {
-				0x00000000, 0x00000000, 0x00000000,
-				0x00000000, 0xffffffc0, 0x00000000,
-			},
-			.caps_start = 0,
-			.num_caps = 0,
-			.num_msi_vectors = 0,
-			.msi_64bits = 0,
-			.msi_maskable = 0,
-			.num_msix_vectors = 0,
-			.msix_region_size = 0x0,
-			.msix_address = 0x0,
-		},
-	},
-
-	.pci_caps = {
-		/* PCIDevice: 00:02.0 */
-		{
-			.id = PCI_CAP_ID_PM,
-			.start = 0xc8,
-			.len = 0x8,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = PCI_CAP_ID_MSI,
-			.start = 0xd0,
-			.len = 0xe,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = PCI_CAP_ID_EXP,
-			.start = 0xe0,
-			.len = 0x14,
-			.flags = 0,
-		},
-		{
-			.id = PCI_CAP_ID_MSIX,
-			.start = 0xa0,
-			.len = 0xc,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x100,
-			.len = 0x40,
-			.flags = 0,
-		},
-		{
-			.id = PCI_EXT_CAP_ID_DSN | JAILHOUSE_PCI_EXT_CAP,
-			.start = 0x140,
-			.len = 0xc,
-			.flags = 0,
-		},
-		/* PCIDevice: 00:1b.0 */
-		{
-			.id = PCI_CAP_ID_MSI,
-			.start = 0x60,
-			.len = 0xe,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		/* PCIDevice: 00:1f.2 */
-		{
-			.id = PCI_CAP_ID_MSI,
-			.start = 0x80,
-			.len = 0xe,
-			.flags = JAILHOUSE_PCICAPS_WRITE,
-		},
-		{
-			.id = PCI_CAP_ID_SATA,
-			.start = 0xa8,
-			.len = 0x2,
-			.flags = 0,
-		},
-	},
-};
-
-------=_Part_1208_1787767723.1633106438579--
+jailhouse-dev/017d4c43-657e-fb64-da41-9dfaceff48e7%40web.de.
