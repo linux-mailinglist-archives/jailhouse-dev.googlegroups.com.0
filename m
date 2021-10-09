@@ -1,137 +1,189 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB2N262FAMGQETD27AYI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBD6ZQOFQMGQEVC6TJSA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60755423E4E
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 Oct 2021 14:58:18 +0200 (CEST)
-Received: by mail-wr1-x43b.google.com with SMTP id n18-20020adff092000000b001609d9081d4sf1959470wro.18
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 06 Oct 2021 05:58:18 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1633525098; cv=pass;
+Received: from mail-oo1-xc3d.google.com (mail-oo1-xc3d.google.com [IPv6:2607:f8b0:4864:20::c3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D6A427556
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  9 Oct 2021 03:12:49 +0200 (CEST)
+Received: by mail-oo1-xc3d.google.com with SMTP id n2-20020a4a3442000000b002b63faf0fbbsf6373016oof.16
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 08 Oct 2021 18:12:49 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1633741968; cv=pass;
         d=google.com; s=arc-20160816;
-        b=TCvfBKNh6jjiTwrkKWec3ZbwqXbsYZfjVHfD2FHUz6WKJ06Bf6x0bb0tR09e7PcXFY
-         nybPcRQPqglhN8tTWq5pz7lpRyOQb6dGSCDAEkJAE/8zNR72mkE8SQ1U4FkiCNQpy+Xu
-         cSKZ/LxcTYkHrVBSQnruHREDFe7vPw0wOmoRrnjLEdvU7NSpzIVt/duzLsFPEyeJAIgr
-         5RpTFd22K1HEZfKmVR3QmvOaWls/30ZkTR35mUdYDejcFH1iIFCjSWfGGEZ4wqnNgqjA
-         kU6pAK9YC5iUFLG/BbkGzaVHVeLFfZMYdEV8UwlvCLrDDhfAW5WuDWbjOfpEWOcDmV0Y
-         K9wA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=zIKWNDMDaRHXRRDr0MFC5QZAiB0YHQncnxjYh8trWvJ1AGMXuNYslmHCnzD1hriNNv
+         oRpURhSCPFQx4jts/KlnOIIhenKQFnm3JOFRlwGb0lHrf5beqoLJMjXZWJD9e9co/ZGx
+         IybePRLv9Zx+rOLby69c2jwQIyMC7ES3i3wQFkR0W4j3tv+/PR8ZiVRM/mE6Lfmp1lvS
+         TRjZrYDjwBkK7Q7XetNJtVRlFcziJQfpMEAwN7OZ2dwTMS6ZTG2bWqK4L9z6NqfZJ7Y8
+         W+oB/x0GzlwxH/yt3mX80J6Rf9tjYKR8IPxLKki85B8EdH5k44HX+qOyjdaS9b96Ga5n
+         Ptwg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=epOZesec61p9EUpxpdNp9m8ZgVte1d65yC/fT3b/zUc=;
-        b=wvJ3Zws0g5kpgMhyoG9T+WcUdo7X7eETiarXwH4Bch2+0bZxBRmBqdUrePy+VLE2JE
-         3sFOtNuVW/70OuqJmxgcdFPZA7DsT/Cc5sq+jjoaLHuE5jgWvu+VS4SDd9apg1HGPn8y
-         dTxNZrCNAHrgQtAPSga9E++JAreP/CzmEWheO9ElsDXPNEoJ9gZH7TX5kVRDaGZPERqq
-         9oUj6JKaUaqFLg+PaVpdbyIFy4pq69/wHJpSLVcnEMDJy3J284Qg0T4+t3QgLL4RvXmb
-         UV+2sXszEIONrFyiu164pMycxi9DknPIzwIBgM6XelHKfuNK8zZW+pw3c0NSR0rFvDmN
-         mSxQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GYs0cOub;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=dZqThSmCF05DGxX662wTkrx2OtPHVKXmnXWASI7WKXA=;
+        b=XnHpmgHAeNoDrRyGFl2nvSOrlq9Xw0+Vzjrh1CiukqbuyIGLMSGSifRQ/UjXYt4Mot
+         WueRdeBh//3rcYYOzWZ8eKn5LM/ABLLW38P0ZBIlypzSOAQnqHVufGnMe8dHDdSHsmhS
+         FzdNNO6qrwmRdFACheVQAyJvy+vVXQ8/fZr01fsL0y+PlB347JzmK5sOzcFPCMScIrAu
+         Eui2CCK8bJU/awIRQa7bv4tQGie+8PoSzwsyf0B66A+RPNGhH1SQeEZr8tVp7EG9MD1t
+         PWTPSvvF6R5E7Yok6pvtLrl9F6KoPGm1lK5ZkhHi48D4VWsYozA1b9TUd7x828H3n4RC
+         4nng==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=c2WGYb77;
+       arc=pass (i=1 spf=pass spfdomain=oss.nxp.com dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
+       spf=pass (google.com: domain of peng.fan@oss.nxp.com designates 40.107.6.86 as permitted sender) smtp.mailfrom=peng.fan@oss.nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=epOZesec61p9EUpxpdNp9m8ZgVte1d65yC/fT3b/zUc=;
-        b=mtUlnjnBPSqT7mE2GQVT5+P/DqWKTyG1Jg4F+CZjt1A6oz6fAgJFwtmQ3iBBaw4liw
-         YGYqenVSMFPa0KzUlAiQolh4Uky4RGcZgTsiQg9rfzjPfj/F4yh18PLwemRidU5anQiI
-         zXiK1lNMWiFxZv1pHPsjynUqoTDFk3ZxCTMepNexn3KQ23wCyLAFLKNNYp1O2+8xbR2A
-         z6/TBqAvzUaRq5Fz6Rd8rex2o0DaS3c+tOJ1IcXCe0mJ6/YWt6aA5/CnVtpKdJQiMfJn
-         Mz8SC1npHIMCQr5MiYznFEHCioV7ahP1JgynS/PuO9CwP1W4Jj5wI/9JU1Djo5X+qcPN
-         SiWw==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=dZqThSmCF05DGxX662wTkrx2OtPHVKXmnXWASI7WKXA=;
+        b=dWOU3PXOkW4hMGmxIpzr8WNyFuUp3B+qdxctMnuKz4JVFfU4DbpSvIOKl9PqltSAoD
+         UTw3S6d0W1CSWhYcE49VrhNcZ30d7oI0mUK/PE77ovJ5yzHVuU5D+rZEWuh6hK38GKio
+         I9VoibKkB6pQQ0hhLglPk/0RON9wjw9lnR8OB6od3UzT5EKIVhlrfnigESkJ3BkAfyU5
+         /QVCVGDSpu8dZ1ZFJrMiwmlFe04Eg0ImFNz6SYqykEx74YPhoTPPF0xpCjA558lqXffA
+         JjHeI9GVvL+IoJVsftOe2tUlrkcRe8m1JLN5y1CjedCaNKwV04qBMYHfotBADq4rJ3vn
+         ZDwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=epOZesec61p9EUpxpdNp9m8ZgVte1d65yC/fT3b/zUc=;
-        b=w4DMzqnS//WXFokQkPQj4axAMbJQBs0dIn1bLQ1/LWi1fFSvwOpTcqoiG8tRh6PdX7
-         f+aX4HRaPunJo9nOayVPfwTTPGgwa1wZPWoFTVwLEIUQMqujTw79AJT/UL9m/f4zaOEX
-         Wrd2O0UBOvZuVWj+k3twatIxEYrVrX+hILpxRz5IVmGCIpMT23o1JxKV5FQP4EN3f+Ys
-         6bdLQUrNy7DDJy8HthSWFuHZkBWVs0UOg7KTvsMJB3K/0dc5a146Vx7rmAAwKvBBU0m+
-         DhFxreOlWhrVYFyudb76lrohabd6GAhpx4dGU6JDtA/jYHpqw2+3LadFkDsEXNyOif3t
-         T7eg==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=dZqThSmCF05DGxX662wTkrx2OtPHVKXmnXWASI7WKXA=;
+        b=iJfx4fMgit/NwGgl8b2+BLEEiZDTlc3ei9seBwBbiZfbBbbXdSoPk+1aX2tMjU+P0n
+         tWc1HICDJT1H15OyLHepQMwEX9Yg4EF1Os82muEVr3anQ3rSkhYlaIyDDaY0jtNK0PDn
+         oL1D5MkJ6Qu36AnbenfhT0E8mFkZpPPrWIvTeQVxWtp4fr/jNo9S8w7htKRE997sTKCi
+         QmdvVveajdRtJgsCJPGSKD2m7mkgLtdXLQ8YgZjVPhr9+PuVQNlGLONWfMOzcBPYQE41
+         tov3+sTLPzVkpeh8FDSeYlWStmIV4fh3+TjYRKd4pDX5Vg4DstVTpzuyaquv0cr9H5tu
+         eL2g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530Ua1C0/HB7LHgbqSMoLM9/nUJDHEjfV1fK4AfLCFgSMtg4G0pS
-	AGaeshf4YY5Rf7y7EqlLDfE=
-X-Google-Smtp-Source: ABdhPJx4vfm3wB3xXSHfb7L6wMemorVRdu103rjRgPkfIhD/t+qyZA0tFrsRWoyS4PzqSscSc1YSoA==
-X-Received: by 2002:a1c:7704:: with SMTP id t4mr9772231wmi.167.1633525098130;
-        Wed, 06 Oct 2021 05:58:18 -0700 (PDT)
+X-Gm-Message-State: AOAM533yvbqDlJstaHYPy1PoN0ebYhE9yNUezZDnz4KfJ4u86KdyrS/Y
+	T0/Le3EsXlSa/dXGa2T09vc=
+X-Google-Smtp-Source: ABdhPJx5C0gFKPnG/ucUPZQg/w9BFIgpx2SfSdAQDgZVyEMuhnkVfuJJfsOMBzBYDCdL6pVUGFA/3A==
+X-Received: by 2002:a05:6808:1454:: with SMTP id x20mr19181933oiv.23.1633741967967;
+        Fri, 08 Oct 2021 18:12:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a1c:2051:: with SMTP id g78ls338527wmg.0.canary-gmail; Wed,
- 06 Oct 2021 05:58:17 -0700 (PDT)
-X-Received: by 2002:a1c:158:: with SMTP id 85mr9527187wmb.187.1633525097021;
-        Wed, 06 Oct 2021 05:58:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1633525097; cv=none;
+Received: by 2002:a05:6830:31bb:: with SMTP id q27ls1512805ots.11.gmail; Fri,
+ 08 Oct 2021 18:12:47 -0700 (PDT)
+X-Received: by 2002:a9d:a4d:: with SMTP id 71mr11615228otg.249.1633741967630;
+        Fri, 08 Oct 2021 18:12:47 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1633741967; cv=pass;
         d=google.com; s=arc-20160816;
-        b=pIL4V0N3xNRIS4wjrh63T7MKfwPZ97ysc6qewBf3QZzVcmcr4ruVVDHUH7BuxKmOsl
-         EAlphx1MBGXiH99KU4qMGk3w+dytEraHKXHdscCeYaE8PXQiMc9ncQA0zRy1T2VlrfcX
-         IgqL6ACdnJWC8wMIKSMGWH7uP5KlNxNNMNSudSHG3GETz/3BXcoUS1O8ac6hkEjAqE8J
-         FXw1HK6d5FaekVSFQnucVEYLKSVUikkSQjUJG5Gx+UUFklDoHn2q31t86KyGFu/DDC3k
-         uuG0YWo7RhGt/XLTFW/KPOhviAOvup/ScjU5pA8+8W8L6THiYEH83TV7ZjBv94yMoSW5
-         eAdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=EdU1XYGFu0VxIT9pa2o4j44jNuYua0z6epl8djnQcF8=;
-        b=uA9Ga2TS+FZJa2sbS/eX4MHKngBcLNNHWfm6ZHIivhnjCd3CyqhyRyfEt1Reo6kuT4
-         ivy/0kCGd+c4msjBBqXuE6aUlJ0RoPYtWOA07fMaAwhMpH4kIiZPeU/VyWNTlg1vcFqT
-         GD8sHPnjgMhRjeA8kE45xnNqIwTkEpQgAWcAnIDt1mghD7GmqSAwNR4eOoBB6SfFAvcv
-         3B0YEC350S2LtjkeGQUcHqTcuPeVnytiE6hz2uf1MRE249NGPtHHNWjZahCezHb+xcEy
-         s9na8ITujPAfkRLKFX17/XfThXmwEYI4sEtlenrZky0dcsrW4ob/ah6bdziZEjwUeGeo
-         TzTw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GYs0cOub;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id k22si105978wmi.0.2021.10.06.05.58.16
+        b=zQvinRja/Xm1Lvr0O+SbtI9aJkGmTtCOavpRTEL3F5MimIbBeguaiqfoePyb2lFaGA
+         9hVxSYBhDhF7qjcd9cd65j8U0YFZzO1PuRFokFMuVCygHngMyULEY30OvRpwssAc1bQr
+         k16FJlPtkWNxT1CrK5yvoBwnMdeD+oxnFLMbOSEMgG09pAKQ2Uh/XqvkMhnBPzZud3AQ
+         FDxLcPLsrsT3X0BiCTSZqTMLzSuLNzseg3e4/5c0kP7BJiMwREA4vj06A2om2VbAGf6/
+         uFr0C050EHexHJEjo1Zj3rNjgYATVHBqoXcSqYAsUel2mZ7pf1vbnRyH4NiOuzPPrs27
+         w6Yg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=RPGUKlrpgIspLeXhhHSyy2gvizIhNntfOGupDBd+qa8=;
+        b=sO9gVe399D8Wpiu9QNuE3TRdr0fW4lglMjohh2LNVJCQO0w6VnpH6W9wN81d7LL1TZ
+         buPullki0G18Oodex45xAlXb4ST2EyIqDuCwBisx7IXnrergI1bTf8/y7Lxsu81ha8H0
+         hwlj8WaA6hVi7E0n2peTYRV0RG1j8HuSAG+ruZnG48akNTo1C9JnJ2giSvOFwIqhTdOe
+         ZeuM+zqNAvA5uHM0x5pEFV2SvG9kz/tWkIWluevOLWvHQCMYgn2xFkcyEDMEqvB7NEzz
+         w3mdQuHQyo2v7shvXo9HLapueLFodFBEAHRICWGO+dBQcOFjoOALRVrFhkNm8C6TnZv4
+         hOig==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=c2WGYb77;
+       arc=pass (i=1 spf=pass spfdomain=oss.nxp.com dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
+       spf=pass (google.com: domain of peng.fan@oss.nxp.com designates 40.107.6.86 as permitted sender) smtp.mailfrom=peng.fan@oss.nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (mail-eopbgr60086.outbound.protection.outlook.com. [40.107.6.86])
+        by gmr-mx.google.com with ESMTPS id bc13si59911oob.2.2021.10.08.18.12.47
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 06 Oct 2021 05:58:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4HPZJ84KNGzy8m;
-	Wed,  6 Oct 2021 14:58:16 +0200 (CEST)
-Received: from [IPV6:2001:638:a01:8061:5c51:6883:5436:5db]
- (2001:638:a01:8013::138) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Wed, 6 Oct
- 2021 14:58:16 +0200
-Message-ID: <d7952c28-ed16-5e73-84c4-c28803cb5892@oth-regensburg.de>
-Date: Wed, 6 Oct 2021 14:58:16 +0200
+        Fri, 08 Oct 2021 18:12:47 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@oss.nxp.com designates 40.107.6.86 as permitted sender) client-ip=40.107.6.86;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EUXn46+rlWvpU4/s9Z8rw4a9kTyDe86oGwTKrP9hlCEIUVDesfFrrPTXF5q0QZomJno8jPG+96tXSIwUTc8xnoRDFtdtdUOy0rA3T0sx78eXtE2V2Q6KjxselumE08wKli6VMjI3IokaxsZx55T3SKwLTATPdCe9iBMBabsSvC0Kxt+idsg/GrGmw7HuocoaHPiRwjS33RAHjpKEpaf3LCCS4WUv/97LFhLTlJwL6DjFuljHE85y04cga6ec0oYUmS0MhTdt0etVvsOolaFDlPvryp1zNt8pCJgqHI8t56SGUJ+0nf8kf9YA3AgSUNlF/qtn7umtThnW04NyE+OamA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RPGUKlrpgIspLeXhhHSyy2gvizIhNntfOGupDBd+qa8=;
+ b=UzJEm02d+0vFT8VIK7bojukp0FVddruFLsQeARACnaxbg8WeFsJjWIg341uUNR9CCme6bo6M05osdCOLmAAOMD/Zmy4TAywHnLK+NuFubBHrfCXtdql+bXFT1oO/1yL2pMEoGlIHXdtPMcya3uQUpoh2ij7HktMX7w9lY70nLc++LlsjBMdp4HaJtVEiAv6quSR+dbYXCkWiTT4z4KNUBK2QlkVC5SljAifRk71lvN3gfE1FMoanaZD2sETulDUGALJ5DltcycpFqCNWtKsFs94wO9i2bHPr0eqmXhy2WkiUh8azHmdeJ02qNIovrjI1B2xpLYLhtp2fYtuomcB+QQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+Received: from DU2PR04MB9020.eurprd04.prod.outlook.com (2603:10a6:10:2e3::9)
+ by DU2PR04MB8967.eurprd04.prod.outlook.com (2603:10a6:10:2e2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.18; Sat, 9 Oct
+ 2021 01:12:44 +0000
+Received: from DU2PR04MB9020.eurprd04.prod.outlook.com
+ ([fe80::b928:9230:aa10:639a]) by DU2PR04MB9020.eurprd04.prod.outlook.com
+ ([fe80::b928:9230:aa10:639a%9]) with mapi id 15.20.4587.019; Sat, 9 Oct 2021
+ 01:12:44 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: jailhouse-dev@googlegroups.com
+Cc: Peng Fan <peng.fan@nxp.com>
+Subject: [PATCH 1/3] configs: arm64: imx8*: remove UART type from .debug_console.flag
+Date: Sat,  9 Oct 2021 09:11:36 +0800
+Message-Id: <20211009011138.469592-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Type: text/plain; charset="UTF-8"
+X-ClientProxiedBy: SG2PR01CA0099.apcprd01.prod.exchangelabs.com
+ (2603:1096:3:15::25) To DU2PR04MB9020.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e3::9)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.2
-Subject: Re: Jailhouse Security
-Content-Language: en-US
-To: Moustafa Nofal <mustafa13e09940@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <84ad6258-709d-48cc-b3f2-38d0cc95057cn@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <84ad6258-709d-48cc-b3f2-38d0cc95057cn@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (119.31.174.66) by SG2PR01CA0099.apcprd01.prod.exchangelabs.com (2603:1096:3:15::25) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.21 via Frontend Transport; Sat, 9 Oct 2021 01:12:42 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0fbc6009-1110-4d39-b5c0-08d98ac1e5bd
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8967:
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DU2PR04MB8967BFB1CEFE0BAF66C231A6C9B39@DU2PR04MB8967.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:262;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vsigPLPUkn8cpyYo4VdM7/8fEdy1UzWWbJKkyuD2qon9A7dTrPonpe0Z1lv5tUhUChZ7kzaG4Q5psxzDa7pEHwchiJ2IA/HLyY3YbxBhUNbUGqqIBcFEHwukXF5BQTdV7ijuGg1XUhjc1+PiQgH1Jff5jzR8x/UXHkd0W/aIO8vVPUZ0dx4BXLZygaOhtVZH5IFaIpVglZx4mtleD72JuRNjWZ1+RG+UwTh8f7wTCxYNkb/f+QU9f7SOBzilANH/XDndekHP2To01aO+KMXn+IcqVXVOQ5RxnWsLXH9NSK8OwpGYZLNyss+yeMD8dySfU1QvIAxhhSmlG0JMnP6xWaC+JksQ8zhW+olGdaLYBnK0UB4pSALA090M/QciO3HJ67bri9pdPnbNgL83hHoPqBYgtN6/chRrJAKXb04sTfIDwsiIQNyCYNT4piS0Djz6sj0dw2ZN8yYzEr4A/gyeGIyBYfqw0jkBAgY/OY5H9Fz4oqr9GezRG1OpdqrjcAXcQmdhME/v+Q7SfliHuIekKYeNeCUJcXpo2z5hudfjCwmRBUyt18fxkZwO30HPevihwTNLRjtu59+DdXN5OQFnMQHsIRwMv9R+2uxkO4+BKEF3B4sC11+sLAuyX/65m2MZoPIs5mkFUvNu3CIvZE3WgVZwR8rkJ07/HGB2XLpkkoqLY0OCvINaH5FvujanjGOwKSulLlKm/xmoh5AWEufxd2MsgnFXAk7VED0WQ0vJvj0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB9020.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(316002)(6512007)(1076003)(66946007)(8936002)(8676002)(4326008)(6916009)(2616005)(956004)(66476007)(38350700002)(66556008)(38100700002)(6666004)(5660300002)(186003)(83380400001)(26005)(6506007)(508600001)(86362001)(6486002)(52116002)(2906002)(142923001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ODdCjc76Nb20UR50KuHVDEmgoXXvi8mkrPdp10Wduea8A04peqst8Wt10l7N?=
+ =?us-ascii?Q?4bpEqqbZXbtG5zaSk9HY9dCQ1ouNSoxUm79ziyFmQVRSuWmIJIW3LyP5kb9D?=
+ =?us-ascii?Q?S+XNMHEYf3yPTFwi57f3rfnREFLYFsCCm623iZuLmEY9tucJDelkLA+jh769?=
+ =?us-ascii?Q?ZTczeRwHdQZ6n4SvGMVKAPVbo+78Zzp+wHCmjCEeFfyXgHKFfECNQbV3fT9V?=
+ =?us-ascii?Q?ZdvIKOGAnEeR0bQd3ynVXcT5Caigoayk6Ec92wEuxwzs7aaMW6KUoZjH2sKo?=
+ =?us-ascii?Q?G15p7pUlL8S2C9EA/qg2XTB0ZZBP0s9UkQMwvDjOFpXibMAqFdPkEePg/Gs+?=
+ =?us-ascii?Q?Ht6utUJsIPrveGNLzsmQ58UHKTTXxMgxOB4q6dD5ohfC0u3036NVE7iNEMPw?=
+ =?us-ascii?Q?1rHkTY38SDS9KPs/6t9JY12zDI7K6VDxpfIdsI1zqWyj/gg7AktB58mgRbW7?=
+ =?us-ascii?Q?l6XmcXKTnxWqpphNmNv6wpGM5HNcUkKzxsoVrt90ASzKTwhzGLTZxS3raVS4?=
+ =?us-ascii?Q?EEqArsv7/OwxcCUIZsWvp39hvoBdDz3qQZB8uYX1JilyLXu5h7/QZImRwVfm?=
+ =?us-ascii?Q?vD6cvp7/JPbtx6z/E9/tbx0wWiwtOKs2gFWDggOj6lc1oQ3sMXjck8q9Vh6T?=
+ =?us-ascii?Q?99Se49RTltt4vf5sod7Lk9F8GoZaFX+I+PXpmpG+/Au9EfLMmww8yNllYmll?=
+ =?us-ascii?Q?bHmGM43PtfVI3lz88jqD3ylwCy6IKXoRu/Nvj46aqIwoYxT54tteyzNTpcle?=
+ =?us-ascii?Q?2V89QI5pdd0A0oRVaLUx/EpTSVk5mIGTzREt8Fb2GbfAqGRheR6ioKsLNpHk?=
+ =?us-ascii?Q?7caiO8gFZOgm+AYuIsXRc0q/cLbO42Y2+wLjD4Kt5v84dt790zuKpgCkorV+?=
+ =?us-ascii?Q?Pe/7jCuINhMxaOD+rhGeokAwTUb8V79LkQyfAPJr+o2kAgslLMVajDkrk/J2?=
+ =?us-ascii?Q?F94d1mUvBKyilWRlbLOJFp95KObOMLkPP9ZXiUaz5fGCudos6SGW2jkiDK+s?=
+ =?us-ascii?Q?RmHivxldR7RxA4df46XWT2fOV2lLPqNBvz0VyJI1GQiSKKMTlGtH4zfKHjAB?=
+ =?us-ascii?Q?HF2w9hP71hMQ5djCebBArUaCqkjnxRbdaqEsvM3Q6vIuJ1eqcNp12tYpGORv?=
+ =?us-ascii?Q?JGgBLJRA3ubY7TvtCv45F6gv7NdHjfMp2GvvTeo/wu/eNzbBeFYj7SQSNv/j?=
+ =?us-ascii?Q?pcXRnUskqyfer+uC9fddZIl4SsAQ17Qh3Wna3G541RHoaGHGGibd658xnzg8?=
+ =?us-ascii?Q?ePwrUtwkfQXi/m4dcddldyBsog+igQ2dUsr24aYhBjNzefslXVGYJ5qHHEk2?=
+ =?us-ascii?Q?P7NlAhHlaYZ8MAYDMqkoer2wEaQgS1M0A07QUKa137vu0w=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fbc6009-1110-4d39-b5c0-08d98ac1e5bd
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB9020.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2021 01:12:44.4859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JR6i5wNDWuxkYZSmtzFR51azsfV+5aYHFN5HrFEeYopqYuT5sUTjV9/MBJDL8EJlZd8VBrG7fKUK/7DCwm8Lew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8967
+X-Original-Sender: peng.fan@oss.nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20160622 header.b=GYs0cOub;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com
+ header.b=c2WGYb77;       arc=pass (i=1 spf=pass spfdomain=oss.nxp.com
+ dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
+       spf=pass (google.com: domain of peng.fan@oss.nxp.com designates
+ 40.107.6.86 as permitted sender) smtp.mailfrom=peng.fan@oss.nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,46 +196,109 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+From: Peng Fan <peng.fan@nxp.com>
 
-On 06/10/2021 13:32, Moustafa Nofal wrote:
-> I have a question regarding security at=C2=A0 the root-cell.
-> The use case is shutting down the root cell, which definitely will shut=
-=20
-> other cells down. I understand that it is possible, to disable these=20
-> commands, but is there any other possible approach?
-> Is there any special security constraints, that Jailhouse user has to=20
-> consider.
+The UART type should not be used in .debug_console.flag, it is in
+.debug_console.type
 
-you want to forbid the root cell to shutdown a non-root cell, without an=20
-acknowledgment from the non-root cell?
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ configs/arm64/imx8dxl.c | 3 +--
+ configs/arm64/imx8mm.c  | 3 +--
+ configs/arm64/imx8mn.c  | 3 +--
+ configs/arm64/imx8mp.c  | 3 +--
+ configs/arm64/imx8mq.c  | 3 +--
+ configs/arm64/imx8qm.c  | 3 +--
+ 6 files changed, 6 insertions(+), 12 deletions(-)
 
-Take a look here:
-https://github.com/lfd/jailhouse/blob/master/Documentation/hypervisor-inter=
-faces.txt#L390
+diff --git a/configs/arm64/imx8dxl.c b/configs/arm64/imx8dxl.c
+index f94692bc..f70826b1 100644
+--- a/configs/arm64/imx8dxl.c
++++ b/configs/arm64/imx8dxl.c
+@@ -31,8 +31,7 @@ struct {
+ 		.debug_console = {
+ 			.address = 0x5a060000,
+ 			.size = 0x1000,
+-			.flags = JAILHOUSE_CON_TYPE_IMX_LPUART |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 			.type = JAILHOUSE_CON_TYPE_IMX_LPUART,
+ 		},
+diff --git a/configs/arm64/imx8mm.c b/configs/arm64/imx8mm.c
+index acb9fd5e..2556ac31 100644
+--- a/configs/arm64/imx8mm.c
++++ b/configs/arm64/imx8mm.c
+@@ -33,8 +33,7 @@ struct {
+ 		.debug_console = {
+ 			.address = 0x30890000,
+ 			.size = 0x1000,
+-			.flags = JAILHOUSE_CON_TYPE_IMX |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 			.type = JAILHOUSE_CON_TYPE_IMX,
+ 		},
+diff --git a/configs/arm64/imx8mn.c b/configs/arm64/imx8mn.c
+index 667221da..91d088ae 100644
+--- a/configs/arm64/imx8mn.c
++++ b/configs/arm64/imx8mn.c
+@@ -33,8 +33,7 @@ struct {
+ 		.debug_console = {
+ 			.address = 0x30890000,
+ 			.size = 0x1000,
+-			.flags = JAILHOUSE_CON_TYPE_IMX |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 			.type = JAILHOUSE_CON_TYPE_IMX,
+ 		},
+diff --git a/configs/arm64/imx8mp.c b/configs/arm64/imx8mp.c
+index 9654a764..d64017c3 100644
+--- a/configs/arm64/imx8mp.c
++++ b/configs/arm64/imx8mp.c
+@@ -33,8 +33,7 @@ struct {
+ 		.debug_console = {
+ 			.address = 0x30890000,
+ 			.size = 0x1000,
+-			.flags = JAILHOUSE_CON_TYPE_IMX |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 			.type = JAILHOUSE_CON_TYPE_IMX,
+ 		},
+diff --git a/configs/arm64/imx8mq.c b/configs/arm64/imx8mq.c
+index 145a36e4..e853e5f2 100644
+--- a/configs/arm64/imx8mq.c
++++ b/configs/arm64/imx8mq.c
+@@ -34,8 +34,7 @@ struct {
+ 			.address = 0x30860000,
+ 			.size = 0x1000,
+ 			.type = JAILHOUSE_CON_TYPE_IMX,
+-			.flags = JAILHOUSE_CON_TYPE_IMX |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 		},
+ 		.platform_info = {
+diff --git a/configs/arm64/imx8qm.c b/configs/arm64/imx8qm.c
+index 00f5c402..052a58d4 100644
+--- a/configs/arm64/imx8qm.c
++++ b/configs/arm64/imx8qm.c
+@@ -33,8 +33,7 @@ struct {
+ 		.debug_console = {
+ 			.address = 0x5a060000,
+ 			.size = 0x1000,
+-			.flags = JAILHOUSE_CON_TYPE_IMX_LPUART |
+-				 JAILHOUSE_CON_ACCESS_MMIO |
++			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+ 				 JAILHOUSE_CON_REGDIST_4,
+ 			.type = JAILHOUSE_CON_TYPE_IMX_LPUART,
+ 		},
+-- 
+2.25.1
 
-   Ralf
-
->=20
-> Thanks in Advance
-> Moustafa Noufale
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/84ad6258-709d-48cc-b3f2-3=
-8d0cc95057cn%40googlegroups.com=20
-> <https://groups.google.com/d/msgid/jailhouse-dev/84ad6258-709d-48cc-b3f2-=
-38d0cc95057cn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/d7952c28-ed16-5e73-84c4-c28803cb5892%40oth-regensburg.de.
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20211009011138.469592-1-peng.fan%40oss.nxp.com.
