@@ -1,129 +1,68 @@
-Return-Path: <jailhouse-dev+bncBAABBIXQSWFQMGQE5NVIHKA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDH5LQU54QDBBVXMTKFQMGQEEDMTHDQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79CDE42A3B4
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 12 Oct 2021 13:57:24 +0200 (CEST)
-Received: by mail-ot1-x33c.google.com with SMTP id o23-20020a9d7197000000b0054e537c6628sf7931220otj.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 12 Oct 2021 04:57:24 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1634039843; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=PKQjvS9p26pc2GlxSzZBMan3kGnRINLl/i4zv0uF/gFI61wFbscPEkddNAsIoKR/E4
-         nBEHzGrCOY3UFK8K1YAirN1/QfLSJmCZrPmBtdFUDasdrd5YNoO77SL8w6jwGXmrCGvs
-         w7v3kMdh/IMcQ6guirLtB2GGR7JCwvC2wp+II9gAIA9pUqkTT588E1li6uJrfijWTr3D
-         6K2+G9YNpu+93t0mr4Htulany8hSHjxOXlrMQAN+wxe2dz9AkatQyLbT5HAenfbsEyXO
-         29yLKRSWcZ+xvNeWd6fztgnllgS8LLiJBBL8yf/3sNw0CfKvfdGAEn/Is0afSFngtEWc
-         hRDQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-language:mime-version
-         :user-agent:date:message-id:subject:from:cc:to:sender:dkim-signature;
-        bh=fL/A4lCatWVp699y/dEwHspZXsYrkzjhiYV0AODMNck=;
-        b=MFxWuZvvpVAxh8oPc1cy6vRLHHkARtXKYqmWhqTyYEhrdl1aga19hbGaTvQno8BQN0
-         9zS9FGSN/YUu8+kvtGuy4VF1p0tkmeWE6eDgv3Cr7Wgafs9oZ17ueV1ubQefpXbuqipx
-         lHU/UVkUw1meily5Yj0E2RWnzmvD6DtAy04rlOO2FJRRjdm4xL7nq7ZiuTCFYbs865x7
-         CZNF4mkAvU5YFJWNyUrhGFnFpn4TyMvptCYgEz01x+A97OYkD1j2Q4U/UY4VoJG4gsII
-         9dLW/KN/Bl32bQbXwgBcIcTAAPp8UNCepeixCoMo9CWnIBSF9reuwspilVvI8z70Zejn
-         Iykg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.188 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
+Received: from mail-qt1-x83c.google.com (mail-qt1-x83c.google.com [IPv6:2607:f8b0:4864:20::83c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1877F42BCE3
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Oct 2021 12:35:04 +0200 (CEST)
+Received: by mail-qt1-x83c.google.com with SMTP id 90-20020aed3163000000b002a6bd958077sf1705377qtg.6
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Oct 2021 03:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:to:cc:from:subject:message-id:date:user-agent:mime-version
-         :content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=fL/A4lCatWVp699y/dEwHspZXsYrkzjhiYV0AODMNck=;
-        b=QXaGcbRy/ynl1RCn8j+ybRtpkQwwYRtTQfD6t1tlvZ31LSshChU7SFWEa5YodadP+a
-         neojcTxusNuiJMU8tv98BdQu6SLMYDHxgP1xt+WA19wsxBc3Fr5/2sV9pOD8v+BQcz4X
-         fpC+gJQ91omA6P9F4wAYZzKnQWcjfhz0m7Sb3FpVgJsh/lLhm5h4wXRv7+2FVltkYYIE
-         mgeXqR7nWjZq4uNmg4T/Vx3V2722sNt4hlqAN60eHZVqD4mF9wccsJRw0sq8QX2avJEq
-         ReBDl/hK7rRgRE/3BAtG4Jjes7ZXq4nFled7lqD6usYCwDN0hEiQS94qTisuZt4qUdTt
-         GTMQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=8zftIlTihIexYx4Jn8pLrQczaRn39Fn1gKwFWPYyW0o=;
+        b=SQHCFf0LbJxMgCTT7LR47SbHiRJ3zjm9PPXx267xfwv+W/bylOhaVgXAC9hijoeML+
+         oDqfa4B0QFMPnrCNQln6vw7j8s+VpimAV+jltifSOlU+6oJTIcQGx+vutRiBgMTdDFfq
+         K8gli+kbCIT2PRgj7d3GaU3FlfeTKgy+/9rF3dDwkxQbOLlF1NNkzWKi3Rm1lAfhY83m
+         vdivWnZTXPW/7IR1Sp0qQaBeOFsHQss4x8zizZQD5C7rIBYfFvLGiVEavHlRkBJmcR5Q
+         sMSlSutPVyNZ4P0zLk15OEufuaDsYV1aXEZn8No9AAJPih3+UxVuM5lcT0nfoiIsdAip
+         jzqQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=8zftIlTihIexYx4Jn8pLrQczaRn39Fn1gKwFWPYyW0o=;
+        b=kW78wsjHgRbrfK+7ciSFhz4UMoVXtDY/f3aIOodpEsi+Er+yYItkj0Z2Q/dd/NHPsL
+         lShlTawz+j5tTgTxnjV/STr0BYGwJ5CQ+TqSltFNmOi3Fjc+P9NZ/5UDQc6+zyfZbQM6
+         6XGSuP1L1ZBp7aRszvBeVIMQB5d8aTK2cXiVrM8oPhr6hx0BCjr1gXMVG6tpTafwyhkN
+         V7Z6K4tovAl1n8Q+A2TWJ9AL0f7Mzip4LcPh8oIoRApWsLW3QDZuPZuw7Z38Tp6pvxNC
+         xvS8xQQA/EVZi+qKSaxOvlr7OBKAdlEnv/3bRVOYiuoMs2pmc6Zoc6ZYAAWlGFlUEI6u
+         7Xrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:to:cc:from:subject:message-id:date
-         :user-agent:mime-version:content-language:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=fL/A4lCatWVp699y/dEwHspZXsYrkzjhiYV0AODMNck=;
-        b=t9o0gSWnAzAs3U8vuoYb3H1iDoaPeERiT45RkNyMuOcTKljzxaMmRITDZN+ENz83cP
-         Y11xpYnejC8Zu/pBgClk4A19SyZhMCU5cxF55PvTW6SMwW6gkCDZHV/QmPdm1OM0Zm6n
-         KLlRRYh67mxU4mqKelYBdELjZFvpY63Sk++TXL0rQOXxYwgunMEMCUb5B1ReS723hYYV
-         MtTYQ30Ta+1GaUl/xj8zMCHQmM+vZIOZ4VcypDqxok697PryEaAk90MVbAsBBdQJMAsK
-         uddaSOHLHiV1K1uyDTHtKaZ/rDe+seWLH9roCgedAiX4czpYcLL4uLbL4KsER+D0ggLN
-         UEQQ==
+        bh=8zftIlTihIexYx4Jn8pLrQczaRn39Fn1gKwFWPYyW0o=;
+        b=fqECMs3UcRmFL/3MiKm/vTtwq0Ud6mtNjabjntonao/uI0VKJWEqKivP4Aw3wfNGBP
+         1N1Y04+t9wdvV9NOlj+bsSQB4KDKtAyG0EngZ3shb36pRVpA38fdMuYYVMGUrWkwxMgC
+         1yPaDePLsq7bF+GnOW/eh9e6bi2mSjysHtfCaDQK1liNswr+SCzcgAZOSPeqD1lYpcU0
+         WxZ4xarUZk1Nn+66E9qRPYElnbg4mYpt/SChgd6+A4ARVIJ97HNDX2VyCteZIom0HlVo
+         DjBeUo/Xoik8Vry5/m8rwBuoapvNOtVNMns6bdVDH8miZ8wi45QQKxj+Z0UC1vPg7jsv
+         QA2w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531S25BlnNps7uNcOEa5RTnLSLmY3mXJpL3T4ujmj8Dtfv/D+GWS
-	L/umjKkmt8vZ04SuXVTujNU=
-X-Google-Smtp-Source: ABdhPJyx3X1dG1TFlQLVIW2gV9HZa+76cIZflJEIrxXhTP8Zeyd1ealy72dKXYjEg/FF4ZiBhM4C8g==
-X-Received: by 2002:aca:650b:: with SMTP id m11mr3231498oim.26.1634039842866;
-        Tue, 12 Oct 2021 04:57:22 -0700 (PDT)
+X-Gm-Message-State: AOAM531KYqWDR6svUbB6MQHY6s93eW3HpQ9238DSRX/cYic6goOD2uE4
+	dMja90/Ri4lL0RgbvFOnIYw=
+X-Google-Smtp-Source: ABdhPJzZLkgzX7Fn6OnLT7ktZuM5IJVswOhsIRaCyEWsGay/bw/8SzrQYOt5nzXjs9DlqZEcbW62Jg==
+X-Received: by 2002:ac8:514f:: with SMTP id h15mr27863921qtn.340.1634121302983;
+        Wed, 13 Oct 2021 03:35:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aca:ad53:: with SMTP id w80ls3605681oie.7.gmail; Tue, 12 Oct
- 2021 04:57:22 -0700 (PDT)
-X-Received: by 2002:aca:32c2:: with SMTP id y185mr3242249oiy.47.1634039842530;
-        Tue, 12 Oct 2021 04:57:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1634039842; cv=none;
-        d=google.com; s=arc-20160816;
-        b=unchgw45LZxjW3miyPhCrTQ/Sf4uSlUsXHJeMLTujbWG5ME9rRTeYZ3p59mq03sBIa
-         NTOYnU9seQokLsoS8udoxlJfqqFnziPeJ2f5Vin/XAYjZoGuesx+2PhAlKJ3YDwCooSz
-         bwjpP+CbBRCwOQ3JUmvHCFoe5H2WjxFwuHiJtOjgrX5y8K5xrrVUvlJbnZqhLOECzRi5
-         ntOVwNHHPC4uoNFvpRN4kh0VFdzolr7f0/YWhpeIwQ1iLpNXi4Ad02JTjnxqefvJiTYA
-         sqqsE3lMD19qftNLDtDisg17djqcg52c11Wz8bniflXSrNnpzaAULb988k20WceIOgSW
-         /hTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:mime-version:user-agent
-         :date:message-id:subject:from:cc:to;
-        bh=sf7FNIbPT7uoFhotGDUybKqnN0kH6lToZuIP0JjS/Fw=;
-        b=LV+U+dg6jeUhXflNjyuQeHGArpgsG7fmLDqml6YKvJxBeQKaGjaB6z9zxjIf8Yil3h
-         tkfj6/qjur4uEX6Yq2zHpMHUzDmqmCZBEXcb+OkCl0jK8EQwtXjG08JjMxI3SQUmB7Ps
-         vfIp5yG0167I6btquMmBnUdQVmfqOG2D7dPJPLZhytctEjv66JGBb8JH71UBWSmsW8tV
-         2pSz84zDL3NnJlMzJudwLEqFiVEO4p2oK9a17NTS+vNd3B7rA3/guV7bhuTV9ermFWDx
-         dSArYwLv2iV+KVXEyQLaQjTN6D+8lNYefaMB/qvyflAZt2RD9t98DzuY055ciwickF2i
-         D5xA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.188 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com. [45.249.212.188])
-        by gmr-mx.google.com with ESMTPS id bj8si1551354oib.1.2021.10.12.04.57.22
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 12 Oct 2021 04:57:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.188 as permitted sender) client-ip=45.249.212.188;
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.53])
-	by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4HTDYV3Tkzz900t
-	for <jailhouse-dev@googlegroups.com>; Tue, 12 Oct 2021 19:52:30 +0800 (CST)
-Received: from dggpeml500005.china.huawei.com (7.185.36.59) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Tue, 12 Oct 2021 19:57:19 +0800
-Received: from [10.174.186.51] (10.174.186.51) by
- dggpeml500005.china.huawei.com (7.185.36.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.8; Tue, 12 Oct 2021 19:57:19 +0800
-To: <jailhouse-dev@googlegroups.com>
-CC: Xiexiangyou <xiexiangyou@huawei.com>, <changzihao1@huawei.com>
-From: Zheng Chuan <zhengchuan@huawei.com>
-Subject: Questions about Jailhouse
-Message-ID: <830ab7e0-e8b9-edc7-8a3a-4acdb8b0216c@huawei.com>
-Date: Tue, 12 Oct 2021 19:57:19 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+Received: by 2002:a05:620a:10a3:: with SMTP id h3ls975474qkk.4.gmail; Wed, 13
+ Oct 2021 03:35:02 -0700 (PDT)
+X-Received: by 2002:a37:6c06:: with SMTP id h6mr24461506qkc.201.1634121302201;
+        Wed, 13 Oct 2021 03:35:02 -0700 (PDT)
+Date: Wed, 13 Oct 2021 03:35:01 -0700 (PDT)
+From: "luigi.d...@gmail.com" <luigi.desimone3@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <23b3ad44-6475-40c4-a099-14c065a11c9bn@googlegroups.com>
+Subject: jailhouse pre-built image for QEMU x86_64 boot loader issue
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-X-Originating-IP: [10.174.186.51]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggpeml500005.china.huawei.com (7.185.36.59)
-X-CFilter-Loop: Reflected
-X-Original-Sender: zhengchuan@huawei.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of zhengchuan@huawei.com designates 45.249.212.188 as
- permitted sender) smtp.mailfrom=zhengchuan@huawei.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=huawei.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_2178_510036620.1634121301577"
+X-Original-Sender: luigi.desimone3@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,23 +75,46 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi all,
+------=_Part_2178_510036620.1634121301577
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2179_322034450.1634121301577"
 
-After reading the code of jailhouse, I have a few questions.
-1.Once Jailhouse is activated, the boot Linux will run as a VM. If it is possible to run VM by KVM(nested mode) in the root cell?
+------=_Part_2179_322034450.1634121301577
+Content-Type: text/plain; charset="UTF-8"
 
-2.I wonder why the root cell need to runs in guest mode? Whether jailhouse can run root cell in host mode, create KVM VM inside
-root cell. So jailhouse can support both partition and VM.
-
-3.When create a non-root cell, the jailhouse driver executes cpu_down() to offline CPUs, but the offline CPU seems to be running
-and respond to interruptions. And the hypervisor seems to have done nothing to wake up the CPUs(assigned to non-root cell),
-or did I miss the important part of the code?
-
--- 
-Regards.
-Chuan
+Dear all, I noticed that on the pre-built qemu image for jailhouse demo 
+there is no grub installed. I need to boot a specific compiled kernel 
+version on the qemu VM, and I want to ask if there is an easy way to do 
+this. Thanks.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/830ab7e0-e8b9-edc7-8a3a-4acdb8b0216c%40huawei.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/23b3ad44-6475-40c4-a099-14c065a11c9bn%40googlegroups.com.
+
+------=_Part_2179_322034450.1634121301577
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear all, I noticed that on the pre-built qemu image for jailhouse demo the=
+re is no grub installed. I need to boot a specific compiled kernel version =
+on the qemu VM, and I want to ask if there is an easy way to do this. Thank=
+s.
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/23b3ad44-6475-40c4-a099-14c065a11c9bn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/23b3ad44-6475-40c4-a099-14c065a11c9bn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_2179_322034450.1634121301577--
+
+------=_Part_2178_510036620.1634121301577--
