@@ -1,69 +1,128 @@
-Return-Path: <jailhouse-dev+bncBC64DZNZYEERBJXGUWFQMGQEZBIDRKI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCURU2FQMGQE3KPUT3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83c.google.com (mail-qt1-x83c.google.com [IPv6:2607:f8b0:4864:20::83c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390A042F0B3
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 15 Oct 2021 14:25:12 +0200 (CEST)
-Received: by mail-qt1-x83c.google.com with SMTP id d21-20020ac800d5000000b002a7ae3ec644sf983404qtg.7
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 15 Oct 2021 05:25:12 -0700 (PDT)
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF88842F47A
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 15 Oct 2021 15:56:26 +0200 (CEST)
+Received: by mail-wm1-x33e.google.com with SMTP id v10-20020a1cf70a000000b00318203a6bd1sf868256wmh.6
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 15 Oct 2021 06:56:26 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1634306186; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=LAx1xDy0k+hUcgRRnW3bxRcb9jE/9r6u/Tg2ZfDYe1inMgzroEqzO3K0dD2WLrvZBY
+         oyyg9Lh1czSkOkwrhu/O/mCAuDWzIIW2K2JMcv9OZ9j5+Q+6ndoLRMT9rJ5+1uP/SMb7
+         iE7Mbc6ZcRVefwgIBgpoRZtZru4VXKUXTNi8Bdz5vgMywSGCyzeWXLEsPXtWHpCc17mk
+         FOi6gmBblJFRcGBv98APPF9dHZ26qf8JxvsyZKwTQYy3OnZp45ehQuDLXvANNLv5TmVH
+         ffTi4gRkQMmt9yEm7XWJIjtRBDOOzk+ZQ9H5i9/0lzRUnJpoR7MBFY7kNOAB8kliz5Hr
+         i4rw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=4Zmw0jLvFQeXnHM+VDmounaJ16PSXQSEoYtZIWNxRWo=;
+        b=Q01Mvqp3G62gQrFtBDsFfOOLvXGpl/xEpXYHKMFHJZWacbNjb1EnDqOPFKASszZETo
+         9zF+mp5XYVUdefQcq0QQgcX1jvwp3cllxxiQ43BPhlN8nQviL8+n2Ix32ivX7rIA6+KJ
+         DrMoniKNdlQ9rYj2SH/oy3qcGTYAK9Hi5ULXXxz1J5xnI8cOhVDR+ZXRa5TsHA9n8bN4
+         QR3RTJWKsH3fo320OEBJfiev7plmnrcM0Njbc4wyElzuGyf5Iww7t29y+loTJi5YmpIY
+         7oySWbPtgP2r1c1Lv9xbgyRXThjEwO9C6PkOIR5owz4xDN41WNBp+EKPGQMMuUTJZLMt
+         VZvQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=upZzidaLIH5fAbxtxccp7A0KkSzt2aQIEelLU8C/wG4=;
-        b=GkRwJMdEOIDTglhfHLVq69NQ6unCek500boXR1+bKAH2t2hz0VOvZJJ1Um4JZ4NjBc
-         tXuTXmFynd4ZAipiTvzzhT/MeWHjJXSPJ3UQBFIxfiRbpLXf6jY6eIQlX+KI1TAiYVYC
-         wlK+LPU31DIV8GsPSI0vryIahTZuqdXIlv8P3BLjb8Pp+VSW2gyxySIw1Xqee9wnE8gB
-         YyL1d474u+CSdU2x/3uwJT74vyEECRwqGXFU/CCzL3B0Moo7yM8YG46aLbrhRBpb7Ybq
-         mapiHufeMFnnZ1YsGqvkY8bsoFNEpwqCx/1AQk01AgikUHSRsQHlWTIvrOyUQT/CUrdU
-         iUNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=upZzidaLIH5fAbxtxccp7A0KkSzt2aQIEelLU8C/wG4=;
-        b=qY4AWTUbl/NV4lt/x71Ytm58CxaHKHZGX/er5qNEJ1CAysoKoVCqNY7Wanoo4ZSctF
-         nl5xmGd5P9EmLWST0skemJT/279fsn2xqEe/gR1xkonOWP8WpGaTQO043ypEKK0km6Au
-         IHFHkPZAsrZ8brcsH4G3WEBzPoeCo+Dciu3Vtan00laS67wnckR1rp45UZf09VMCP0YA
-         ToNtMxzLeGPDB2qR1ndYGK//xmmllqzzSlPH5PuYtMm6f90y8Dj0t6IygG26Pif3DJKg
-         sv1BBrP3itRw2snBsKqLjuQeziZPSWW4Hzq95kiH1Q4ql2wXShzF8U+1PglBmfQItdxY
-         4CLw==
+        bh=4Zmw0jLvFQeXnHM+VDmounaJ16PSXQSEoYtZIWNxRWo=;
+        b=rKO6UtHWNtfrOaT9sbRhNl5gLGnC1JQNtmN3iQY+8QQcdMFPpNFflw2iHQAxmLgnrh
+         HklNKV3OhKcnv7/mdbYydrTLGQQV3DIkHjgogKn2uQ9rSp0fbH4EvE8A7eIMp84/hINv
+         fhz5lEygqN7pV/qQHYvcotrLLVUCSwv13d2aYDf4RXbFYB4udtRuVUU1G5LOJzbzkRNp
+         W4Jf6Ja6D/tDACIBPyaRlSIU8FLs0Oh2HWP6vPWgqZJ8QTVdczdsXu6bXhaowQwvEh6s
+         MyB4A1ot2rkktDPO4MU1dvY9uyQFRvAkZVrwhGFY8jzDX6pX43LCL/W3Vm6RJ//4rsiV
+         Un1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=upZzidaLIH5fAbxtxccp7A0KkSzt2aQIEelLU8C/wG4=;
-        b=a4w/sTM6TttQAsLq6ghLkyj9dIaVZatEBeeChrjDufUXsIuCZ34zVYgcms0VBokdH8
-         IL7sY1OYFUTdVuSogQodmNrgfIh2mLmtsSWC6MLHR2AYjR3PAxUJr6BC8CsyuPtoGi/3
-         USzLv+Fwbg1a9ad0NNVuO6KxQGdi1nQSJZl6uB6Xo+AvBWONvfLpB/LXpEzzBMDRFg3S
-         6pu7mAKOiG+kaEFvJa0jN9PT7Xehxs6yXzsuvJNA22ji7L5cBeIsAL+9QXTvute4VXpK
-         wZq7xjthbKpf0CsgDpDm/YP9Cw+lYPaYC/5OhrpUBy/ZzVKlg+8mWAiyX7qwR7pYL5ZN
-         ml5g==
+        bh=4Zmw0jLvFQeXnHM+VDmounaJ16PSXQSEoYtZIWNxRWo=;
+        b=BVewjsRJYLn9V/ZMsv9a/utwbpYip65Bej70HGCZZjxYwLAm8i/ThlAgwIUvKrRtVK
+         HYrOjcFLDC6Et9mW+k7t2bYkJKV0yqRdSMVsVUitVoSWC6+TRPVkm6SgnO1bz061pI//
+         sskDaN9G+eeJu63oJ/AZuCj5ExeHFCmOsrlcrAm3k8gqYBPHNhW0eGS1lNj16M1gSvE0
+         8x4IilVZYjSEpiFnTrXH2k1LpR2MZUYUMEyIGZ5h+A3ga/CEnkH3nuJ7HbXOq+13r83X
+         HNlKbxw2pq6PCEAWt2wGv2MBJcdrR+gb94DnA5hJe5oEgl24CqDoFjsPjBGUR+Y07Wv9
+         6j+w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5320Kegl/5aSemfu9nNeX2GQULRdkfVSOrzVY2piO85OcPkcHSQo
-	pHklAnW9JZVcZOkAde+zJBU=
-X-Google-Smtp-Source: ABdhPJzd3yyIvTDlt5CR5JEcpKODHKFyqumVaTaUSmcwMbxmraftWSYClhi/gsKhW0C3xriOmIv6sQ==
-X-Received: by 2002:a0c:8cc5:: with SMTP id q5mr10835404qvb.52.1634300710993;
-        Fri, 15 Oct 2021 05:25:10 -0700 (PDT)
+X-Gm-Message-State: AOAM533t1e2th6GMYC63KfEmRxdiycjn9lBxzme14od83NgrhJLypzmU
+	3bfNBdL61TMSUb9XFm2RKow=
+X-Google-Smtp-Source: ABdhPJzopS4pLSnwo1wSHv3gC5/hP8SJ1vbAfxwSWQ8occ4UwQN32d9FRn8vDW6DWEL/J4KqIk7NyQ==
+X-Received: by 2002:a5d:4b0f:: with SMTP id v15mr5727922wrq.309.1634306186670;
+        Fri, 15 Oct 2021 06:56:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ae9:ef45:: with SMTP id d66ls4610703qkg.5.gmail; Fri, 15 Oct
- 2021 05:25:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:49d:: with SMTP id 29mr9504415qkr.499.1634300710315;
-        Fri, 15 Oct 2021 05:25:10 -0700 (PDT)
-Date: Fri, 15 Oct 2021 05:25:09 -0700 (PDT)
-From: Changming Huang <huangcm.huang@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <b4ba42c6-b69b-44c2-895a-944fc30237c0n@googlegroups.com>
-Subject: how to enable real PCIe device with MSI-X on arm64 platform in
+Received: by 2002:a05:600c:4ed1:: with SMTP id g17ls6324330wmq.1.canary-gmail;
+ Fri, 15 Oct 2021 06:56:25 -0700 (PDT)
+X-Received: by 2002:a1c:a558:: with SMTP id o85mr12922397wme.110.1634306185437;
+        Fri, 15 Oct 2021 06:56:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1634306185; cv=none;
+        d=google.com; s=arc-20160816;
+        b=0/abO7X9klmVl5ChWaVG65ZxGb58IGkAe/pRtj+YgcoVPJsnR5Nox7DfZhwR7LkSIe
+         0yagURx/VrFHmfRFy5Ab3Goa8Isv3kV3++GGKZkUqORept2QMUsQXNlI2HC+oKh346lW
+         JTEHAju1JKXcpMVrQjOf2Y8D95ef6wxa1IXXYGsH4vxl53P5343O8elE9gKLNszhcK/I
+         eGtXN5+aW96saS6xMLjHjviMV/pn9Huz8OD5yKJmXFU22xqi309y2eUbidEO4wpTuzmv
+         4uldgUOU/Qtns5X8767V2izAVLmOXcfgnpRyc+PXQ+UTVtUYZ5LiIO7QGu2C+IopZYDY
+         cxQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=1/nnAFE4TexPmyG3VCpM6akciyNB22GtMb3kEpGHr74=;
+        b=LVdBtxrPzA1AevLSUoR+zrCt08R+RdWdQnnb1PoJ+FWWiZwHAwuUzik7CxgIMF9+dN
+         iM8UvB72Ec7gNxtsqtva4fr3sibW6cnZpdJXMX3WGBDBTBOyKsSFDI0fTfwzuP+MMDp6
+         IgxEwdHS8mDEC2Ed/iFROTyIOR50cyJjPIamrDYWuyUNobnJazMrmNXBW/foqAFNP/mV
+         LVoLqjqBpFW7H6EGmx+Vg4jhAMtgWZKMQHFeGaI8LTHnIYGGRffC8yZeJSHpHGefERrg
+         KdJwO6nK9dP9rjfKx8wWHLU/TgH2OTEutVLkddeBLUg4FizZWZ4Oy7i0eFQP12yezSmS
+         mhOA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id a11si296804wrh.5.2021.10.15.06.56.25
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 15 Oct 2021 06:56:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 19FDuOVZ001046
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 15 Oct 2021 15:56:24 +0200
+Received: from [167.87.2.42] ([167.87.2.42])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 19FDuNjv023531;
+	Fri, 15 Oct 2021 15:56:24 +0200
+Subject: Re: how to enable real PCIe device with MSI-X on arm64 platform in
  jailhouse none-root cell?
+To: Changming Huang <huangcm.huang@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <b4ba42c6-b69b-44c2-895a-944fc30237c0n@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <e282cac2-2939-b868-afef-7b266b251e50@siemens.com>
+Date: Fri, 15 Oct 2021 15:56:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2604_729021034.1634300709728"
-X-Original-Sender: huangcm.huang@gmail.com
+In-Reply-To: <b4ba42c6-b69b-44c2-895a-944fc30237c0n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -76,62 +135,39 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2604_729021034.1634300709728
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2605_685954951.1634300709728"
+On 15.10.21 14:25, Changming Huang wrote:
+> hi, guys,
+> I have=C2=A0 Arm64 platform (GIC-V3 is used) which integrates one real PC=
+Ie
+> network device.
+> This PCIe network device just supports MSI-X, and it works fine in
+> root-cell Linux.
+> I want to enable this PCIe network device in cell (cell runs Linux, too).
+> I can disable this PCIe device in root-cell by removing its node in DTS
+> file.
+> I added the PCIe network device node into cell DTS (like root-cell DTS)
+> But I got the error "MSIX alloc failed" during booting cell Linux.
+> Appreciate for the clue for this issue!
+>=20
+> I checked the jailhouse source and document, and I didn't find the
+> description about the real PCIe device with MSI-X.
+>=20
 
-------=_Part_2605_685954951.1634300709728
-Content-Type: text/plain; charset="UTF-8"
+MSI-X is tricky on ARM. The complete IRQ path, as it is also taken on
+the root cell, needs to be available in the non-root cell. By default,
+Jailhouse only manages GICD sharing. How are MSI-X vectors translated
+into interrupt numbers normally on your platform?
 
-hi, guys,
-I have  Arm64 platform (GIC-V3 is used) which integrates one real PCIe 
-network device.
-This PCIe network device just supports MSI-X, and it works fine in 
-root-cell Linux.
-I want to enable this PCIe network device in cell (cell runs Linux, too).
-I can disable this PCIe device in root-cell by removing its node in DTS 
-file.
-I added the PCIe network device node into cell DTS (like root-cell DTS)
-But I got the error "MSIX alloc failed" during booting cell Linux.
-Appreciate for the clue for this issue!
+Jan
 
-I checked the jailhouse source and document, and I didn't find the 
-description about the real PCIe device with MSI-X.
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b4ba42c6-b69b-44c2-895a-944fc30237c0n%40googlegroups.com.
-
-------=_Part_2605_685954951.1634300709728
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-hi, guys,<div>I have&nbsp; Arm64 platform (GIC-V3 is used) which integrates=
- one real PCIe network device.</div><div>This PCIe network device just supp=
-orts MSI-X, and it works fine in root-cell Linux.<br></div><div>I want to e=
-nable this PCIe network device in cell (cell runs Linux, too).</div><div>I =
-can disable this PCIe device in root-cell by removing its node in DTS file.=
-</div><div>I added the PCIe network device node into cell DTS (like root-ce=
-ll DTS)</div><div>But I got the error "MSIX alloc failed" during booting ce=
-ll Linux.</div><div>Appreciate for the clue for this issue!</div><div><br><=
-/div><div>I checked the jailhouse source and document, and I didn't find th=
-e description about the real PCIe device with MSI-X.</div><div><br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/b4ba42c6-b69b-44c2-895a-944fc30237c0n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/b4ba42c6-b69b-44c2-895a-944fc30237c0n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_2605_685954951.1634300709728--
-
-------=_Part_2604_729021034.1634300709728--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/e282cac2-2939-b868-afef-7b266b251e50%40siemens.com.
