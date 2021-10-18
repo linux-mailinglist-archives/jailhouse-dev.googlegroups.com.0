@@ -1,129 +1,131 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBMVYWWFQMGQEDRMY4RA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB75ZWWFQMGQEMF2S2LI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8180E431784
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 13:36:19 +0200 (CEST)
-Received: by mail-lj1-x23c.google.com with SMTP id t7-20020a2e7807000000b00210dad8b167sf1489539ljc.22
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 04:36:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1634556979; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2DD6431798
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 13:39:43 +0200 (CEST)
+Received: by mail-lf1-x13d.google.com with SMTP id m16-20020a056512115000b003fdb79f743fsf7479819lfg.16
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 04:39:43 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1634557183; cv=pass;
         d=google.com; s=arc-20160816;
-        b=mWy7lmaboI5FPN1AtAgT2hhcedftgAvYj7DggtqkLE8d0GhzK6PdSCckgNoQ28oIQD
-         uBI+NmxEs+UZI6P9fRqUhheHzMSTKgGuau+tztma3sSKlrxic5RwVLcw5UTqxy+Kq29Y
-         v1rQ155v516hEnWoUBrm/vaczn+gQYhR7hXnwNCviM3lG7ezvexWmOWV3/+QWsuuRU+h
-         kE+b1+zr5Z7ickDIvLGw49e7iYnt/ybzJIpoIwhOhUrc8GrzNNsaE5U56ZSewL1KQu3f
-         XawwNCecP5TeZfNuhabTKAiwskpQpJEbA9Vbrp3MZv0gb1xwSmRf911HlzCC888m+hsc
-         xtBA==
+        b=kvNCFqaIxmvjwHHFoIPAOr5CR1pAKVYj15cPZWiaNt69wecTd0J6ocshjjXBn+YcA6
+         7GDXOZ7IIWflZxZsfHuiCyPO4zrzDw7IRlVdqqKv5qBPHQcFlBs/aOtwzR6z01f3beuZ
+         Kf2QFmZsn6Qy9yJllAjFjrGN/xbrWC70wPrFpCuG6DPblNXBlyEP6HTRNJhaKCE7q32Z
+         jgd4ijiPkVmX0aDyt5jz3OrI97EMWWts/mX+vG0ndyyzrKPH9WK9I0xbegkrMNitE2a6
+         5TnZXeWsXL2LGHUPpkDo05Q451tNceCzBfHdYn4HrC6vysexn+KX8kkP4su/2hBY4ndr
+         7zLw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=QbqgEfR0fVXDjToULH0M6L/G8Hyqa/ZY7bI42xWi3C4=;
-        b=r7tmw6OjRgCGHYIjJiLdWo4ylFValgLqQAgP07hddITs6hW3wHdSLVlB9jKSR40EW6
-         LfSH8sOlabYSUuyJNnUX/FC2lKP0W2bhmuBiH4rEP9NpLaMz/77y/qY0g1/QXCHfTeL6
-         HydXmiO8tPIRHEgwr+YoDvc5/7VQ+TI6aVtaaNkbTQ4h+UyTdXoNJ5VjnW7F/pMo+gef
-         5MXGuGVJv6tIc/sJg+7guOVThKy986bzoAijKirdvrkvKwsXaXBbsyFftQE2dD/BX96h
-         o0ioypr2FDcUnkUBf/QrgkwRMOYca1SXtLrmapZqL+ELQDkcweJ0295ra5ZiKrRTSI4q
-         y3LA==
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=XJUCBJE6Vqwl7YrNIKWfhQRBEUu+wL3UTc79E4iwvjA=;
+        b=D82c8jR14I9NKglavmHS0XT5rdhWorVkw5/mmdLw0/S1WIT2P+GPeR0xXNUg2BiFop
+         Gt3Pbcj7xmQFhCwtjPpFRV3O1QZtxGVHkSq5ZR1ialHfzBcgh+hT0B8kv/8pkAFAcrxH
+         jEK/E+X5y38vcu4R5dsEDFwBsiLC45WwVf5M16kAIIcC3WOqOn8aajCZ54iAKgo0OJRL
+         qHesKv2cEgQ4DfSPfjSmutY/oBvV6P1JrjO9fwCHam+LC1MM25/79o9zGRtRGsa1B4uO
+         BCEx2XnU2AgEbYhQ3c6r0wYYv5zganN0iQYhsDBqjgIvZqakFNfX3q+WL+kmEiS8CisO
+         qtnA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+        h=sender:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=QbqgEfR0fVXDjToULH0M6L/G8Hyqa/ZY7bI42xWi3C4=;
-        b=ZKt+ijJAoECvlGDk9Eeq2WCVOOw3CQTvlNj6An+rDtOPMOpZigBE7PjOgDmOP3ZTHR
-         qbvqZWFnBz9rQh9WaZ7BnFCtQv07sjU66d/mkWXs81atiSSuUFrLRwKNKmjrzCqpTUSU
-         ymvQbtY3PhiZFuoID+DwhAm7HD+0HP136uc6aRrwV3N81SxlNbkGwjrogs4t6RKrOtO3
-         6I31F6euCx6BOdSIw2DoFzUKhFr8eyBQ5cYaD6+SQL6MHd2Afsbb+v4OBncbW5Ur55T/
-         Nw1BEwpwJsYGaoJmvBMD5zYbeNhWAAipX65jNUm7pu9KOl2XBDjsemE758dLIJY9XGOZ
-         kC6w==
+        bh=XJUCBJE6Vqwl7YrNIKWfhQRBEUu+wL3UTc79E4iwvjA=;
+        b=ZnsPZVmJaK+alC9O34YQgQWWLNNoQ52IugJc2TCF2dS5BydxXaeIUKT8mBMhpEw2rQ
+         7+4eS+iru5/PGxrl0xETBC7kgjws6SLEY8TRn4gJc7pEvMCuiHKOBDtQxy0nSfDILy3A
+         9Y6PtIqKV/IzE8pPwdFV1LsPyhUPQQLKdwsxFrimGgEeId2zsHRXpVPDxsuwnKZ6uj37
+         S4Ez/YXngMFUpPb1rBwXR0OqojiaKfKa9pT/WympAm2nZYy+SgjWlJkrzO8VK+goHUfA
+         3TDUtFGrOCGXQhujca0q9mUkR4ljBG2npvyt5/spvjs0sTf38qIQazgSQOL+us7wZ7uw
+         zvhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
          :date:user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=QbqgEfR0fVXDjToULH0M6L/G8Hyqa/ZY7bI42xWi3C4=;
-        b=eeN/LUYvWvXnVE30CeIp4nEY3tyBBj+/jLlDz9iWHkaNJKCP13cClmqnnUdtT675hm
-         yT+u2u4Rag8wo6+ZmLLMJ2yBUpIlVsA0N3lKyWcp6KHN85SJ7Nh/niwB995LQKmG9WHW
-         QEr9y1XlYKVzdJvHCuducQCxkAbY6Agcqp5nsCb7lDcx+sf1LMujM19POi3vSt9BSqA8
-         LRr/mBnjw6WpQfT1dRmf6VDmWVUzIkUDp2RMxA3LUUljbLJyPS/OXT97hBZMUqkW4KGf
-         pDqYtOovlSwD1V24jQ4FTArfrMhxLTZCG3XLR/OLfSekedQKgVqh0Ds0KxblqIOQy/qo
-         H81w==
+        bh=XJUCBJE6Vqwl7YrNIKWfhQRBEUu+wL3UTc79E4iwvjA=;
+        b=5m14IbCnIp8zXa5X705Hgd2+Jz88iONJXB6KHLF/APkk4El1ZySDP1e2wN81JR/Azh
+         KE+Lk47q1e3J6KfD8Yr1MrV12irgaYiQOfPR1U6ESidZSjkg4vvkeX3KXoNxOEJ0XsKK
+         nnrbPZ9OxwRSOOvVJPVkqZ4CaLcjq9i0pivTwQnYDUx2FS6KxK4e8gnGm4E75Mfy3t+o
+         aAWT6w45IqAjxcaTLXTZR5HMg9t73jxJfijPc0JHxRDPDzHWLHx0zCtz3X9dZC13qo7h
+         LH6V2MXAi/Vz6EaLFmwwCJhjKfXWDukQC/EgzHjDI3i3fh06E9qwKaDmHEHqmUU3oYkd
+         iKLw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531i9E9E0Uoc+LVFdxVvALUal6S+Cxb30HxxIy8fmSGXtoU4y6L5
-	KBPB1R4WxHsGQKvWI/BGHSE=
-X-Google-Smtp-Source: ABdhPJyFf0OjGXODucxDivshmNYRTYd7WCVD/4qxHlt/UuENVqycRJw5TN5AisEfa4Eu9Gs7N8JAUA==
-X-Received: by 2002:a05:6512:3b7:: with SMTP id v23mr28626381lfp.127.1634556979057;
-        Mon, 18 Oct 2021 04:36:19 -0700 (PDT)
+X-Gm-Message-State: AOAM533OE8KKiOK3m58qRPTYws6ncwuhOuUdQqh/oWrJ1SwydEiuv6US
+	QpMCkmM/v4GVIcuJtGrHk1g=
+X-Google-Smtp-Source: ABdhPJwXz0BSndlZ8sIp7R0XP2hsIK3rzWdn/TKTIL1sjFb4SRsZYIdujE40VOvRb3rXD/OMhpad6g==
+X-Received: by 2002:ac2:4bc1:: with SMTP id o1mr27542062lfq.553.1634557183246;
+        Mon, 18 Oct 2021 04:39:43 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:760d:: with SMTP id r13ls2683910ljc.0.gmail; Mon, 18 Oct
- 2021 04:36:17 -0700 (PDT)
-X-Received: by 2002:a2e:9106:: with SMTP id m6mr30553598ljg.24.1634556977738;
-        Mon, 18 Oct 2021 04:36:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1634556977; cv=none;
+Received: by 2002:a05:6512:3f14:: with SMTP id y20ls451970lfa.1.gmail; Mon, 18
+ Oct 2021 04:39:42 -0700 (PDT)
+X-Received: by 2002:a19:494c:: with SMTP id l12mr29364973lfj.89.1634557182223;
+        Mon, 18 Oct 2021 04:39:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1634557182; cv=none;
         d=google.com; s=arc-20160816;
-        b=p8TeZIHFB4rvahva1bwkx4qgddmjJz5s7yuZK4L+Juz3a5XUXrGWtWugb/eDZMHPBg
-         qgJAuMSBSRJge6ROoa1KYNO689yjSI/0fW787+IIPuhQpLm92tHN+iARBb6jPVi1MBwE
-         A3Jx0IgzSEkfwFbqZ5OTrjaIk5rxxD2y5NZa0LuHMsu/qnzYoHTX3bosCLmP+6rKk62w
-         +hUlWtfK59IaEFNGjN1ozpsCaa9cVDu7XZ8Q0aArbQRPuXCPx5Y6ZiLza8/JuwBjT6nj
-         Q2u0iUA2TfGrqsTYkaq5qqvV5/JdMk50KD4fsb3xc+BZELO2P70a/i6eEJPEnCef8nEM
-         sTXg==
+        b=P1k4Je5KGlZnbGYeWRzEnCtQhA/b7Ev5phJESuz8h1tNyreWM+WugqYHxL5qnpHKtW
+         anjN+mtX6YjLsSbHTGagw3aZAYtNqSxenl6eV7LJ2VkmSp1SFqFUSHF3ClNPIdV0LEOa
+         /Z32ikiiHIhp7FJfMSDkfLW5fwc/fQa+j/c5b/u4vw4mpiog/lgyquWxyj+G34h12AZr
+         EVtOyeb48DQM88T5vmiw5MJucqi8M0BqTzdfHNxr/81RA1Gy8xpiL2BUtOtdJOT944VH
+         Q+yfA6NNyTthV/hi+Krj6zf8qEsQwCdS34bGEi6ytmvw7jXuGT7bZRGn423FIdCkEmNz
+         iLSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=faKa+Epm26bDUAN9WDm5rgRSpKtkJ8UNZ7zrZLv6zjQ=;
-        b=Im2o8PYFOkWpTV/cUP1cpbVCPPWGukG3vKpoQCx5W7pUCxysrAKyknmsG3d06RYhGP
-         S+e3jJ7k26TbMHkwnhpBx+THCIGcMSC44ZYLRpKkHWnmf/43FpGyJFpGCEDPml0bvK8i
-         kFfdujdl7MbPm66hGa03x7n9MliwnG5JO7FLbmL/+wvT4zG23gwJH++Sit6cCRfmUa+J
-         Fv/Dd9DqhrW9PTfVsFjrRqesT/08B0srUikWZHbiIAD0T1mUjqUwtUHL7610M+TPW1wr
-         /Tk4siLnCTHM6ziaLGzNGs+AoidbeKKeao+y+AzebhJGPZMGaIKjuyr6Ym2PBnUfD3sB
-         7jSQ==
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=ah+lhMG2Jiud3lY0zNMjyDOK+uDSvG3lSO1OSE4k6qo=;
+        b=rpRKD5auPivVyh3ty1Un6Ldq3AdurhiHhHx/S0mn8p/Exz4v9hKXTaeYBg/QM5QAdD
+         Wn6d2+ymyIupZEyg70bsL+B4Pvr8HoHlCgMVB9CpF+OpCMn6W77Zgl715dstXTcRuSKy
+         FbqnHIDzN+VrBVP+KFldrnRhu+C50nQjg9FrcYVNunsZAM57LFaxPy+kOzP9UIiLBgPQ
+         /IRH09Rq5lBoejhqlNwr+iiGHTl4uKgp85u9I39c9pel/DJacvpT5Q744G+cvhsHhxxR
+         974bB4fkVmmW6NDPbrZ331UF/6d1eD1hy4fxX23O+DDfh9Rkw+8eC2z4DCdNG9T/lZlE
+         nOlg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
-        by gmr-mx.google.com with ESMTPS id q4si932861lji.6.2021.10.18.04.36.17
+Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
+        by gmr-mx.google.com with ESMTPS id w6si640458lfa.7.2021.10.18.04.39.42
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 18 Oct 2021 04:36:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+        Mon, 18 Oct 2021 04:39:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
 Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 19IBaGQb017901
+	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 19IBdfc0030910
 	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 18 Oct 2021 13:36:16 +0200
+	Mon, 18 Oct 2021 13:39:41 +0200
 Received: from [167.87.73.119] ([167.87.73.119])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 19IBaFa5011620;
-	Mon, 18 Oct 2021 13:36:16 +0200
-Subject: Re: Questions about Jailhouse
-To: Zheng Chuan <zhengchuan@huawei.com>, jailhouse-dev@googlegroups.com
-Cc: Xiexiangyou <xiexiangyou@huawei.com>, changzihao1@huawei.com
-References: <830ab7e0-e8b9-edc7-8a3a-4acdb8b0216c@huawei.com>
- <58cd66eb-1988-cef4-09bc-2438f790f7f8@siemens.com>
- <ff1a563e-1e41-dd4d-9899-67f8de4d11bf@huawei.com>
- <1c48728d-c3f1-a30d-3c52-0ae68f11b040@siemens.com>
- <1ff4c02a-d29f-98de-907d-0954bd3ae3b1@huawei.com>
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 19IBdeaK016022;
+	Mon, 18 Oct 2021 13:39:41 +0200
+Subject: Re: how to enable real PCIe device with MSI-X on arm64 platform in
+ jailhouse none-root cell?
+To: Changming Huang <huangcm.huang@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
+References: <b4ba42c6-b69b-44c2-895a-944fc30237c0n@googlegroups.com>
+ <e282cac2-2939-b868-afef-7b266b251e50@siemens.com>
+ <5032fae9-5e5c-4526-a777-94ede22ac17an@googlegroups.com>
+ <43b81a76-02f9-204d-059e-03aa53568d2f@siemens.com>
+ <8df72a54-3bc2-4f81-8b20-9679f518988dn@googlegroups.com>
+ <f8ae1dec-47ba-43f3-babf-9de6e66709cen@googlegroups.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <9e90522c-9cf5-dc34-f8e6-d1c7abb2ddf6@siemens.com>
-Date: Mon, 18 Oct 2021 13:36:15 +0200
+Message-ID: <be28902a-8cd0-90de-e23e-37b42e59cea7@siemens.com>
+Date: Mon, 18 Oct 2021 13:39:40 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <1ff4c02a-d29f-98de-907d-0954bd3ae3b1@huawei.com>
+In-Reply-To: <f8ae1dec-47ba-43f3-babf-9de6e66709cen@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
  permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
  (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
@@ -138,111 +140,144 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 18.10.21 09:00, Zheng Chuan wrote:
+On 18.10.21 12:08, Changming Huang wrote:
+> it seems=C2=A0 msi_domain_alloc_irqs is successful and get the MSI-X inte=
+rrupt,=C2=A0
+> but when to activate this interrupt, it reports the call trace warning.
+> And I checked the tx/rx with command: ethtool -S=C2=A0enp0s0f0 (the inter=
+face
+> name), I can find there are package received and send out some packages,
+> but there is not any interrupt generated.
+>=20
+> # ethtool -S enp0s0f0
+> NIC statistics:
+> =C2=A0 =C2=A0 =C2=A0SI rx octets: 94258
+> =C2=A0 =C2=A0 =C2=A0SI rx frames: 510
+> =C2=A0 =C2=A0 =C2=A0SI rx u-cast frames: 47
+> =C2=A0 =C2=A0 =C2=A0SI rx m-cast frames: 17
+> =C2=A0 =C2=A0 =C2=A0SI tx octets: 41367
+> =C2=A0 =C2=A0 =C2=A0SI tx frames: 179
+> =C2=A0 =C2=A0 =C2=A0SI tx u-cast frames: 0
+> =C2=A0 =C2=A0 =C2=A0SI tx m-cast frames: 45
 >=20
 >=20
-> On 2021/10/18 13:41, Jan Kiszka wrote:
->> On 18.10.21 06:24, Zheng Chuan wrote:
->>> Hi, Jan.
->>>
->>> On 2021/10/14 17:34, Jan Kiszka wrote:
->>>> On 12.10.21 13:57, Zheng Chuan wrote:
->>>>> Hi all,
->>>>>
->>>>> After reading the code of jailhouse, I have a few questions.
->>>>> 1.Once Jailhouse is activated, the boot Linux will run as a VM. If it=
- is possible to run VM by KVM(nested mode) in the root cell?
->>>>>
->>>>
->>>> Nope, but you can find traces of an attempt in
->>>> https://github.com/siemens/jailhouse/commits/wip/kvm
->>>>
->>> OK. I'll look into it.
->>>
->>>>> 2.I wonder why the root cell need to runs in guest mode? Whether jail=
-house can run root cell in host mode, create KVM VM inside
->>>>> root cell. So jailhouse can support both partition and VM.
->>>>
->>>> Two main reasons:
->>>>
->>>>  - security/safety: If you leave the root Linux running in host mode, =
-it
->>>>    becomes part of the trusted code base, increasing it by a "few"
->>>>    orders of magnitude
->>>>  - functionality: only by intercepting certain I/O accesses, Jailhouse
->>>>    is able to emulate the ivshmem devices
->>>>
->>> OK, I got it
->>>>>
->>>>> 3.When create a non-root cell, the jailhouse driver executes cpu_down=
-() to offline CPUs, but the offline CPU seems to be running
->>>>> and respond to interruptions. And the hypervisor seems to have done n=
-othing to wake up the CPUs(assigned to non-root cell),
->>>>> or did I miss the important part of the code?
->>>>
->>>> The offlined and then "stolen" CPUs of the non-root cell are first
->>>> parked and then finally started again at (amost) architectural reset
->>>> state when doing "jailhouse cell start". On x86, you can see the SIPIs
->>>> being injected for that in the Jailhouse log.
->>>>
->>> Yes. However, I am still a little confused about the status of "offline=
-" cpu.
->>> i. On x86, is it at real mode or protected mode after we do cpu_down() =
-within vmlanuch?
->>> ii. is that different from cpu_down() of host?
->>> iii. on x86=EF=BC=8Cdoes it conflict with the bootstrap of linux guest =
-since the kernel will do transform from real mode to protected mode?
->>
->> We hand over the CPUs in real-mode, as architecturally defined. The only
->> differences are:
->>
->>  - reset address can be configured to be different to 0xFFFFFFF0
->>  - all CPUs are started at once in a new cell, not just a single boot-
->>    strap processor
->>
->> You can study that by looking at inmates/lib/x86/header-{32,64}.S. This
->> is the code run first after cell start when using our own inmates.
->>
->> Jan
->>
-> OK, Let me list the initialization of non-root cell in my mind.
-> 1. When we do cell_create, the cpus we wanted are "offline" by the root c=
-ell module. now the "offline" cpus are in real-mode with vmlanuch.
-
-More exactly, jailhouse module takes CPUs of upcoming non-root cell
-offline (just cli; hlt, not yet real mode), but Linux could still bring
-them up again at this point.
-
-> 2. The jailhouse sends nmi, and the wanted cpus do vm-exits into jailhous=
-e (well, i am not sure can cpu response the nmi in real-mode?)
-
-NMIs are handled only in hypervisor mode (root mode). They serve as
-hypervisor IPIs, take the guest into hypervisor mode, and let the
-hypervisor do what needs to be done.
-
-> 3. The jailhouse will park them and point the rip into parking_code, and =
-then the cpus will do hlt code after vm-entry
-
-Yep. From that point on, Linux will no longer be able to bring the CPUs
-online again - INIT/SIPI for those cores will be rejected.
-
-> 4. When we do cell_start, the jailhouse sends nmi again, the wanted cpus =
-do vm-exits into jailhouse.
-> 5. The jailhouse will reset the rip into 0xFFFFFFF0, and the cpus will do=
- vm-entry after arch_reset_cpu().
-> 6. ok, the /lib/x86/header-{32,64}.S turns on, and also the jailhouse wil=
-l work while the inmates sends the sint and sipi.
-
-Those INIT/SIPI calls are actually emulated. Allowing the guest to issue
-them in reality would bring the CPUs in the wrong state.
-
+> On Monday, October 18, 2021 at 4:36:20 PM UTC+8 Changming Huang wrote:
 >=20
-> Is that right?
->=20
+>     thanks kiszka.
+>     I checked the boot log, and find one call trace during MSI-X activate=
+:
 
-Generally, yes!
+What is (right) before this trace? What is the exact error message?
 
 Jan
+
+>     [=C2=A0 =C2=A0 2.333986] Call trace:
+>     [=C2=A0 =C2=A0 2.333988]=C2=A0 valid_col+0x14/0x24
+>     [=C2=A0 =C2=A0 2.333992]=C2=A0 its_send_single_command+0x4c/0x150
+>     [=C2=A0 =C2=A0 2.333997]=C2=A0 its_irq_domain_activate+0xb8/0xf0
+>     [=C2=A0 =C2=A0 2.334002]=C2=A0 __irq_domain_activate_irq+0x5c/0xac
+>     [=C2=A0 =C2=A0 2.334007]=C2=A0 __irq_domain_activate_irq+0x38/0xac
+>     [=C2=A0 =C2=A0 2.334011]=C2=A0 irq_domain_activate_irq+0x3c/0x64
+>     [=C2=A0 =C2=A0 2.334014]=C2=A0 __msi_domain_alloc_irqs+0x198/0x350
+>     [=C2=A0 =C2=A0 2.334019]=C2=A0 msi_domain_alloc_irqs+0x1c/0x30
+>     [=C2=A0 =C2=A0 2.334023]=C2=A0 __pci_enable_msix_range+0x614/0x6a0
+>     [=C2=A0 =C2=A0 2.334027]=C2=A0 pci_alloc_irq_vectors_affinity+0xbc/0x=
+13c
+>     [=C2=A0 =C2=A0 2.334030]=C2=A0 enetc_alloc_msix+0x40/0x270
+>     [=C2=A0 =C2=A0 2.334037]=C2=A0 enetc_pf_probe+0x6d0/0xf00
+>=20
+>     there is not any issue in root-cell boot log.
+>=20
+>     which can cause this issue?
+>     On Monday, October 18, 2021 at 1:50:59 PM UTC+8
+>     j.kiszka...@gmail.com wrote:
+>=20
+>         On 18.10.21 04:13, Changming Huang wrote:
+>         > MSI-X vectors translates the interrupt through its, the GIC
+>         and my
+>         > network device DTS node in root cell:
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gic: interrupt-controller@600=
+0000 {
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c=
+ompatible=3D "arm,gic-v3";
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#=
+address-cells =3D <2>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#=
+size-cells =3D <2>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
+anges;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
+eg=3D <0x0 0x06000000 0 0x10000>, /* GIC Dist */
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0<0x0 0x06040000 0 0x40000>; /* GIC
+>         Redistributor */
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#=
+interrupt-cells=3D <3>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
+nterrupt-controller;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
+nterrupts =3D <GIC_PPI 9 (GIC_CPU_MASK_RAW(0xf) |
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0IRQ_TYPE_LEVEL_LOW)>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+its: gic-its@6020000 {
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 compatible =3D "arm,gic-v3-its";
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 msi-controller;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <0x0 0x06020000 0 0x20000>;/* GIC
+>         > Translater */
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}=
+;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};
+>         >
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0e=
+netc_pcie: pcie@1f0000000 { /* Integrated
+>         Endpoint
+>         > Root Complex */
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D "pci-host-ecam-generic";
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D <0x01 0xf0000000 0x0 0x100000>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0#address-cells =3D <3>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cells =3D <2>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0msi-parent =3D <&its>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0device_type =3D "pci";
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0bus-range =3D <0x0 0x0>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0dma-coherent;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0msi-map =3D <0 &its 0x17 0xe>;
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0...
+>         > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+}
+>         >
+>         > and I copy them all related nodes into cell DTS.
+>         >
+>         > so, I need more effort on MSI-X in cell?
+>=20
+>         This is conceptually the right thing, but something must be
+>         missing.
+>=20
+>         Is the ITS recognized by the non-root Linux kernel? Is that kerne=
+l
+>         identical to the root-cell one (just to exclude configuration
+>         issues)?
+>         Compare the boot logs.
+>=20
+>         Jan
+>=20
+>         --=20
+>         Siemens AG, T RDA IOT
+>         Corporate Competence Center Embedded Linux
 
 --=20
 Siemens AG, T RDA IOT
@@ -254,4 +289,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/9e90522c-9cf5-dc34-f8e6-d1c7abb2ddf6%40siemens.com.
+jailhouse-dev/be28902a-8cd0-90de-e23e-37b42e59cea7%40siemens.com.
