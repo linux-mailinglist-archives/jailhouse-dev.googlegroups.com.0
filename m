@@ -1,77 +1,127 @@
-Return-Path: <jailhouse-dev+bncBC64DZNZYEERB3GZWWFQMGQEVBN4GTQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCG5DCMI4YHRBPMBW6FQMGQEFMIBFZY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83e.google.com (mail-qt1-x83e.google.com [IPv6:2607:f8b0:4864:20::83e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6734319C8
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 14:47:41 +0200 (CEST)
-Received: by mail-qt1-x83e.google.com with SMTP id k1-20020ac80201000000b002a7200b449esf10506205qtg.18
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 05:47:41 -0700 (PDT)
+Received: from mail-pg1-x53d.google.com (mail-pg1-x53d.google.com [IPv6:2607:f8b0:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15BC84326CC
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 20:45:19 +0200 (CEST)
+Received: by mail-pg1-x53d.google.com with SMTP id u5-20020a63d3450000b029023a5f6e6f9bsf10302887pgi.21
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 11:45:19 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1634582717; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=UxBZlT6dFj3quMPVoZsLrcEpmja4JdWTPJXIwBf1MufCb1tdaG/DQqyWYvKV7Ny8yo
+         nZQGp1mXNBo1FYM543j8+z27OWFW18Q8RBwh+/F1kaFJCV4+4PdIxzEwkPIA8kc6o7Nq
+         7PCCumazdQnQ6IXlJnHO+28uSM4YyXWjR9JC7WVFlc16lwtMkFF8wmLlmSry9VKzuf76
+         RkwlpCtJTmQAigOAUU5xYW5ePq7u6GPq40hCdGMuiufq7RExm/PQLf+S0nUz9BH3+dQI
+         dUtduZ2NJ8/Brgk+Gu2BqfooE5wjfZCnZLvgtJxgCUYkOS+bF80GXyHHPuh6Dh+yOvYe
+         vIeQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=nm4IPvkBG2CoQn1nBb7cza4aMD8J0nJpi4jZU6KAnlc=;
+        b=MfrRB7XGK1G6/EnRBOKNfAO9hq4sscIBVOhonG03ErpLMwPZAJl6UHpv7CwLyI7mtI
+         FAX0k3fEUfoBdA+OOVySIA6HPMwqgR8EQCddaRlRAxaHhc3OIdjW2JRf/E0EFxPhv/Hv
+         JXOM3xAfOSVS/Vu3Eg/O5gnuNbtkcg7vqZJLMz9tcS7XuTfXSgJXcU+tLbxlB3q/0Ilm
+         f8GHGhjDGxIH4AatWUnLjNoauECuCvsCkuvnrhjZ9/p7LPgMpMh8KsA7M5cQidlOeiwl
+         8/D5gSS4of+kyTtGRRJ3e/Goqbv+5fzI+3oM+iZpPhtLQnHdaOvnIcaI8dYENl7emLNX
+         6cYg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=SuvcEloA;
+       spf=pass (google.com: domain of khalifasy83@gmail.com designates 2607:f8b0:4864:20::d36 as permitted sender) smtp.mailfrom=khalifasy83@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oWrftTa7D5DOxukT9RjOo/0pWRZxWUEtG/vU/vBbKNA=;
-        b=ApmAYYH+vGiKAv8gMurYeWyF421w/nTU+fu+YQKxCzQrd0n6zelwAVNQ0FdDxkVFYH
-         Xml4mqwLZKptg55KH1QMrOaRtjPUsuLAgeBHoeJFlr+XTm00OF1EviAYN2OuJrf68Jiq
-         VhqGMT1976/fkC5Sqe9TeBrmcNfzhpI0SYFlUE53Toe3lh/na8gCjRQLLZtumMoClcIk
-         hhXU+xM9VLgJiEZ95+9+5JRmMwz5ryl8dY/1yjOmU42GCLXmPon+MHay+hv/D+96OmcI
-         H468NC0RpOuS0OC+bTTrMu8H7xauF4C6MTjHvTYlJPiILu8RBUoXk6h7v/Rpq5b9w68X
-         BQzw==
+        h=sender:mime-version:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=nm4IPvkBG2CoQn1nBb7cza4aMD8J0nJpi4jZU6KAnlc=;
+        b=X8EuSM235YB9I77zuDgZ0gnNqUa/cjHVcUhoYVgjQ0T6wgNGXyQkkWPtOceyLtKWbo
+         Ix8zsnFq/ffdnruglE8jvtolBNf1jwmnJ168kaB/Rlu7kJHVmqWxSl04ltZLbiF7hzfV
+         4lDgb2CZFK+PJZTTXcqnC4IXYSgm/Xul3+keScNxVHw2mQ4f4HgQqUkUiUH2fMHHwWum
+         WnGsFe3PaWLd5IMoxJdhwnuGOQyy4mHDv3EeuIBGWsoA1eaRycVq9Guw2Sdo3as4pxIs
+         deAdM5P88U81NWqpOaxmZQESWA8TJxVgg9BzXDHwxr+HpYHYiXtUbN5F7NZfeEYlroL0
+         t6Bg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oWrftTa7D5DOxukT9RjOo/0pWRZxWUEtG/vU/vBbKNA=;
-        b=oWVdISrn22xZT3F/5FSaF68SlWGlLc1BhXE2HkRan7s19j5ORJK7qPaB1y5xEtVGq0
-         1F2dPwzzKhZiLBLrnMud5mrt53GwJsEgTzXJFoenYWWhRMQbFOiFg3Yi5JImwemXi8lg
-         cn72a7PqntdgsT8t6HkTEbm1h2tNpDQajx6wrq9UsbSTEecegT3t1RWn0DinWlYqALdy
-         eMCKEcwEkWX24s/n/hNJLvxhErd63F+87oP/0nyZN+PrFN9XupLU/XsXhzwz0IZs1OPh
-         1cSsn+sNaJgotkaGEsZ4hej+xNtPUP9JGDF/BlCLk6ghe/p8TiMSJETvx4Wobz2W+8pj
-         o6rA==
+        h=mime-version:from:date:message-id:subject:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=nm4IPvkBG2CoQn1nBb7cza4aMD8J0nJpi4jZU6KAnlc=;
+        b=l6/282jo0Prj+lnORFsKdVIiMpudiSsLh/D2S4PMIIrlB7/Nu2HZLJ8BEnISeu9+eb
+         mC5s8K0V9UF7l5eQw2XSqeAKbLDhx/8hgHE4t/D4loGzXyYcYiQjIXEmSPvUxhwRijcZ
+         8E8DuX3V0eIwxB21W38EpZdsOjDAQUekhPEA5Ws8YWpMvlDTE94RtrFwihpi+0CGQ3l5
+         T3x5azQp3P49Ertp2PQUL5G+lRLkj35xNGHFKwX/txiXnD6ufxi1UgHNxNfP2JFH/AJf
+         0+fY0+IIRofFnRKjBc5BC5V3s4lx40JSZ0Hj+kHl8TVY5vsn4kJYVlVc9/4ga2VEYBIR
+         xUgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=oWrftTa7D5DOxukT9RjOo/0pWRZxWUEtG/vU/vBbKNA=;
-        b=a2J5g+4042XeXH0dhuAKUm5AQxXwjt1GRRR5ubmU329WatkXzGB0z90oz9OU3lcfTl
-         SpgbWwZnkXB/X+vg9SJeUUuk+7zA7lm7Dl4Ofq8uKm+CSdrPbIYNjxHCEkesHdaQARfH
-         nV+sMG7SQ1wrIFsbrzpml2Tv/rIm6WgkxmPAKwwRf7JA7ZQ44xU0QCcY/Gj3pKj9fl2z
-         1NAvqM9dkmfeyQsB2oBRzfdw58ehd2zIu3yT2sMqTjP7/zmuN+5hA9Ns9HC47AV/7jjL
-         9J9NQjnr9GRRUN9hhZdAOzXdoZO1wUu7ml38zuUPx0jkT2nuNYrb4GQtnzjxBVOLl6fr
-         PJWg==
+        bh=nm4IPvkBG2CoQn1nBb7cza4aMD8J0nJpi4jZU6KAnlc=;
+        b=k1tyO9vbFrL4bbB4ZgOHom2UmU8QAk1I4O5SEVooyHs6Zwb90XH5IUv9QlN2uBuhGE
+         f6/dBkJoCHPFzYbX+IuRakcMBhysuCCWjL+UAf8GCI7cKfzXLAasPakUxaaj3hX78XPf
+         hrSgguW/znSI1FHEKYqRRTyJFKpRE4E4CdNn/+75q0B3UNDpZPO1Arld191eJzsfPA7Q
+         hEi0aROML9zz0h5zWxOoVAHjD32GZWFdA6ZaeP+tUaKHw3sfLrIy3oXU83GzZybsSyIu
+         +furr4fbwB9b03TQLiOPLDElzquhe36XOQuQG+kDFeHcBJZW/OM0tbFPIhai5WN6hwdJ
+         jZ8w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5304RX2vKe8P3AUWRLsMHtlhciap4v+fdJ95cyTROPeGRtF+FCJd
-	O2u/KllunDiCm3oYm8JWxss=
-X-Google-Smtp-Source: ABdhPJw0sGg5JFGQsmB629v2iDONdFU+9dhcyWoYizAHQkoevKHggocgJs33DVW1tGGGp84HWk7ufw==
-X-Received: by 2002:ac8:7a96:: with SMTP id x22mr28748523qtr.223.1634561260188;
-        Mon, 18 Oct 2021 05:47:40 -0700 (PDT)
+X-Gm-Message-State: AOAM532AT1u867MVvbqRuZh7U+cYzkWABB2UFR9yHltY8fCTte0pMFPQ
+	kTKhGsP4Tbhc139pfNi6zrs=
+X-Google-Smtp-Source: ABdhPJz2WeGHGHxtjJ7wRY3NcCSQb00iFaYNqOYjBb8w9N75IiZ9pVqAIdSG0VI2+rX6ADvR0HOGsA==
+X-Received: by 2002:a17:902:c20c:b0:13a:3f4a:db58 with SMTP id 12-20020a170902c20c00b0013a3f4adb58mr28430863pll.12.1634582717518;
+        Mon, 18 Oct 2021 11:45:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a37:444c:: with SMTP id r73ls8347342qka.10.gmail; Mon, 18
- Oct 2021 05:47:39 -0700 (PDT)
-X-Received: by 2002:a37:6c06:: with SMTP id h6mr21968618qkc.201.1634561259644;
-        Mon, 18 Oct 2021 05:47:39 -0700 (PDT)
-Date: Mon, 18 Oct 2021 05:47:39 -0700 (PDT)
-From: Changming Huang <huangcm.huang@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a93d4399-0a8d-4448-9a94-5aded67b2e3fn@googlegroups.com>
-In-Reply-To: <be28902a-8cd0-90de-e23e-37b42e59cea7@siemens.com>
-References: <b4ba42c6-b69b-44c2-895a-944fc30237c0n@googlegroups.com>
- <e282cac2-2939-b868-afef-7b266b251e50@siemens.com>
- <5032fae9-5e5c-4526-a777-94ede22ac17an@googlegroups.com>
- <43b81a76-02f9-204d-059e-03aa53568d2f@siemens.com>
- <8df72a54-3bc2-4f81-8b20-9679f518988dn@googlegroups.com>
- <f8ae1dec-47ba-43f3-babf-9de6e66709cen@googlegroups.com>
- <be28902a-8cd0-90de-e23e-37b42e59cea7@siemens.com>
-Subject: Re: how to enable real PCIe device with MSI-X on arm64 platform in
- jailhouse none-root cell?
+Received: by 2002:a17:902:dad1:: with SMTP id q17ls9414755plx.4.gmail; Mon, 18
+ Oct 2021 11:45:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:3a8b:: with SMTP id om11mr702781pjb.216.1634582716507;
+        Mon, 18 Oct 2021 11:45:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1634582716; cv=none;
+        d=google.com; s=arc-20160816;
+        b=yQY40I33yW0RsEl9XZE8Rheq3hiyucvPsbg9YIxn2cwcMIyV40fjsltKK6DMzkqVC5
+         PlEDp8MOz4g0YcU46FRZHM84YR5XcWZbvEIVM/bczHCQ2mOvq5OIZdmSfoa1/CMJARyc
+         OpOkW9mgFzwGcwwhNP1Uws07fRGCbIEh/iv3U6Wfnwv7ZUa4eGBdWsSJnHqnl2q/0+e7
+         zMqk/s/txP5sQQ7sB85g34vYIcINF6wCjQQYujqCz3v48m83mMFQV49QlL4f+Hd9yjYZ
+         5DkwnRjrFlmtctBGeq7BGeY7kLgPwJoz91N6CbaTeN6HrJlgoNd9IxNL1ReyKzmAk1QK
+         7ZpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=JCf4Bk5E9vdvw80JLB032DxouOfcZx/XeZ4124xSw54=;
+        b=xhZpI9tchXHokKQqaecylnF8L9YAODogMEicNmWewcXknslPQV41G62vKKeAN6ONi+
+         zwIieogZwJhZtvGVlfnhJwpnJcvU2yCkauTI2t1maZi4/nSjFRStYmih+USviWUEPSZ1
+         zGMSI951XkAEiuksCLAWJd93WA6HcFd6G9xAoefNhIJ5cEhU1e3tbgIFuTIwCkDwqCOQ
+         TpBnBxJd3Jtnqc8HOIP0E/4YltT9RGKkGWzqcB37CebWPL7Xy5A8xiCWZ4CYQWXL8JUo
+         DWRJ5TOcnHXy6G4R+nt50LqLzHH0Cmta9IB8MfVPdDFgtD67iPL54QegoyZpnEjcXjN9
+         ac2Q==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=SuvcEloA;
+       spf=pass (google.com: domain of khalifasy83@gmail.com designates 2607:f8b0:4864:20::d36 as permitted sender) smtp.mailfrom=khalifasy83@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com. [2607:f8b0:4864:20::d36])
+        by gmr-mx.google.com with ESMTPS id f11si362335plb.5.2021.10.18.11.45.16
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 18 Oct 2021 11:45:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of khalifasy83@gmail.com designates 2607:f8b0:4864:20::d36 as permitted sender) client-ip=2607:f8b0:4864:20::d36;
+Received: by mail-io1-xd36.google.com with SMTP id x1so17437687iof.7
+        for <jailhouse-dev@googlegroups.com>; Mon, 18 Oct 2021 11:45:16 -0700 (PDT)
+X-Received: by 2002:a6b:6d06:: with SMTP id a6mr16038161iod.25.1634582716295;
+ Mon, 18 Oct 2021 11:45:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_6568_316264414.1634561259048"
-X-Original-Sender: huangcm.huang@gmail.com
+From: Solange Atatar <solange.r.atatar@gmail.com>
+Date: Mon, 18 Oct 2021 19:45:02 +0100
+Message-ID: <CAGEDBYKzeY+0RRu9MEPKT2DoYfm1v+cyA+w9k09WX07e5BouRw@mail.gmail.com>
+Subject: 
+To: undisclosed-recipients:;
+Content-Type: multipart/alternative; boundary="000000000000292f9105cea4f2e9"
+X-Original-Sender: solange.r.atatar@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b=SuvcEloA;       spf=pass
+ (google.com: domain of khalifasy83@gmail.com designates 2607:f8b0:4864:20::d36
+ as permitted sender) smtp.mailfrom=khalifasy83@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -84,315 +134,21 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_6568_316264414.1634561259048
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_6569_1419994700.1634561259048"
-
-------=_Part_6569_1419994700.1634561259048
+--000000000000292f9105cea4f2e9
 Content-Type: text/plain; charset="UTF-8"
 
-
-thanks Jan.
-The LPI need one reserved memory and now I assigned one to it. and no call 
-trace now.
-and can get the interrupt number, for example:
-96:          0   ITS-MSI   1 Edge      enp0s0f0-rxtx0
-
-but, there is not any interrupt generated.
-On Monday, October 18, 2021 at 7:39:43 PM UTC+8 j.kiszka...@gmail.com wrote:
-
-> On 18.10.21 12:08, Changming Huang wrote:
-> > it seems  msi_domain_alloc_irqs is successful and get the MSI-X 
-> interrupt, 
-> > but when to activate this interrupt, it reports the call trace warning.
-> > And I checked the tx/rx with command: ethtool -S enp0s0f0 (the interface
-> > name), I can find there are package received and send out some packages,
-> > but there is not any interrupt generated.
-> > 
-> > # ethtool -S enp0s0f0
-> > NIC statistics:
-> >      SI rx octets: 94258
-> >      SI rx frames: 510
-> >      SI rx u-cast frames: 47
-> >      SI rx m-cast frames: 17
-> >      SI tx octets: 41367
-> >      SI tx frames: 179
-> >      SI tx u-cast frames: 0
-> >      SI tx m-cast frames: 45
-> > 
-> > 
-> > On Monday, October 18, 2021 at 4:36:20 PM UTC+8 Changming Huang wrote:
-> > 
-> > thanks kiszka.
-> > I checked the boot log, and find one call trace during MSI-X activate:
->
-> What is (right) before this trace? What is the exact error message?
->
-> Jan
->
-> > [    2.333986] Call trace:
-> > [    2.333988]  valid_col+0x14/0x24
-> > [    2.333992]  its_send_single_command+0x4c/0x150
-> > [    2.333997]  its_irq_domain_activate+0xb8/0xf0
-> > [    2.334002]  __irq_domain_activate_irq+0x5c/0xac
-> > [    2.334007]  __irq_domain_activate_irq+0x38/0xac
-> > [    2.334011]  irq_domain_activate_irq+0x3c/0x64
-> > [    2.334014]  __msi_domain_alloc_irqs+0x198/0x350
-> > [    2.334019]  msi_domain_alloc_irqs+0x1c/0x30
-> > [    2.334023]  __pci_enable_msix_range+0x614/0x6a0
-> > [    2.334027]  pci_alloc_irq_vectors_affinity+0xbc/0x13c
-> > [    2.334030]  enetc_alloc_msix+0x40/0x270
-> > [    2.334037]  enetc_pf_probe+0x6d0/0xf00
-> > 
-> > there is not any issue in root-cell boot log.
-> > 
-> > which can cause this issue?
-> > On Monday, October 18, 2021 at 1:50:59 PM UTC+8
-> > j.kiszka...@gmail.com wrote:
-> > 
-> > On 18.10.21 04:13, Changming Huang wrote:
-> > > MSI-X vectors translates the interrupt through its, the GIC
-> > and my
-> > > network device DTS node in root cell:
-> > >          gic: interrupt-controller@6000000 {
-> > >                  compatible= "arm,gic-v3";
-> > >                  #address-cells = <2>;
-> > >                  #size-cells = <2>;
-> > >                  ranges;
-> > >                  reg= <0x0 0x06000000 0 0x10000>, /* GIC Dist */
-> > >                          <0x0 0x06040000 0 0x40000>; /* GIC
-> > Redistributor */
-> > >                  #interrupt-cells= <3>;
-> > >                  interrupt-controller;
-> > >                  interrupts = <GIC_PPI 9 (GIC_CPU_MASK_RAW(0xf) |
-> > >                                            IRQ_TYPE_LEVEL_LOW)>;
-> > >                   its: gic-its@6020000 {
-> > >                           compatible = "arm,gic-v3-its";
-> > >                           msi-controller;
-> > >                          reg = <0x0 0x06020000 0 0x20000>;/* GIC
-> > > Translater */
-> > >                  };
-> > >          };
-> > >
-> > >                  enetc_pcie: pcie@1f0000000 { /* Integrated
-> > Endpoint
-> > > Root Complex */
-> > >                          compatible = "pci-host-ecam-generic";
-> > >                          reg = <0x01 0xf0000000 0x0 0x100000>;
-> > >                          #address-cells = <3>;
-> > >                          #size-cells = <2>;
-> > >                          msi-parent = <&its>;
-> > >                          device_type = "pci";
-> > >                          bus-range = <0x0 0x0>;
-> > >                          dma-coherent;
-> > >                          msi-map = <0 &its 0x17 0xe>;
-> > >                          ...
-> > >                   }
-> > >
-> > > and I copy them all related nodes into cell DTS.
-> > >
-> > > so, I need more effort on MSI-X in cell?
-> > 
-> > This is conceptually the right thing, but something must be
-> > missing.
-> > 
-> > Is the ITS recognized by the non-root Linux kernel? Is that kernel
-> > identical to the root-cell one (just to exclude configuration
-> > issues)?
-> > Compare the boot logs.
-> > 
-> > Jan
-> > 
-> > -- 
-> > Siemens AG, T RDA IOT
-> > Corporate Competence Center Embedded Linux
->
-> -- 
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
->
+Can I share something with you ?
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a93d4399-0a8d-4448-9a94-5aded67b2e3fn%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAGEDBYKzeY%2B0RRu9MEPKT2DoYfm1v%2BcyA%2Bw9k09WX07e5BouRw%40mail.gmail.com.
 
-------=_Part_6569_1419994700.1634561259048
+--000000000000292f9105cea4f2e9
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br>thanks Jan.<div>The LPI need one reserved memory and now I assigned one=
- to it. and no call trace now.</div><div>and can get the interrupt number, =
-for example:</div><div><div>96:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0&nbsp; &=
-nbsp;ITS-MSI&nbsp; &nbsp;1 Edge&nbsp; &nbsp; &nbsp; enp0s0f0-rxtx0</div></d=
-iv><div><br></div><div>but, there is not any interrupt generated.</div><div=
- class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Monday, Oc=
-tober 18, 2021 at 7:39:43 PM UTC+8 j.kiszka...@gmail.com wrote:<br/></div><=
-blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left:=
- 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 18.10.21 12:08, Chang=
-ming Huang wrote:
-<br>&gt; it seems=C2=A0 msi_domain_alloc_irqs is successful and get the MSI=
--X interrupt,=C2=A0
-<br>&gt; but when to activate this interrupt, it reports the call trace war=
-ning.
-<br>&gt; And I checked the tx/rx with command: ethtool -S=C2=A0enp0s0f0 (th=
-e interface
-<br>&gt; name), I can find there are package received and send out some pac=
-kages,
-<br>&gt; but there is not any interrupt generated.
-<br>&gt;=20
-<br>&gt; # ethtool -S enp0s0f0
-<br>&gt; NIC statistics:
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI rx octets: 94258
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI rx frames: 510
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI rx u-cast frames: 47
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI rx m-cast frames: 17
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI tx octets: 41367
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI tx frames: 179
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI tx u-cast frames: 0
-<br>&gt; =C2=A0 =C2=A0 =C2=A0SI tx m-cast frames: 45
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; On Monday, October 18, 2021 at 4:36:20 PM UTC+8 Changming Huang wr=
-ote:
-<br>&gt;=20
-<br>&gt;     thanks kiszka.
-<br>&gt;     I checked the boot log, and find one call trace during MSI-X a=
-ctivate:
-<br>
-<br>What is (right) before this trace? What is the exact error message?
-<br>
-<br>Jan
-<br>
-<br>&gt;     [=C2=A0 =C2=A0 2.333986] Call trace:
-<br>&gt;     [=C2=A0 =C2=A0 2.333988]=C2=A0 valid_col+0x14/0x24
-<br>&gt;     [=C2=A0 =C2=A0 2.333992]=C2=A0 its_send_single_command+0x4c/0x=
-150
-<br>&gt;     [=C2=A0 =C2=A0 2.333997]=C2=A0 its_irq_domain_activate+0xb8/0x=
-f0
-<br>&gt;     [=C2=A0 =C2=A0 2.334002]=C2=A0 __irq_domain_activate_irq+0x5c/=
-0xac
-<br>&gt;     [=C2=A0 =C2=A0 2.334007]=C2=A0 __irq_domain_activate_irq+0x38/=
-0xac
-<br>&gt;     [=C2=A0 =C2=A0 2.334011]=C2=A0 irq_domain_activate_irq+0x3c/0x=
-64
-<br>&gt;     [=C2=A0 =C2=A0 2.334014]=C2=A0 __msi_domain_alloc_irqs+0x198/0=
-x350
-<br>&gt;     [=C2=A0 =C2=A0 2.334019]=C2=A0 msi_domain_alloc_irqs+0x1c/0x30
-<br>&gt;     [=C2=A0 =C2=A0 2.334023]=C2=A0 __pci_enable_msix_range+0x614/0=
-x6a0
-<br>&gt;     [=C2=A0 =C2=A0 2.334027]=C2=A0 pci_alloc_irq_vectors_affinity+=
-0xbc/0x13c
-<br>&gt;     [=C2=A0 =C2=A0 2.334030]=C2=A0 enetc_alloc_msix+0x40/0x270
-<br>&gt;     [=C2=A0 =C2=A0 2.334037]=C2=A0 enetc_pf_probe+0x6d0/0xf00
-<br>&gt;=20
-<br>&gt;     there is not any issue in root-cell boot log.
-<br>&gt;=20
-<br>&gt;     which can cause this issue?
-<br>&gt;     On Monday, October 18, 2021 at 1:50:59 PM UTC+8
-<br>&gt;     <a href data-email-masked rel=3D"nofollow">j.kiszka...@gmail.c=
-om</a> wrote:
-<br>&gt;=20
-<br>&gt;         On 18.10.21 04:13, Changming Huang wrote:
-<br>&gt;         &gt; MSI-X vectors translates the interrupt through its, t=
-he GIC
-<br>&gt;         and my
-<br>&gt;         &gt; network device DTS node in root cell:
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gic: interrupt-cont=
-roller@6000000 {
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0compatible=3D &quot;arm,gic-v3&quot;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0#address-cells =3D &lt;2&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0#size-cells =3D &lt;2&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0ranges;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0reg=3D &lt;0x0 0x06000000 0 0x10000&gt;, /* GIC Dist */
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&lt;0x0 0x06040000 0 0x40000&gt;; /* =
-GIC
-<br>&gt;         Redistributor */
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0#interrupt-cells=3D &lt;3&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0interrupt-controller;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0interrupts =3D &lt;GIC_PPI 9 (GIC_CPU_MASK_RAW(0xf) |
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0IRQ_TYPE_LEVEL_LOW)&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 its: gic-its@6020000 {
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 compatible =3D &quot;arm,gic-v3-its&=
-quot;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 msi-controller;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x0 0x06020000 0 0x20000&=
-gt;;/* GIC
-<br>&gt;         &gt; Translater */
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0};
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};
-<br>&gt;         &gt;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0enetc_pcie: pcie@1f0000000 { /* Integrated
-<br>&gt;         Endpoint
-<br>&gt;         &gt; Root Complex */
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;pci-host-ecam-ge=
-neric&quot;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x01 0xf0000000 0x0 0x100=
-000&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;3&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0msi-parent =3D &lt;&amp;its&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0device_type =3D &quot;pci&quot;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bus-range =3D &lt;0x0 0x0&gt;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dma-coherent;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0msi-map =3D &lt;0 &amp;its 0x17 0xe&g=
-t;;
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...
-<br>&gt;         &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 }
-<br>&gt;         &gt;
-<br>&gt;         &gt; and I copy them all related nodes into cell DTS.
-<br>&gt;         &gt;
-<br>&gt;         &gt; so, I need more effort on MSI-X in cell?
-<br>&gt;=20
-<br>&gt;         This is conceptually the right thing, but something must b=
-e
-<br>&gt;         missing.
-<br>&gt;=20
-<br>&gt;         Is the ITS recognized by the non-root Linux kernel? Is tha=
-t kernel
-<br>&gt;         identical to the root-cell one (just to exclude configurat=
-ion
-<br>&gt;         issues)?
-<br>&gt;         Compare the boot logs.
-<br>&gt;=20
-<br>&gt;         Jan
-<br>&gt;=20
-<br>&gt;         --=20
-<br>&gt;         Siemens AG, T RDA IOT
-<br>&gt;         Corporate Competence Center Embedded Linux
-<br>
-<br>--=20
-<br>Siemens AG, T RDA IOT
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
+<div dir=3D"ltr">Can I share something with you ?</div>
 
 <p></p>
 
@@ -403,11 +159,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a93d4399-0a8d-4448-9a94-5aded67b2e3fn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/a93d4399-0a8d-4448-9a94-5aded67b2e3fn%40googlegroups.co=
-m</a>.<br />
+om/d/msgid/jailhouse-dev/CAGEDBYKzeY%2B0RRu9MEPKT2DoYfm1v%2BcyA%2Bw9k09WX07=
+e5BouRw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
+oups.google.com/d/msgid/jailhouse-dev/CAGEDBYKzeY%2B0RRu9MEPKT2DoYfm1v%2Bcy=
+A%2Bw9k09WX07e5BouRw%40mail.gmail.com</a>.<br />
 
-------=_Part_6569_1419994700.1634561259048--
-
-------=_Part_6568_316264414.1634561259048--
+--000000000000292f9105cea4f2e9--
