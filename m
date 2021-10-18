@@ -1,34 +1,34 @@
-Return-Path: <jailhouse-dev+bncBAABBIHOWOFQMGQE23WF5PI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBDESWSFQMGQEYRDOXPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf39.google.com (mail-qv1-xf39.google.com [IPv6:2607:f8b0:4864:20::f39])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9DB430EB5
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 06:25:06 +0200 (CEST)
-Received: by mail-qv1-xf39.google.com with SMTP id gs5-20020a056214226500b00382f5609124sf13838519qvb.8
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 17 Oct 2021 21:25:05 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1634531105; cv=pass;
+Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59975430FC6
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 18 Oct 2021 07:41:33 +0200 (CEST)
+Received: by mail-wm1-x33c.google.com with SMTP id y142-20020a1c7d94000000b00322f2e380f2sf1499198wmc.6
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 17 Oct 2021 22:41:33 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1634535693; cv=pass;
         d=google.com; s=arc-20160816;
-        b=B+woRHPizGHEfFyXuCLbBB5/GkJ+2CrkqCBt8f1AdVXDOv5gJ2fH3IH0hjGW4AHmKX
-         ye3QtaQ9yx/+pKoV+EG2udC7HLHBRe/zNAZ2EfYAEoM1Wc+7jhXXeJ7sZnf0X9xKnI5r
-         ER8ghClOm0h79aOWJkwxx1p2XemUGtZGi4OI5lCyF5P13+dJMA5Opr0PjDMuzXSGWZpM
-         9JDToFhhn2Ofrb1Fgi02qYGv4wpysS8SRSziypVlA6fV4h6Id11g1Lyp6BxqjiI2QvpX
-         IGm1nwNq+d0ChfUiCuCXkgNr2Ef5P9CQGdC5EP2ePOvnjjHdKvFQjs+cTWRGgtyStAkL
-         QB1g==
+        b=l2eKM2fxw5gYQexW9AMHhlYbovdVfqrg4X5co4ziRqRTI0kvP0Sfj/72oxgye3h8zQ
+         buxDWpV8rp5U2CX+950CRAHFQD3xkFUvCNdv6ZlJFZenX4TDpwj9uaYIQWBUCmkW4adt
+         QEGC6VwgEiznQlP570FbDMzGM/YxBFVe2RFuP12aXHCb5kvmQjyxqumFAv+a9tbUkxYA
+         Xp+iUotiAaAoTUNfRihyLZ3CkZnPrAbTbSOIg9/soF1Oge6y7jENS/7aopEQdMENp+Zu
+         Z21XsS4S0twqAoHsA3QWcY6NB+sKba6ScOm0YVxd6oAd4ZDQJc3qcOCfcJYFGvv9cSmd
+         MjOQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :content-language:in-reply-to:mime-version:user-agent:date
          :message-id:from:references:cc:to:subject:sender:dkim-signature;
-        bh=qj7L96M4fAPpcVnj9h31Osqx4Zz54r/dnQtH5uBmOKM=;
-        b=I82VJmGTN0m3URAc4/nZUeJNQOE0azH6PHgheQbdAJQ5Aiverc5/XKjKF8TX4s5jHG
-         9rU4zl7uqTRmqsLZ3kaV4Qmyn6y9mlPYFwJaVJcbvBzhucQB2Xb5Vjdap69XuAeFUKJF
-         ZOMFOGzx/BtzVozzrX4aSRoZPwssHHl3o+kD/hVRbCaINvu0aGugKdSzlcfTdYbOKlTi
-         QZ59MuXUkvHuXC+Cv598uZYsuZHMt+hRGknwY+JProftX4RD3KxCEgrBISr5cKi4sRpw
-         R4y5TLjtMJqHy1Jam5bd7V4Jw1rCwUQPBcYH3k62pnE1mXJXHc5GMFkhlSKMe+WkWtxu
-         YtPw==
+        bh=DQy8bfXCoHbheJ95Fmn4xsCpFYiU3lP72pnR40Jne3c=;
+        b=cy8CaFSTmhHKTpStfQheDvmcg0P7+LLe0RiUwJlesVfN6o+WjXv+j9VvNyk6V2pEbB
+         L5u6V4PoO4SIMkGaeWllu2Zhes7aY1SZPDxhUzdx79TWUqamlfPIvuYAYxcRKSG5HUGr
+         hvVMlycFvhKIxfFAamMkIm47qB/I7c0ycOD9CjzQJwoT3aVZYDJQRZZASSE+c4IyFGPQ
+         qXdoQxvBDqNsi09T8KmYQvxphVuXoRtVBD4q7DFL0s4FzCgWBmThtNNyZHM1UpqtF62W
+         kNfgiOBScXctMRtj+9XK/sWZ8xnuPWvadractsQ7PtgtbgyLpP3jLZiLa+17F4bXDrB2
+         RTsQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.187 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:subject:to:cc:references:from:message-id:date:user-agent
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=qj7L96M4fAPpcVnj9h31Osqx4Zz54r/dnQtH5uBmOKM=;
-        b=UQYpnIx7bC+Mp/L3vIXfxcIqeoqIkBOLAv1Tx03FRlQT8j2DwVKZyRJqkyFrVPQ8CZ
-         zLEGxtcdlpWxumYZjamx3HVLlogpcF+Y0moQfIKXFaZ2pQ2tA33uehSN+30T1cqjRJR4
-         7yjwz2vvSg6gKWBOjqUg490AmXseBXF/vTsqZAyqM4fE3jFOYz2mRPwdrbGka9v5bc+t
-         KLoRgzDr/Nqbb1Cc3jaLkyOWZYEIhR/WGoHLV1jLgjcAAnBY98ilFTIzfeWbRNrXT2Dt
-         vN/HClRwLyekYNFbeBvN9HEZ/j/ZXtb4eTxyoomlAFkR6m/i8PjVGgvS0C1/ZFq6dAq4
-         vmwA==
+        bh=DQy8bfXCoHbheJ95Fmn4xsCpFYiU3lP72pnR40Jne3c=;
+        b=lN+pxoPa8fmh4hT4evjn/uRRTanWE9xqLWCyc4Q/AGSXc10aL05pOPt71FgBUYP5L5
+         dgvxZe6Wwb77h1hUsuJVBP2cpYwtyIg/vYI3l3aa3g5pqAOvqeLYDkRfAHwTQMQQA2U3
+         x1CxchgW2Dd1QOnQEqwBfnhX1J8YBXWEVUwsOLukjeJSdYH4lxu9bpHChGbk5K4mNH8J
+         ZrZYseAybDzNYoOZnGcPYW/YB15O5jptGi8zmGOUIoKX+TPedGne02LZFgakjJj4i9AN
+         +l1RmyafAuIXwMP/wADtOkbcsoys/JDj1jVl9b8uL96Rv0ximWmGepHVmEnrqQqwEv8t
+         kojQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
@@ -51,86 +51,79 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=qj7L96M4fAPpcVnj9h31Osqx4Zz54r/dnQtH5uBmOKM=;
-        b=udu/hXKUxi5dL6fG9vgt3Jt/+gvTjRGeIMXoiweOc9AZW/MtjmV5wOsARXIR4d3AyQ
-         vza32/gsrNkohT2kWQYkvOtDEmZg3iDVh5NQs06Y3iSoIQh57GKBBQuG/B2WuQC0HQqy
-         U3DYhwZZZhwnxayA9PufbJ5XxYwPR50Xwrgt8xs7uEdtSOlsz5z3L0aHS07ZJ1XcVsCl
-         Z6Jc2CoGZFdDL8pXGXhatICXd0JqziUgO+5fJC/Y2BcXoqZR/JXWyGc8KcRbES/GRx4F
-         fKER2wbtuu3GOPpkG5ApIhc5p8RBeOdskDL5lMWYGq7CKKrgE5qkwLP4q3LU1+iBlg2c
-         dfVw==
+        bh=DQy8bfXCoHbheJ95Fmn4xsCpFYiU3lP72pnR40Jne3c=;
+        b=zY78mzs75KHvJY0jhRrLIJK0HVZR7sxtfrVE4H/V05FiBz7ezXWMCvD4p/pYn8NvxT
+         O99ic++F8lX7yH6FUldAPLoUguCYuM3hDvHcmTZXAvvBoFP+XgWYtBS1nJKMJ12q1Pbb
+         8HWvjHkyCLVf8N7VBQACg9WfMEF2FTNPfz8rS+5BtxlvPJLGVj+t1Dmnold2FCUKlAV8
+         RQNaQgsYefwnCj9zzF6bmEGK1yn8tXDqX737iyC2HQefjT1SC93gqeaF6KpSG0BBaSAT
+         SstVSSxLG/F5FzJiz+o2fwCRUBRAQKfUnVPPeoINE0pvmWpBtutGjc5Pd3Sy/WB8cW5P
+         /HRA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531KtEcsia/lLruba78Ti6i2ttmPv0m5mp55ThoB9+g8myQBx/Yn
-	MrzOa8IXU7Etm7KPXhSvTl0=
-X-Google-Smtp-Source: ABdhPJwtNrTPEOp6MCBdLv7QVCie/u2zI6lbVNhL2eK3DDmNzdsqZWEeqVQtW7eGmkjFCOoGtRpfSA==
-X-Received: by 2002:ac8:5f4f:: with SMTP id y15mr28300336qta.19.1634531104965;
-        Sun, 17 Oct 2021 21:25:04 -0700 (PDT)
+X-Gm-Message-State: AOAM531K/ewMXZQwxIEBHH8YkF6fKlss3qalIvQOvnQ97Hn9ejvcuzNk
+	mIk8RoYfNKSsVPMDcpFyyds=
+X-Google-Smtp-Source: ABdhPJxAz9fevmrVCFKJuiylRnyaN+ZSMrq8buefbZI+RV9rivekdlyRfbKCBWaLJFWajacZTiC+xg==
+X-Received: by 2002:a5d:6d05:: with SMTP id e5mr32788323wrq.300.1634535692975;
+        Sun, 17 Oct 2021 22:41:32 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5a0f:: with SMTP id n15ls1772081qta.1.gmail; Sun, 17 Oct
- 2021 21:25:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:1492:: with SMTP id t18mr28491432qtx.229.1634531104458;
-        Sun, 17 Oct 2021 21:25:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1634531104; cv=none;
+Received: by 2002:a05:600c:3b13:: with SMTP id m19ls197349wms.0.gmail; Sun, 17
+ Oct 2021 22:41:31 -0700 (PDT)
+X-Received: by 2002:a1c:22d7:: with SMTP id i206mr29084418wmi.122.1634535691920;
+        Sun, 17 Oct 2021 22:41:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1634535691; cv=none;
         d=google.com; s=arc-20160816;
-        b=jN0GAOMAuPpshWl+oFkMNFIAjQvD4COVq6o3Dyh+YcDqfsGevMp0nsRG8hizX+SS1A
-         T3qrbOtm7Z0Oc0kdLfvWwUoAbQOFnAJUtY3cqZzJsWUPyM3bVusA/ThwqS1P3RladtdO
-         We+2M4dPw+79nsyVkd5J3sGT1uXMNhcbnu0D+wVXvDdt4nGe97C8LiZHKcBp6c8uaHzk
-         SlEVKl6M+Z3qArXI4B8Mf1rPVcm6hrMZ4J/Kl18g3bPCqYdZ3udG3relazgT/gbXrRn1
-         wjkBHL4L8vZNb5vlIwFM09SDY/Y+zDqWkhzGbiNhFmHstr1jiJEaOVo19e5CAkdB1w1L
-         F6tQ==
+        b=hSeI1VL5F1LqgPnLUuP2wh3CZEmpL+SqH6YhN+T8MT3CxHJ46+Jjdep/vx7Sze1cAr
+         W4hbXY6wfueMR6WIFK2clSkLQzj3FQBm2+h9GPsafG8SRWYFXME8P0XOhff9ch/jg72/
+         2yeiRPGuUMIMrDzrpTweqe/B4co4sSJvyqTyBxtHbWD4UHYw0hycwvVCHUWbVQV3g9zq
+         csgn56bQUdz8FLBg+eK9zFhjQ8JZdjYjkjdALw9H/bkxgryUAN5sPJXVi+VyrKpy7pqL
+         3zS/Ks1aiOejXV9wH1qp+T5B2QrKvBgjXw3kmcDpFmpPBRVO5bY90WjWGZJed2/Qmo7T
+         BKYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:content-language:in-reply-to:mime-version
          :user-agent:date:message-id:from:references:cc:to:subject;
-        bh=k6Oy/hsJupu8YYiyM1A0qR0f9rySarmftgUtwhk28Eo=;
-        b=z4gdU6Jwwy0cp6WjQlbhLCMy1hURjoHKD0wnBIEyDaLpg1tKZOtFOXLReaV8mGLDig
-         8Ma4CsRni16Q444eYpooYCSWWTwwkogqvR5/fMROM+JVK3JvDkszbdKX3Uy13tpqI35+
-         V5/34TonLPNo458CEbRYltb79dFSXt0RSfdrMtdirvzQyVBo0MXiLdTwKbMy1+64usjB
-         baTxEvUviJubT01PrloJ81/fhK/3x8U1XC7a8kvl3w64DIv4bldGr2aM47wm/SHKsBFh
-         X88wCyx31GZ33zzLwO4LqrAZ5hRVjSDGrE0neDQmBOX7IdSIhbTbZImqtx4FvlRZKAqz
-         9dww==
+        bh=1znGi85DC2Xsb2rukOVrYRyQgr6fresvL4yGxnnge6w=;
+        b=sQJkfVFcDSkZrxrclBDYmuYdjmA+9LEXHtYtN7YKr+C6aBL9CeQBEH4ddAvJvxypQ1
+         aH9MPBhLSMngz6qL84Rbox33/t/MnO/Oi3ovJJfL01icAyPZFz2jdsAJnseyGALGKjVF
+         Qg3b4UHrDokx6TjQ7tmoPI0WI3YPDpPaRz9YEunPbiLT9NA1vCgYaTDU7BIb3LviE1pu
+         XvUf4pj+Xqa9ZPe5feSNPdo/lwumDqOH9roqKwCDV2oU8TRiAFQLLxexb03thiOazNit
+         f2q1OJlY4CWg3zK/yw/bqIYbDe70Pde5UofiYSQt3tvQbSVSOzvZ5fse6Rr4N9Db+dRD
+         ycIw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.187 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com. [45.249.212.187])
-        by gmr-mx.google.com with ESMTPS id p8si1500078qtk.4.2021.10.17.21.25.04
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id s187si199270wme.1.2021.10.17.22.41.31
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 17 Oct 2021 21:25:04 -0700 (PDT)
-Received-SPF: pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.187 as permitted sender) client-ip=45.249.212.187;
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.53])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HXkDb49cpzbnCj;
-	Mon, 18 Oct 2021 12:19:59 +0800 (CST)
-Received: from dggpeml500005.china.huawei.com (7.185.36.59) by
- dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.15; Mon, 18 Oct 2021 12:24:30 +0800
-Received: from [10.174.186.51] (10.174.186.51) by
- dggpeml500005.china.huawei.com (7.185.36.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.15; Mon, 18 Oct 2021 12:24:30 +0800
+        Sun, 17 Oct 2021 22:41:31 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 19I5fVXl011872
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 18 Oct 2021 07:41:31 +0200
+Received: from [167.87.73.119] ([167.87.73.119])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 19I5fUHj011968;
+	Mon, 18 Oct 2021 07:41:31 +0200
 Subject: Re: Questions about Jailhouse
-To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
-CC: Xiexiangyou <xiexiangyou@huawei.com>, <changzihao1@huawei.com>
+To: Zheng Chuan <zhengchuan@huawei.com>, jailhouse-dev@googlegroups.com
+Cc: Xiexiangyou <xiexiangyou@huawei.com>, changzihao1@huawei.com
 References: <830ab7e0-e8b9-edc7-8a3a-4acdb8b0216c@huawei.com>
  <58cd66eb-1988-cef4-09bc-2438f790f7f8@siemens.com>
-From: Zheng Chuan <zhengchuan@huawei.com>
-Message-ID: <ff1a563e-1e41-dd4d-9899-67f8de4d11bf@huawei.com>
-Date: Mon, 18 Oct 2021 12:24:29 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ <ff1a563e-1e41-dd4d-9899-67f8de4d11bf@huawei.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <1c48728d-c3f1-a30d-3c52-0ae68f11b040@siemens.com>
+Date: Mon, 18 Oct 2021 07:41:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <58cd66eb-1988-cef4-09bc-2438f790f7f8@siemens.com>
+In-Reply-To: <ff1a563e-1e41-dd4d-9899-67f8de4d11bf@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [10.174.186.51]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpeml500005.china.huawei.com (7.185.36.59)
-X-CFilter-Loop: Reflected
-X-Original-Sender: zhengchuan@huawei.com
+X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of zhengchuan@huawei.com designates 45.249.212.187 as
- permitted sender) smtp.mailfrom=zhengchuan@huawei.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=huawei.com
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -143,62 +136,71 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi, Jan.
-
-On 2021/10/14 17:34, Jan Kiszka wrote:
-> On 12.10.21 13:57, Zheng Chuan wrote:
->> Hi all,
+On 18.10.21 06:24, Zheng Chuan wrote:
+> Hi, Jan.
+>=20
+> On 2021/10/14 17:34, Jan Kiszka wrote:
+>> On 12.10.21 13:57, Zheng Chuan wrote:
+>>> Hi all,
+>>>
+>>> After reading the code of jailhouse, I have a few questions.
+>>> 1.Once Jailhouse is activated, the boot Linux will run as a VM. If it i=
+s possible to run VM by KVM(nested mode) in the root cell?
+>>>
 >>
->> After reading the code of jailhouse, I have a few questions.
->> 1.Once Jailhouse is activated, the boot Linux will run as a VM. If it is=
- possible to run VM by KVM(nested mode) in the root cell?
+>> Nope, but you can find traces of an attempt in
+>> https://github.com/siemens/jailhouse/commits/wip/kvm
 >>
+> OK. I'll look into it.
 >=20
-> Nope, but you can find traces of an attempt in
-> https://github.com/siemens/jailhouse/commits/wip/kvm
->
-OK. I'll look into it.
-
->> 2.I wonder why the root cell need to runs in guest mode? Whether jailhou=
-se can run root cell in host mode, create KVM VM inside
->> root cell. So jailhouse can support both partition and VM.
->=20
-> Two main reasons:
->=20
->  - security/safety: If you leave the root Linux running in host mode, it
->    becomes part of the trusted code base, increasing it by a "few"
->    orders of magnitude
->  - functionality: only by intercepting certain I/O accesses, Jailhouse
->    is able to emulate the ivshmem devices
->=20
-OK, I got it
+>>> 2.I wonder why the root cell need to runs in guest mode? Whether jailho=
+use can run root cell in host mode, create KVM VM inside
+>>> root cell. So jailhouse can support both partition and VM.
 >>
->> 3.When create a non-root cell, the jailhouse driver executes cpu_down() =
-to offline CPUs, but the offline CPU seems to be running
->> and respond to interruptions. And the hypervisor seems to have done noth=
-ing to wake up the CPUs(assigned to non-root cell),
->> or did I miss the important part of the code?
->=20
-> The offlined and then "stolen" CPUs of the non-root cell are first
-> parked and then finally started again at (amost) architectural reset
-> state when doing "jailhouse cell start". On x86, you can see the SIPIs
-> being injected for that in the Jailhouse log.
->=20
-Yes. However, I am still a little confused about the status of "offline" cp=
-u.
-i. On x86, is it at real mode or protected mode after we do cpu_down() with=
-in vmlanuch?
-ii. is that different from cpu_down() of host?
-iii. on x86=EF=BC=8Cdoes it conflict with the bootstrap of linux guest sinc=
-e the kernel will do transform from real mode to protected mode?
+>> Two main reasons:
+>>
+>>  - security/safety: If you leave the root Linux running in host mode, it
+>>    becomes part of the trusted code base, increasing it by a "few"
+>>    orders of magnitude
+>>  - functionality: only by intercepting certain I/O accesses, Jailhouse
+>>    is able to emulate the ivshmem devices
+>>
+> OK, I got it
+>>>
+>>> 3.When create a non-root cell, the jailhouse driver executes cpu_down()=
+ to offline CPUs, but the offline CPU seems to be running
+>>> and respond to interruptions. And the hypervisor seems to have done not=
+hing to wake up the CPUs(assigned to non-root cell),
+>>> or did I miss the important part of the code?
+>>
+>> The offlined and then "stolen" CPUs of the non-root cell are first
+>> parked and then finally started again at (amost) architectural reset
+>> state when doing "jailhouse cell start". On x86, you can see the SIPIs
+>> being injected for that in the Jailhouse log.
+>>
+> Yes. However, I am still a little confused about the status of "offline" =
+cpu.
+> i. On x86, is it at real mode or protected mode after we do cpu_down() wi=
+thin vmlanuch?
+> ii. is that different from cpu_down() of host?
+> iii. on x86=EF=BC=8Cdoes it conflict with the bootstrap of linux guest si=
+nce the kernel will do transform from real mode to protected mode?
 
+We hand over the CPUs in real-mode, as architecturally defined. The only
+differences are:
 
-> Jan
->=20
+ - reset address can be configured to be different to 0xFFFFFFF0
+ - all CPUs are started at once in a new cell, not just a single boot-
+   strap processor
+
+You can study that by looking at inmates/lib/x86/header-{32,64}.S. This
+is the code run first after cell start when using our own inmates.
+
+Jan
 
 --=20
-Regards.
-Chuan
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -206,4 +208,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ff1a563e-1e41-dd4d-9899-67f8de4d11bf%40huawei.com.
+jailhouse-dev/1c48728d-c3f1-a30d-3c52-0ae68f11b040%40siemens.com.
