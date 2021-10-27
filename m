@@ -1,81 +1,140 @@
-Return-Path: <jailhouse-dev+bncBC64DZNZYEERBQ5236FQMGQEADUOVQI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBH7A4OFQMGQEA3RVLJQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3c.google.com (mail-qv1-xf3c.google.com [IPv6:2607:f8b0:4864:20::f3c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 288E843B07D
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Oct 2021 12:49:41 +0200 (CEST)
-Received: by mail-qv1-xf3c.google.com with SMTP id gs5-20020a056214226500b00382f5609124sf13255274qvb.8
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Oct 2021 03:49:41 -0700 (PDT)
+Received: from mail-pl1-x637.google.com (mail-pl1-x637.google.com [IPv6:2607:f8b0:4864:20::637])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FE243C2E7
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Oct 2021 08:22:26 +0200 (CEST)
+Received: by mail-pl1-x637.google.com with SMTP id v14-20020a170902e8ce00b0013fcb85c0ebsf807675plg.22
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Oct 2021 23:22:26 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1635315743; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=klNZP/fhZJyNnYLqBj+9vnI6REtvwNkrQDipE8w7G8A4B1+PevLfwy1JZbZciRDJDs
+         2plQ5e2mItYTAVAY+r5/l2S1x+awcEozSrP5obd2sLuee+Czy9WktXIHkgCStdtL3DVh
+         KcvIyX/m69m5FHrIQVJqIFezwu0AOr8sID0Ju1Fx4onoEZtS+ajTFqFpYFJLm6dKJe6X
+         2tWv23YwXQXGkHraoL6P9P5MfJB8hcL1j2w7lKl8ydQ0948wkeqyjgrTe4GLhEnle+H9
+         +x53fyppb63fYUc+Ls8NP7xIVmjOxFhkRNkxzaTrL5FRTumu7q6i3Ydc4cxDCB3B4UJZ
+         ydWw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:cc:to:subject:sender:dkim-signature;
+        bh=zwZ4Ii7hQIp/03EsbL1FtwDM2T1wK3fsI+Cje1LV8cw=;
+        b=U4Y6D0SxDdiHRp97CxjdLKlGAJLdyuiU2C3vOEggMfa8FYngV/46Dy/MIFQDmQtJSZ
+         MyHyE83ODQEarW1vbK+UQzRhQWfSPd9mf9EQY9/yoHtPlTIjvnX4dpmkx71T9OSzawFa
+         CO4AK0nCCwnAjan5JSiunLzD3eavZ8Qjr9/LJsNKW9/h2XxH+e7RuybYRcZ2Q6iMvCFj
+         uYlucgEDwdeRHcEJ5K3TnmyAYhmP2snaBD3xWcFTecrKhJwrIUQ3MAWgvgAX/aTX/mPl
+         qZ1YI271WvHTtadiP6xiB52/n5rA++iH4AIeZHtS2HFviooTmIcd6FEnKOqbqxHRaJGK
+         MFaA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.189 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5c9JQja/qzSloruxcfRr3/rNMoobOXP8YTwgCOyLh1g=;
-        b=pAAYOKu1LOK3V8YWUwe29cDIaCrPeqytByydV43tL4TpBRrqdrHet4xKvzd5AhlTLE
-         1gZw9Oli4YAwpJri6hzPwuTWZffsGYynfj72kLt0NT+owabv/gdxzCHwSDGPj9K6qINP
-         mUWGoUNiK+jfiq0v6JjMQpCtxV9PTLnP/LCNZGm00sHGHpUwZ7RDr9RgiYTYMr3EEugt
-         4LAgNmJMeXptQiw/DxsWImeXS+MSKARAa238FkI1ulmGvIXeRbWpz1R58DszL1//oROX
-         cLWhPQURntOxNGgk0nouRUSNFXxYXPpkQuz5wS6VoGYU0qR5Tx4H7YmG9mpIpaVcp8G/
-         ViTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5c9JQja/qzSloruxcfRr3/rNMoobOXP8YTwgCOyLh1g=;
-        b=E/coCPfGLdIgRYBdkumt/1ziKjcvPUcqxeUqxy1/mYcGjAcRkx6APMaJ1D1SE161H0
-         NakQOms5qyG3yl6wJH0MBgRyQY4gXlywwpL0+k/xFOnWJHQmkSI/AjTZNLVnBhACk2K9
-         pabtwtHz9zmRDfuyHePf89tTP5JFbV+itiRLBSHRzLHgm9jABnq99QBrod1lr22zJTYt
-         /0d1tjqhHdvaa/8Ywt53h6szQB4CXZyYazP0UPJYVm6/ImlBYXPmOWTwhQ/uHcdrIlGd
-         NALW51veWDcdHL/RJHVADufYBJgwC/q2/DrFxIfYM0osZP0sZs5tCJmj95INLHkJpwu9
-         N0VQ==
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=zwZ4Ii7hQIp/03EsbL1FtwDM2T1wK3fsI+Cje1LV8cw=;
+        b=AuZ1PKDcVjgeHi+hV2+hL0aovSow+Sbr6NWFwA85bwcjoRtApH2azc13aEt8n4Fwzt
+         mbprr4Vd9epvucWmr7uuGVcQHDZuuF8nYl+dbLlNjMqz1rswUwlpok2gdKyrlY2pOGiJ
+         Eim27Ct6rKlo4hk6D5V3L5vPDPzkLaFQpEq6w1fSNdI0adFEGY2UvSYC+KYUg7HAba89
+         /98dqiQShbMb6LTVd8IWaib+cAcQwGJyGoWKAeth+pRxRm9cQh2kSaFZHKfic8iDWcex
+         IwiLIP5BuhOhTTk8s7+eL7dE++yHokm4a9quS18Kz2Kr6yJTJHz9bbAAS5FIME6+xH+S
+         KwsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=5c9JQja/qzSloruxcfRr3/rNMoobOXP8YTwgCOyLh1g=;
-        b=e6BmwYfsCQ33FHy3CQYVbIZd0YyQHWEdt7F6CghybVzY+0AH26Xk2LgVDO1Y1b1v3i
-         ePMMcC8wD4Tx2f5GJnBW6+tsQ+RviXhWSUqXcFjV8N8NmIauHWhwKjtFWhglw0HDrZgE
-         JvWEOxT2v0iD3eNZQBVyhCZDeUm795qk8VrTKFriNXGn7Tprf0neFBRZh0xsyjuWxyVF
-         eWQts8UG9C9f6YV6Uc/ywK5XJbHOpx6bUL7hWJTVmxe5lMVNGN/q2ituNeQoO9lge6Dp
-         imvTDs7ZCgOIw70Wm/hnJTPJuUIf1Qw4L6Kv7z65hrwZmCjyKqz9t1uGRbhCE5RHEdRM
-         N8xw==
+        h=sender:x-gm-message-state:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=zwZ4Ii7hQIp/03EsbL1FtwDM2T1wK3fsI+Cje1LV8cw=;
+        b=KY4EEJohWHrBmqM9SHOldxTjuOIygtvsd+BQq3zpqizarsIDK4IaBYKDY5IXruYO21
+         XvKj5/qAVwboNf50zGxRjBvSEg0OZzD1ckQzQbBG3GTudPl1NU9IuqjqaPUJpH1qDN98
+         BbdVEdFO1fpgj6n3s53h0h08ysY/y7EUMf3SvUJxqrYz2JPM8YV+caISMZ46r+ww6Zti
+         QnJ6DzX0xCgCE7XVPUrQanfwWm0L7fDmezVS2MhCOs82wFXXm+liXS/2Vp5Ors3++Q2G
+         oViRKMg9mDRDkgz0lGNND+Tm9uBw5DZWeOYWDaYG9azBHEWi5ltHdItZu2pubpunCcZZ
+         00Cg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530/drFrChIQCd2SIxes/3OHHa3keCKOEBiRmMEgF4FdSa69sYSX
-	eUl8ctbQhF3Nf/+mZ3UE5mI=
-X-Google-Smtp-Source: ABdhPJzwVxpdydcwYHNAkKi3dUGmYEAIa30QlBh+B/2ZfehaUx2BPFl4H/QS+IoGJjSc5mFA9F5TVg==
-X-Received: by 2002:a37:a604:: with SMTP id p4mr18334609qke.0.1635245379946;
-        Tue, 26 Oct 2021 03:49:39 -0700 (PDT)
+X-Gm-Message-State: AOAM532t9k8HVEWL7qgx7Y1Yy312yScHqJVn4n22S0YmVQl21RiYeCcC
+	43GDrhLDtSNyW5z32QmZerE=
+X-Google-Smtp-Source: ABdhPJwmOk906V1RPV6UmmWpt8gNPKzxVcsQ1NH3LogiggsjwjT76CxQepEYHpGM62B641GiE+z6HA==
+X-Received: by 2002:a17:90a:2c02:: with SMTP id m2mr3749571pjd.109.1635315743686;
+        Tue, 26 Oct 2021 23:22:23 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:4095:: with SMTP id f21ls10004024qko.4.gmail; Tue,
- 26 Oct 2021 03:49:39 -0700 (PDT)
-X-Received: by 2002:a37:9f55:: with SMTP id i82mr18181646qke.133.1635245379404;
-        Tue, 26 Oct 2021 03:49:39 -0700 (PDT)
-Date: Tue, 26 Oct 2021 03:49:38 -0700 (PDT)
-From: Changming Huang <huangcm.huang@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <ff786d5c-affd-4f94-9411-04bd223a8bc0n@googlegroups.com>
-In-Reply-To: <CAC+yH-beQxOE-Wdwe+ESFjM3Mw5KeS=kKpda1RZ6rrZ5bQLxuw@mail.gmail.com>
-References: <c07e7f82-2a69-44e6-bbba-aa270d60917en@googlegroups.com>
- <089c15bf-194d-c84b-431c-461cc8a608e1@siemens.com>
- <83beed08-7e85-4607-bdf8-e4ec983912f8n@googlegroups.com>
- <d2dcdcc4-cba6-40a7-859b-25b1bfc685cbn@googlegroups.com>
- <3f00a102-357e-de0e-3ea3-f338f00ca793@web.de>
- <CAC+yH-YxAb+qaCRds7TZHazFXCgLqYwhJTx8W-0bxrmcXpUbBA@mail.gmail.com>
- <7244017d-6e9f-544e-9dfa-fefcb4827cd3@web.de>
- <CAC+yH-aewTCrKXB=QOM_h=n2umO9p2nvpTmBmbwaVjmKuBQWmw@mail.gmail.com>
- <2d727a12-5fc2-1400-3b72-cb21366b47ba@web.de>
- <CAC+yH-Zj8aPePQSLa3GL2TicXWMa_nOXTEEV2Agyjx3zJbZOLA@mail.gmail.com>
- <457f3a55-732d-15a6-8e4b-d4a86202e302@web.de>
- <CAC+yH-beQxOE-Wdwe+ESFjM3Mw5KeS=kKpda1RZ6rrZ5bQLxuw@mail.gmail.com>
-Subject: Re: Help needed regarding AGL with Jailhouse
+Received: by 2002:a05:6a00:a03:: with SMTP id p3ls10069702pfh.0.gmail; Tue, 26
+ Oct 2021 23:22:22 -0700 (PDT)
+X-Received: by 2002:a63:88c2:: with SMTP id l185mr20500822pgd.277.1635315742826;
+        Tue, 26 Oct 2021 23:22:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1635315742; cv=none;
+        d=google.com; s=arc-20160816;
+        b=CxHekDfhte/F+ouPVecJGaleKlJjf2OppwVZYqNm+74NfHmdtLU/LtnKD5KctYkeNw
+         HVLTTau5bh4GrEU99O5U5OKzLfzal+PyjpTIyOQzBaRaPs4/S2uUEA61+ygaJhPi1u24
+         7I9HurAyzXa/b7Ps7ddEfhw+KqooNo6OeKFqYqP8h1TdSxGdaqZg9y6USq7W/PdHzbPt
+         0lhz7PS53e7/VYd7uDIvDfURBx5BixaIT1s04wT+pm+xkGGBX9V6gvn6nGp5i2CupUjw
+         Xfqf/sC8XiwxCiXF8kx0tS7hVD95lUwodAzph3j0pCDVO1IGJ5PVy5OgrU68xTmzdGUY
+         kHUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:cc:to:subject;
+        bh=TK+Myfc99TbUt2LnQADLmeG8kVg95odfUeUiA2aXqF8=;
+        b=IadBCRWwF0X0Ug6qUSJTM5maXgD1PzPnUZ18Py8jitk0hUocHNKpm6CIPpU/kb5a42
+         weZm7sybd/zynqeYtr5bTzKbdbOwjlagrX9pXuJeKVgfRWK0KqbvSUWWz0dhxnoNiThs
+         a5EMtA/TqIxNbgtUcr+MOIdF8Hd4w3qJPXS1dGZnGcaRVQPMXLaAG3ULwmdH4fx1s28v
+         Z3wclm5ttTTEXg5ebS3Gt8xCQr+HyvpRqD1AErfAmUUxfFkBfSLJtI4rPxXg0ttgHRdI
+         4XQhc12a4vp1tmiUFcx8tjIaWcEauNSjp+T+y++pg3Z+bmVYpvdsjrJ1cQkkvnnq49Em
+         9oyw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.189 as permitted sender) smtp.mailfrom=zhengchuan@huawei.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=huawei.com
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com. [45.249.212.189])
+        by gmr-mx.google.com with ESMTPS id lb8si1635484pjb.3.2021.10.26.23.22.22
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 26 Oct 2021 23:22:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of zhengchuan@huawei.com designates 45.249.212.189 as permitted sender) client-ip=45.249.212.189;
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
+	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4HfJTz6B5tz8trB;
+	Wed, 27 Oct 2021 14:20:55 +0800 (CST)
+Received: from dggpeml500005.china.huawei.com (7.185.36.59) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Wed, 27 Oct 2021 14:22:17 +0800
+Received: from [10.174.186.51] (10.174.186.51) by
+ dggpeml500005.china.huawei.com (7.185.36.59) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.15; Wed, 27 Oct 2021 14:22:16 +0800
+Subject: Re: Questions about Jailhouse
+To: Jan Kiszka <jan.kiszka@siemens.com>, <jailhouse-dev@googlegroups.com>
+CC: Xiexiangyou <xiexiangyou@huawei.com>, <changzihao1@huawei.com>
+References: <830ab7e0-e8b9-edc7-8a3a-4acdb8b0216c@huawei.com>
+ <58cd66eb-1988-cef4-09bc-2438f790f7f8@siemens.com>
+ <ff1a563e-1e41-dd4d-9899-67f8de4d11bf@huawei.com>
+ <1c48728d-c3f1-a30d-3c52-0ae68f11b040@siemens.com>
+ <1ff4c02a-d29f-98de-907d-0954bd3ae3b1@huawei.com>
+ <9e90522c-9cf5-dc34-f8e6-d1c7abb2ddf6@siemens.com>
+From: Zheng Chuan <zhengchuan@huawei.com>
+Message-ID: <df8c5de1-1062-cf73-2060-601934a30e9f@huawei.com>
+Date: Wed, 27 Oct 2021 14:22:16 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_8448_1654456891.1635245378859"
-X-Original-Sender: huangcm.huang@gmail.com
+In-Reply-To: <9e90522c-9cf5-dc34-f8e6-d1c7abb2ddf6@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [10.174.186.51]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpeml500005.china.huawei.com (7.185.36.59)
+X-CFilter-Loop: Reflected
+X-Original-Sender: zhengchuan@huawei.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of zhengchuan@huawei.com designates 45.249.212.189 as
+ permitted sender) smtp.mailfrom=zhengchuan@huawei.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=huawei.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -88,192 +147,123 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_8448_1654456891.1635245378859
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_8449_452250265.1635245378859"
+Thanks, Jan.
+I am pretty clear now.
 
-------=_Part_8449_452250265.1635245378859
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-hi, anmol,
-could you please share your ideal to fix the issue "cannot open /dev/uio0:=
-=20
-No such file or directory"
-I have the same issue now.
-
-On Friday, August 20, 2021 at 9:53:11 PM UTC+8 anmol.k...@gmail.com wrote:
-
-> It's working :)
->
-> qemux86-64:~# ./virtio-ivshmem-block /dev/uio0 disk.img
-> Waiting for peer to be ready...
->
-> Thanks and Regards,
-> Anmol
->
-> On Fri, Aug 20, 2021 at 6:49 PM Jan Kiszka <jan.k...@web.de> wrote:
-> >
-> > On 20.08.21 14:46, Anmol wrote:
-> > > On Fri, Aug 20, 2021 at 5:53 PM Jan Kiszka <jan.k...@web.de> wrote:
-> > >>
-> > >> On 20.08.21 14:02, Anmol wrote:
-> > >>> Hello,
-> > >>>
-> > >>> On Thu, Aug 19, 2021 at 7:22 PM Jan Kiszka <jan.k...@web.de> wrote:
-> > >>>>
-> > >>>> On 19.08.21 15:42, Anmol wrote:
-> > >>>>> Hello,
-> > >>>>>
-> > >>>>> On Sat, Aug 14, 2021 at 8:20 PM Jan Kiszka <jan.k...@web.de>=20
-> wrote:
-> > >>>>>>
-> > >>>>>> On 11.08.21 20:36, Anmol wrote:
-> > >>>>>>
-> > >>>>>> The echo should not show any response, but when you do an lspci=
-=20
-> -k, you
-> > >>>>>> should see that the targeting devices are now driven by=20
-> uio_ivshmem. If
-> > >>>>>> not, the IDs might not be correct yet, or the devices are missin=
-g.
-> > >>>>>>
-> > >>>>>> Also check the kernel console of the cell where you issued this=
-=20
-> echo.
-> > >>>>>>
-> > >>>>>
-> > >>>>> I have added the PCI devices to both the cells and set the
-> > >>>>> `.shmem_dev_id` accordingly, please have a look at the cell confi=
-g.
-> > >>>>> files I have sent.
-> > >>>>>
-> > >>>>> here's the `lspci -k` output:
-> > >>>>> qemux86-64:~# lspci -k
-> > >>>>> 00:00.0 Host bridge: Intel Corporation 82G33/G31/P35/P31 Express=
-=20
-> DRAM Controller
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> 00:01.0 VGA compatible controller: Red Hat, Inc. Virtio GPU (rev=
-=20
-> 01)
-> > >>>>> Subsystem: Red Hat, Inc. Virtio GPU
-> > >>>>> Kernel driver in use: virtio-pci
-> > >>>>> 00:02.0 Ethernet controller: Red Hat, Inc. Virtio network device
-> > >>>>> Subsystem: Red Hat, Inc. Virtio network device
-> > >>>>> Kernel driver in use: virtio-pci
-> > >>>>> 00:03.0 Unclassified device [00ff]: Red Hat, Inc. Virtio RNG
-> > >>>>> Subsystem: Red Hat, Inc. Virtio RNG
-> > >>>>> Kernel driver in use: virtio-pci
-> > >>>>> 00:04.0 SCSI storage controller: Red Hat, Inc. Virtio block devic=
+On 2021/10/18 19:36, Jan Kiszka wrote:
+> On 18.10.21 09:00, Zheng Chuan wrote:
+>>
+>>
+>> On 2021/10/18 13:41, Jan Kiszka wrote:
+>>> On 18.10.21 06:24, Zheng Chuan wrote:
+>>>> Hi, Jan.
+>>>>
+>>>> On 2021/10/14 17:34, Jan Kiszka wrote:
+>>>>> On 12.10.21 13:57, Zheng Chuan wrote:
+>>>>>> Hi all,
+>>>>>>
+>>>>>> After reading the code of jailhouse, I have a few questions.
+>>>>>> 1.Once Jailhouse is activated, the boot Linux will run as a VM. If i=
+t is possible to run VM by KVM(nested mode) in the root cell?
+>>>>>>
+>>>>>
+>>>>> Nope, but you can find traces of an attempt in
+>>>>> https://github.com/siemens/jailhouse/commits/wip/kvm
+>>>>>
+>>>> OK. I'll look into it.
+>>>>
+>>>>>> 2.I wonder why the root cell need to runs in guest mode? Whether jai=
+lhouse can run root cell in host mode, create KVM VM inside
+>>>>>> root cell. So jailhouse can support both partition and VM.
+>>>>>
+>>>>> Two main reasons:
+>>>>>
+>>>>>  - security/safety: If you leave the root Linux running in host mode,=
+ it
+>>>>>    becomes part of the trusted code base, increasing it by a "few"
+>>>>>    orders of magnitude
+>>>>>  - functionality: only by intercepting certain I/O accesses, Jailhous=
 e
-> > >>>>> Subsystem: Red Hat, Inc. Virtio block device
-> > >>>>> Kernel driver in use: virtio-pci
-> > >>>>> 00:1b.0 Audio device: Intel Corporation 82801FB/FBM/FR/FW/FRW (IC=
-H6
-> > >>>>> Family) High Definition Audio Controller (rev 01)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: snd_hda_intel
-> > >>>>> 00:1d.0 USB controller: Intel Corporation 82801I (ICH9 Family) US=
-B
-> > >>>>> UHCI Controller #1 (rev 03)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: uhci_hcd
-> > >>>>> 00:1d.1 USB controller: Intel Corporation 82801I (ICH9 Family) US=
-B
-> > >>>>> UHCI Controller #2 (rev 03)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: uhci_hcd
-> > >>>>> 00:1d.2 USB controller: Intel Corporation 82801I (ICH9 Family) US=
-B
-> > >>>>> UHCI Controller #3 (rev 03)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: uhci_hcd
-> > >>>>> 00:1d.7 USB controller: Intel Corporation 82801I (ICH9 Family) US=
-B2
-> > >>>>> EHCI Controller #1 (rev 03)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: ehci-pci
-> > >>>>> 00:1f.0 ISA bridge: Intel Corporation 82801IB (ICH9) LPC Interfac=
-e
-> > >>>>> Controller (rev 02)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> 00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH=20
-> (ICH9R/DO/DH)
-> > >>>>> 6 port SATA Controller [AHCI mode] (rev 02)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: ahci
-> > >>>>> 00:1f.3 SMBus: Intel Corporation 82801I (ICH9 Family) SMBus=20
-> Controller (rev 02)
-> > >>>>> Subsystem: Red Hat, Inc. QEMU Virtual Machine
-> > >>>>> Kernel driver in use: i801_smbus
-> > >>>>>
-> > >>>>
-> > >>>> Is this taken while Jailhouse was enabled? It's missing your ivshm=
-em
-> > >>>> devices (00:0c.0 - 00:0f.0).
-> > >>>>
-> > >>>
-> > >>> I did some changes to the root-cell config files, and now it=E2=80=
-=99s=20
-> showing
-> > >>> the PCI device 00:0c.0 (I have added defined macro for VIRTIO_BLK
-> > >>> only):
-> > >>>
-> > >>> qemux86-64:~# lspci -k
-> > >>> .
-> > >>> .
-> > >>> .
-> > >>> 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
-> > >>> Subsystem: Siemens AG Device 4106
-> > >>> .
-> > >>> .
-> > >>> .
-> > >>>
-> > >>> But it=E2=80=99s not showing any association with the `uio_ivshmem`=
-, and also
-> > >>> I am still not able to find the `/dev/uio0`.
-> > >>>
-> > >>
-> > >> And now
-> > >>
-> > >> echo "110a 4106 110a 4106 ffc002 ffffff" >=20
-> /sys/bus/pci/drivers/uio_ivshmem/new_id
-> > >>
-> > >> again.
-> > >>
-> > >
-> > > Here's the full log:
-> > >
-> > > qemux86-64:~# jailhouse enable /usr/share/jailhouse/cells/qemu-agl.ce=
-ll
-> > > qemux86-64:~# modprobe uio_ivshmem
-> > > qemux86-64:~# lsmod
-> > > Module Size Used by
-> > > virtio_gpu 65536 0
-> > > virtio_dma_buf 16384 1 virtio_gpu
-> > > virtio_net 53248 0
-> > > net_failover 16384 1 virtio_net
-> > > failover 16384 1 net_failover
-> > > jailhouse 36864 1
-> > > qemux86-64:~# echo "110a 4106 110a 4106 ffc002 ffffff" >
-> > > /sys/bus/pci/drivers/uio_ivshmem/new_id
-> >
-> > ffc0... -> back-end device
-> >
-> > > qemux86-64:~# lspci -k
-> > > .
-> > > .
-> > > .
-> > > 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
-> >
-> > ff80 -> you have a front-end device here
-> >
-> > You are either running that in the non-root cell or you misconfigured
-> > the root cell (JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK is needed).
-> >
-> > Jan
->
+>>>>>    is able to emulate the ivshmem devices
+>>>>>
+>>>> OK, I got it
+>>>>>>
+>>>>>> 3.When create a non-root cell, the jailhouse driver executes cpu_dow=
+n() to offline CPUs, but the offline CPU seems to be running
+>>>>>> and respond to interruptions. And the hypervisor seems to have done =
+nothing to wake up the CPUs(assigned to non-root cell),
+>>>>>> or did I miss the important part of the code?
+>>>>>
+>>>>> The offlined and then "stolen" CPUs of the non-root cell are first
+>>>>> parked and then finally started again at (amost) architectural reset
+>>>>> state when doing "jailhouse cell start". On x86, you can see the SIPI=
+s
+>>>>> being injected for that in the Jailhouse log.
+>>>>>
+>>>> Yes. However, I am still a little confused about the status of "offlin=
+e" cpu.
+>>>> i. On x86, is it at real mode or protected mode after we do cpu_down()=
+ within vmlanuch?
+>>>> ii. is that different from cpu_down() of host?
+>>>> iii. on x86=EF=BC=8Cdoes it conflict with the bootstrap of linux guest=
+ since the kernel will do transform from real mode to protected mode?
+>>>
+>>> We hand over the CPUs in real-mode, as architecturally defined. The onl=
+y
+>>> differences are:
+>>>
+>>>  - reset address can be configured to be different to 0xFFFFFFF0
+>>>  - all CPUs are started at once in a new cell, not just a single boot-
+>>>    strap processor
+>>>
+>>> You can study that by looking at inmates/lib/x86/header-{32,64}.S. This
+>>> is the code run first after cell start when using our own inmates.
+>>>
+>>> Jan
+>>>
+>> OK, Let me list the initialization of non-root cell in my mind.
+>> 1. When we do cell_create, the cpus we wanted are "offline" by the root =
+cell module. now the "offline" cpus are in real-mode with vmlanuch.
+>=20
+> More exactly, jailhouse module takes CPUs of upcoming non-root cell
+> offline (just cli; hlt, not yet real mode), but Linux could still bring
+> them up again at this point.
+>=20
+>> 2. The jailhouse sends nmi, and the wanted cpus do vm-exits into jailhou=
+se (well, i am not sure can cpu response the nmi in real-mode?)
+>=20
+> NMIs are handled only in hypervisor mode (root mode). They serve as
+> hypervisor IPIs, take the guest into hypervisor mode, and let the
+> hypervisor do what needs to be done.
+>=20
+>> 3. The jailhouse will park them and point the rip into parking_code, and=
+ then the cpus will do hlt code after vm-entry
+>=20
+> Yep. From that point on, Linux will no longer be able to bring the CPUs
+> online again - INIT/SIPI for those cores will be rejected.
+>=20
+>> 4. When we do cell_start, the jailhouse sends nmi again, the wanted cpus=
+ do vm-exits into jailhouse.
+>> 5. The jailhouse will reset the rip into 0xFFFFFFF0, and the cpus will d=
+o vm-entry after arch_reset_cpu().
+>> 6. ok, the /lib/x86/header-{32,64}.S turns on, and also the jailhouse wi=
+ll work while the inmates sends the sint and sipi.
+>=20
+> Those INIT/SIPI calls are actually emulated. Allowing the guest to issue
+> them in reality would bring the CPUs in the wrong state.
+>=20
+>>
+>> Is that right?
+>>
+>=20
+> Generally, yes!
+>=20
+> Jan
+>=20
+
+--=20
+Regards.
+Chuan
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -281,210 +271,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ff786d5c-affd-4f94-9411-04bd223a8bc0n%40googlegroups.com.
-
-------=_Part_8449_452250265.1635245378859
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-hi, anmol,<div>could you please share your ideal to fix the issue "cannot o=
-pen /dev/uio0: No such file or directory"</div><div>I have the same issue n=
-ow.</div><div><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=
-=3D"gmail_attr">On Friday, August 20, 2021 at 9:53:11 PM UTC+8 anmol.k...@g=
-mail.com wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin=
-: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex=
-;">It&#39;s working :)
-<br>
-<br>qemux86-64:~# ./virtio-ivshmem-block /dev/uio0 disk.img
-<br>Waiting for peer to be ready...
-<br>
-<br>Thanks and Regards,
-<br>Anmol
-<br>
-<br>On Fri, Aug 20, 2021 at 6:49 PM Jan Kiszka &lt;<a href data-email-maske=
-d rel=3D"nofollow">jan.k...@web.de</a>&gt; wrote:
-<br>&gt;
-<br>&gt; On 20.08.21 14:46, Anmol wrote:
-<br>&gt; &gt; On Fri, Aug 20, 2021 at 5:53 PM Jan Kiszka &lt;<a href data-e=
-mail-masked rel=3D"nofollow">jan.k...@web.de</a>&gt; wrote:
-<br>&gt; &gt;&gt;
-<br>&gt; &gt;&gt; On 20.08.21 14:02, Anmol wrote:
-<br>&gt; &gt;&gt;&gt; Hello,
-<br>&gt; &gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt; On Thu, Aug 19, 2021 at 7:22 PM Jan Kiszka &lt;<a hre=
-f data-email-masked rel=3D"nofollow">jan.k...@web.de</a>&gt; wrote:
-<br>&gt; &gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt; On 19.08.21 15:42, Anmol wrote:
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Hello,
-<br>&gt; &gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt; On Sat, Aug 14, 2021 at 8:20 PM Jan Kiszka &l=
-t;<a href data-email-masked rel=3D"nofollow">jan.k...@web.de</a>&gt; wrote:
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; On 11.08.21 20:36, Anmol wrote:
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; The echo should not show any response, bu=
-t when you do an lspci -k, you
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; should see that the targeting devices are=
- now driven by uio_ivshmem. If
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; not, the IDs might not be correct yet, or=
- the devices are missing.
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; Also check the kernel console of the cell=
- where you issued this echo.
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt; I have added the PCI devices to both the cell=
-s and set the
-<br>&gt; &gt;&gt;&gt;&gt;&gt; `.shmem_dev_id` accordingly, please have a lo=
-ok at the cell config.
-<br>&gt; &gt;&gt;&gt;&gt;&gt; files I have sent.
-<br>&gt; &gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;&gt; here&#39;s the `lspci -k` output:
-<br>&gt; &gt;&gt;&gt;&gt;&gt; qemux86-64:~# lspci -k
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:00.0 Host bridge: Intel Corporation 82G33/=
-G31/P35/P31 Express DRAM Controller
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:01.0 VGA compatible controller: Red Hat, I=
-nc. Virtio GPU (rev 01)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. Virtio GPU
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: virtio-pci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:02.0 Ethernet controller: Red Hat, Inc. Vi=
-rtio network device
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. Virtio network devic=
-e
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: virtio-pci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:03.0 Unclassified device [00ff]: Red Hat, =
-Inc. Virtio RNG
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. Virtio RNG
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: virtio-pci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:04.0 SCSI storage controller: Red Hat, Inc=
-. Virtio block device
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. Virtio block device
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: virtio-pci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1b.0 Audio device: Intel Corporation 82801=
-FB/FBM/FR/FW/FRW (ICH6
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Family) High Definition Audio Controller (rev=
- 01)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: snd_hda_intel
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1d.0 USB controller: Intel Corporation 828=
-01I (ICH9 Family) USB
-<br>&gt; &gt;&gt;&gt;&gt;&gt; UHCI Controller #1 (rev 03)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: uhci_hcd
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1d.1 USB controller: Intel Corporation 828=
-01I (ICH9 Family) USB
-<br>&gt; &gt;&gt;&gt;&gt;&gt; UHCI Controller #2 (rev 03)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: uhci_hcd
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1d.2 USB controller: Intel Corporation 828=
-01I (ICH9 Family) USB
-<br>&gt; &gt;&gt;&gt;&gt;&gt; UHCI Controller #3 (rev 03)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: uhci_hcd
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1d.7 USB controller: Intel Corporation 828=
-01I (ICH9 Family) USB2
-<br>&gt; &gt;&gt;&gt;&gt;&gt; EHCI Controller #1 (rev 03)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: ehci-pci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1f.0 ISA bridge: Intel Corporation 82801IB=
- (ICH9) LPC Interface
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Controller (rev 02)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1f.2 SATA controller: Intel Corporation 82=
-801IR/IO/IH (ICH9R/DO/DH)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 6 port SATA Controller [AHCI mode] (rev 02)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: ahci
-<br>&gt; &gt;&gt;&gt;&gt;&gt; 00:1f.3 SMBus: Intel Corporation 82801I (ICH9=
- Family) SMBus Controller (rev 02)
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Subsystem: Red Hat, Inc. QEMU Virtual Machine
-<br>&gt; &gt;&gt;&gt;&gt;&gt; Kernel driver in use: i801_smbus
-<br>&gt; &gt;&gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;&gt; Is this taken while Jailhouse was enabled? It&#39=
-;s missing your ivshmem
-<br>&gt; &gt;&gt;&gt;&gt; devices (00:0c.0 - 00:0f.0).
-<br>&gt; &gt;&gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt; I did some changes to the root-cell config files, and=
- now it=E2=80=99s showing
-<br>&gt; &gt;&gt;&gt; the PCI device 00:0c.0 (I have added defined macro fo=
-r VIRTIO_BLK
-<br>&gt; &gt;&gt;&gt; only):
-<br>&gt; &gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt; qemux86-64:~# lspci -k
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt; 00:0c.0 Unassigned class [ff80]: Siemens AG Device 41=
-06
-<br>&gt; &gt;&gt;&gt; Subsystem: Siemens AG Device 4106
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt; .
-<br>&gt; &gt;&gt;&gt;
-<br>&gt; &gt;&gt;&gt; But it=E2=80=99s not showing any association with the=
- `uio_ivshmem`, and also
-<br>&gt; &gt;&gt;&gt; I am still not able to find the `/dev/uio0`.
-<br>&gt; &gt;&gt;&gt;
-<br>&gt; &gt;&gt;
-<br>&gt; &gt;&gt; And now
-<br>&gt; &gt;&gt;
-<br>&gt; &gt;&gt; echo &quot;110a 4106 110a 4106 ffc002 ffffff&quot; &gt; /=
-sys/bus/pci/drivers/uio_ivshmem/new_id
-<br>&gt; &gt;&gt;
-<br>&gt; &gt;&gt; again.
-<br>&gt; &gt;&gt;
-<br>&gt; &gt;
-<br>&gt; &gt; Here&#39;s the full log:
-<br>&gt; &gt;
-<br>&gt; &gt; qemux86-64:~# jailhouse enable /usr/share/jailhouse/cells/qem=
-u-agl.cell
-<br>&gt; &gt; qemux86-64:~# modprobe uio_ivshmem
-<br>&gt; &gt; qemux86-64:~# lsmod
-<br>&gt; &gt; Module                  Size  Used by
-<br>&gt; &gt; virtio_gpu             65536  0
-<br>&gt; &gt; virtio_dma_buf         16384  1 virtio_gpu
-<br>&gt; &gt; virtio_net             53248  0
-<br>&gt; &gt; net_failover           16384  1 virtio_net
-<br>&gt; &gt; failover               16384  1 net_failover
-<br>&gt; &gt; jailhouse              36864  1
-<br>&gt; &gt; qemux86-64:~# echo &quot;110a 4106 110a 4106 ffc002 ffffff&qu=
-ot; &gt;
-<br>&gt; &gt; /sys/bus/pci/drivers/uio_ivshmem/new_id
-<br>&gt;
-<br>&gt; ffc0... -&gt; back-end device
-<br>&gt;
-<br>&gt; &gt; qemux86-64:~# lspci -k
-<br>&gt; &gt; .
-<br>&gt; &gt; .
-<br>&gt; &gt; .
-<br>&gt; &gt; 00:0c.0 Unassigned class [ff80]: Siemens AG Device 4106
-<br>&gt;
-<br>&gt; ff80 -&gt; you have a front-end device here
-<br>&gt;
-<br>&gt; You are either running that in the non-root cell or you misconfigu=
-red
-<br>&gt; the root cell (JAILHOUSE_SHMEM_PROTO_VIRTIO_BACK is needed).
-<br>&gt;
-<br>&gt; Jan
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/ff786d5c-affd-4f94-9411-04bd223a8bc0n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/ff786d5c-affd-4f94-9411-04bd223a8bc0n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_8449_452250265.1635245378859--
-
-------=_Part_8448_1654456891.1635245378859--
+jailhouse-dev/df8c5de1-1062-cf73-2060-601934a30e9f%40huawei.com.
