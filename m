@@ -1,73 +1,132 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBT7CT6GAMGQEFBRPTFA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDB35KMNSQMBBBFEUOGAMGQEKXD52HQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73d.google.com (mail-qk1-x73d.google.com [IPv6:2607:f8b0:4864:20::73d])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DF8447389
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Nov 2021 16:31:28 +0100 (CET)
-Received: by mail-qk1-x73d.google.com with SMTP id s20-20020a05620a0bd400b0045e893f2ed8sf9209345qki.11
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 07 Nov 2021 07:31:28 -0800 (PST)
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4984447AE7
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  8 Nov 2021 08:30:13 +0100 (CET)
+Received: by mail-lf1-x13b.google.com with SMTP id s18-20020ac25c52000000b004016bab6a12sf5990950lfp.21
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 07 Nov 2021 23:30:13 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1636356613; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=fyXQDQq7EsvBtNXfAatJliERmfKY9jh9BXlJcGfcIvqae8HKdkTh5a6ruQ8yQ2FSsY
+         IkxAZj++3aIINaLed9IOGXQ3NvWG1+1lteVjgbQkfoUckNAAlTxhx8aPijukO7zACGab
+         b6MgvVWKd+ylypEukSt1PVKN788QbuHjihjAGyltWCotSeuxPnhAgLA0zeVWMSUxzJWk
+         E+bNfvIXhh3GihOgU7a2mENfnqa1dle/qCGkJL5zw6wZIeqcOSaFEVyZDizwUyJcSnBk
+         MUm7KLZzk6x8FYZDxThAquIfgLqKxUR0ENVGqf9nHYiNUPWT80hryzuUFgLPNzm4iHdC
+         PiBA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :reply-to:mime-version:sender:dkim-signature:dkim-signature;
+        bh=Si8N7l3AgEYYz+jatoJztUJBS0q1jgtOqDaTAjRn0xk=;
+        b=vJL8BDi9LvFO8mF7rgoSpqmXkMpARV6CT5h1FWb7C/9xlMYMfQfqgUMbCqnsxBTFGJ
+         d5Zlp5141m0ahq6Xt6kmqJeurHvIRd2rpBjYCHF7iBytDM7mveGcrDw67blrkMreIlfQ
+         b7lp0ZvjLaXlm7CSfUA53h5aQvZ1mavBGzA+HP3af5uOLgWSz6e97/qQjh8SndbM2Ff6
+         awZ3YLrLBqVvIjvVk1N6IwHndSUueSZLasusfLc0OMyTKysolvg0r+05sxb9sq0onnYd
+         8Ds6cDlAFlfSZnKltTjYphPWeF8dBg1ZthsMWVoC9nkKHAU6aXeSuWztkR6BKT3sp6Tf
+         Q53Q==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=o+4nzd6S;
+       spf=pass (google.com: domain of ziskoraa@gmail.com designates 2a00:1450:4864:20::52e as permitted sender) smtp.mailfrom=ziskoraa@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=SGeLvjZb2IE5c5c7lrllc0QjMVdEmMH6DY0p+fMngjw=;
-        b=X/l0ddAbd92a24D63nFKEzX82DGhuIl3GYrL12eN0WvAxIxAfD0CXDCT+pCrOdEjNS
-         5whxuCnSnpIuPBkDHx+iR9RmRvq0Ouq4XL5qThbpC/Bfdimd/fKpZxrbWuHB9JF7fBWj
-         4YgaHglqYE3pZSskDzPBv3q7RMLREreH9msbeBKFJaJI80deXBJ9ALAcKMbjazc/JeJ1
-         bHii/a0xUavcJJ5e+ZiCMfnferNFBRDwjPy5QZBExnY9fZX3So+JpRA2yHcOnunLVGFR
-         me1k80p5WXwoc6IXNTMfZbkDs/sYmhMDTdriPXDS/ZrRra08/UhlMlXEsH6H++9aKa/V
-         YXHg==
+        h=sender:mime-version:reply-to:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Si8N7l3AgEYYz+jatoJztUJBS0q1jgtOqDaTAjRn0xk=;
+        b=CNLWnRC8QCEn1wGgm4uG6Fr7sIKwGYNgSAPlrC+mk/4av/qqq/vDdACkW+eheASvEI
+         mWkOY8Earn+P9KFy0daEsbRM+gqpNKnWz2QkUWSasc4yNgveaaLUYSAHSFO5sBZVIWk2
+         0Gd9o/NPNWb4Z2YKqjhkvspE9fd+21zUieJMaplDQrbpuY3B/zU1SqxjwiBhJqbrrJA/
+         9kvRDDvCP+Cdk5VDftTivr+nt4uI/v1p3MPeZuakAxhdjC6dwYJWCFUqF3YaKbT889nh
+         i9CTit0y3u0KF+yiqr6peTDShX5rTck3ZfKC2bDjirSITw96OC34YI0h9KTJq/L4g5HE
+         rXtA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=SGeLvjZb2IE5c5c7lrllc0QjMVdEmMH6DY0p+fMngjw=;
-        b=aKsm5xHQYvAsdz0s6dkGf+aqKR4HB13bWqjtVCmYNILqPv6UNGts8ZDPNEq2rm1o3C
-         g/YIyUaq1YjyuJhbTh8lUcos/fuEvWrgfuS3bvj41WOXaov5RjE4JBD3IJWNv1hQ/had
-         SblU3wJ+yk7H3TBtJr0BNc2L22cVZQK3HskkHMYFebrAY/eW0PxRPMa+0jo2K1zicyXw
-         5AN08WKPqXIeDnLtgDcLXAwfcnwkFTUe7XH20jkXMt0NGFMBqUhTjryFXszfKyMhuHte
-         urrLaf4AUOqUPcKEQWn6tAzzY/WQndmI7xVC61ibAou2T8bdv5lqGJB5r0xN0HRUl5ho
-         gyog==
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Si8N7l3AgEYYz+jatoJztUJBS0q1jgtOqDaTAjRn0xk=;
+        b=UEnS/HDrswqGfmlqnyUDiz+IOX3VWQv9sojdc22TRc/7wmGgYsu9Syb5N1R+IrD61u
+         vlSpMucQhradxYD/vBWJoghKSQWFFwhDGTNmHFXjzR/U4nsoW/LX+0s2+drFz3VIb81P
+         9dpCG5q9Q/cEitN+JW/QPxPKg5Y49JTljbDNZwpb4lVbB/3ipb5ef2yq+CZs1u4RLbnv
+         lkiAimvGMSlFGlQGdnej3xI05HMRBw4TqgrVoTJTrJce5yInx/In5XI2Z58HIuhCFldz
+         Stq2bXzn4OlljacwaGWwotitG5CF4I76fLEOirjErcX9+Wmrl+Vn/wjrccmrfOXQw735
+         osyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=SGeLvjZb2IE5c5c7lrllc0QjMVdEmMH6DY0p+fMngjw=;
-        b=XedzL+xWanKHMSqVDiboCKPsQpn72yeD6vPPC3M4kJoAkcSGFNITVfu6zHfa53b/sP
-         wXI7bbXWWjTtFImd8TTLYloB6PvWiNSM9m6pgQecPd9O0bCnCjajjpQVuJ/mbXAwcJds
-         fOuTQU6wQNvLcuuRmU5fxTAjiG9KwEJfptio8c7TPT1jgFd0x0/Prw9LO/PuK0whXqbT
-         ymUumHDIztqNT1bS6XDWKzKZstOmm/7YSKuxhsghQlz8zweus24OLKcL84HQhVj8USFK
-         Yqr6cbDqV9N1uxm4I8nZi3AB8eMXyMwDmyOCQ1cqZK1YNJSUomA+kkV77N+79BAbyP7J
-         pspQ==
+        h=sender:x-gm-message-state:mime-version:reply-to:from:date
+         :message-id:subject:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Si8N7l3AgEYYz+jatoJztUJBS0q1jgtOqDaTAjRn0xk=;
+        b=WBeVP5On/f/tfRlKJc3jlRvKkcCGBp5EJvs0RiyTmJ+sGFvAvM6wy5xnE2wnyqysOV
+         GLFmQo/QRrH7Grb8kQXjvoWxxZHa28eQKP4Gu3GjZxD/92xnHR8f70yCl7kMDhpm84Ve
+         2+WKjkS96Mc3QNXxkcNWSgstdGsodSR7UucCjP9Ynnf5VEXpQ9TXDTOKiTAwT8fIWY9d
+         JHSY2j1jWqI4x77sGtFE+4GyELI6fWU9iZlHcZGVBZvy6TZ350AeG7L5nfeNk2aHAuXT
+         JbqAHlXjzQIEVFU+6dxvVD6NVaNBZBWzVnKxn4d8BtTfyNZOR7OeyHlCaFuuK4dOvxSm
+         yEig==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533yF573gKzQFcjugWfm+auM8FP1sOg9Kf1yH6Hy3Ib84v7TDqvi
-	xClCBcMNrre11HRQmKvKe8I=
-X-Google-Smtp-Source: ABdhPJx3Wrz7Dj/QVr1qOD4ots9awHhuAB190Xjs+c+I7nKm76HglL6NDsa+BEYkligTr/YXC6vLGQ==
-X-Received: by 2002:a05:6214:f2e:: with SMTP id iw14mr12264279qvb.21.1636299087649;
-        Sun, 07 Nov 2021 07:31:27 -0800 (PST)
+X-Gm-Message-State: AOAM532S3pWMDBDEjLpkdV0vEnXw9yRC3up9zJBDrjTe95whcFeTfVj4
+	NeuGdmiZtYcBxkykdfXjr7Y=
+X-Google-Smtp-Source: ABdhPJzrjROldckPBMUwALNR8HPiSvkgbxGv6yul1joR+05XBCrVJQFEfNR2ULLV57J9k6hcju6u8Q==
+X-Received: by 2002:a05:651c:1250:: with SMTP id h16mr15937266ljh.324.1636356613300;
+        Sun, 07 Nov 2021 23:30:13 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:1aa5:: with SMTP id bl37ls141476qkb.9.gmail; Sun,
- 07 Nov 2021 07:31:27 -0800 (PST)
-X-Received: by 2002:a05:620a:298e:: with SMTP id r14mr12524638qkp.84.1636299086896;
-        Sun, 07 Nov 2021 07:31:26 -0800 (PST)
-Date: Sun, 7 Nov 2021 07:31:26 -0800 (PST)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <8dce9427-624f-4d62-b803-3ef00552e283n@googlegroups.com>
-In-Reply-To: <20211102095459.3a17440d@md1za8fc.ad001.siemens.net>
-References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
- <20211025161715.61aa35fe@md1za8fc.ad001.siemens.net>
- <251534da-afb0-4c8d-b44f-28fcba5999acn@googlegroups.com>
- <20211102095459.3a17440d@md1za8fc.ad001.siemens.net>
-Subject: Re: Jailhouse cell linux
+Received: by 2002:a05:6512:31d4:: with SMTP id j20ls174489lfe.2.gmail; Sun, 07
+ Nov 2021 23:30:12 -0800 (PST)
+X-Received: by 2002:a05:6512:1296:: with SMTP id u22mr2289865lfs.92.1636356612198;
+        Sun, 07 Nov 2021 23:30:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1636356612; cv=none;
+        d=google.com; s=arc-20160816;
+        b=gxZfFhLLd6diicpaqAh0X0ii3gYvT7/wHcg1+fkAaNGxtopre3O9W/cACdtcD5mqud
+         XH7RYqVglq/n3DNUSKJryRESfRyNOSt9k1R7cK2bni9lZ5LeHxf4jYwKIArRUPITNKNV
+         b6XzFDPfy/QLzAEaHhk63bzrIWPyhBkWmaE0PCLNbw2ppZgenvMUHwLCVqP2YsGmnuFU
+         2e7agf4pJfHuF17ITCZWk06jNdoUVc/dT7kLnAgssNpqIJjrvwoNARMAcY8oUgzl8NN0
+         LUXC4SEbpWZRpdonP/gxRmclkdMfd1YivHgA99myT9ecQG/DWSUTFa/OAYg87UGV+/6l
+         IRNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=gS+G2bXPLTc8QV9oSOsVFPfildfSifO+gabOlUjPn+8=;
+        b=jWyWD43mORRhhF/cF5LNlBp6PEMTefl923WEwamIJEno7dyxbv7yyGHq6eyt6wJ0Oj
+         KuXzcIHfix5Uw4OCNieQko5CgWHBhNuxx/qjvzAY06jVKV0Unyjg3uvYEnfFGBJHj/TN
+         9o8dqsSitzfzSAtuiH3JL8RYhfUTQ5aJvJOlW3ynijiiY/i6OZbTeMIzoV79B5ohsYyn
+         r15mftNI1D2FXHCVYGhkta4dGHWGvziYWvC38uRprX+bJMoZ9fNSrKOmotu64vVR4RWF
+         qxtS2Q5Ww3HkjJFqn4KjIcC7p5EweaEyEjWvTfXDxqFZOvtpFYzfs2ADtZWmTvldcva9
+         wGAw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=o+4nzd6S;
+       spf=pass (google.com: domain of ziskoraa@gmail.com designates 2a00:1450:4864:20::52e as permitted sender) smtp.mailfrom=ziskoraa@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com. [2a00:1450:4864:20::52e])
+        by gmr-mx.google.com with ESMTPS id o22si548943lfr.11.2021.11.07.23.30.12
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 07 Nov 2021 23:30:12 -0800 (PST)
+Received-SPF: pass (google.com: domain of ziskoraa@gmail.com designates 2a00:1450:4864:20::52e as permitted sender) client-ip=2a00:1450:4864:20::52e;
+Received: by mail-ed1-x52e.google.com with SMTP id x15so27378147edv.1
+        for <jailhouse-dev@googlegroups.com>; Sun, 07 Nov 2021 23:30:12 -0800 (PST)
+X-Received: by 2002:a17:906:ecac:: with SMTP id qh12mr35845675ejb.377.1636356612019;
+ Sun, 07 Nov 2021 23:30:12 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_328_1355236674.1636299086259"
-X-Original-Sender: mustafa13e09940@gmail.com
+Received: by 2002:a50:2501:0:0:0:0:0 with HTTP; Sun, 7 Nov 2021 23:30:11 -0800 (PST)
+Reply-To: mariaschaefler@gmx.com
+From: Maria Schaefler <ziskoraa@gmail.com>
+Date: Mon, 8 Nov 2021 07:30:11 +0000
+Message-ID: <CAJh0FjhcRBunSyXkcFFTw1ty7wS5F8sAS-GTNbzQc0AXaSJn+A@mail.gmail.com>
+Subject: MY HEART CHOOSE YOU.
+To: undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: ziskoraa@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b=o+4nzd6S;       spf=pass
+ (google.com: domain of ziskoraa@gmail.com designates 2a00:1450:4864:20::52e
+ as permitted sender) smtp.mailfrom=ziskoraa@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,120 +139,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_328_1355236674.1636299086259
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_329_1667983331.1636299086259"
-
-------=_Part_329_1667983331.1636299086259
-Content-Type: text/plain; charset="UTF-8"
-
-
-
-> >Not sure how you ended up assigning that IP (i do not look at 
-> >screenshots). But i guess your network setup is that you have one 
-> >physical NIC which still belongs to the root cell. And you have a 
-> >virtual network with two jailhouse shmem network adapters going between 
-> >your non-root and root-cell. 
->
-I assigned IP through command line. I have one physical NIC, yes you are 
-right, but the I do not know how to access the virtual network. 
-
->
-> >An i further guess that the non-root cell got its IP via its kernel 
-> >cmdline. To hook that up to the root-cell, the root-cell will need an 
-> >IP from the same subnet. And that additional subnet should not overlap 
-> >with the subnet your root-cell is already using on the physical NIC. 
-
- 
-For instance, if the root cell has an IP of 192.168.0.100, I give the IP to 
-the non-root cell of 192.168.0.101 
-
-> >That way you should eventually be able to "ping" and "ssh" between root 
-> >and non-root. What you might want to do later would be to create a 
-> >bridge on the root-cell, where you would attach the physical NIC and 
-> >the jailhouse-NIC ... that would connect you non-root cell to your LAN 
-> >and allow for DHCP and external communication. 
->
-
-> >Nothing jailhouse specific really, simple Linux networking stuff. The 
-> >only thing really needed is the jailhouse NIC driver on the root cell, 
-> >i assume a new NIC appeared after your "jailhouse enable" ... 
->
-> I think I am missing something in this part, the command "ifconfig" 
-returns the same NIC drivers [eth0-wlan0-lo] before and after jailhouse 
-enable. May I ask where can I find information about Jailhouse NIC and how 
-to embed it in the root cell. 
-
-Best regards, 
-Moustafa Noufale
+Given my current state of health, I have decided to donate what I
+inherited from my late husband to you to help the poor and needy. I am
+Mrs Maria Schaefler,a 57years old dying woman. I was diagnosed for
+cancer about 2 years ago and I have few months to live according to
+medical experts. Email me for my directives
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8dce9427-624f-4d62-b803-3ef00552e283n%40googlegroups.com.
-
-------=_Part_329_1667983331.1636299086259
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"m=
-argin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
-: 1ex;">&gt;Not sure how you ended up assigning that IP (i do not look at
-<br>&gt;screenshots). But i guess your network setup is that you have one
-<br>&gt;physical NIC which still belongs to the root cell. And you have a
-<br>&gt;virtual network with two jailhouse shmem network adapters going bet=
-ween
-<br>&gt;your non-root and root-cell.
-<br></blockquote><div>I assigned IP through command line. I have one physic=
-al NIC, yes you are right, but the I do not know how to access the virtual =
-network. <br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0=
- 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<br>&gt;An i further guess that the non-root cell got its IP via its kernel
-<br>&gt;cmdline. To hook that up to the root-cell, the root-cell will need =
-an
-<br>&gt;IP from the same subnet. And that additional subnet should not over=
-lap
-<br>&gt;with the subnet your root-cell is already using on the physical NIC=
-.
-</blockquote><div>&nbsp;<br></div><div>For instance, if the root cell has a=
-n IP of 192.168.0.100, I give the IP to the non-root cell of 192.168.0.101 =
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; b=
-order-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">&gt;That way =
-you should eventually be able to "ping" and "ssh" between root
-<br>&gt;and non-root. What you might want to do later would be to create a
-<br>&gt;bridge on the root-cell, where you would attach the physical NIC an=
-d
-<br>&gt;the jailhouse-NIC ... that would connect you non-root cell to your =
-LAN
-<br>&gt;and allow for DHCP and external communication.=20
-<br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0=
-.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-<br>&gt;Nothing jailhouse specific really, simple Linux networking stuff. T=
-he
-<br>&gt;only thing really needed is the jailhouse NIC driver on the root ce=
-ll,
-<br>&gt;i assume a new NIC appeared after your "jailhouse enable" ...
-<br>
-<br></blockquote><div>I think I am missing something in this part, the comm=
-and "ifconfig" returns the same NIC drivers [eth0-wlan0-lo] before and afte=
-r jailhouse enable. May I ask where can I find information about Jailhouse =
-NIC and how to embed it in the root cell. <br></div><div><br></div><div>Bes=
-t regards, <br>Moustafa Noufale<br></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/8dce9427-624f-4d62-b803-3ef00552e283n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/8dce9427-624f-4d62-b803-3ef00552e283n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_329_1667983331.1636299086259--
-
-------=_Part_328_1355236674.1636299086259--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAJh0FjhcRBunSyXkcFFTw1ty7wS5F8sAS-GTNbzQc0AXaSJn%2BA%40mail.gmail.com.
