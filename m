@@ -1,70 +1,75 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBJ7UV6GAMGQE62R34OA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBV7VV6GAMGQE5NY4YBY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73e.google.com (mail-qk1-x73e.google.com [IPv6:2607:f8b0:4864:20::73e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6830444C58B
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 17:58:16 +0100 (CET)
-Received: by mail-qk1-x73e.google.com with SMTP id t15-20020a05620a450f00b0046325fa7b93sf2322260qkp.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 08:58:16 -0800 (PST)
+Received: from mail-qt1-x83c.google.com (mail-qt1-x83c.google.com [IPv6:2607:f8b0:4864:20::83c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB6744C59C
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 18:01:13 +0100 (CET)
+Received: by mail-qt1-x83c.google.com with SMTP id 100-20020aed30ed000000b002a6b3dc6465sf2412603qtf.13
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 09:01:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=cdligMeHrbgkqAdOh7hX+3blPXthhVNLfpe3mqaF4i4=;
-        b=miUcrKxkZbW+im3XPzVK7AYU1IdXegqzYfQh+gHiq4s5wuWzDpbDK0tPDeWV9+4st4
-         wdcd0Dc4nM9K+H14UtenRUzxocisGcVvtDk4+7opfStz1hD+t010dMpu+tnw01/GfGtp
-         ZiLMqF3ZHlmSYXI4TvkUvbE+fOuxd7bwfyQM7pbCY0XPP6ok64nhMXcIv5lhP+GKJTDs
-         1IMaaVQIHpvfSydJErqBbkCpGU1Ks0s3f8t9n5iqRDdixUNtxC+GtT+MvaA8R//njPgq
-         2UkhzBMExHgqaULb1jr5g0HEc38c5zP3CvVKTSpiDLjdxOknOX09+ACX7vZKe8z292cJ
-         6Xog==
+        bh=htXOSUa4uRXssrzjj7AtvZhriq0av9peeB0xhEP1ZoA=;
+        b=BOhI5/JcZ4M6cXloQ4fZ4hhEVHgpXJQ3azvlI12ubDeq4EtOKnBUlJEcdTIr0OOgbt
+         foeHJTDiaIcdHI3xrWTDFj1HZq84V59FnWGLA8cZRf/PfnQpIsuzOB6sHTZDKilXOHF0
+         7KbHe/Z613VDW6ANHsE0+TzwU1Zf79NYNtDXSG7OMjxv13Qh+gQAwZ9mYpGH2vIiuVnn
+         MrUNuuvl1f3H4iF3ImGtuf6xUDkoNf+SVvV22GG7ty95WulWm4hdbNUKM8V27uSN6S2b
+         K0axyLEtMGmIvoM3kxkrwvxGhnMA9xsoF+EJ2EmVQOf8kKu27KeDoMzZORxoAwbcP+Dv
+         sBmw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=cdligMeHrbgkqAdOh7hX+3blPXthhVNLfpe3mqaF4i4=;
-        b=CjSJxzZIV7uABChVsQEMCmfH1AoAZxNOP/tyjIvN5hQdTS26S8wFHUE96q6TGDck23
-         pxlVX7EicXvwJP2qPDSb/R9zJ98OEP0LBAGuG0FAIxd45W4HPtJqe9U9yrNSBVuRVxXu
-         2+jV2Y9xXIMe6xPs3sFomv8NxOhyiWZeEkbgmQf924rbxuBTtATDTc/LDaKLNaMCorvv
-         1dA1Jv8nupszfwA8HpMfxU4Y7Cyy1PWd75iKn1ywUEYVYzTNKjdUa5o56QuxY0mkoce3
-         JEHawA3kwc6ExuQzLVDUQZLeBHBcETNuc2Dt2WF6hCUVIq9O1LllzGpv0TpgwzayNrSV
-         i5AA==
+        bh=htXOSUa4uRXssrzjj7AtvZhriq0av9peeB0xhEP1ZoA=;
+        b=kYJuIMOjHHeKX1l+Upi0+hdWl9B/+Jv1mVZ65h8W5zEl6YlQppB7zjr6HSiePtbLLV
+         FmHM+FeNBW9VhX/jnmsCDmSn/EndPR8dRsCM6/6eGYKWwM5PtfVWMuP3YxBIeazCc0+2
+         M7NzQ78HDq2PuZYXS5Vi2XcdsisHSFDwnhhiFQtvx/SslkBooMNyQ4eJEu8QodlyPX5J
+         FqQADt9IiBjrf9xqIwzGDHC+4lraql6U4CXdEHWP818Ou20YJZKy7U8gDKWKv/PQZudF
+         XG+yzYFYMxZ8jftuV5QZoEa9jA6TX+TjaVRt6m+/HeA01JcKUrv/Ak7HIvftlAzG7Bay
+         eHfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=cdligMeHrbgkqAdOh7hX+3blPXthhVNLfpe3mqaF4i4=;
-        b=hIO+Oe8wXcB2NGhKKHPwIPB/dDjQFh7RZXt8wiEvvyAQ15Tx4qqmKUieTgEU9WpK0I
-         tvru+Mzgy3xBBsWcMA7319s5WZWVq7+WrdLJjA4M91lX8GSaPwWidnLWvjHoFJq2is1U
-         nlDiCLEaIexMEZ6yT4cu4gqDjM/M9GkAmqUyuJFWuVTMiCkQIBAILAvPASNnz9schch0
-         KLARZ0chJrULVmjfwpueczZKV5d2EBS17bKpUAApGKEaBKKLN1h8nnc68AN/UCea9eFB
-         c3vCX4vrMe48EA5CfGFdPYkCSH+gxNzepK2Z6+U5rjVXCPJAfF6BEveyAva56UxjGBcG
-         /kMA==
+        bh=htXOSUa4uRXssrzjj7AtvZhriq0av9peeB0xhEP1ZoA=;
+        b=7lWTZT7SNCoBlBlsKOVv/Dv+d9Y4Vnb4CgtUrb2JtgrefDRvUkfjXl1vTLTzzEacmH
+         BE0yk81R0nrNQ+baMSfJurzzyRpEvmKprGD+WamKheFsEozwl9VusP8ez2naKo2dCSiS
+         Kb3JfyC7FtJtk7noAHSlorSXIlz+5X2u/CfZytsDNyemoieAtI+qy4PYl7B+vVzGWAvh
+         NKmez3whtVygnPyeQ8kTeoqg02A1iD40F5MI/1cOVf6aReZukCQ6ifwBkLs6EfewtcJB
+         Ioi0v1018tNDPW0yTPlsxtT/YILfI3Pl8V2SOUmZ4XAAQd5Bgn7zpqXxxeh3SzKsjtDW
+         5fNA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530EK5P6n+BQ3u4mg2caq0x2qpXHSwdiQyvRHskbz6wdk6hxsqjy
-	tLfSOURvyzuH5rRxI0GI1MQ=
-X-Google-Smtp-Source: ABdhPJz+kPfjmImbcEeSvJNDwpIJpAtXpIQVBWu+hSK1330hBGIYuCo1oBUot2T6cw1WcBKbeCQg0A==
-X-Received: by 2002:ac8:57c2:: with SMTP id w2mr524865qta.54.1636563495388;
-        Wed, 10 Nov 2021 08:58:15 -0800 (PST)
+X-Gm-Message-State: AOAM530S6IxHJt3FtoClYnyeBYTQHgCshSfu6b2IhpCnRhxXZk9Oo74v
+	jOO5U1Mz1IeBcRw9oC8M2Zc=
+X-Google-Smtp-Source: ABdhPJxH8Q1ur6iNuFv0jCs7+pSO3oHLM9etBE8t2khIN5kLg6bVDYGSOuNSYFU7TMjQY2NE90ywZA==
+X-Received: by 2002:a05:622a:11c4:: with SMTP id n4mr542177qtk.56.1636563671945;
+        Wed, 10 Nov 2021 09:01:11 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:3725:: with SMTP id de37ls229281qkb.5.gmail; Wed,
- 10 Nov 2021 08:58:15 -0800 (PST)
-X-Received: by 2002:a37:b306:: with SMTP id c6mr661046qkf.133.1636563494753;
-        Wed, 10 Nov 2021 08:58:14 -0800 (PST)
-Date: Wed, 10 Nov 2021 08:58:14 -0800 (PST)
+Received: by 2002:ac8:4a04:: with SMTP id x4ls286940qtq.1.gmail; Wed, 10 Nov
+ 2021 09:01:11 -0800 (PST)
+X-Received: by 2002:ac8:5c0e:: with SMTP id i14mr511271qti.260.1636563670973;
+        Wed, 10 Nov 2021 09:01:10 -0800 (PST)
+Date: Wed, 10 Nov 2021 09:01:10 -0800 (PST)
 From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f3c70343-1f25-4540-ad1f-b0831d31dabdn@googlegroups.com>
-In-Reply-To: <8717f502-5701-bfaa-2327-cfb6fc99123e@siemens.com>
-References: <5e84c231-838f-433d-b584-5876c477087dn@googlegroups.com>
- <8717f502-5701-bfaa-2327-cfb6fc99123e@siemens.com>
-Subject: Re: implicit declaration of add_cpu and remove_cpu
+Message-Id: <238dd0b3-af24-4b8a-905e-579fdebe8b0an@googlegroups.com>
+In-Reply-To: <72ba65bd-dfaf-40b4-87a8-785657132f60n@googlegroups.com>
+References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
+ <20211025161715.61aa35fe@md1za8fc.ad001.siemens.net>
+ <251534da-afb0-4c8d-b44f-28fcba5999acn@googlegroups.com>
+ <20211102095459.3a17440d@md1za8fc.ad001.siemens.net>
+ <8dce9427-624f-4d62-b803-3ef00552e283n@googlegroups.com>
+ <4619cf79-cc46-41f1-914c-9c1f119482dfn@googlegroups.com>
+ <72ba65bd-dfaf-40b4-87a8-785657132f60n@googlegroups.com>
+Subject: Re: Jailhouse cell linux
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_3828_1251531030.1636563494225"
+	boundary="----=_Part_7484_2000058115.1636563670451"
 X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -78,123 +83,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_3828_1251531030.1636563494225
+------=_Part_7484_2000058115.1636563670451
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_3829_400667607.1636563494225"
+	boundary="----=_Part_7485_1695792300.1636563670451"
 
-------=_Part_3829_400667607.1636563494225
+------=_Part_7485_1695792300.1636563670451
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-I am not sure, if I should answer to this, but this can be solved by=20
-recompiling Linux headers with editing kernel configuration:
-add CONFIG_HOTPLUG_CPU=3Dy
+So, I had a 5.3 kernel without PCI in the device tree, I upgraded to 5.4 
+and the PCI devices are listed. However, Jailhouse is adding on the 
+terminal two PCI devices, but there is no effect and the virtual PCIs are 
+not listed. 
 
-this would help your problem, and jailhouse might work, but you might face=
-=20
-a problem of Jailhouse adding no virtual devices. You can check this by=20
-lspci before and after jailhouse enable command.=20
+My question is, what does Jailhouse requires to be able to add virtual PCI 
+devices?
 
-I have one question regarding your 5.10 kernel. I tried compiling it on=20
-5.10, but I had different error, so I was using 5.3 and had no PCI devices,=
-=20
-then upgraded to 5.4 and I got back the PCI devices, but as I said=20
-Jailhouse still cannot add virtual PCI device
-
-Best regards,=20
+Thanks in advance, 
+Best regards,
 Moustafa Noufale
 
-On Wednesday, 10 November 2021 at 14:46:03 UTC+1 j.kiszka...@gmail.com=20
-wrote:
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/238dd0b3-af24-4b8a-905e-579fdebe8b0an%40googlegroups.com.
 
-> On 10.11.21 13:05, Andrea Marchetta wrote:
-> > hi, i'm currently using the 5.10 version of jailhouse enabling linux an=
-d
-> > the master branch of jailhouse. when trying to compile jailhouse in the
-> > linux kernel i get the following error:
-> > error: implicit declaration of
-> > function =E2=80=98remove_cpu=E2=80=99 [-Werror=3Dimplicit-function-decl=
-aration]
-> >  243 |    err =3D remove_cpu(cpu);
-> >      |          ^~~~~~~~~~
-> > error: implicit declaration of
-> > function =E2=80=98add_cpu=E2=80=99 [-Werror=3Dimplicit-function-declara=
-tion]
-> >  272 |   if (!cpu_online(cpu) && add_cpu(cpu) =3D=3D 0)
-> >      |                           ^~~~~~~
-> > cc1: some warnings being treated as errors
-> >=20
-> > any clue what's the issue?
-> >=20
->
-> You want master/next, not the (meanwhile serious old) last release.
->
-> Jan
->
-> --=20
-> Siemens AG, T RDA IOT
-> Corporate Competence Center Embedded Linux
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f3c70343-1f25-4540-ad1f-b0831d31dabdn%40googlegroups.com.
-
-------=_Part_3829_400667607.1636563494225
+------=_Part_7485_1695792300.1636563670451
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I am not sure, if I should answer to this, but this can be solved by recomp=
-iling Linux headers with editing kernel configuration:<div><span style=3D"f=
-ont-size: 14px;">add CONFIG_HOTPLUG_CPU=3Dy</span></div><div><br></div><div=
->this would help your problem, and jailhouse might work, but you might face=
- a problem of Jailhouse adding no virtual devices. You can check this by ls=
-pci before and after jailhouse enable command.&nbsp;</div><div><br></div><d=
-iv>I have one question regarding your 5.10 kernel. I tried compiling it on =
-5.10, but I had different error, so I was using 5.3 and had no PCI devices,=
- then upgraded to 5.4 and I got back the PCI devices, but as I said Jailhou=
-se still cannot add virtual PCI device</div><div><br></div><div>Best regard=
-s,&nbsp;<br>Moustafa Noufale<br><br></div><div class=3D"gmail_quote"><div d=
-ir=3D"auto" class=3D"gmail_attr">On Wednesday, 10 November 2021 at 14:46:03=
- UTC+1 j.kiszka...@gmail.com wrote:<br/></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204=
-); padding-left: 1ex;">On 10.11.21 13:05, Andrea Marchetta wrote:
-<br>&gt; hi, i&#39;m currently using the 5.10 version of jailhouse enabling=
- linux and
-<br>&gt; the master branch of jailhouse. when trying to compile jailhouse i=
-n the
-<br>&gt; linux kernel i get the following error:
-<br>&gt; error: implicit declaration of
-<br>&gt; function =E2=80=98remove_cpu=E2=80=99 [-Werror=3Dimplicit-function=
--declaration]
-<br>&gt; =C2=A0243 | =C2=A0=C2=A0=C2=A0err =3D remove_cpu(cpu);
-<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0^~~~~~~~~~
-<br>&gt; error: implicit declaration of
-<br>&gt; function =E2=80=98add_cpu=E2=80=99 [-Werror=3Dimplicit-function-de=
-claration]
-<br>&gt; =C2=A0272 | =C2=A0=C2=A0if (!cpu_online(cpu) &amp;&amp; add_cpu(cp=
-u) =3D=3D 0)
-<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^~~~~~~
-<br>&gt; cc1: some warnings being treated as errors
-<br>&gt;=20
-<br>&gt; any clue what&#39;s the issue?
-<br>&gt;=20
-<br>
-<br>You want master/next, not the (meanwhile serious old) last release.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, T RDA IOT
-<br>Corporate Competence Center Embedded Linux
-<br></blockquote></div>
+So, I had a 5.3 kernel without PCI in the device tree, I upgraded to 5.4 an=
+d the PCI devices are listed. However, Jailhouse is adding on the terminal =
+two PCI devices, but there is no effect and the virtual PCIs are not listed=
+.&nbsp;<br><br>My question is, what does Jailhouse requires to be able to a=
+dd virtual PCI devices?<div><br></div><div>Thanks in advance,&nbsp;<br>Best=
+ regards,</div><div>Moustafa Noufale</div>
 
 <p></p>
 
@@ -205,11 +127,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f3c70343-1f25-4540-ad1f-b0831d31dabdn%40googlegrou=
+om/d/msgid/jailhouse-dev/238dd0b3-af24-4b8a-905e-579fdebe8b0an%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/f3c70343-1f25-4540-ad1f-b0831d31dabdn%40googlegroups.co=
+msgid/jailhouse-dev/238dd0b3-af24-4b8a-905e-579fdebe8b0an%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_3829_400667607.1636563494225--
+------=_Part_7485_1695792300.1636563670451--
 
-------=_Part_3828_1251531030.1636563494225--
+------=_Part_7484_2000058115.1636563670451--
