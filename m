@@ -1,127 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBGU2V6GAMGQEORQX7II@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCIJHPG524PBBE6WV6GAMGQEEBNIBXQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x537.google.com (mail-ed1-x537.google.com [IPv6:2a00:1450:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D8244C255
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 14:46:03 +0100 (CET)
-Received: by mail-ed1-x537.google.com with SMTP id i22-20020a05640242d600b003e28aecc0afsf2392683edc.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 05:46:03 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1636551963; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=HdlQoRRfuURIEOOqDP8n+Jgvf9MVE/K55TUGTXkfiN35vs3Plk68ARtVEmgx2uZE16
-         iaANbTrIzzjOqJYHbl4K8JL0PFlmLHvSFs/FLQi5VbIHgIGBJvqpIYuKKntSVqOOjhOe
-         2H+f6bCZaIbyeLdKYuGwvSzLXGPWbWNDwQca9Mf1iCEYTsz9G9jmQgpr8V0MsSGsO8Lq
-         hb6OCqgOHOdxQvRWC6w686wkJjtR11yJIG0JlACdfDeR1e3/60XYIuCXj1Qh23IxsYDq
-         b7hvJvKmOd+Ola+HE4djp1/OLRiZ2qLJdmgXf6lVeZs+ow1+IDBh7bVsYgJOEK6TsL6X
-         Rbrg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :content-language:in-reply-to:mime-version:user-agent:date
-         :message-id:from:references:to:subject:sender:dkim-signature;
-        bh=ahY6A+Z+SULW+fd0FKvKPxyN90w65B7IvlbJoeW64MQ=;
-        b=aUHfRERyTXwVLvpDnEmfG0OCMkZWMlIkN9QRfeO3UOnjKsB1SmoRORPzzlhm2zHWI9
-         93lgfUe4lu0LMMdut2Uhq6DJTrcRSKUKHmcKkiv9V/Kwe3GZ5vS3Qsnf1xozSDCwLBQi
-         7llHB9cJwAnPUQK2C3zjLtZ2e6EpEWVrNCf67DDkDJ3jesodX9iXH05OaJKj3nA+guwP
-         9UbMgCHYSrAGPaVDfIooV52x8ph6jJ/WRvByhZJFIpZ/NN0iuCx4LGI1tWIcHX/Qi5w7
-         1PsQwLjMN1WtN71NkUr5GMv2ozz2XepLT4T1NvUi9fhjHXVFYcspSwr6Z973UlStGN99
-         LRiw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 83BA544C4B3
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 16:53:56 +0100 (CET)
+Received: by mail-qk1-x73b.google.com with SMTP id br11-20020a05620a460b00b004630d0237f2sf2081012qkb.17
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 10 Nov 2021 07:53:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ahY6A+Z+SULW+fd0FKvKPxyN90w65B7IvlbJoeW64MQ=;
-        b=dY7Z8g9ajudDS8QUV6L//nqaioh8KA+lH4szWrHbyUpCx354SyCNtYf/VI+w0X4ZVm
-         Ek6zG5Sc0rDOzGQ9iZEfRIv8weOvV6tLuK1M6ih1efll0ud6ABiYWdPtDt8s/Oh7CrYk
-         zokgA6IIQoJF8WQzV8rFR4NMoO6Oriqt7zzJS2g9GTa6OcWd7AC76h2L7xUSaNOLM/bi
-         P5f+W+4A3GGPCSRqV0/WJ0AS+mrBwBrjjQcIh5WZ4OG620/7WGPfvsOWPvFboTBfdkiq
-         qvMVZx6zkYkybLgKapCMxU4rP5QgBXSBb/2CEPNnzD5p6VILo1tF733A22g5W5iAOiEJ
-         zctg==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=UAg6tcdc1EG61Dt2zWRvzlH7HH6avsYxEG+hYm+uLVE=;
+        b=JUo5XOvhlZWDcWKSA1eiefUGQopBrQYlb4Qls5mUxrPA2T4z38/BlzRmOaKBpAagtI
+         UEj2BY7FF7SGIRNwv48pNzMT3/OX3uixtfWpGh9nvMPVyeR2y7qGr2DC+BXcc5nVeaPK
+         gnYNDU13fTx9eaLvRQp67Jw2VV6PheYHNASJL9K2tRoVG7ddW03q7PLE6ilYoGmQp3ZW
+         EesqDY04CUf5yvzCAwkx88Rtu2fPv92uW4dt9hS3Xhvd2y+bWE8eczT9VFcFPS6Sroc/
+         4Ww/5V9hfbpWmtMLBtKgYOpyV+fWjtJDosdACP7IcFwiNXGLZu2HnUMXqxpvYxEKQ/AI
+         KvPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=UAg6tcdc1EG61Dt2zWRvzlH7HH6avsYxEG+hYm+uLVE=;
+        b=jUmZy64gt5AtAFCiDfWCUajhL7pMFfKB03KBeMs3uLbmE4oyMBlEIPc1XZphusDJn4
+         oyBxGXWicNOsEb5BCYSXNgP7gr+7j0TT1NW+j58GKksFBgTWMksrQ6kEpStFHzZJ6o2L
+         D4wCpSNNphpoKzArJcrLDlgYiN2SE39b5+H9iDBhLyUjBNDZzWqjW7VHB+G7hh6DDIxU
+         t8RqwjVNwiESSI5p33AxeuyiGz/yOKR4wBuDv45H542iywJYdiU1KxjlRZFK+F4ccdYn
+         DRdNMXkPOPAoHP8MRlcRkGAkNi03/BoXlFWqIr/2hxs/ENktWOHtG5fiqAuc+AM5bOlL
+         YpJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:subject:to:references:from:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=ahY6A+Z+SULW+fd0FKvKPxyN90w65B7IvlbJoeW64MQ=;
-        b=xj5+oH71s7qBj+yINH3t8quC3CgHxGAjbrIYwLt3zfIwMM3F1wOdDU/tCJPsrY4+BH
-         nTYraX9n1ZzbsQdGDjEC8hNkEq5IU4PdESVZTeUQBtIceIj5c3BftThDQrLfdXc/RgYB
-         D0swN2tbrZZkaSLzP3zguYTD6Y/A9bxVkxXSBUbZuj/uqk93QXAwRPtcGyXroBGItUya
-         p20G4JlAx8Re5hRhQqG8NsqO1aY+B1W+GQeVLWIfnJENEAZV4Gi6MfydpshfSNNWxJV1
-         2NciCgLxQu5voFAgAP5OsoYD6IomQljLOk/W9/kiDOzR0kaauNR+ZsnoVYN07ycVNmMy
-         ZZnA==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=UAg6tcdc1EG61Dt2zWRvzlH7HH6avsYxEG+hYm+uLVE=;
+        b=MMZsdXeOxmAdW/RnVNe2W330LLZW4hpN2K/8q7k5PUeMOUDyyWxwiFTUgwzKnJvMZm
+         XuZyc5kXonMbLpG0yQ3XAjgXHXuHzYn4yB6NLjYKHPlFvgrT2pXaHGAcAjn1iV5VTbfR
+         5JwMjc65XcKvtZaDezegDKWR9veTu8jYigX3rKtL3Bn2DxnwaJ5eSoN43juDrRpmPu+d
+         atHTLY3BKd8EtXnHXAShL5KQiAYq+224WXxia0Awwgy7n1CkEBrPIp9xXZpwATQy0ONa
+         uysEG9rHDD9X2zVWfYMXrTTzIew8f/qg27ScUZXsUytI7vfzhaDrypU9Evr08HB3ooTu
+         QJYw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531yjqUeRCNcPOdFqJI58Tqski21szv2vwwyv+eIXXGrtYJAvLmS
-	fkG1Oh17/2jF71pa9m9AKzg=
-X-Google-Smtp-Source: ABdhPJzCeNksya/1aFkW97x1LipWNoX4cQcZX+5T9K7ei7kA7ACHIvnNoWONg607DXI5HAjLjcEUzQ==
-X-Received: by 2002:a17:906:3017:: with SMTP id 23mr20757754ejz.382.1636551963141;
-        Wed, 10 Nov 2021 05:46:03 -0800 (PST)
+X-Gm-Message-State: AOAM5322JKsbsObnmPp+Rad7TYeaF3joM0npFx10bqtEejSarcwBu/Ky
+	QTXaR1JFbbqSMxgT2Tv0kSE=
+X-Google-Smtp-Source: ABdhPJzaJhUaTF7fYgjEu3LfmUcVnd+7GE0Y0wOVk7lGBdemFSVL4UC0A6jBCLDy44RnRNhkXdVIpg==
+X-Received: by 2002:a05:620a:2444:: with SMTP id h4mr270459qkn.398.1636559635571;
+        Wed, 10 Nov 2021 07:53:55 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:c0d9:: with SMTP id j25ls4487170edp.3.gmail; Wed, 10 Nov
- 2021 05:46:02 -0800 (PST)
-X-Received: by 2002:a05:6402:27cd:: with SMTP id c13mr21434948ede.365.1636551961985;
-        Wed, 10 Nov 2021 05:46:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1636551961; cv=none;
-        d=google.com; s=arc-20160816;
-        b=Vw1/G4tUjplTPgtU3QH0eoUttSgPQ8lL39aXTXiP40A1KcCq3G7+SJtpHT16gckG1h
-         x3VeA5asJFTRTkXFxSjrVl4NGZRhqBlnCfaVXzcGmCzvdJtkc0O+2khJLqUhIFfPEs6H
-         zd0wZMj1B7W1B539BHVjOaKYcAUISvNHtUSRru11df7lEP0mB7Ugt413/Z0hYmiVumtR
-         tNl4UYfHjb9GkuNfnb4N9YFQFy/L91pNARlRsQeFK1Bt55kT6EkVsKofPgxCUfR0Sjf+
-         z6bD7oNUXaATSLJ9eZkUyCrS0Mu0Hy2CfwdAArPGLwxOo7m/qiv7OcVHNCwtxRT9z0C9
-         nrLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:to:subject;
-        bh=jC3vmtWz9117Z0raHOLeXrlSKdJfvPj41vQWHb161MA=;
-        b=jwI4cAzyK9wUOOU+EeYGtJwpbhs7EFdeX/tho0mOkEcNjTOWT1TlifZ7K7GMskvfum
-         7R7SEjVm8NsOsq+NaV9ojClTRINKnxg95Lw70Ercrfm8bc2mIogXO/gDqnB94l6kDmqR
-         5ybKHonsorJaU4UFv4BKu9CKGIqXCzS9L81ZoC032HiJz7IPFI5AGRJLOTZHGYZRpyhy
-         WKm4IWGPEDlLGZSAPY/93WKJWdFLZlMb21V02bSB+XZxDkmWCC4gk3UZwDQ7jhWnMy9m
-         DllVBBhnGFS9TVUhaHpDrh8aeyVnBVAVdnvJk5eHBEl4upcHjkhXjYZF49nJGXCs5VkQ
-         lRyw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from david.siemens.de (david.siemens.de. [192.35.17.14])
-        by gmr-mx.google.com with ESMTPS id d2si263041edk.1.2021.11.10.05.46.01
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 10 Nov 2021 05:46:01 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as permitted sender) client-ip=192.35.17.14;
-Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
-	by david.siemens.de (8.15.2/8.15.2) with ESMTPS id 1AADk0Rr009079
-	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 10 Nov 2021 14:46:01 +0100
-Received: from [167.87.75.31] ([167.87.75.31])
-	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 1AADk0CB016384;
-	Wed, 10 Nov 2021 14:46:00 +0100
-Subject: Re: implicit declaration of add_cpu and remove_cpu
-To: Andrea Marchetta <marchetta.andrea@gmail.com>,
-        Jailhouse <jailhouse-dev@googlegroups.com>
+Received: by 2002:ac8:1405:: with SMTP id k5ls150163qtj.7.gmail; Wed, 10 Nov
+ 2021 07:53:55 -0800 (PST)
+X-Received: by 2002:ac8:614b:: with SMTP id d11mr644436qtm.396.1636559634881;
+        Wed, 10 Nov 2021 07:53:54 -0800 (PST)
+Date: Wed, 10 Nov 2021 07:53:54 -0800 (PST)
+From: Andrea Marchetta <marchetta.andrea@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <25eadc4a-57ff-4b94-8b87-43d8b842733cn@googlegroups.com>
+In-Reply-To: <8717f502-5701-bfaa-2327-cfb6fc99123e@siemens.com>
 References: <5e84c231-838f-433d-b584-5876c477087dn@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Message-ID: <8717f502-5701-bfaa-2327-cfb6fc99123e@siemens.com>
-Date: Wed, 10 Nov 2021 14:46:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ <8717f502-5701-bfaa-2327-cfb6fc99123e@siemens.com>
+Subject: Re: implicit declaration of add_cpu and remove_cpu
 MIME-Version: 1.0
-In-Reply-To: <5e84c231-838f-433d-b584-5876c477087dn@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of jan.kiszka@siemens.com designates 192.35.17.14 as
- permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
- (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_4168_705161641.1636559634361"
+X-Original-Sender: marchetta.andrea@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -134,35 +78,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10.11.21 13:05, Andrea Marchetta wrote:
-> hi, i'm currently using the 5.10 version of jailhouse enabling linux and
-> the master branch of jailhouse. when trying to compile jailhouse in the
-> linux kernel i get the following error:
-> error: implicit declaration of
-> function =E2=80=98remove_cpu=E2=80=99 [-Werror=3Dimplicit-function-declar=
-ation]
-> =C2=A0243 | =C2=A0=C2=A0=C2=A0err =3D remove_cpu(cpu);
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0^~~~~~~~~~
-> error: implicit declaration of
-> function =E2=80=98add_cpu=E2=80=99 [-Werror=3Dimplicit-function-declarati=
-on]
-> =C2=A0272 | =C2=A0=C2=A0if (!cpu_online(cpu) && add_cpu(cpu) =3D=3D 0)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^~~~~~~
-> cc1: some warnings being treated as errors
->=20
-> any clue what's the issue?
->=20
+------=_Part_4168_705161641.1636559634361
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4169_2053326688.1636559634362"
 
-You want master/next, not the (meanwhile serious old) last release.
+------=_Part_4169_2053326688.1636559634362
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+I'm sorry to bother Jan, but the "next" branch yields the same error. I=20
+don't know if it's intended, but i can only find the "next" branch and not=
+=20
+the "master/next" one
 
---=20
-Siemens AG, T RDA IOT
-Corporate Competence Center Embedded Linux
+Il giorno mercoled=C3=AC 10 novembre 2021 alle 14:46:03 UTC+1=20
+j.kiszka...@gmail.com ha scritto:
+
+> On 10.11.21 13:05, Andrea Marchetta wrote:
+> > hi, i'm currently using the 5.10 version of jailhouse enabling linux an=
+d
+> > the master branch of jailhouse. when trying to compile jailhouse in the
+> > linux kernel i get the following error:
+> > error: implicit declaration of
+> > function =E2=80=98remove_cpu=E2=80=99 [-Werror=3Dimplicit-function-decl=
+aration]
+> >  243 |    err =3D remove_cpu(cpu);
+> >      |          ^~~~~~~~~~
+> > error: implicit declaration of
+> > function =E2=80=98add_cpu=E2=80=99 [-Werror=3Dimplicit-function-declara=
+tion]
+> >  272 |   if (!cpu_online(cpu) && add_cpu(cpu) =3D=3D 0)
+> >      |                           ^~~~~~~
+> > cc1: some warnings being treated as errors
+> >=20
+> > any clue what's the issue?
+> >=20
+>
+> You want master/next, not the (meanwhile serious old) last release.
+>
+> Jan
+>
+> --=20
+> Siemens AG, T RDA IOT
+> Corporate Competence Center Embedded Linux
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -170,4 +129,66 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/8717f502-5701-bfaa-2327-cfb6fc99123e%40siemens.com.
+jailhouse-dev/25eadc4a-57ff-4b94-8b87-43d8b842733cn%40googlegroups.com.
+
+------=_Part_4169_2053326688.1636559634362
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I'm sorry to bother Jan, but the "next" branch yields the same error. I don=
+'t know if it's intended, but i can only find the "next" branch and not the=
+ "master/next" one<br><br><div class=3D"gmail_quote"><div dir=3D"auto" clas=
+s=3D"gmail_attr">Il giorno mercoled=C3=AC 10 novembre 2021 alle 14:46:03 UT=
+C+1 j.kiszka...@gmail.com ha scritto:<br/></div><blockquote class=3D"gmail_=
+quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 2=
+04); padding-left: 1ex;">On 10.11.21 13:05, Andrea Marchetta wrote:
+<br>&gt; hi, i&#39;m currently using the 5.10 version of jailhouse enabling=
+ linux and
+<br>&gt; the master branch of jailhouse. when trying to compile jailhouse i=
+n the
+<br>&gt; linux kernel i get the following error:
+<br>&gt; error: implicit declaration of
+<br>&gt; function =E2=80=98remove_cpu=E2=80=99 [-Werror=3Dimplicit-function=
+-declaration]
+<br>&gt; =C2=A0243 | =C2=A0=C2=A0=C2=A0err =3D remove_cpu(cpu);
+<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0^~~~~~~~~~
+<br>&gt; error: implicit declaration of
+<br>&gt; function =E2=80=98add_cpu=E2=80=99 [-Werror=3Dimplicit-function-de=
+claration]
+<br>&gt; =C2=A0272 | =C2=A0=C2=A0if (!cpu_online(cpu) &amp;&amp; add_cpu(cp=
+u) =3D=3D 0)
+<br>&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0| =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0^~~~~~~
+<br>&gt; cc1: some warnings being treated as errors
+<br>&gt;=20
+<br>&gt; any clue what&#39;s the issue?
+<br>&gt;=20
+<br>
+<br>You want master/next, not the (meanwhile serious old) last release.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/25eadc4a-57ff-4b94-8b87-43d8b842733cn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/25eadc4a-57ff-4b94-8b87-43d8b842733cn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_4169_2053326688.1636559634362--
+
+------=_Part_4168_705161641.1636559634361--
