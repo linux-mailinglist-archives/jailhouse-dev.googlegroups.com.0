@@ -1,64 +1,111 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBDXKXCGAMGQEKMZZMDY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBS75XCGAMGQEM3LVARI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D8944E3E0
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Nov 2021 10:34:08 +0100 (CET)
-Received: by mail-qk1-x73c.google.com with SMTP id ay9-20020a05620a178900b00462db20ac02sf6004442qkb.10
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Nov 2021 01:34:08 -0800 (PST)
+Received: from mail-qk1-x73e.google.com (mail-qk1-x73e.google.com [IPv6:2607:f8b0:4864:20::73e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C3644E46F
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Nov 2021 11:15:40 +0100 (CET)
+Received: by mail-qk1-x73e.google.com with SMTP id s20-20020a05620a0bd400b0045e893f2ed8sf6062466qki.11
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Nov 2021 02:15:40 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1636712139; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=woUZM3f0ho3IeLS4WrX+ynN1+cdh6fg7inK9dijuyStAVyGtEEFJn2BYyWxQr8dSLG
+         6wxtmOW0oNlFdLNTQa4178kYvuO2edtOKv2c8adokajB4vsYTTUmoLLagnH3l2Xi+UQ8
+         EgHydtcq3dgPMUhKvvjNaioXw/kOyFuK8mTVP612vM0gfgyd0IoR817v5x33KYIkvVyS
+         i7OWPfhZV0xwn/v8XvGCMzIQaE4CfhV2bDpJuQdr6WUozUXt0xd3Q/RmJNJ25kHTMKtH
+         dxT29tT+XkyCF1obwpbqbP5CudnQFmDGvHNfRboNh9UMqFhEa2avfLTm4vwC8S+2fKbd
+         b5Ew==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :content-language:in-reply-to:mime-version:user-agent:date
+         :message-id:from:references:to:subject:sender:dkim-signature;
+        bh=XgkkbdFRlHSovv0mMxUy3IHV7hcOpZyK6MT4swbnJlg=;
+        b=r0NS/DEfgPU1KWnZykaGqcFjswtyDndOOAmr1A50CTVFBfjTwUZxfxWRr+l2QhaUSR
+         9acsjsqpGYPQzJFsBCY+jnxKal/ZGgQQPCU8vv42gj2Ske1e/+mGg0LL6i3NHy3yCGF5
+         HT64pBSVc3vl1OP//6qea05MQ3IY59ADRSdhWKJzfTXSrM6Y+N1goV4sAR5NPSNEg8cW
+         QFUSjmbCGjAYhg0/OWfxsYpny1cIeB7La9tNwKPnNEFzR5EUKcGvq819WQKbegLbCDLg
+         twjaYOE1qnjhV2PBPrDeFOXO1+sjEC3dFLK7qcg/caj16hsvEcrH9/3kVYYIIjh6SpKV
+         Y6KQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=jNHSCo93Ju6MW79tTlDpOR8BDdvNLl6IvK0+MXepfvA=;
-        b=WX/g2hn9uUS4IkQsan3vHCr6NzL5fJ43oJ+wZJo2najCpl5WPqlAPTtEpWuq5VkEqc
-         TXGlgDPZ2dgLr1qN+ChQkFcFSZvl3sqC1HCEHgVnJOvZ0EkutyPRFsSzbuY/ia3el4gm
-         bAGrir0nqlP11pVgLA6cD+ZzAnYepS4L33EoY05kVJDgO9sYCM56jx4NGYmn9Q9pdM+i
-         NVSMwBzWKI5hb9vRT1V5QQbltGwjX50UnRHgRqOTSDZViocD6e5KmzJtpvhPdwQydkvQ
-         UazBLpP6cUWWgmK3hAZDm4P13CA31ZwgpEvUMM2cb6UA6d3BlLHVtf8xVvGin6hnDvIq
-         coAA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=jNHSCo93Ju6MW79tTlDpOR8BDdvNLl6IvK0+MXepfvA=;
-        b=D8+O/tBJol7yVpsKqwrpeoola8z1Mqs8uVSn2m78S4D+6CWb2KB1AHblguR6SyPlSX
-         Ss6iajoq9CQT4rA4kwwLaFevSoSLMMJZALlk6USW7IGFTteLJKEXWUl1aLX7keRkbkZt
-         5WuWCDUpVMDzyvAvpLwt5gbrIuikOLmvB3EXATkvrMxVHvE1uvZfhAocK1p4m7i06IL/
-         1Ij1a6HeqW8DGAm7I2sSGPnUoBujJU11kRjH/ShuM1ThS5t6C9niy4hCy7NG1RsLtmHe
-         cJHVZrIfSi06iDAWgDiI58sFPiIGGOVKpgVGvr4nlDGQjeb5rIWSIG42joqY6l/2lDrz
-         upgg==
+        h=sender:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=XgkkbdFRlHSovv0mMxUy3IHV7hcOpZyK6MT4swbnJlg=;
+        b=eLUGQiT/8i+9ofJsPiBf4BijtkwIW6kRPGi9OA3XIhNDoc2HwPBUX2poTRdApabczO
+         XDUSxcUleNmHOoHKX6n0uDE3+2lGvCT7rwoga0DwunEncr778t00DqRZeC6W9gBHg6Ls
+         d9OKz3kh1B0n8dSVntu0MoaeJXMvXYEbFZ7qKRQjP1gPcDEoeqEG4b9T7/V/f9sOQC+m
+         Cg/7ic3UpoEnXvR63/omfCbtSqj8e0gRpL/sM8Olhp6K2bG0EFBld/WPRwSFmpxYntn3
+         PH0mPaLYAgTnoVVjH7eS4Ra7Vhl9C4/CkWBCLWCtrS7rw2v6z9mD8YHZkqEwtjiKZQGR
+         0bNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=jNHSCo93Ju6MW79tTlDpOR8BDdvNLl6IvK0+MXepfvA=;
-        b=yDylog8voW7PQwr10L6I29xFNgwF5wGy+oy9ZirV7fbVV1t+a7fAUo4WWl/76ZMCQR
-         pqkAjM7ygyRhWwsNzHOVgjABLzob/H0u5Q8GdetAu4bsSRLloPeKr3jX7G8OoD5yzM6n
-         K3L+9wJuOc9igf54fG544Pn4xSkA7ratGmQnx/SgL1CoexOhfcjfuY3vF4ZFpgFOq3Bk
-         BGf2jC15u3QUGS+XqnCvQimUjsfnn0B5aMmZeoXNG76VBgJu27tbt18m72sicX6+BbY9
-         4e08qzpDgLBOUzAE+jV8MWbcdY21J5jOXirOq4l8RbDrS07QZcR+0vzFka0UF0hADGMN
-         j/OQ==
+        h=sender:x-gm-message-state:subject:to:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=XgkkbdFRlHSovv0mMxUy3IHV7hcOpZyK6MT4swbnJlg=;
+        b=lhU9nxXI7kgZQCCeGPGSCfpdk/Nj7xK0Ls8KQSjY7xvdzFM7jR3rN+uhs6s4AoTCXY
+         2yBFlphMsZbns8pXCKuPM4G484srqCp/VY/Atd/KeVQLMqk3NHpF1ToqoKh0WKyOLBmS
+         fm65bQUXKVjsmtPt4UFdaMo3MkXE44IHlMDxJu7vsEQvpX8YrqiYyjuzeQAjX9Osq873
+         xcMGbPma+X46P2k46s1f03lYQ35gI5+xPg4Hg9sM6yBN1nhr5UPctnSN03S06p6CTxvT
+         hK1EOqLyxVawnAii8s3hjTg5gb6WnbN1UYrDDaLkrJfIAF9ja4VCdmvAvamXA7hyn7xL
+         C2/w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533nnw20W7DGLtm4Ynhsk5/hvbuxJivQChKcsRi2wrWLrdwgo96d
-	jYKkBf8x83tf8SFO9/5SJrA=
-X-Google-Smtp-Source: ABdhPJzBTEdKDkO+dK+0qAnDZDueqITc1GUFPhtDoQ2NqVcSqswd4ZYlVEQgbaiLqYupJ2/ndzY3Cg==
-X-Received: by 2002:a05:6214:e83:: with SMTP id hf3mr13439172qvb.52.1636709647120;
-        Fri, 12 Nov 2021 01:34:07 -0800 (PST)
+X-Gm-Message-State: AOAM53229xu8zqbmZrPsPJRsYWF3bBYZQei8Xkyz3zfR4s/Tv2TsBFnX
+	5t81BB3DLUJSb8DT0TNZqqI=
+X-Google-Smtp-Source: ABdhPJx2YVt2en4Xi2Ud/9RXor5iG1deSWK4/mxCP7b5LAseWd0bYFEaxNJQJFsyFxm14Hh7etR0xA==
+X-Received: by 2002:ae9:dec5:: with SMTP id s188mr11866076qkf.48.1636712139639;
+        Fri, 12 Nov 2021 02:15:39 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:622a:85:: with SMTP id o5ls3347848qtw.3.gmail; Fri, 12
- Nov 2021 01:34:06 -0800 (PST)
-X-Received: by 2002:a05:622a:40a:: with SMTP id n10mr14764394qtx.161.1636709646411;
-        Fri, 12 Nov 2021 01:34:06 -0800 (PST)
-Date: Fri, 12 Nov 2021 01:34:05 -0800 (PST)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <9072dd41-feb1-486d-86be-7160e23240edn@googlegroups.com>
-In-Reply-To: <a18b655e-fd9d-32b9-6e10-acf1fdf91661@siemens.com>
+Received: by 2002:a0c:f306:: with SMTP id j6ls1968163qvl.5.gmail; Fri, 12 Nov
+ 2021 02:15:39 -0800 (PST)
+X-Received: by 2002:a0c:fec4:: with SMTP id z4mr13434416qvs.32.1636712139235;
+        Fri, 12 Nov 2021 02:15:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1636712139; cv=none;
+        d=google.com; s=arc-20160816;
+        b=MoCaeAZR4rMBCgoj1dV2BevE12sqPECi8Wb55w3n+0yvmcohO+n9p6f3+zszi0mwxG
+         QtPq2m0HalvWHzBDc0IVJoS/pAUh2uuaOeJI2ihQ+RtQ3zfaqq0fJfaTpYwun6kSyoPo
+         CxUeJn4LJo/7B3mQypx4vGZLl+jBkZ1zEcy1iaXuApnW9rXjkTqFVwjk/FVGBYLZL0/S
+         U07VqctG4pqb9oQAK0X7cYOLhHr0kBKpAQY6YXH+MRUtSvS/uNRvrqhXxw9WX3LzpsVj
+         f2znM/WyesRniIZgTXVeRaIncN+1NCo8WCR+gnq5gqqnc+AwgXtSOVpVmjFJuceXlHJs
+         iNGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:in-reply-to:mime-version
+         :user-agent:date:message-id:from:references:to:subject;
+        bh=aCb3nimznCixPbe/dhNVJTb0/KqJsgn+bxZkiU8/iNo=;
+        b=n7j0zEavFZfAilnYXRHRlHYgg79c37NrElsPA5ykuomldQiOmt8YfZ+Jd/Dwgiknxd
+         nVCqF9hIExM0w/Xe7QpILBot02A1RYu8b1e6EVB9x9CWDwoqUB/XyRizQBorEPT451MN
+         f9MhlUYdCfKok1zwrLvRK+7/Dn+ohSJq/sTvaaQAda2B4XVEYxzOw4Z9b+akeoJY28AJ
+         JxmpapRfX+fjzuf37cpaZ6skS13oz/l8DdTF9hQcjPDmIcBBaySry88NoeERDqBLuca8
+         gAlrtTIDnmYDjrYgtz5eSVQx+VI6qeZZ1XMXonwdzVljbBCMwlZR/Sd+IG5Hc4NP7E9y
+         Zhiw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from gecko.sbs.de (gecko.sbs.de. [194.138.37.40])
+        by gmr-mx.google.com with ESMTPS id n2si1078937qkp.4.2021.11.12.02.15.38
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 12 Nov 2021 02:15:39 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as permitted sender) client-ip=194.138.37.40;
+Received: from mail2.sbs.de (mail2.sbs.de [192.129.41.66])
+	by gecko.sbs.de (8.15.2/8.15.2) with ESMTPS id 1ACAFYv4023963
+	(version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 12 Nov 2021 11:15:35 +0100
+Received: from [167.87.32.54] ([167.87.32.54])
+	by mail2.sbs.de (8.15.2/8.15.2) with ESMTP id 1ACAFYfs024311;
+	Fri, 12 Nov 2021 11:15:34 +0100
+Subject: Re: Jailhouse cell linux
+To: Moustafa Nofal <mustafa13e09940@gmail.com>,
+        Jailhouse <jailhouse-dev@googlegroups.com>
 References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
  <20211025161715.61aa35fe@md1za8fc.ad001.siemens.net>
  <251534da-afb0-4c8d-b44f-28fcba5999acn@googlegroups.com>
@@ -68,11 +115,22 @@ References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
  <72ba65bd-dfaf-40b4-87a8-785657132f60n@googlegroups.com>
  <238dd0b3-af24-4b8a-905e-579fdebe8b0an@googlegroups.com>
  <a18b655e-fd9d-32b9-6e10-acf1fdf91661@siemens.com>
-Subject: Re: Jailhouse cell linux
+ <9072dd41-feb1-486d-86be-7160e23240edn@googlegroups.com>
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Message-ID: <595778e6-5066-2fc7-ce1d-15bb30b24cde@siemens.com>
+Date: Fri, 12 Nov 2021 11:15:34 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_692_1041640678.1636709645745"
-X-Original-Sender: mustafa13e09940@gmail.com
+In-Reply-To: <9072dd41-feb1-486d-86be-7160e23240edn@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of jan.kiszka@siemens.com designates 194.138.37.40 as
+ permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -85,92 +143,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_692_1041640678.1636709645745
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_693_1605906410.1636709645745"
+On 12.11.21 10:34, Moustafa Nofal wrote:
+>     >You are targeting RPi4, right? Again, jailhouse-images has
+>     everything to
+>     >get the ball rolling. From there, start exchanging pieces that you
+>     want
+>     >to have in a different flavor.=20
+>=20
+> =C2=A0
+> I used the configuration file from Jailhouse-images, I got error on 5.10
+> kernel:
+> =C2=A0__get_vm_area_caller
+> =C2=A0ioremap_page_range
+> =C2=A0__hyp_stub_vectors
+> are undefined, so what may be missing here?=20
 
-------=_Part_693_1605906410.1636709645745
-Content-Type: text/plain; charset="UTF-8"
+The kernel sources that jailhouse-images is using. There are a few
+patches on top of 5.10-lts.
 
+>=20
+>     >Regarding the concrete question:
+>     > either a support physical PCI host controller (so far only worked
+>     >with the old Seattle board)
+>     >or a virtual PCI controller configured in the root cell config (see
+>     >configs/arm64/rpi4.c)
+>     >support for CONFIG_PCI_HOST_GENERIC and CONFIG_OF_OVERLAY
+>=20
+> Back to 5.4, I added support, but I got another error:=C2=A0
+> lspci: sysfs_scan: Invalid domain ffffffff
+> So, where shall i continue?
 
->
-> >You are targeting RPi4, right? Again, jailhouse-images has everything to 
-> >get the ball rolling. From there, start exchanging pieces that you want 
-> >to have in a different flavor. 
+That is unusual, don't recall a concrete reason. Did you set
+platform_info.pci_domain in the root cell config? Make sure it does not
+collide with already existing (physical) PCI host controller domains.
 
- 
-I used the configuration file from Jailhouse-images, I got error on 5.10 
-kernel:
- __get_vm_area_caller
- ioremap_page_range
- __hyp_stub_vectors
-are undefined, so what may be missing here? 
+Jan
 
-> >Regarding the concrete question: 
-> > either a support physical PCI host controller (so far only worked 
-> >with the old Seattle board) 
-> >or a virtual PCI controller configured in the root cell config (see 
-> >configs/arm64/rpi4.c) 
-> >support for CONFIG_PCI_HOST_GENERIC and CONFIG_OF_OVERLAY 
->
-Back to 5.4, I added support, but I got another error: 
-lspci: sysfs_scan: Invalid domain ffffffff
-So, where shall i continue?
-5.4: Jailhouse working, problem with virtual pci.
-5.10: Jailhouse not compiling. 
+--=20
+Siemens AG, T RDA IOT
+Corporate Competence Center Embedded Linux
 
-Best regards
-Moustafa Noufale 
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9072dd41-feb1-486d-86be-7160e23240edn%40googlegroups.com.
-
-------=_Part_693_1605906410.1636709645745
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
-n: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1e=
-x;">&gt;You are targeting RPi4, right? Again, jailhouse-images has everythi=
-ng to
-<br>&gt;get the ball rolling. From there, start exchanging pieces that you =
-want
-<br>&gt;to have in a different flavor. </blockquote><div>&nbsp;</div><div>I=
- used the configuration file from Jailhouse-images, I got error on 5.10 ker=
-nel:</div><div>&nbsp;__get_vm_area_caller</div><div>&nbsp;ioremap_page_rang=
-e</div><div>&nbsp;__hyp_stub_vectors</div><div>are undefined, so what may b=
-e missing here?&nbsp;</div><blockquote class=3D"gmail_quote" style=3D"margi=
-n: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1e=
-x;">&gt;Regarding the concrete question:
-<br> &gt; either a support physical PCI host controller (so far only worked
-<br>&gt;with the old Seattle board)
-<br> &gt;or a virtual PCI controller configured in the root cell config (se=
-e
-<br>&gt;configs/arm64/rpi4.c)
-<br> &gt;support for CONFIG_PCI_HOST_GENERIC and CONFIG_OF_OVERLAY
-<br></blockquote><div>Back to 5.4, I added support, but I got another error=
-:&nbsp;</div><div><span style=3D"white-space: pre-wrap;">lspci: sysfs_scan:=
- Invalid domain ffffffff</span></div><div>So, where shall i continue?</div>=
-<div>5.4: Jailhouse working, problem with virtual pci.</div><div>5.10: Jail=
-house not compiling.&nbsp;</div><div><br></div><div>Best regards</div><div>=
-Moustafa Noufale&nbsp;<br></div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/9072dd41-feb1-486d-86be-7160e23240edn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/9072dd41-feb1-486d-86be-7160e23240edn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_693_1605906410.1636709645745--
-
-------=_Part_692_1041640678.1636709645745--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/595778e6-5066-2fc7-ce1d-15bb30b24cde%40siemens.com.
