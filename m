@@ -1,64 +1,64 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBNMAX2GAMGQEXXLP4BQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBKGMZCGAMGQEGBLYUSY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B2244F23E
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 13 Nov 2021 10:07:03 +0100 (CET)
-Received: by mail-qv1-xf3f.google.com with SMTP id n18-20020a0cbe92000000b00384d0c98fccsf10822906qvi.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 13 Nov 2021 01:07:03 -0800 (PST)
+Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52349450107
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 15 Nov 2021 10:19:38 +0100 (CET)
+Received: by mail-qt1-x839.google.com with SMTP id h8-20020a05622a170800b002acc8656e05sf12922246qtk.7
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 15 Nov 2021 01:19:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=OIfVu0OScwCIec9UtCuEdgOT+9Lz9raPPHkqnLW2Evo=;
-        b=TfFacNo78qug0JOqcxb/T01vROKmj2mGS9ODKbK2cGD5UhJNOgdT7XRT0TwgO2Cy0E
-         0StUeJ7Lhq9MA1fmitob486i7oUtAdh2EJ59z5xJ0SzT5RjwNB/THs4k6YF+67Nk8myu
-         ujLFy2+UA24iKb6ll1tZmfn9a1ggqny7SgTcjJsciSu3xpigdffib0XWKSIAfenWrNT1
-         LtoNnKRP7S1x7MLrwvKSbExaeuOCitF88bFgqzXtg7xHJHGVtnHyzAaaKcFlaV9hJdsB
-         UeWvd5QjSxYhQZLFUIMBWNA6VrCslka9O2JHYF9hvlXrUpVVyEqesASBserCZpGWwu1O
-         CvXQ==
+        bh=ZgjkqGRwNZ5KqPp7fFIIdc5duouhC123bK6U0JXI84U=;
+        b=Uv26bGaAAfZ1/AGp63bQof2+dfMOcI00KDwQVgY7hx0ZwXWjL1ICflGXCFrnaVA6m/
+         EKF+ef1b55nIUXdO6YcrA5QdKPw5+ZfjLbcbUpazhFKEi6ObhTQYY4Qg7ef5vxzKuU0/
+         XEWszz7N/DCnVR6Ju++Dl+SoDTW459W8vMXKxJBopE8+FoTGWMT3D9iRXOmpoLphvl0r
+         c+/6aUCfT5N3hbUeIJqpU6yhX3i/eVwKJD4810zZE74lSU3BJ6oyTuG+eHK1he9/TVEr
+         VLIRJVnlBQiWXC4YTaTE9xD2hg7ZDtQLgrtY6w/Ao0uEbfbf8Ra8ssWkIcsnvAawIkuu
+         WslA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=OIfVu0OScwCIec9UtCuEdgOT+9Lz9raPPHkqnLW2Evo=;
-        b=qDDi/9fumAn9A7vliB32Hp/NU45/Ly8xHPAuofTvfWBESqh7OnAHYg+g8A77c/7WNG
-         JPKbP3Nvmp57GGXKrsS335I9dFKaLUWYELEPPo3bdB9vLNxDFCrBl7jIt3pKTfzDQSkH
-         IseN4+IBU/kko49FbDatKDA5f4YIULYcP6gM4AZZpa2uqk6sPHrvdzLI3+pJtnhGuIZ8
-         86iIBeIS7qWprGQAMtHGdENt1wut+rFJF56zVfl5b5ZwR3L4Fo9bpVmHaDa2POYo+TQm
-         reCGTi9JDyG5/Si3R2Fz1nYJZjzyEgr9rCSCyhHqfdZAdt5slwG9MvNsm+tToxhmVeun
-         rHdg==
+        bh=ZgjkqGRwNZ5KqPp7fFIIdc5duouhC123bK6U0JXI84U=;
+        b=Y0RwVF4Yp6MQW0fWYKoNLr03NZO9N2gfp2i07CkhMD1HuDMoRwiu1MpPEcbRG37pnx
+         3lp89ydRHUBulCBCQmjDvFbmSW/xk8df7WFf4NQrAUi5Qc8qWtyLTvtk0yaa04W8LI3z
+         9k0m61yvepE5QqpbLN6kLk18dPLNW/t0E8MVFdfgpXFLNf2vafEdVLQEnO9PRwF9toL2
+         f+dfGLwEWLxMPlt88kNl6RT1Or01mm+cwSOVLJ49qSvEz/7yQWG5j1VJX5FT19cHoQg7
+         vU1qSE1wWGrQJanhs0VeE03PI9o8p8BeuU+uMPkg6ouC70vUd5l7aN9bTHidVLAQroIQ
+         oEuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=OIfVu0OScwCIec9UtCuEdgOT+9Lz9raPPHkqnLW2Evo=;
-        b=Tl57nTXT0d+SzUUcP/cmU/N+F9eaut35wbFt8C1uSi8sOCq0EDPBBBkotOxeWIEQCJ
-         bUBbvsxn5uD1pI3yIku3aP53SNEMOs988QErG+lh292XUgO7Da0RBptuafVoSvs2qxn5
-         Rpa+J5AuklPWUmg4WwHNgSY4IMoV5FR/Z2O5+zqEmQtbOVAk0cSUEYpMMVxGh+h0oNSE
-         dzESHVGAD1WS0SCftMG8tt70kuCf5HbeQ/G4jvnzMKNQS9VJCuTh+1h4+9DCcT4cWWhA
-         29UcAMLed9zJzMY6IYbXdYPmzb0nNlbJybQdS4nfeUApS2L6xqOENRZBesMH53LZ9fyR
-         t2pg==
+        bh=ZgjkqGRwNZ5KqPp7fFIIdc5duouhC123bK6U0JXI84U=;
+        b=4rTMKlYpmhY9lTqu2WioxbblbsPMRuP45xNl/TmSxbH6R/cI9Opj9NFRSj7nck2WlI
+         53uhZ4kpgUTzjbSCE7KT6j38v9m4IURDIlikGr7tN35VJBqaKr3JV6KBsntxjQuCp4zi
+         hZw+65RBPLyO1b3NKgGqBn6OKusnFQAN7Mfa7Uj13bNdIedOffER6rlEfZoesL22ELv4
+         1NnbeZyPNqE0tQKw3tjR+Q3uM3bNHYckg9QHHASm0H+TBwQ5xaoK05PIGSoj+mSEdKhM
+         iumTh7c3u+a9nCus6NrH1P9kyls1G2W+qP0P9aL2R8ov1L2D3va1WOsWZZ/THyBxT0zr
+         DG5w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531ZcvqRLvXM3hVaxXAyLatWW0rnRef+AAp13aR1AQxIuL9eE6kV
-	/qsFdld1wS0qRvuV6ZJ6kgU=
-X-Google-Smtp-Source: ABdhPJy0x6uywI6vGZd9dQ4dWojH/x429lJ/tqmxVPeSdBErNnA8xrGx13y/67YF2qFgiWV10EAi+Q==
-X-Received: by 2002:a05:620a:4051:: with SMTP id i17mr18055663qko.333.1636794422184;
-        Sat, 13 Nov 2021 01:07:02 -0800 (PST)
+X-Gm-Message-State: AOAM5305c+dLvVd5ZRq1+1tUBsruo08fFHN4AH8BKPBou2rizEZiSMR+
+	6jiPVk2fPCBlyQ9AlV4kbDM=
+X-Google-Smtp-Source: ABdhPJxfbChgycQjXsFcfXo1lLoEDxVPLSBsDTFqJJmTMwcxUh+vR3F7Wky1wMlOmEXmJ6F8ZtBokQ==
+X-Received: by 2002:a37:a9c9:: with SMTP id s192mr12208141qke.311.1636967977011;
+        Mon, 15 Nov 2021 01:19:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:e34c:: with SMTP id a12ls2940259qvm.2.gmail; Sat, 13 Nov
- 2021 01:07:01 -0800 (PST)
-X-Received: by 2002:a0c:c784:: with SMTP id k4mr11752225qvj.1.1636794421529;
-        Sat, 13 Nov 2021 01:07:01 -0800 (PST)
-Date: Sat, 13 Nov 2021 01:07:00 -0800 (PST)
+Received: by 2002:a05:620a:440e:: with SMTP id v14ls4248394qkp.0.gmail; Mon,
+ 15 Nov 2021 01:19:36 -0800 (PST)
+X-Received: by 2002:a05:620a:14ab:: with SMTP id x11mr28050701qkj.84.1636967976382;
+        Mon, 15 Nov 2021 01:19:36 -0800 (PST)
+Date: Mon, 15 Nov 2021 01:19:35 -0800 (PST)
 From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <69d8e666-daf5-4146-b96e-8a6578ec2cf6n@googlegroups.com>
-In-Reply-To: <595778e6-5066-2fc7-ce1d-15bb30b24cde@siemens.com>
+Message-Id: <597c86a9-bba0-43af-bc14-629d483c0bden@googlegroups.com>
+In-Reply-To: <69d8e666-daf5-4146-b96e-8a6578ec2cf6n@googlegroups.com>
 References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
  <20211025161715.61aa35fe@md1za8fc.ad001.siemens.net>
  <251534da-afb0-4c8d-b44f-28fcba5999acn@googlegroups.com>
@@ -70,10 +70,11 @@ References: <28e452f0-6d96-4db5-9c39-be0c148d12b9n@googlegroups.com>
  <a18b655e-fd9d-32b9-6e10-acf1fdf91661@siemens.com>
  <9072dd41-feb1-486d-86be-7160e23240edn@googlegroups.com>
  <595778e6-5066-2fc7-ce1d-15bb30b24cde@siemens.com>
+ <69d8e666-daf5-4146-b96e-8a6578ec2cf6n@googlegroups.com>
 Subject: Re: Jailhouse cell linux
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1672_1626844729.1636794420941"
+	boundary="----=_Part_2468_422429462.1636967975887"
 X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -87,59 +88,43 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1672_1626844729.1636794420941
+------=_Part_2468_422429462.1636967975887
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1673_940939732.1636794420942"
+	boundary="----=_Part_2469_1197603391.1636967975887"
 
-------=_Part_1673_940939732.1636794420942
+------=_Part_2469_1197603391.1636967975887
 Content-Type: text/plain; charset="UTF-8"
 
+I read an information that CONFIG_PCI_HOST_GENERIC is available from 5.8 
+Kernel. I think this would be the reason, why jailhouse fails to add 
+virtual PCI devices in 5.4 kernel. I switched back to jailhouse image, and 
+will try to build on it as you said. But one more question, 
+Why are they missed from 5.10 kernel? is there anything in configuration 
+missing?
+__get_vm_area_caller
+ ioremap_page_range
+ __hyp_stub_vectors
 
-
-> >That is unusual, don't recall a concrete reason. Did you set 
-> >platform_info.pci_domain in the root cell config? Make sure it does not 
-> >collide with already existing (physical) PCI host controller domains. 
->
-Yes, it is by default enabled "pci_domain = 1, what do you mean colliding? 
-the configuration file and the physical pcie0 are at the same address: 
-0xfd500000.
-I changed .pci_mmconfig_base = 0xfd500000,
-and the error is not appearing anymore, but no virtual devices were added, 
-I am not sure if this step is correct.
-IVSHMEM shared memory 00:00.0
-            .phys_start = 0x2faf0000,
-IVSHMEM shared memory 00:01.0
-            .phys_start = 0xfd500000,
-
-Regards, 
+Best regards 
 Moustafa Noufale
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/69d8e666-daf5-4146-b96e-8a6578ec2cf6n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/597c86a9-bba0-43af-bc14-629d483c0bden%40googlegroups.com.
 
-------=_Part_1673_940939732.1636794420942
+------=_Part_2469_1197603391.1636967975887
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"m=
-argin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
-: 1ex;">&gt;That is unusual, don't recall a concrete reason. Did you set
-<br>&gt;platform_info.pci_domain in the root cell config? Make sure it does=
- not
-<br>&gt;collide with already existing (physical) PCI host controller domain=
-s.
-<br></blockquote><div>Yes, it is by default enabled "pci_domain =3D 1, what=
- do you mean colliding? the configuration file and the physical pcie0 are a=
-t the same address: 0xfd500000.</div><div>I changed .pci_mmconfig_base =3D =
-0xfd500000,</div><div>and the error is not appearing anymore, but no virtua=
-l devices were added, I am not sure if this step is correct.</div><div>IVSH=
-MEM shared memory 00:00.0</div><div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &=
-nbsp;&nbsp;&nbsp; .phys_start =3D 0x2faf0000,<br><div>IVSHMEM shared memory=
- 00:01.0</div><div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;=
- .phys_start =3D 0xfd500000,<br><br></div></div><div>Regards, <br>Moustafa =
-Noufale<br></div></div>
+I read an information that <span>CONFIG_PCI_HOST_GENERIC is available from =
+5.8 Kernel. I think this would be the reason, why jailhouse fails to add vi=
+rtual PCI devices in 5.4 kernel. I switched back to jailhouse image, and wi=
+ll try to build on it as you said. But one more question, <br>Why are they =
+missed from 5.10 kernel? is there anything in configuration missing?<br></s=
+pan><div>__get_vm_area_caller</div><div>&nbsp;ioremap_page_range</div><div>=
+&nbsp;__hyp_stub_vectors</div><div><br></div><div>Best regards <br></div><d=
+iv>Moustafa Noufale<br></div>
 
 <p></p>
 
@@ -150,11 +135,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/69d8e666-daf5-4146-b96e-8a6578ec2cf6n%40googlegrou=
+om/d/msgid/jailhouse-dev/597c86a9-bba0-43af-bc14-629d483c0bden%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/69d8e666-daf5-4146-b96e-8a6578ec2cf6n%40googlegroups.co=
+msgid/jailhouse-dev/597c86a9-bba0-43af-bc14-629d483c0bden%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_1673_940939732.1636794420942--
+------=_Part_2469_1197603391.1636967975887--
 
-------=_Part_1672_1626844729.1636794420941--
+------=_Part_2468_422429462.1636967975887--
