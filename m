@@ -1,68 +1,143 @@
-Return-Path: <jailhouse-dev+bncBDH5LQU54QDBBK4M36GAMGQEKC6HVEI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBFPF4SGAMGQEMRKBDMA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3d.google.com (mail-qv1-xf3d.google.com [IPv6:2607:f8b0:4864:20::f3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391044571EB
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Nov 2021 16:43:41 +0100 (CET)
-Received: by mail-qv1-xf3d.google.com with SMTP id kd7-20020a056214400700b003b54713452csf9174349qvb.13
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 19 Nov 2021 07:43:41 -0800 (PST)
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4324457FE2
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 20 Nov 2021 18:38:29 +0100 (CET)
+Received: by mail-wm1-x33e.google.com with SMTP id 144-20020a1c0496000000b003305ac0e03asf7718617wme.8
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 20 Nov 2021 09:38:29 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1637429909; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=yiqJiHFUcfZAlzzz7G1Ai07rWb/JehKbbEUCsKa7iJopB1Jx3tP4iNgoIFnQFbgbNR
+         nJMgkm2aWtvu0TeNEVaxNFx+E3bbkYoDd1lkdMWx3hV/yJNtEP+/zll7KRMXS6e7HuC6
+         s7d9UZElXFPcsPb5+VByE8s+x7YdlLrNUtv/6u+E5qRw46dyC4fviWq/fl3T9bAusABt
+         Kv64aglIKnO8DuDDuVDnYrcDq6JodAaWGCrm03LMDU7AZ3epV7o4Kn3kr+z5EQg6UabX
+         wD4Bx6sGxK3F+QdDuBZW7NPYdodQ5EsZvmUv3x9C6McsEJJhJY0iGAqIu5tc1jLUQInE
+         gHPg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-language:mime-version
+         :user-agent:date:message-id:cc:to:subject:from:sender:dkim-signature;
+        bh=R+FhsFT381k6KJSU1TLEHNFj+C6bs6Vyio2RKI9xgRU=;
+        b=W1ovYmHECXnHroJZBuaTDhvJPvoHfIrtd7a/iS2eBehWxgmfgmPAGmhkrExxwnblT2
+         PK+7zGTegBYJzcjWehKMoXPDRAlP1GWcdB6lIJoZVSym5wsprDD4lcmRzP59xu1qvAoD
+         B0FLjUDDicK5jKEAoMnOKX/0ppWnup1qOTHnnVBsFFdUz11k+4KohPNjSKYnBuUYl/xu
+         Pl5O41ekMb53EVgx74DxE04Yiq5+LqObJdh6jiEbgc73XIDEreLdSqWxAgc/crmeaqiZ
+         lEMvDVnl2hy2yhzFrFpQX5AoKJ1A70IWIFCGhf60WUMrIA64M97J+6O55kyiQObW1o/Z
+         gclg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=JIz90oIa;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=SdiP+uuJ4oRsIJICC3s1/Md6X3RDRHNs+8dkFrZIpfk=;
-        b=pPNmeyVxWGI0+ybgA91WFEKGuDwP0fUb9/Yd251Mon+qYkHU+M7i+/Y2CAFkQVVuy2
-         OeDqK5AUT5U6OvHCluVue7qTKHqZvfU0zEg+W8LjEd8Csqi7n8pRerFTysrSfUbqDh/n
-         adncebvAL+qmrSZZJQAwuiwH1lum1SoP/hDwbMvD8s6NoopQH7aketRLnY/ZC+P954ZO
-         qqZZC8VI9k8bcO8MtyTjB5svUMjj5ZOpU6nYg0R8wiZ95aebhF1h+Tipqa1iPXmrNLru
-         A6wgL8cP7HFmwLaL0UvxNcTKegqAHQmBn1ebdLuDzKVpik8JrjBpvXo276uBvMdzOjn/
-         aPkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=SdiP+uuJ4oRsIJICC3s1/Md6X3RDRHNs+8dkFrZIpfk=;
-        b=ingdOA7jdEAiYRgn8btrIOJJwZXmQsb8hLkE5YOhETsMktWA0NY3g/S90ctw4X8xcn
-         +6RC0ufZG/1Afeg3eJJqvEzKneba0vdUrZTrFq+Ozlrzg78VwMHhGSxwdDgzdATXZ/IP
-         Zk1qoqnRS68yi8aaySFe6hdXVZClcATmfUoJaFSN0Wix0mdvus9ngwtDjb4DJZclWm/h
-         dLSeBXwsHR+uVd9sgx2uOF627Q9NQANWmBLmvZVSJS6ep7EbkUJPt2/1Jr1SK8ZdSItf
-         ZZf+Z9cQ2XagAJ+ZPW8+l3z64egKXxMSE36n9IhvRjYFFkv4VtlF2++Trg9V1h2PFUS7
-         MU3A==
+        h=sender:from:subject:to:cc:message-id:date:user-agent:mime-version
+         :content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=R+FhsFT381k6KJSU1TLEHNFj+C6bs6Vyio2RKI9xgRU=;
+        b=CDDvq2yTskO5g8v9ooS4i/xPAD6Nz+uu6YvIgVrj6c1JzrPPhpOycWRO4GRmTakaze
+         w7Bw0/A5AkrnLrWf+TiyDERlhjwasjV/naxWCcny8NOKsZsXiTMVnQcYcSh2YmZnhp3E
+         YAXvgTTUMCyiQjzZLBG4IhDLwhQyFqgL596OZhW23+lZ31bZaM8tq8/L/sU3e1s6rMD2
+         yWYLI3xl2Cg/l2py+XnHKcqPSxzT2DvtPMTHTmPuZNXAIPCw8RxSoHO2pM/Q9nHxjFph
+         hezIzqcGPSKgnVhYDBfCYN+pPldaoLYtIuTvJNiw6+tSTiw6E07CO2v2Fz4yPUG4oQO7
+         Tw5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:from:subject:to:cc:message-id:date
+         :user-agent:mime-version:content-language:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=SdiP+uuJ4oRsIJICC3s1/Md6X3RDRHNs+8dkFrZIpfk=;
-        b=eEj8QwEjEyktpsFZ+nNKxJMQC1Mi6AZK9LPKXN4r4wNHMI1FquBiSxSyrDAd+y+q1v
-         EhqOK3PnjhxFaBAI0Yk9y1hqXDl+Z/JUQ3WAFeyXQWSF83Oquxfew0B+tz8JpRjtbl+S
-         DWeACnyTZU9DwN6nn/xe67ZEaus7Fox2bpWw4D8T/wlbgF0P69C0Ycu1nwa6CeVyk0uB
-         UhT0P7pX6BBzyXMzl0JmnRl9YuzyPobiUOy7d2OqG8RJ3d36GkGJuYNGQcsFzem3rbic
-         XqJdap/wcvTaANmvDQcfL7n1uz1jNZGJ8IK7S8sa9lGkpJ53tZq/ZFji7CfRHwMKPzxR
-         Ajfg==
+        bh=R+FhsFT381k6KJSU1TLEHNFj+C6bs6Vyio2RKI9xgRU=;
+        b=k7N6iaG9YYyBRszahtoMeFjtsgW1l45acsTJSKNcCc553KNX3JRT3qQBvWmUJFIjEH
+         QNNVaZnYLi3169UIBNNMQbnd+Plk66B38dw1jKH0n7uX3/Ra7Q07ASBUasdZzBerLc7B
+         TujL19OrXO7HbTKsMpjCjLJR8OMZttE9fgnj4mqLvcXGDNSR61eOxRPrD8HuCSLiTNsW
+         G0fgzzZVDd2wSjV8dhTr/oeczx6UriIqnB8eitEbSSrEQhVpxOnlCRhpLZyDralCR53t
+         cJsagV22LzW8/EnitVH90CnQ/8zfl0UXcAojKBaRWpO4+mpDSWq+LLi0Tkp/PvceWvsh
+         3WFQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532lw8XyoqBWtvjK7FOuT4vCFBQFnDnps+mZIcMjf7uJCJlkmsre
-	3r9vrqvYsszxhEBCXY6fTMI=
-X-Google-Smtp-Source: ABdhPJz63B+OYMAf67Zn4qHrwVqOxZ6AWm1FGhYFhy/acaMZU9mLyt9geFfsCJup1sCiDlyYb7go0g==
-X-Received: by 2002:a37:40c3:: with SMTP id n186mr28399679qka.520.1637336620238;
-        Fri, 19 Nov 2021 07:43:40 -0800 (PST)
+X-Gm-Message-State: AOAM531dSGP1Dkk+EfeeGhDx7cT/+8xPKaVGPhXqkKdOf9DBL5mF6U4X
+	Dkzvw6jKUMy8R69HbeStasc=
+X-Google-Smtp-Source: ABdhPJxvxPoLSPDHCDoTy6IaJ95nZCh64cS4dEold5UOKpJt8bc9bEAkJvur1r314BJK/bDs2vzFHg==
+X-Received: by 2002:a7b:cc11:: with SMTP id f17mr12105630wmh.122.1637429909575;
+        Sat, 20 Nov 2021 09:38:29 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:1e13:: with SMTP id n19ls35492qtl.10.gmail; Fri, 19 Nov
- 2021 07:43:39 -0800 (PST)
-X-Received: by 2002:a05:622a:40a:: with SMTP id n10mr7211497qtx.161.1637336619524;
-        Fri, 19 Nov 2021 07:43:39 -0800 (PST)
-Date: Fri, 19 Nov 2021 07:43:39 -0800 (PST)
-From: "luigi.d...@gmail.com" <luigi.desimone3@gmail.com>
+Received: by 2002:adf:f1c2:: with SMTP id z2ls3412551wro.2.gmail; Sat, 20 Nov
+ 2021 09:38:28 -0800 (PST)
+X-Received: by 2002:a5d:6211:: with SMTP id y17mr19280086wru.97.1637429908777;
+        Sat, 20 Nov 2021 09:38:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1637429908; cv=none;
+        d=google.com; s=arc-20160816;
+        b=SIEy6/58Q1mUnOJ6gUgr9Hb8VD2w9r34M+lXNEHw0xdu2uzxL/rLMcFnv1kBefFkmN
+         wnPaD9Gp419uaDwzGA4mijMfVwvSUsDXRl9kmxGyIe3r2Dtu/sYlKXkqImL2LUhuw/H2
+         bpNAqZsnQ7Q792xCdWIrzwHR6kdfZIBimwUv0AhaNaWHmpqdRWrgbbVY/Hn/8ZzQv7l8
+         ze/qLqoAxtGl8WWJ5sk6r1VAmK5zvukbz6kEztT4oDtN1gScClcrcFnnQKEtxQVfQiSS
+         YK2Y9QbftRo76FOH1Is2n0PeQRYNy1EbXnT5fZfWHpNQnNbbAQj3Iqkf99OakizQOTwA
+         8zVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:content-language:mime-version:user-agent
+         :date:message-id:cc:to:subject:from:dkim-signature;
+        bh=ParvXowjVGV8VCoOuwFXSm4psJrBFHc1RTfHoB11Cyw=;
+        b=dve81rhRsVkhJXWCZd6R7EoZdyVdNQCoUXuvk6XPFqXhbro25stDkHBzMeSSEGi+R6
+         mj2SeKwD5w/PnV5F/36ozP2lQu35XDlJKjIsgQAppGnM1OIjaFqobY+Rzk8yf0osic4N
+         LZUwmPG6bwKUyxc1XSP3pwMUsdUzizoNFdNbCRF2qqc5pF0EueGlx+X90gO1V88nxmOG
+         av1U4wzA7Fk/dVMk27kqzNSf7r5yaro8h0QVo+8knA3yNhqT/vHBccD5Db6N8jCG5tCD
+         uMmEF5G2niysuu52ArmM6CQNTfR+phvNolDIK1DutQFFxGvGgPh39ZSk+T5LoFLobtbf
+         6Izg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=JIz90oIa;
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id p11si1079025wms.3.2021.11.20.09.38.28
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Nov 2021 09:38:28 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.10.10] ([88.215.84.132]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N2SP7-1mf2zM1hol-013SML; Sat, 20
+ Nov 2021 18:38:27 +0100
+From: Jan Kiszka <jan.kiszka@web.de>
+Subject: [PATCH] rpi-firmware-brcm80211: Remove obsolete package
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <5c8edbda-5bf0-450e-bbab-a99de33df2a9n@googlegroups.com>
-Subject: Build image for Raspberry PI4 via jailhouse-images
+Cc: Luigi De Simone <luigi.desimone3@gmail.com>
+Message-ID: <0504d918-6c5e-54e2-17bf-81ac081cabc1@web.de>
+Date: Sat, 20 Nov 2021 18:38:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_796_368074496.1637336619008"
-X-Original-Sender: luigi.desimone3@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+X-Provags-ID: V03:K1:OweWKJkQXHeUhkC5HtO8EP3LE13QI6cjZc+lw9W7I1LS0+HpGPS
+ F7YVRGVO1DAzsUxZPWa5SjRotenFHc+z7+KJc7aZGJ4BRrPs7n+H14Pw3ZELbUtl4L3aqBL
+ gdf3xfhQy73/goV7W6joqx/tgsGcaMQaSv3IGz2jhWbiwJ2lPzkdAHxW6YI5rwfeMMh9eaJ
+ xMOidJzpe8Ky4KlE/od/g==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:JSOhuaQrmmE=:R0anB+zZpFWC9UWY8+H4BQ
+ 7mUBbmsLO55kUVFN6E8Vju73uSngmOjycDhop+cdq6Jy9+MmtDYYkQBvNSO2tSCuitMqZ9ySu
+ 1TrZzfILOvOWYt7xWp1qleX5RMrZhcIoBjgRXAHjvF6ZA0QDQbZg4zrhby9nnq+KerLaDZqG7
+ Tp3eIuWbpUC7VQ3V0PRXXdHQCcgnSFcqsyt4mLKhI64ZiOU9Yy8zFLimPHIxPv8pDstoHTJeV
+ JQw1wYtj+Mn6s/922GmCdwZtH7UDU39aX0fcOSC6TbgJIWZqLrw44GjC11GQ/24ZU5j4IbBDg
+ voUREfJPBcqK7KVtEdosNU4911ntcH2HSzguBsJMVnhF7Hah9CHj3R4aC8Po0pPaDjs6cOS0k
+ DY5XvJy+tJOU1VgNg3jSRFMDjb8AoLJVSDWytQ4VOkpymiDo4lYpTkN37R8vVSojWeAeJFmS2
+ inW4OMP++DegWEpAGRc5n3i/7N4g+qMed4KMHlmDPw/CFTBCwpb8sC9TLl2QDFiDrN+31RueJ
+ 1bYHJiUsgY/tU3DhDzM2h+hNlEaxJ+AIA483L3JXAzTA/fXFzLBzRqlq92wj99RHJFBqsVjt/
+ kyazJQC3ZWUupAjvC/L4HKC6GdUwQunc53sDiWAwFPIm1PO08rV9uTiK2Jv08WXFfmVnU8bZ3
+ t63C3qHNgserYmJvE3p2Ypm1dipvmSa6oarh20ea44TSjZxNqIHEcGLcGOMJxepTbBJ9JhXJB
+ cQ4ZwCaoT+hiI9lP0sl8NJuTBkmgLO/g1/lKe6poplCveFLT3fVRNZlQ4YRU23EO5ghE2O/pY
+ blDftz9GrElMlivl7HTiAVt2a4JYpSkZN0f7wJC+kncSAWFBWAi8iF6Je35Va2dsqncjYG94j
+ lUEsIBQjuROUhaeJOP5q/fbCZ1tLepwR2cAkNyXFSD+tAUeA8SFpLlZprrImDnc3VM3DI5692
+ eMctdY0iHCfL+eNK6mfHjskVP2AD+VcUpWSmXpY8/PO4rD7766pNN6FJ1l4GgsRbUyL+fvOwc
+ izLovfvqqjBTFEIKwjyRyU4rXsWTaLld2+C9XRnGYhuXC4mJTDa4cmyMzyKO4IY+KvsU4kRiG
+ 6glBMfZXWzWoIM=
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b=JIz90oIa;       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,211 +150,63 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_796_368074496.1637336619008
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_797_1613992207.1637336619008"
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-------=_Part_797_1613992207.1637336619008
-Content-Type: text/plain; charset="UTF-8"
+With bullseye, Debian's firmware-brcm80211 contains what was still
+missing in buster. Now this duplication breaks the image build.
 
-Dear all,
+Fixes: d73b2d97376d ("Update jailhouse-demo distro from Debian 10 to 11")
+Reported-by: Luigi De Simone <luigi.desimone3@gmail.com>
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ conf/machine/rpi4.conf                        |  1 -
+ .../rpi-firmware-brcm80211.bb                 | 24 -------------------
+ 2 files changed, 25 deletions(-)
+ delete mode 100644 recipes-bsp/rpi-firmware-brcm80211/rpi-firmware-brcm80211.bb
 
-I'm trying to build Jailhouse-enabled image for Raspberry PI 4.
-Unfortunately, both using v0.12 and master/next branches, I experienced 
-several errors during the build process.
+diff --git a/conf/machine/rpi4.conf b/conf/machine/rpi4.conf
+index e8985e8..2aa2151 100644
+--- a/conf/machine/rpi4.conf
++++ b/conf/machine/rpi4.conf
+@@ -31,4 +31,3 @@ IMAGE_BOOT_FILES = " \
+     "
 
-In the following, the logs using master/next branch:
-
-____________________________________________________________________________________
-.....
-dpkg: error processing archive 
-/tmp/apt-dpkg-install-fQatE1/67-rpi-firmware-brcm80211_1.0_arm64.deb 
-(--unpack):
- trying to overwrite '/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob', 
-which is also in package firmware-brcm80211 20210315-3
-Selecting previously unselected package sshd-regen-keys.
-Preparing to unpack .../68-sshd-regen-keys_0.4_arm64.deb ...
-Unpacking sshd-regen-keys (0.4) ...
-Selecting previously unselected package usbutils.
-Preparing to unpack .../69-usbutils_1%3a013-3_arm64.deb ...
-Unpacking usbutils (1:013-3) ...
-Selecting previously unselected package vim-runtime.
-Preparing to unpack .../70-vim-runtime_2%3a8.2.2434-3_all.deb ...
-Adding 'diversion of /usr/share/vim/vim82/doc/help.txt to 
-/usr/share/vim/vim82/doc/help.txt.vim-tiny by vim-runtime'
-Adding 'diversion of /usr/share/vim/vim82/doc/tags to 
-/usr/share/vim/vim82/doc/tags.vim-tiny by vim-runtime'
-Unpacking vim-runtime (2:8.2.2434-3) ...
-Selecting previously unselected package vim.
-Preparing to unpack .../71-vim_2%3a8.2.2434-3_arm64.deb ...
-Unpacking vim (2:8.2.2434-3) ...
-Selecting previously unselected package wireless-tools.
-Preparing to unpack .../72-wireless-tools_30~pre9-13.1_arm64.deb ...
-Unpacking wireless-tools (30~pre9-13.1) ...
-Selecting previously unselected package wpasupplicant.
-Preparing to unpack .../73-wpasupplicant_2%3a2.9.0-21_arm64.deb ...
-Unpacking wpasupplicant (2:2.9.0-21) ...
-Errors were encountered while processing:
- /tmp/apt-dpkg-install-fQatE1/67-rpi-firmware-brcm80211_1.0_arm64.deb
-E: Sub-process /usr/bin/dpkg returned an error code (1)
-WARNING: exit code 100 from a shell command.
-
-
-ERROR: Logfile of failure stored in: 
-/work/build/tmp/work/jailhouse-demo-arm64/demo-image-rpi4-wic-img/1.0-r0/temp/log.do_rootfs_install.2140
-ERROR: Task 
-(mc:rpi4-jailhouse-demo:/repo/recipes-core/images/demo-image.bb:do_rootfs_install) 
-failed with exit code '1'
-____________________________________________________________________________________
-
-
-In the following, the logs using v0.12 branch:
-
-____________________________________________________________________________________
-Exception: bb.process.ExecutionError: Execution of 
-'/work/build/tmp/work/jailhouse-demo-arm64/demo-image-rpi4-wic-img/1.0-r0/temp/run.rootfs_install_pkgs_download.21860' 
-failed with exit code 100:
-Reading package lists...
-Building dependency tree...
-Reading state information...
-Starting pkgProblemResolver with broken count: 1
-Starting 2 pkgProblemResolver with broken count: 1
-Investigating (0) jailhouse-jailhouse-rpi:arm64 < none -> 0.12 @un puN Ib >
-Broken jailhouse-jailhouse-rpi:arm64 Depends on python:any:any < none @un H 
-> (< 2.8)
-  Considering python-is-python2:arm64 0 as a solution to 
-jailhouse-jailhouse-rpi:arm64 9999
-  Re-Instated libpython2.7-minimal:arm64
-  Re-Instated python2.7-minimal:arm64
-  Re-Instated python2-minimal:arm64
-  Re-Instated perl-modules-5.32:arm64
-  Re-Instated libgdbm-compat4:arm64
-  Re-Instated libperl5.32:arm64
-  Re-Instated perl:arm64
-  Re-Instated media-types:arm64
-  Re-Instated mailcap:arm64
-  Re-Instated mime-support:arm64
-  Re-Instated libpython2.7-stdlib:arm64
-  Re-Instated python2.7:arm64
-  Re-Instated libpython2-stdlib:arm64
-  Re-Instated python2:arm64
-  Re-Instated python-is-python2:arm64
-Broken jailhouse-jailhouse-rpi:arm64 Depends on python-mako:arm64 < none 
-@un H >
-Done
-Some packages could not be installed. This may mean that you have
-requested an impossible situation or if you are using the unstable
-distribution that some required packages have not yet been created
-or been moved out of Incoming.
-The following information may help to resolve the situation:
-
-The following packages have unmet dependencies:
- jailhouse-jailhouse-rpi : Depends: python-mako but it is not installable
-E: Unable to correct problems, you have held broken packages.
-WARNING: exit code 100 from a shell command.
-____________________________________________________________________________________
-
-Any clues?
-Thanks!
-
-Luigi
+ IMAGE_PREINSTALL_append = " firmware-brcm80211"
+-IMAGE_INSTALL_append = " rpi-firmware-brcm80211"
+diff --git a/recipes-bsp/rpi-firmware-brcm80211/rpi-firmware-brcm80211.bb b/recipes-bsp/rpi-firmware-brcm80211/rpi-firmware-brcm80211.bb
+deleted file mode 100644
+index 602d8d7..0000000
+--- a/recipes-bsp/rpi-firmware-brcm80211/rpi-firmware-brcm80211.bb
++++ /dev/null
+@@ -1,24 +0,0 @@
+-#
+-# Jailhouse, a Linux-based partitioning hypervisor
+-#
+-# Copyright (c) Siemens AG, 2020
+-#
+-# Authors:
+-#  Jan Kiszka <jan.kiszka@siemens.com>
+-#
+-# SPDX-License-Identifier: MIT
+-#
+-
+-inherit dpkg-raw
+-
+-SRC_URI = "https://github.com/RPi-Distro/firmware-nonfree/archive/${SRCREV}.tar.gz;downloadfilename=firmware-${SRCREV}.tar.gz"
+-SRCREV = "b66ab26cebff689d0d3257f56912b9bb03c20567"
+-SRC_URI[sha256sum] = "033a21d19fbdc7617b8c5b58d4be5951e29be5be787a45875b615f4d4dcf3f5b"
+-
+-do_install() {
+-    cd ${WORKDIR}/firmware-nonfree-${SRCREV}/brcm
+-    install -v -d ${D}/lib/firmware/brcm/
+-    install -v -m 644 brcmfmac43430-sdio.txt ${D}/lib/firmware/brcm/
+-    install -v -m 644 brcmfmac43455-sdio.clm_blob ${D}/lib/firmware/brcm/
+-    install -v -m 644 brcmfmac43455-sdio.txt ${D}/lib/firmware/brcm/
+-}
+--
+2.31.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/5c8edbda-5bf0-450e-bbab-a99de33df2a9n%40googlegroups.com.
-
-------=_Part_797_1613992207.1637336619008
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Dear all,<div><br></div><div>I'm trying to build Jailhouse-enabled image fo=
-r Raspberry PI 4.</div><div>Unfortunately, both using v0.12 and master/next=
- branches, I experienced several errors during the build process.</div><div=
-><br></div><div>In the following, the logs using master/next branch:</div><=
-div><br></div><div>________________________________________________________=
-____________________________</div><div><div>.....</div><div>dpkg: error pro=
-cessing archive /tmp/apt-dpkg-install-fQatE1/67-rpi-firmware-brcm80211_1.0_=
-arm64.deb (--unpack):</div><div>&nbsp;trying to overwrite '/lib/firmware/br=
-cm/brcmfmac43455-sdio.clm_blob', which is also in package firmware-brcm8021=
-1 20210315-3</div><div>Selecting previously unselected package sshd-regen-k=
-eys.</div><div>Preparing to unpack .../68-sshd-regen-keys_0.4_arm64.deb ...=
-</div><div>Unpacking sshd-regen-keys (0.4) ...</div><div>Selecting previous=
-ly unselected package usbutils.</div><div>Preparing to unpack .../69-usbuti=
-ls_1%3a013-3_arm64.deb ...</div><div>Unpacking usbutils (1:013-3) ...</div>=
-<div>Selecting previously unselected package vim-runtime.</div><div>Prepari=
-ng to unpack .../70-vim-runtime_2%3a8.2.2434-3_all.deb ...</div><div>Adding=
- 'diversion of /usr/share/vim/vim82/doc/help.txt to /usr/share/vim/vim82/do=
-c/help.txt.vim-tiny by vim-runtime'</div><div>Adding 'diversion of /usr/sha=
-re/vim/vim82/doc/tags to /usr/share/vim/vim82/doc/tags.vim-tiny by vim-runt=
-ime'</div><div>Unpacking vim-runtime (2:8.2.2434-3) ...</div><div>Selecting=
- previously unselected package vim.</div><div>Preparing to unpack .../71-vi=
-m_2%3a8.2.2434-3_arm64.deb ...</div><div>Unpacking vim (2:8.2.2434-3) ...</=
-div><div>Selecting previously unselected package wireless-tools.</div><div>=
-Preparing to unpack .../72-wireless-tools_30~pre9-13.1_arm64.deb ...</div><=
-div>Unpacking wireless-tools (30~pre9-13.1) ...</div><div>Selecting previou=
-sly unselected package wpasupplicant.</div><div>Preparing to unpack .../73-=
-wpasupplicant_2%3a2.9.0-21_arm64.deb ...</div><div>Unpacking wpasupplicant =
-(2:2.9.0-21) ...</div><div>Errors were encountered while processing:</div><=
-div>&nbsp;/tmp/apt-dpkg-install-fQatE1/67-rpi-firmware-brcm80211_1.0_arm64.=
-deb</div><div>E: Sub-process /usr/bin/dpkg returned an error code (1)</div>=
-<div>WARNING: exit code 100 from a shell command.</div><div><br></div><div>=
-<br></div><div>ERROR: Logfile of failure stored in: /work/build/tmp/work/ja=
-ilhouse-demo-arm64/demo-image-rpi4-wic-img/1.0-r0/temp/log.do_rootfs_instal=
-l.2140</div><div>ERROR: Task (mc:rpi4-jailhouse-demo:/repo/recipes-core/ima=
-ges/demo-image.bb:do_rootfs_install) failed with exit code '1'</div></div><=
-div>_______________________________________________________________________=
-_____________<br></div><div><br></div><div><br></div><div><div>In the follo=
-wing, the logs using v0.12 branch:</div><div><br></div></div><div><div>____=
-___________________________________________________________________________=
-_____<br></div><div><div>Exception: bb.process.ExecutionError: Execution of=
- '/work/build/tmp/work/jailhouse-demo-arm64/demo-image-rpi4-wic-img/1.0-r0/=
-temp/run.rootfs_install_pkgs_download.21860' failed with exit code 100:</di=
-v><div>Reading package lists...</div><div>Building dependency tree...</div>=
-<div>Reading state information...</div><div>Starting pkgProblemResolver wit=
-h broken count: 1</div><div>Starting 2 pkgProblemResolver with broken count=
-: 1</div><div>Investigating (0) jailhouse-jailhouse-rpi:arm64 &lt; none -&g=
-t; 0.12 @un puN Ib &gt;</div><div>Broken jailhouse-jailhouse-rpi:arm64 Depe=
-nds on python:any:any &lt; none @un H &gt; (&lt; 2.8)</div><div>&nbsp; Cons=
-idering python-is-python2:arm64 0 as a solution to jailhouse-jailhouse-rpi:=
-arm64 9999</div><div>&nbsp; Re-Instated libpython2.7-minimal:arm64</div><di=
-v>&nbsp; Re-Instated python2.7-minimal:arm64</div><div>&nbsp; Re-Instated p=
-ython2-minimal:arm64</div><div>&nbsp; Re-Instated perl-modules-5.32:arm64</=
-div><div>&nbsp; Re-Instated libgdbm-compat4:arm64</div><div>&nbsp; Re-Insta=
-ted libperl5.32:arm64</div><div>&nbsp; Re-Instated perl:arm64</div><div>&nb=
-sp; Re-Instated media-types:arm64</div><div>&nbsp; Re-Instated mailcap:arm6=
-4</div><div>&nbsp; Re-Instated mime-support:arm64</div><div>&nbsp; Re-Insta=
-ted libpython2.7-stdlib:arm64</div><div>&nbsp; Re-Instated python2.7:arm64<=
-/div><div>&nbsp; Re-Instated libpython2-stdlib:arm64</div><div>&nbsp; Re-In=
-stated python2:arm64</div><div>&nbsp; Re-Instated python-is-python2:arm64</=
-div><div>Broken jailhouse-jailhouse-rpi:arm64 Depends on python-mako:arm64 =
-&lt; none @un H &gt;</div><div>Done</div><div>Some packages could not be in=
-stalled. This may mean that you have</div><div>requested an impossible situ=
-ation or if you are using the unstable</div><div>distribution that some req=
-uired packages have not yet been created</div><div>or been moved out of Inc=
-oming.</div><div>The following information may help to resolve the situatio=
-n:</div><div><br></div><div>The following packages have unmet dependencies:=
-</div><div>&nbsp;jailhouse-jailhouse-rpi : Depends: python-mako but it is n=
-ot installable</div><div>E: Unable to correct problems, you have held broke=
-n packages.</div><div>WARNING: exit code 100 from a shell command.</div></d=
-iv></div><div><div>________________________________________________________=
-____________________________<br></div><div><br></div></div><div>Any clues?<=
-/div><div>Thanks!</div><div><br></div><div>Luigi</div><div><br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/5c8edbda-5bf0-450e-bbab-a99de33df2a9n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/5c8edbda-5bf0-450e-bbab-a99de33df2a9n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_797_1613992207.1637336619008--
-
-------=_Part_796_368074496.1637336619008--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0504d918-6c5e-54e2-17bf-81ac081cabc1%40web.de.
