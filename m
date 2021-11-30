@@ -1,32 +1,32 @@
 Return-Path: <jailhouse-dev+bncBAABBAXETKGQMGQEZ6PHOQY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1810464232
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Dec 2021 00:21:38 +0100 (CET)
-Received: by mail-lj1-x240.google.com with SMTP id p21-20020a2e9ad5000000b00219ee503efesf8001489ljj.14
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Nov 2021 15:21:38 -0800 (PST)
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E10464233
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  1 Dec 2021 00:21:39 +0100 (CET)
+Received: by mail-lf1-x137.google.com with SMTP id i6-20020a0565123e0600b00417d29eede4sf4269347lfv.12
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 30 Nov 2021 15:21:39 -0800 (PST)
 ARC-Seal: i=3; a=rsa-sha256; t=1638314498; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XtMTUp2AQopbsZ5KxCMYwVA2sPROhjj+ukUHos15d5bIu/k5GjlBCi23QmQMQG8ALd
-         4K8mm1Jp5EPdnb2SwOnPDn8Tr5S0PaEIRWPbupeMcOlW157K3nlhOtNcusbIdi70gJPK
-         55yB4qzIKynPGqK9oqMEzwxAec13fk+jEJJK/dcLvpTZoShY1iGrfJANwm6+UfKRRuch
-         rm9E54n+TVpCZVna9eu/FMDdcPLvpxZWF9xLaYPtoMEF0nhMkUOTs2aQTHnni4lBLbu+
-         6XDnfkgfwQkFqVk2yYtOjmZN0erPa1KhALjMxjfqHdwOh2uu2AVgFfopfzHvCGUjJXl/
-         jBnA==
+        b=HPuDGmKvpd8s/APBfb16sW5eZpAhQkNgBJedi4BDz45799KQ74QiM4ZaBpYebqJJiL
+         mDxFS6A9cs+AJUGYM3caZ+Nv5kb/wy5rO3W/vZNo/L6D7jjmXuzeEpQ23e540BBoJOnL
+         xQW82JkSrBbhuZCBTrOdoLMMD0GIJa8cX7MRotTX42EGprZ+uuaXMd9aKtAK5wxFAb0L
+         rWGLje9R+hs7ZkA1q2YYToAJTGwzd/C6R3fY04yJM7tk4Dl6S8tErNSuUMc91ImEJ1+a
+         yMHb7l2fLvxf7B4B6IloWn4GTi7dYpED1pYJRrCFLY+UvleHOl8IKfjZQ0xJOcIt6nyM
+         j8EQ==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=bNXih1uStCRnx6QJrfLR1KxTgqQt+ZVLxcJsKL7X5NA=;
-        b=ghgPTxyNvjjPvkG4iWczX2BebrBSk9U8AH+FGP/URLlE7DWf6UphDKTyaQsDRh67fE
-         H0JND9diDN6AI/p0jmO6Z9EogQtwuaxUNIOOR9MQno8xDFoI06WrxITt+ePE0ukYQYpi
-         JdX7/y0CaiM/Cbqr117d7rvkdai5fEahmdqD5g65JdCbmazWfk0sWVvLfECXzOyc1AfE
-         cOgqwIt3LCYHwrA0DSVeJ34iMybddpeDBkpsdsnKr+xHobTbLBTmu34gSTp0WnB7a0K/
-         AYBfZgraR9JU5p2floG+J5AweeZshZ3N4dSB4YndFqlHuppMXUecG8vY0TSQGMHIe3G0
-         uKgw==
+        bh=HM/o0HjDTZV+N77ouL4+8jclGuZ5Uls8FMXPu7iiFi8=;
+        b=VcVrvtY1YhsMB5YQXMvGnn6e5wd/Vwq58DZzLWyzQ2Y5MvcIqvfZFL18qm3GYqumQu
+         gsipYudcY/oEYdZ6dRlU06oH8oKskHqTfhqHIDrFwXz43oh4gZclyL4BHy9AG6Q5wDiA
+         J8eXgHEkqSJ2ycS2PfSH9Wh1MVpK/X1U7kdJfkQvwr+KD8eObHR7rnHOvYvWRr4Qx5m/
+         kg6lJfhGoJ7AwAycQX65kqxo8DWQu9B4c4zI32yo/XkJVf4XCSPFFd2kIGmbBvXuP9TK
+         p5ef9ft14wfVlzMALFJFk4X+jbBhlMhhF6n5wi32zfHealegcZvC3PFJ/nUPYyhmW43w
+         VpAQ==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=gmpvTbnw;
+       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=I3AV6yfW;
        arc=pass (i=1 spf=pass spfdomain=oss.nxp.com dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
        spf=pass (google.com: domain of stephane.viau@oss.nxp.com designates 2a01:111:f400:fe08::623 as permitted sender) smtp.mailfrom=stephane.viau@oss.nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=bNXih1uStCRnx6QJrfLR1KxTgqQt+ZVLxcJsKL7X5NA=;
-        b=lYQPx7pA+qB6lWGlXm0C+NM0CDlRaorXXa5cCJyRntLF9+pQdhk+tQ9t6viocyQfw4
-         ohUT2PO5PwLb333seXF0ze+NLsl8Aks5pzVghZZAo6fY88dD6yPdOke4+KvUMc3ZGxs+
-         mk0H2jPFeO9de1XYcxZskiRi19Dq42oj333MQDY17/ha3oKg0eW6nGMqiDwTgpXcYMHj
-         a0wUmB3Ar73+pf4+kAnBC+vprbvSHZriVtIdbqlpKhue037qwI0eq3waw/6lBycrT5SK
-         WChff23+BmFmdYNWBCsoFPAJquFB7DTbl53BteW/1EIum4DGPuQcrjqFdp+tQMuvgRkK
-         id+A==
+        bh=HM/o0HjDTZV+N77ouL4+8jclGuZ5Uls8FMXPu7iiFi8=;
+        b=sVo+GR2veuKVrbHaI3p1vc7BuvrpRTWzuIA/ZF7tSuyr0fu8G+/vTZ0amWfW7id3d+
+         pI4b5bhKVFKS+sBGtHgvWsa/6IH7nCOACrT3mijN47HvsG+YMPUzCjlYboqBFy7LfQJm
+         fZ7yjK7IZo2eznH8gmRs/F/djbQfuhpzhdVQX3eHjUVzkN3VJqbxnTizkiIOKy5wwZPO
+         MqGJCxTwD4T1kGLef++KEu8EtdkCj97DOl5aFPT6pLEfmmehaN93KL+jUQI6RJoKGEmi
+         D7oFud53sU7EY8YUAWASzR54YnAexgfgqhoeGUMYGpQ0rfzIFx5UP7btU1IW3a+J0SOm
+         Bb4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -50,44 +50,44 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=bNXih1uStCRnx6QJrfLR1KxTgqQt+ZVLxcJsKL7X5NA=;
-        b=L4ygiL5bCaad+fXCHPKPSK3xw3uTLsxMte8NXXx8bP9L3LnWJyTpcARJYxBsugWoJC
-         ZC8D14phAm4s5Z7hsGNrKO3yZ2B8mq+fV1sE5e2icYiE7tNw5s8693/Ot4bgRiZoQYMc
-         F4KvJmgdxf8pZC1GpYhwV6ksaH70IAd5n8Y1Y4qxLV6vk+PI0lkvYtLDKjjzw5ccL7Q4
-         8CyZjrWA5FubHvjOpvOB/E9TE7MuaG3Cnz70kyK29GmISrjkqwGEPwh4qUJEofuvxi0F
-         tNzV3gonBksSgyrCPHp3L9iOWPy49pe0XwIlaSBMTWmbRbQ1B2hl0aOfFvP0Vshodeus
-         8cHQ==
+        bh=HM/o0HjDTZV+N77ouL4+8jclGuZ5Uls8FMXPu7iiFi8=;
+        b=6vNAc55g9uzVDofYBBXlZUW9J4edsR8llgrGWeOrUsxDFIZ/D35kJMMcrCZNOkSwHM
+         bz3qqAQFnSZKrQmRmAfWdu6hlVuzelJXDgAdoqfU6aK6lnct5CVIzPqcT7EVhCwLJ84v
+         nNvD6mO8j00nb4+IftVzWRLElwvy2b/aYQPd4MpShMtOu+dZIIyANJxyiljd6mfzswX7
+         q2+/sct6xWN3d9FEyb5huNwpsdnAdfP0HwK63QxDDQ0TzplnSsVVh6sDc4AQtxIfaNIm
+         tp6c1D7DWrTtvT2l9pPwSEEFov/2cDGZEhigA/W+sxFKkRR7J7XouQ1wberdPg+42OCg
+         HcbQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532FoW90OJ1A7c8fL7iaaFoYKYpg0cyaDdpBUm9fm613e+nNrP/F
-	57bSRjnEyAdCtlPkhX8gBRI=
-X-Google-Smtp-Source: ABdhPJzQKYMmHcjxY88kYLjoRz0C3TdZ7s8bVJXryFIxFX2sHqgYAKp9H24GJO0fJ7GAM7Yzfzdipw==
-X-Received: by 2002:a2e:5850:: with SMTP id x16mr1958668ljd.122.1638314498523;
+X-Gm-Message-State: AOAM530dFd98uSUwt3YAOv1a5jSHd5EnrOP6mCP3fho9Fkrv26GzGAtG
+	pjekXmS9sx+gIJH/eYP1K64=
+X-Google-Smtp-Source: ABdhPJwxadYvkl09ggOZ4IpEDy8Y381sNgoQkU2Ih/Fjhmj+vHNXN4u5DD2C54pT/b/hHYajwlMqGQ==
+X-Received: by 2002:a05:6512:3f0a:: with SMTP id y10mr2242546lfa.204.1638314498692;
         Tue, 30 Nov 2021 15:21:38 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:8946:: with SMTP id b6ls34956ljk.7.gmail; Tue, 30 Nov
- 2021 15:21:37 -0800 (PST)
-X-Received: by 2002:a2e:9b41:: with SMTP id o1mr1914927ljj.499.1638314497717;
+Received: by 2002:a05:651c:1251:: with SMTP id h17ls35507ljh.6.gmail; Tue, 30
+ Nov 2021 15:21:37 -0800 (PST)
+X-Received: by 2002:a05:651c:2011:: with SMTP id s17mr1910240ljo.397.1638314497906;
         Tue, 30 Nov 2021 15:21:37 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1638314497; cv=pass;
         d=google.com; s=arc-20160816;
-        b=QmXTpET4NChp00OKwM6Mdz3q4ccVq6k9RfnwhnAli+f65aLkY/ONlFlPptQr2WIVwb
-         u68EV7iyKdueYZbziDl8lTweHZ1jnZpGsXPVAjSg1i01uitNXQQts90zhDEyK3v2nHBC
-         +NEGzJuigxmXt/uRILqa0E12+1mNrx8RZaMeMO01BNm+ddYQo9SJEK34stdBpEJFrCsV
-         k8eosI6G6PwkF+d0BPmTe2s7NBOPlwfDqkGlypOB4xbv9dHD5t0DDjCZqM84qmP581AP
-         Aj0ICrdmgBzMi1DpeZiTXrMDOg5h3dO+7iNE8tfV9BObi7MKzSI/yQcivYAqvjsXKvGg
-         GFXg==
+        b=eWOMFGU7sR9cEhE59As5zU+q+RmliqTLb6s06oTZCyB47BEKHp+lKpwxhol5m+wl9j
+         fUcYBGi4Zv79spSiBwR0tu9n7StdW77NndODyleHTGoX44zRBrbVTm7WXHODR+e9bUE+
+         ncaSpOu61L82lPnzKd8kWQqDtp3aMnauRV3TakK+LUFZ49MiO8AVgOgeESIZa2YxIauG
+         N9Tno6EXkG+/ZV65SmCXFVNyC6ijKcZO8/3sSdGCoM//I0R3S4/R0P8Y2YYPQI708OOw
+         kNUu1dFF0A4P/lnZmPkSbgmR4ulPHnIwCI4rDwcAZ9O59e4efnfhm1pBzLJthDDPjt4u
+         8G1w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=mime-version:content-transfer-encoding:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=cu53q806i+q/ng7fe+Q/irBZlCxrj5U8NcGk9k4Nwug=;
-        b=qrkVPhxlWfbLLIbPRodeqpbaoR4Sd7mLIXVfSotnB8jxFFsbzxikgBrX7VqUqq80we
-         oTyPYSG3aZ8DUGDfc+xY4TZtPWNa8+K3F+Hbnq3LCunhSdaE2WVbeeTN3RBY3heX52zV
-         0qXC7EpyMAi+ORUAD36djHpx+O48WiCqGTW+1jhKIY//wwr2mLRjRDVcNxacIcXdHWEz
-         HncKaSHcVvnsKTG5hjE9L9+j3tDjVF1BCspigl6t/+MnHO9EQWvjhsVq5A8op82wvass
-         Ud7JUuwNinEug2YmKDOsBRlK37HXhlN+ACI5eE9s4Q4MPWdjZorUbqb00duUpcZuymeY
-         UciA==
+        bh=DrxAHDCtkKClEj5vsWrwbb9TNw9MpacsEbpwGMQykzQ=;
+        b=jzSFKmxeofVDOyxhphFhESzQszA+VLXvOXD78LTM0JoebHwA3q27+eAu0z9Ay8furL
+         b0GqTUR1+Yaa8QErnZgD6ID4JhGsQGysdKuvlcPoHLbuWi33Fq+XHcagLrciH7887BjZ
+         akrwBFYpIfZ3HpK+eZ8xWmt3mQ3cYdZbhPECUobuJJs/Ut+I+frUNL5ksHodmMG7mKPC
+         Vc5UGh4AtD9/OlsyMi9RggFHMMRg3d41C8+jHHV7F2I3ycWohMf7CzIf5fgmMsimLUf4
+         kAOSmFqtVZUD+hz771wTlbd0ewLB0v4wAeFEURKc5oX8KmJSWPjAHfUfD6WMt9djqoyd
+         h/Ig==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=gmpvTbnw;
+       dkim=pass header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com header.b=I3AV6yfW;
        arc=pass (i=1 spf=pass spfdomain=oss.nxp.com dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
        spf=pass (google.com: domain of stephane.viau@oss.nxp.com designates 2a01:111:f400:fe08::623 as permitted sender) smtp.mailfrom=stephane.viau@oss.nxp.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
@@ -98,12 +98,12 @@ Received: from EUR03-AM5-obe.outbound.protection.outlook.com (mail-am5eur03on062
         Tue, 30 Nov 2021 15:21:37 -0800 (PST)
 Received-SPF: pass (google.com: domain of stephane.viau@oss.nxp.com designates 2a01:111:f400:fe08::623 as permitted sender) client-ip=2a01:111:f400:fe08::623;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ityGRXG42iQvEdPbVI3Xv47CKZl5JXmwAs3FzbcWTR5CxaKoytF9lF05ZoqbgrgUxENxseraGE8/m/7rtxySjuWZuhdQPozgJIM3mlSDJ9dPgeMu6mAHDC0EcMxV2BpL4DiCUFu2Bd9v4v57vpIwE05yN9TpkToCvvE2MISLrEi+9nF9B1piRdku0JKosLZ/uWiR/vUAxP3BZVawgomEr/4BlZB8MKSl8zHJs3ym3hSUVPRT4opBAtmqnQPdXQ/cI/SrrJZUs/OnsT/sK31nbmQFtpm+TwwqB3P6T4O5aXr4KCCBByxx4oMgtdnuaTfnQ1SyffSLP7D2CpybQ/vziA==
+ b=ROZqWrUTb8c6fZrCffT8LTmtwGFbhNfb6sTdtuB64yOInlfXmn1T0xA2rTOarCSSEwre2BF3xmM7vsqGj4CTuLhvEL4pXwAfbkz2Ud6MHbmM4QX4hKGDPXfBcYmPlXAYxMAXEeaVGCTV6jCGEzlvhJ76nR5IzzVJPhs85d5VROtLY0OedO7h6BM6IT1TkzBZZGQ1Le/8BcFumDTd+8e1+9XckzB1RBFJU1vxEN6yBzKVQ8z+o5Z918BEJYGwgLYBH9HZyL+zQIhC9U8ra5I4wUykLfWYsGvgMa44kjJ5+x+e378BXGlJWa0KO462aeriMDgcnEBlV/KXyLiSbLBEIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cu53q806i+q/ng7fe+Q/irBZlCxrj5U8NcGk9k4Nwug=;
- b=WfmOpt+6a+0B9G58l5iqHdGuouLz+eNY5n7Y4Pe5Vy4f0c3zOE6+hR5rADGIzOgFYm4s+y7Xc5kcJeDCDkkpxWdI6EpkbCnp8aNvcZOyS8IjhS0NXqXBpRDrJQZ9jxNktmrPIMOXEDHtG3bY53xZsmjPyOwHujbRoiNncBy/FBbfxlajTYvz6a64AGvneoQdiaqfepCjOS5/KtNaN5rQSkwK8MW2La153o7tT/wEVl6CgSK00Xh8UfuvP3iJzEcnZQqjwkSSvli60q+NrYzaQ69LwbjqwtXnT0mqQ2AOq4MDH/MDg4j4/pb8qifdtRw6/Jr+1FvAkFZbeSWA1Azu5w==
+ bh=DrxAHDCtkKClEj5vsWrwbb9TNw9MpacsEbpwGMQykzQ=;
+ b=jjjUm648Ikz8NYedIH50OedVYaXUh/cytDrMv/yoYwdfS2Kmb8KT5d3CdSkZ7IXNBYRyg0hDH6HirO1hVssPMHjmXq2TlBiiJM9n9BscV/0ulnPeOG1NGU9+m3LpJN8tUj/USppb/VBXSEgJOw49SXurBITqNZhVYYyGCiQ9KJQzsNLcHM8y8PbnLJ2Nrdmi02KqyoZYj2A8T/d++FhZH6f+/64xv1uM2UGiR6/v0WX59RSvV6g83JL8uvk8B8a7qTfva1cAiBobcq287TrpCVYi9kKIH9qETcZ5AfS186DX0vBENbHJjSwMlMZjdY09FqrNTFdQsY6R7QffyawkXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
@@ -111,20 +111,20 @@ Received: from AM9PR04MB8652.eurprd04.prod.outlook.com (2603:10a6:20b:43f::21)
  by AM9PR04MB8634.eurprd04.prod.outlook.com (2603:10a6:20b:43d::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Tue, 30 Nov
- 2021 23:21:35 +0000
+ 2021 23:21:36 +0000
 Received: from AM9PR04MB8652.eurprd04.prod.outlook.com
  ([fe80::6989:73a2:f15b:2370]) by AM9PR04MB8652.eurprd04.prod.outlook.com
  ([fe80::6989:73a2:f15b:2370%9]) with mapi id 15.20.4734.024; Tue, 30 Nov 2021
- 23:21:35 +0000
+ 23:21:36 +0000
 From: Stephane Viau <stephane.viau@oss.nxp.com>
 To: jailhouse-dev@googlegroups.com,
 	jan.kiszka@siemens.com,
 	ralf.ramsauer@oth-regensburg.de
 Cc: Stephane Viau <stephane.viau@oss.nxp.com>,
 	Stephane Viau <stephane.viau@nxp.com>
-Subject: [PATCH v2 1/2] [RFC] configs: Introduce helper files to create inmate cell config
-Date: Wed,  1 Dec 2021 00:20:12 +0100
-Message-Id: <20211130232013.395-2-stephane.viau@oss.nxp.com>
+Subject: [PATCH v2 2/2] [RFC] configs: imx8mp: Convert a cell using helper files
+Date: Wed,  1 Dec 2021 00:20:13 +0100
+Message-Id: <20211130232013.395-3-stephane.viau@oss.nxp.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211130232013.395-1-stephane.viau@oss.nxp.com>
 References: <20211130232013.395-1-stephane.viau@oss.nxp.com>
@@ -134,62 +134,62 @@ X-ClientProxiedBy: AM9P250CA0014.EURP250.PROD.OUTLOOK.COM
  (2603:10a6:20b:43f::21)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from b57362-l-11.ea.freescale.net (81.1.10.98) by AM9P250CA0014.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:21c::19) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.4734.22 via Frontend Transport; Tue, 30 Nov 2021 23:21:35 +0000
+Received: from b57362-l-11.ea.freescale.net (81.1.10.98) by AM9P250CA0014.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:21c::19) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.4734.22 via Frontend Transport; Tue, 30 Nov 2021 23:21:36 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 705d2064-0497-489c-795e-08d9b458271b
+X-MS-Office365-Filtering-Correlation-Id: c741964a-f369-49c1-9e60-08d9b45827a1
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8634:
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS: <AM9PR04MB8634E8FCEFE5CABD52DEEC1AA7679@AM9PR04MB8634.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-Microsoft-Antispam-PRVS: <AM9PR04MB8634A63BCA7B5740855DDCCEA7679@AM9PR04MB8634.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pyI5q4RRjdsscD0GzqqubVfRCte2f34LLb4RoWeLsc4xseiqrdoon5II59ljfxRyzlhmWf9uN3X1xAmStvKZJifm4mYL/JWlf7GnKNEDGrJYbMUkttRGM6Y5U7pS128aC/9cmoPslFtaSDSLJYqy6usPm3qXAZrir4gkEAuskEv95gLJL8gmCT04ukb/2r4izGs58fWNGCOL18T7EKaQK76gIWm/97qA574Vz89/aANReSh2nJmEqLgq2kLUyaj6QrYfyFRs4H1vxzaaIx7UkuAuIRZd43wXuvT8+PSLbvirwumLhtBP1QRaVpIlmtKao4qCbawe3wv1ZXTPcZs5hCAPtcAkmPgNSMpta6zUO/19DZPKHFhTQQkzGK+48IUDygzxZukagcWGmXkUFO9KIrlqIUfpUgFkgjvHKWUTFxlJLJX1inYM+eeTCIqV8sIM9ufQqWvYJhfjVCfQrIg+95RcjzCieDuLKJHOB9X4wUQoJIsKpvUcM1l6UzLy3YaMVEdj8AJNPti8dDnIBB7LN6FHmRStk4/p1GfarCxBm01i0rpNxy5+5hvghWB9armammooZzeNeYWQKDuM7KTif72kwwgtwz6vhAxws+2uqxtWFeJHKbLnrMLsKJUmORbefwGi1yX2H+6LHipnT0RvNYpcsxYGhcYcQHNIKJ13unfv4ODfSrfFqJf2Ww8OGlaOU6YwxU9PnhBQtuRRgHh2cA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8652.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(26005)(38350700002)(508600001)(1076003)(316002)(6486002)(4326008)(956004)(44832011)(2906002)(6666004)(6506007)(6512007)(8936002)(2616005)(66476007)(66556008)(83380400001)(66946007)(8676002)(5660300002)(86362001)(186003)(52116002)(54906003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: ATMtXAxvh4BRh0tUGwloUN7Vt9p4NJFA8xn0/35VCon05FIuK7kOzs79gzYsNtG9ATcfgAqE8kRnjZ4zZSaJ8PsKDLGbHJMOTKLaRMVQxGPMy91FhEEAYom6GJpTIzULfsqDgnxEls6rEE7ACmERLQi+8hubQTRPb/EgUMBJZNTVRkV/pH/xtbor2lKN9HSlTKAVtfRMAaMRnMKGudVa7z5fZDBhU0ZgbyaPF6Ym42179l+FGKPEI5JWdVwvJubSfPC5Vgb3SJZ/aWUy1GmUHDwcuT1NW+T2HjBGFHt0XKPXzgLybv3IUxnmZEst5n/l7vJpL2XfGzI7nfICl1u5PffoaeDzugxNLbAAeqPmwEoHCpgelDTLlrSmPfFgWNxBuOT0mk5d7ZzvsK09mDu/Vo8J09WXCGv91js2GSad9dnDIdIi+F31oudy4/GbwV4E6jM5bG26ZEE+N4jx/PvNQvUPskmM3YOBu8YbFZGfFVBG1wW2IKkw587+FDtHV3oGlYKdNsWVOLY+tmch82RH1phrxjxP58W69IFz7HMAYetadtwZ8T9xHprQZCpBf8N05MzoohmT/J+6PRPaNgtjzMzkyBELsp+i1UdoPmh/LIHeC7nbo2tSx5St/I2FnRivZV+VOExvyUX6uDoF1Ca3WqG0w8+yeHlexlDk3IhJYdQbx37BlelHPl0FJxtK0nfGUa3ZYCRoEo2E6vNEV5ynHOiXC7LktsH61CWwq592AUU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8652.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(26005)(38350700002)(508600001)(1076003)(316002)(6486002)(4326008)(956004)(44832011)(2906002)(6666004)(6506007)(6512007)(8936002)(2616005)(66476007)(66556008)(83380400001)(66946007)(8676002)(5660300002)(86362001)(186003)(52116002)(54906003)(32563001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hWf6y4GLTD6/OoYpksLvbmEaGiNwfBm5ZJ5DW6CHo9aHKV9KgH/Hh5/b0Khu?=
- =?us-ascii?Q?zTJ0PtxiLcsMsyQyOJIrA+NPwAR1nkWSXnxb94xColPdwOEbWQFBbrjAKLvk?=
- =?us-ascii?Q?ausLmmEyvaEMvMGvx3VmiE2wVWc6Wqpqu7QDeQoEH/IOyKnQSeuett3EBDfQ?=
- =?us-ascii?Q?Rel2XC/8rvajYXCnF8EMtpvRuiI+um3Zgu9Q0FUb2ONiI7m1yY+sACOEIt9v?=
- =?us-ascii?Q?7bopm68hxBpRanQVV9XW2ydFPc68DpyQw2zrj3ahyAw2GJfdes9FAox9yhVK?=
- =?us-ascii?Q?Qojy1/QkmQD9QKNJPYDeUa9nJv0CrA3YzRzJR2GqgPimYRIK3h/Yc8YgUwC/?=
- =?us-ascii?Q?W6IKXLugTPNMQE6zBnOoNx4vW2vBdiOXSotwTSDl0izeSn28zFwyFF0T8Bd6?=
- =?us-ascii?Q?+pOIFQbA1tlO4XeRIdtnunVptNuqCe6wXwwIIAovUor0rl9/CP0D/us9xgMM?=
- =?us-ascii?Q?bm728cjbAHKGObaRa7SU1h853hfuQf2GY+aOwd4B8espt82rPyiTYgClFnmh?=
- =?us-ascii?Q?Hiri221mXZIOzCJ0ntSlC/DqZh7T92UC3c0YmN0jjpcIewJq4lCTyWj0z6WS?=
- =?us-ascii?Q?J3tHf6DDgJ1JDzwnEba2PWLdhGwGBbw22EyyhjznTUVZ2c2+Y05xbcuIuxGh?=
- =?us-ascii?Q?/S9vdCfqwNBMvwRMrwpsgBQ+8PBeYgXAAaIHjSdlXCoW4gs3DfUIPNxhtFCt?=
- =?us-ascii?Q?6TDD5W8FlIa1QZnxAfI7BtbloJYtYmTYmtzyYfVciwuIBgnIfIYtc6swyBl0?=
- =?us-ascii?Q?WtSV6trryw9P7xEFhTPHFEjamiIHs5zL35dkgPI9UY7v6Ho49aDbRNMyF3ep?=
- =?us-ascii?Q?LcCJk6S2J0DDlHO5ZDUZXil18Pf3zluZgOIdM8fmn73Sd6NWTTw8KPoJKSbZ?=
- =?us-ascii?Q?8Vq8C0IDd+05IPiFqpwX0RLmdg0LMcamWuF7rTZGyAiyHfl2KZOD6JJYy376?=
- =?us-ascii?Q?nuxvYZwyJbHlAn4wv/Z5Da1jkqpX1EvhR4WgyKVj0gi6XjWV469Q2hOXheYQ?=
- =?us-ascii?Q?JwP3/u7cnh2ME3QdLNQtXUmGtGjHejWxQn/NbG3tJr4XLXKOA9Cznzr4evl1?=
- =?us-ascii?Q?+Eq2BcJU8XSwHR+Ewq74vuP6JxaoM8q2Io/AhQWWqveyanimF292OUzVcuXY?=
- =?us-ascii?Q?gYA+OYVOf2wbUWpOcf8b+ZdCjbF8grZ/JV1Pr2Ge/37l+jLRKcvOVN+cDSqK?=
- =?us-ascii?Q?bj8w/obcCXYlj+Wkg80/Cwi+IeDS+BEw3ijdevxHeIUiAsgkjFjWifJiGXjU?=
- =?us-ascii?Q?5fJLccdPAMpAJjmSQ96bGimceNFMBSRXhmA4R0XgnLSfNXCPQ3r5K9Fs09b4?=
- =?us-ascii?Q?WVxFtc0MhHENDkDbi1I0wny+sgBpy70lgwk1buqjS65GAfgsXJD2Z0VflQCC?=
- =?us-ascii?Q?SF0WkNihCpHjOf31GbnGaVJfcWDDpqodDErqDgKpRgawmsPMoC2JsBoP+Vjh?=
- =?us-ascii?Q?S+liRHGiMhptlLGccnh4ZAHpVyRxK1xvkDKCes2wAO0ssES9M6t3zojTphhP?=
- =?us-ascii?Q?PpInTOBiEAj2uiZsAgL8x4tElR8aQ2Imxrgd2zXaiW2McYmWhWG8ANJiHIDl?=
- =?us-ascii?Q?ko1dvLAsQg1U02NNuNhoRgPG3563avq/AtFEZf/D8TDZ+MbErHHTMwCJ3feT?=
- =?us-ascii?Q?mmmUWlQqJkbU7+o7enrCncw=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?31axE574ttjNd+KFWIP5lqgkd+lODJ7dnSbKp4/uYwmfPDoAcGLVwPVkMK1M?=
+ =?us-ascii?Q?snPp0w/nu37KGupPsmI1lrCUnO6ZfDC82rLDmnksLr5MoNlRWya8rgctn4ka?=
+ =?us-ascii?Q?vd9QMKTYEB4DJoBmX0XU9ATMhAu0eIKXWSQcWmpYOBjgKrvJHX/vGFCHat6K?=
+ =?us-ascii?Q?z6+e1MB46eNLXozwIkBHIO1Z3E9ESrb1mBzyVgfbXzmxbpBqYobQ9+NDviMh?=
+ =?us-ascii?Q?dgIQOWPic7qbQq3y+b79zp9l2QH5Q4v9zBDnPB6NzYaSFe5lMkuHnzF3QjCH?=
+ =?us-ascii?Q?Ta96Jmh7RSCJ0uYBNFgzngcRA08/zCUxaEXq6BlZIBR5BH3Ki0jpW8tVRVNQ?=
+ =?us-ascii?Q?/j6t6bfCBKodY1XYQBHJ8QAnCpUR30ZMBavk4YgO3tAzyqPV5M++1QfJz9W6?=
+ =?us-ascii?Q?Xp3PJ9uF0fXun/KjW5W19wEk5W4UfNHAwhGk1FWBusZ9h1jMzyIYVxIA7CFA?=
+ =?us-ascii?Q?yK83Sdwv4m909kalsum0Fm4rO5XVWSu5ce6vhDSgWXbjo7ya8asxNWPgoBSP?=
+ =?us-ascii?Q?yN7dS4AEgbOlWnmwais2ZwCtwgFRFuj0qC1zEk5P2yy5R7nKw+ag2lEodyGK?=
+ =?us-ascii?Q?1Y1gndmr9bGRqE6ufjY63tpSbRNXt+K5H7dlRvS8PZ7xGeT0u/TZmF63RbDc?=
+ =?us-ascii?Q?4cwCEj/ie140YEe9KNtYbuiPW4k8pLUDNufvKRLOGZ+ppCcwg8Q+PsS9H5LY?=
+ =?us-ascii?Q?Yr5KpklcUsvd31mvMLBfVdJrSJ5nTlyEfvoaHpgEyxc8FIuR5q8cTh0lrans?=
+ =?us-ascii?Q?dgMvqHEIoXRiT81NmT3yPJdgBm6RruEYYFlgovRQ5x5eI9EhPOyzi/Y8E3Yx?=
+ =?us-ascii?Q?aEZPr3uA6F6rsJ2GjjYHc8BDiH40hAKiOMGw1X6h79tQ3Il7DkZB3eAsrUp1?=
+ =?us-ascii?Q?W18RCvzwmRKpzxS7Civok90lWci3KdKMRpPqkHuGpiRVahPCTeXBkasvELlW?=
+ =?us-ascii?Q?N5xoXcUAV2++6pspdDB/nmo2Kq6U9y0h+D7J3ihiWSZJ/WpGvkWXCUVvUy4N?=
+ =?us-ascii?Q?A0um2hAH6w6UhKQvug2khAb2geyFCzhhJPGezrtYIEKEitzYDFMvc4Zu/V43?=
+ =?us-ascii?Q?CkvI3iYfdof2oy62vDrDbTzWHkVZi+x6J88tIdzhwpBCrj24bp+gxH1Vpx3T?=
+ =?us-ascii?Q?CZQbfxjHnJ5APpVFi8mpkATqSo9UJfjMs1/w+dwcs/mtZ8X25gD0XQ1GH61j?=
+ =?us-ascii?Q?UX1rhopqQfCg4/kBmmm3nslpLCPQhC46C0YEuCOAJFaVFbw/U5LdX0JjTaY5?=
+ =?us-ascii?Q?1NWbzknf04fxKpX7HLtspR+VaRWc6P4IMDfAGo82GVou3hgve0U6Osm13u3B?=
+ =?us-ascii?Q?ZJLxwtO0Un1sMP/Y2YVRnIx28Vcz90hMwY1J8/DS6Z7LN5fialAviMsOnziA?=
+ =?us-ascii?Q?+TsHYHtGUriPb+YQm39LiAhUJc9dcWHXTMK6svus4SWB4UsDAIFaUqWNosdL?=
+ =?us-ascii?Q?gBvDJP3P0kRQSqxAKfuDntY3Cmux2rl1S7nz+F80oTMbs8/k8o8cBDJO+bV7?=
+ =?us-ascii?Q?dTqHvCE8ZQuy0MlNTNeeBxBTfvqS5Ipf1IbAhnmPHNbGenrXdGjbkbm/sp7x?=
+ =?us-ascii?Q?7p3IeqbS0gg5hQgBzhU/YGtcmm+oLnV2W+VPj0mA7LLX3TzVvVA0KgFr9A91?=
+ =?us-ascii?Q?wGq75av1G+eJnlSywztq0r8=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 705d2064-0497-489c-795e-08d9b458271b
+X-MS-Exchange-CrossTenant-Network-Message-Id: c741964a-f369-49c1-9e60-08d9b45827a1
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8652.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 23:21:35.8657
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 23:21:36.8215
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5fgRsep41Oy8FWI934WptX7EyMlMxYUl6SU+FvaaA4ngWTzX4qdIRQiaCZhST8ZyYOaHLsKFgfOYjaio2zuGDA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: dL0nUZqXhGIST7t4NVNJZ3uNCupUjwTB2bRhDpd0RwLqnD5t36PJ1wpo2W6VV2PxZETVbZIVSrthJwtVfj4NtA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8634
 X-Original-Sender: stephane.viau@oss.nxp.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
  header.i=@NXP1.onmicrosoft.com header.s=selector2-NXP1-onmicrosoft-com
- header.b=gmpvTbnw;       arc=pass (i=1 spf=pass spfdomain=oss.nxp.com
+ header.b=I3AV6yfW;       arc=pass (i=1 spf=pass spfdomain=oss.nxp.com
  dkim=pass dkdomain=oss.nxp.com dmarc=pass fromdomain=oss.nxp.com);
        spf=pass (google.com: domain of stephane.viau@oss.nxp.com designates
  2a01:111:f400:fe08::623 as permitted sender) smtp.mailfrom=stephane.viau@oss.nxp.com;
@@ -206,248 +206,171 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Inmate cell configurations all look alike - more or less.
-Let's create a couple of header files to hide the fastidious stuff
-(structure field names and so on) so that .c cell configuration files
-look a bit less ugly.
+From: Stephane Viau <stephane.viau@nxp.com>
+
+Pick a cell and convert it to show the influence of these helper files.
 
 Signed-off-by: Stephane Viau <stephane.viau@oss.nxp.com>
-
----
-
-v1 -> v2:
-- Add PCI and Console helpers (needed for inamte cell conversion example)
-
 Signed-off-by: Stephane Viau <stephane.viau@nxp.com>
 ---
- configs/arm64/cell-create.h   |  67 +++++++++++++++++++++
- configs/arm64/cell-helper.h   | 108 ++++++++++++++++++++++++++++++++++
- configs/arm64/cell-template.c |  51 ++++++++++++++++
- 3 files changed, 226 insertions(+)
- create mode 100644 configs/arm64/cell-create.h
- create mode 100644 configs/arm64/cell-helper.h
- create mode 100644 configs/arm64/cell-template.c
+ configs/arm64/imx8mp-inmate-demo.c | 163 +++++++++--------------------
+ 1 file changed, 47 insertions(+), 116 deletions(-)
 
-diff --git a/configs/arm64/cell-create.h b/configs/arm64/cell-create.h
-new file mode 100644
-index 00000000..c562b4e6
---- /dev/null
-+++ b/configs/arm64/cell-create.h
-@@ -0,0 +1,67 @@
-+/*
-+ * Cell Configuration - Structure definition
-+ *
-+ * Copyright 2021 NXP
-+ *
-+ * Authors:
-+ *  Stephane Viau <stephane.viau@nxp.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/types.h>
-+#include <jailhouse/cell-config.h>
-+
-+struct {
-+	struct jailhouse_cell_desc cell;
-+	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[CONFIG_INMATE_REGIONS_NUM + 1];
-+	struct jailhouse_irqchip irqchips[CONFIG_INMATE_IRQCHIPS_NUM];
-+	struct jailhouse_pci_device pci_devices[CONFIG_INMATE_PCI_DEVICES_NUM];
-+} __attribute__((packed)) config = {
-+	.cell = {
-+		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-+		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.name = CONFIG_INMATE_NAME,
-+		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-+
-+		.cpu_set_size = sizeof(config.cpus),
-+		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+		.num_irqchips = ARRAY_SIZE(config.irqchips),
-+		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-+		.cpu_reset_address = CONFIG_INMATE_BASE,
-+#ifdef CONFIG_INMATE_VPCI_IRQ_BASE
-+		.vpci_irq_base = CONFIG_INMATE_VPCI_IRQ_BASE,
-+#endif
-+#ifdef CONFIG_INMATE_CONSOLE
-+		.console = CONFIG_INMATE_CONSOLE,
-+#endif
-+	},
-+
-+	.cpus = {
-+		/*
-+		 * bitmap of cores used by the inmate cell
-+		 */
-+		CONFIG_INMATE_CORE_BITMAP,
-+	},
-+
-+	.mem_regions = {
-+		COMM_REGION_RW(0x80000000, KB(4)), /* communication region */
-+		CONFIG_INMATE_REGIONS
-+	},
-+
-+	.irqchips = {
-+		{
-+			.address = CONFIG_INMATE_IRQCHIPS_ADDR,
-+			.pin_base = CONFIG_INMATE_IRQCHIPS_BASE,
-+			.pin_bitmap = {
-+				CONFIG_INMATE_IRQCHIPS_BITMAP
-+			}
-+		}
-+	},
-+
-+	.pci_devices = {
-+		CONFIG_INMATE_PCI_DEVICES
-+	},
-+};
-diff --git a/configs/arm64/cell-helper.h b/configs/arm64/cell-helper.h
-new file mode 100644
-index 00000000..525d91c6
---- /dev/null
-+++ b/configs/arm64/cell-helper.h
-@@ -0,0 +1,108 @@
-+/*
-+ * Cell Configuration - Generic definitions
-+ *
-+ * Copyright 2021 NXP
-+ *
-+ * Authors:
-+ *  Stephane Viau <stephane.viau@nxp.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ *
-+ */
-+
-+#ifndef KB
-+#define KB(bytes)	(1024 * (bytes))
-+#define MB(bytes)	(1024 * KB(bytes))
-+#endif
-+
-+#define REGION(phys, virt, bytes) \
-+	.phys_start = (phys), \
-+	.virt_start = (virt), \
-+	.size = (bytes) \
-+
-+#define MEM_REGION_ROS(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED, \
-+	}
-+
-+#define MEM_REGION_RW(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE, \
-+	}
-+
-+#define MEM_REGION_RWS(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+			JAILHOUSE_MEM_ROOTSHARED, \
-+	}
-+
-+#define COMM_REGION_RW(virt, bytes) \
-+	{ \
-+		REGION(0x00000000, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+		         JAILHOUSE_MEM_COMM_REGION, \
-+	}
-+
-+#define MEM_REGION_RWX(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+		         JAILHOUSE_MEM_EXECUTE, \
-+		}
-+
-+#define MEM_REGION_RWXL(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+		         JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE, \
-+	}
-+
-+#define MMIO_REGION_RO(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_IO, \
-+	}
-+
-+#define MMIO_REGION_ROS(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_IO | \
-+		         JAILHOUSE_MEM_ROOTSHARED, \
-+	}
-+
-+#define MMIO_REGION_RW(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+		         JAILHOUSE_MEM_IO, \
-+	}
-+
-+#define MMIO_REGION_RWS(phys, virt, bytes) \
-+	{ \
-+		REGION(phys, virt, bytes), \
-+		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-+		         JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED, \
-+	}
-+
-+#define PCI_DEVICE_IVSHMEM(_domain, _bdf, regions_start, dev_id, peers) \
-+	{ \
-+		.type = JAILHOUSE_PCI_TYPE_IVSHMEM, \
-+		.domain = _domain, \
-+		.bdf = _bdf, \
-+		.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX, \
-+		.shmem_regions_start = regions_start, \
-+		.shmem_dev_id = dev_id, \
-+		.shmem_peers = peers, \
-+		.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED, \
-+	}
-+
-+#define CONSOLE(_address, _type, _flags) \
-+	{ \
-+		.address = _address, \
-+		.type = _type, \
-+		.flags = _flags, \
-+	}
-diff --git a/configs/arm64/cell-template.c b/configs/arm64/cell-template.c
-new file mode 100644
-index 00000000..c6981a51
---- /dev/null
-+++ b/configs/arm64/cell-template.c
-@@ -0,0 +1,51 @@
-+/*
-+ * Cell Configuration - Structure definition
-+ *
-+ * Copyright 2021 NXP
-+ *
-+ * Authors:
-+ *  Stephane Viau <stephane.viau@nxp.com>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
+diff --git a/configs/arm64/imx8mp-inmate-demo.c b/configs/arm64/imx8mp-inmate-demo.c
+index 127392df..d85d3a0c 100644
+--- a/configs/arm64/imx8mp-inmate-demo.c
++++ b/configs/arm64/imx8mp-inmate-demo.c
+@@ -1,7 +1,7 @@
+ /*
+- * iMX8MM target - inmate-demo
++ * iMX8MP target - inmate-demo
+  *
+- * Copyright 2020 NXP
++ * Copyright 2020-2021 NXP
+  *
+  * Authors:
+  *  Peng Fan <peng.fan@nxp.com>
+@@ -10,117 +10,48 @@
+  * the COPYING file in the top-level directory.
+  */
+ 
+-#include <jailhouse/types.h>
+-#include <jailhouse/cell-config.h>
+-
+-struct {
+-	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[8];
+-	struct jailhouse_irqchip irqchips[1];
+-	struct jailhouse_pci_device pci_devices[1];
+-} __attribute__((packed)) config = {
+-	.cell = {
+-		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+-		.revision = JAILHOUSE_CONFIG_REVISION,
+-		.name = "inmate-demo",
+-		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+-
+-		.cpu_set_size = sizeof(config.cpus),
+-		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+-		.num_irqchips = ARRAY_SIZE(config.irqchips),
+-		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+-		/* IVSHMEM_IRQ - 32 */
+-		.vpci_irq_base = 76, /* Not include 32 base */
+-
+-		.console = {
+-			.address = 0x30890000,
+-			.type = JAILHOUSE_CON_TYPE_IMX,
+-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+-				 JAILHOUSE_CON_REGDIST_4,
+-		},
+-	},
+-
+-	.cpus = {
+-		0x8,
+-	},
+-
+-	.mem_regions = {
+-		/* IVSHMEM shared memory regions (demo) */
+-		{
+-			.phys_start = 0xfd900000,
+-			.virt_start = 0xfd900000,
+-			.size = 0x1000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		{
+-			.phys_start = 0xfd901000,
+-			.virt_start = 0xfd901000,
+-			.size = 0x9000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		{
+-			.phys_start = 0xfd90a000,
+-			.virt_start = 0xfd90a000,
+-			.size = 0x2000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		{
+-			.phys_start = 0xfd90c000,
+-			.virt_start = 0xfd90c000,
+-			.size = 0x2000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		{
+-			.phys_start = 0xfd90e000,
+-			.virt_start = 0xfd90e000,
+-			.size = 0x2000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		/* UART2 */ {
+-			.phys_start = 0x30890000,
+-			.virt_start = 0x30890000,
+-			.size = 0x1000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+-		},
+-		/* RAM: start from the bottom of inmate memory */ {
+-			.phys_start = 0xc0000000,
+-			.virt_start = 0,
+-			.size = 0x00010000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+-		},
+-		/* communication region */ {
+-			.virt_start = 0x80000000,
+-			.size = 0x00001000,
+-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+-				JAILHOUSE_MEM_COMM_REGION,
+-		},
+-	},
+-
+-	.irqchips = {
+-		/* GIC */ {
+-			.address = 0x38800000,
+-			.pin_base = 96,
+-			.pin_bitmap = {
+-				0x1 << (76 + 32 - 96) /* SPI 76 */
+-			},
+-		},
+-	},
+-
+-	.pci_devices = {
+-		{
+-			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+-			.domain = 2,
+-			.bdf = 0 << 3,
+-			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+-			.shmem_regions_start = 0,
+-			.shmem_dev_id = 1,
+-			.shmem_peers = 1,
+-			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+-		},
+-	},
+-};
 +#include "cell-helper.h"
 +
 +/* Name, cores, entry point */
-+#define CONFIG_INMATE_NAME		"inmate-cell-name"
-+#define CONFIG_INMATE_CORE_BITMAP	(0b1100) /* inmate uses cores 2 and 3 */
-+#define CONFIG_INMATE_BASE		(0xc0000000) /* entry point in DDR */
++#define CONFIG_INMATE_NAME		"inmate-demo"
++#define CONFIG_INMATE_CORE_BITMAP	(0b1000)
++#define CONFIG_INMATE_BASE		(0x00000000)
 +
 +/* Memory & peripherals */
-+#define CONFIG_INMATE_REGIONS_NUM	(1)
++#define CONFIG_INMATE_REGIONS_NUM	(7)
 +#define CONFIG_INMATE_REGIONS		\
-+	MEM_REGION_RWXL(0xc0000000, CONFIG_INMATE_BASE, MB(16)),   /* RAM */    \
++	MEM_REGION_RWXL(0xc0000000, CONFIG_INMATE_BASE, MB(16)), /* RAM */ \
++	\
++	MEM_REGION_ROS( 0xfd900000, 0xfd900000, KB(4)),    /* IVSHMEM */ \
++	MEM_REGION_RWS( 0xfd901000, 0xfd901000, KB(36)),   /* IVSHMEM */ \
++	MEM_REGION_ROS( 0xfd90a000, 0xfd90a000, KB(8)),    /* IVSHMEM */ \
++	MEM_REGION_RWS( 0xfd90c000, 0xfd90c000, KB(8)),    /* IVSHMEM */ \
++	MEM_REGION_ROS( 0xfd90e000, 0xfd90e000, KB(8)),    /* IVSHMEM */ \
++	\
++	MMIO_REGION_RW( 0x30890000, 0x30890000, KB(4)),    /* UART2 */   \
 +
 +/* GIC */
 +#define CONFIG_INMATE_IRQCHIPS_NUM	(1)
-+#define CONFIG_INMATE_IRQCHIPS_ADDR	(0x38800000) /* GIC DISTRIBUTOR BASE ADDR */
++#define CONFIG_INMATE_IRQCHIPS_ADDR	(0x30890000)
 +#define CONFIG_INMATE_IRQCHIPS_BASE	(32)
 +#define CONFIG_INMATE_IRQCHIPS_BITMAP	\
 +	/* interrupts 32..63 */         \
@@ -459,17 +382,15 @@ index 00000000..c6981a51
 +	/* interrupts 128..159 */       \
 +	0
 +
-+#define CONFIG_INMATE_VPCI_IRQ_BASE	(76)
++#define CONFIG_INMATE_VPCI_IRQ_BASE	(76) /* IVSHMEM_IRQ */
 +
 +#define CONFIG_INMATE_PCI_DEVICES_NUM	(1)
 +#define CONFIG_INMATE_PCI_DEVICES	\
 +	PCI_DEVICE_IVSHMEM(2, 0, 0, 1, 1)
 +
-+/*
-+ * #define CONFIG_INMATE_CONSOLE \
-+ * 	CONSOLE(0x30890000, JAILHOUSE_CON_TYPE_IMX, \
-+ * 		JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4)
-+ */
++#define CONFIG_INMATE_CONSOLE \
++	CONSOLE(0x30890000, JAILHOUSE_CON_TYPE_IMX, \
++		JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4)
 +
 +#include "cell-create.h"
 -- 
@@ -478,4 +399,4 @@ index 00000000..c6981a51
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20211130232013.395-2-stephane.viau%40oss.nxp.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20211130232013.395-3-stephane.viau%40oss.nxp.com.
