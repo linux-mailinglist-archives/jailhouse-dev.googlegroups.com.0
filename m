@@ -1,34 +1,34 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB7MVUWGQMGQEW5A67EI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBEUWUWGQMGQEJPR5TOA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B22466D10
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Dec 2021 23:38:53 +0100 (CET)
-Received: by mail-ed1-x53e.google.com with SMTP id m12-20020a056402430c00b003e9f10bbb7dsf809550edc.18
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 Dec 2021 14:38:53 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1638484733; cv=pass;
+Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E2B466D11
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Dec 2021 23:39:14 +0100 (CET)
+Received: by mail-wm1-x338.google.com with SMTP id g11-20020a1c200b000000b003320d092d08sf531614wmg.9
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 Dec 2021 14:39:14 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1638484754; cv=pass;
         d=google.com; s=arc-20160816;
-        b=g/p1yVJ7MhmHOejPJ+U+XzEhGcm+wFk8lTJI92TKO48DlxDn6lJH5YeBVUu6ivkEh4
-         wBsUSdn+udHvQJXL6DhzI7aweKS9j5QWqqRaJcCZkjBQOZ7bzvBQNLN7NoJHk9f60y8d
-         3U18/1WzmBHTlZvp/CAM4YrTE+C1W5OIFJkoEIinD6ZCFpkWh8szcr+wt5EW9AH73XLQ
-         IgQb1sNQh9HqAXDKfvr3tyQ0Dpm9+Scu/IPSrVOeisNxgqZtc8xIZCP+a320NZnWjT9x
-         dMQIO7tlbdvEzWj6gmgBU7gnhnQpcbsdcVqjmK60oUcT6gO0HmWRM78VejdSSDl7y2Jr
-         phFg==
+        b=I775SyoGG2rvT5Q6ZbeYdH6FVlxgadn8CwFdTmcazp755hwqY8zhv9wI2RQAY2CVZ0
+         iTAMnIqctGxmhrZ95n1S8VuUr2ap/8PV9IAYtuocpQJ1TAq51TLXjj283wXa6dRRbJ01
+         weVT3VqRfXf2AKWlVHI0ID/fQ7jAdLXjDuZX/w7MYrMcLb6N91W1i2C0v6SlUhhSjYUW
+         udJrB8UDH7RsiAZM+Y8yK0nDgAJPEC5Zg3acPASXGh2Fi5Q0evyyRLALt4WD6Ek+Us9p
+         kNVJpQ8GTpTcR0RGtlXYANV6oF6epoKGOq+A914R+dTAlZix1aokTg7WiDN6TWuXb62x
+         GsXg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:dkim-signature;
-        bh=TUKap3MsvJwqu8QQp7MspTI+rhP8giiXkS52z/tuJZ0=;
-        b=Ga3hLqVjNjFmOoedJSDbJQvIJdMaISsNG9+2xMTJeB/cW459h7sxARRi9LCufUZSbb
-         ULaUF5jM2j7tTMCQYk9QmzOj8WiuEg5wU78i7pNvQuYPYZK7dIsSewaeWWbCO+sQ/ujZ
-         k/+fE4KvVxGvhlJIsKcwmTTOrxpIw2VJ4tWk62Xm/NbS4R4CkeIjCUmLrjmvZKIu3kTL
-         c9dxxI4yVi8NVwJvb1AoJp/VnF63IhCqiFvx0eATNZuoaQMI1l4mwlFjgQ9yBtXeFvPA
-         5TA0N3yKduYMxnhGQCJc7ralr4vsdfKnVL8JPWjMc/VmsY15p2F/QARtq3SzkuVXzvjg
-         NABg==
+        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
+        b=QOcRR2ExYfdpnL1fN/zqk4uoudDPqCx/jZ4GLKTR8eyOwObz0WxfVUYmzOQjSRxxcj
+         3G2rx18+Jc3UwUDltPTOuKasH0fnmZnnCB8f9ZYsqx7FHwf25e4aqwzvdsSGy8QU4yYj
+         U+etDFIbnf90r+8+YWK7IGHTpy9h8uitrhgfQ5EFb2fRZVuRBaxG12QFSVQRxBxelkli
+         ipL3wjK3ptDrt2YrC5ywMiCrV5/Rc3VEBKHyzBuxZswC7ys5RN+I06kipf1YR17f/f+w
+         435pzZouema0O2LQuVwYfIaRvyk+3esDINCLghZcvfUmKWF2sGb20DYtba1AVTBFmawl
+         BjRA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=FfKZfGJB;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-language:to:references:from:in-reply-to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=TUKap3MsvJwqu8QQp7MspTI+rhP8giiXkS52z/tuJZ0=;
-        b=JRsO4vp5YQUi9aPIJm6sPaKU9AcG4YyS9YmAP9kNKZk3FJGlgHvJdgbrxNTh9qOH14
-         TcW6sDx8LOBm4UuxQpXqNxM9DbgOMLIPQV9lBsLPnAWTfAghd2gh0kELd9JYASFCMJIO
-         z6ZQiScoUX/wiF8uV1jhxU3/T0AUsqOjLhL0B2L9t/Hd0wWs7Os5Nn3GQJ7B6GLGs3Bp
-         /XoE2rCFeCMiuLssW0WIJV1pvicoUl5kwm9KIJBGRnN1HUBfAeG0ILDii+/ob+CkUopB
-         y+luvGPk0D1zQ8ippETAq1YBpK5iwqSQ72Kf7QMrQfh9pdZFtvO2N077W1dsj5SB2A6P
-         9eqg==
+        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
+        b=VL/PyYMNOrxMRs645txezrkYSRP0OcwIcL95ajchT12sA+1YA+QVEuiYUPH7fVioWX
+         9rnU9eG/yoPYVsJNDuXfQUKS5M0J/VE+582khclFRaCzgzrSyvk2zc7CWgJrv0lK0ooz
+         sK4jVxjdTfKO+igJze/zSaNQvkoPm24Yo7q3ZiEb8wehmqGDkDqGzTgx+Q2ozNVGm591
+         DHwbVhXPOqw+zdE1ssDfDdN4rgpCPsSfgsTkqa86dWEH3mjJB6mliLzKNLh7vUiEeTME
+         sLmASqiOS1ZfNjxT2tM9iIDmTGENNX7rDmwaoZS69z0EjTJfDjkelVEJ5SY051pnC6Zf
+         C2mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
@@ -50,85 +50,85 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=TUKap3MsvJwqu8QQp7MspTI+rhP8giiXkS52z/tuJZ0=;
-        b=mU49FC1o1PPlxSdC8QhFv9Gs28XoO9t03LfPbEARzra0zIFTUTX9g1Qe4kyHMwCqs+
-         1p8/qAL1PRAE93xtlIx7L2SPIFuISb6GFM62Kxcb8NG7Pm96vSwvEYL3TuFTeVxpdTAQ
-         m0O9Qm7fKr9o3AXQawSxHK5uQMi/AZsdnllDQsLbUdbBTIflUqMU2QqWj32L7JyDRUgF
-         jzSvUAvzxGL5oNPtYad48zv/7DC3lYd60eiYMYFNlKL7TFQ+EL4ASUTNobNtFsuhCkZq
-         NQVAKxf9YZeyBhWXAIEN4hlWHkfegdo52QDVokaKBTs+U6t7QrGPbTp1NmsSn6K+EE3D
-         jFpw==
+        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
+        b=tbY2VPUxUKEcHIwcg1Eiq7Tws2kOiJ8mNFAJ1ECcUpaYVtnxa9a/wjpwESkdyvIo6O
+         Eh/Qe84RGC8FcT8P74CJTCLZ/6m+gGuOgS5Rv0G+HlYa+jq8xsP+Z4/ZV/UJ7M1m80F6
+         qxf/gRep662tSsIFzgK7XEanoiVzeOnKAFwXdYG5MlKUROz9+o5IOsbteNmKPu0XXu99
+         nCarCJxYprZ4l+obTUccFxjznZ3bhdk5254e7gFt1KpGnhbKSOE9d46ZDPYGIgipMKB+
+         1QS7FV+cTJaSn0O8szReFKH3EqM4b05xKUK6NRNWq37pVtQ7mfpL6K6Y7ZmYnKyDUp0P
+         T60w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5330Y0ZZG4OAyRddYGFhu/yHTJTXdVyBaDxWbQrILzDnb+M5gc8q
-	9tPHg1rDQItirrpJqvMNnPk=
-X-Google-Smtp-Source: ABdhPJw6EjaQRr76ZvoFCtLkpJdc1+hLIfn2GIuE2/LxPD5aKJ8MaVFDzId/NjHzbe+FvxwUTxGSFg==
-X-Received: by 2002:aa7:db8d:: with SMTP id u13mr20688496edt.111.1638484733198;
-        Thu, 02 Dec 2021 14:38:53 -0800 (PST)
+X-Gm-Message-State: AOAM533cHjVuw5GH2l6aIaJldtn6YVf1nwJWB8rYS0hLMQKGDYeDzeBA
+	ubcIscIo5w+kROrXUOVaRsM=
+X-Google-Smtp-Source: ABdhPJziaXAttP2pEs1P8SxD9DHvVnN+lX9bSWGz6PeIQujqRG+XjOISViRglXZfbWc+MFRRDJDtHg==
+X-Received: by 2002:adf:f189:: with SMTP id h9mr18251577wro.463.1638484754443;
+        Thu, 02 Dec 2021 14:39:14 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:907:3d8e:: with SMTP id he14ls3048442ejc.6.gmail; Thu,
- 02 Dec 2021 14:38:52 -0800 (PST)
-X-Received: by 2002:a17:906:4bcf:: with SMTP id x15mr18741107ejv.273.1638484732164;
-        Thu, 02 Dec 2021 14:38:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1638484732; cv=none;
+Received: by 2002:adf:fe0b:: with SMTP id n11ls6220wrr.0.gmail; Thu, 02 Dec
+ 2021 14:39:13 -0800 (PST)
+X-Received: by 2002:adf:d852:: with SMTP id k18mr17739228wrl.391.1638484753460;
+        Thu, 02 Dec 2021 14:39:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1638484753; cv=none;
         d=google.com; s=arc-20160816;
-        b=X7RgV6eBxHlnjXtPJvxlTEGdLPjcqLyBN5T0HSDI054+cTh5NQ6pn74TP/hKkI4/dF
-         inu3YEwgpT1eBYygBoRv4DRwgo5Tb8I7KuDPvSgPsyBVlYhqWaNT3qwwrf21K/gitWho
-         8c5T4h8+BKfwB5L0ctyQwyoJ0sTisPYncLRKtzGIeNGQS/1KdxEjM3H+lZkdiIaConwS
-         cEV0xDGVI0BBSfoVrsk6qcq4z0i7hEE6BldbTeRoFlKTD3vBQ8IKMoQu2LQ+RC5Ln5g+
-         4FMdWyrZR1eW9Mn/ybe6v14k4mR3wp6cGWv6/+AiLi4CJE589JU3hDhOaGuMTyNVN0st
-         M0Zw==
+        b=Qe6V/v3+W0Oj0umQGmMcS78wJzqaKBMeLNHR1ZpWRZS0cDJ830ditZlyQPjYiVmifv
+         OBqbBZlnNI5HAPZtIqV1jralNwMLzKwZbHmba3c1cSGSHwVk8y047dAeZGoO2um4GWSN
+         /W5M+DShvBtI3YTo/tX3yJsQeFwStM/bUk79+/9jArRzjXZHYIKu2RSGNGsJ3KYowNee
+         G2T7DnfSI0Q7qw+/DR/lUwQhbF+CcRMztq4G0J2flGKwPHUagfcRkqi36Q/TpAvtpk7x
+         CoCF82ZDoWriDYz313XkxhyciG/8ZW31amFrDL10MnofU4LZITOaueu5u3gHheDWLrut
+         UlxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :dkim-signature;
-        bh=1bYlWeNIS1D2S5eaVb2xlhOm9oTemr17h/swirDlV30=;
-        b=LQdPwHBRVrbJ6j18APcdhGkSiC/BuqaD/Zqg8lLJv51Ov3sT44Tz5G/vkhbzKRgQto
-         005/QKpaSbWDr8PLLGYCL+WkUKlIsEfQ6II9sF4BbFZAmPCKoXLd1s0+setfjlkdLqSm
-         VgSHMLEVGI0mNivZGAmzP+6E+qIbYcnnE+SHEv9HNVXIR1iiTIxg4Cf2upqWepPAhKRP
-         uSzva7JSjBLqfaCJ0p+6vZ7ZJc5bsAe5oL9IzgAZPKWcxHuUS+24yEKnMwi7yn1OTrwl
-         VBciYgD5MWwBGGXFfmjFL3jHfZGLTqH7rJrc/ECrl1lO33dZUAoDQsbYp8B60TU2hz1Z
-         ncFg==
+        bh=TGdkHD7ob5RXcnk6PWRU+o15tYit8ew9715gwJm2K/s=;
+        b=eRIFTxMYzaoFn1RL6DNq2ygjcoz8gvZhiE/w7vNeQsxMmhjbzMc4OMHV9mzH6uUIg2
+         r9kzKgXMV7iOmlpQqz+ASDd0YBcwegrPqRmygjnv6RlGG6q9eStuDAzeDVvVQUGfCP8k
+         dOdQjlNm52V5t9Vk06TMk9mOWOcCdRjtSsYGuk3gXY/MWWScz+km2EQ2/w5vXS81R7j+
+         IkX6YKKD3zBNJu5Bq0leUuxCZfdQDS9WN7b/IFqzpOzG91+6DtNOgBwgjYgqr5AENxAO
+         bYVSEo5EBJHNMKGayQngr96QTxhbKHpbyCl8UqA69E8RfPEtJWWlybh2SPTxoKAU/kEU
+         JJCg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=FfKZfGJB;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id i23si51426edr.1.2021.12.02.14.38.52
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id z3si239335wmi.2.2021.12.02.14.39.13
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 02 Dec 2021 14:38:52 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+        Thu, 02 Dec 2021 14:39:13 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4J4rTl4Ydlzy1c;
-	Thu,  2 Dec 2021 23:38:51 +0100 (CET)
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4J4rV90hGfzxs4;
+	Thu,  2 Dec 2021 23:39:13 +0100 (CET)
 Received: from [172.23.3.21] (194.95.106.138) by E16S03.hs-regensburg.de
  (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Thu, 2 Dec
- 2021 23:38:51 +0100
-Message-ID: <b585ed4e-136f-34c9-a9a6-8f98050ac3ed@oth-regensburg.de>
-Date: Thu, 2 Dec 2021 23:38:50 +0100
+ 2021 23:39:12 +0100
+Message-ID: <51f0d564-bcba-23b2-1651-1525d3b35e4d@oth-regensburg.de>
+Date: Thu, 2 Dec 2021 23:39:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [EXT] [PATCH v3 1/2] [RFC] configs: Introduce helper files to
- create inmate cell config
+Subject: Re: [EXT] [PATCH v3 2/2] [RFC] configs: imx8mp: Convert a cell using
+ helper files
 Content-Language: en-US
 To: Stephane Viau <stephane.viau@oss.nxp.com>,
 	<jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>
 References: <20211202154800.2671-1-stephane.viau@oss.nxp.com>
- <20211202154800.2671-2-stephane.viau@oss.nxp.com>
+ <20211202154800.2671-3-stephane.viau@oss.nxp.com>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <20211202154800.2671-2-stephane.viau@oss.nxp.com>
+In-Reply-To: <20211202154800.2671-3-stephane.viau@oss.nxp.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=FfKZfGJB;
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -144,11 +144,8 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 
 
-On 02/12/2021 16:47, Stephane Viau wrote:
-> Inmate cell configurations all look alike - more or less.
-> Let's create a couple of header files to hide the fastidious stuff
-> (structure field names and so on) so that .c cell configuration files
-> look a bit less ugly.
+On 02/12/2021 16:48, Stephane Viau wrote:
+> Pick a cell and convert it to show the influence of these helper files.
 > 
 > Signed-off-by: Stephane Viau <stephane.viau@oss.nxp.com>
 > 
@@ -158,270 +155,179 @@ On 02/12/2021 16:47, Stephane Viau wrote:
 > - Get rid of the *_NUM macros in config files and have them computed
 >    instead (suggested by Ralf)
 > 
-> v1 -> v2:
-> - Add PCI and Console helpers (needed for inmate cell conversion example)
+> v2:
+> - Convert an existing cell to see the impact of the helper files
+>    (suggested by Jan)
 > 
 > Signed-off-by: Stephane Viau <stephane.viau@oss.nxp.com>
 > ---
->   configs/arm64/cell-create.h   |  75 +++++++++++++++++++++++
->   configs/arm64/cell-helper.h   | 108 ++++++++++++++++++++++++++++++++++
->   configs/arm64/cell-template.c |  48 +++++++++++++++
->   3 files changed, 231 insertions(+)
->   create mode 100644 configs/arm64/cell-create.h
->   create mode 100644 configs/arm64/cell-helper.h
->   create mode 100644 configs/arm64/cell-template.c
+>   configs/arm64/imx8mp-inmate-demo.c | 161 ++++++++---------------------
+>   1 file changed, 45 insertions(+), 116 deletions(-)
+
+nice diffstats.
+
 > 
-> diff --git a/configs/arm64/cell-create.h b/configs/arm64/cell-create.h
-> new file mode 100644
-> index 00000000..bfa9471b
-> --- /dev/null
-> +++ b/configs/arm64/cell-create.h
-> @@ -0,0 +1,75 @@
-> +/*
-> + * Cell Configuration - Structure definition
-> + *
-> + * Copyright 2021 NXP
-> + *
-> + * Authors:
-> + *  Stephane Viau <stephane.viau@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +#define CONFIG_INMATE_REGIONS_NUM \
-> +	(sizeof((struct jailhouse_memory[]){CONFIG_INMATE_REGIONS}) \
-> +	/ sizeof(struct jailhouse_memory))
-> +
-> +#define CONFIG_INMATE_PCI_DEVICES_NUM \
-> +	(sizeof((struct jailhouse_pci_device[]){CONFIG_INMATE_PCI_DEVICES}) \
-> +	/ sizeof(struct jailhouse_pci_device))
-
-Yep, that's nice. Did you check if we can use the ARRAY_SIZE() macro 
-here to make it a bit smaller? Otherwise, I'd define a short helper that 
-helps to avoid the almost same redundant definition.
-
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[CONFIG_INMATE_REGIONS_NUM + 1];
-> +	struct jailhouse_irqchip irqchips[1];
-> +	struct jailhouse_pci_device pci_devices[CONFIG_INMATE_PCI_DEVICES_NUM];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = CONFIG_INMATE_NAME,
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> +
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +		.cpu_reset_address = CONFIG_INMATE_BASE,
-> +#ifdef CONFIG_INMATE_VPCI_IRQ_BASE
-> +		.vpci_irq_base = CONFIG_INMATE_VPCI_IRQ_BASE,
-> +#endif
-> +#ifdef CONFIG_INMATE_CONSOLE
-> +		.console = CONFIG_INMATE_CONSOLE,
-> +#endif
-> +	},
-> +
-> +	.cpus = {
-> +		/*
-> +		 * bitmap of cores used by the inmate cell
-> +		 */
-> +		CONFIG_INMATE_CORE_BITMAP,
-> +	},
-> +
-> +	.mem_regions = {
-> +		COMM_REGION_RW(0x80000000, KB(4)), /* communication region */
-> +		CONFIG_INMATE_REGIONS
-> +	},
-> +
-> +	.irqchips = {
-> +		{
-> +			.address = CONFIG_INMATE_IRQCHIPS_ADDR,
-> +			.pin_base = CONFIG_INMATE_IRQCHIPS_BASE,
-> +			.pin_bitmap = {
-> +				CONFIG_INMATE_IRQCHIPS_BITMAP
-> +			}
-> +		}
-> +	},
-> +
-> +	.pci_devices = {
-> +		CONFIG_INMATE_PCI_DEVICES
-> +	},
-> +};
-> diff --git a/configs/arm64/cell-helper.h b/configs/arm64/cell-helper.h
-> new file mode 100644
-> index 00000000..525d91c6
-> --- /dev/null
-> +++ b/configs/arm64/cell-helper.h
-> @@ -0,0 +1,108 @@
-> +/*
-> + * Cell Configuration - Generic definitions
-> + *
-> + * Copyright 2021 NXP
-> + *
-> + * Authors:
-> + *  Stephane Viau <stephane.viau@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + *
-> + */
-> +
-> +#ifndef KB
-
-Why do we need the ifndef? Is it defined anywhere else?
-
-> +#define KB(bytes)	(1024 * (bytes))
-> +#define MB(bytes)	(1024 * KB(bytes))
-
-It's probably safer to use 1024ULL.
-
-> +#endif
-> +
-> +#define REGION(phys, virt, bytes) \
-> +	.phys_start = (phys), \
-> +	.virt_start = (virt), \
-> +	.size = (bytes) \
-
-Just for consistency, I'd say to use
-
-#define REGION(_phys, _virt, _size)
-
-
-
-> +
-> +#define MEM_REGION_ROS(phys, virt, bytes) \
-
-and here as well, _phys, _virt_, _size.
-
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED, \
-> +	}
-> +
-> +#define MEM_REGION_RW(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE, \
-> +	}
-> +
-> +#define MEM_REGION_RWS(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +			JAILHOUSE_MEM_ROOTSHARED, \
-> +	}
-> +
-> +#define COMM_REGION_RW(virt, bytes) \
-> +	{ \
-> +		REGION(0x00000000, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +		         JAILHOUSE_MEM_COMM_REGION, \
-> +	}
-> +
-> +#define MEM_REGION_RWX(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +		         JAILHOUSE_MEM_EXECUTE, \
-> +		}
-> +
-> +#define MEM_REGION_RWXL(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +		         JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE, \
-> +	}
-> +
-> +#define MMIO_REGION_RO(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_IO, \
-> +	}
-> +
-> +#define MMIO_REGION_ROS(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_IO | \
-> +		         JAILHOUSE_MEM_ROOTSHARED, \
-> +	}
-> +
-> +#define MMIO_REGION_RW(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +		         JAILHOUSE_MEM_IO, \
-> +	}
-> +
-> +#define MMIO_REGION_RWS(phys, virt, bytes) \
-> +	{ \
-> +		REGION(phys, virt, bytes), \
-> +		.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | \
-> +		         JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED, \
-> +	}
-> +
-> +#define PCI_DEVICE_IVSHMEM(_domain, _bdf, regions_start, dev_id, peers) \
-> +	{ \
-> +		.type = JAILHOUSE_PCI_TYPE_IVSHMEM, \
-> +		.domain = _domain, \
-> +		.bdf = _bdf, \
-> +		.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX, \
-> +		.shmem_regions_start = regions_start, \
-> +		.shmem_dev_id = dev_id, \
-> +		.shmem_peers = peers, \
-> +		.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED, \
-> +	}
-> +
-> +#define CONSOLE(_address, _type, _flags) \
-> +	{ \
-> +		.address = _address, \
-> +		.type = _type, \
-> +		.flags = _flags, \
-> +	}
-> diff --git a/configs/arm64/cell-template.c b/configs/arm64/cell-template.c
-> new file mode 100644
-> index 00000000..8f57c387
-> --- /dev/null
-> +++ b/configs/arm64/cell-template.c
-> @@ -0,0 +1,48 @@
-> +/*
-> + * Cell Configuration - Structure definition
-> + *
-> + * Copyright 2021 NXP
-> + *
-> + * Authors:
-> + *  Stephane Viau <stephane.viau@nxp.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
+> diff --git a/configs/arm64/imx8mp-inmate-demo.c b/configs/arm64/imx8mp-inmate-demo.c
+> index 127392df..169177ad 100644
+> --- a/configs/arm64/imx8mp-inmate-demo.c
+> +++ b/configs/arm64/imx8mp-inmate-demo.c
+> @@ -1,126 +1,55 @@
+>   /*
+> - * iMX8MM target - inmate-demo
+> + * iMX8MP target - inmate-demo
+>    *
+> - * Copyright 2020 NXP
+> + * Copyright 2020-2021 NXP
+>    *
+>    * Authors:
+>    *  Peng Fan <peng.fan@nxp.com>
+> + *  Stephane Viau <stephane.viau@oss.nxp.com>
+>    *
+>    * This work is licensed under the terms of the GNU GPL, version 2.  See
+>    * the COPYING file in the top-level directory.
+>    */
+>   
+> -#include <jailhouse/types.h>
+> -#include <jailhouse/cell-config.h>
+> -
+> -struct {
+> -	struct jailhouse_cell_desc cell;
+> -	__u64 cpus[1];
+> -	struct jailhouse_memory mem_regions[8];
+> -	struct jailhouse_irqchip irqchips[1];
+> -	struct jailhouse_pci_device pci_devices[1];
+> -} __attribute__((packed)) config = {
+> -	.cell = {
+> -		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
+> -		.revision = JAILHOUSE_CONFIG_REVISION,
+> -		.name = "inmate-demo",
+> -		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
+> -
+> -		.cpu_set_size = sizeof(config.cpus),
+> -		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+> -		.num_irqchips = ARRAY_SIZE(config.irqchips),
+> -		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
+> -		/* IVSHMEM_IRQ - 32 */
+> -		.vpci_irq_base = 76, /* Not include 32 base */
+> -
+> -		.console = {
+> -			.address = 0x30890000,
+> -			.type = JAILHOUSE_CON_TYPE_IMX,
+> -			.flags = JAILHOUSE_CON_ACCESS_MMIO |
+> -				 JAILHOUSE_CON_REGDIST_4,
+> -		},
+> -	},
+> -
+> -	.cpus = {
+> -		0x8,
+> -	},
+> -
+> -	.mem_regions = {
+> -		/* IVSHMEM shared memory regions (demo) */
+> -		{
+> -			.phys_start = 0xfd900000,
+> -			.virt_start = 0xfd900000,
+> -			.size = 0x1000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		{
+> -			.phys_start = 0xfd901000,
+> -			.virt_start = 0xfd901000,
+> -			.size = 0x9000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> -				JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		{
+> -			.phys_start = 0xfd90a000,
+> -			.virt_start = 0xfd90a000,
+> -			.size = 0x2000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		{
+> -			.phys_start = 0xfd90c000,
+> -			.virt_start = 0xfd90c000,
+> -			.size = 0x2000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> -				JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		{
+> -			.phys_start = 0xfd90e000,
+> -			.virt_start = 0xfd90e000,
+> -			.size = 0x2000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		/* UART2 */ {
+> -			.phys_start = 0x30890000,
+> -			.virt_start = 0x30890000,
+> -			.size = 0x1000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> -				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+> -		},
+> -		/* RAM: start from the bottom of inmate memory */ {
+> -			.phys_start = 0xc0000000,
+> -			.virt_start = 0,
+> -			.size = 0x00010000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> -				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> -		},
+> -		/* communication region */ {
+> -			.virt_start = 0x80000000,
+> -			.size = 0x00001000,
+> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> -				JAILHOUSE_MEM_COMM_REGION,
+> -		},
+> -	},
+> -
+> -	.irqchips = {
+> -		/* GIC */ {
+> -			.address = 0x38800000,
+> -			.pin_base = 96,
+> -			.pin_bitmap = {
+> -				0x1 << (76 + 32 - 96) /* SPI 76 */
+> -			},
+> -		},
+> -	},
+> -
+> -	.pci_devices = {
+> -		{
+> -			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+> -			.domain = 2,
+> -			.bdf = 0 << 3,
+> -			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+> -			.shmem_regions_start = 0,
+> -			.shmem_dev_id = 1,
+> -			.shmem_peers = 1,
+> -			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+> -		},
+> -	},
+> -};
 > +#include "cell-helper.h"
 > +
 > +/* Name, cores, entry point */
-> +#define CONFIG_INMATE_NAME		"inmate-cell-name"
-> +#define CONFIG_INMATE_CORE_BITMAP	(0b1100) /* inmate uses cores 2 and 3 */
-> +#define CONFIG_INMATE_BASE		(0xc0000000) /* entry point in DDR */
+> +#define CONFIG_INMATE_NAME		"inmate-demo"
+> +#define CONFIG_INMATE_CORE_BITMAP	(0b1000)
+> +#define CONFIG_INMATE_BASE		(0x00000000)
 > +
 > +/* Memory & peripherals */
 > +#define CONFIG_INMATE_REGIONS		\
-> +	MEM_REGION_RWXL(0xc0000000, CONFIG_INMATE_BASE, MB(16)),   /* RAM */    \
+> +	MEM_REGION_RWXL(0xc0000000, CONFIG_INMATE_BASE, MB(16)), /* RAM */ \
+> +	\
+> +	MEM_REGION_ROS( 0xfd900000, 0xfd900000, KB(4)),    /* IVSHMEM */ \
+> +	MEM_REGION_RWS( 0xfd901000, 0xfd901000, KB(36)),   /* IVSHMEM */ \
+> +	MEM_REGION_ROS( 0xfd90a000, 0xfd90a000, KB(8)),    /* IVSHMEM */ \
+> +	MEM_REGION_RWS( 0xfd90c000, 0xfd90c000, KB(8)),    /* IVSHMEM */ \
+> +	MEM_REGION_ROS( 0xfd90e000, 0xfd90e000, KB(8)),    /* IVSHMEM */ \
 
-Do we need the backslash at the end of the line? But nice, no more 
-fiddling with the array size. :)
+superfluous whitespaces.
+
+> +	\
+> +	MMIO_REGION_RW( 0x30890000, 0x30890000, KB(4)),    /* UART2 */   \
+
+No need for the backslash.
 
 > +
 > +/* GIC */
-> +#define CONFIG_INMATE_IRQCHIPS_ADDR	(0x38800000) /* GIC DISTRIBUTOR BASE ADDR */
+> +#define CONFIG_INMATE_IRQCHIPS_ADDR	(0x30890000)
 > +#define CONFIG_INMATE_IRQCHIPS_BASE	(32)
 > +#define CONFIG_INMATE_IRQCHIPS_BITMAP	\
 > +	/* interrupts 32..63 */         \
@@ -432,29 +338,31 @@ fiddling with the array size. :)
 > +	1 << (76 + 32 - 96), /* SPI */  \
 > +	/* interrupts 128..159 */       \
 > +	0
-
-I still think that rolling out the irqchip isn't worth it, LoC-wise. But 
-let's wait for further comments/suggestions.
-
-Thanks
-   Ralf
-
 > +
-> +#define CONFIG_INMATE_VPCI_IRQ_BASE	(76)
+> +#define CONFIG_INMATE_VPCI_IRQ_BASE	(76) /* IVSHMEM_IRQ */
 > +
 > +#define CONFIG_INMATE_PCI_DEVICES	\
 > +	PCI_DEVICE_IVSHMEM(2, 0, 0, 1, 1)
 > +
-> +/*
-> + * #define CONFIG_INMATE_CONSOLE \
-> + * 	CONSOLE(0x30890000, JAILHOUSE_CON_TYPE_IMX, \
-> + * 		JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4)
-> + */
+> +#define CONFIG_INMATE_CONSOLE \
+> +	CONSOLE(0x30890000, JAILHOUSE_CON_TYPE_IMX, \
+> +		JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4)
 > +
 > +#include "cell-create.h"
-> 
+
+In my opinion, it's good to have your patches and helper macros to 
+achieve more condensed configs. And they don't have any impact on 
+existing configurations. The open question is, if there are any other 
+plans on modifying the configuration format. We had a lots of discussion 
+on that topic before.
+
+So before posting a new series, I'd say to just wait for further 
+comments; no need to hurry.
+
+Thanks!
+   Ralf
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b585ed4e-136f-34c9-a9a6-8f98050ac3ed%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/51f0d564-bcba-23b2-1651-1525d3b35e4d%40oth-regensburg.de.
