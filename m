@@ -1,135 +1,127 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBEUWUWGQMGQEJPR5TOA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC2K5P7Y4QOBBPHGWCGQMGQE27G3RXQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x338.google.com (mail-wm1-x338.google.com [IPv6:2a00:1450:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E2B466D11
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Dec 2021 23:39:14 +0100 (CET)
-Received: by mail-wm1-x338.google.com with SMTP id g11-20020a1c200b000000b003320d092d08sf531614wmg.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 Dec 2021 14:39:14 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1638484754; cv=pass;
+Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB58C4688FC
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  5 Dec 2021 04:34:21 +0100 (CET)
+Received: by mail-lf1-x13d.google.com with SMTP id j9-20020a05651231c900b004037efe9fddsf2037646lfe.18
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 04 Dec 2021 19:34:21 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1638675261; cv=pass;
         d=google.com; s=arc-20160816;
-        b=I775SyoGG2rvT5Q6ZbeYdH6FVlxgadn8CwFdTmcazp755hwqY8zhv9wI2RQAY2CVZ0
-         iTAMnIqctGxmhrZ95n1S8VuUr2ap/8PV9IAYtuocpQJ1TAq51TLXjj283wXa6dRRbJ01
-         weVT3VqRfXf2AKWlVHI0ID/fQ7jAdLXjDuZX/w7MYrMcLb6N91W1i2C0v6SlUhhSjYUW
-         udJrB8UDH7RsiAZM+Y8yK0nDgAJPEC5Zg3acPASXGh2Fi5Q0evyyRLALt4WD6Ek+Us9p
-         kNVJpQ8GTpTcR0RGtlXYANV6oF6epoKGOq+A914R+dTAlZix1aokTg7WiDN6TWuXb62x
-         GsXg==
+        b=S5RgbQ8WYupSsBbO5YyGYQpAEwzg3rreEX8LzoJUeueoQjlAvsNVgaRXQQ4XR+eqZU
+         nlME9sxJ9wA47SoUsPDza44vdrWjn/ZY8n4nR4OTE2eYBLDJnT6x2mo61GsmMVUeIh/8
+         jQc8AaJpYpzwEHIbH5OOYGN2R7ys8wX7v80NezM24VhfQfiwzSCs66IorTYxdCzxLnZ6
+         ECaQxRUXzW8MYgDLz5s3eR2xVAFdkF8gZBp8kEbYNyD1LYo1SzhvlKJci6AFCAX7T9x6
+         SUQykTPjAzfoUJDJBs70Jpnxgav8kVmeqnNNEN0JSEFZ+x9kmXJGEY8jwC135qG5aO9R
+         oOug==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
-        b=QOcRR2ExYfdpnL1fN/zqk4uoudDPqCx/jZ4GLKTR8eyOwObz0WxfVUYmzOQjSRxxcj
-         3G2rx18+Jc3UwUDltPTOuKasH0fnmZnnCB8f9ZYsqx7FHwf25e4aqwzvdsSGy8QU4yYj
-         U+etDFIbnf90r+8+YWK7IGHTpy9h8uitrhgfQ5EFb2fRZVuRBaxG12QFSVQRxBxelkli
-         ipL3wjK3ptDrt2YrC5ywMiCrV5/Rc3VEBKHyzBuxZswC7ys5RN+I06kipf1YR17f/f+w
-         435pzZouema0O2LQuVwYfIaRvyk+3esDINCLghZcvfUmKWF2sGb20DYtba1AVTBFmawl
-         BjRA==
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=Z4BCG4hL3hHotu192VocBrnhHNsYm6xpX6crPbYWohg=;
+        b=yk4Y1jFZcnPag/EQB8R7ncPyJ28lc9KP/4BWP/NVpeLB78Eh5EoObpsuK/BanlsHH6
+         jsvIFtD2/7eTu3pOo5sPW+/9yc1qU9h+uqhjknbJAZQ5FdukFrXz4yJNcs4+k+w0kKWy
+         pA8psfLMVlj33T+IfIvxGomXliUbvlmKvyjq0c2DPDGJHaoDksuBgZc7jyPClmWs6a7p
+         XJ+Gf5FtRroiNzCzT30QeJkhA7oYM/7Hyfdr01V20g6r168NXq1yyJtElKy0P8Ppih0J
+         O97hgF1WnANZGlddmiQooY2bTMAvRAl1G2uxZBfd+h3Oy5XM4G8jjyvlOcj/nWcBMg0G
+         U+IQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=XxqWBIVU;
+       spf=pass (google.com: domain of royalnationalhospitalh@gmail.com designates 2a00:1450:4864:20::229 as permitted sender) smtp.mailfrom=royalnationalhospitalh@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to:x-original-sender
+        h=sender:mime-version:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=Z4BCG4hL3hHotu192VocBrnhHNsYm6xpX6crPbYWohg=;
+        b=Jb8bvbZzFOHsEQYwDAZZoT9KtwxT1AkM0ZQtXIGznb3Yedw4mMKDoqOhYVy83DPCXG
+         PzdAVWeNoXhrNlXhSMq8YmJtwirDdvEV+Z8gUP4AJsZhC03D3NW5tJ3+gG8QgqJVaiV9
+         KvKDo+42PRpN5cwSgIGFecc3lis1VCrk0M1AupLfCDm2wIfkdSNmdRbbwBe6QPCniA+l
+         wzx9IISewBAJu5Pt6ggJXTK0x98fzdIcW20/x+rhpQt0zIMdnLlKBoJx0xR7lmWkQjlS
+         KtB4RdO08fGZ2PQPouDbgTuEpK1Ipgv398jz3zxrCDngOsrVLPNyZy282Jg2nLRA0Tyd
+         83tg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
-        b=VL/PyYMNOrxMRs645txezrkYSRP0OcwIcL95ajchT12sA+1YA+QVEuiYUPH7fVioWX
-         9rnU9eG/yoPYVsJNDuXfQUKS5M0J/VE+582khclFRaCzgzrSyvk2zc7CWgJrv0lK0ooz
-         sK4jVxjdTfKO+igJze/zSaNQvkoPm24Yo7q3ZiEb8wehmqGDkDqGzTgx+Q2ozNVGm591
-         DHwbVhXPOqw+zdE1ssDfDdN4rgpCPsSfgsTkqa86dWEH3mjJB6mliLzKNLh7vUiEeTME
-         sLmASqiOS1ZfNjxT2tM9iIDmTGENNX7rDmwaoZS69z0EjTJfDjkelVEJ5SY051pnC6Zf
-         C2mA==
+        bh=Z4BCG4hL3hHotu192VocBrnhHNsYm6xpX6crPbYWohg=;
+        b=YRYsmZk91O8or95Arl8+h152ZFlUSofkPP04UQt0xXRq0vHGxBrTqsAhTOGUNKuMeb
+         JxLhCOc0enU7QegP5pTEuqS86XG+BiZliwCrCEU+xI1uj7J1Esi7/tUe3zratUpd9fyI
+         uiTcYqC3pkBmnzAg1sFQaow8y7NKoapE5+rM+jMAxLU2osq85p3Z5I5qp6h+PnsSSe/0
+         ciFwHCBot0IYVtX1xGlsBKsaxQP9xuvJjeUBS0lLX/xXeKTMs+VK9dljEZrLfmHxIU1s
+         z0y4q9oCIqB/wnQKHfd5O96B/olRMHWxZdeBIZvnIFCMFqu/NIPKRa496xi2pqOXyrsL
+         6Eaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=Pr3aYW1TAexS+TbgQjcIuqmyrQF9HdEK1+7cXsMIRq8=;
-        b=tbY2VPUxUKEcHIwcg1Eiq7Tws2kOiJ8mNFAJ1ECcUpaYVtnxa9a/wjpwESkdyvIo6O
-         Eh/Qe84RGC8FcT8P74CJTCLZ/6m+gGuOgS5Rv0G+HlYa+jq8xsP+Z4/ZV/UJ7M1m80F6
-         qxf/gRep662tSsIFzgK7XEanoiVzeOnKAFwXdYG5MlKUROz9+o5IOsbteNmKPu0XXu99
-         nCarCJxYprZ4l+obTUccFxjznZ3bhdk5254e7gFt1KpGnhbKSOE9d46ZDPYGIgipMKB+
-         1QS7FV+cTJaSn0O8szReFKH3EqM4b05xKUK6NRNWq37pVtQ7mfpL6K6Y7ZmYnKyDUp0P
-         T60w==
+        bh=Z4BCG4hL3hHotu192VocBrnhHNsYm6xpX6crPbYWohg=;
+        b=Dsm8Q1u+Iu5QS9G9tLbmQHFCXNnKOcwCaNPVgjaPT/KIdFqb7pIUaifFh/3AfTcKA6
+         ledM0Yf8/lZgLPWZZse1c+iwtwlTi4Blj7o2K4g59iWPp/I8zJ6AdNMw1neRKcUi98KU
+         34mpcbFiCaKkEFghmw9KxKLw1YSvw/03me2a7pgLhHc7zA05c4QQfy/x6DAdjJqaaaor
+         B7CYaXxwZtFydeoSjmA9snLJ20LlCFybWXf2H+OzdRCxrO1x0en7Pi8H/4hrhsp6tM11
+         no42XgA9CWsgPnvxg7XV+CIOIAhS5gSH5dWU7CLN5F/VOiGT3RwyREt7nwScUcL4nEF2
+         RuZg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533cHjVuw5GH2l6aIaJldtn6YVf1nwJWB8rYS0hLMQKGDYeDzeBA
-	ubcIscIo5w+kROrXUOVaRsM=
-X-Google-Smtp-Source: ABdhPJziaXAttP2pEs1P8SxD9DHvVnN+lX9bSWGz6PeIQujqRG+XjOISViRglXZfbWc+MFRRDJDtHg==
-X-Received: by 2002:adf:f189:: with SMTP id h9mr18251577wro.463.1638484754443;
-        Thu, 02 Dec 2021 14:39:14 -0800 (PST)
+X-Gm-Message-State: AOAM533DTG/XFMvtpFMvtnTe0nf/C8Fgf4S+LEe9is0z9sFGrRW9xIJk
+	wJBTEZnxcAQ91cIm0H9tchY=
+X-Google-Smtp-Source: ABdhPJzGYGnioUc7NYPTh8/9jVUTonKGbrnN7tjRITrscTlSJlXooY5yXLJ4GCcQ84Qo3x8WIJ15VQ==
+X-Received: by 2002:a2e:9b17:: with SMTP id u23mr28133812lji.258.1638675261260;
+        Sat, 04 Dec 2021 19:34:21 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:fe0b:: with SMTP id n11ls6220wrr.0.gmail; Thu, 02 Dec
- 2021 14:39:13 -0800 (PST)
-X-Received: by 2002:adf:d852:: with SMTP id k18mr17739228wrl.391.1638484753460;
-        Thu, 02 Dec 2021 14:39:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1638484753; cv=none;
+Received: by 2002:a05:6512:3d9e:: with SMTP id k30ls2072455lfv.1.gmail; Sat,
+ 04 Dec 2021 19:34:20 -0800 (PST)
+X-Received: by 2002:a05:6512:2295:: with SMTP id f21mr28220710lfu.259.1638675260159;
+        Sat, 04 Dec 2021 19:34:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1638675260; cv=none;
         d=google.com; s=arc-20160816;
-        b=Qe6V/v3+W0Oj0umQGmMcS78wJzqaKBMeLNHR1ZpWRZS0cDJ830ditZlyQPjYiVmifv
-         OBqbBZlnNI5HAPZtIqV1jralNwMLzKwZbHmba3c1cSGSHwVk8y047dAeZGoO2um4GWSN
-         /W5M+DShvBtI3YTo/tX3yJsQeFwStM/bUk79+/9jArRzjXZHYIKu2RSGNGsJ3KYowNee
-         G2T7DnfSI0Q7qw+/DR/lUwQhbF+CcRMztq4G0J2flGKwPHUagfcRkqi36Q/TpAvtpk7x
-         CoCF82ZDoWriDYz313XkxhyciG/8ZW31amFrDL10MnofU4LZITOaueu5u3gHheDWLrut
-         UlxA==
+        b=k2bY099PkzZmttMHTYFF5DSHFUITXxSTDRCskV9GseIaw/6WOhJVcHxQHMIWoTYQe9
+         dXflqzAP+NiI4TSP9r3OQYHre1wwbfWC+GXgi4SxNx7plZiKFnW0pgIeqATa6JwpDU38
+         8Mr915M1VUQu+ocVdrhz5TIFDAWdpiu/KRzBuuZa+AcZqq2zY4r2zavuNh+4BtDCxf/s
+         0MD/WcT+hZiyVzAzclyTFDA+YuVbpg5FOW2fSpUUzBf8LFL6A6S9rBWWobetZ2Gz4yY5
+         uBbsBqJwwHmG01HeGZKhk45jwuM9jUGrnkgvCNYdeo5Wuo3CV4yWkH5toEHM659rOYZU
+         V8sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=TGdkHD7ob5RXcnk6PWRU+o15tYit8ew9715gwJm2K/s=;
-        b=eRIFTxMYzaoFn1RL6DNq2ygjcoz8gvZhiE/w7vNeQsxMmhjbzMc4OMHV9mzH6uUIg2
-         r9kzKgXMV7iOmlpQqz+ASDd0YBcwegrPqRmygjnv6RlGG6q9eStuDAzeDVvVQUGfCP8k
-         dOdQjlNm52V5t9Vk06TMk9mOWOcCdRjtSsYGuk3gXY/MWWScz+km2EQ2/w5vXS81R7j+
-         IkX6YKKD3zBNJu5Bq0leUuxCZfdQDS9WN7b/IFqzpOzG91+6DtNOgBwgjYgqr5AENxAO
-         bYVSEo5EBJHNMKGayQngr96QTxhbKHpbyCl8UqA69E8RfPEtJWWlybh2SPTxoKAU/kEU
-         JJCg==
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=LPcOW1i8sELnvCxS+sTf68V1ZE//q7DLjOlwq5As8oU=;
+        b=xyHLblUF3pfgjKdYD/+uCkySWSrIJFjnxL64+gsVQNG2ysFNFtOO5ikBhas08W0V7R
+         Jf6nFHunWstUEz3l1/+Q8B20B79W+TGnb8AZL5vw9yyKk6nxH1zvxhSWs1jPoX2bASg5
+         ilmYpHZSO4kWyhAmCcFGo7p5hIPNtEfnJEwatGix0ljDk+OuSGX2S4hoV4s0AlFrnUy9
+         Uqd9NKaj9z1UGGoiy/hXUnixEydnfYo73fvgWX86blnZPJJMhWS9RCjuaSI5PaW4KBGp
+         F9UaMzPZi7SUFf6umW/nxha/CyBIz2HSpfQ6Bxm6uOFT33Xs7ae9q+DCkSJdgT7cB8xB
+         vcaw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id z3si239335wmi.2.2021.12.02.14.39.13
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=XxqWBIVU;
+       spf=pass (google.com: domain of royalnationalhospitalh@gmail.com designates 2a00:1450:4864:20::229 as permitted sender) smtp.mailfrom=royalnationalhospitalh@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com. [2a00:1450:4864:20::229])
+        by gmr-mx.google.com with ESMTPS id g21si519950lfv.11.2021.12.04.19.34.20
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 02 Dec 2021 14:39:13 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4J4rV90hGfzxs4;
-	Thu,  2 Dec 2021 23:39:13 +0100 (CET)
-Received: from [172.23.3.21] (194.95.106.138) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Thu, 2 Dec
- 2021 23:39:12 +0100
-Message-ID: <51f0d564-bcba-23b2-1651-1525d3b35e4d@oth-regensburg.de>
-Date: Thu, 2 Dec 2021 23:39:12 +0100
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 04 Dec 2021 19:34:20 -0800 (PST)
+Received-SPF: pass (google.com: domain of royalnationalhospitalh@gmail.com designates 2a00:1450:4864:20::229 as permitted sender) client-ip=2a00:1450:4864:20::229;
+Received: by mail-lj1-x229.google.com with SMTP id p8so14145304ljo.5
+        for <jailhouse-dev@googlegroups.com>; Sat, 04 Dec 2021 19:34:20 -0800 (PST)
+X-Received: by 2002:a2e:b528:: with SMTP id z8mr29210327ljm.178.1638675259998;
+ Sat, 04 Dec 2021 19:34:19 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [EXT] [PATCH v3 2/2] [RFC] configs: imx8mp: Convert a cell using
- helper files
-Content-Language: en-US
-To: Stephane Viau <stephane.viau@oss.nxp.com>,
-	<jailhouse-dev@googlegroups.com>, <jan.kiszka@siemens.com>
-References: <20211202154800.2671-1-stephane.viau@oss.nxp.com>
- <20211202154800.2671-3-stephane.viau@oss.nxp.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <20211202154800.2671-3-stephane.viau@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+From: hi <royalnationalhospitalh@gmail.com>
+Date: Sun, 5 Dec 2021 09:04:08 +0530
+Message-ID: <CADBYqjPb3=hh+RhfCCzHXdZWh2jfrBm+s8=X37v9GksJu81ZRg@mail.gmail.com>
+Subject: 1-1
+To: britishhighcommi111@gmail.com
+Content-Type: multipart/mixed; boundary="000000000000c6606405d25dd0dd"
+X-Original-Sender: royalnationalhospitalh@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZApZQODR;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@gmail.com header.s=20210112 header.b=XxqWBIVU;       spf=pass
+ (google.com: domain of royalnationalhospitalh@gmail.com designates
+ 2a00:1450:4864:20::229 as permitted sender) smtp.mailfrom=royalnationalhospitalh@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,227 +134,68 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+--000000000000c6606405d25dd0dd
+Content-Type: multipart/alternative; boundary="000000000000c6606305d25dd0db"
+
+--000000000000c6606305d25dd0db
+Content-Type: text/plain; charset="UTF-8"
 
 
-On 02/12/2021 16:48, Stephane Viau wrote:
-> Pick a cell and convert it to show the influence of these helper files.
-> 
-> Signed-off-by: Stephane Viau <stephane.viau@oss.nxp.com>
-> 
-> ---
-> 
-> v2 -> v3:
-> - Get rid of the *_NUM macros in config files and have them computed
->    instead (suggested by Ralf)
-> 
-> v2:
-> - Convert an existing cell to see the impact of the helper files
->    (suggested by Jan)
-> 
-> Signed-off-by: Stephane Viau <stephane.viau@oss.nxp.com>
-> ---
->   configs/arm64/imx8mp-inmate-demo.c | 161 ++++++++---------------------
->   1 file changed, 45 insertions(+), 116 deletions(-)
-
-nice diffstats.
-
-> 
-> diff --git a/configs/arm64/imx8mp-inmate-demo.c b/configs/arm64/imx8mp-inmate-demo.c
-> index 127392df..169177ad 100644
-> --- a/configs/arm64/imx8mp-inmate-demo.c
-> +++ b/configs/arm64/imx8mp-inmate-demo.c
-> @@ -1,126 +1,55 @@
->   /*
-> - * iMX8MM target - inmate-demo
-> + * iMX8MP target - inmate-demo
->    *
-> - * Copyright 2020 NXP
-> + * Copyright 2020-2021 NXP
->    *
->    * Authors:
->    *  Peng Fan <peng.fan@nxp.com>
-> + *  Stephane Viau <stephane.viau@oss.nxp.com>
->    *
->    * This work is licensed under the terms of the GNU GPL, version 2.  See
->    * the COPYING file in the top-level directory.
->    */
->   
-> -#include <jailhouse/types.h>
-> -#include <jailhouse/cell-config.h>
-> -
-> -struct {
-> -	struct jailhouse_cell_desc cell;
-> -	__u64 cpus[1];
-> -	struct jailhouse_memory mem_regions[8];
-> -	struct jailhouse_irqchip irqchips[1];
-> -	struct jailhouse_pci_device pci_devices[1];
-> -} __attribute__((packed)) config = {
-> -	.cell = {
-> -		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> -		.revision = JAILHOUSE_CONFIG_REVISION,
-> -		.name = "inmate-demo",
-> -		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> -
-> -		.cpu_set_size = sizeof(config.cpus),
-> -		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> -		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> -		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> -		/* IVSHMEM_IRQ - 32 */
-> -		.vpci_irq_base = 76, /* Not include 32 base */
-> -
-> -		.console = {
-> -			.address = 0x30890000,
-> -			.type = JAILHOUSE_CON_TYPE_IMX,
-> -			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> -				 JAILHOUSE_CON_REGDIST_4,
-> -		},
-> -	},
-> -
-> -	.cpus = {
-> -		0x8,
-> -	},
-> -
-> -	.mem_regions = {
-> -		/* IVSHMEM shared memory regions (demo) */
-> -		{
-> -			.phys_start = 0xfd900000,
-> -			.virt_start = 0xfd900000,
-> -			.size = 0x1000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		{
-> -			.phys_start = 0xfd901000,
-> -			.virt_start = 0xfd901000,
-> -			.size = 0x9000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> -				JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		{
-> -			.phys_start = 0xfd90a000,
-> -			.virt_start = 0xfd90a000,
-> -			.size = 0x2000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		{
-> -			.phys_start = 0xfd90c000,
-> -			.virt_start = 0xfd90c000,
-> -			.size = 0x2000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> -				JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		{
-> -			.phys_start = 0xfd90e000,
-> -			.virt_start = 0xfd90e000,
-> -			.size = 0x2000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		/* UART2 */ {
-> -			.phys_start = 0x30890000,
-> -			.virt_start = 0x30890000,
-> -			.size = 0x1000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> -				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> -		},
-> -		/* RAM: start from the bottom of inmate memory */ {
-> -			.phys_start = 0xc0000000,
-> -			.virt_start = 0,
-> -			.size = 0x00010000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> -				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-> -		},
-> -		/* communication region */ {
-> -			.virt_start = 0x80000000,
-> -			.size = 0x00001000,
-> -			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> -				JAILHOUSE_MEM_COMM_REGION,
-> -		},
-> -	},
-> -
-> -	.irqchips = {
-> -		/* GIC */ {
-> -			.address = 0x38800000,
-> -			.pin_base = 96,
-> -			.pin_bitmap = {
-> -				0x1 << (76 + 32 - 96) /* SPI 76 */
-> -			},
-> -		},
-> -	},
-> -
-> -	.pci_devices = {
-> -		{
-> -			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> -			.domain = 2,
-> -			.bdf = 0 << 3,
-> -			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-> -			.shmem_regions_start = 0,
-> -			.shmem_dev_id = 1,
-> -			.shmem_peers = 1,
-> -			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> -		},
-> -	},
-> -};
-> +#include "cell-helper.h"
-> +
-> +/* Name, cores, entry point */
-> +#define CONFIG_INMATE_NAME		"inmate-demo"
-> +#define CONFIG_INMATE_CORE_BITMAP	(0b1000)
-> +#define CONFIG_INMATE_BASE		(0x00000000)
-> +
-> +/* Memory & peripherals */
-> +#define CONFIG_INMATE_REGIONS		\
-> +	MEM_REGION_RWXL(0xc0000000, CONFIG_INMATE_BASE, MB(16)), /* RAM */ \
-> +	\
-> +	MEM_REGION_ROS( 0xfd900000, 0xfd900000, KB(4)),    /* IVSHMEM */ \
-> +	MEM_REGION_RWS( 0xfd901000, 0xfd901000, KB(36)),   /* IVSHMEM */ \
-> +	MEM_REGION_ROS( 0xfd90a000, 0xfd90a000, KB(8)),    /* IVSHMEM */ \
-> +	MEM_REGION_RWS( 0xfd90c000, 0xfd90c000, KB(8)),    /* IVSHMEM */ \
-> +	MEM_REGION_ROS( 0xfd90e000, 0xfd90e000, KB(8)),    /* IVSHMEM */ \
-
-superfluous whitespaces.
-
-> +	\
-> +	MMIO_REGION_RW( 0x30890000, 0x30890000, KB(4)),    /* UART2 */   \
-
-No need for the backslash.
-
-> +
-> +/* GIC */
-> +#define CONFIG_INMATE_IRQCHIPS_ADDR	(0x30890000)
-> +#define CONFIG_INMATE_IRQCHIPS_BASE	(32)
-> +#define CONFIG_INMATE_IRQCHIPS_BITMAP	\
-> +	/* interrupts 32..63 */         \
-> +	0,                              \
-> +	/* interrupts 64..95 */         \
-> +	0,                              \
-> +	/* interrupts 96..127 */        \
-> +	1 << (76 + 32 - 96), /* SPI */  \
-> +	/* interrupts 128..159 */       \
-> +	0
-> +
-> +#define CONFIG_INMATE_VPCI_IRQ_BASE	(76) /* IVSHMEM_IRQ */
-> +
-> +#define CONFIG_INMATE_PCI_DEVICES	\
-> +	PCI_DEVICE_IVSHMEM(2, 0, 0, 1, 1)
-> +
-> +#define CONFIG_INMATE_CONSOLE \
-> +	CONSOLE(0x30890000, JAILHOUSE_CON_TYPE_IMX, \
-> +		JAILHOUSE_CON_ACCESS_MMIO | JAILHOUSE_CON_REGDIST_4)
-> +
-> +#include "cell-create.h"
-
-In my opinion, it's good to have your patches and helper macros to 
-achieve more condensed configs. And they don't have any impact on 
-existing configurations. The open question is, if there are any other 
-plans on modifying the configuration format. We had a lots of discussion 
-on that topic before.
-
-So before posting a new series, I'd say to just wait for further 
-comments; no need to hurry.
-
-Thanks!
-   Ralf
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/51f0d564-bcba-23b2-1651-1525d3b35e4d%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CADBYqjPb3%3Dhh%2BRhfCCzHXdZWh2jfrBm%2Bs8%3DX37v9GksJu81ZRg%40mail.gmail.com.
+
+--000000000000c6606305d25dd0db
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CADBYqjPb3%3Dhh%2BRhfCCzHXdZWh2jfrBm%2Bs8%3DX37v9G=
+ksJu81ZRg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://=
+groups.google.com/d/msgid/jailhouse-dev/CADBYqjPb3%3Dhh%2BRhfCCzHXdZWh2jfrB=
+m%2Bs8%3DX37v9GksJu81ZRg%40mail.gmail.com</a>.<br />
+
+--000000000000c6606305d25dd0db--
+--000000000000c6606405d25dd0dd
+Content-Type: text/plain; charset="windows-1252"; name="a-c.txt"
+Content-Disposition: attachment; filename="a-c.txt"
+Content-Transfer-Encoding: base64
+Content-ID: <f_kwsov0tk0>
+X-Attachment-Id: f_kwsov0tk0
+
+VGhpcyBpcyB0byBpbmZvcm0geW91IHRoYXQgeW91IGhhdmUgd29uIGEgcHJpemUgbW9uZXkgb2Yg
+ozUwMCwwMDAuMDAsKE9uZSBIdW5kcmVkIGFuZCBGaWZ0eSBUaG91c2FuZCBQb3VuZHMpZnJvbSB0
+aGVDb2NhLUNvbGEgTG90dGVyeSBwcm9tb3Rpb24gVW5pdGVkIEtpbmdkb20gd2hpY2ggaXMgb3Jn
+YW5pemVkIGJ5IENvY2EtQ29sYSBpbiBjb25qdW5jdGlvbiB3aXRoIENoZXZyb24gVGV4YWNvIE9p
+bCBhbmQgR2FzIENvbXBhbnksIJNZb3VyIEVtYWlsIEFkZHJlc3MiIHdlcmUgc2VsZWN0ZWQgdGhy
+b3VnaCBhIGNvbXB1dGVyIGJhbGxvdCBzeXN0ZW0gZHJhd24gZnJvbSBOaW5lIGh1bmRyZWQgdGhv
+dXNhbmQgZW1haWwgZnJvbSBDYW5hZGEsIEF1c3RyYWxpYSwgVW5pdGVkIFN0YXRlcywgQXNpYSwg
+RXVyb3BlLCBNaWRkbGUgRWFzdCwgQWZyaWNhIGFuZCBPY2VhbmljIGFzIHBhcnQgb2Ygb3VyIGlu
+dGVybmF0aW9uYWwgcHJvbW90aW9ucyBwcm9ncmFtIHdoaWNoIGlzIGNvbmR1Y3RlZCBhbm51YWxs
+eSwgd2UgaGF2ZSBvbmx5IHNlbGVjdGVkIDIwIHBlb3BsZSBhcyBvdXIgd2lubmVycywgdGhyb3Vn
+aCBlbGVjdHJvbmljIGJhbGxvdCBTeXN0ZW0gd2l0aG91dCB0aGUgd2lubmVyIGFwcGx5aW5nLiAN
+ClZFUklGSUNBVElPTiBBTkQgRlVORFMgUkVMRUFTRSBGT1JNDQoxLiBGdWxsIG5hbWU6CQkNCjIu
+IEFkZHJlc3M6DQozLiBTZXggYW5kIEFnZQ0KNC4gU3RhdGU6IA0KNS4gVGVsZXBob25lIE51bWJl
+cjoNCjYuIE9jY3VwYXRpb246IA0KNy4gRW1haWw6DQo4LlN0YW1wIFNpemUgUGhvdG86CQ0KOC4g
+QmFuayBOYW1lLCBBY2MgTm8gYW5kIElmc2MgQ29kZToNClRvIGNsYWltIHlvdXIgcHJpemUsIHBs
+ZWFzZSBmaWxsIGFuZCBzdWJtaXQgeW91ciB2ZXJpZmljYXRpb24gZm9ybSBpbW1lZGlhdGVseSB2
+aWEgZW1haWwuIA0KRHIuIFJpY2hhcmQgRG9tbmljICAgd29ybGRjb2xhQGV1cm9wZS5jb20NCkZv
+cmVpZ24gU2VydmljZSBNYW5hZ2VyIA0KQ29jYS1Db2xhIExvdHRlcnkgKFB2dCkgTHRkLiANClRl
+bDogKzQ0NzQ0ODcyMjI2NjcNCkVtYWlsOiB3b3JsZGNvbGFAZXVyb3BlLmNvbQ0KSSB3YW50IHRv
+IENvbmdyYXR1bGF0ZSBZb3UgSW4gQWR2YW5jZSBhbmQgUGxlYXNlIERvIE5vdCBGb3JnZXQgdG8g
+SGVscCB0aGUgUG9vciBJbiB0aGUgU29jaWV0eSBXaGVuIENvY2EtQ29sYSBNYWtlcyBZb3UgYSBC
+ZW5lZmljaWFyeSBPZiB0aGVpciBXb3JsZCBPZiBXZWFsdGguDQpDb25ncmF0dWxhdGlvbnMgb25j
+ZSBhZ2FpbiAhISENCg==
+--000000000000c6606405d25dd0dd--
