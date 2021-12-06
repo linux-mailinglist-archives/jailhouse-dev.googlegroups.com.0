@@ -1,126 +1,136 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBV5CXCGQMGQE47U27CA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBTFDXCGQMGQEXG6GXBA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F4E9469731
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Dec 2021 14:34:16 +0100 (CET)
-Received: by mail-lj1-x238.google.com with SMTP id 2-20020a2e0902000000b00218c22336absf3489920ljj.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Dec 2021 05:34:16 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1638797655; cv=pass;
+Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB86346973F
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Dec 2021 14:36:12 +0100 (CET)
+Received: by mail-lf1-x13c.google.com with SMTP id d2-20020a0565123d0200b0040370d0d2fbsf3790186lfv.23
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Dec 2021 05:36:12 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1638797772; cv=pass;
         d=google.com; s=arc-20160816;
-        b=mvyPyE2TCgD6q8cnq+5hgTOGeU13cKVJdPuOjyJv2XGQS6UkchwQxO00GODoQ1cwXj
-         WKJF1vH9doxnha5Y8BfYZFt45vK8NBnj+P9zlsslAD4/4n3c1tU2dLpYnhnmA/bD5iIi
-         WDwnHHorqTTTT8nhK18Lv6QB/bAhkp9krZkmiyNQhapZ8Ump4gtFNQHJZrCEDNOo9klm
-         bkZK9h+2UP8FNsy1KxAxUssAFWsJ6LOh1lWKG3fnwUgR4xDbklKct2ES2t8DNeatGtDR
-         UbQlDWQgfz/u+I65TBqvZIEvxj+p0UCc5R8EH7HGP4MtOu1L9GBDfefYiiJF68zh4yZh
-         V8Dg==
+        b=MZxqGIUsx8ID6ze8jcSFqKrAuRNM5HZk8C6kprWhFnD5TTAkX4a+m3sMAU/cVVFQ/T
+         XXDVUXw1PvmqL3CvvUgCiYk+pogMQlL8ck7zh1a+hhW04o+RpJdXlVz6iNUUIMZvWsXa
+         +jG8jd+LNtUQoaVL7tqihOEWBxncgQMTAY3eWTjUL2PPdemTHa+0irp086LVocoWHbKX
+         ABYMb1RwK+BNjsEX2q7LvMFqc/rWD7aF6w3V2NLfPtmBQzSHPu4Nn4d8oIIoM+J7WHL5
+         4rP/sYtvXtry/GLIR2XVDcLsvebfcqMiblcfp5qMpPanCBuWI3A1ArVbbdSz0hjs6KFL
+         qpHQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=oL1osTxisDSr7s+/cuh5iMMDhabBav17qMr43DcNu7w=;
-        b=YICQvzfky2E43ZL1Id2KHs43caZkl4RT43EoDjJuBWcOJASEzL6rlzGUoSvRWDbAMK
-         iNn76Ip2SuzJcv+/JY/v2s93gYJDQQvetkadUuwdkSYiirTYTyvCHUiwaHr774BFB9t8
-         AQctHelQvwRI1YzDcEggXxMc2klq2INP62pqfXPexRDX8vsUUyCr1QFG+aTGCHQq01Z0
-         xqTC/CVd2IX+wD8wdTuaF85fh1SHgHaXtoWsAfW0TrwePkMCHsCSWzr4AvEI+PnZzmlG
-         2q1DKT0d/RNnzJK6n7KeS8Zk5OoKBoSAqpM7+8co6BLMFkprke4YVeEvVsK/DHSC/yMa
-         Wv8g==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:sender:dkim-signature;
+        bh=+SMDmnkfi7xWPUOv8GSRvVW917M6vwhTh48hre3SuKo=;
+        b=cUZilITaIHGFJ6hNxAhG5JWVkT4cFbSatuaACH06lppwYYY124Jrqgylk6ijMIFvL+
+         XIZcgRUGUpvJH610vJaLGhdQZma5rjQ5uo0yQaN1MTajUG3tbSub+/n0plhJpnk06Krm
+         npCNr+JAcKox8wsAxATEtNROwRbpbRAzMiubPwptKBOZW1n0UGTNoKnZc466aFp/PYB1
+         WIEAmDWC3sO0k82iW9VwApe9OYPmfbLCl29j/mNwCmhnaTUWrkyGU/h4HpWVzAzDd6PQ
+         VlJ+XhZjvojXeRKe8MzrmybtUVYpBAHqJVll4GIdaFll8UB3wR13oIoAoLz8Tv7LkBbL
+         578g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=LJ2SGMG+;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oMngRoWV;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=oL1osTxisDSr7s+/cuh5iMMDhabBav17qMr43DcNu7w=;
-        b=O2c+7hbhvH4vn8F5vguXAQG4YnSF0F/E54IJfGgJ5P7poWArbX9YuZTJx9f0FgcyYf
-         Y15xg87pxBfV9KrWRgIiLR5HhwCpkHx/SsWhiFPZZXDKv+rez8UdBzzLgUQW3u5LU10N
-         bA9ZWzVYDlt3hgi30z6eHOzLHCojwqUS1Hvk5o04TlMIk8qR7hDqVW/WPkHLg322H2FT
-         nJ0gDzDdC4qkUSCKGe2B9iPr1tzWS6KmK0mSyLP65o56eedJSV9/73JxyrwAXYMOqX33
-         U7xsP2gGE61NSJmRcXXit9z16o1HSzQ4H9WvZXPVbpdtpqEqb4Z2zO6oMT+Fz8knAi3k
-         Gm7w==
+        h=sender:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=+SMDmnkfi7xWPUOv8GSRvVW917M6vwhTh48hre3SuKo=;
+        b=nImw/WH35vjEKYabfOua+cLPN3xnxjCCnzNYCpzOiOQNbGBTn72L6FKzV7km8tJ0R6
+         etlbSFkAeOAja6J6smgxxUmyURGIt4jqkiy5nO3cWs5gc8bHXFXeh0lWgX5PRP3pYmu9
+         BkWgWbRfLQLdmOZfeQ01KCeG2r6etMUCzcGGqF4FzYUDAQtCh6ISZZnmtxOHWVp+zrEj
+         1DklosRjdLPVTZhnk4BhUnVYQ3BMhmtBHBIY2QJvhs9vp4K7UVv0EWo2eJJ4gtwohn3F
+         azRTQoK1csFhjTm73Al6SrtSdDbNNj2ZBDp7pv8yM3Mkj55Bv5trVHu7wwYFRb/NBzz9
+         Wv0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=oL1osTxisDSr7s+/cuh5iMMDhabBav17qMr43DcNu7w=;
-        b=r1AuWi0x3ocrWUdSthidTBZork9GjI1E0qaWqIyh0G5gDjz7xkcBrAWchV1F3uxGcg
-         w4v23w+xpUtYLzH8gP66e+nSTgg64MGn7a2xvpFksKhhOC4p5/z6ltjbQMvIH0HrR0Rn
-         J2i9yOuwQw8e6KyBcd412oLUAa1YAR4hpTObdLdkaz8NFpM7BOvYeMuBSwx7nwwm8uMC
-         98bEzO5HLwDixm2yYPx6627EXD2FBJKLF/YDNnV1+d50UEgghUIsTH66F86+gnsnwzOU
-         gp95EKQeI42CAWUWrSi97i7Dh/PZYF7mpRp36q9rxFMAxijHjZqOySnzgzaE6Bm78rcX
-         fZkA==
+        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
+         :subject:content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=+SMDmnkfi7xWPUOv8GSRvVW917M6vwhTh48hre3SuKo=;
+        b=Mi+qso4xzGxouJN1lwNURYOkd2Mn53myVj0ztPcLINV+mMYrSr9ZBpOuChEWOs6ODx
+         LTL/UbuRBZPYHsFE2+qmm1vNvumodrmatRQmaLwFwqNCT+avm9epANkoLD2WZ17lkVj1
+         IpLN0/ZnGp72XCFOe1wKya6MgQV5LCax/+Y18XhypcY4niu/QyN1MNOIyjRrUxmPXFS8
+         DdCgFWHGqdYRzZ03Zh3HcJGySMJSxXvfMD99N9veXiAq7LxVHDebGeCFNrVbLJ+vKpGC
+         l7e2Pwwrm9V8qrx5IwFho5eJTwICpZnP8ZuZmr4XCmBoVgYnbAzBAesGkHnB4X+fRBsK
+         4VFQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530YdaOAQANcJ8S7LuAbbV02ctxKhTPRjXTqY+jPTLaY/fh+jZTk
-	Deaz/BhQKnhRBrXAUmE93hw=
-X-Google-Smtp-Source: ABdhPJzNv2m8q5uZzY3gcoll51laMMNB6P2R6OZ9L70lBJBkFT+KYdzZlMXseBXbthRs6OlUzfMRMw==
-X-Received: by 2002:ac2:4e09:: with SMTP id e9mr33807740lfr.657.1638797655807;
-        Mon, 06 Dec 2021 05:34:15 -0800 (PST)
+X-Gm-Message-State: AOAM530KxIjhk/CnhsKUf+yTejaqovvFDgzciV0MMstJg3wHWvj2+/J/
+	CJHoYVZRAyVLfudrn+7nZFU=
+X-Google-Smtp-Source: ABdhPJzfigmyvcYz0lthz0cWRUxglIAFhV7No6GZVlGy8JvMbqOh9j+jMVFQDfS2rY7quF9uWhOdKw==
+X-Received: by 2002:a05:651c:1101:: with SMTP id d1mr36269497ljo.373.1638797772252;
+        Mon, 06 Dec 2021 05:36:12 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:651c:201a:: with SMTP id s26ls2579610ljo.5.gmail; Mon,
- 06 Dec 2021 05:34:14 -0800 (PST)
-X-Received: by 2002:a2e:7310:: with SMTP id o16mr36177195ljc.394.1638797654740;
-        Mon, 06 Dec 2021 05:34:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1638797654; cv=none;
+Received: by 2002:a2e:bc09:: with SMTP id b9ls2582757ljf.2.gmail; Mon, 06 Dec
+ 2021 05:36:11 -0800 (PST)
+X-Received: by 2002:a2e:a696:: with SMTP id q22mr34674412lje.423.1638797771222;
+        Mon, 06 Dec 2021 05:36:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1638797771; cv=none;
         d=google.com; s=arc-20160816;
-        b=fJ6EbkjiXnqNac6pGk2CBJArupUw4M84pehJ3lSFJA2IyNWyiuNoPrqsQEJ62+wRhB
-         kzx9Ql9oR97/4pQNrQ8PPh5/uSzhz5ZjyW4xf+JoMZ1kBJScfwtHD18548D031JUY4XR
-         ZiMzZQFmusFZ4icUhQq/VGH7PBZmPFLtZJEuDEYAd3gM5PxDKsAyIL3yBC8LWWRaD9dw
-         8jW9eTTaeHXhh9jIAHulhuTiQG6PprUvxwKhQQpqXsqguZi1pt4Vn3QLKTpVwDxKaHOA
-         iFHia9xodqK9HHi/EXo58RB5rfrlXXxiYiFKXdJkGB+/4h1B4xg/Vu2I/OaSKQq+vCBR
-         P6vQ==
+        b=HW/3r6Q297KAtVVukaCZrlIcVVs+SzNQoguBIe3iQbyhGKNHHhkHOQJxVbl1SmHnmW
+         +JCobqIxGdC8ZSCGgptFfdGvzeTeMO0XDxdUyhDkL2Ocapkra9Ju+SgZ3gHqnAAaE+rS
+         spl98o+wJh58lh3kZH8e76TLBEUDcqPzxzXDYJmPl91IZKFXkoNcnRcr/6MyTVJ6jTiH
+         LlKuvJX+S2r2QCG/3rMb+ZwQAIzn5uVcDILWO+J3MpS63NAzfneM/Hc+i6ReijMRpS97
+         7Wllm6pcBA7/lIbtnPBBQBhNScOfNuIC1BExs0cGub2FqySTndNBqA4u2Z8HK6GD1L5v
+         Hhtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=+iwKvG4xmQCKUrPxKULcCAPF3sxkV2sWncNdxsoYeUg=;
-        b=e1JRXNY2DRewtXbVzbGA064hX702rUTltsY9TUc+yGJsnul4AWk4AkryU5c/IjRieC
-         drzmrhWYpZo0Ly6eS/1c6pxpqtawrUf/ooghvGaHn+gPH1y6CxQTNJmRS71pQhfA3cL+
-         fSPBDR6lTLg/tImDfse/jj6vTbIHpnNREZfL74eNDXV8UEf/ikV+uUb9E6sCDOkff5/m
-         gj66v2oZsOCu9kV9PkkOyZW9yDat1pvxVu0z5dQ2tPvC1H1vSwQWtc0T5oFc1vHiFP9O
-         hjpP0nn5pbod7Q5mLX2KGWuRWJHWhDWi8boE+6YFIPFCP7DeJLnftLdEkozod5AO7Eom
-         ePuw==
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=L3K6XaH6ePqeLoNi7eZNFajd8F7IRqj5D54x/kz43NU=;
+        b=sxQrhHCI5IR+DlOw+ytVJB6TuufTEF6Z1TG5obN356kfKlnGlDp03d81VvH/IYCuuW
+         dIuhY/OCYORKgp0r9F9SfcxxMGP8I4L9+a46UBBpGf86WRxONHTCH0Q2k4ConJehnwAc
+         uBXSWc2bo8QaXuW/IlFB79rZQ0gUD/hiFeOUeUjZcGQb/miRLtrE3Ttj6OhotTSHQYEP
+         lol5e5q9q/Pwk4pRTsEiUDoHbxJbRkXvusZlP8PxPPM1e57Z8Xfk8ZuCiRvTt8sAu7Db
+         piOl8+72Ltik+x0qs86QDUI0OR9RpQTmZ20F3v+n4AYnpDr/00IMy4vIy3Eg0KrNterd
+         /HEA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=LJ2SGMG+;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oMngRoWV;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id b29si725566ljf.6.2021.12.06.05.34.14
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id d8si718614lfv.13.2021.12.06.05.36.10
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 06 Dec 2021 05:34:14 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+        Mon, 06 Dec 2021 05:36:11 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4J74CT56KRzyBC;
-	Mon,  6 Dec 2021 14:34:13 +0100 (CET)
-Received: from atlantis.home (194.95.106.138) by E16S03.hs-regensburg.de
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4J74Fk2zM5zy86;
+	Mon,  6 Dec 2021 14:36:10 +0100 (CET)
+Received: from [172.16.2.140] (194.95.106.138) by E16S03.hs-regensburg.de
  (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Mon, 6 Dec
- 2021 14:34:13 +0100
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+ 2021 14:36:10 +0100
+Message-ID: <f030cdc5-c6ea-78d0-8e39-93b098b27036@oth-regensburg.de>
+Date: Mon, 6 Dec 2021 14:36:09 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH v2] configs: x86: qemu: Add an extra variant for AMD
+Content-Language: en-US
 To: Jailhouse <jailhouse-dev@googlegroups.com>, Jan Kiszka
 	<jan.kiszka@siemens.com>
-CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, <meep@binary-kitchen.de>
-Subject: [PATCH v2] configs: x86: qemu: Add an extra variant for AMD
-Date: Mon, 6 Dec 2021 14:34:04 +0100
-Message-ID: <20211206133404.155078-1-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+CC: <meep@binary-kitchen.de>
+References: <20211206133404.155078-1-ralf.ramsauer@oth-regensburg.de>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <20211206133404.155078-1-ralf.ramsauer@oth-regensburg.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=LJ2SGMG+;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oMngRoWV;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -134,84 +144,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-If we want to use the qemu-x86.c on AMD platforms, we must not define
-Intel IOMMU units. Build an extra variant for AMD platforms.
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
- README.md              |  8 ++++++--
- configs/Makefile       | 11 +++++++++++
- configs/x86/qemu-x86.c |  2 ++
- 3 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/README.md b/README.md
-index f1b0cbe3..ac457119 100644
---- a/README.md
-+++ b/README.md
-@@ -288,11 +288,15 @@ installation steps.
- The Jailhouse QEMU cell config will block use of the serial port by the guest
- OS, so make sure that the guest kernel command line does NOT have its console
- set to log to the serial port (ie remove any 'console=ttyS0' arguments from the
--grub config). Reboot the guest and load jailhouse.ko. Then enable Jailhouse
--like this:
-+grub config). Reboot the guest and load jailhouse.ko. On Intel x86 platforms,
-+enable Jailhouse like this:
- 
-     jailhouse enable /path/to/qemu-x86.cell
- 
-+On AMD platforms, use:
-+
-+    jailhouse enable /path/to/qemu-x86-amd.cell
-+
- Next you can create a cell with a demonstration application as follows:
- 
-     jailhouse cell create /path/to/apic-demo.cell
-diff --git a/configs/Makefile b/configs/Makefile
-index 327043b7..5af0647a 100644
---- a/configs/Makefile
-+++ b/configs/Makefile
-@@ -28,6 +28,17 @@ OBJCOPYFLAGS := -O binary --remove-section=.note.gnu.property
- CONFIGS = $(shell cd $(src); ls $(SRCARCH)/*.c)
- 
- always-y := $(CONFIGS:.c=.cell)
-+ifeq ($(SRCARCH),x86)
-+	always-y += x86/qemu-x86-amd.cell
-+	targets += x86/qemu-x86-amd.o
-+endif
-+
-+$(obj)/x86/qemu-x86-amd.cell: $(obj)/x86/qemu-x86-amd.o
-+
-+$(obj)/x86/qemu-x86-amd.o: $(obj)/x86/qemu-x86.c FORCE
-+	$(call if_changed,cc_o_c)
-+
-+CFLAGS_x86/qemu-x86-amd.o += -D__IS_AMD
- 
- targets += $(CONFIGS:.c=.o) $(CONFIGS:.c=.cell)
- 
-diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
-index 9ca5c528..3f8f673b 100644
---- a/configs/x86/qemu-x86.c
-+++ b/configs/x86/qemu-x86.c
-@@ -45,6 +45,7 @@ struct {
- 		.platform_info = {
- 			.pci_mmconfig_base = 0xb0000000,
- 			.pci_mmconfig_end_bus = 0xff,
-+#ifndef __IS_AMD
- 			.iommu_units = {
- 				{
- 					.type = JAILHOUSE_IOMMU_INTEL,
-@@ -52,6 +53,7 @@ struct {
- 					.size = 0x1000,
- 				},
- 			},
-+#endif /* !__IS_AMD */
- 			.x86 = {
- 				.pm_timer_address = 0x608,
- 				.vtd_interrupt_limit = 256,
--- 
-2.34.1
+On 06/12/2021 14:34, Ralf Ramsauer wrote:
+> If we want to use the qemu-x86.c on AMD platforms, we must not define
+> Intel IOMMU units. Build an extra variant for AMD platforms.
+>=20
+> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+> ---
+>   README.md              |  8 ++++++--
+>   configs/Makefile       | 11 +++++++++++
+>   configs/x86/qemu-x86.c |  2 ++
+>   3 files changed, 19 insertions(+), 2 deletions(-)
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20211206133404.155078-1-ralf.ramsauer%40oth-regensburg.de.
+=E2=80=A6 The stats and the Makefile-fiddling show why I still prefer v1 of=
+ this=20
+patch over this one.
+
+   Ralf
+
+>=20
+> diff --git a/README.md b/README.md
+> index f1b0cbe3..ac457119 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -288,11 +288,15 @@ installation steps.
+>   The Jailhouse QEMU cell config will block use of the serial port by the=
+ guest
+>   OS, so make sure that the guest kernel command line does NOT have its c=
+onsole
+>   set to log to the serial port (ie remove any 'console=3DttyS0' argument=
+s from the
+> -grub config). Reboot the guest and load jailhouse.ko. Then enable Jailho=
+use
+> -like this:
+> +grub config). Reboot the guest and load jailhouse.ko. On Intel x86 platf=
+orms,
+> +enable Jailhouse like this:
+>  =20
+>       jailhouse enable /path/to/qemu-x86.cell
+>  =20
+> +On AMD platforms, use:
+> +
+> +    jailhouse enable /path/to/qemu-x86-amd.cell
+> +
+>   Next you can create a cell with a demonstration application as follows:
+>  =20
+>       jailhouse cell create /path/to/apic-demo.cell
+> diff --git a/configs/Makefile b/configs/Makefile
+> index 327043b7..5af0647a 100644
+> --- a/configs/Makefile
+> +++ b/configs/Makefile
+> @@ -28,6 +28,17 @@ OBJCOPYFLAGS :=3D -O binary --remove-section=3D.note.g=
+nu.property
+>   CONFIGS =3D $(shell cd $(src); ls $(SRCARCH)/*.c)
+>  =20
+>   always-y :=3D $(CONFIGS:.c=3D.cell)
+> +ifeq ($(SRCARCH),x86)
+> +	always-y +=3D x86/qemu-x86-amd.cell
+> +	targets +=3D x86/qemu-x86-amd.o
+> +endif
+> +
+> +$(obj)/x86/qemu-x86-amd.cell: $(obj)/x86/qemu-x86-amd.o
+> +
+> +$(obj)/x86/qemu-x86-amd.o: $(obj)/x86/qemu-x86.c FORCE
+> +	$(call if_changed,cc_o_c)
+> +
+> +CFLAGS_x86/qemu-x86-amd.o +=3D -D__IS_AMD
+>  =20
+>   targets +=3D $(CONFIGS:.c=3D.o) $(CONFIGS:.c=3D.cell)
+>  =20
+> diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+> index 9ca5c528..3f8f673b 100644
+> --- a/configs/x86/qemu-x86.c
+> +++ b/configs/x86/qemu-x86.c
+> @@ -45,6 +45,7 @@ struct {
+>   		.platform_info =3D {
+>   			.pci_mmconfig_base =3D 0xb0000000,
+>   			.pci_mmconfig_end_bus =3D 0xff,
+> +#ifndef __IS_AMD
+>   			.iommu_units =3D {
+>   				{
+>   					.type =3D JAILHOUSE_IOMMU_INTEL,
+> @@ -52,6 +53,7 @@ struct {
+>   					.size =3D 0x1000,
+>   				},
+>   			},
+> +#endif /* !__IS_AMD */
+>   			.x86 =3D {
+>   				.pm_timer_address =3D 0x608,
+>   				.vtd_interrupt_limit =3D 256,
+>=20
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/f030cdc5-c6ea-78d0-8e39-93b098b27036%40oth-regensburg.de.
