@@ -1,68 +1,69 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERBP5666GQMGQE52P2A4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCWJRXUWVQPBBXMXQ6HAMGQEXV35HGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x837.google.com (mail-qt1-x837.google.com [IPv6:2607:f8b0:4864:20::837])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC6CF479AF9
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 18 Dec 2021 14:16:48 +0100 (CET)
-Received: by mail-qt1-x837.google.com with SMTP id a8-20020ac86108000000b002b63fc40062sf5099430qtm.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 18 Dec 2021 05:16:48 -0800 (PST)
+Received: from mail-qv1-xf38.google.com (mail-qv1-xf38.google.com [IPv6:2607:f8b0:4864:20::f38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3135647BFEA
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Dec 2021 13:43:10 +0100 (CET)
+Received: by mail-qv1-xf38.google.com with SMTP id g15-20020a0562141ccf00b003cada9e7e2fsf12612032qvd.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Dec 2021 04:43:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=epbB/VgWyJzPNRLbymYxMsp25B8Bx+KaZSGDvo1uJuo=;
-        b=TN8uIKmYv2Z4EVBgA3Y+0h7pwCMTQLI5OnNQ+qqjsjSF9RVG32juhi3CZbmKcwjG5E
-         +3tWbAYubyaIWxEjS5Ov2ynoHlhFoxdGCmaVpT06Qx1/C+DHMLqpQnvo6eWlby4SModH
-         MqDCXWb6xImPtfbhqpS68iVHT0VwiPc3R7/PhRZyhlkPjm9UZXXc1aFYiUhGLv3VtreU
-         aflv3ws89NGG/hL1kloeGIqZgQPlsXelZS4B7z3Wx/hzwGqkVofKFyiicf3BCjxPB2/i
-         F0Qd+ujhnL5TIbnxBibnC5VX75nAqMI9WYlhgGbis0cZ2l60L2+qtpDvzRuBDs3wK/6R
-         QfoQ==
+        bh=ytsTiDrorrU5NghLqBGhRD62WjehWKF6DG/THyIXtRc=;
+        b=fwgc4kjaCHEz+sGNCJpAI7JyERRRJVKwwa9/zyRl4dNKe7JJMNZamlJHL3LLq38l9r
+         PcpJxoKZkmSD6+gf/4ffUP3Maig+Ui7VlHU1CFAVoLicfG4uyQr7X+lQJqbLYcTJrwty
+         ymBVVxeFtYIKBRw6nrIRYmmproJiZcQ8fiYfXV7MmYnGwAc/Te8I1WbnunRFzNaqYbKE
+         ehCDSXJA+6QEZwX3w+MnV1xZJYI0RJQSZAHSkcGFLALxHTPKvv1Ug0/bG5ntBFq9djbd
+         Z/HR94WmC2ozN2+zWcHcTE3wV92symrEFbvE6uDZcEOEnc2vHIcfS2MhvS6R7qFi8V2V
+         xeCg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=date:from:to:message-id:subject:mime-version:x-original-sender
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=epbB/VgWyJzPNRLbymYxMsp25B8Bx+KaZSGDvo1uJuo=;
-        b=UWr41iMyd0DO6Sb08b6xkQJHAsGGT0oHgHkp7UFPRuqVvKT5zY+nsvpEM6oCBh/oa8
-         6fJLDmhoGZQVloVIdL5hotwNk96huJvW3PByf8bn/HKUfE6Hqqg6+NAgNd0wQcek8LKJ
-         9FajvfhH8RGuMd5VPrG9PhxF7vdAEnenrOpKUAVLc26R1v5N+QVPkkkV1088KVxbHr2v
-         pG2Y+LXM6Z1TzCY4UbinCSyGoQ6f6POMBQlWD98LP1n2GqfYyoVTwg6OVu3QFXOwP1Mc
-         DETeIaJMddLDcjZb35sApzdeQaYtnNvAj8vk9ufzHflzLu5ae76HWZ2L6WeNrHQ9AhzE
-         N6dg==
+        bh=ytsTiDrorrU5NghLqBGhRD62WjehWKF6DG/THyIXtRc=;
+        b=oqc5GesgYuWHenMXvrShCkTvlTYPLid2Uc1yAg8HdwxJZGXhDFyxbdY3kzd/MIEAYL
+         d0RZ/ghzXjP5oOAmslp+jyT2/a49k3FBNjG12VRUoW8s9ncnTBzvR1EB33nXcMwzhFVV
+         GilDMFNlh8GVoP32DFkdmsmgR+mjpq266qftJuZD4dAARDJKHky3h/W7B5ZAD9PmYL6a
+         DplEhSK68rjNMsAFAcgJqxcsYjXS0K8uq7JbO3VW4C0QYMNBnoke0+yHaqbqyZD6H+V8
+         oX/CKsrHDewb0WKu7l9jusD9kcMqBlrjUr/GeSE2y+qbHWKT2Ol+2sMh1MtQ6zEZwrKB
+         3Ccw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=epbB/VgWyJzPNRLbymYxMsp25B8Bx+KaZSGDvo1uJuo=;
-        b=73fYxI5tT6Rm3N6I1sxGpkNlC5OCWWWg/9sJScIbBuY2AU9Xog3cEoQJhek03McoQq
-         Al7A0b8L1IEx/ZyUelnjC3TVhtLRMk1kBnJCVC78f7YVNmUu5FVy4yb5ILpxPe3b+P3R
-         HoNRUPUsbDL/yj6yyr0OHpaYZbi/REkpep2TKRJ5RlPhRtUitCL2HRjmo5vOk4YpPHCB
-         QuMwzta1K9v8oV0cKKnE2ZAKZ+WLckiIuGQlIv8EhJ7GZChY3txuj9FRJMHUd1fozA4y
-         nyf/D5GC8YeUVm4vhRxKaXUcvWiRrlO6T8lhobO/PkrGl2rf7sB1iluJzNWat/MnBTzh
-         sPLg==
+        bh=ytsTiDrorrU5NghLqBGhRD62WjehWKF6DG/THyIXtRc=;
+        b=0burCPu7rW64HS7Flt/4r5wBlkXTG7NDPoGz3YTQsRzlSzptQk56Gw1nxuyl2b5XXC
+         oEoKXw7MI+cLcKRVbP9SWzdXM1SxkH/z/JSVR58xcYLZx9ujrBtDpPhxoeo0/jfRn512
+         pArOxJfCZb9Kw9JugTInRtlmhQbj8QiPBkTVM+QBRHT3fnmJVfoqW17kSdvm2lnllU7b
+         5tbHka/qHY/Q1WUA5X+CKUtB3xE8q1TDhQBeqrXVya5DG39chenG+0WVgODUZ8jOtXyS
+         OSRbc/7px3ye4tZV/l9JZuD0Od2Tt16sc1qGzKE3Jo/VQ68mHmOQFFrNZQTBIxNH95ML
+         0C8Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5336qmSqS7MDi8mEt9q2Iiwr13wMUIkOA0PziCDEn9gtrOyuzTlA
-	u+j5O8rc9g9gdumcq2czm9M=
-X-Google-Smtp-Source: ABdhPJzK+Nu/GliFFwfQ6NoZ7mYSuhC/Em1F15Cyrk8SEEQ6l0kRyf9tjf5YCVecg/B7NIFqvGjmeg==
-X-Received: by 2002:a37:a611:: with SMTP id p17mr4713622qke.669.1639833407498;
-        Sat, 18 Dec 2021 05:16:47 -0800 (PST)
+X-Gm-Message-State: AOAM533YSZxiMKdu6QjB5lbGvmBlhL4W8g+okKGDgS9jvXEj7V/is89e
+	+glHCZvPgamVTUT3Lo1bcwE=
+X-Google-Smtp-Source: ABdhPJwuovWZpr4E1vYJGjNVsKcItzGhKwiSaxXU4Qobhmv68aFruG6Po2Z/9+/uFm7eHQy/B98E+A==
+X-Received: by 2002:a05:6214:da7:: with SMTP id h7mr2220320qvh.99.1640090589209;
+        Tue, 21 Dec 2021 04:43:09 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:4613:: with SMTP id br19ls5915920qkb.6.gmail; Sat,
- 18 Dec 2021 05:16:47 -0800 (PST)
-X-Received: by 2002:a05:620a:2886:: with SMTP id j6mr4590346qkp.316.1639833406751;
-        Sat, 18 Dec 2021 05:16:46 -0800 (PST)
-Date: Sat, 18 Dec 2021 05:16:46 -0800 (PST)
-From: Moustafa Nofal <mustafa13e09940@gmail.com>
+Received: by 2002:a0c:b3cf:: with SMTP id b15ls5054822qvf.1.gmail; Tue, 21 Dec
+ 2021 04:43:08 -0800 (PST)
+X-Received: by 2002:ad4:5d65:: with SMTP id fn5mr1977987qvb.10.1640090588711;
+        Tue, 21 Dec 2021 04:43:08 -0800 (PST)
+Date: Tue, 21 Dec 2021 04:43:08 -0800 (PST)
+From: jiajun huang <huangjiajun145041@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <b05b3ac9-dec3-40d5-a754-f9b75507e1edn@googlegroups.com>
-Subject: eth0 on RPi4 jailhouse-image
+Message-Id: <de30fff2-ed9d-4a83-8229-6cfd9a2ac99an@googlegroups.com>
+Subject: FATAL: unsupported instruction (0x83 0x00 0x00 0x00) (0xf3 0x00
+ 0x00 0x00)
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1980_1608490814.1639833406188"
-X-Original-Sender: mustafa13e09940@gmail.com
+	boundary="----=_Part_8764_518335703.1640090588134"
+X-Original-Sender: huangjiajun145041@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,35 +76,41 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1980_1608490814.1639833406188
+------=_Part_8764_518335703.1640090588134
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1981_1852986887.1639833406188"
+	boundary="----=_Part_8765_937930010.1640090588134"
 
-------=_Part_1981_1852986887.1639833406188
+------=_Part_8765_937930010.1640090588134
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi, 
-How to release the physical NIC from jailhouse? I mean I need the ethernet 
-interface to connect to a network, and I would replace it with a virtual 
-ethernet. The setup used is the image produced by jailhouse-image for 
-raspberry pi4. 
-Best regards,
-Moustafa Noufale
+Hi everyone,
+When I tried to add two ivshmem PCI devices to the root cell, a "FATAL:=20
+unsupported instruction" bug occurred. This bug is caused by=20
+x86_mmio_parse. How can I fix this bug? Below is my root-cell configuration=
+=20
+and log output from the port.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b05b3ac9-dec3-40d5-a754-f9b75507e1edn%40googlegroups.com.
+thanks=EF=BC=8C
+ Jiajun
 
-------=_Part_1981_1852986887.1639833406188
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/de30fff2-ed9d-4a83-8229-6cfd9a2ac99an%40googlegroups.com.
+
+------=_Part_8765_937930010.1640090588134
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi, <br><div>How to release the physical NIC from jailhouse? I mean I need =
-the ethernet interface to connect to a network, and I would replace it with=
- a virtual ethernet. The setup used is the image produced by jailhouse-imag=
-e for raspberry pi4. <br></div><div>Best regards,</div><div>Moustafa Noufal=
-e<br></div>
+Hi everyone,<div>When I tried to add two ivshmem PCI devices to the root ce=
+ll, a "FATAL: unsupported instruction" bug occurred. This bug is caused by =
+x86_mmio_parse. How can I fix this bug? Below is my root-cell configuration=
+ and log output from the port.<div><br></div><div>thanks=EF=BC=8C</div><div=
+>&nbsp;Jiajun</div></div>
 
 <p></p>
 
@@ -114,11 +121,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/b05b3ac9-dec3-40d5-a754-f9b75507e1edn%40googlegrou=
+om/d/msgid/jailhouse-dev/de30fff2-ed9d-4a83-8229-6cfd9a2ac99an%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/b05b3ac9-dec3-40d5-a754-f9b75507e1edn%40googlegroups.co=
+msgid/jailhouse-dev/de30fff2-ed9d-4a83-8229-6cfd9a2ac99an%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_1981_1852986887.1639833406188--
+------=_Part_8765_937930010.1640090588134--
 
-------=_Part_1980_1608490814.1639833406188--
+------=_Part_8764_518335703.1640090588134--
