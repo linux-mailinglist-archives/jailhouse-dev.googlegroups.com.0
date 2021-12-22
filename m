@@ -1,71 +1,215 @@
-Return-Path: <jailhouse-dev+bncBCWJRXUWVQPBBGGWRSHAMGQESUCY5GI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC44VTVY2UERBAHHRSHAMGQE5JI5QFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x737.google.com (mail-qk1-x737.google.com [IPv6:2607:f8b0:4864:20::737])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1B4747D31E
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Dec 2021 14:41:45 +0100 (CET)
-Received: by mail-qk1-x737.google.com with SMTP id bm33-20020a05620a19a100b0046f1b6f3526sf1711842qkb.21
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Dec 2021 05:41:45 -0800 (PST)
+Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7416747D374
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Dec 2021 15:17:37 +0100 (CET)
+Received: by mail-wm1-x33b.google.com with SMTP id a203-20020a1c7fd4000000b0034574187420sf3075836wmd.5
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Dec 2021 06:17:37 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1640182657; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=sJ3Q1+2K/I9wUTPCsQwjk2Zh5I1gU2RUcWSo3i1vX2sXI7iEDceSp4GX8CT/4nydUT
+         4UjtwcwcXf9J5S6RVaqNpTz6GXZ3bCEWoKKnKn1DqvR/i/cqYOseT4dLypCrP+Pirxjr
+         5i2OWPtaC8qM286UJvbFNDJU/dtDSzpX1Nw1ISCk7UbH2HlFTKQyXvoACXsE0kprBy/7
+         wYufdcYfE4xB1oMj5gpkpr8kCutzNVc1fWmeowtqu8ryCWCBnBhH5xR25Uzm0c/718hr
+         Dmss9FGnG7R0jSnRSs5T7RrXRyWYSDnQQOg/4l1rGaZn21MflaQZcO6E2APEWnpcbKqt
+         kJ4A==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version
+         :content-transfer-encoding:content-id:user-agent:content-language
+         :accept-language:in-reply-to:references:message-id:date:thread-index
+         :thread-topic:subject:to:from:sender:dkim-signature;
+        bh=Lw/5iA+1MEgrQm420EvfqUrSZlgX/oquT5cDmod9oQY=;
+        b=g466lfJN2Qlqfm3OLEnI3V/CJ2GX9sBuXvP1zvA3USDKQEnMF04haoUHwgzyPqyjon
+         ev9duN2ka0NYRB3WQv4LZeQ7i7crP9jfOqzV7sOVxUaAxqYWGqYQZDp+nAP2ea7DwAVY
+         O9kdIa62nG0rhBJ0LX5lIYsw92ueCO5Jet5ntqrcNvKCJl0tEeqT8lp2BUT+GmwM80Jn
+         jj9ufvYVKb1epQQotn39a/ytBCTd1ub8HGTYDkzCSdxQGIyGenNDkZqtFePcpDis7GiP
+         yvJ+CmPCFUIoEofteEH9gOPd+HpARuo/uYTZzb7scbvm9C4v0CTPRB4pVWmFpSqny6Zg
+         vE7Q==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=D4IJE2qu;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of florian.bezdeka@siemens.com designates 40.107.14.42 as permitted sender) smtp.mailfrom=florian.bezdeka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:from:to:subject:thread-topic:thread-index:date:message-id
+         :references:in-reply-to:accept-language:content-language:user-agent
+         :content-id:content-transfer-encoding:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=URfAEo3YQe4Juq97f6CbhLA7WfZapnhmFxsy7z8Nc60=;
-        b=Kw32rbp9fEKvPdDTMvRcRNpx6lPi2MO/sOpUOuVSRcLQyF/Y3slJmTYd0FP7y7Gqfm
-         CGgdYfj2cF+y7QSQdubLxJOnyr136U4EQfIkTgBnGOKY/YbsLjT7SgiMsdT6C8BDKNtA
-         HBD8jEDPdyW4SfpTw/i57okQu8AdPMhxPQyx3DLI1nkjE9Lw3jddG6S72BPB9LGNUxD5
-         JELDiy8N2ymAKTxqrWr25YYqqQqmcwD41soImAtHOHAWViM9Id6Kcj3Ml3tpJRVK6Z+e
-         YCS14aS4S3bSGsYJ4cca6xqAyM2uJhDoIrVWdW61BxPPJRRxiG7ZOZpHsNFoMXdgJ1sk
-         8QFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=URfAEo3YQe4Juq97f6CbhLA7WfZapnhmFxsy7z8Nc60=;
-        b=QjFP/3xiHEIqQindpPu5yehqFxMX+oJMDtlHN3D3CqPT9srqt4shLgJxkMSraXAEfp
-         upQyxrzrtapEbIYYeBkHf52IQPe1YGQa3zk3TuRd/W9SVUteslqhMpZyA/nS047Qf4EY
-         eAv7RYcApByVicVouL8X06GiqQoxOHTxiZFox4BXBe564grVYoYVG78jLeVHPDgfEFvH
-         xYh7uWfNKw6h5cIYMRNSmWAW6pdBDjzQM9OAD1CypcEGL/vRYxnk3uvL4vYkXUbYp6Q6
-         NDInYTrSTzJ00nKGJO8hsAW/0gLg8Rnm3FvlYbEaG4pqlvHQhE/kO4OHzr+g/o83Js4k
-         nQ0A==
+        bh=Lw/5iA+1MEgrQm420EvfqUrSZlgX/oquT5cDmod9oQY=;
+        b=d0wrl/pPuwcGgaaCaXD4OkvROpNQ+crggveP5ZvOEKTFZAKGqS5jcqsxLA5tkpKaRZ
+         uN2fNyYAXk+synhSjn13yRQUXpuIezSurlDgJrShNbM6qhKbQp5sWpw1kNrhpoRpYSkG
+         StBmUjgP6cBjcDz3//L0xl+fz+JJGnCoTJxS7JFDaShWttBIPQRujbLuOKdvjkwPMeni
+         XbUdY79r7PUs0wXKEUWiHWzmPQZ1oFWqtPZqgfkl1zPNVV+dIbJVCknim5CQRP2xLy+c
+         4tBcbQ56UDCqodBKhjXqW3Ebk78qCxqQjNtWWzNvXWGBlCaNcqAEQISZwuKuHLPdXjjN
+         +aOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=URfAEo3YQe4Juq97f6CbhLA7WfZapnhmFxsy7z8Nc60=;
-        b=ovcLKRXmhMQ8/i9GdLp5hNRRqJvCyNl5W3D0/I+3S2/A33TnCzZetBnxmGfotVWrD9
-         SQ/K0FW54N0QzBuRqxMk8Tdv8coK8mkNAJly6sOnSY0F2uHn9S3Jb2tH6AIE3JyP6mq2
-         oHepFjYleGX6spRf/iNkTtgiYNSNUyaOQzM5R3kMKa+Lazj7zMhPfEHuyr1/hm3y4KoG
-         HNC5ptSQO4E4eNiAV5KmO4ZiYYVYUJZXVrhgqYmYAw4rxhZK2wwJFYtDrr00/buZ2Y9E
-         EWLFgsAVfy0RBbu9RYFVE8nayvFRCoc2o0hgz+UgMPyiOvkSsTdi2z7TZ7wng38yb7qj
-         1Vsw==
+        h=sender:x-gm-message-state:from:to:subject:thread-topic:thread-index
+         :date:message-id:references:in-reply-to:accept-language
+         :content-language:user-agent:content-id:content-transfer-encoding
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Lw/5iA+1MEgrQm420EvfqUrSZlgX/oquT5cDmod9oQY=;
+        b=FOTaIwPFnr2lWDG2jCOJLBVCh17SbrFKwY+VMKwvZuc4x1zUxtsBDqWahA4RMDVrYK
+         YfNa33m/xWDkdj7Eam2jbdOiS3+4UJQhq+q/HsS4DPMgaQC8GFlVU7btcHTLwx0rRvAw
+         bj9CTuQQ5/nCK1PTHM81MDJ1fVqSvuoRzqp+sfZJR3jsfHTV6VSEG4CVn0+iohtz4+RK
+         BfWgkgl26PR29W9gMZNBjgnw8WArUFPM6/HnPm9bdYsZs8Q7C0XTrEXESmkSptlHxXeP
+         jQlPOKe824zRd07ucHuyr0JJb2v97yw8xNOPQJf+pjzoDMCRLt+GEK4nMwITqq7AYrld
+         YMtg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532yAcVda9qA3uve5IcNLbhgAxav0eqDKdGanlH8FNwWc/W1w6uE
-	eJ0MJgrxem1e6SA5F4yI7lM=
-X-Google-Smtp-Source: ABdhPJw7Fqlj1hKE/KAirkpuTPFRR81w+5Pchgu73CM6lo7CVg7WqK9xVUbS1/nrylkaj400BWSWyw==
-X-Received: by 2002:a05:6214:e49:: with SMTP id o9mr2369659qvc.71.1640180504965;
-        Wed, 22 Dec 2021 05:41:44 -0800 (PST)
+X-Gm-Message-State: AOAM5328ROO38tVAZ8tqf4RohPKIIxL2MWtmz91vLnYXdzBVYspD+RHE
+	E/9TSYy5O4LYRrcLmWT6ed4=
+X-Google-Smtp-Source: ABdhPJx97lb8n8YUpXK2s3JGrh5p/XFlyCCuqIvaCsx7HKSi8YoM6co5/XliLVp7n4ICTTSIWR5/PA==
+X-Received: by 2002:adf:eb0f:: with SMTP id s15mr2292726wrn.690.1640182657037;
+        Wed, 22 Dec 2021 06:17:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5dcc:: with SMTP id e12ls1025319qtx.11.gmail; Wed, 22
- Dec 2021 05:41:44 -0800 (PST)
-X-Received: by 2002:a05:622a:1a0b:: with SMTP id f11mr2094052qtb.454.1640180504590;
-        Wed, 22 Dec 2021 05:41:44 -0800 (PST)
-Date: Wed, 22 Dec 2021 05:41:44 -0800 (PST)
-From: jiajun huang <huangjiajun145041@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <1f2bc22d-a7ef-4834-bc6a-c247ffe1aaa9n@googlegroups.com>
-In-Reply-To: <667ecb2b-daa0-400f-a92c-8fbc3facf672n@googlegroups.com>
-References: <db157b8a-dadc-440b-9385-1278ef5d7097n@googlegroups.com>
- <667ecb2b-daa0-400f-a92c-8fbc3facf672n@googlegroups.com>
+Received: by 2002:a5d:5082:: with SMTP id a2ls393793wrt.1.gmail; Wed, 22 Dec
+ 2021 06:17:36 -0800 (PST)
+X-Received: by 2002:adf:97c2:: with SMTP id t2mr2279936wrb.577.1640182656260;
+        Wed, 22 Dec 2021 06:17:36 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1640182656; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=KnQndTeOXFWs4UH2In27Vey65l76JzyRe8RFfvdJnUhBgdZyaZmNHHM+tk5353/tYy
+         Z1lHTnyQxFG7+xsdcAJavxURWJw9YQ/DQ08LHOEDEKaWyVaEwOnRg341PZZIKsFxj4Qf
+         StJkIT6f4RB4M3IS7MZr4Y3tsCHpE8Ys5w49U89+9dbT8uxilzeCsanDA1xnzwb0CUnx
+         r9tIPOE6qflcwIsXaomYfetdRCGm1MzfDy6oqFAIrS2anVbG7ZxzW0eIyDys/Pvjw7/d
+         F1LGKQ6BWgCpKknYd+9KxqAQNOuIejwE3I0ubBV7FS+uxmIVGgP48nRKTY7hBRPFJsG0
+         Ozlg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-id:user-agent
+         :content-language:accept-language:in-reply-to:references:message-id
+         :date:thread-index:thread-topic:subject:to:from:dkim-signature;
+        bh=xdNJ1lLFs8uFXWM2+AD8oTy8FY1ancD04waWaL3FN/U=;
+        b=F/bUfv0Aa20KuJCpkrTrYG9YozcU9GOWGOrmLYzJTYAvGqmeURBknW0PM1guPcAgln
+         EjfC9EJj+a3+ovyEzTkgDIXSBhmtBZRCts3d2tGEsyzFxaDhMuLD3yTA4whSDP8uMtHp
+         uXPCwUatqrvAND4f+iQvPDir8r9c6RIEH4CFVzoxVnlIOGEDaXb1PIusq2/51BVp6Tj8
+         2iQYTk0Zr5rcBfa2qXB4lQOI6VTgnJpi9iOyVXqqy9lptYnpPzrAJ1WxmIssMWrnrGxb
+         HvOr4zun6YnI325ipEqBSXoBH3JSn79M3Va+3FqVlo0RGWxldPtdhZPOD1vcq393h5bh
+         UXww==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=D4IJE2qu;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of florian.bezdeka@siemens.com designates 40.107.14.42 as permitted sender) smtp.mailfrom=florian.bezdeka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (mail-eopbgr140042.outbound.protection.outlook.com. [40.107.14.42])
+        by gmr-mx.google.com with ESMTPS id ay11si290158wmb.0.2021.12.22.06.17.36
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 22 Dec 2021 06:17:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of florian.bezdeka@siemens.com designates 40.107.14.42 as permitted sender) client-ip=40.107.14.42;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J8R/sGIkdwjcpKrODesRoEDdz4jOcACftebK0D8BUPZP5gN/88MDYLVaroWWhKFlCx4sCU1dxRkI0aUUCjrRgTP4vPkQsIA+IUtbs7NDHk78kX5PVZ7CXTKsTKHWrxx6rLVI8XL+tUNd96JC7maxAJpd6vHpPtZyqTkrWH5rR86eqNM9QkptckAM+Tdkpnq61BSzEweTam7KSw6kGRCX5wxL+dYYiki4e6v4bkgrdZoHvEZ4yt5BQVQCqmw3bYVvZXnuEFfNY5GSMp2c/VNqcUe77tyEgXOauvRriaRaXd2HmJbeP62hIq0zwyrks3EZPaXY7mH7JR3fPksa1Dlmyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xdNJ1lLFs8uFXWM2+AD8oTy8FY1ancD04waWaL3FN/U=;
+ b=Imw3XvR0vNUfRV5qTHDMvl7xBjrYLOmypAQV5NddrZCyrmPh/ZY/is0dUzFb/Kba+PQzNMYjh3XSipDvteJUzaAVLXetP00KX4ITo6PHLwzleiMVb15Cbh1SfYAs9WsIdOxQLNmrC2HbkKXWJH77Tlm6QJGNE3ETho2TlBE/VKMmupy5paZ7avLJBc5jhOZA6P9NnIt5ahE/Wah3oNB+ZVPrCj/hvVHZiVrtolvluKLLLUcX4ATvw+MQtOnJepg227os5J4xx7/uHkEov31rfH3rGNLe3b8YMrrpqO2CFbraElrz/0MTTKFHTbcP7Oyqpvj3bYbJ1LnCxrp3NQhC4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+Received: from AM0PR10MB1906.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:49::10)
+ by AM0PR10MB2977.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:158::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Wed, 22 Dec
+ 2021 14:17:35 +0000
+Received: from AM0PR10MB1906.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::cd44:8985:dbe5:dc0]) by AM0PR10MB1906.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::cd44:8985:dbe5:dc0%4]) with mapi id 15.20.4801.023; Wed, 22 Dec 2021
+ 14:17:34 +0000
+From: "Bezdeka, Florian" <florian.bezdeka@siemens.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
+	"huangjiajun145041@gmail.com" <huangjiajun145041@gmail.com>
 Subject: Re: FATAL: Unhandled VM-Exit, reason 2
+Thread-Topic: FATAL: Unhandled VM-Exit, reason 2
+Thread-Index: AQHX9zll1kEOxXgNtECZVvZtiJyBGKw+juAA
+Date: Wed, 22 Dec 2021 14:17:34 +0000
+Message-ID: <64fa037aefed1d130bc0d3a49ccc3d09d5b504bc.camel@siemens.com>
+References: <db157b8a-dadc-440b-9385-1278ef5d7097n@googlegroups.com>
+In-Reply-To: <db157b8a-dadc-440b-9385-1278ef5d7097n@googlegroups.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.42.2 (3.42.2-1.fc35)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 834309d7-aae2-4e39-a062-08d9c555ccb8
+x-ms-traffictypediagnostic: AM0PR10MB2977:EE_
+x-microsoft-antispam-prvs: <AM0PR10MB2977424113EEB3460896C877F67D9@AM0PR10MB2977.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ap/a3QgxUVTUrr5nFEaSgcG/x8Vahc0X8BzX1SjFBoI6kSmAhbd42/Iur22QVhENeRDhV8uKk/Mmd+Q2DXgbmPoo9dAOwsIfnASehP2xwgmEE83cbuf+g20R4HdZh7CYJNI9zstoffD0anMXR6FOcWIh0BVSsCpHDrbd0o5kkcPPc17ZSKcMrfca0uq0JnfJsHrarqFoH7qEMnmt0M2iwGX7Hak3zn/EKoOAxAJ27sa0nKHirmR7vPnZopplB2A1rxuIUuTnmcp5MnIrRUJzHQ7d+HINCeHqaRu7wzjy9XnKyVjBxmYWPneVtxFbnk7DRP+z4e3N3VPqdRs/ufOM4lVjVFwk4CuKKfbLpy7iXuFebW+MzYvOjvFyr29PG2LbcAUusf/naeAH4CBm8X/RsEVet4wb+hk50D56RKvOmcbFS/0qp49y4OsAxgWS9S3keQx3y0ICacyH2nugEEu9gj4DJhHRCHDvVoKCRgsqiN1Jdf8RWKXrSc7jGr8w0P3O4TLb1r0YkDRA+fLwvwaVgycTarK9qg/QGIOnh0uUcGtszgaaOa96OY+7Y4XqYE2COlTf2nlmbuZ/CI/NPPEpokmCyOH5svwYP66lUPrj45l0Db5lsoUsm157BBjEJOdV1TkfD/aALX7CiErjrdOYoN4LF9UKEnrun7JYDon0L+geUs3f+xF4FF15TjlkvOfgXgrEzJvu1TkpZbI5cLRkCg==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR10MB1906.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(4636009)(366004)(76116006)(6512007)(38070700005)(66946007)(82960400001)(4001150100001)(186003)(86362001)(71200400001)(110136005)(91956017)(64756008)(66556008)(6506007)(2906002)(66476007)(8676002)(122000001)(36756003)(2616005)(83380400001)(38100700002)(316002)(5660300002)(6486002)(8936002)(508600001)(66446008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dDhMbW45WDh1UXhXWVZsSE9ZNG9ZbEpMdXFCQ0N1UmNIVXRORDJOaFpQNHpY?=
+ =?utf-8?B?UVp5MkZwLytWWG1xTm5VemN5NERvRHZDZTd3emhDTGt5NGJlTlRTSkJ0ckEw?=
+ =?utf-8?B?TW1HTmJ0V1k4ZU5jU0VBNitnYTc4UU1teXJaQUFJc1lBT0NhMUpXNXRraG5l?=
+ =?utf-8?B?QUtTWmJsV3dPRk96cC9KS0dhcVFQZnh5RitOcktjQ1F3RXZSbFBHMDdIc0RZ?=
+ =?utf-8?B?dEhHejBkOTE1N2lKbjNCZ3hlQS9POENkWU5CQmk4NXdid0NjeXJOM2orOVlj?=
+ =?utf-8?B?dGtnTG12cS9XU3JIWTdUVktoR2g4Y0d1Rzg4U1FaT0poTkppTU9CckRFQ0Fz?=
+ =?utf-8?B?T29iVW9PNm9NZGhRcnBsMVhuTkZCc1p3QzE2Ym1yblR2UExPbGx1WFNMcDJO?=
+ =?utf-8?B?aVNpeTRFMXNtbEM2Vzg1c1J2c1NCUTZxQlNpVjJWYVBtZGVwQnNjUWF0REM0?=
+ =?utf-8?B?azRFOXlKMW5vZGcwNWdyWVBTTUVTbjRBMll5Rkt0Y2g4Ujk5WnRDQlJsSUFF?=
+ =?utf-8?B?bnVpNDljWnRHMWZrOFc1OHBRRVdsdlg5N2RzOTVKbDV6MFBvcVpvT3J6azRH?=
+ =?utf-8?B?T0VDRmtYS1NwaENYZTJrb1grRE43N2NHcHNVR3ZyZHBXTWNManBVOVdrK0Vt?=
+ =?utf-8?B?T29HeFpFTzJidWNNY3dreEtoazh0TC9QZlBlY1BwN0d1ZlRtUnMwdXI5dzdB?=
+ =?utf-8?B?ZVAzNVd5NTllRjNyQlRYaUYyWDhzRWlHejAwNUEyb0xwRThvZWdlUzhkSWxu?=
+ =?utf-8?B?emhET2dUb3R3aDgwdFl0Y0dpVWtpb2tYakVBaXpBVkh2RjRQS01IRCtUMmlQ?=
+ =?utf-8?B?enV2UWEvNE8wUGh3dGd6SW53UDJVVmhLcUM5KzJ4RnpyN0lFRHdUeUdrdmRV?=
+ =?utf-8?B?UHZNbEVEdnR1YisvTHJxckE3T1Uyc1loMW9HWHNVZWl1RENnTnJSanhnUFFj?=
+ =?utf-8?B?NWxJcnVDaFU2QS9Vb0EydkVTZU15YWlIL0ZvWndaQ1h1ejVVTmxFVjhFRXAv?=
+ =?utf-8?B?b3I2WjYvRjhOQmQrUDJPeVRCQVdoS1p2UDBFOGdiNGFKVVYvRUZyYjdhcUdt?=
+ =?utf-8?B?S0djU2ZTM0hKRHlqSHR5RllzVUNRZllrYUt2N09oeEZtaXo4L2hxSS9XdXho?=
+ =?utf-8?B?QUZlN1FDZGVmeTBDRTJUcEJObXU5RkdpUlZmYi9qUVczOVZtQ3p3OFphK0x2?=
+ =?utf-8?B?dFRlNUJjeU00UGFpeEtkek5HSWtnV0xxb1B0K2xuYktZSVZ4SWlWMXJtdTB4?=
+ =?utf-8?B?MUoxNENGb1NTU2dsRWZDVEdBSVhMRXZYY2pCMkZuaktGdVB4bVlzMlBRTE96?=
+ =?utf-8?B?aGpXMmJxVjg5STNENnkzbkdIVFRQVzhGd0k4R29BRHFoMEpHOUFPODZzYmt6?=
+ =?utf-8?B?S3VmZVRlTk9NR0RNM1RpeHh6NUtSenJBVDM3S0xUazVITXVXU1FRckdIQi9y?=
+ =?utf-8?B?Q1FMTEJaZ1R1N2xNMXVtcXVkZUJjRC9SMUlGeVhaUmYyTkphZGt2cnNkUWhw?=
+ =?utf-8?B?YnVBWFhjcTRWVkNCZlVMT0xBTmJVK0t0dEM2ODNiVldveFBxaTF0QnJVUEEx?=
+ =?utf-8?B?RlZuaHZ5UE85d25KNVB6VDF6cGtpNE05bHg3WVdmWUxUeHVndWloaFBxMFFx?=
+ =?utf-8?B?ZEtiQ1VxOHpYbVdCVjJMRjQ3TnFzUUd2YWt1MmpGc1Y3OGN2dU0yMWpNZzBI?=
+ =?utf-8?B?dXptY3FjQzJ5L003ekFwRUp2MDdvNlYwc2g3Qm5BZEJmVnNYbjJwZUdrc1Vs?=
+ =?utf-8?B?VUo0VmM2QTdHQWZmTEZ6OFA2U3FZM3N2RHZiVi96NzZRVXc4NkJTWWxnMTdR?=
+ =?utf-8?B?UTNtWDlTakVWNTFqMlJRUldUMkRjTk9JMUJwSVQyaWMxUkRQTWN3VklOZDZC?=
+ =?utf-8?B?YzFFSWY1NWt2YmxhdWY2WDJqR29TQnpuc1B3RjdVN1RaZEVFSEVNY0xsY2J2?=
+ =?utf-8?B?RXlZRHlneFdUSTIwaGZGaWt6M3gxaTE5dkljdlBrZ201ZEZib04ya01PS0dz?=
+ =?utf-8?B?TGdlVmpHOGJkd0pvK21PYXZ6M3Z0N2R1ekFyZ2VabHdvUmt3c3l2TmZra2F4?=
+ =?utf-8?B?UURSQUJSMTZGeERmRWV0b0R1dURteUR0S3BhY1ZHMWlBTmZ6Tmh4REM2Sk1W?=
+ =?utf-8?B?R0ZsM0xRenNQZEJkR1VKVitkUEc2L3BvdjNnRFZQMURjeVZZVnJ0RHUvRVJ0?=
+ =?utf-8?B?WUt0dTYrSW15VWYrVjVwQ2I5Mkd4UTN0aWdrUUhraHloVGlYYjNDL3B1R1ZD?=
+ =?utf-8?B?QzZFa28zNnJNSXZvNEFDTDV2bnVvSGd0WDFLMHplR3c4TGxrUE9ZYzN3MTBZ?=
+ =?utf-8?B?eHdCS1hlSU44VldzQjlGdkY2dkVxOGU5aWhYR2ZMekpRWkFFaXl5bis4ZHlq?=
+ =?utf-8?Q?y887MX8ip0ySuNTw=3D?=
+Content-Type: text/plain; charset="UTF-8"
+Content-ID: <9B627E7A3DF0C74BA68BC93F2B8DBEE0@EURPRD10.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_9880_53882015.1640180504147"
-X-Original-Sender: huangjiajun145041@gmail.com
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR10MB1906.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 834309d7-aae2-4e39-a062-08d9c555ccb8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Dec 2021 14:17:34.6554
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WPvP8VfWqsbYwclrqb9rWSAnfjQ8FT6B0AtkHmSMXKHaAapppOQ3z+0X8sv7iE2MsFxZbHayu7XBikzdosE7KcHUAqh4VkJcEL7aOY37Www=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB2977
+X-Original-Sender: florian.bezdeka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@siemens.com header.s=selector2 header.b=D4IJE2qu;       arc=pass
+ (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass
+ fromdomain=siemens.com);       spf=pass (google.com: domain of
+ florian.bezdeka@siemens.com designates 40.107.14.42 as permitted sender)
+ smtp.mailfrom=florian.bezdeka@siemens.com;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,510 +222,38 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_9880_53882015.1640180504147
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_9881_541247545.1640180504147"
-
-------=_Part_9881_541247545.1640180504147
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-=20
-
-Initializing Jailhouse hypervisor v0.12 (294-g6af5edf-dirty) on CPU 7
-
-Code location: 0xfffffffff0000050
-
-Using x2APIC
-
-Page pool usage after early setup: mem 134/32207, remap 0/131072
-
-Initializing processors:
-
- CPU 7... (APIC ID 38) OK
-
- CPU 4... (APIC ID 32) OK
-
- CPU 5... (APIC ID 34) OK
-
- CPU 6... (APIC ID 36) OK
-
- CPU 1... (APIC ID 2) OK
-
- CPU 0... (APIC ID 0) OK
-
- CPU 2... (APIC ID 4) OK
-
- CPU 3... (APIC ID 6) OK
-
-Initializing unit: VT-d
-
-DMAR unit @0xfbffe000/0x1000
-
-DMAR unit @0xdfffc000/0x1000
-
-Reserving 24 interrupt(s) for device 00:1f.7 at index 0
-
-Reserving 24 interrupt(s) for device 00:05.4 at index 24
-
-Reserving 24 interrupt(s) for device 80:05.4 at index 48
-
-Initializing unit: IOAPIC
-
-Initializing unit: Cache Allocation Technology
-
-Initializing unit: PCI
-
-Adding PCI device 00:00.0 to cell "RootCell"
-
-Adding virtual PCI device 00:17.0 to cell "RootCell"
-
-Adding virtual PCI device 00:18.0 to cell "RootCell"
-
-Adding PCI device 00:01.0 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 00:01.0 at index 72
-
-Adding PCI device 00:01.1 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 00:01.1 at index 74
-
-Adding PCI device 00:03.0 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 00:03.0 at index 76
-
-Adding PCI device 00:03.2 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 00:03.2 at index 78
-
-Adding PCI device 00:05.0 to cell "RootCell"
-
-Adding PCI device 00:05.2 to cell "RootCell"
-
-Adding PCI device 00:05.4 to cell "RootCell"
-
-Adding PCI device 00:11.0 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 00:11.0 at index 80
-
-Adding PCI device 00:1a.0 to cell "RootCell"
-
-Adding PCI device 00:1c.0 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 00:1c.0 at index 81
-
-Adding PCI device 00:1c.1 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 00:1c.1 at index 82
-
-Adding PCI device 00:1c.3 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 00:1c.3 at index 83
-
-Adding PCI device 00:1d.0 to cell "RootCell"
-
-Adding PCI device 00:1e.0 to cell "RootCell"
-
-Adding PCI device 00:1f.0 to cell "RootCell"
-
-Adding PCI device 00:1f.2 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 00:1f.2 at index 84
-
-Adding PCI device 00:1f.3 to cell "RootCell"
-
-Adding PCI device 06:00.0 to cell "RootCell"
-
-Reserving 5 interrupt(s) for device 06:00.0 at index 85
-
-Adding PCI device 07:00.0 to cell "RootCell"
-
-Reserving 5 interrupt(s) for device 07:00.0 at index 90
-
-Adding PCI device 08:00.0 to cell "RootCell"
-
-Reserving 1 interrupt(s) for device 08:00.0 at index 95
-
-Adding PCI device 09:00.0 to cell "RootCell"
-
-Adding PCI device 7f:08.0 to cell "RootCell"
-
-Adding PCI device 7f:09.0 to cell "RootCell"
-
-Adding PCI device 7f:0a.0 to cell "RootCell"
-
-Adding PCI device 7f:0a.1 to cell "RootCell"
-
-Adding PCI device 7f:0a.2 to cell "RootCell"
-
-Adding PCI device 7f:0a.3 to cell "RootCell"
-
-Adding PCI device 7f:0b.0 to cell "RootCell"
-
-Adding PCI device 7f:0b.3 to cell "RootCell"
-
-Adding PCI device 7f:0c.0 to cell "RootCell"
-
-Adding PCI device 7f:0c.1 to cell "RootCell"
-
-Adding PCI device 7f:0d.0 to cell "RootCell"
-
-Adding PCI device 7f:0d.1 to cell "RootCell"
-
-Adding PCI device 7f:0e.0 to cell "RootCell"
-
-Adding PCI device 7f:0e.1 to cell "RootCell"
-
-Adding PCI device 7f:0f.0 to cell "RootCell"
-
-Adding PCI device 7f:0f.1 to cell "RootCell"
-
-Adding PCI device 7f:0f.2 to cell "RootCell"
-
-Adding PCI device 7f:0f.3 to cell "RootCell"
-
-Adding PCI device 7f:0f.4 to cell "RootCell"
-
-Adding PCI device 7f:0f.5 to cell "RootCell"
-
-Adding PCI device 7f:10.0 to cell "RootCell"
-
-Adding PCI device 7f:10.1 to cell "RootCell"
-
-Adding PCI device 7f:10.2 to cell "RootCell"
-
-Adding PCI device 7f:10.3 to cell "RootCell"
-
-Adding PCI device 7f:10.4 to cell "RootCell"
-
-Adding PCI device 7f:10.5 to cell "RootCell"
-
-Adding PCI device 7f:10.6 to cell "RootCell"
-
-Adding PCI device 7f:10.7 to cell "RootCell"
-
-Adding PCI device 7f:13.0 to cell "RootCell"
-
-Adding PCI device 7f:13.1 to cell "RootCell"
-
-Adding PCI device 7f:13.4 to cell "RootCell"
-
-Adding PCI device 7f:13.5 to cell "RootCell"
-
-Adding PCI device 7f:16.0 to cell "RootCell"
-
-Adding PCI device 7f:16.1 to cell "RootCell"
-
-Adding PCI device 7f:16.2 to cell "RootCell"
-
-Adding PCI device 80:03.0 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 80:03.0 at index 96
-
-Adding PCI device 80:03.2 to cell "RootCell"
-
-Reserving 2 interrupt(s) for device 80:03.2 at index 98
-
-Adding PCI device 80:05.0 to cell "RootCell"
-
-Adding PCI device 80:05.2 to cell "RootCell"
-
-Adding PCI device 80:05.4 to cell "RootCell"
-
-Adding PCI device ff:08.0 to cell "RootCell"
-
-Adding PCI device ff:09.0 to cell "RootCell"
-
-Adding PCI device ff:0a.0 to cell "RootCell"
-
-Adding PCI device ff:0a.1 to cell "RootCell"
-
-Adding PCI device ff:0a.2 to cell "RootCell"
-
-Adding PCI device ff:0a.3 to cell "RootCell"
-
-Adding PCI device ff:0b.0 to cell "RootCell"
-
-Adding PCI device ff:0b.3 to cell "RootCell"
-
-Adding PCI device ff:0c.0 to cell "RootCell"
-
-Adding PCI device ff:0c.1 to cell "RootCell"
-
-Adding PCI device ff:0d.0 to cell "RootCell"
-
-Adding PCI device ff:0d.1 to cell "RootCell"
-
-Adding PCI device ff:0e.0 to cell "RootCell"
-
-Adding PCI device ff:0e.1 to cell "RootCell"
-
-Adding PCI device ff:0f.0 to cell "RootCell"
-
-Adding PCI device ff:0f.1 to cell "RootCell"
-
-Adding PCI device ff:0f.2 to cell "RootCell"
-
-Adding PCI device ff:0f.3 to cell "RootCell"
-
-Adding PCI device ff:0f.4 to cell "RootCell"
-
-Adding PCI device ff:0f.5 to cell "RootCell"
-
-Adding PCI device ff:10.0 to cell "RootCell"
-
-Adding PCI device ff:10.1 to cell "RootCell"
-
-Adding PCI device ff:10.2 to cell "RootCell"
-
-Adding PCI device ff:10.3 to cell "RootCell"
-
-Adding PCI device ff:10.4 to cell "RootCell"
-
-Adding PCI device ff:10.5 to cell "RootCell"
-
-Adding PCI device ff:10.6 to cell "RootCell"
-
-Adding PCI device ff:10.7 to cell "RootCell"
-
-Adding PCI device ff:13.0 to cell "RootCell"
-
-Adding PCI device ff:13.1 to cell "RootCell"
-
-Adding PCI device ff:13.4 to cell "RootCell"
-
-Adding PCI device ff:13.5 to cell "RootCell"
-
-Adding PCI device ff:16.0 to cell "RootCell"
-
-Adding PCI device ff:16.1 to cell "RootCell"
-
-Adding PCI device ff:16.2 to cell "RootCell"
-
-Page pool usage after late setup: mem 469/32207, remap 65549/131072
-
-Activating hypervisor
-
-Adding virtual PCI device 00:17.0 to cell "nuttx"
-
-Shared memory connection established, peer cells:
-
- "RootCell"
-
-Adding virtual PCI device 00:18.0 to cell "nuttx"
-
-Shared memory connection established, peer cells:
-
- "RootCell"
-
-Created cell "nuttx"
-
-Page pool usage after cell creation: mem 1001/32207, remap 65549/131072
-
-Cell "nuttx" can be loaded
-
-CPU 3 received SIPI, vector 100
-
-Started cell "nuttx"
-
-FATAL: Unhandled VM-Exit, reason 2
-
-qualification 0
-
-vectoring info: 0 interrupt info: 0
-
-RIP: 0x0000000100939685 RSP: 0x0000000100da4d28 FLAGS: 10006
-
-RAX: 0x00000000000326a0 RBX: 0x0000000100da4d40 RCX: 0x000000000000003e
-
-RDX: 0x000000000010a003 RSI: 0x000000000010a000 RDI: 0x0000000000104010
-
-CS: 8 BASE: 0x0000000000000000 AR-BYTES: 2099 EFER.LMA 1
-
-CR0: 0x0000000080010033 CR3: 0x0000000000102000 CR4: 0x00000000000326a0
-
-EFER: 0x0000000000000500
-
-Parking CPU 3 (Cell: "nuttx")
-
-
-
-=E5=9C=A82021=E5=B9=B412=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
-+8 21:41:09<jiajun huang> =E5=86=99=E9=81=93=EF=BC=9A
-
-> nuttx.c
->
-> #include <jailhouse/types.h>
-> #include <jailhouse/cell-config.h>
->
-> struct {
-> struct jailhouse_cell_desc cell;
-> __u64 cpus[1];
-> struct jailhouse_memory mem_regions[9];
-> struct jailhouse_cache cache_regions[1];
-> struct jailhouse_irqchip irqchips[3];
-> struct jailhouse_pio pio_regions[3];
-> struct jailhouse_pci_device pci_devices[2];
-> struct jailhouse_pci_capability pci_caps[0];
->
-> } __attribute__((packed)) config =3D {
-> .cell =3D {
-> .signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
-> .revision =3D JAILHOUSE_CONFIG_REVISION,
-> .name =3D "nuttx",
-> .flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,
-> .cpu_set_size =3D sizeof(config.cpus),
-> .num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
-> .num_cache_regions =3D ARRAY_SIZE(config.cache_regions),
-> .num_irqchips =3D ARRAY_SIZE(config.irqchips),
-> .num_pio_regions =3D ARRAY_SIZE(config.pio_regions),
-> .num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
-> .num_pci_caps =3D ARRAY_SIZE(config.pci_caps),
-> .console =3D {
-> .type =3D JAILHOUSE_CON_TYPE_8250,
-> .flags =3D JAILHOUSE_CON_ACCESS_PIO,
-> .address =3D 0x3f8,
-> },
-> },
->
-> .cpus =3D {
-> 0x8,
-> },
->
-> .mem_regions =3D {
-> /* MemRegion: 57a000000-5d9ffffff : JAILHOUSE Inmate Memory */
-> {
-> .phys_start =3D 0x57a000000,
-> .virt_start =3D 0x57a000000,
-> .size =3D 0x1000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x57a001000,
-> .virt_start =3D 0,
-> .size =3D 0x40000000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |
-> JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x5ba001000,
-> .virt_start =3D 0x5ba001000,
-> .size =3D 0x4000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> },
-> {
-> .phys_start =3D 0x5ba005000,
-> .virt_start =3D 0x5ba005000,
-> .size =3D 0x4000,
-> .flags =3D JAILHOUSE_MEM_READ| JAILHOUSE_MEM_WRITE |=20
-> JAILHOUSE_MEM_ROOTSHARED,
-> },
-> /* communication region */ {
-> .virt_start =3D 0x5ba010000,
-> .size =3D 0x00001000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_COMM_REGION,
-> },
-> JAILHOUSE_SHMEM_NET_REGIONS(0x5ba205000, 1),
-> },
->
-> .cache_regions =3D {
-> {
-> .start =3D 0,
-> .size =3D 2,
-> .type =3D JAILHOUSE_CACHE_L3,
-> },
-> },
->
-> .irqchips =3D {
-> /* IOAPIC 0, GSI base 0 */
-> {
-> .address =3D 0xfec00000,
-> .id =3D 0x100ff,
-> .pin_bitmap =3D {
-> 0x000001
-> },
-> },
-> /* IOAPIC 2, GSI base 24 */
-> {
-> .address =3D 0xfec01000,
-> .id =3D 0x1002c,
-> .pin_bitmap =3D {
-> 0x000000
-> },
-> },
-> /* IOAPIC 3, GSI base 48 */
-> {
-> .address =3D 0xfec40000,
-> .id =3D 0x802c,
-> .pin_bitmap =3D {
-> 0x000000
-> },
-> },
-> },
->
-> .pio_regions =3D {
-> /* Port I/O: 0020-0021 : pic1 */
-> PIO_RANGE(0x20, 0x2),
-> /* Port I/O: 00a0-00a1 : pic2 */
-> PIO_RANGE(0xa0, 0x2),
-> /* Port I/O: 03f8-03ff : serial */
-> PIO_RANGE(0x3f8, 0x8),
-> },
-> .pci_devices =3D {
-> {=20
-> .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-> .iommu =3D 1,
-> .domain =3D 0x0,
-> .bdf =3D 0x17 << 3,
-> .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
-> .num_msix_vectors =3D 16,
-> .shmem_regions_start =3D 0,
-> .shmem_dev_id =3D 1,
-> .shmem_peers =3D 2,
-> .shmem_protocol =3D 0x0002,
-> },
-> {=20
-> .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-> .iommu =3D 1,
-> .domain =3D 0x0,
-> .bdf =3D 0x18 << 3,
-> .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
-> .num_msix_vectors =3D 2,
-> .shmem_regions_start =3D 5,
-> .shmem_dev_id =3D 1,
-> .shmem_peers =3D 2,
-> .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
-> },
-> },
->
-> .pci_caps =3D {
-> },
-> };
->
-> =E5=9C=A82021=E5=B9=B412=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 U=
-TC+8 21:39:52<jiajun huang> =E5=86=99=E9=81=93=EF=BC=9A
->
->> Dear Jailhouse community=EF=BC=8C
->> This bug occurred when I tried to start nuttx on a none-root cell on the=
-=20
->> server. I added two ivshmem devices for nuttx. Below is my configuration=
-=20
->> file. I am not sure if there is a problem with the mmio area in the=20
->> configuration file. What is the communication area? In addition, if=20
->> jailhouse runs in QEMU, can two virtual machines communicate with each=
-=20
->> other through ivshmem-net?
->>
->> Below is my root-cell , nuttx configuration and log output from the port=
-.
->>
->> Best regards,
->>
->> Jiajun Huang
->>
->>
+On Wed, 2021-12-22 at 05:39 -0800, jiajun huang wrote:
+> Dear Jailhouse community=EF=BC=8C
+> This bug occurred when I tried to start nuttx on a none-root cell on
+> the server. I added two ivshmem devices for nuttx. Below is my
+> configuration file. I am not sure if there is a problem with the mmio
+> area in the configuration file. What is the communication area? In
+> addition, if jailhouse runs in QEMU, can two virtual machines
+> communicate with each other through ivshmem-net?
+>=20
+> Below is my root-cell , nuttx configuration and log output from the
+> port.
+
+Have you validated your cell configurations with the jailhouse config
+checker? I did not look into your configuration in detail, but nearly
+all of your inmate memory blocks are tagged with
+"JAILHOUSE_MEM_ROOTSHARED" which seems uncommon.
+
+I would start step by step. So start from a configuration where you
+know that both cells are booting up. Add virtual NICs afterwards and
+make sure that IRQs are delivered to ivshmem devices.
+
+Are you able to follow the boot log of your inmate? Hopefully you will
+see the reason for the VM exit there.
+
+HTH,
+Florian
+
+>=20
+> Best regards,
+>=20
+> Jiajun Huang
+>=20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -589,295 +261,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1f2bc22d-a7ef-4834-bc6a-c247ffe1aaa9n%40googlegroups.com.
-
-------=_Part_9881_541247545.1640180504147
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-
-
-
-<p>Initializing Jailhouse hypervisor v0.12 (294-g6af5edf-dirty) on CPU 7</p=
->
-<p>Code location: 0xfffffffff0000050</p>
-<p>Using x2APIC</p>
-<p>Page pool usage after early setup: mem 134/32207, remap 0/131072</p>
-<p>Initializing processors:</p>
-<p>&nbsp;CPU 7... (APIC ID 38) OK</p>
-<p>&nbsp;CPU 4... (APIC ID 32) OK</p>
-<p>&nbsp;CPU 5... (APIC ID 34) OK</p>
-<p>&nbsp;CPU 6... (APIC ID 36) OK</p>
-<p>&nbsp;CPU 1... (APIC ID 2) OK</p>
-<p>&nbsp;CPU 0... (APIC ID 0) OK</p>
-<p>&nbsp;CPU 2... (APIC ID 4) OK</p>
-<p>&nbsp;CPU 3... (APIC ID 6) OK</p>
-<p>Initializing unit: VT-d</p>
-<p>DMAR unit @0xfbffe000/0x1000</p>
-<p>DMAR unit @0xdfffc000/0x1000</p>
-<p>Reserving 24 interrupt(s) for device 00:1f.7 at index 0</p>
-<p>Reserving 24 interrupt(s) for device 00:05.4 at index 24</p>
-<p>Reserving 24 interrupt(s) for device 80:05.4 at index 48</p>
-<p>Initializing unit: IOAPIC</p>
-<p>Initializing unit: Cache Allocation Technology</p>
-<p>Initializing unit: PCI</p>
-<p>Adding PCI device 00:00.0 to cell "RootCell"</p>
-<p>Adding virtual PCI device 00:17.0 to cell "RootCell"</p>
-<p>Adding virtual PCI device 00:18.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:01.0 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 00:01.0 at index 72</p>
-<p>Adding PCI device 00:01.1 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 00:01.1 at index 74</p>
-<p>Adding PCI device 00:03.0 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 00:03.0 at index 76</p>
-<p>Adding PCI device 00:03.2 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 00:03.2 at index 78</p>
-<p>Adding PCI device 00:05.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:05.2 to cell "RootCell"</p>
-<p>Adding PCI device 00:05.4 to cell "RootCell"</p>
-<p>Adding PCI device 00:11.0 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 00:11.0 at index 80</p>
-<p>Adding PCI device 00:1a.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:1c.0 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 00:1c.0 at index 81</p>
-<p>Adding PCI device 00:1c.1 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 00:1c.1 at index 82</p>
-<p>Adding PCI device 00:1c.3 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 00:1c.3 at index 83</p>
-<p>Adding PCI device 00:1d.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:1e.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:1f.0 to cell "RootCell"</p>
-<p>Adding PCI device 00:1f.2 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 00:1f.2 at index 84</p>
-<p>Adding PCI device 00:1f.3 to cell "RootCell"</p>
-<p>Adding PCI device 06:00.0 to cell "RootCell"</p>
-<p>Reserving 5 interrupt(s) for device 06:00.0 at index 85</p>
-<p>Adding PCI device 07:00.0 to cell "RootCell"</p>
-<p>Reserving 5 interrupt(s) for device 07:00.0 at index 90</p>
-<p>Adding PCI device 08:00.0 to cell "RootCell"</p>
-<p>Reserving 1 interrupt(s) for device 08:00.0 at index 95</p>
-<p>Adding PCI device 09:00.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:08.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:09.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0a.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0a.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0a.2 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0a.3 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0b.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0b.3 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0c.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0c.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0d.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0d.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0e.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0e.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.2 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.3 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.4 to cell "RootCell"</p>
-<p>Adding PCI device 7f:0f.5 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.2 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.3 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.4 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.5 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.6 to cell "RootCell"</p>
-<p>Adding PCI device 7f:10.7 to cell "RootCell"</p>
-<p>Adding PCI device 7f:13.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:13.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:13.4 to cell "RootCell"</p>
-<p>Adding PCI device 7f:13.5 to cell "RootCell"</p>
-<p>Adding PCI device 7f:16.0 to cell "RootCell"</p>
-<p>Adding PCI device 7f:16.1 to cell "RootCell"</p>
-<p>Adding PCI device 7f:16.2 to cell "RootCell"</p>
-<p>Adding PCI device 80:03.0 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 80:03.0 at index 96</p>
-<p>Adding PCI device 80:03.2 to cell "RootCell"</p>
-<p>Reserving 2 interrupt(s) for device 80:03.2 at index 98</p>
-<p>Adding PCI device 80:05.0 to cell "RootCell"</p>
-<p>Adding PCI device 80:05.2 to cell "RootCell"</p>
-<p>Adding PCI device 80:05.4 to cell "RootCell"</p>
-<p>Adding PCI device ff:08.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:09.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0a.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0a.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:0a.2 to cell "RootCell"</p>
-<p>Adding PCI device ff:0a.3 to cell "RootCell"</p>
-<p>Adding PCI device ff:0b.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0b.3 to cell "RootCell"</p>
-<p>Adding PCI device ff:0c.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0c.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:0d.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0d.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:0e.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0e.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.2 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.3 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.4 to cell "RootCell"</p>
-<p>Adding PCI device ff:0f.5 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.2 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.3 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.4 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.5 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.6 to cell "RootCell"</p>
-<p>Adding PCI device ff:10.7 to cell "RootCell"</p>
-<p>Adding PCI device ff:13.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:13.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:13.4 to cell "RootCell"</p>
-<p>Adding PCI device ff:13.5 to cell "RootCell"</p>
-<p>Adding PCI device ff:16.0 to cell "RootCell"</p>
-<p>Adding PCI device ff:16.1 to cell "RootCell"</p>
-<p>Adding PCI device ff:16.2 to cell "RootCell"</p>
-<p>Page pool usage after late setup: mem 469/32207, remap 65549/131072</p>
-<p>Activating hypervisor</p>
-<p>Adding virtual PCI device 00:17.0 to cell "nuttx"</p>
-<p>Shared memory connection established, peer cells:</p>
-<p>&nbsp;"RootCell"</p>
-<p>Adding virtual PCI device 00:18.0 to cell "nuttx"</p>
-<p>Shared memory connection established, peer cells:</p>
-<p>&nbsp;"RootCell"</p>
-<p>Created cell "nuttx"</p>
-<p>Page pool usage after cell creation: mem 1001/32207, remap 65549/131072<=
-/p>
-<p>Cell "nuttx" can be loaded</p>
-<p>CPU 3 received SIPI, vector 100</p>
-<p>Started cell "nuttx"</p>
-<p>FATAL: Unhandled VM-Exit, reason 2</p>
-<p>qualification 0</p>
-<p>vectoring info: 0 interrupt info: 0</p>
-<p>RIP: 0x0000000100939685 RSP: 0x0000000100da4d28 FLAGS: 10006</p>
-<p>RAX: 0x00000000000326a0 RBX: 0x0000000100da4d40 RCX: 0x000000000000003e<=
-/p>
-<p>RDX: 0x000000000010a003 RSI: 0x000000000010a000 RDI: 0x0000000000104010<=
-/p>
-<p>CS: 8 BASE: 0x0000000000000000 AR-BYTES: 2099 EFER.LMA 1</p>
-<p>CR0: 0x0000000080010033 CR3: 0x0000000000102000 CR4: 0x00000000000326a0<=
-/p>
-<p>EFER: 0x0000000000000500</p>
-<p>Parking CPU 3 (Cell: "nuttx")</p>
-<p><br></p><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_=
-attr">=E5=9C=A82021=E5=B9=B412=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=
-=89 UTC+8 21:41:09&lt;jiajun huang> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><=
-blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left:=
- 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div style=3D"white-spac=
-e:pre"><div>nuttx.c</div><br><div>#include &lt;jailhouse/types.h&gt;</div><=
-div>#include &lt;jailhouse/cell-config.h&gt;</div><br><div>struct {</div><d=
-iv>    struct jailhouse_cell_desc cell;</div><div>    __u64 cpus[1];</div><=
-div>    struct jailhouse_memory mem_regions[9];</div><div>    struct jailho=
-use_cache cache_regions[1];</div><div>    struct jailhouse_irqchip irqchips=
-[3];</div><div>    struct jailhouse_pio pio_regions[3];</div><div>    struc=
-t jailhouse_pci_device pci_devices[2];</div><div>    struct jailhouse_pci_c=
-apability pci_caps[0];</div><br><div>} __attribute__((packed)) config =3D {=
-</div><div>    .cell =3D {</div><div>        .signature =3D JAILHOUSE_CELL_=
-DESC_SIGNATURE,</div><div>        .revision =3D JAILHOUSE_CONFIG_REVISION,<=
-/div><div>        .name =3D &quot;nuttx&quot;,</div><div>    .flags =3D JAI=
-LHOUSE_CELL_PASSIVE_COMMREG,</div><div>        .cpu_set_size =3D sizeof(con=
-fig.cpus),</div><div>        .num_memory_regions =3D ARRAY_SIZE(config.mem_=
-regions),</div><div>        .num_cache_regions =3D ARRAY_SIZE(config.cache_=
-regions),</div><div>        .num_irqchips =3D ARRAY_SIZE(config.irqchips),<=
-/div><div>        .num_pio_regions =3D ARRAY_SIZE(config.pio_regions),</div=
-><div>        .num_pci_devices =3D ARRAY_SIZE(config.pci_devices),</div><di=
-v>    .num_pci_caps =3D ARRAY_SIZE(config.pci_caps),</div><div>        .con=
-sole =3D {</div><div>            .type =3D JAILHOUSE_CON_TYPE_8250,</div><d=
-iv>            .flags =3D JAILHOUSE_CON_ACCESS_PIO,</div><div>            .=
-address =3D 0x3f8,</div><div>        },</div><div>    },</div><br><div>    =
-.cpus =3D {</div><div>        0x8,</div><div>    },</div><br><div>    .mem_=
-regions =3D {</div><div>        /* MemRegion: 57a000000-5d9ffffff : JAILHOU=
-SE Inmate Memory */</div><div>        {</div><div>            .phys_start =
-=3D 0x57a000000,</div><div>            .virt_start =3D 0x57a000000,</div><d=
-iv>            .size =3D 0x1000,</div><div>            .flags =3D JAILHOUSE=
-_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,</div><div>        },</div><div>      =
-  {</div><div>            .phys_start =3D 0x57a001000,</div><div>          =
-  .virt_start =3D 0,</div><div>            .size =3D 0x40000000,</div><div>=
-            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |</div><div=
->                JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE |</div><div=
->                JAILHOUSE_MEM_ROOTSHARED,</div><div>        },</div><div> =
-       {</div><div>            .phys_start =3D 0x5ba001000,</div><div>     =
-       .virt_start =3D 0x5ba001000,</div><div>            .size =3D 0x4000,=
-</div><div>            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSH=
-ARED,</div><div>        },</div><div>        {</div><div>            .phys_=
-start =3D 0x5ba005000,</div><div>            .virt_start =3D 0x5ba005000,</=
-div><div>            .size =3D 0x4000,</div><div>            .flags =3D JAI=
-LHOUSE_MEM_READ| JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_ROOTSHARED,</div><div>=
-        },</div><div>        /* communication region */ {</div><div>       =
-     .virt_start =3D 0x5ba010000,</div><div>            .size       =3D 0x0=
-0001000,</div><div>            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_ME=
-M_WRITE |</div><div>                JAILHOUSE_MEM_COMM_REGION,</div><div>  =
-      },</div><div>        JAILHOUSE_SHMEM_NET_REGIONS(0x5ba205000, 1),</di=
-v><div>    },</div><br><div>    .cache_regions =3D {</div><div>        {</d=
-iv><div>            .start =3D 0,</div><div>            .size =3D 2,</div><=
-div>            .type =3D JAILHOUSE_CACHE_L3,</div><div>        },</div><di=
-v>    },</div><br><div>    .irqchips =3D {</div><div>        /* IOAPIC 0, G=
-SI base 0 */</div><div>        {</div><div>            .address =3D 0xfec00=
-000,</div><div>            .id =3D 0x100ff,</div><div>            .pin_bitm=
-ap =3D {</div><div>                0x000001</div><div>            },</div><=
-div>        },</div><div>        /* IOAPIC 2, GSI base 24 */</div><div>    =
-    {</div><div>            .address =3D 0xfec01000,</div><div>            =
-.id =3D 0x1002c,</div><div>            .pin_bitmap =3D {</div><div>        =
-        0x000000</div><div>            },</div><div>        },</div><div>  =
-      /* IOAPIC 3, GSI base 48 */</div><div>        {</div><div>           =
- .address =3D 0xfec40000,</div><div>            .id =3D 0x802c,</div><div> =
-           .pin_bitmap =3D {</div><div>                0x000000</div><div> =
-           },</div><div>        },</div><div>    },</div><br><div>    .pio_=
-regions =3D {</div><div>        /* Port I/O: 0020-0021 : pic1 */</div><div>=
-    PIO_RANGE(0x20, 0x2),</div><div>        /* Port I/O: 00a0-00a1 : pic2 *=
-/</div><div>    PIO_RANGE(0xa0, 0x2),</div><div>        /* Port I/O: 03f8-0=
-3ff : serial */</div><div>        PIO_RANGE(0x3f8, 0x8),</div><div>    },</=
-div><div>    .pci_devices =3D {</div><div>        { </div><div>            =
-.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,</div><div>            .iommu =3D 1,</=
-div><div>            .domain =3D 0x0,</div><div>            .bdf =3D 0x17 &=
-lt;&lt; 3,</div><div>            .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_M=
-SIX,</div><div>            .num_msix_vectors =3D 16,</div><div>            =
-.shmem_regions_start =3D 0,</div><div>            .shmem_dev_id =3D 1,</div=
-><div>            .shmem_peers =3D 2,</div><div>            .shmem_protocol=
- =3D 0x0002,</div><div>        },</div><div>        { </div><div>          =
-  .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,</div><div>            .iommu =3D 1,=
-</div><div>            .domain =3D 0x0,</div><div>            .bdf =3D 0x18=
- &lt;&lt; 3,</div><div>            .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK=
-_MSIX,</div><div>            .num_msix_vectors =3D 2,</div><div>           =
- .shmem_regions_start =3D 5,</div><div>            .shmem_dev_id =3D 1,</di=
-v><div>            .shmem_peers =3D 2,</div><div>            .shmem_protoco=
-l =3D JAILHOUSE_SHMEM_PROTO_VETH,</div><div>        },</div><div>    },</di=
-v><br><div>    .pci_caps =3D {</div><div>        </div><div>    },</div><di=
-v>};</div><br></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"g=
-mail_attr">=E5=9C=A82021=E5=B9=B412=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=
-=E4=B8=89 UTC+8 21:39:52&lt;jiajun huang&gt; =E5=86=99=E9=81=93=EF=BC=9A<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">Dear Jailhouse community=
-=EF=BC=8C<br><div>This bug occurred when I tried to start nuttx on a none-r=
-oot cell on the server. I added two ivshmem devices for nuttx. Below is my =
-configuration file. I am not sure if there is a problem with the mmio area =
-in the configuration file. What is the communication area? In addition, if =
-jailhouse runs in QEMU, can two virtual machines communicate with each othe=
-r through ivshmem-net?<br></div><div><br></div><div>Below is my root-cell ,=
- nuttx configuration and log output from the port.<br></div><div><br></div>=
-<div><div><div>Best regards,</div><div><br></div><div>Jiajun Huang</div></d=
-iv><div><div><div><br></div></div></div></div></blockquote></div></blockquo=
-te></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/1f2bc22d-a7ef-4834-bc6a-c247ffe1aaa9n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/1f2bc22d-a7ef-4834-bc6a-c247ffe1aaa9n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_9881_541247545.1640180504147--
-
-------=_Part_9880_53882015.1640180504147--
+jailhouse-dev/64fa037aefed1d130bc0d3a49ccc3d09d5b504bc.camel%40siemens.com.
