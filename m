@@ -1,70 +1,71 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERB2X3SWHAMGQETU2XI2Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBYX5SWHAMGQEVNZM7DI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x73d.google.com (mail-qk1-x73d.google.com [IPv6:2607:f8b0:4864:20::73d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E25F47ECE7
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 24 Dec 2021 08:59:39 +0100 (CET)
-Received: by mail-qk1-x73d.google.com with SMTP id bj32-20020a05620a192000b0046dcca212b6sf6179146qkb.6
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 23 Dec 2021 23:59:39 -0800 (PST)
+Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 181FE47ECF2
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 24 Dec 2021 09:03:47 +0100 (CET)
+Received: by mail-qk1-x73b.google.com with SMTP id v13-20020a05620a440d00b00468380f4407sf6165665qkp.17
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 24 Dec 2021 00:03:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=NMp5Tg//NBNh9ew1SBZTSxxNDd/Mcf11Z2XL8Iu9geQ=;
-        b=Tn39RuGlcp0KlzHBEeXMDGuOVUEhzeZSOTD1lpus6NC63QDqBH2ANNXFcDdFycEZUh
-         iFMyY1NhVST8i7Ujz7ow5oj+8A5R09JgVBnyPYfWxrxBFUSC/YMx6HdCSuiq/rsRrgdI
-         Jv6GbAI9/B+WmbSG6I/m4pOCU1EkRDzVt88jyqv8FuI24I2wQXwLLdCIqmzsBDT/ORO/
-         9X2hOwls8rIxlTYk7T2WBjLLwj5EU8fzECLdSgkHw1P95PY7ntTeZudqeo+l6BhOY8E/
-         OOmQz5vBAb1Q+imxtnsVbIxjAe6TcSFbKwPinh6Bin3jdc41XnxXFlGJNtGqp1eaC4a6
-         OETw==
+        bh=2F6Mus2sO+Qo+/Z3ktOSV1CBHY3pPpRo1e43/nuFNls=;
+        b=YlNNmUSpTa87hb9Sm32VcJKBLUjtCJTarbbmnja3zmyVufO0HnJSHPLkdsJCMKNE+M
+         bFGpo/P6iKsFol4GXw1WPCEMs07SzJMxgBVwEAYLUAwAv4B2kN8n9MHbUIcfrzERaxqc
+         iVCustN1FHU3fESgkar0Kp/T5O17cSuqzHhYDngvCb2mknCm+XpVfUCZ2DYcRXSR4755
+         vywllXA3NM1mnbNp3jamyM+XdsO/NTfhcZs5xjd86H7Gj2jDrhrFRj+HBTGGwHdM0D8Q
+         toLuAY6zIcZIe81FmRkmh496Oc2/1kqHCQ6y4sw5kWrsx3zBgaBUzaNm30lRstne6v0I
+         CGog==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=NMp5Tg//NBNh9ew1SBZTSxxNDd/Mcf11Z2XL8Iu9geQ=;
-        b=ktdAwG69VdHNOEA1O1RvelO4xlLIjeaKuIULyi2FyhUpdcd0+j5r92vGMAbjCzAO7m
-         NsZJsUihTMJ2kHSxHE5t4Vx8CpepIWiyApjfD59zAfzIfIDvaEeeXIvQU+5WRUOixLMY
-         QbYcedWT5Po1Y82WMaGpl59w/xDOwgiVsDYlc1CPg9+Af8NwKqQapQf7kusd9O/pkNw6
-         P5zk0BKhW0nplrcT2d1/2WKnYv8aJ1qzI4HqqwTJ3aJ/fqPWqXjD40VzbK9YAlRqsHV4
-         X5037OpOO2IGyGVBfzLx3WfzpDeyK40TMtY2rUpzVzSe4qwqlXg1ZOdTU1QaPU+rUcwd
-         alog==
+        bh=2F6Mus2sO+Qo+/Z3ktOSV1CBHY3pPpRo1e43/nuFNls=;
+        b=IyyR2xexXBsu4vofpEYy5wptoYn5Uu/uGfKnBosuxDz5sSkRvnA9c9CMGPBcqP90ZJ
+         fOYLd/1eMBsE3dNtCH0sm3NdamOuNxeRKDsZbfv4buo3UrdIvDrsLzgcXqIMNr4hGu06
+         2pznoRk27r2d5sHn6zWhgFuYLKckThM513sW1xA5I9fTVdFipWwOGa01fFUO+0t10igS
+         ZmGVsZTbCaZYqgjPcfPH19xjCYBdiIYGABXJT+D3THJJ0YvDB6G/v+W98B16ylP8nMYU
+         Z8SRBZD/+2QWCgcee2UycACHVaKDqnXQigiZCB69xAeq7sa+m24xDKaGUmNGnxR+eQML
+         iafg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=NMp5Tg//NBNh9ew1SBZTSxxNDd/Mcf11Z2XL8Iu9geQ=;
-        b=zF3Ex4L8E5d/RaaboLvsJKxJ8fcK9dEUugTWZCxQwBWkEJPhgjlMygm7q2vCQ8Cioo
-         pZ7SSZc9an7zPm09i8boWPviSWgEphizEjykpWhumo59iOe1S6oLU5RV4MrLD1D37yeV
-         W9z+yzn5upsPQOlPUHRJj2TnESgOQvZ0b88e4la0Emg7UJfhlNodYsXOwvIf5lTd/qBT
-         GErnRMkE3LFo8R62doxjFGbEMqhPw0dkZZW9N0iJsrdA2A5ZJD/mUhTcLMBfVEmoF0CX
-         QEdy6/dFsRJM/EA0ED2Kv5QD4fZ1dLqmpu9I/OEg2jEhdCUR4EgCQZr7A7WMn+vB6Y5U
-         OJMQ==
+        bh=2F6Mus2sO+Qo+/Z3ktOSV1CBHY3pPpRo1e43/nuFNls=;
+        b=Jwa8ZTgGPvqOxMUma5If5M8AjoRH9tkvabhfXR3xZwbd3ldaBwidaYcmC399ryt6ej
+         gXpWFcSu5FpHeajeDxp4TdG8CJMXv1HsjuyiWiLFqveH06vx94qBJs5G0s8X005AE5Ln
+         oY4Qsid9l7IDSrPyNocPKJWMmhbhY+LKno2mK/16fnypEUzwBxtaGTWtYQWLt1Jenug4
+         Ji5YZoSL9j0asoNe3Mjt9b5yZfDFceFgEuGKXMsAkvvtNnsmcVUhU01q5vQFxnk4W9KD
+         2Pv4xWMNjYPba0llF1L2PmcNrWkyuovk4dGUbRJMy7wdV7Xdy452/ynN5jSP15lbuAxE
+         Calg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530VBKZpS02LnFMLbHmWe3mfKdqc3riUu6rc7D94EyDN87G4icSu
-	IA4375wGiYrtF47rzqYsUug=
-X-Google-Smtp-Source: ABdhPJxGBfGw98UURhDYz7/1CugOcnSCMMBff2D8/RjvgXvyWzntUI6U+LcUwwljE3V2KqFOwCom4w==
-X-Received: by 2002:a05:6214:262c:: with SMTP id gv12mr4624026qvb.74.1640332778163;
-        Thu, 23 Dec 2021 23:59:38 -0800 (PST)
+X-Gm-Message-State: AOAM533s/LPMCop6B6bUSAVqg3Mag1Q+Uf5/y+QE9+2/8RokH7heoSHf
+	1O424iBeOfpSjlpP36W8HcQ=
+X-Google-Smtp-Source: ABdhPJwrq867HIwzzaYKVOLiuupA0dTQsFPBTiDymj5nSBAjoYuAE4GbLnXAXq4Fmgvh9NufTtKV8Q==
+X-Received: by 2002:a05:620a:461f:: with SMTP id br31mr4059634qkb.72.1640333026147;
+        Fri, 24 Dec 2021 00:03:46 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:8e89:: with SMTP id x9ls3246368qvb.4.gmail; Thu, 23 Dec
- 2021 23:59:37 -0800 (PST)
-X-Received: by 2002:ad4:5f89:: with SMTP id jp9mr4787880qvb.39.1640332777470;
-        Thu, 23 Dec 2021 23:59:37 -0800 (PST)
-Date: Thu, 23 Dec 2021 23:59:36 -0800 (PST)
+Received: by 2002:a0c:b3cf:: with SMTP id b15ls3256660qvf.1.gmail; Fri, 24 Dec
+ 2021 00:03:45 -0800 (PST)
+X-Received: by 2002:a05:6214:b62:: with SMTP id ey2mr4746057qvb.0.1640333025600;
+        Fri, 24 Dec 2021 00:03:45 -0800 (PST)
+Date: Fri, 24 Dec 2021 00:03:44 -0800 (PST)
 From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c31f9750-cf66-4afc-a5f6-7c93a8a93f7fn@googlegroups.com>
-In-Reply-To: <OS3PR01MB78280EB0F9EA05EA0D747D78D77E9@OS3PR01MB7828.jpnprd01.prod.outlook.com>
-References: <AQHX96wfrFW+jFZPEUKn5StLKD9cuQ==>
- <OS3PR01MB78280EB0F9EA05EA0D747D78D77E9@OS3PR01MB7828.jpnprd01.prod.outlook.com>
-Subject: Re: help about the GUI on non-root linux cell
+Message-Id: <49832756-b7b3-4855-b71a-ee13a766d30en@googlegroups.com>
+In-Reply-To: <7c009dfd324b083434cc24fb828dbe8d73fe022b.camel@siemens.com>
+References: <AQHX7au/vU9SnFS39E6o6OuxlJ1X2KwrfNgA>
+ <0e3feaf8-c623-4ba6-8925-e648c946f148n@googlegroups.com>
+ <7c009dfd324b083434cc24fb828dbe8d73fe022b.camel@siemens.com>
+Subject: Re: NAT bridge
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_38_1287046275.1640332776664"
+	boundary="----=_Part_12477_616335161.1640333024980"
 X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -78,93 +79,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_38_1287046275.1640332776664
+------=_Part_12477_616335161.1640333024980
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_39_1978792861.1640332776664"
+	boundary="----=_Part_12478_687252112.1640333024980"
 
-------=_Part_39_1978792861.1640332776664
+------=_Part_12478_687252112.1640333024980
 Content-Type: text/plain; charset="UTF-8"
 
-Hi, 
-I have been porting jailhouse to Raspberry pi4 for the last few weeks. The 
-image provided by jailhouse-images has really a minimalist approach and you 
-have to add each feature from your choice in the defconfig for arm64 in 
-jailhouse-images. I would think that the answer is yes to your questions, 
-but what are the requirements? I think you would need design your kernel 
-for the non-root cell yourself, and also modify which hardware is used in 
-the device tree file for non-root cell. The jailhouse-image is really a 
-good start to understand jailhouse, but it is always better if you could 
-port it. 
+I tried everything and then gave up jailhouse-images for RPi4. I was 
+successful in porting jailhouse on my own kernel, I was only missing some 
+kernel flags, like:
 
-Moustafa 
+CONFIG_IVSHMEM_NET=y
+CONFIG_UIO_IVSHMEM=y
+Without these flags, there will be no drivers for pci devices, no veth and 
+no inter-cell communication. The bridge can be easily made and I have not 
+had any problems regarding bridging. 
 
-On Thursday, 23 December 2021 at 04:25:11 UTC+1 Fred Wang wrote:
+Moustafa
+On Friday, 10 December 2021 at 10:55:46 UTC+1 Bezdeka, Florian wrote:
 
-> Hi,
+> On Fri, 2021-12-10 at 01:53 -0800, Moustafa Nofal wrote:
+> > Hello, 
+> > I am using the latest jailhouse-image for Raspberry Pi4(RT version).
+> > I
+> > am trying to create a bridge between wlan0 and jailhouse NIC, I
+> > learnt
+> > that the Ethernet eth0 is used as physical jailhouse NIC. So, 
+> > 1- Edited defconfig
+> > CONFIG_IP_NF_IPTABLES=y 
+> > CONFIG_BRIDGE=Y
 >
-> How to add Graphic user interface in the Linux non-root cell?  I mean Is 
-> it possible to add GUI interface on Linux cell to facilitate some 
-> operation. Can GUI apps be run in the non-root Linux cell?  
+> Sounds like CONFIG_IP_NF_NAT is missing. Just a guess...
 >
-> The setup used is the image produced by jailhouse-image for Raspberry pi 
-> 4b. I can only access the root cell via UART and ssh to the no-root Linux 
-> cell.
->  
-> Thanks,
-> Fred
+> > 
+> > 2- installed dhcpcd5, dnsmasq and iptables.
+> > 3- I always get this error, while using iptables:
+> > can't initialize iptables table `nat': Table does not exist (do you
+> > need to insmod?) Perhaps iptables or your kernel needs to be
+> > upgraded.
+> > 
+> > I understand that this is not Jailhouse specific, but I tried the
+> > same way in a different kernel image and it was working fine.
+> > 
+> > Regards, 
+> > Moustafa Noufale
+>
 >
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c31f9750-cf66-4afc-a5f6-7c93a8a93f7fn%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/49832756-b7b3-4855-b71a-ee13a766d30en%40googlegroups.com.
 
-------=_Part_39_1978792861.1640332776664
+------=_Part_12478_687252112.1640333024980
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,&nbsp;<br>I have been porting jailhouse to Raspberry pi4 for the last fe=
-w weeks. The image provided by jailhouse-images has really a minimalist app=
-roach and you have to add each feature from your choice in the defconfig fo=
-r arm64 in jailhouse-images. I would think that the answer is yes to your q=
-uestions, but what are the requirements? I think you would need design your=
- kernel for the non-root cell yourself, and also modify which hardware is u=
-sed in the device tree file for non-root cell. The jailhouse-image is reall=
-y a good start to understand jailhouse, but it is always better if you coul=
-d port it.&nbsp;<div><br></div><div>Moustafa&nbsp;<br><div><br></div></div>=
-<div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Thursd=
-ay, 23 December 2021 at 04:25:11 UTC+1 Fred Wang wrote:<br/></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px sol=
-id rgb(204, 204, 204); padding-left: 1ex;">
-
-
-
-
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Hi,</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
+I tried everything and then gave up jailhouse-images for RPi4. I was succes=
+sful in porting jailhouse on my own kernel, I was only missing some kernel =
+flags, like:<br><br>CONFIG_IVSHMEM_NET=3Dy<br><div>CONFIG_UIO_IVSHMEM=3Dy<b=
+r></div><div>Without these flags, there will be no drivers for pci devices,=
+ no veth and no inter-cell communication. The bridge can be easily made and=
+ I have not had any problems regarding bridging.&nbsp;</div><div><br></div>=
+<div>Moustafa</div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gm=
+ail_attr">On Friday, 10 December 2021 at 10:55:46 UTC+1 Bezdeka, Florian wr=
+ote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8=
+ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On Fri, =
+2021-12-10 at 01:53 -0800, Moustafa Nofal wrote:
+<br>&gt; Hello,=20
+<br>&gt; I am using the latest jailhouse-image for Raspberry Pi4(RT version=
+).
+<br>&gt; I
+<br>&gt; am trying to create a bridge between wlan0 and jailhouse NIC, I
+<br>&gt; learnt
+<br>&gt; that the Ethernet eth0 is used as physical jailhouse NIC. So,=20
+<br>&gt; 1- Edited defconfig
+<br>&gt; CONFIG_IP_NF_IPTABLES=3Dy=20
+<br>&gt; CONFIG_BRIDGE=3DY
 <br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-How to add Graphic user interface in the Linux non-root cell? =C2=A0I mean =
-Is it possible to add GUI interface on Linux cell to facilitate some operat=
-ion. Can GUI apps be run in the non-root Linux cell?=C2=A0
-<div><br>
-</div>
-<div>The setup used is the image produced by jailhouse-image for Raspberry =
-pi 4b. I can only access the root cell via UART and ssh to the no-root Linu=
-x cell.</div>
-<div>=C2=A0</div>
-<div>Thanks,</div>
-<span>Fred</span><br>
-</div>
-</div>
-
-</blockquote></div>
+<br>Sounds like CONFIG_IP_NF_NAT is missing. Just a guess...
+<br>
+<br>&gt;=20
+<br>&gt; 2- installed dhcpcd5, dnsmasq and iptables.
+<br>&gt; 3- I always get this error, while using iptables:
+<br>&gt; can&#39;t initialize iptables table `nat&#39;: Table does not exis=
+t (do you
+<br>&gt; need to insmod?) Perhaps iptables or your kernel needs to be
+<br>&gt; upgraded.
+<br>&gt;=20
+<br>&gt; I understand that this is not Jailhouse specific, but I tried the
+<br>&gt; same way in a different kernel image and it was working fine.
+<br>&gt;=20
+<br>&gt; Regards,=20
+<br>&gt; Moustafa Noufale
+<br>
+<br></blockquote></div>
 
 <p></p>
 
@@ -175,11 +185,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/c31f9750-cf66-4afc-a5f6-7c93a8a93f7fn%40googlegrou=
+om/d/msgid/jailhouse-dev/49832756-b7b3-4855-b71a-ee13a766d30en%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/c31f9750-cf66-4afc-a5f6-7c93a8a93f7fn%40googlegroups.co=
+msgid/jailhouse-dev/49832756-b7b3-4855-b71a-ee13a766d30en%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_39_1978792861.1640332776664--
+------=_Part_12478_687252112.1640333024980--
 
-------=_Part_38_1287046275.1640332776664--
+------=_Part_12477_616335161.1640333024980--
