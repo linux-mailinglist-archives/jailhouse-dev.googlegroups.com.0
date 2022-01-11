@@ -1,71 +1,72 @@
-Return-Path: <jailhouse-dev+bncBC653PXTYYERB6X36WHAMGQEAXL665Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBLWE66HAMGQEMLSIPCA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3b.google.com (mail-qv1-xf3b.google.com [IPv6:2607:f8b0:4864:20::f3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3175F48ADF4
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 13:54:19 +0100 (CET)
-Received: by mail-qv1-xf3b.google.com with SMTP id u2-20020ad45aa2000000b00419428ca0cbsf666067qvg.5
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 04:54:19 -0800 (PST)
+Received: from mail-qt1-x83a.google.com (mail-qt1-x83a.google.com [IPv6:2607:f8b0:4864:20::83a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4237248B7C0
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 21:01:52 +0100 (CET)
+Received: by mail-qt1-x83a.google.com with SMTP id d26-20020ac800da000000b002c43d2f6c7fsf326705qtg.14
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 12:01:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ArlZszxA9LATYGtsUT6ury7l5T/74Vu+Cm3Gr3WhBA8=;
-        b=m4lGkK00d36B65WjB8kxRdheccJdgYyCupmJIoRaRrKvVDlqv+Voe8pNNQDkmT3iof
-         NBS0/7YO+3AbjgkLm73Ae/Aa1j41CVC3JcSF8mZ0JiX4YXH69YLTasomX1T09VvphIBR
-         y21IysKCwJZq58w/iN67SLaKL2kLq0ODGa1WrrSHy7Gajy2e02dDxJ5DxRsSuuHdchCZ
-         9CFC4exliWdwQQV+1HtQBVTjRCZm0AVy7XYtVNj0+PEwEqv634wlcOctMlYXtqDphYtg
-         uNZyc8pW8fadcDdRF2PwtK9LQWCsZ3L7N1ZW8gwAMwMdpn4TGRVcdpbBZFWPnv/G4sHU
-         /2PQ==
+        bh=7Jtk/0S0r1Ryf8bD2OyTrQPzVQDUMXXdk/71C4oJ/1U=;
+        b=J4aYH75aXNAGJGDQzUV0uMZmGG4/pTgyt6ss1dKF5bseSdfzL3bLc1t3vUQB8MgwLL
+         CfCdWcfvPKWlQB4ivwz0ZL27llfBGrYgui+mX1kdQ7JUdHEJFAH1SAeyDcYthDUeTWkM
+         /gyYLbNSlLMh4SnHLm/QZFS59Rry7AylF1cLxngVG+IEskn5SsZhymz4nWPw10xZyFp3
+         jgVJ5VSkE1hl8c8YspmTqDB8mZeJR9fX8lqEezHWDXRf8PCHXKBGHF/geZ6n3lDTpQKf
+         7pvXefggLE1LfYZFvDpEHg3P1aHa7MvilBu7cc+yVuSvp9Zue5YwIgQAVJv/lUSRWMeO
+         qXiA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=date:from:to:message-id:in-reply-to:references:subject:mime-version
          :x-original-sender:precedence:mailing-list:list-id:list-post
          :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ArlZszxA9LATYGtsUT6ury7l5T/74Vu+Cm3Gr3WhBA8=;
-        b=NvBXrMRUCttLuXPma1sfKZZIqjGrKG58v+5qJ8dNwfsDT5wVAicHAum8ER2Dzta9JJ
-         dKvZuHSErprUpqBADLMFI+xwgzZjOpUOVsGZ0Kf4FXltmN21dw1E/ysFR3YqqLLA+JKU
-         qD7bMp2QorhY0FEdqSqhF+SNH3zPwfhCej5dWPCr7KQHtF30frtNA6hqd5RSqLa4U9PD
-         B92+Kk0WP3gHa+gr/v46uV+RuXAIaQ4hfcRrwMIT50RA2OCM3/MbPgTeoxI87T3K5U1Y
-         kDYGVFR0TZbZ3FhD17rT7kFul7UUsvlOeCoyvsaRdkK1YHnnxJ8Gs2WU0jEX/mQuQIDm
-         P/QQ==
+        bh=7Jtk/0S0r1Ryf8bD2OyTrQPzVQDUMXXdk/71C4oJ/1U=;
+        b=nMLil/DSY+vgLXj6M4XERupbacBEQEgVHnShu+KOow9SEKkaH8j0klWyZ+ZvBMRO19
+         KAC8a7AQsOogEOHmSBcstSo58uyZEP5a+glA4omX2cGQTyDTwEgRn/UFUziWVDK0j95r
+         SZchXwBkgLywbJPNLVNFK5J6VsAGJfiRfyamSXIGAnXegvWtmKdyVSvodhmQ8InNQwHy
+         7/nG95+KhrMlJ7wDLbr4iR6mxuwYyMpkOeVqw171D0f2/IiFkV7hiZqBuOPDg8QPvxkG
+         VAqG4CKoMrMFCa9laJEM6KvyCGZy+6fu+byaQSeYkFbwYpWqJ7m+dFaNJiaTYRA9RUC0
+         93uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=ArlZszxA9LATYGtsUT6ury7l5T/74Vu+Cm3Gr3WhBA8=;
-        b=b/v9I69LtJ99MvwJqawTr+bVkf0mFjtMiMTu/m+eEN2Vvcb1lF3CJMUDlY/Hvzj+0J
-         aL25J5nUdN0Ry5AZ1FxSqL6zLvDAuUE6NsNvdYZ3Xz6t61Jj63N8qN2oEtYh1G2Z+x4B
-         kxPQwxUcOe8HgyddBV2Op+jAz0mJZNvzU3AUXARpDuc0u3Oi8TpOKOFBsgmeNlUj/0nl
-         ZLDZiYMr5vWl2hltd56Mei/mTEfXxmzCiqBFnO9ruzEOwZ0EIRJjJnBQKj6WZ6iyLvns
-         ejx6pXxW5M0cHr1a1l7qnWtmlH3tmrXI5V1NSTNZT44UykZKArYHEoZYtiKF6Uh9ahwF
-         xWyA==
+        bh=7Jtk/0S0r1Ryf8bD2OyTrQPzVQDUMXXdk/71C4oJ/1U=;
+        b=4zEuLO4qyAgVWXXvR7gq8KhG3JS7bLZGlWR3xUmIWIqwc7K0Mu0XTW5Rjnx4WTKI2N
+         bvx34yYjMimLEM0JiqhN+9iBNeIe8l/81T3lTjHxO16ByDZ4ONyGtfoBv/e+N/vaKL4f
+         HyZvuXpMy2FHXT/PRS+NhFxdH1ACJgnUnbDrcLjjJXUfFB72+3sGKu/Xy4bQJ71yRoFR
+         ujR9jPj/X9pcHC5T1m4Z5FTio2J8K5JJyutCxHMGASZMMlaIehO539T6tIN0TsETlaPu
+         ZiQ9FQNcqjDDw+MQDaV5uySMixTMUOUb012yLbwlMBEdT82v3dkyIBL4w2eJxg4iPywN
+         7Zzw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533jpl3gW7yrdg/DT3VRZYN1yTEDoFTHwVoY5Lpzy9M8boo/vLlC
-	GaNCLfwWeDf9fes2vq7sA1M=
-X-Google-Smtp-Source: ABdhPJwGrZdSzwAoq2AvJrs9OIRx3Ur9hcxxrndTiNBhMb+gxXRaTOVXZ2n8Mou7gYzI2cvtMbbHYA==
-X-Received: by 2002:ad4:5cac:: with SMTP id q12mr3586614qvh.37.1641905658305;
-        Tue, 11 Jan 2022 04:54:18 -0800 (PST)
+X-Gm-Message-State: AOAM531Zss7pidk0d5F6b+uJsVrbYRiMRIw51eyU2oFhZH9Z+e1OdIE6
+	+q19z89YvOZv4PIJmLyyNxg=
+X-Google-Smtp-Source: ABdhPJydu7cENO5Ctx7H5vJAQ+AqBg3EvvqI+AbKPpXtjG8Zik4dGXUH7oq+u2xZeQzjCv5ldElibQ==
+X-Received: by 2002:ac8:598b:: with SMTP id e11mr5116472qte.522.1641931310948;
+        Tue, 11 Jan 2022 12:01:50 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5a46:: with SMTP id o6ls5933865qta.8.gmail; Tue, 11 Jan
- 2022 04:54:17 -0800 (PST)
-X-Received: by 2002:ac8:5845:: with SMTP id h5mr3473537qth.365.1641905657569;
-        Tue, 11 Jan 2022 04:54:17 -0800 (PST)
-Date: Tue, 11 Jan 2022 04:54:17 -0800 (PST)
+Received: by 2002:a05:620a:158d:: with SMTP id d13ls8961522qkk.9.gmail; Tue,
+ 11 Jan 2022 12:01:50 -0800 (PST)
+X-Received: by 2002:a05:620a:178b:: with SMTP id ay11mr4206511qkb.420.1641931310181;
+        Tue, 11 Jan 2022 12:01:50 -0800 (PST)
+Date: Tue, 11 Jan 2022 12:01:49 -0800 (PST)
 From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <8fc34409-ec7f-4306-9f97-3bb380f7c08dn@googlegroups.com>
-In-Reply-To: <84ebb12e-49ba-49ed-9719-063064e3c8e6n@googlegroups.com>
+Message-Id: <850100c3-90eb-4a87-82c7-9bd84a8fecd9n@googlegroups.com>
+In-Reply-To: <8fc34409-ec7f-4306-9f97-3bb380f7c08dn@googlegroups.com>
 References: <e630d89c-45ab-40c1-ab9e-222fbbe26f30n@googlegroups.com>
  <20220111103848.5abbc20e@md1za8fc.ad001.siemens.net>
  <84ebb12e-49ba-49ed-9719-063064e3c8e6n@googlegroups.com>
+ <8fc34409-ec7f-4306-9f97-3bb380f7c08dn@googlegroups.com>
 Subject: Re: Adding another vpci
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_596_1835938064.1641905657068"
+	boundary="----=_Part_146_2081875178.1641931309658"
 X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -79,73 +80,136 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_596_1835938064.1641905657068
+------=_Part_146_2081875178.1641931309658
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_597_1133592427.1641905657068"
+	boundary="----=_Part_147_638708854.1641931309658"
 
-------=_Part_597_1133592427.1641905657068
+------=_Part_147_638708854.1641931309658
 Content-Type: text/plain; charset="UTF-8"
 
-Hi, 
-Everything is working smoothly now. I have now only question regarding 
-these two memory regions:
+Almost everything went well, but when I started the fourth cell 
+(bare-metal), I got this error, and jailhouse hangs, so I am able to
+1- create two linux non-root cells and inter-cell communication works fine, 
+and(including ethernet)
+2- one bare-metal and linux non-root cell.(inter-cell communication works 
+fine (also ethernet)
+I added one region for the newly created cell in all files with taking care 
+of correct flags, enlarged the state memory region and the all-cells R/W 
+memory region, and here is what I edited in the root cell:
 
-                /* MMIO 1 (permissive) */ {
-                        .phys_start = 0xfd500000,
-                        .virt_start = 0xfd500000,
-                        .size =        0x1b00000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_IO,
+Adding virtual PCI device 00:00.0 to cell "rpi4-linux-demo-2"
+Shared memory connection established, peer cells:
+                         /* IVSHMEM 0001:00:00.0 (demo) */
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .domain = 1,
+                        .bdf = 0 << 3,
+                        .bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+                        .shmem_regions_start = 0,
+                        .shmem_dev_id = 0,
+                        .shmem_peers = 4,
+                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
                 },
-                /* MMIO 2 (permissive) */{
-                        .phys_start = 0x600000000,
-                        .virt_start = 0x600000000,
-                        .size =         0x4000000,
-                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                                JAILHOUSE_MEM_IO,
-                },  
 
+And in any other cell i change only the dev_id, so I have 0,1,2,3, the 
+second PCI is an VETH and is working fine for both linux cells together, 
+the problem only comes if I created the baremetal cell.
+
+
+
+
+On Tuesday, 11 January 2022 at 13:54:17 UTC+1 Moustafa Nofal wrote:
+
+> Hi, 
+> Everything is working smoothly now. I have now only question regarding 
+> these two memory regions:
+>
+>                 /* MMIO 1 (permissive) */ {
+>                         .phys_start = 0xfd500000,
+>                         .virt_start = 0xfd500000,
+>                         .size =        0x1b00000,
+>                         .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>                                 JAILHOUSE_MEM_IO,
+>                 },
+>                 /* MMIO 2 (permissive) */{
+>                         .phys_start = 0x600000000,
+>                         .virt_start = 0x600000000,
+>                         .size =         0x4000000,
+>                         .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>                                 JAILHOUSE_MEM_IO,
+>                 },  
 >
 >>
->>
+>>>
+>>>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/8fc34409-ec7f-4306-9f97-3bb380f7c08dn%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/850100c3-90eb-4a87-82c7-9bd84a8fecd9n%40googlegroups.com.
 
-------=_Part_597_1133592427.1641905657068
+------=_Part_147_638708854.1641931309658
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,&nbsp;<br>Everything is working smoothly now. I have now only question r=
-egarding these two memory regions:<br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; /* MMIO 1 (permissive) */ {<br>&nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .phys_start =
-=3D 0xfd500000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; .virt_start =3D 0xfd500000,<br>&nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =
-=3D &nbsp; &nbsp; &nbsp; &nbsp;0x1b00000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_=
-MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JA=
-ILHOUSE_MEM_IO,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-},<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* MMIO 2 (pe=
-rmissive) */{<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x600000000,<br>&nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .virt_st=
-art =3D 0x600000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; &nbsp; 0x40=
-00000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br=
->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_IO,<br>&nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },&nbsp;&nbsp;<br><div class=3D"gma=
-il_quote"><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; b=
-order-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div class=3D=
-"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br><br></blockqu=
-ote></div></blockquote></div>
+<div>Almost everything went well, but when I started the fourth cell (bare-=
+metal), I got this error, and jailhouse hangs, so I am able to<br>1- create=
+ two linux non-root cells and inter-cell communication works fine, and(incl=
+uding ethernet)</div><div>2- one bare-metal and linux non-root cell.(inter-=
+cell communication works fine (also ethernet)</div><div>I added one region =
+for the newly created cell in all files with taking care of correct flags, =
+enlarged the state memory region and the all-cells R/W memory region, and h=
+ere is what I edited in the root cell:<br><br></div>Adding virtual PCI devi=
+ce 00:00.0 to cell "rpi4-linux-demo-2"<br>Shared memory connection establis=
+hed, peer cells:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* IVSHMEM 0001:00:00.0 (demo) */<br>&nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,<br>&nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .domain =3D 1,<br>&=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; .bdf =3D 0 &lt;&lt; 3,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .bar_mask =3D JAILHOUSE_IVSHMEM_=
+BAR_MASK_INTX,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; .shmem_regions_start =3D 0,<br>&nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_d=
+ev_id =3D 0,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; .shmem_peers =3D 4,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_protocol =
+=3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; },<br><br>And in any other cell i change only the dev_=
+id, so I have 0,1,2,3, the second PCI is an VETH and is working fine for bo=
+th linux cells together, the problem only comes if I created the baremetal =
+cell.<br><br><div><br><br><br></div><div class=3D"gmail_quote"><div dir=3D"=
+auto" class=3D"gmail_attr">On Tuesday, 11 January 2022 at 13:54:17 UTC+1 Mo=
+ustafa Nofal wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left:=
+ 1ex;">Hi,=C2=A0<br>Everything is working smoothly now. I have now only que=
+stion regarding these two memory regions:<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* MMIO 1 (permissive) */ {<br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .=
+phys_start =3D 0xfd500000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .virt_start =3D 0xfd500000,<br>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 .size =3D =C2=A0 =C2=A0 =C2=A0 =C2=A00x1b00000,<br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =
+=3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 JAILHOUSE_MEM_IO,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 },<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 /* MMIO 2 (permissive) */{<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .phys_start =3D 0x600000000,<=
+br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .virt_start =3D 0x600000000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .size =3D =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 0x4000000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_READ=
+ | JAILHOUSE_MEM_WRITE |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 JAILHOUS=
+E_MEM_IO,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 },=C2=
+=A0=C2=A0<br><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-l=
+eft:1ex"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex"><br><br></blockquote></div></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -156,11 +220,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/8fc34409-ec7f-4306-9f97-3bb380f7c08dn%40googlegrou=
+om/d/msgid/jailhouse-dev/850100c3-90eb-4a87-82c7-9bd84a8fecd9n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/8fc34409-ec7f-4306-9f97-3bb380f7c08dn%40googlegroups.co=
+msgid/jailhouse-dev/850100c3-90eb-4a87-82c7-9bd84a8fecd9n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_597_1133592427.1641905657068--
+------=_Part_147_638708854.1641931309658--
 
-------=_Part_596_1835938064.1641905657068--
+------=_Part_146_2081875178.1641931309658--
