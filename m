@@ -1,183 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDJMJPGY2MGRBK5A6WHAMGQEYCEBSRY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBGNP6WHAMGQEFWGQWYA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13c.google.com (mail-lf1-x13c.google.com [IPv6:2a00:1450:4864:20::13c])
-	by mail.lfdr.de (Postfix) with ESMTPS id D633148AAAF
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 10:38:52 +0100 (CET)
-Received: by mail-lf1-x13c.google.com with SMTP id l29-20020a19495d000000b0042d1e9c46f3sf3241443lfj.22
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 01:38:52 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1641893932; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Jp25I0WZg0SnMxZkKT7fXocfTA6bXx3vIQ8aSFLX/9OQa91nerauShtvlr89F855et
-         KgeCcAKYCbT7E6WXdenuu6JxioXtzDAs4xsEbpiGPGUHRIbifck9qRYZpM3UlrtXSpaV
-         y0FpBJ66dAnj0LQFVerYq4ripgCc0rhxkPHHsTQMMnwLpkRo0XWSeaKhMyWudBTep26D
-         NfcNI4djUgT1tWX7/uHWuHW8UXlKVqHvgwTkinAm0Fibgpwnxr+/j6KEjjfbzOG4uUfr
-         K6M9pSGhBUCqViNjtyFCM+IVT+yKg+ib7gJVgwVpNn5/dqAb1UZvW35JnJtOMnukHJQ4
-         3DWA==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:sender:dkim-signature;
-        bh=+YhsCUo3LpSCnjl4/rDFq8bLWEX0NkHGKISzyLetO8A=;
-        b=RyD4CrnZeWuwPabeyvfzD9KVezgvOsrlSDLeFebPV1QnveTPycwRw9sqEAy84eF4yP
-         7mMKFYRGFH0g4LR3mHxN1MbV2UTHvR8pdhGU109auxCAFwYrHLioD74/F/GNacKvzcKE
-         o5AyPUd6ONtuXUZecIjjOU/6dOdiA6KBfQbYeb15gV0fI4cjF3GctGr95JNq+8zhl+pt
-         LYtp9YdNYt+/SdxcB5n/rDvJMsbI83JWzcLwPo+V3rp//lynyIOlsELWnvlvG46GTjDN
-         Sd53cM9BQCwf/rjMThSn9OjunDgo9SlpKIiqXAUPSPNkr7Kmq+MjadjMG0dQ3plr5qNL
-         IAHw==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=BYhMpHvk;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 40.107.1.47 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qv1-xf3a.google.com (mail-qv1-xf3a.google.com [IPv6:2607:f8b0:4864:20::f3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4AC148AB14
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 11:10:34 +0100 (CET)
+Received: by mail-qv1-xf3a.google.com with SMTP id g2-20020a0562141cc200b004123b0abe18sf15729459qvd.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jan 2022 02:10:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:cc:subject:message-id:in-reply-to:references
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=+YhsCUo3LpSCnjl4/rDFq8bLWEX0NkHGKISzyLetO8A=;
-        b=MU1i5qnia6f1gu1gxPa8EM/7HCelVpMgfV/yO0kThVsQbGEKJ34TP0RTuHCcYI+4h/
-         zr4ugE0tDFBoUkjzUD1n/N7YzffsZD98wrCIctsapZn+ywTyGPItwog6JLsjYbWug1CY
-         i8oPOP51nVH7A8TpmYsk99qXP5EZQeaoqCGHiiKO8LByd4NctmXdHNhIWEtmaauRpMKb
-         K0b8OANi8XHtLka3PmCNu/OMa9E4alIO3C7FNHV/ftIgP5/GQ+rSEFCHc4bdQTVRUNYm
-         ezdPZTiSe5vDbfiv3XSe6RyeS/LbfNqWcg8th9OoSa/rkMftYNQMq0ljjDqor8qjNt5u
-         epCQ==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=gtkJbhMPb6pYAXJ74MG9yw/gLVDMaFjwD5WMkp2kRK0=;
+        b=ZNoVwizolubbxe3h5lR2GHi8lo4jFiZQHSOP4JPsF7FF2lbveG42EVOhROTDvs/eXX
+         LKWQGh4eJSHCWFtyhHhmI6nVmqoFrauVEatPr//TUUMhK3zoPq0E59t6rNCQjip9iD0B
+         lD2zd7Ma/mKepLTRxDPg21RzXYFYV6lRczhVWrz5MFfkCvXQlnMIk9LkPuyFpGiF6RZl
+         vZCaTLVf8YmH0p3pYHjLbNqv3amJIj2KSjqtVdKmHCB0EwIQwnwL1VY4gCUOmmYHyxuq
+         7QUj8DdrSMrnCmvcDW+maaRrY/i/7SwfQyU+oKqc4UQkJgFl5GZKYR8e6g9ohJCGgTdO
+         +3+g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=gtkJbhMPb6pYAXJ74MG9yw/gLVDMaFjwD5WMkp2kRK0=;
+        b=We9aNuZwa8fhw4znXxB5hAxkvzDZj8L2O89vZw/YBv+plap03+jGj6H3190dTmDQfu
+         RFD4CqJQ/KdVNINjs0N2aLH9CRpFeMITXFHYqlRMG/4S4w6fjDLBA4+2yKqjYngZcNTc
+         lIc9UD5GlolxbkEno+u197j7rKHVwyYehTN8IQdxb3DajVOYVJaRtLDJATxYlQ6fzXNA
+         cYcWEhS/xigXwZNTB+Cn4yeDq9N/1rt/BPuPX4Bkx1KCKWvT+4VqSEoAvMs5vmcjJsUb
+         tixVqQpDSF6TIAD4Vbbu1ESuc4l6gY2vjx+IpdUV7mxLH0YkaOxvseRIXZ/QOUtuDRtA
+         yVng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:cc:subject:message-id
-         :in-reply-to:references:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=+YhsCUo3LpSCnjl4/rDFq8bLWEX0NkHGKISzyLetO8A=;
-        b=G+t5ny9Cd8KEtk9QJ0hM5ALumfPHX1iN9mfurfCY7DKKwKlAdnEqIbaoqW7arR3z6e
-         00TKfio151WU9UoWAPz9mgJ8DZT+cF3G2AIwhnT7N9E4nmjicET8iBlAmWambOpGGDWC
-         EDuXITsihKmNe5TaLP3yvoHc+nHRatEnSa7cq/Vl48lkAgCsfYbCfjllMesenN2Gt/v2
-         mg/fP6K2xnwEGYElLvzb9YQabqZVqn0pO4zTmPggLBK1ZePcG7nU4+VIUKofCNv3/JeV
-         HBpF/Yf7xoHntcEbw8GBQE2d9IJpwDI+XvtjxW423QwJ8Fxxp1eO85GIUpbwjPQyImiY
-         ylVQ==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=gtkJbhMPb6pYAXJ74MG9yw/gLVDMaFjwD5WMkp2kRK0=;
+        b=tr4uTCw62DgpIQ3TM1jfIAf7hopUrt6L4aembkUL3oG5mw4R7y/dRZsdyik2ZjzCB6
+         lHVT6UHjkaP02kS3NE3cJFLtJ45CVR45ve0ZT6M3bxkruHdF76E8/Kl0mWqM3Mq5GoUa
+         X9ab2yRK0vsvITSnqBcZSnE/4WhRaJoQmU/DNVnjsjKrioYmhhV7gk9rq1+KlDWDdXch
+         T//oAeyWHocUoX+KoGA+Xq0ry4rJnc67x1dfaZLQPKAd+kJeu6AWitaHrsW8EsejG16m
+         rxi/gwEpczZTtYYLmoAQMCfS1yBSFAxDfaTPpkUjFkMKQOya9Styku0ATMdzECDb4N8A
+         EIgA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533asiePfwEFPB2Upwa/SOA3xgNfYXnp/588Zvi7QOIKnvYs4DfT
-	/cbrAWeWNZRR0b2Pv+JM9rQ=
-X-Google-Smtp-Source: ABdhPJw+eB/QzGYDgc/MnCdnDzgbEMl9BuHOO4EF6C4BlLcs0JhDRlQ0AZgorPhgcHHLzttDu+YDaA==
-X-Received: by 2002:a2e:9019:: with SMTP id h25mr2273624ljg.257.1641893932170;
-        Tue, 11 Jan 2022 01:38:52 -0800 (PST)
+X-Gm-Message-State: AOAM5313blXeVCndHQ9LYJGFMBD2ABGYW2YmtXk5ME3gUtAdYBIDuZnX
+	/xfsTxs72UiONm3bqXDqpOQ=
+X-Google-Smtp-Source: ABdhPJx5CKuKWsYg8aZWbCi3RFmyjsUiUfNAczkc4LuqZcRGd2dV5Ji39ur9hv7ncIPr8e82E1rVng==
+X-Received: by 2002:ad4:5949:: with SMTP id eo9mr2997255qvb.91.1641895833949;
+        Tue, 11 Jan 2022 02:10:33 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:ac9:: with SMTP id n9ls390391lfu.1.gmail; Tue, 11
- Jan 2022 01:38:51 -0800 (PST)
-X-Received: by 2002:a05:6512:1392:: with SMTP id p18mr2867328lfa.98.1641893931286;
-        Tue, 11 Jan 2022 01:38:51 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1641893931; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Xmz3HYYWbGX5p2GshTUcZh9DQNZ8tbzCczwJeNzwG19QBtUDZSOpZe4BzxQKF8B3Ij
-         j1J3jBBMVsv+isev6HW1yXrT+dEKFs6ykRX3ygNUn7OLEWRip7fYwSl9jqw9vMCgc0Kb
-         S1WQGN1ivMMhg0mOTJt8/ddFPjrmIkXOZiAwFfPFz+rX/VWeX6+mMxO9j1zsEDQdtvmQ
-         T5rAMaWjBblmnQXjiVUxwTjCM+j+nDCtgYnLu2UYYvGotThucVSltSOsVM3NZtA30qgt
-         GERoJuqOvYGpq63GrT7o1RzBvcjYFD3T95JCHKX8XuZw6f7hCVuZGl3pFOFa/kvvXDu7
-         ZbCg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:dkim-signature;
-        bh=eHw1yxmWdN1J/EMmKxljo7rV41KWKtTwoQhCsJ/sUpU=;
-        b=ELNq30B6ImeyWrcfq208T4w/o8WNQ9xDrK44JLEhxv4Shb1Hko2HC7iKwZwkEahc5O
-         vQ8bDGsEiA9GN27nWBHOS24kret+91S6CX3E8mJbbWmO81jeUEuVqAb9WgKdgaZc7gPk
-         srmmyH840lrs6LvSfiGeSrYUk5XJ5KDWBwsXLw9WJgXCC4qQbCury0L/tEuSuoxCaagb
-         s9W1lFkCjlKr8zqyqf/Py8mnfb9v5CjXLbif5Zc9/iiDpqlwid4Qb1eVZMnCHdBCbi+C
-         on4gM9MFt1O5B0/ROZMw9bVPXgegSLxRyml2w2S3PIxRPRbq8GpAvJ/h0QEXdWIVLXYW
-         PZdg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=BYhMpHvk;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of henning.schild@siemens.com designates 40.107.1.47 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (mail-eopbgr10047.outbound.protection.outlook.com. [40.107.1.47])
-        by gmr-mx.google.com with ESMTPS id c2si417580ljb.7.2022.01.11.01.38.51
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 11 Jan 2022 01:38:51 -0800 (PST)
-Received-SPF: pass (google.com: domain of henning.schild@siemens.com designates 40.107.1.47 as permitted sender) client-ip=40.107.1.47;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RIYrZ61xQiMKD+L4ghn/Wvmw1/BWVnfBHb0O+oQeFJBbpIMpbMTmkbbc2Fw0syuhilNq+a1o8oqOBW+knZgz/OZaXnuEKOuivWjg9cqJ/wkrH5A+FSkKLmWdod+h4b80BAyHJxce3MHPebZtdTaum8KdbwA+pfEOE5zJOslHU59xMarQsyt/488ZI3EcNZeROCURf1v+AVg8jtrd3/Ir0S4OzJtM/zZnGaxhWaWUAhPeWb2KNk4YhFHr6RcxlPFZMlYyN33IV8URPd2noV5hFzeJAmZtC1XAtCf+A7T5/N1VgMEjZKCrhLk8Og2NWmuEszXFEIHRjldzfZzmrbYE9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eHw1yxmWdN1J/EMmKxljo7rV41KWKtTwoQhCsJ/sUpU=;
- b=dkG0ec7fyw7r8cK1QwusRz1POozVyO5dBHmTDLW8huycY9feTWXwl/T8OCSf/3PlSRiQz+bj98IWmtrBBGCU+LEzULwGyaPiuSdR6sT2insJwLI5Zdgoe2nPcr8FUja1ILZpwUyn5qhVHpn9SxRqT1ijTNuRPF6zZgk0VvAdf6cASQ3WJK0l82NswinyT82ui1F59s/s/Oh32FWv/KECf+zS7lVJ8oms/yiaMeSovsQxSiELd8nboHFvUbiEp6ovE6voPcQGx6oR8jfpLhbH3wVnFPy+vlrlg89mFRArT4zSBTFWPaIjOW7DH0azCyGm4X/Dl3AF102NmRFY77gp5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.70) smtp.rcpttodomain=gmail.com smtp.mailfrom=siemens.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
- dkim=none (message not signed); arc=none
-Received: from SV0P279CA0016.NORP279.PROD.OUTLOOK.COM (2603:10a6:f10:11::21)
- by VE1PR10MB2989.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:803:10c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Tue, 11 Jan
- 2022 09:38:49 +0000
-Received: from HE1EUR01FT006.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:f10:11:cafe::dc) by SV0P279CA0016.outlook.office365.com
- (2603:10a6:f10:11::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7 via Frontend
- Transport; Tue, 11 Jan 2022 09:38:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.70)
- smtp.mailfrom=siemens.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=siemens.com;
-Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
- 194.138.21.70 as permitted sender) receiver=protection.outlook.com;
- client-ip=194.138.21.70; helo=hybrid.siemens.com;
-Received: from hybrid.siemens.com (194.138.21.70) by
- HE1EUR01FT006.mail.protection.outlook.com (10.152.1.228) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4867.7 via Frontend Transport; Tue, 11 Jan 2022 09:38:49 +0000
-Received: from DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) by
- DEMCHDC9SJA.ad011.siemens.net (194.138.21.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Tue, 11 Jan 2022 10:38:48 +0100
-Received: from md1za8fc.ad001.siemens.net (139.25.68.217) by
- DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Tue, 11 Jan 2022 10:38:48 +0100
-Date: Tue, 11 Jan 2022 10:38:48 +0100
-From: Henning Schild <henning.schild@siemens.com>
-To: Moustafa Nofal <mustafa13e09940@gmail.com>
-CC: Jailhouse <jailhouse-dev@googlegroups.com>
-Subject: Re: Adding another vpci
-Message-ID: <20220111103848.5abbc20e@md1za8fc.ad001.siemens.net>
-In-Reply-To: <e630d89c-45ab-40c1-ab9e-222fbbe26f30n@googlegroups.com>
+Received: by 2002:a05:620a:134b:: with SMTP id c11ls6889111qkl.7.gmail; Tue,
+ 11 Jan 2022 02:10:33 -0800 (PST)
+X-Received: by 2002:a37:6857:: with SMTP id d84mr1312278qkc.322.1641895833271;
+        Tue, 11 Jan 2022 02:10:33 -0800 (PST)
+Date: Tue, 11 Jan 2022 02:10:32 -0800 (PST)
+From: Moustafa Nofal <mustafa13e09940@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <84ebb12e-49ba-49ed-9719-063064e3c8e6n@googlegroups.com>
+In-Reply-To: <20220111103848.5abbc20e@md1za8fc.ad001.siemens.net>
 References: <e630d89c-45ab-40c1-ab9e-222fbbe26f30n@googlegroups.com>
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <20220111103848.5abbc20e@md1za8fc.ad001.siemens.net>
+Subject: Re: Adding another vpci
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [139.25.68.217]
-X-ClientProxiedBy: DEMCHDC89XA.ad011.siemens.net (139.25.226.103) To
- DEMCHDC8A0A.ad011.siemens.net (139.25.226.106)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a105910e-ab27-43d2-b388-08d9d4e62bf3
-X-MS-TrafficTypeDiagnostic: VE1PR10MB2989:EE_
-X-Microsoft-Antispam-PRVS: <VE1PR10MB29893BDB56ED68DA13C4150885519@VE1PR10MB2989.EURPRD10.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5UxxLsBvwbXe6HdQa1aPrzm03IRcUjwyjWI3NL5lkUVvEiND3ENm7U6LK3L7L7zaFtYfunTkO85lmKkZ7vzQfBau0E6jvlTvhikUqVU7OnwiYZuN273Lyffba21MkWatyoNY5O5XjAad7b30nwX6sCAK0c/FTkKRAWWq26vY7RmXm70dsbKPZxcUPyZJTx1TtSW6JtkDj2HNxG6zLe5uj4fpeXDlVsGIB7d6wSxy7me8z2zB7Z/heyKq3s5A6syvO1uVz+MyGjYunPfAffrEsfhiW647ZZezLPM0nLz/UtHzdvkUKp6Bwowp0ERlDJ1T62GTal9FbKtFUaKNgfIdl3h1bwqNBd8O0ZC+uw+EGXzIcQs/7C2H9oUF407BPTVkAKiwOrxbPiOiluZAOgMnNRZInLN790ilL44ZbcduhRjw0T4MouTxQMpEKhjH06W6O+9peth2vp8wVNkob3nHBGBVE2VJXO6pb0uS2K6R70p0cITNk1q5JqtbMxA9AniJZJzD+AspohLqd1ydZXuDQjntZ4XYLZ94kdcukVwS6n0tOtq6HrbJ+3ax6T/8YivBtXXK7x6tQVz2RGcNeAqLxpktazjin4+WKUJTnWWHxqSct/rP1INJSWqnIwmLIt3on5hofTN7kvNTj6iK24l/AZ0KRZyfrfvslLXJTRJ8ktV3vSWKHMY9V6EUQF/qTnNmvb+GQqsOOjgkodh+EiaWy/ngTy+c7dLtKnH4+xFbZcSzjfr5XBPGCXApOxqUgaFSzbL0MaaCcuGxjYUk63/a7A==
-X-Forefront-Antispam-Report: CIP:194.138.21.70;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:hybrid.siemens.com;CAT:NONE;SFS:(4636009)(36840700001)(40470700002)(46966006)(86362001)(1076003)(508600001)(4326008)(36860700001)(5660300002)(70586007)(70206006)(16526019)(186003)(26005)(7696005)(82310400004)(55016003)(7596003)(336012)(40460700001)(3480700007)(8936002)(6916009)(7116003)(9686003)(8676002)(956004)(2906002)(4744005)(356005)(7636003)(82960400001)(44832011)(316002)(47076005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2022 09:38:49.3812
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a105910e-ab27-43d2-b388-08d9d4e62bf3
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.70];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: HE1EUR01FT006.eop-EUR01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB2989
-X-Original-Sender: henning.schild@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=BYhMpHvk;       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of henning.schild@siemens.com designates
- 40.107.1.47 as permitted sender) smtp.mailfrom=henning.schild@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_692_1457742085.1641895832749"
+X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -190,31 +78,217 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Am Mon, 10 Jan 2022 13:31:16 -0800 (PST)
-schrieb Moustafa Nofal <mustafa13e09940@gmail.com>:
+------=_Part_692_1457742085.1641895832749
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_693_12120268.1641895832749"
 
-> Hi, 
-> I intend to add another Linux on Raspberry Pi4. So, I added also a
-> memory region on rpi4.c and extended the size of mem_regions by, and
-> managed to get working. I added a pci device, and extended the array
-> by one, and the pci device is added, but without kernel driver in
-> use? So, how to add the driver to it?
+------=_Part_693_12120268.1641895832749
+Content-Type: text/plain; charset="UTF-8"
 
+The device is virtual pci, I was missing this JAILHOUSE_SHMEM_NET_REGIONS. 
+I added it on a reserved place, away from other memory regions and its and 
+another virtual ethernet is added. I have another question regarding 
+particularly these two memroy regions, 
+                /* MMIO 1 (permissive) */ {
+                        .phys_start = 0xfd500000,
+                        .virt_start = 0xfd500000,
+                        .size =        0x1b00000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_IO,
+                },
+                /* MMIO 2 (permissive) */{
+                        .phys_start = 0x600000000,
+                        .virt_start = 0x600000000,
+                        .size =         0x4000000,
+                        .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                                JAILHOUSE_MEM_IO,
+                },
+In my system it points to pcie device and RAM(non-reserved for jailhouse). 
+What are these regions? and are they related 
+to JAILHOUSE_SHMEM_NET_REGIONS, because what I read is that this command 
+reserves four memory regions. 
+One more question, on the second linux cell configuration, I added the 
+memory region with correct flags, that was added on the root cell and I am 
+trying to configure the pci communication. 
+On root cell:
+                        /* IVSHMEM 0001:00:02.0 (networking) */
+                {
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .domain = 2,
+                        .bdf = 2 << 3,
+                        .bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+                        .shmem_regions_start = 12,
+                        .shmem_dev_id = 0,
+                        .shmem_peers = 2,
+                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+                },
+and 
+                JAILHOUSE_SHMEM_NET_REGIONS(0x30000000, 0),
 
-What kind of device is it? The kernel should simply find it and bind
-any driver that fits, in case it has one that does.
+On 2nd Linux cell:
+                { /* IVSHMEM 00:02.0 (networking) */
+                        .type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+                        .bdf = 2 << 3,
+                        .bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+                        .shmem_regions_start = 6,
+                        .shmem_dev_id = 1,
+                        .shmem_peers = 2,
+                        .shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
+                },
+and                 JAILHOUSE_SHMEM_NET_REGIONS(0x30000000, 1),
+I followed the documentation, the .bdf is the same, only 2 peers , and I 
+put also the correct memory region. However, no ethernet is added on the 
+second non-root Linux
+Kind regards
+Moustafa Noufale
+On Tuesday, 11 January 2022 at 10:38:52 UTC+1 Henning Schild wrote:
 
-If it is a virtual network device based on ivshmem2 you need to add the
-pci device, and multiple memory regions for it
-JAILHOUSE_SHMEM_NET_REGIONS for the driver to pick it up correctly you
-need to set the shmem_protocol of the pci device to
-JAILHOUSE_SHMEM_PROTO_VETH and set the index shmem_regions_start to
-your newly added memory regions.
-
-regards,
-Henning
+> Am Mon, 10 Jan 2022 13:31:16 -0800 (PST)
+> schrieb Moustafa Nofal <mustafa...@gmail.com>:
+>
+> > Hi, 
+> > I intend to add another Linux on Raspberry Pi4. So, I added also a
+> > memory region on rpi4.c and extended the size of mem_regions by, and
+> > managed to get working. I added a pci device, and extended the array
+> > by one, and the pci device is added, but without kernel driver in
+> > use? So, how to add the driver to it?
+>
+>
+> What kind of device is it? The kernel should simply find it and bind
+> any driver that fits, in case it has one that does.
+>
+> If it is a virtual network device based on ivshmem2 you need to add the
+> pci device, and multiple memory regions for it
+> JAILHOUSE_SHMEM_NET_REGIONS for the driver to pick it up correctly you
+> need to set the shmem_protocol of the pci device to
+> JAILHOUSE_SHMEM_PROTO_VETH and set the index shmem_regions_start to
+> your newly added memory regions.
+>
+> regards,
+> Henning
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220111103848.5abbc20e%40md1za8fc.ad001.siemens.net.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/84ebb12e-49ba-49ed-9719-063064e3c8e6n%40googlegroups.com.
+
+------=_Part_693_12120268.1641895832749
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+The device is virtual pci, I was missing this JAILHOUSE_SHMEM_NET_REGIONS. =
+I added it on a reserved place, away from other memory regions and its and =
+another virtual ethernet is added. I have another question regarding partic=
+ularly these two memroy regions,&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; /* MMIO 1 (permissive) */ {<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .phys_start =
+=3D 0xfd500000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; .virt_start =3D 0xfd500000,<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =
+=3D &nbsp; &nbsp; &nbsp; &nbsp;0x1b00000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_=
+MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JA=
+ILHOUSE_MEM_IO,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+},<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* MMIO 2 (pe=
+rmissive) */{<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x600000000,<br>&nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .virt_st=
+art =3D 0x600000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; &nbsp; 0x40=
+00000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br=
+>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_IO,<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },<br>In my system it points to pci=
+e device and RAM(non-reserved for jailhouse). What are these regions? and a=
+re they related to&nbsp;JAILHOUSE_SHMEM_NET_REGIONS, because what I read is=
+ that this command reserves four memory regions.&nbsp;<br>One more question=
+, on the second linux cell configuration, I added the memory region with co=
+rrect flags, that was added on the root cell and I am trying to configure t=
+he pci communication.&nbsp;<br>On root cell:<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* IVSHMEM 0001:00=
+:02.0 (networking) */<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,<br>&nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .doma=
+in =3D 2,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; .bdf =3D 2 &lt;&lt; 3,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .bar_mask =3D JAIL=
+HOUSE_IVSHMEM_BAR_MASK_INTX,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_regions_start =3D 12,<br>&n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; .shmem_dev_id =3D 0,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_peers =3D 2,<br>&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .sh=
+mem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; },<div>and&nbsp;</div><div>&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_SHMEM_NET_REGIONS(0x30000000=
+, 0),<br><br>On 2nd Linux cell:<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; { /* IVSHMEM 00:02.0 (networking) */<br>&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .type =3D =
+JAILHOUSE_PCI_TYPE_IVSHMEM,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .bdf =3D 2 &lt;&lt; 3,<br>&nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+.bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,<br>&nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_regions_s=
+tart =3D 6,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; .shmem_dev_id =3D 1,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem_peers =3D 2=
+,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,<br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },<br>and&nbsp;&nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_SHMEM_NET_REGIONS(0x300=
+00000, 1),<br><div>I followed the documentation, the .bdf is the same, only=
+ 2 peers , and I put also the correct memory region. However, no ethernet i=
+s added on the second non-root Linux<br>Kind regards<br>Moustafa Noufale</d=
+iv></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=
+On Tuesday, 11 January 2022 at 10:38:52 UTC+1 Henning Schild wrote:<br/></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-l=
+eft: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Am Mon, 10 Jan 2022 =
+13:31:16 -0800 (PST)
+<br>schrieb Moustafa Nofal &lt;<a href data-email-masked rel=3D"nofollow">m=
+ustafa...@gmail.com</a>&gt;:
+<br>
+<br>&gt; Hi,=20
+<br>&gt; I intend to add another Linux on Raspberry Pi4. So, I added also a
+<br>&gt; memory region on rpi4.c and extended the size of mem_regions by, a=
+nd
+<br>&gt; managed to get working. I added a pci device, and extended the arr=
+ay
+<br>&gt; by one, and the pci device is added, but without kernel driver in
+<br>&gt; use? So, how to add the driver to it?
+<br>
+<br>
+<br>What kind of device is it? The kernel should simply find it and bind
+<br>any driver that fits, in case it has one that does.
+<br>
+<br>If it is a virtual network device based on ivshmem2 you need to add the
+<br>pci device, and multiple memory regions for it
+<br>JAILHOUSE_SHMEM_NET_REGIONS for the driver to pick it up correctly you
+<br>need to set the shmem_protocol of the pci device to
+<br>JAILHOUSE_SHMEM_PROTO_VETH and set the index shmem_regions_start to
+<br>your newly added memory regions.
+<br>
+<br>regards,
+<br>Henning
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/84ebb12e-49ba-49ed-9719-063064e3c8e6n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/84ebb12e-49ba-49ed-9719-063064e3c8e6n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_693_12120268.1641895832749--
+
+------=_Part_692_1457742085.1641895832749--
