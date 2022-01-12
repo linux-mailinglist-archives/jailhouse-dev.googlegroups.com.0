@@ -1,195 +1,136 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTN57KHAMGQETL4E4RI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBLN37OHAMGQE4ADT3WI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13d.google.com (mail-lf1-x13d.google.com [IPv6:2a00:1450:4864:20::13d])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DBB48C0F8
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Jan 2022 10:26:38 +0100 (CET)
-Received: by mail-lf1-x13d.google.com with SMTP id s16-20020a056512215000b0042bd76cb189sf1281315lfr.6
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Jan 2022 01:26:38 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1641979598; cv=pass;
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7259048C534
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Jan 2022 14:54:54 +0100 (CET)
+Received: by mail-wm1-x33e.google.com with SMTP id c5-20020a1c3505000000b00345c92c27c6sf3737138wma.2
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Jan 2022 05:54:54 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1641995694; cv=pass;
         d=google.com; s=arc-20160816;
-        b=DpFmBVdizh3eZnS66EKqPoGf4iuDH6+LuM0N4NMy9nQGdZ4QjS3iDVyDrA5nbNFSHe
-         vyZp9mqcVgjPE++23hMtP2L0gR/0x41mjtMFqXZJwAeOVk2R5avSbJYx+v/FiRB2Afbq
-         towOZkxxngrv1TeC63nRnpxl2/ErfF+CdP0Mo3EYte6hBFn5J5esJOx4Ur7MhaAVrTKO
-         pHjiizK+lYlb8Zq+u2d0Yr31kOuXc91BcyjYA4rMqABvJ5IGTt9Ah+nZxf+9+Z6PCN3n
-         Fh9UPBbuAqiFrl3chdvoo1oDk14GqqeQ6K62MlQKs+Q4kKFyIVz2tx2vWmtQ3MhMyqs+
-         pSLg==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=r3mRyB27evIGQ1hKL6CnIAvRWOyPNem0REIjSQrzjSdKXQbLL07mai+0Ij3ZYZ5hFm
+         ciUFTzIafVkIfm5KL8ftwVdO7BDFIf8+cCC7fhfktihc0X+lZ1Bq9ywd9+TRSeLGQlJo
+         Yjkx4Xx1CDBFmxFchgDncChVLFptrpslrYyfGd9LL15dO4An3bmfn51uwUhNzv9noeRF
+         FGfZSjIKl/WJwBdJmt6sWDQxmRh3VrQEkud/1WeilSfiDq+yk9AVqv9dh92rBqCLiItz
+         n0CzsB6ltrU4YiTsBqVG1JywK9xqJFxuL1HXZaM7LoSLSudjd5weBYeiUJ49BgDeIDPu
+         zKuQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=aneQrlE9y0MAXi+PMI5P2Q3LSI+GkB0ZDq7yVPbwYG0=;
-        b=jVvQEhdRHZRLSqNyYewQ+N/0HKLhG7Bl4INom+iZ1Q8pqU9HhQOwA5bCS++9uWZOqm
-         qCDU0F8+FwpcvqSj8tGa086531I52tei4I6vKfF7nn/op9dmUM6Gw8fzbGmIMS7lerkp
-         e9DjBKC6tfZ5J78f/mBefMRstnT+VE2Q8ZyeUvHJGTavArC3AK0JLVJc8miUD4QfJJEd
-         JYeFDdBkrA0tOpM8XdpO+RPGbSAcKc7xMaH1/9tWyS+tnAYCsSngJDMLR9HtSTt0GQUf
-         tQEAo+z+TtIt+G7ny8IcsoILqyatoGIjrMGtCIgYFgYv1EjPMvv7LzmrsrjYOm4KE6Ym
-         ++hQ==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=Aw61a0L9;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe0e::60b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+         :in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:sender:dkim-signature;
+        bh=zxP4H7PKmyqCKpjbffdC61Anx9stWs0bHTNc8aRnLqY=;
+        b=LaksF2HtLbJJeFljMhmgWkiUmjMUkrjxQ7nZjeT9vYf5Mt+etMpjJkXox+VqkEvDbP
+         cbt83E+2jsXqXDM9im9KXynhdW7qByNZ2cADjxg+CSPE2QhR9lg8eTbRJ3kuYpqm+d21
+         GZVDZKbtxeuQw8yhxh8i9O1qI2siHT+auYCmsLC1cCk6JGCQgk3fu+1j2cr1DQXy5wFj
+         tQCTse0NvIE8H/ZbeQiDzZs+4A/gez+uuIgWPmwW88K17BqNmUxIAFhtAn4gjcmoH1uq
+         mnXMOUt+2ebAPOLDg9DJlz6/7NaK06WHAEKVjV2xBLpplh9dc69iTPvlW8IdQGuTfIoK
+         lWuw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=XpgkqqBK;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
+         :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aneQrlE9y0MAXi+PMI5P2Q3LSI+GkB0ZDq7yVPbwYG0=;
-        b=GVHwAyvq58DJMQ9J9cG9A/EIkN0uhXLk2EnW3pkqIJN+Q1krfXtA5TYyVF6NU5A8Hx
-         RPpbKDNBJs6UpGUpszyI34IMwxoyOPEFEiyE3JNGxf5lRmUHyTpx/1PFqBni+S4+BY8e
-         8GyuN+RmeLxhXf6IPxEt0cgG5vm/6MI+Uphm25Mzoz+3cX3NZwUJR6rcETkErGELumwn
-         BWB2zDxbSNhuD3b7YoAiAYiH4+sHFnmWddYm6dCNzRn9HivmkkHSaO/JzL6Ckp3FSRyA
-         xWZQSJHiVBOzwoXW545ad0GZef3y9pTfRmu4/9iWq0QPo3wltSWQy8megSMy9nAb24Nx
-         47Nw==
+        bh=zxP4H7PKmyqCKpjbffdC61Anx9stWs0bHTNc8aRnLqY=;
+        b=rdFoVEDUgQEvT7CSiuOQIBH+nRRDvptGDa+rWN6pOL+uRaSNmrzJBKoHAdEkFoLdGX
+         uUsEbQJR/5RK7pwnWqw7ac75kdK+uIsl3cD3+x3OpcMOeOFAo0m/qlVYQpcrQ5iaIkKs
+         5DtqaAgB59m9ewXgXvL24VKjhmAv720k2Jyz2TEHwUNHVFhJAp/gEIVSHbeT57O47VRw
+         /7OuRkdpKQAHKCcAnA4wpWc/2zuQ7hyZdxdMi01kamrJRRhboxevMZRXSVQBip0kArce
+         +GrKfW7/VkuOx9Zi9G47yAfhQCthDSRqgqqFyOIB7kSTTzoFJacfhh3WefeA3Tq9gsmQ
+         aVlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
+         :subject:content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=aneQrlE9y0MAXi+PMI5P2Q3LSI+GkB0ZDq7yVPbwYG0=;
-        b=dBM/KiAEaF9FL+Pa1LgH4oSruqxwovqI6jrfNbMM+pEvH4nY9RzYkA7XGsKNyIZfua
-         GJGEUAhlsKKM6O8Zv75MB9390p75y6Rm2UnupQeEju9oWKkROTqWjkbfvMnT8fX3Hdg7
-         +vS7mbBGcHRN2Gdga3Lf+p/zHds/msbfbIZTbxTUyGzZHuegM6/7lII53TaQT3dNCZ52
-         PdsiMqAJOJRQzlVt4b6OGBF6UryeEf6DqSc4vsFOn38yEyGuxmOKn2bEe16hbvTOBuEd
-         C73HJSYU+/fWFj82OytSo7zwynKvrYL4w/gWVBn2SszfEuLEkKoJ3c9Pig67woRVMMu8
-         2zOw==
+        bh=zxP4H7PKmyqCKpjbffdC61Anx9stWs0bHTNc8aRnLqY=;
+        b=Jk3Kbt7Fr9hBP2AMrE11ekCGEwzhmP++M/TtaZWbHesvqhTcZO0I7ODeJg3vdMynpQ
+         Ft1aPY9bHqRuOCsi6rfbPVOsXfFSa+dHMe+hzGPmfLeC/4VcqZH8m29ZdR8q8QqwCYci
+         olAPYk8vlo2orIl5sr4ZYeIcPRypNF0gKlWyNy93c71xqVGUb5FBJkf6Ap6FXiUS2pUM
+         UdcSmIBWDPJ+CSEptRaDZ1qUWJcHOUlGxHDq1jHBcM9ygZRNdZjXUQlF7CGQ7pSfJKxC
+         /RoZd8N9yeTi3T7QWRBdUUrqRcUWFtDlmxUwbYs+lIKBkQLC8FaSSXwSjF4yWE/4QjMa
+         PVxw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM53149BG75vWsNuvQHDvhufU1bndT3a29xMrnPiHESjs9mbL+nNBl
-	Y4A/N95pPFJPvnIW+IXEwVc=
-X-Google-Smtp-Source: ABdhPJzuAP2MvwEXtjqRKgK7e71ZJXpV6AP+il8Orev2Yyp8rCTeYH2siKDDWuWFTWCPqK3wsnTyVA==
-X-Received: by 2002:a2e:978f:: with SMTP id y15mr5794602lji.192.1641979598114;
-        Wed, 12 Jan 2022 01:26:38 -0800 (PST)
+X-Gm-Message-State: AOAM530gDeciDiC5AtvuHZxn3WhMLMcV4yj9Ry3+QzkHYq1VQL4DGesn
+	E+5ytw6oh3CsmODikKzfmDo=
+X-Google-Smtp-Source: ABdhPJwnCkHY/5o/3oovAKqqErLzq3J9Cxmyv1T/Am8tXjfOyFrqJYvrF0rUXrvdI/3hLIPom+5R/g==
+X-Received: by 2002:a5d:6f1e:: with SMTP id ay30mr8569015wrb.498.1641995694013;
+        Wed, 12 Jan 2022 05:54:54 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3b90:: with SMTP id g16ls2136129lfv.0.gmail; Wed,
- 12 Jan 2022 01:26:37 -0800 (PST)
-X-Received: by 2002:a05:6512:3da6:: with SMTP id k38mr6383886lfv.517.1641979597029;
-        Wed, 12 Jan 2022 01:26:37 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1641979597; cv=pass;
+Received: by 2002:adf:c7cd:: with SMTP id y13ls162466wrg.2.gmail; Wed, 12 Jan
+ 2022 05:54:53 -0800 (PST)
+X-Received: by 2002:a05:6000:1c01:: with SMTP id ba1mr8488345wrb.190.1641995693062;
+        Wed, 12 Jan 2022 05:54:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1641995693; cv=none;
         d=google.com; s=arc-20160816;
-        b=ZjqV+q0jQ0dZU6xW4FrUtHG/fHFc5BbknlecPaateB4aVol+VNYR08aAL/SxcsOfXp
-         Ic9EprM4FCrq50tYBHUUNw9im2IjY1s8bXi8N3WjRgpoV6OSKm5Z5Y33tsyTvJbXcnGa
-         S/iCpTRNCfS17CTvRsDgAF8Fpq658oBOhvG8PdfQBI226i9NK7+X6u0msviUVXohw/Vs
-         UlSFEHqmKGWsXn93gstSUqRYpLtc1a4o+mDNUX92xJkJLjjiW/Mc4GXmgmjS4FGUf/gl
-         6h1TGIVc9BclKHgnm7P7/j/O314IaA64DMnCe65/sS5JEzBCEkHuPYx9g0hGAm8outvi
-         WN+g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
+        b=YiE93DUvKStKcpT8q4ddPqFriMAI+WdS5T1SdsRbfwPHLLhDd8/nCmDwB1X7ZOy7N3
+         RY9W0EkxNHp2hDfzx5NrBDt0O7/UTVCUI1z3LPdF6xntSQAk6D7Xx/T4sk4z8F8yK4tc
+         yZsOl6vmLn3hHEIhfmWk1UPw4c9vZbiZCjy4uGXzgRS3K8JDDd4B1iWBHouNQpdU7Uim
+         F32M9y0MiH3q4FQ7JiVb9kjpjYvEU63flsvKoyur5Z6t3/T1gEtFUXcN9/07pWhtm3eX
+         CEyzZhGB7f0cLjqsdwstjjlY0oA8iJ5nDhSV1jxiFvKQyd15Zdp14HN/QJ6T9+aHi1Wv
+         EMrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :dkim-signature;
-        bh=YWqTxwR1NpEp5tfE/3gIrdjKRQVI9GNJ54IfwJjurTA=;
-        b=RKshqMUSaB9okG3cINx7+uoUamAJFNKuFCyhY3LSuhmi5EsL28sqngBcFlIj1QMwXu
-         fHywraMhVAKImG3/t5uEcROCdTmJLamy41L2sxv0hAVonX19nWf0prTXIHYLzv30Uc8U
-         8XjHSjRmcbwTHtDWAbSveajzMcCRFK3I3eBFKLqwndMK3bCV+6Z58q2knejw6DXSlhF9
-         gyHgc3Lk6c9jOTmZNDyKuSYWRS3wNzD27hXzgVM+gL44KpWLWxH+Hda8b1pK0U5hlzrW
-         28UxRO2At7Dr5zXmrdB7h/wSU3lipwF+/YXKkNihaKCid2ev4swb54h27X3p/HBeNqTm
-         MezQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=Aw61a0L9;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe0e::60b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-vi1eur04on060b.outbound.protection.outlook.com. [2a01:111:f400:fe0e::60b])
-        by gmr-mx.google.com with ESMTPS id 18si475271ljp.5.2022.01.12.01.26.36
+        bh=9Nj6vxIv/VgSXRpGFw9ztUzNVr633SLs9DvLHrriRLQ=;
+        b=w/uUe9gl5a39FphQQ+YTtZuYWkiPRMVxRUjP5SiPUxQ//Vo/yTsbprEyVEgN7ar+Rz
+         7CHOYwjzWylOtyLyCr5zjGVzJFNgyoJ44kCslEQ+ygDPXQeKxyXyR7oVgOfYHUZF0xst
+         Azhfmh0E7fixQfB41pKAjTcfPebskW/tj70hdareDfQM7gPXynN77acgaEG8d6tN7KCX
+         oJS/x4XtrgVhzvua2ZMhS5cYwCcL14MgnvqQ5yTajMDRUbGdPL0S3Hs2UqyP4tKDk2ef
+         oUe8e8v65hM+AzDogtqtkbQIhPb7AVnAtjo3nIfewLn+m5OBrs3ZqFNU30gje0HyNXIT
+         UBbQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=XpgkqqBK;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id e13si664533wrg.0.2022.01.12.05.54.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 12 Jan 2022 01:26:37 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe0e::60b as permitted sender) client-ip=2a01:111:f400:fe0e::60b;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bEZBnGTudugzNR2neFWCHf/guWJ+wwmWwR3KiTaFT2nQ51qmQFkhW+DtmEDkRv6XZw012Vy5uCE1D26LEMRyq3Cnw2SUpsZzdIqOSrXdvVDOQim0F1CmZ9BR2atijg/GLd7vXe4vpcyzQ7WtatjtfKrC9Qz0Z5oEC65UZU5GqRRqNvtkL9xzBX0EsPY9fTG5d8Hotl7gmM0BtsowrM5fNM/FHprVu6ycKOiRPfqJF0HEmcBzkXysak0sGNoYBZg/kxYBecUXR6UFhOIGdbsbMzWjxJaiWlJYreh0XTR5Hj7oZR3t/NqhuE2ieCBQHAstX2NLxJjIa2I5Ddc9XR5HtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YWqTxwR1NpEp5tfE/3gIrdjKRQVI9GNJ54IfwJjurTA=;
- b=cfjccM8PGiyt796KZvs7uqTDG4w4rw7ZmfZfvg7VEiUOD1qroiVzv01DkoLrrydsVN7LiXHIrObtxSXDmgMmJnj6kLNW8ui6+LKD+xdHqOJ7w5VFyD8nFVG8JDziEKORtaNjCHDhw3ugCDTjeJSZz5wYogSy3SWpGskUQ287NU/AjTs8j3248aqJtNklcFH7zcDg0PowhuGcFH4lub4QgWzGRHRswnznjvx+1vzvNJc3RQKVJkUQkFpfElNhHl5AxFvIb3nIWx4yymO1i9d95vLFQtkcqR0Nc1rIRiSgHX1N+7wU/muVxwXJgZX0vJM03Qh7SM1eAp5yIvNE426VAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.73) smtp.rcpttodomain=nxp.com smtp.mailfrom=siemens.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
- dkim=none (message not signed); arc=none
-Received: from FR3P281CA0080.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1f::15)
- by AS8PR10MB4485.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:2b7::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Wed, 12 Jan
- 2022 09:26:35 +0000
-Received: from VE1EUR01FT017.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:d10:1f:cafe::5) by FR3P281CA0080.outlook.office365.com
- (2603:10a6:d10:1f::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.4 via Frontend
- Transport; Wed, 12 Jan 2022 09:26:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.73)
- smtp.mailfrom=siemens.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=siemens.com;
-Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
- 194.138.21.73 as permitted sender) receiver=protection.outlook.com;
- client-ip=194.138.21.73; helo=hybrid.siemens.com;
-Received: from hybrid.siemens.com (194.138.21.73) by
- VE1EUR01FT017.mail.protection.outlook.com (10.152.2.226) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4888.9 via Frontend Transport; Wed, 12 Jan 2022 09:26:35 +0000
-Received: from DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) by
- DEMCHDC9SNA.ad011.siemens.net (194.138.21.73) with Microsoft SMTP Server
+        Wed, 12 Jan 2022 05:54:53 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4JYpwD4x7SzxwF;
+	Wed, 12 Jan 2022 14:54:52 +0100 (CET)
+Received: from [IPV6:2a02:810d:8fc0:44bc::6156] (2001:638:a01:8013::138) by
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Wed, 12 Jan 2022 10:26:34 +0100
-Received: from [139.22.143.158] (139.22.143.158) by
- DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.17; Wed, 12 Jan 2022 10:26:34 +0100
-Message-ID: <b1fd0279-e42b-6041-fbaf-3e48ac3b9ebe@siemens.com>
-Date: Wed, 12 Jan 2022 10:26:33 +0100
+ 15.1.2375.18; Wed, 12 Jan 2022 14:54:52 +0100
+Message-ID: <b96280bc-3f0c-c959-ed29-e23e7b07108f@oth-regensburg.de>
+Date: Wed, 12 Jan 2022 14:54:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
+ Thunderbird/91.4.1
 Subject: Re: [PATCH] hypervisor: arm/arm64: fix build error
 Content-Language: en-US
-To: "Bezdeka, Florian (T CED SES-DE)" <florian.bezdeka@siemens.com>,
-	"peng.fan@nxp.com" <peng.fan@nxp.com>, "peng.fan@oss.nxp.com"
-	<peng.fan@oss.nxp.com>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, <jailhouse-dev@googlegroups.com>
+CC: <peng.fan@nxp.com>
 References: <20220112065619.19432-1-peng.fan@oss.nxp.com>
- <fc104832-1a03-5d06-f12f-dd34bdb2fe60@siemens.com>
- <DU0PR04MB94175FA39632BC0AFEA908B088529@DU0PR04MB9417.eurprd04.prod.outlook.com>
- <115f149b84fcce90236cde99c1e3f2f11ec86307.camel@siemens.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <115f149b84fcce90236cde99c1e3f2f11ec86307.camel@siemens.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <20220112065619.19432-1-peng.fan@oss.nxp.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [139.22.143.158]
-X-ClientProxiedBy: DEMCHDC89XA.ad011.siemens.net (139.25.226.103) To
- DEMCHDC8A0A.ad011.siemens.net (139.25.226.106)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fa95cf7a-95e5-4177-94cf-08d9d5ada0ac
-X-MS-TrafficTypeDiagnostic: AS8PR10MB4485:EE_
-X-Microsoft-Antispam-PRVS: <AS8PR10MB448526601344FF43DF10340995529@AS8PR10MB4485.EURPRD10.PROD.OUTLOOK.COM>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ukHiZ4eWqYzFH0urkoa72dSu12fz2e15JLpWtmYDHB6ixNXfbYdbPvX5NM0Oj7EIxERsDe1H/AggAIHHNSKJbISnhnIBKjN0Tl0HN48RJd855oDjv/8V07YMKyAsGp77eIHaiFDLP97QC0g8ywg8MitFrseXSZg1eNOMJWqstO7jMyGLQPDfQdN9i+6TdxWoHV47ycRgFRZUa/hNiJoDq9xXWD+NmCzip0oeJgPDRwE/fmbdrgZ0KB5scj2QA3iI8tvS8GarefopBtQyEEnS/Eltt/5QhDORddQe2Vu/aRDUbRTAN8V50tnSEsW+CiWbejXVVk332A02700M0IwWZQ+JIlgaHq1c0cy9xgpDL0jODTJ8OxWUt0N2q/5bNGcQ9l5Otcd22ntJws72MEpoStDNIBDatfON8OOFNc2Yv+ZrzXmYHGROHyBuCbQxTvKrQQQGV250gLI+MXptnNotVpQPqgce8YYb7HR2Vmfz1SmtUddT1ctVtNrMRK1ovVVUvbdjzO1gUGrcr6U92pPR5qTpCwcdiUpF+34Gk7eGWYhM5z0UO2CmRU+KqB15n4I2rpB2dI8DDM+TiQW0+jf7aqr4lXnn8TAMI9QA4vob//8PTNSRl/Pg3lOo1NL2yEt0mLlXWj4nPgDIWNUq+d4w7lz28snMol/hatdyNOE2O1JMvi6oNUcAyrZAloHWN++9FWcXoQYJJdpKYUP6V7DTErp2tBU0ZRqzGCAwjk29opQ6xeMWqwKQa8WYAmj/e9gZkPO1dcUX1RgC8v3cqcSy5LvrWAzGD10Fl0Q8ZgHwrTWQE5CnAfAHcb2Sv8u27c2m3KeHAtEvpH63sKwBejNSbY0JXCejYEz2ZPGf++q7zcqFT0782Bgds1ucrzHBYzppSCvZJEJlP2zoWTRmKHdhJEWZwzvAc8tvfoFc7p4u+cB3Kj15jnkHdD/jpnriqEc9
-X-Forefront-Antispam-Report: CIP:194.138.21.73;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(40470700002)(36840700001)(46966006)(70586007)(44832011)(70206006)(2906002)(6706004)(47076005)(26005)(31686004)(86362001)(36860700001)(31696002)(82310400004)(40460700001)(81166007)(5660300002)(82960400001)(508600001)(110136005)(316002)(8676002)(53546011)(356005)(16576012)(8936002)(956004)(16526019)(336012)(2616005)(36756003)(966005)(186003)(83380400001)(3940600001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 09:26:35.0734
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa95cf7a-95e5-4177-94cf-08d9d5ada0ac
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.73];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: VE1EUR01FT017.eop-EUR01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB4485
-X-Original-Sender: jan.kiszka@siemens.com
+X-Originating-IP: [2001:638:a01:8013::138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=Aw61a0L9;       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates
- 2a01:111:f400:fe0e::60b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=XpgkqqBK;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -202,72 +143,81 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 12.01.22 08:40, Bezdeka, Florian (T CED SES-DE) wrote:
-> On Wed, 2022-01-12 at 06:44 +0000, Peng Fan wrote:
->>> Subject: Re: [PATCH] hypervisor: arm/arm64: fix build error
->>>
->>> On 12.01.22 07:56, Peng Fan (OSS) wrote:
->>>> From: Peng Fan <peng.fan@nxp.com>
->>>>
->>>> With gcc 5.15, met the following error
->>>
->>> Which gcc version (surely not "5.15") from which distro? I've tried
->>> with
->>> manually adding -Werror=3Darray-bounds to the build and using gcc-
->>> 10.3.1, but
->>> this message didn't trigger.
->>
->> I use NXP linux 5.15-honister, gcc version 11.2.0.
->>
->>>
->>>>
->>>> hypervisor/arch/arm64/control.c:33:9:
->>>> error: =E2=80=98memset=E2=80=99 offset [0, 255] is out of the bounds [=
-0, 0]
->>> [-Werror=3Darray-bounds]
->>>>      33 |         memset(&this_cpu_data()->guest_regs, 0,
->>>> sizeof(union
->>> registers));
->>>>         |
->>> ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>> ~~
->>>> cc1: all warnings being treated as errors
->>>>
->>>> Fix this by use a volatile pointer to keep GCC from determining
->>>> its
->>>> value
->>>>
->>>
->>> Do we something wrong here, or did the kernel, e.g., had to work
->>> around such
->>> issues as well? The workaround looks a bit odd.
->>
->> It is gcc try to determining the array value, but I am not sure why
->> it not.
->> This patch is to let gcc not determine the array value to avoid
->> build break.
->=20
-> This sounds like [1], another gcc 11.x issue with kernel / Jailhouse
-> sources. I had the same problem for x86 some time ago. Not sure if
-> there are kernel workarounds for that.
->=20
-> The bug was marked as duplicate of [2], which is the kernel issue.
->=20
-> [1] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D100834
-> [2] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D99578
->=20
 
-Interesting. Just scanned for recent kernel commits containing=20
-"volatile" and referencing "gcc" in their log message, but I'm not yet=20
-finding anything related. Maybe too early to run after this gcc stuff?=20
-Or disable this check? But the latter may overshoot if that check was=20
-just expanded, not newly introduced.
 
-Jan
+On 12/01/2022 07:56, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>=20
+> With gcc 5.15, met the following error
+>=20
+> hypervisor/arch/arm64/control.c:33:9:
+> error: =E2=80=98memset=E2=80=99 offset [0, 255] is out of the bounds [0, =
+0] [-Werror=3Darray-bounds]
+>     33 |         memset(&this_cpu_data()->guest_regs, 0, sizeof(union reg=
+isters));
+>        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~~~~~
 
---=20
-Siemens AG, Technology
-Competence Center Embedded Linux
+I see the same error on gcc-11.1.
+
+My local workaround is to add -ffreestanding to hypervisor/Makefile, as=20
+this avoids builtin gcc-magic such as undesired inlining of memsets with=20
+constant size.
+
+We already use -ffreestanding for inmates, and I guess we should do it=20
+for the hypervisor as well.
+
+   Ralf
+
+> cc1: all warnings being treated as errors
+>=20
+> Fix this by use a volatile pointer to keep GCC from determining its value
+>=20
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>   hypervisor/arch/arm/control.c   | 3 ++-
+>   hypervisor/arch/arm64/control.c | 3 ++-
+>   2 files changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/hypervisor/arch/arm/control.c b/hypervisor/arch/arm/control.=
+c
+> index 46125e1a..c9c93982 100644
+> --- a/hypervisor/arch/arm/control.c
+> +++ b/hypervisor/arch/arm/control.c
+> @@ -23,9 +23,10 @@
+>   void arm_cpu_reset(unsigned long pc, bool aarch32)
+>   {
+>   	u32 sctlr;
+> +	union registers * volatile guest_regs =3D &this_cpu_data()->guest_regs;
+>  =20
+>   	/* Wipe all banked and usr regs */
+> -	memset(&this_cpu_data()->guest_regs, 0, sizeof(union registers));
+> +	memset(guest_regs, 0, sizeof(union registers));
+>  =20
+>   	arm_write_banked_reg(SP_usr, 0);
+>   	arm_write_banked_reg(SP_svc, 0);
+> diff --git a/hypervisor/arch/arm64/control.c b/hypervisor/arch/arm64/cont=
+rol.c
+> index 5b41b393..2c33c5f7 100644
+> --- a/hypervisor/arch/arm64/control.c
+> +++ b/hypervisor/arch/arm64/control.c
+> @@ -22,6 +22,7 @@ void arm_cpu_reset(unsigned long pc, bool aarch32)
+>   {
+>   	u64 hcr_el2;
+>   	u64 fpexc32_el2;
+> +	union registers * volatile guest_regs =3D &this_cpu_data()->guest_regs;
+>  =20
+>   	/* put the cpu in a reset state */
+>   	/* AARCH64_TODO: handle big endian support */
+> @@ -30,7 +31,7 @@ void arm_cpu_reset(unsigned long pc, bool aarch32)
+>   	arm_write_sysreg(PMCR_EL0, 0);
+>  =20
+>   	/* wipe any other state to avoid leaking information accross cells */
+> -	memset(&this_cpu_data()->guest_regs, 0, sizeof(union registers));
+> +	memset(guest_regs, 0, sizeof(union registers));
+>  =20
+>   	/* AARCH64_TODO: wipe floating point registers */
+>  =20
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -275,4 +225,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/b1fd0279-e42b-6041-fbaf-3e48ac3b9ebe%40siemens.com.
+jailhouse-dev/b96280bc-3f0c-c959-ed29-e23e7b07108f%40oth-regensburg.de.
