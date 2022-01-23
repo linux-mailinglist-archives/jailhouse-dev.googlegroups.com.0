@@ -1,75 +1,142 @@
-Return-Path: <jailhouse-dev+bncBDLLFRUURMIBBLFZT6HQMGQED7I2VSA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBNVZWWHQMGQEYE5MNRI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83b.google.com (mail-qt1-x83b.google.com [IPv6:2607:f8b0:4864:20::83b])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD0FD49377D
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Jan 2022 10:41:01 +0100 (CET)
-Received: by mail-qt1-x83b.google.com with SMTP id p28-20020ac8409c000000b002c96bebc6c3sf1150601qtl.4
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 19 Jan 2022 01:41:01 -0800 (PST)
+Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F034971BB
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 23 Jan 2022 14:48:39 +0100 (CET)
+Received: by mail-lf1-x138.google.com with SMTP id k11-20020a0565123d8b00b00432719f58dbsf7867243lfv.22
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 23 Jan 2022 05:48:39 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1642945719; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=EqrTfwqzRqbaCtdtBHQlB7NWjUJf2gjhIMSHZY/+6ftWATpmg++g4pGkMX5PKCiCVk
+         MbN5VNFZ9nkvJ63sDbtlg0ttdHQ3u8F5J1hBxOSXS/t+TxZHnG17Bg4n2rj+cf8fIseN
+         0t1A0SIL2vFvWVGHq6oRUw7QaGjAdWNXIV3tafaSEqisFU5d4SYmKmMS2JNHB1wjouKi
+         SqzN7T9B4di5/v3d7F9N7zVXKKjJuWtTjG1rUrGAmTE93p5wrI9wLModx+pksMM3glw5
+         FL6To682jimBrpSqeF7ifzVM0F4QhfJ/NMgIqhOW1q4HLQXww8HN8swPMdY3BU9LlVNi
+         /ZcQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:content-language:subject:from
+         :user-agent:mime-version:date:message-id:sender:dkim-signature;
+        bh=+eWIX1MFdtTAngYe4rYYF1rcN/roJ/KZV6EVVm1mj+U=;
+        b=QmnrljfJzEiqVpjEMLZjgsbJIKYlFNm8F4u3NYeVpXzTDq476p3GEiffO1MtrC/QuU
+         m/LgcGhMqt7/aXhLvMMy6a6z3aXyhqpyHMfREhEAokF2dSW9QpChL1ZpMUeub6EdKqhV
+         f/SnR2TKvpENpBlzCmccczoLpimocT+8MRjIvrhSHApmZHjeGYfN+DhmyrSHQClF8Qkt
+         4yZK7C22ZPXsdCp23x4Bu2XkdfX9ciZQEE/1fopo1N6sU+ZUQE3lh6DC+ZsG7mZ354/6
+         atYoiqjvbjnHUPn6VD5J+sKSufvBD/plZbTbpTFyTGDUAj4tWNbQjXy/gJ+Gq+LhaU/h
+         BD1Q==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="TKyR/9IS";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:message-id:date:mime-version:user-agent:from:subject
+         :content-language:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=X+tKPtml64+nBQcDf8MwW2mZ2oGUmdoqCj7OrqOR41k=;
-        b=V2dS/nzkVZYtnhmBxY0PJwQsyyF9d+TJMCmVJJff3Jxo/vYVxIjA8UA3UT7zQDujEK
-         6WZtr9h/hwYpBIHbS1MwUhx9C76FOpzFSzYZA+/6dFxTW95E848Rkp9UyJDMjUih6AGY
-         8Fv4pFP18WaTLpKK3vDMqIvkIwInBLwH3MdJENYqJYyLDL6FGX+U+nR1CDCOD2+vixRz
-         fEOUZ6v8YYroi9mxx9HKU2HAxuZYrbNloA76g9QurlOJu+dFDXS74tAZ8g2obdjAsT2c
-         RXoPWctcIvffpitH4XXgIsDaFPtppPZ+NuhDexg/bNM7A5cH5jv4cUsPNaSVgXPNTq4p
-         nozg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=X+tKPtml64+nBQcDf8MwW2mZ2oGUmdoqCj7OrqOR41k=;
-        b=KwUhPZ1MsskPNiqhPZjaC97DUyr7FRsV4gOIwi7W6/cYPgQ1IHY5nwB1b3RGmIAm2e
-         i41z/3m3vRdPpJYqF2NYIMIO6LdKcoNuTpq7WVgnv+gi1SPbXYc7nUCfSswPP6q2tesd
-         LNDpEAcWLJwyal4Fxl1hNLfZPc3loXBiXWDpUUAC9l8Jn6C8aeC2GP7dZHxubK2NVO7N
-         jaS571hbNJHGMybpfR692o6mmZyju90hgpdi9x86n62JbNvznuQvRm+2qSoa+JhXvK5u
-         gTgvXfGUOcvwkbSjvG6k0tLKj+kJ/6V4RHbLf0NxZ/dXX+i3CUbpCUvagxBeWJjy5g+T
-         9TJA==
+        bh=+eWIX1MFdtTAngYe4rYYF1rcN/roJ/KZV6EVVm1mj+U=;
+        b=WUfg25+2NE82uOVFLXqiYBJ7ENJx8e2nNRXFxDw1QjNgcVb8VzqREz+m8uGZD1wYf8
+         WP044qgyUcCrA7XL5UykuOmCZJxtCZbeguBgS4D7xa3hI1/y35gd9ya/VeSXs7+VodeX
+         mr1BmgfyM5WdkR4l54ZO87MjonIl0uat9jVDo9n5b0eMK3cxVirh91dIAyFleRiGUV7E
+         kYGYkqclR+fjyocGosu7sk68+u1OvsuppPzbaXR5zgdRk39na87t2+PcTUgv94PHQRb8
+         OkOozFY16gaNowiNCsrAfKqKgD7JamLsRuedaBXSb6hzv1rOJCSmCjOsmD7Rz5UjcNuO
+         e3qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=X+tKPtml64+nBQcDf8MwW2mZ2oGUmdoqCj7OrqOR41k=;
-        b=xq14RN4Lk/XgCdrTEbVc3vpawtgvIwvCP+pgixy0VFf4SyDoV2pq15ItqfpeaLh3Wy
-         YpDZdns1/P5b1oZYR6aYnPryNT3q71f86rkZhARiviNXZZCH1ltFdG8lnzq+wfnVuvyp
-         1ABzbbXC8ajtSI4QQEtP1vGat+6j3iW2uYCUfpGa7HCZqlAyk5vemlV8+5YmRUL03WLV
-         IHilGAwlN/NXsdD8TPbhMa6j1vdUVswGf/Q6cdzjxrilvKwxtf8+Pzws54tCcVnNcYfB
-         J8GOHzdbO2kJGc7wnNU3puJGOS8an+06VGnMdfB2T7TeWdgsRKncBUiEw+iWORd2aTgV
-         64QA==
+        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
+         :from:subject:content-language:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=+eWIX1MFdtTAngYe4rYYF1rcN/roJ/KZV6EVVm1mj+U=;
+        b=B03QMnz8qT5LrlLkWDEYfCGmrk6xleA9+al2e7d0gDcDkxoRmKAAkVN7tgEpZb2ogM
+         UDql9vj5rk9zrhee40MneHFA6pGqNw9vrx49FpNwsdohOLeCrU0lOFB6F1NYN3dGdSrI
+         /tZCuiSdIcxr1OiHG722oclCGSYYOMbhiSJXxvD1wPtZcgDYt8EwG87Mqf6t9PXAR0f6
+         ARPDbExf0+yLmTgTQ7O/ViFVgjFLXAfwoM01Zr7XMXgN/QP7DOJ0BcSCTPxG5IEiL6bj
+         +d4Tf+JR+HVEE90Zfz0+1e9G1joDF/NqbcOm5MD+gUti1h6JQQnzob8WX8/9/+kz/cqE
+         aMeg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5326Aa2ugeuWzzEYiGP99arAHcWpj5woVvz5gRw5gjT+PJuPBuuQ
-	d3KftKjNoEQIe+yg+Wmq7pw=
-X-Google-Smtp-Source: ABdhPJzndk8mKGh+T6c+HYqCOPjxlbnUdAhAY/OeKRjo0gcxGDIsD0pE2/51nXghWsbziuH8Z5MtIg==
-X-Received: by 2002:a05:6214:262a:: with SMTP id gv10mr25885119qvb.102.1642585260920;
-        Wed, 19 Jan 2022 01:41:00 -0800 (PST)
+X-Gm-Message-State: AOAM531bms5G/DL/WgW4DEumyVkTFaNy/LG3bTlMUIlUd6pmsNwOKvoV
+	rSV+giOc3HzNmP4JtXVsLn8=
+X-Google-Smtp-Source: ABdhPJzVbeVnYdXcgaMIY3EkOkVQSTQv4AkYcTu7WkwMtBdnKS/UMipL6mcU3kjHQLKegnxRIt8scw==
+X-Received: by 2002:a05:6512:4020:: with SMTP id br32mr916997lfb.654.1642945719265;
+        Sun, 23 Jan 2022 05:48:39 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5bc7:: with SMTP id b7ls768721qtb.11.gmail; Wed, 19 Jan
- 2022 01:41:00 -0800 (PST)
-X-Received: by 2002:a05:622a:1393:: with SMTP id o19mr24262817qtk.350.1642585260377;
-        Wed, 19 Jan 2022 01:41:00 -0800 (PST)
-Date: Wed, 19 Jan 2022 01:40:59 -0800 (PST)
-From: Anmol <anmol.karan123@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <391b2878-029d-4a31-b811-29d78749924an@googlegroups.com>
-In-Reply-To: <5f6add41-9c0a-0403-979f-19f4702dd45c@web.de>
-References: <09e503d7-c00c-4e8c-a10d-4385d061b0ben@googlegroups.com>
- <7a34f1dd-243c-2df1-4bfa-b2b86faac8d9@siemens.com>
- <99945765-6ae6-4efb-9fd2-bc9a461414edn@googlegroups.com>
- <04690e24-6aed-4856-aa81-f56f493821e0n@googlegroups.com>
- <CAC+yH-ZsR5AqLjCuK+y5ePczmiMK7upnkh3O+ppq8nEzC=j1TA@mail.gmail.com>
- <5f6add41-9c0a-0403-979f-19f4702dd45c@web.de>
-Subject: Re: Help Needed Regarding Virtio IVSHMEM
+Received: by 2002:a05:6512:3b90:: with SMTP id g16ls385736lfv.3.gmail; Sun, 23
+ Jan 2022 05:48:37 -0800 (PST)
+X-Received: by 2002:a05:6512:3247:: with SMTP id c7mr3828207lfr.195.1642945717772;
+        Sun, 23 Jan 2022 05:48:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1642945717; cv=none;
+        d=google.com; s=arc-20160816;
+        b=EScglpgOUf6LZBrex7zVWrScKtFTCJnY2ihD4D32/cNu9rZXMzlkBn6/MsVFNaBCtt
+         FmAg/l3eO6bPWZJyE2iUJ4B/ft3OJ+EzkG5e0z4I36MqdyTCBaJbjLbNRtbmGQD34Ozm
+         h7fynrj4A5uzHx98/WjYo3RZE1LBUKfs55R5GfDjY/+LqN//VXY4Kau/nJ87hB3l7PlT
+         7t+uRtw8QtZVOv4mVgxYI3Ge+90kASkLaZ61wO3MfFDTbu9sBCeWLaGMpgn2FvPw5uUW
+         9UMeW4Pp7IhSEg/2gzSbNP/EkOtJkF1sECuGnCttc1IBw1/0/Wpks6KIdYfakG3Xhpsh
+         cOPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:to:content-language:subject:from
+         :user-agent:mime-version:date:message-id:dkim-signature;
+        bh=7A9awC3For8RauYGhWruZSc0Jwpp+hS3httGLXDZ/ZI=;
+        b=oN0rhU72SnvkKFtWXKFxW1111cTc5uwXIq1TAOTGz+eFlxfF9PHadj4Spf3uzqojMw
+         v1PHPJ3jk0UFV6v/1bhYFNfoI6mAHwX1XugJGGPdoB8b8DxX0IbM3+x0qvSBWyhQ61A4
+         tt3vfoTMcj4GK9d2Xz8GvoiLEgxI9ZYFwNVQ6RsdQLY11zxxdUyzmDqzblCvibnHOMKx
+         yTfnrbE+4JYn52IYxO+igGlQiTWUdKxYQN+97UKVpq0kwanJoSdDuq+SjHfVnURatvmB
+         hEunZLumQJ6I7FcKyW24D+qkv4Y42nEglQX3LMQZdDmWGtCzjUY3U1nSELL57bUNAzeR
+         PN9w==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b="TKyR/9IS";
+       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+Received: from mout.web.de (mout.web.de. [212.227.17.11])
+        by gmr-mx.google.com with ESMTPS id i10si397521lfr.5.2022.01.23.05.48.37
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Jan 2022 05:48:37 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as permitted sender) client-ip=212.227.17.11;
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.10.10] ([88.215.87.113]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mq184-1mYjxu40mo-00nOVK for
+ <jailhouse-dev@googlegroups.com>; Sun, 23 Jan 2022 14:48:37 +0100
+Message-ID: <34bedc55-d7e8-df50-0198-f9458fcf218e@web.de>
+Date: Sun, 23 Jan 2022 14:48:36 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_14810_1284942261.1642585259857"
-X-Original-Sender: anmol.karan123@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+From: Jan Kiszka <jan.kiszka@web.de>
+Subject: [PATCH] configs: arm: Allow access to RTC in orangepi0 root cell
+Content-Language: en-US
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Provags-ID: V03:K1:IVn9hDbTvazr2l6LKfc1VcgCzEdhjvnXBNhBAddNYcWxEQuZdxQ
+ nB404JGB6if5B3iUanzyF98gd9iRgiSDtJmBHQy6sbcoamhNJA1X8B4JBYtyKJiqGdnFmL9
+ sy4KWrIvnUO2J9gaIGHn8gsVRUpDuAywFQtasQbI3c3sO2yerkf5VRPVhH2ydWElWT/g/Gk
+ r5Rat9ukEvximctylaXbA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:loU9xA/NBfk=:aTMtCTlK7sEgv2yydGiyp2
+ M9appLRlgfDRrwctxoMVCLyqIJq6dPCW3yHrCFiYxpm1oZrAyLvnU70O7Dw20fXRXv8z+J7pO
+ /16W+iz9W+YZGdknySa2mbWScQ2YCe0MYtJbQMTMjiZRLxBrd/R3xXeTVVMFkHxltyhXqV1rQ
+ dXTdZ87J/BkJNO9AyGh9GsqzlseXFMloBTyMi6IC2uKVD83v4ASiYNY3DihxJGscheqC4iUm1
+ kUJ8oQIdKhmtfpzh35Dkms/hxcYVJzvE5geGhLyyxA/2MjcAvAonw2a7pAMIJzyBV3bCteDBT
+ w1zlbnqTjMVslctSnbARCEcZK9nyfCaK5vMUZx2PYU/XGK61jgGHq6E8nQIGFrmr4IaxicA66
+ 9f8nbkseSxpnKMqXnzcIAT1Yy0rsMc+SABi3P5EF3/iBVAz27vbBcb9wh/2APVkoxy3Ej23fG
+ uziJALLej6Sw40/lqq3udmcKk5W2JW6aZcWluv4tuFPUhqskTV8C5kJ6t1svcL+iD6DqFoInN
+ O5Q4IVfbvg4heTew7cC5x65YpG7zxaYMYkXlOgM59VoykMwcHAkuuXU8GZgDn8Mh1iA0+Ht2a
+ nyqkA7G0dYiNbclJMS6MEfnrp4C6MTPB5lqB/7i1hfC4VjHsZaPLgMoW9V4IT3eIVBhbQQw5x
+ sujHtsxNWxf5WOKWA9xwaZZJ6K9bENXmaj24cEdkyGKBW5X87ti6Yj9dVrjHPIuqS1cR4YM3Y
+ PQokyNF3Kx2VNKZpmRAPjj9xV1HheGL8JFAH6u2rItlD43eQVV2i99TH10187m3AVkTHZapi7
+ llVt3EPopSPORBTSrexjpJIOMY4ekW0Td2B264RN5hlBIGqvIpTJXoUlLp3ZT1zwFb67BarQG
+ PBwhzFpWJtGREdiS8hj7/BH913mGZNiFygkdFc0Es9IZAvYK/DBJlNvO4+Iv/teh6rxkpKO2n
+ p9azcLUebibJMbotK1XXi701DppUv6lyC6OeH4OUvMQjiIVhC72MikNwRIGouDH2rFVZmYj+3
+ BOeu388Tq1U1UztjTXhjr6bG1n1PTT6pentqcu5wwe14uPl3mHmMiWvUkHrhcGTOVO10+o9iU
+ 1zR7+4zPaUpyrw=
+X-Original-Sender: jan.kiszka@web.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@web.de header.s=dbaedf251592 header.b="TKyR/9IS";       spf=pass
+ (google.com: domain of jan.kiszka@web.de designates 212.227.17.11 as
+ permitted sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
+ sp=QUARANTINE dis=NONE) header.from=web.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -82,177 +149,44 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_14810_1284942261.1642585259857
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_14811_2112469219.1642585259857"
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-------=_Part_14811_2112469219.1642585259857
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+  configs/arm/orangepi0.c | 9 ++++++++-
+  1 file changed, 8 insertions(+), 1 deletion(-)
 
-Hi,
-
-I have tried to figure it and resolved the "PCI devices not showing", and 
-devices are showing now(`c` and `d`):
-
-```
-Activating hypervisor
-[   73.183592] pci-host-generic fc000000.pci: host bridge /pci@0 ranges:
-[   73.199132] pci-host-generic fc000000.pci:   MEM 0xfc100000..0xfc103fff 
--> 0xfc100000
-[   73.208489] pci-host-generic fc000000.pci: ECAM at [mem 
-0xfc000000-0xfc0fffff] for [bus 00]
-[   73.218012] pci-host-generic fc000000.pci: PCI host bridge to bus 0001:00
-[   73.226675] pci_bus 0001:00: root bus resource [bus 00]
-[   73.233239] pci_bus 0001:00: root bus resource [mem 
-0xfc100000-0xfc103fff]
-[   73.245689] pci 0001:00:0c.0: [110a:4106] type 00 class 0xffc002
-[   73.255187] pci 0001:00:0c.0: reg 0x10: [mem 0x00000000-0x00000fff]
-[   73.268934] pci 0001:00:0d.0: [110a:4106] type 00 class 0xffc003
-[   73.275920] pci 0001:00:0d.0: reg 0x10: [mem 0x00000000-0x00000fff]
-[   73.333292] pci 0001:00:0c.0: BAR 0: assigned [mem 0xfc100000-0xfc100fff]
-[   73.350022] pci 0001:00:0d.0: BAR 0: assigned [mem 0xfc101000-0xfc101fff]
-[   73.365843] The Jailhouse is opening.
-[   73.379727] xilinx-dp-snd-card 
-fd4a0000.zynqmp-display:zynqmp_dp_snd_card: ASoC: failed to init link 
-xilinx-dp0: -517
-```
-but after doing this,
-
-```
-root:~# modprobe uio_ivshmem
-
-root:~# echo "110a 4106 110a 4106 ffc002 ffffff" > 
-/sys/bus/pci/drivers/uio_ivshmem/new_id
-[  448.468251] uio_ivshmem 0001:00:0c.0: enabling device (0000 -> 0002)
-[  448.479735] uio_ivshmem 0001:00:0c.0: state_table at 0x0000000050400000, 
-size 0x0000000000001000
-[  448.487710] uio_ivshmem 0001:00:0c.0: rw_section at 0x0000000050401000, 
-size 0x00000000000df000
-[  448.504564] xilinx-dp-snd-card 
-fd4a0000.zynqmp-display:zynqmp_dp_snd_card: ASoC: failed to init link 
-xilinx-dp0: -517
-
-root:~# ./virtio-ivshmem-block /dev/uio0 disk.img
-./virtio-ivshmem-block: cannot open /sys/class/uio/uio0/maps/map2/size: No 
-such file or directory
-```
-It's still not able to detect the required device.
-
-Also,
-
-```
-root:~# lspci -k
-00:0d.0 Class ffc0: 110a:4106
-00:0c.0 Class ffc0: 110a:4106 uio_ivshmem
-```
-
-Please let me know what I am missing.
-
-
-Thanks and Regards,
-Anmol
-On Thursday, January 6, 2022 at 1:23:51 PM UTC+5:30 Jan Kiszka wrote:
-
-> On 05.01.22 22:22, Anmol wrote:
-> > Hi Moustafa,
-> >
-> > I already added `CONFIG_UIO_IVSHMEM=y` in my kernel configuration and
-> > can easily load `uio_ivshmem` on the target image.
-> >
-> > Also, I am trying `virtio-ivshmem-console` so, is there any need for
-> > `CONFIG_IVSHMEM_NET=y` to be added in the defconfig?
-> >
->
-> To run the virtio-ivshmem-console backend process, you just need the
-> uio_ivshmem driver. Make sure it detected the required device properly
-> (kernel log), then virtio-ivshmem-console will also find the needed uio
-> sysfs entries.
->
-> Jan
->
+diff --git a/configs/arm/orangepi0.c b/configs/arm/orangepi0.c
+index 90b19b7c..c24344e0 100644
+--- a/configs/arm/orangepi0.c
++++ b/configs/arm/orangepi0.c
+@@ -18,7 +18,7 @@
+  struct {
+  	struct jailhouse_system header;
+  	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[17];
++	struct jailhouse_memory mem_regions[18];
+  	struct jailhouse_irqchip irqchips[1];
+  	struct jailhouse_pci_device pci_devices[2];
+  } __attribute__((packed)) config = {
+@@ -142,6 +142,13 @@ struct {
+  			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+  				JAILHOUSE_MEM_IO,
+  		},
++		/* RTC */ {
++			.phys_start = 0x01f00000,
++			.virt_start = 0x01f00000,
++			.size =            0x400,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_32,
++		},
+  		/* MMIO 3 (permissive) */ {
+  			.phys_start = 0x01f01000,
+  			.virt_start = 0x01f01000,
+--
+2.31.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/391b2878-029d-4a31-b811-29d78749924an%40googlegroups.com.
-
-------=_Part_14811_2112469219.1642585259857
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><div>Hi,<div><br></div><div>I have tried to figure it and resolved the=
- "PCI devices not showing", and devices are showing now(`c` and `d`):<br></=
-div><div><br></div><div>```</div><div>Activating hypervisor<br>[ &nbsp; 73.=
-183592] pci-host-generic fc000000.pci: host bridge /pci@0 ranges:<br>[ &nbs=
-p; 73.199132] pci-host-generic fc000000.pci: &nbsp; MEM 0xfc100000..0xfc103=
-fff -&gt; 0xfc100000<br>[ &nbsp; 73.208489] pci-host-generic fc000000.pci: =
-ECAM at [mem 0xfc000000-0xfc0fffff] for [bus 00]<br>[ &nbsp; 73.218012] pci=
--host-generic fc000000.pci: PCI host bridge to bus 0001:00<br>[ &nbsp; 73.2=
-26675] pci_bus 0001:00: root bus resource [bus 00]<br>[ &nbsp; 73.233239] p=
-ci_bus 0001:00: root bus resource [mem 0xfc100000-0xfc103fff]<br>[ &nbsp; 7=
-3.245689] pci 0001:00:0c.0: [110a:4106] type 00 class 0xffc002<br>[ &nbsp; =
-73.255187] pci 0001:00:0c.0: reg 0x10: [mem 0x00000000-0x00000fff]<br>[ &nb=
-sp; 73.268934] pci 0001:00:0d.0: [110a:4106] type 00 class 0xffc003<br>[ &n=
-bsp; 73.275920] pci 0001:00:0d.0: reg 0x10: [mem 0x00000000-0x00000fff]<br>=
-[ &nbsp; 73.333292] pci 0001:00:0c.0: BAR 0: assigned [mem 0xfc100000-0xfc1=
-00fff]<br>[ &nbsp; 73.350022] pci 0001:00:0d.0: BAR 0: assigned [mem 0xfc10=
-1000-0xfc101fff]<br>[ &nbsp; 73.365843] The Jailhouse is opening.<br>[ &nbs=
-p; 73.379727] xilinx-dp-snd-card fd4a0000.zynqmp-display:zynqmp_dp_snd_card=
-: ASoC: failed to init link xilinx-dp0: -517</div><div>```<br></div><div>bu=
-t after doing this,</div><div><br></div><div>```</div><div>root:~# modprobe=
- uio_ivshmem<br><br></div><div>root:~# echo "110a 4106 110a 4106 ffc002 fff=
-fff" &gt; /sys/bus/pci/drivers/uio_ivshmem/new_id<br>[ &nbsp;448.468251] ui=
-o_ivshmem 0001:00:0c.0: enabling device (0000 -&gt; 0002)<br>[ &nbsp;448.47=
-9735] uio_ivshmem 0001:00:0c.0: state_table at 0x0000000050400000, size 0x0=
-000000000001000<br>[ &nbsp;448.487710] uio_ivshmem 0001:00:0c.0: rw_section=
- at 0x0000000050401000, size 0x00000000000df000<br>[ &nbsp;448.504564] xili=
-nx-dp-snd-card fd4a0000.zynqmp-display:zynqmp_dp_snd_card: ASoC: failed to =
-init link xilinx-dp0: -517<br><br></div><div>root:~# ./virtio-ivshmem-block=
- /dev/uio0 disk.img<br>./virtio-ivshmem-block: cannot open /sys/class/uio/u=
-io0/maps/map2/size: No such file or directory</div><div>```</div><div>It's =
-still not able to detect the required device.</div><div><br></div><div>Also=
-,</div><div><br></div><div>```</div><div>root:~# lspci -k<br>00:0d.0 Class =
-ffc0: 110a:4106<br>00:0c.0 Class ffc0: 110a:4106 uio_ivshmem</div><div>```<=
-/div><div><br></div><div>Please let me know what I am missing.</div><div><b=
-r></div><div><br></div><div>Thanks and Regards,</div><div>Anmol</div></div>=
-</div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On =
-Thursday, January 6, 2022 at 1:23:51 PM UTC+5:30 Jan Kiszka wrote:<br/></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-le=
-ft: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 05.01.22 22:22, An=
-mol wrote:
-<br>&gt; Hi Moustafa,
-<br>&gt;
-<br>&gt; I already added `CONFIG_UIO_IVSHMEM=3Dy` in my kernel configuratio=
-n and
-<br>&gt; can easily load `uio_ivshmem` on the target image.
-<br>&gt;
-<br>&gt; Also, I am trying `virtio-ivshmem-console` so, is there any need f=
-or
-<br>&gt; `CONFIG_IVSHMEM_NET=3Dy` to be added in the defconfig?
-<br>&gt;
-<br>
-<br>To run the virtio-ivshmem-console backend process, you just need the
-<br>uio_ivshmem driver. Make sure it detected the required device properly
-<br>(kernel log), then virtio-ivshmem-console will also find the needed uio
-<br>sysfs entries.
-<br>
-<br>Jan
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/391b2878-029d-4a31-b811-29d78749924an%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/391b2878-029d-4a31-b811-29d78749924an%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_14811_2112469219.1642585259857--
-
-------=_Part_14810_1284942261.1642585259857--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/34bedc55-d7e8-df50-0198-f9458fcf218e%40web.de.
