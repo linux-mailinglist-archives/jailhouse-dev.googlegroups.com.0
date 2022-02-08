@@ -1,60 +1,73 @@
-Return-Path: <jailhouse-dev+bncBC2JHXGGREIRBGEZ5OHQMGQEPJU7EIA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC653PXTYYERBP6JRGIAMGQE2TLBUPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83d.google.com (mail-qt1-x83d.google.com [IPv6:2607:f8b0:4864:20::83d])
-	by mail.lfdr.de (Postfix) with ESMTPS id D135E4A77E1
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  2 Feb 2022 19:25:29 +0100 (CET)
-Received: by mail-qt1-x83d.google.com with SMTP id c15-20020ac87dcf000000b002d0a849c0besf16049594qte.16
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 02 Feb 2022 10:25:29 -0800 (PST)
+Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 802804AD86A
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Feb 2022 13:40:32 +0100 (CET)
+Received: by mail-qk1-x73a.google.com with SMTP id bl5-20020a05620a1a8500b005088d061be4sf5261025qkb.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Feb 2022 04:40:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:date:from:to:message-id:in-reply-to:references:subject
          :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=BmS3n/LsUUv23sGKwqt05BOhPIkD8vf7eCEr100Ftg4=;
-        b=SU62t+cHuhN7UO7ZdRQwyifuQrCyE8LAMvmjgIWCzv/KlGjJhKpAYXB+qnFdYUEO6X
-         L7DXwENX9HwcqeWrlQnTNI72qMqX4+HZwaX1kj4hSoCsy87CVh/9Y4sKy1OviWJFA5++
-         PD85H2TN0edFqCZ/oizcu9xXJYeWgmpkO1ApXn7njWsgvPb+y0qrNQUVzuPpej079FnY
-         bJrUjoJrPYJp47UgddytkaXbqEccm5UVWAa2FxmEa8iU1SK5g6VBq9F2sKXIIpZ8JxL5
-         tUypx2NPbPMZG6mdCOA22z9Gk2tTLuy1sdq681E6o2UtSQcGl9GCaJocg8hdh7j5q3Y5
-         tBxA==
+        bh=3EkUlIBPQEFOsC2+iR6QfbyyYjA+ywiVLewNt+bbmpA=;
+        b=UWC/NBzflAzLNsESF41yDC7Xqt8+m7Yv2YVjqOkNJn6TDj3FsLmb+eYPC9bTQpYuIS
+         MGMgScCTukeXdBHZ0Om8UlZwMB+y7mJh9sb/eAJ+HEAnJNeeJVR47yv2S4LIEf7DNhb0
+         frHUvIgnkf3MwX+/FCMHLG6zv8VvTUnYZ9bFFk+SIv3hM8ZiLHZSF86cUz9LGj0dYdHG
+         xMapyEo3DsWeICLn4OXYsykNubfAzSkkHRD2F9CBvSofwcjW4n5oIeHoZGe4zlRZUhbT
+         +nhRpTJ43u9kE5i0/24XIoL1NSp8KHxSVcf2BbZhEzTJRyu8+cdIOKTC/EXDbIpr8cm1
+         szqQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=3EkUlIBPQEFOsC2+iR6QfbyyYjA+ywiVLewNt+bbmpA=;
+        b=CHYN+9J1toUHxn4IeY0+wq7IubxbDNyfhBW/vOUWCnqSD2ngXmK+a9R4kTcEJSoxvr
+         wSbsfp3W4cz1dQXsHFQgbfCwDI1DBbcN17JoxKUKlV+VYAu5whWdy5zfgcM0VINm+WO9
+         iIutMxvUtCRTZm7F+TYi+Dxs6sL7VriIJs7Nt6rD0fovmVXAszQ9LVKeQJJjzyG9W4bx
+         YV6TyKC2bu2oZGEzbL40aoq57OM1D3acXuokPktFhBFJQIPKZZ4KRcXzcIq1Rs5i6nmR
+         0tBaU0eYzoPnv7zaXlYxQ0VTki9rhxu98EDJDFIuhAknniU+GEp3G0P3zbkPButwpLlO
+         vvbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
          :references:subject:mime-version:x-original-sender:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=BmS3n/LsUUv23sGKwqt05BOhPIkD8vf7eCEr100Ftg4=;
-        b=mNuydkvlVXCz799Uhrgoy9oteaoPBaWqc5Zx5w6uIrguaeaql67pzTYDQ7CsV3rZ3V
-         bKDkkFT/qX9qGJfbzymUPA8cgH3MWSm4ZJFcoIx2h0Y0JuOECXHdcU2g9Cn1scTiklFp
-         JAuph5Out88vmxgW16+p5Rx4+PegHJEx0mb4EQfNWXOfDe4jpBzs1CmP8H4gJQkCEYZT
-         BYZwjsdKKRWSi2wdqOqNKBP2UoCrpFkkBKNAacJL9nBQtILEZnciTTEg3AXnHEbL3PsP
-         xQn5pmYrEL9Ajx16SMj3lkaOCTXdhNjqtpANBM9/1THKDxOoiJkmOb5q4+MxQ6KuFK1e
-         1sEg==
+        bh=3EkUlIBPQEFOsC2+iR6QfbyyYjA+ywiVLewNt+bbmpA=;
+        b=lV1HH1KJwCLdfwR0HG7r6mA6Uv6fK89Z9o9l9Gu7giJYl3JOta8u2hsiLz9sInJjf6
+         OlWfNYTxn2YsyfHvf3ofy15CZfkevY29C/RWJIjGIn+OxVQC2vmm92+JeCO0Wgv3I9K+
+         lSBLVWCJoBuIs0h1T1DNlea2zkhJp9hzb2qiDISiQBzFrwALso0H13p2HTybytGIShVG
+         K60LMjjWxDkd9cpLkvfGJSlphU6vMQdUZJ08gl8Wx6qhpatVRl0BFounhhy/Lo4YLAnJ
+         bkw/hg9zyC/V4tcZkRItk6m5D0nv5xB1W/g+QwppYaZI0nWreMgqpJZNNEmhWVdGb7wL
+         6MXQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531O8I1/Qwc8eN6/wlZnAuJn04wPC3tXf7IU79nqw2QSOoF1YfBi
-	p9KShsFS+cZNFPrOuGWdbv4=
-X-Google-Smtp-Source: ABdhPJwudpf8KBbpkv0Ojy0vL4Qy2OpXzfZ2vrm2Tm2RaplCeq84rwYpx5qHtulX9RB6ty6HWhoRCw==
-X-Received: by 2002:a05:622a:1805:: with SMTP id t5mr23895001qtc.293.1643826328617;
-        Wed, 02 Feb 2022 10:25:28 -0800 (PST)
+X-Gm-Message-State: AOAM530+K87d9htALs+p9K/jZ11l41ZEkAEX8/u9L2bJ6um/T8GFg1k/
+	A5pBWbJfZAtoDtrtAcImRzQ=
+X-Google-Smtp-Source: ABdhPJxgaKmtwIGAP35293vjJ+uTsS+YGs1I8nlgoJLSDXDN6JULW0IPiVq++GQN45SvkIPeNgfWiw==
+X-Received: by 2002:a37:a810:: with SMTP id r16mr2417994qke.733.1644324031549;
+        Tue, 08 Feb 2022 04:40:31 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:620a:444b:: with SMTP id w11ls12499218qkp.10.gmail; Wed,
- 02 Feb 2022 10:25:27 -0800 (PST)
-X-Received: by 2002:a05:620a:4692:: with SMTP id bq18mr14168154qkb.575.1643826327683;
-        Wed, 02 Feb 2022 10:25:27 -0800 (PST)
-Date: Wed, 2 Feb 2022 10:25:27 -0800 (PST)
-From: =?UTF-8?Q?Paul_W=C3=BCrtz?= <paulwuertz@web.de>
+Received: by 2002:a05:6214:528c:: with SMTP id kj12ls4422412qvb.7.gmail; Tue,
+ 08 Feb 2022 04:40:30 -0800 (PST)
+X-Received: by 2002:ad4:5ba9:: with SMTP id 9mr2837790qvq.111.1644324030281;
+        Tue, 08 Feb 2022 04:40:30 -0800 (PST)
+Date: Tue, 8 Feb 2022 04:40:29 -0800 (PST)
+From: Moustafa Nofal <mustafa13e09940@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <69269fdd-f93d-49b5-8b38-94090561dd48n@googlegroups.com>
-In-Reply-To: <3fd793cf-ddd7-4159-8ef2-2efbb525ec5fn@googlegroups.com>
+Message-Id: <cb798767-e2c8-4313-a93c-cf12e6c18d6cn@googlegroups.com>
+In-Reply-To: <69269fdd-f93d-49b5-8b38-94090561dd48n@googlegroups.com>
 References: <708f3b50-30ad-8ec8-d1a8-0ebd52f14586@posteo.de>
  <3fd793cf-ddd7-4159-8ef2-2efbb525ec5fn@googlegroups.com>
+ <69269fdd-f93d-49b5-8b38-94090561dd48n@googlegroups.com>
 Subject: Re: Adding hardware peripherals to rpi4 with image from
  jailhouse-images
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_1266_1583731158.1643826327030"
-X-Original-Sender: paulwuertz@web.de
+	boundary="----=_Part_440_1908227362.1644324029524"
+X-Original-Sender: mustafa13e09940@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -67,520 +80,178 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1266_1583731158.1643826327030
+------=_Part_440_1908227362.1644324029524
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_1267_1093716223.1643826327030"
+	boundary="----=_Part_441_1077666164.1644324029524"
 
-------=_Part_1267_1093716223.1643826327030
+------=_Part_441_1077666164.1644324029524
 Content-Type: text/plain; charset="UTF-8"
 
-Hej Mustafa :)
 
-Can you share the cell and dts with me, from your GPIO transfer to the 
-baremetal cell?
-Are you working with the raspberry-pi/bcm2711 as well?
-
-The serial driver already is loaded, so I would expect this to work, but I 
-get some bus error, even the cell grants access to this address:
-*[    0.035905] OF: amba: of_address_to_resource() failed (-22) for 
-/serial@7e201600*
-
-The I2C drivers are also loaded and two internal I2C are running on the 
-base linux/the root cell. So I guess my defconfig should be ok?!
-But the kernel logs give some phandle error, I find no helpful information 
-about online...
-*[    0.037665] OF: /i2c@7e804000: could not find phandle*
-
-Yesterday I tried to transfer the GPIO as well. I oriented myself on this 
-dts[1]
-Leading to this cell and dts additions, which is the 283x-dtsi with the 
-overriden values from the 2711.dts applied:
-
-[image: dts.png]
-Originally I started with the reg size of 0xb4 like in the rpi4 dts file, 
-but booting the linux cell then gave me:
-
-
-*[    0.195071] pinctrl-bcm2835 7e200000000000ff.gpio: could not get IO 
-memory[    0.195095] pinctrl-bcm2835: probe of 7e200000000000b4.gpio failed 
-with error -22*
-In the kernel logs. So I increased it a little, since in the peripheral 
-docs section 5.2[3] upto 0xf0 registers are mentioned, but the same error 
-ocurrs
-with reg-size of 0xff. I also do not understand, why the 32-bit address is 
-expended to 64-bit, when the bcm2711 has a 35-bit bus...
-
-And yes, I am using jailhouse-images. For building jailhouse myself - 
-I tried that -  but I could'n start the kernel module with my self build 
-image, 
-but I am fine for now by working with the reference jailhouse-images.
-If anybody has used peripherals in the linux demo in the rpi 
-jailhouse-image I would be happy for any code references, or hints ^^
-
-I don't know. Maybe my kernel hacking level is not up for using jailhouse 
-like that. I fell that I struggle with the kernel here more, then with 
-actual jailhouse.
-But on the other hand I would like to understand, make it running, and add 
-some practical examples of peripheral usage to some kind of docs, so
-that the learning curve for getting started is a little less step. I just 
-don't know where else to ask, if one can recommend some literature  to read 
-or forum, where my
-issues are discussed more adequately I am grateful for any hints :)
-
-Thank you all very much!
-Greetings Paul
-
-[1] 
-https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/bcm283x.dtsi#L107
-[2] root@demo:~# jailhouse cell linux /etc/jailhouse/rpi4-linux-demo.cell   
-                      /boot/vmlinux*                         -d 
-/etc/jailhouse/dts/inmate-rpi4.dtb                         -i 
-/usr/libexec/jailhouse/demos/rootfs.cpio                         -c 
-"console=ttyS0,115200 ip=192.168.19.2"^C
-root@demo:~# jailhouse cell linux 
-/root/jailhouse-next/configs/arm64/rpi4-linux-demo_neu.cell /boot/vmlinux* 
--d /root/jailhouse-next/configs/arm64/dts/inmate-rpi4_custom.dtb -i 
-/usr/libexec/jailhouse/demos/rootfs.cpio -c "console=ttyS0,115200 
-ip=192.168.19.2"
-root@demo:~# ssh 192.168.19.2
-# dmesg | grep gpio
-[    0.195071] pinctrl-bcm2835 7e200000000000ff.gpio: could not get IO 
-memory
-[    0.195095] pinctrl-bcm2835: probe of 7e200000000000ff.gpio failed with 
-error -22
-[3] https://datasheets.raspberrypi.com/bcm2711/bcm2711-peripherals.pdf
-mustafa...@gmail.com schrieb am Sonntag, 30. Januar 2022 um 20:04:57 UTC+1:
-
-> Hi, 
-> I am like, a student doing his thesis with Jailhouse. 
-> How did you built your non-root Linux cell, if you are taking the build 
-> root generated by jailhouse-images, you might need to add some flags in the 
-> buildroot defconfig. However, I am not sure. I did not try this with the 
-> Linux inmate, but I was able to add the GPIO on an bare-metal cell. So, I 
-> think your workflow is correct. It might be also possible, that your 
-> buildroot kernel does not have drivers for the nodes you added. One more 
-> question, are you using jailhouse-images, or you ported jailhouse yourself. 
 >
-> Moustafa Noufale
-> On Sunday, 30 January 2022 at 19:48:13 UTC+1 Paul wrote:
+> >>Can you share the cell and dts with me, from your GPIO transfer to the 
+> baremetal cell?
 >
->> Hello everyone :)
->>
->> I am playing around with jailhouse finally for my thesis :)
->>
->> I tried the last days to add another UART, I2C and some GPIOs to the 
->> non-root cell linux demo.
->> Already the UART produces some errors I cannot resolve myself.
->> Maybe someone could hint me in the right direction ^^
->>
->> I try to add uart3[1] and i2c1 from the BCM2711 to the non-root cell.
->> Therefore I modified the reference dts[2] and linux-demo-cell[3] from the 
->> configs with these changes[4].
->> Then I re-make the jailhouse folder on the pi:
->>
->> root@demo:~/jailhouse-next# make KDIR=../linux-5.10.19/
->>
->>   CC      /root/jailhouse-next/configs/arm64/rpi4-linux-demo_neu.o
->>
->>   OBJCOPY /root/jailhouse-next/configs/arm64/rpi4-linux-demo_neu.cell
->>
->>   DTC     /root/jailhouse-next/configs/arm64/dts/inmate-rpi4_custom.dtb
->>
->> When booting up the kernel logs on serial line/dmsg show no difference.
->> I hoped some of /dev/ttyS* devices now can be written to, but nope:
->>
->> # echo "hhhhhhh" > /dev/ttyS3
->>
->> sh: write error: Input/output error
->>
->> I dont know. Do my steps seem plausible, do I need something more to make 
->> these resources available
->> in the non-root cell Linux besides adding the peripheral addresses to dts 
->> and the cell? 
->> Any hints are very much apreciated ^^
->>
->> Attached are my custom cell source and dts file (or the patch file for 
->> the rpi4 linux-demo).
->>
->> Thank you!
->> Paul
->>
->> P.S. my kernel version of the jailhouse-images is 5.10.31, in the 
->> buildroot folder I only found 5.10.19 to re-build the .cell file, but I 
->> hope these 12 patches do not make for the error...
->>
->>
->> [1] 
->> https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/bcm2711.dtsi#L140
->> [2] 
->> https://github.com/siemens/jailhouse/blob/master/configs/arm64/dts/inmate-rpi4.dts
->> [3] 
->> https://github.com/siemens/jailhouse/blob/master/configs/arm64/rpi4-linux-demo.c
->> [4] [p4w5@p4w5 jailhouse/configs]$ git diff . 
->>
->> diff --git a/configs/arm64/dts/inmate-rpi4.dts b/configs/arm64/dts/inmate-rpi4.dts
->> index 305ac22f..8ff2da27 100644
->> --- a/configs/arm64/dts/inmate-rpi4.dts
->> +++ b/configs/arm64/dts/inmate-rpi4.dts
->> @@ -84,6 +84,27 @@
->>                 status = "okay";
->>         };
->> +    uart3: serial@7e201600 {
->> +        compatible = "arm,pl011", "arm,primecell";
->> +        reg = <0x7e201600 0x200>;
->> +        interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
->> +        clocks = <&clocks BCM2835_CLOCK_UART>,
->> +                <&clocks BCM2835_CLOCK_VPU>;
->> +        clock-names = "uartclk", "apb_pclk";
->> +        arm,primecell-periphid = <0x00241011>;
->> +        status = "okay";
->> +    };
->> +
->> +       i2c1: i2c@7e804000 {
->> +               compatible = "brcm,bcm2835-i2c";
->> +               reg = <0x7e804000 0x1000>;
->> +               interrupts = <2 21>;
->> +               clocks = <&clocks BCM2835_CLOCK_VPU>;
->> +               #address-cells = <1>;
->> +               #size-cells = <0>;
->> +               status = "disabled";
->> +       };
->> +
->>         pci@e0000000 {
->>                 compatible = "pci-host-ecam-generic";
->>                 device_type = "pci";
->> diff --git a/configs/arm64/rpi4-linux-demo.c b/configs/arm64/rpi4-linux-demo.c
->> index f93c564a..9ccdc9dd 100644
->> --- a/configs/arm64/rpi4-linux-demo.c
->> +++ b/configs/arm64/rpi4-linux-demo.c
->> @@ -19,7 +19,7 @@
->>  struct {
->>         struct jailhouse_cell_desc cell;
->>         __u64 cpus[1];
->> -       struct jailhouse_memory mem_regions[13];
->> +       struct jailhouse_memory mem_regions[15];
->>         struct jailhouse_irqchip irqchips[2];
->>         struct jailhouse_pci_device pci_devices[2];
->>  } __attribute__((packed)) config = {
->> @@ -93,6 +93,22 @@ struct {
->>                                 JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
->>                                 JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
->>                 },
->> +               /* UART3 */ {
->> +                       .phys_start = 0x7e201600,
->> +                       .virt_start = 0x7e201600,
->> +                       .size = 0x200,
->> +                       .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->> +                               JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
->> +                               JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
->> +               },
->> +               /* I2C */ {
->> +                       .phys_start = 0x7e804000,
->> +                       .virt_start = 0x7e804000,
->> +                       .size = 0x1000,
->> +                       .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->> +                               JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
->> +                               JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTSHARED,
->> +               },
->>                 /* RAM */ {
->>                         .phys_start = 0x1f900000,
->>                         .virt_start = 0,
->>
->>
+   Unfortunately, I cannot, because of University Regulations. You do not 
+need dts for the baremetal cell. It is for the non-root Linux cell
+
+> >>Are you working with the raspberry-pi/bcm2711 as well?
+> yes
+> >>The serial driver already is loaded, so I would expect this to work, but 
+> I get some bus error, even the cell grants access to this address:
+> *>>[    0.035905] OF: amba: of_address_to_resource() failed (-22) for 
+> /serial@7e201600*
+>
+> >>The I2C drivers are also loaded and two internal I2C are running on the 
+> base linux/the root cell. So I guess my defconfig should be ok?!
+> >>But the kernel logs give some phandle error, I find no helpful 
+> information about online...
+> *>>[    0.037665] OF: /i2c@7e804000: could not find phandle*
+> Hmmm, does  Jailhouse TCP/IP inter-cell communication works fine?, I mean 
+> can you ping the root cell from the non-root cell?    
+> >>Yesterday I tried to transfer the GPIO as well. I oriented myself on 
+> this dts[1]
+> >>Leading to this cell and dts additions, which is the 283x-dtsi with the 
+> overriden values from the 2711.dts applied:
+>
+> [image: dts.png]
+> >>Originally I started with the reg size of 0xb4 like in the rpi4 dts 
+> file, but booting the linux cell then gave me:
+>
+>
+> *>>[    0.195071] pinctrl-bcm2835 7e200000000000ff.gpio: could not get IO 
+> memory>>[    0.195095] pinctrl-bcm2835: probe of 7e200000000000b4.gpio 
+> failed with error -22*
+>
+> That is the correct workflow. Try on the root cell, and load to the 
+> non-root Linux. But there are many constraints, are you sure that the 
+> drivers are fit for Buildroot? From my painful experience, you have to 
+> cross-compile your application with buildroot, or are you sure that the I2C 
+> does not have any kernel dependecies?
+>
+ 
+> >>In the kernel logs. So I increased it a little, since in the peripheral 
+> docs section 5.2[3] upto 0xf0 registers are mentioned, but the same error 
+> ocurrs
+> >>with reg-size of 0xff. I also do not understand, why the 32-bit address 
+> is expended to 64-bit, when the bcm2711 has a 35-bit bus...
+>
+> I see only one problem here, which is the size. Jailhouse only accepts 
+> paged size for peripherals and also memory regions. So, 0xff will not work, 
+> I would recommend you to change it to 256 bytes and try, because it does 
+> not make any sense, why it wont work. 
+>
+ 
+> >>And yes, I am using jailhouse-images. For building jailhouse myself - 
+> >>I tried that -  but I could'n start the kernel module with my self build 
+> image, 
+> >>but I am fine for now by working with the reference jailhouse-images.
+> >>If anybody has used peripherals in the linux demo in the rpi 
+> jailhouse-image I would be happy for any code references, or hints ^^
+> First step first is to port Jailhouse, with only jailhouse-images, you 
+> have limited capabilities to learn and expand your understandings.  But 
+> jailhouse-images is the only way to understand how to port jailhouse 
+> yourself
+>
+ 
+
+> >I don't know. Maybe my kernel hacking level is not up for using jailhouse 
+> like that. I fell that I struggle with the kernel here more, then with 
+> actual jailhouse.
+> >But on the other hand I would like to understand, make it running, and 
+> add some practical examples of peripheral usage to some kind of docs, so
+> >that the learning curve for getting started is a little less step. I just 
+> don't know where else to ask, if one can recommend some literature  to read 
+> or forum, where my
+> >issues are discussed more adequately I am grateful for any hints :)
+> Nothing special than Jan tutorial and the drone project video. There is 
+> also one video from Texas instruments and the project autojail.
+> >Thank you all very much!
+> >Greetings Pau;
+
+Moustafa Noufale 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/69269fdd-f93d-49b5-8b38-94090561dd48n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cb798767-e2c8-4313-a93c-cf12e6c18d6cn%40googlegroups.com.
 
-------=_Part_1267_1093716223.1643826327030
+------=_Part_441_1077666164.1644324029524
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hej Mustafa :)<br><br>Can you share the cell and dts with me, from your GPI=
-O transfer to the baremetal cell?<br>Are you working with the raspberry-pi/=
-bcm2711 as well?<br><br>The serial driver already is loaded, so I would exp=
-ect this to work, but I get some bus error, even the cell grants access to =
-this address:<br><i>[ &nbsp; &nbsp;0.035905] OF: amba: of_address_to_resour=
-ce() failed (-22) for /serial@7e201600</i><br><br>The I2C drivers are also =
-loaded and two internal I2C are running on the base linux/the root cell. So=
- I guess my defconfig should be ok?!<br>But the kernel logs give some phand=
-le error,  I find no helpful information about online...<br><i>[ &nbsp; &nb=
-sp;0.037665] OF: /i2c@7e804000: could not find phandle</i><br><br>Yesterday=
- I tried to transfer the GPIO as well. I oriented myself on this dts[1]<br>=
-Leading to this cell and dts additions, which is the 283x-dtsi with the ove=
-rriden values from the 2711.dts applied:<br><br><img alt=3D"dts.png" data-i=
-ml=3D"225361" width=3D"878px" height=3D"224px" src=3D"cid:ca516b57-16dd-410=
-f-b475-83c52af762be"><br>Originally I started with the reg size of 0xb4 lik=
-e in the rpi4 dts file, but booting the linux cell then gave me:<br><i>[ &n=
-bsp; &nbsp;0.195071] pinctrl-bcm2835 7e200000000000ff.gpio: could not get I=
-O memory<br>[ &nbsp; &nbsp;0.195095] pinctrl-bcm2835: probe of 7e2000000000=
-00b4.gpio failed with error -22<br></i><br>In the kernel logs. So I increas=
-ed it a little, since in the peripheral docs section 5.2[3] upto 0xf0 regis=
-ters are mentioned, but the same error ocurrs<br>with reg-size of 0xff. I a=
-lso do not understand, why the 32-bit address is expended to 64-bit, when t=
-he bcm2711 has a 35-bit bus...<br><div><br></div><div>And yes, I am using  =
-jailhouse-images. For building jailhouse myself - <br>I tried that -&nbsp; =
-but I could'n start the kernel module with my self build image, <br>but I a=
-m fine for now by working with the reference jailhouse-images.<br></div>If =
-anybody has used peripherals in the linux demo in the rpi jailhouse-image I=
- would be happy for any code references, or hints ^^<br><br>I don't know. M=
-aybe my kernel hacking level is not up for using jailhouse like that. I fel=
-l that I struggle with the kernel here more, then with actual jailhouse.<br=
->But on the other hand I would like to understand, make it running, and add=
- some practical examples of peripheral usage to some kind of docs, so<br>th=
-at the learning curve for getting started is a little less step. I just don=
-'t know where else to ask, if one can recommend some literature&nbsp; to re=
-ad or forum, where my<br>issues are discussed more adequately I am grateful=
- for any hints :)<br><br>Thank you all very much!<br>Greetings Paul<br><br>=
-[1] https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/=
-bcm283x.dtsi#L107<br>[2] root@demo:~# jailhouse cell linux /etc/jailhouse/r=
-pi4-linux-demo.cell &nbsp; &nbsp;
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /boo=
-t/vmlinux* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; -d=20
-/etc/jailhouse/dts/inmate-rpi4.dtb &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -i=20
-/usr/libexec/jailhouse/demos/rootfs.cpio &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -c=20
-"console=3DttyS0,115200 ip=3D192.168.19.2"^C<br>root@demo:~# jailhouse cell=
-=20
-linux /root/jailhouse-next/configs/arm64/rpi4-linux-demo_neu.cell=20
-/boot/vmlinux* -d=20
-/root/jailhouse-next/configs/arm64/dts/inmate-rpi4_custom.dtb -i=20
-/usr/libexec/jailhouse/demos/rootfs.cpio -c "console=3DttyS0,115200=20
-ip=3D192.168.19.2"<br>root@demo:~# ssh 192.168.19.2<br># dmesg | grep gpio<=
-br>[ &nbsp; &nbsp;0.195071] pinctrl-bcm2835 7e200000000000ff.gpio: could no=
-t get IO memory<br>[ &nbsp; &nbsp;0.195095] pinctrl-bcm2835: probe of 7e200=
-000000000ff.gpio failed with error -22<br>[3] https://datasheets.raspberryp=
-i.com/bcm2711/bcm2711-peripherals.pdf<div class=3D"gmail_quote"><div dir=3D=
-"auto" class=3D"gmail_attr">mustafa...@gmail.com schrieb am Sonntag, 30. Ja=
-nuar 2022 um 20:04:57 UTC+1:<br/></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padd=
-ing-left: 1ex;">Hi, <br>I am like, a student doing his thesis with Jailhous=
-e. <br>How did you built your non-root Linux cell, if you are taking the bu=
-ild root generated by jailhouse-images, you might need to add some flags in=
- the buildroot defconfig. However, I am not sure. I did not try this with t=
-he Linux inmate, but I was able to add the GPIO on an bare-metal cell. So, =
-I think your workflow is correct. It might be also possible, that your buil=
-droot kernel does not have drivers for the nodes you added. One more questi=
-on, are you using jailhouse-images, or you ported jailhouse yourself.=C2=A0=
-<br><br>Moustafa Noufale<div class=3D"gmail_quote"><div dir=3D"auto" class=
-=3D"gmail_attr">On Sunday, 30 January 2022 at 19:48:13 UTC+1 Paul wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">
- =20
-
-   =20
- =20
-  <div>
-    <p>Hello everyone :)<br>
-      <br>
-      I am playing around with jailhouse finally for my thesis :)<br>
-      <br>
-      I tried the last days to add another UART, I2C and some GPIOs to
-      the non-root cell linux demo.<br>
-      Already the UART produces some errors I cannot resolve myself.<br>
-      Maybe someone could hint me in the right direction ^^<br>
-      <br>
-      I try to add uart3[1] and i2c1 from the BCM2711 to the non-root
-      cell.<br>
-      Therefore I modified the reference dts[2] and linux-demo-cell[3]
-      from the configs with these changes[4].<br>
-      Then I re-make the jailhouse folder on the pi:</p>
-    <pre>root@demo:~/jailhouse-next# make KDIR=3D../linux-5.10.19/</pre>
-    <pre>=C2=A0 CC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /root/jailhouse-next/confi=
-gs/arm64/rpi4-linux-demo_neu.o</pre>
-    <pre>=C2=A0 OBJCOPY /root/jailhouse-next/configs/arm64/rpi4-linux-demo_=
-neu.cell</pre>
-    <pre>=C2=A0 DTC=C2=A0=C2=A0=C2=A0=C2=A0 /root/jailhouse-next/configs/ar=
-m64/dts/inmate-rpi4_custom.dtb
-</pre>
-    <p>When booting up the kernel logs on serial line/dmsg show no
-      difference.<br>
-      I hoped some of /dev/ttyS* devices now can be written to, but
-      nope:<br>
-    </p>
-    <pre># echo &quot;hhhhhhh&quot; &gt; /dev/ttyS3</pre>
-    <pre>sh: write error: Input/output error
-</pre>
-    <p>I dont know. Do my steps seem plausible, do I need something more
-      to make these resources available<br>
-      in the non-root cell Linux besides adding the peripheral addresses
-      to dts and the cell? <br>
-      Any hints are very much apreciated ^^<br>
-      <br>
-      Attached are my custom cell source and dts file (or the patch file
-      for the rpi4 linux-demo).<br>
-      <br>
-      Thank you!<br>
-      Paul</p>
-    <p>P.S. my kernel version of the jailhouse-images is 5.10.31, in the
-      buildroot folder I only found 5.10.19 to re-build the .cell file,
-      but I hope these 12 patches do not make for the error...<br>
-    </p>
-    <p><br>
-      [1]
-<a href=3D"https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/bo=
-ot/dts/bcm2711.dtsi#L140" rel=3D"nofollow" target=3D"_blank" data-saferedir=
-ecturl=3D"https://www.google.com/url?hl=3Dde&amp;q=3Dhttps://github.com/ras=
-pberrypi/linux/blob/rpi-5.10.y/arch/arm/boot/dts/bcm2711.dtsi%23L140&amp;so=
-urce=3Dgmail&amp;ust=3D1643910534178000&amp;usg=3DAFQjCNHYoc5pVKoWgcouO6lLx=
-yn3Dv4RPg">https://github.com/raspberrypi/linux/blob/rpi-5.10.y/arch/arm/bo=
-ot/dts/bcm2711.dtsi#L140</a><br>
-      [2]
-<a href=3D"https://github.com/siemens/jailhouse/blob/master/configs/arm64/d=
-ts/inmate-rpi4.dts" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Dde&amp;q=3Dhttps://github.com/siemens/j=
-ailhouse/blob/master/configs/arm64/dts/inmate-rpi4.dts&amp;source=3Dgmail&a=
-mp;ust=3D1643910534179000&amp;usg=3DAFQjCNF7QgFOXifuc6TcQIyG8NlT3iUgxQ">htt=
-ps://github.com/siemens/jailhouse/blob/master/configs/arm64/dts/inmate-rpi4=
-.dts</a><br>
-      [3]
-<a href=3D"https://github.com/siemens/jailhouse/blob/master/configs/arm64/r=
-pi4-linux-demo.c" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Dde&amp;q=3Dhttps://github.com/siemens/j=
-ailhouse/blob/master/configs/arm64/rpi4-linux-demo.c&amp;source=3Dgmail&amp=
-;ust=3D1643910534179000&amp;usg=3DAFQjCNHESKkV76JwQHs6MaQDiSlJCvM14A">https=
-://github.com/siemens/jailhouse/blob/master/configs/arm64/rpi4-linux-demo.c=
-</a><br>
-      [4] [p4w5@p4w5 jailhouse/configs]$ git diff .
-    </p>
-    <pre>diff --git a/configs/arm64/dts/inmate-rpi4.dts b/configs/arm64/dts=
-/inmate-rpi4.dts
-index 305ac22f..8ff2da27 100644
---- a/configs/arm64/dts/inmate-rpi4.dts
-+++ b/configs/arm64/dts/inmate-rpi4.dts
-@@ -84,6 +84,27 @@
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 status =3D &quot;okay&quot;;
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-+=C2=A0=C2=A0=C2=A0 uart3: serial@7e201600 {
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D &quot;arm,pl011&=
-quot;, &quot;arm,primecell&quot;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D &lt;0x7e201600 0x200&gt=
-;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D &lt;GIC_SPI 121 =
-IRQ_TYPE_LEVEL_HIGH&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D &lt;&amp;clocks BCM2=
-835_CLOCK_UART&gt;,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 &lt;&amp;clocks BCM2835_CLOCK_VPU&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D &quot;uartclk&q=
-uot;, &quot;apb_pclk&quot;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm,primecell-periphid =3D &lt;=
-0x00241011&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 status =3D &quot;okay&quot;;
-+=C2=A0=C2=A0=C2=A0 };
-+
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i2c1: i2c@7e804000 {
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 compatible =3D &quot;brcm,bcm2835-i2c&quot;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 reg =3D &lt;0x7e804000 0x1000&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 interrupts =3D &lt;2 21&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 clocks =3D &lt;&amp;clocks BCM2835_CLOCK_VPU&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 #address-cells =3D &lt;1&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 #size-cells =3D &lt;0&gt;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 status =3D &quot;disabled&quot;;
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-+
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pci@e0000000 {
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 compatible =3D &quot;pci-host-ecam-generic&quot;;
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 device_type =3D &quot;pci&quot;;
-diff --git a/configs/arm64/rpi4-linux-demo.c b/configs/arm64/rpi4-linux-dem=
-o.c
-index f93c564a..9ccdc9dd 100644
---- a/configs/arm64/rpi4-linux-demo.c
-+++ b/configs/arm64/rpi4-linux-demo.c
-@@ -19,7 +19,7 @@
-=C2=A0struct {
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_cell_desc cell;
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u64 cpus[1];
--=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_memory mem_regions[1=
-3];
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_memory mem_regions[1=
-5];
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_irqchip irqchip=
-s[2];
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct jailhouse_pci_device pci_=
-devices[2];
-=C2=A0} __attribute__((packed)) config =3D {
-@@ -93,6 +93,22 @@ struct {
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 =
-|
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_RO=
-OTSHARED,
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 },
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 /* UART3 */ {
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .phys_start =
-=3D 0x7e201600,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .virt_start =
-=3D 0x7e201600,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D 0x20=
-0,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flags =3D JAI=
-LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTS=
-HARED,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 },
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 /* I2C */ {
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .phys_start =
-=3D 0x7e804000,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .virt_start =
-=3D 0x7e804000,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .size =3D 0x10=
-00,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .flags =3D JAI=
-LHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO | JAILHOUSE_MEM_IO_8 |
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_ROOTS=
-HARED,
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 },
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 /* RAM */ {
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .phys_start=
- =3D 0x1f900000,
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .virt_start=
- =3D 0,</pre>
-  </div>
-
-</blockquote></div></blockquote></div>
+<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
+n: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1e=
+x;">&gt;&gt;Can you share the cell and dts with me, from your GPIO transfer=
+ to the baremetal cell?<br></blockquote><div>&nbsp; &nbsp;Unfortunately, I =
+cannot, because of University Regulations. You do not need dts for the bare=
+metal cell. It is for the non-root Linux cell</div><blockquote class=3D"gma=
+il_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204=
+, 204); padding-left: 1ex;">&gt;&gt;Are you working with the raspberry-pi/b=
+cm2711 as well?<br>yes<br>&gt;&gt;The serial driver already is loaded, so I=
+ would expect this to work, but I get some bus error, even the cell grants =
+access to this address:<br><i>&gt;&gt;[ &nbsp; &nbsp;0.035905] OF: amba: of=
+_address_to_resource() failed (-22) for /serial@7e201600</i><br><br>&gt;&gt=
+;The I2C drivers are also loaded and two internal I2C are running on the ba=
+se linux/the root cell. So I guess my defconfig should be ok?!<br>&gt;&gt;B=
+ut the kernel logs give some phandle error,  I find no helpful information =
+about online...<br><i>&gt;&gt;[ &nbsp; &nbsp;0.037665] OF: /i2c@7e804000: c=
+ould not find phandle</i><br>Hmmm, does
+&nbsp;Jailhouse TCP/IP inter-cell communication works fine?, I mean can you
+ping the root cell from the non-root cell?&nbsp; &nbsp;&nbsp;<br>&gt;&gt;Ye=
+sterday I tried to transfer the GPIO as well. I oriented myself on this dts=
+[1]<br>&gt;&gt;Leading to this cell and dts additions, which is the 283x-dt=
+si with the overriden values from the 2711.dts applied:<br><br><img alt=3D"=
+dts.png" width=3D"878px" height=3D"224px" data-iml=3D"31700.904999997874" s=
+rc=3D"cid:ca516b57-16dd-410f-b475-83c52af762be"><br>&gt;&gt;Originally I st=
+arted with the reg size of 0xb4 like in the rpi4 dts file, but booting the =
+linux cell then gave me:<br><i>&gt;&gt;[ &nbsp; &nbsp;0.195071] pinctrl-bcm=
+2835 7e200000000000ff.gpio: could not get IO memory<br>&gt;&gt;[ &nbsp; &nb=
+sp;0.195095] pinctrl-bcm2835: probe of 7e200000000000b4.gpio failed with er=
+ror -22<br></i><p>That is the correct workflow. Try on the root cell, and l=
+oad
+to the non-root Linux. But there are many constraints, are you sure that th=
+e
+drivers are fit for Buildroot? From my painful experience, you have to
+cross-compile your application with buildroot, or are you sure that the I2C=
+ does not have any kernel dependecies?</p></blockquote><blockquote class=3D=
+"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204,=
+ 204, 204); padding-left: 1ex;"><p>&nbsp;</p>&gt;&gt;In the kernel logs. So=
+ I increased it a little, since in the peripheral docs section 5.2[3] upto =
+0xf0 registers are mentioned, but the same error ocurrs<br>&gt;&gt;with reg=
+-size of 0xff. I also do not understand, why the 32-bit address is expended=
+ to 64-bit, when the bcm2711 has a 35-bit bus...<br><div><p>I see only one =
+problem here, which is the size. Jailhouse
+only accepts paged size for peripherals and also memory regions. So, 0xff w=
+ill
+not work, I would recommend you to change it to 256 bytes and try, because =
+it does
+not make any sense, why it wont work.&nbsp;</p></div></blockquote><blockquo=
+te class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px sol=
+id rgb(204, 204, 204); padding-left: 1ex;"><div><p>&nbsp;</p></div><div>&gt=
+;&gt;And yes, I am using  jailhouse-images. For building jailhouse myself -=
+ <br>&gt;&gt;I tried that -&nbsp; but I could'n start the kernel module wit=
+h my self build image, <br>&gt;&gt;but I am fine for now by working with th=
+e reference jailhouse-images.<br></div>&gt;&gt;If anybody has used peripher=
+als in the linux demo in the rpi jailhouse-image I would be happy for any c=
+ode references, or hints ^^<br>First step first is
+to port Jailhouse, with only jailhouse-images, you have limited capabilitie=
+s to
+learn and expand your understandings.&nbsp; But jailhouse-images is the onl=
+y way to understand how to port jailhouse yourself<br></blockquote><div>&nb=
+sp;</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; bo=
+rder-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">&gt;I don't kn=
+ow. Maybe my kernel hacking level is not up for using jailhouse like that. =
+I fell that I struggle with the kernel here more, then with actual jailhous=
+e.<br>&gt;But on the other hand I would like to understand, make it running=
+, and add some practical examples of peripheral usage to some kind of docs,=
+ so<br>&gt;that the learning curve for getting started is a little less ste=
+p. I just don't know where else to ask, if one can recommend some literatur=
+e&nbsp; to read or forum, where my<br>&gt;issues are discussed more adequat=
+ely I am grateful for any hints :)<br>Nothing special than Jan tutorial and=
+ the drone project video. There is also one video from Texas instruments an=
+d the project autojail.<br>&gt;Thank you all very much!<br>&gt;Greetings Pa=
+u;</blockquote><div>Moustafa Noufale&nbsp;<br></div></div>
 
 <p></p>
 
@@ -591,18 +262,18 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/69269fdd-f93d-49b5-8b38-94090561dd48n%40googlegrou=
+om/d/msgid/jailhouse-dev/cb798767-e2c8-4313-a93c-cf12e6c18d6cn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/69269fdd-f93d-49b5-8b38-94090561dd48n%40googlegroups.co=
+msgid/jailhouse-dev/cb798767-e2c8-4313-a93c-cf12e6c18d6cn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_1267_1093716223.1643826327030--
+------=_Part_441_1077666164.1644324029524--
 
-------=_Part_1266_1583731158.1643826327030
+------=_Part_440_1908227362.1644324029524
 Content-Type: image/png; name=dts.png
 Content-Transfer-Encoding: base64
 Content-Disposition: inline; filename=dts.png
-X-Attachment-Id: ca516b57-16dd-410f-b475-83c52af762be
+X-Attachment-Id: <ca516b57-16dd-410f-b475-83c52af762be>
 Content-ID: <ca516b57-16dd-410f-b475-83c52af762be>
 
 iVBORw0KGgoAAAANSUhEUgAAA24AAADgCAIAAAD0YaIFAAAAA3NCSVQICAjb4U/gAAAgAElEQVR4
@@ -1395,4 +1066,4 @@ ajQmh8H10MtbTToNneVCFtLZXNxkMJsertahlzbV53x3/+gXganv9PZYuMkAGOYWGKuqL31ckZR8
 Rkzp7KirPPV16G8yaQybz0l1kgauKAKw//q3ZOfcnzKnuu+qupLKU1+3FZ4Xj57a22OpG8u4onAX
 72BNS+XjirSmV7RxBGLyM1so0smaAcAzdhzg5iELtg6Zv4XAcc/Ycd1quQfFalursJ4jCWnpNfeQ
 uN72CkEQBHFa/w8fuEochYOXiQAAAABJRU5ErkJggg==
-------=_Part_1266_1583731158.1643826327030--
+------=_Part_440_1908227362.1644324029524--
