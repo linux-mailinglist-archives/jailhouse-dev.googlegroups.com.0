@@ -1,130 +1,133 @@
-Return-Path: <jailhouse-dev+bncBDOPPN7U7ANRB7PMQWIQMGQEWBA5VJA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDOPPN7U7ANRBAPNQWIQMGQEUYAZTWA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x1037.google.com (mail-pj1-x1037.google.com [IPv6:2607:f8b0:4864:20::1037])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB0994CCB9F
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Mar 2022 03:16:31 +0100 (CET)
-Received: by mail-pj1-x1037.google.com with SMTP id lj2-20020a17090b344200b001bf0d281b13sf2068634pjb.5
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Mar 2022 18:16:31 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1646360190; cv=pass;
+Received: from mail-ej1-x63f.google.com (mail-ej1-x63f.google.com [IPv6:2a00:1450:4864:20::63f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 061E54CCBA0
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Mar 2022 03:16:35 +0100 (CET)
+Received: by mail-ej1-x63f.google.com with SMTP id hq34-20020a1709073f2200b006d677c94909sf3721007ejc.8
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Mar 2022 18:16:35 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1646360194; cv=pass;
         d=google.com; s=arc-20160816;
-        b=qpjp8tBbKCb1A6EZWkjOJ2y0A0c7R4yhAiOO2rF5ll2kwY9wpbm81FUEKcm5YR93es
-         ECrFYxTfF8ofyc41akC9qrnQv4H/VdcjBvISJKGBanmEFUQqM+39G4SIHRPU1m2eWvTE
-         nDkwEZJG/y6EJSnPieZuuT2lae/sAvtq0hVcHHCaKyvRDNRNuhHZ5Kp9o7RIHDXE7iyf
-         /kNdTi697/EvhEojAR8iYcmVJfazoQD80LYWm9/PA0ISd4goki+D4srD7qGIxPmMznTe
-         S12blSVc9ahJkII4hV/Z0pVDbC9VcCqVwVbV4yER+gGA4vvN/OiLPQ9YNO3RQoN43tMT
-         l41g==
+        b=P5VviBRTVSnGaZxRCyeGxTGk11RITWroE2n9T0xlpIV1xva5YpQ0H4XYRDtEjsWJlw
+         uEGlkS5Mx8Q4Tc8yMvBXcQBlo4bHthUZAlo2rZ6iK/P7lDQ1VqS83S0Lv5AV6KsCCusR
+         CyxaNTi6jkN/PCkcI+NJ83LH0DuysNJwSkf28hNVdyChJe3r6RJhXFO2V7RSidpD4a0G
+         3hPguOITsa9rXBJjOeYfFn0fiDgXaxFzbJGaH0+3Vvm4VG8gHFHzbreCMqyprCPc7qfO
+         1n2+G4X4kyADXT6EaJ5QWceDGnqA2UDs9Kl19Sp0wMZ83RUwbqnp5jyymzJM0uHgvF6K
+         9KDA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version:message-id
-         :date:subject:cc:to:from:dkim-signature;
-        bh=ccNRXHzWZIp/+Z2jfdOr1Aongg7TF3U2L/aV/9gl9Lg=;
-        b=DTvqACqQd7px3I6evrS4Ykl+pdfVDlshPmowJQLbSMbolfnoST9df+KUlwTEjpHLzs
-         oKYmlK+vFcr17qq8x4DVURlSy3/luynFNnKrJJr5yvXiawmZ90UtjgILGoZWC5waUt1G
-         XwO6KWWXqxNq5S48Tvhz4YGaEhJA0si7AGY/C16muMM0EZdyp/HPTz8CjOu5x7pXCzKP
-         /0abs60ryMAEQS3bSbmJaQqVOMSlH1BpdsXNE0raWUQhC+tfvHwUqxzl5gr4PsZm4Vdq
-         Qfnqw609aWekkEaYCx6V5O1mZ/oI6yOyjmPqXeV33oEnOcejKlVyqsQgVwDPHh9/VBFN
-         5CCA==
+         :list-id:mailing-list:precedence:reply-to:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature;
+        bh=TM1QGZm7eCMEU70EGIvEGHARti7QFWUpBuZ+nz3Vi6I=;
+        b=BSIixhJ6GGM09tkh7yr/sLoKvUkiBZ58aF6APjRYVah9LffVOereM/yBzt8lNHM4Qd
+         NnjRKO21U7eWY7GOgTWiJSOsqaMZ4DEmDt3Ag59JJY3CMFtceBlB0OkYkSiRszIEFiXq
+         YxTgtl53pXwp4uy9b0Aa++eq8NriEv4P8/9gZ/FLx1gG0U5jLVCXn60pd7LzEkMvgRit
+         nL6JTTMGc0Jjte0/aztPuL5cgxJju9xnJ+zX4U3c1w2Y/WldSwPXe8eDngsBUIXXbRzi
+         t3wAhoTfyuu+UlI08HtBlWIUf3tzjFQV8X9w6lyu19AT9ymmLOCnHfyORKfy9CsQ2AFQ
+         vIsg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=sdXSOJO2;
-       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=mranostay@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=G40QTWQn;
+       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=mranostay@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=ccNRXHzWZIp/+Z2jfdOr1Aongg7TF3U2L/aV/9gl9Lg=;
-        b=Ju6B6ys7TBdvEc0Hws5v2JVYUApw+lmrWdWlSQMjX1/+1wzs8ju8wrshIkGang9HC3
-         UISfyncYw7z7/woHqXfCgnMU3jy+gxIYDPdCGFE00Xwoh1TClbcnG5KLn/sF3hlJmhOr
-         gfyf/biY37Dp9nKCBt2IYVqGhkdG+X6H79FQiS0NDTjZcoHzJ7Q7gdvUYh6nBp1WhdIH
-         lbGv3NLKA95XPiygK9Eb+AaciEMQv61EEz/kmXh/AJtaATa8aUeP6ZUmdc/m28DHsZdM
-         fJJFT5qQ0xm0RJJaF865aTr9K+40MDmWR0gz/+8/gHt3hjHadkI8SxgAsV2hUAX5NX6P
-         fdnA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :reply-to:precedence:mailing-list:list-id:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=TM1QGZm7eCMEU70EGIvEGHARti7QFWUpBuZ+nz3Vi6I=;
+        b=Oj+Z/BaZ2bhUXyEho6dWO5Hoj4hy3PHpo1TgjYUJ/4PtiuGaLXQXGrXcziyjaeIAk1
+         +S+/3TQcvCRmrCD31O1MdvH1FcqWmQ0rDrQ/fKR38uN8hxyLfEvZn5CBJsf0OKeeQ+F3
+         XfCbNzQXmysjZr5Gt5FK6xyN376LT0iEyNfIt+r3P96EfPNsNNsywTXqdoYC/fJjftwI
+         klex8zq3cDN4ntxWyKzxjTPK1BjQUJ2pW+9R2RvW5oo/aOq03vv6Ph2bFaTGne0lLU9D
+         o2rvHTXj6u8ETBZjhFqABEIC2XVEET14amG+7Iqt5/c3x/z1NobyWQMEUmIQB7sk0QI/
+         AYnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:reply-to
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=ccNRXHzWZIp/+Z2jfdOr1Aongg7TF3U2L/aV/9gl9Lg=;
-        b=cyITnA3bkzPTuSeHcaBT7ifRIsAYIaxUEaO7cNq4NDgSZ8AbskUQkeHNwd4PBQlyf4
-         rHo0vhEQmalvPB74lTe0Yus+q4keAvbkofOyWDT7K+WO4KizwkLl5xqcs4QKCDiBrxCV
-         Lfv0Jm8pNkxcZBd6L+1Q2HAsfo+E3kLNlDTGWDhrQvSo3DvmDhDFr801bu12PROodi6L
-         guA0nPzlynDXwJnZkBmRC7IuVoVY6cAmAhhp8dH7qbEdMZZ3tNTjtA89wW2ybvQ/gQ52
-         waRw/ngmq4M1hCm14hw6Gd7xPv4fA5PhQU4+J1gytOPdgVk1a34hC51JAemxNsYrh8dA
-         rs0w==
-X-Gm-Message-State: AOAM532M8UOrhGaR3HArAq0mXdW+Q/v1/UebCOSy81m7OIV2PAvvdBAW
-	THzvHsjzoAF5SEoqAGvxk38=
-X-Google-Smtp-Source: ABdhPJzbvMgTLXKu9IN0YOW62JAVmMCF09hWUobUh1JGIbQAz+K9uRWfts7zBypBKRwf1/sI21l2cw==
-X-Received: by 2002:a17:902:f78d:b0:14d:522e:deb3 with SMTP id q13-20020a170902f78d00b0014d522edeb3mr38313210pln.173.1646360190148;
-        Thu, 03 Mar 2022 18:16:30 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:x-original-sender
+         :x-original-authentication-results:reply-to:precedence:mailing-list
+         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=TM1QGZm7eCMEU70EGIvEGHARti7QFWUpBuZ+nz3Vi6I=;
+        b=Y1Q2sdL7mvzRaPnlwD5Aa6X+aOuQD0JI19SANTW+bONDXkGFdRwDWSG0i/EP6Ar5/q
+         AuhOzd+emN1ug+ul5nyo1qiRJrMey1IYGldtFVPPTjJrmEjtbcbr3oHcI7F+L3jJ+bHV
+         K2egDS4X/NYgPSy/ex+LpoErpqf06M8wIdVpfZF8UU84BhAFEsB9ymDXMpbVYN8mZUGX
+         GG336rYHUuAqrNChTP37NVNw6hlcuy3aDmicI5I1FQOpfN5h5vYAGJKZLYmwt27kwANx
+         /puTbFXjDLGzBVu+tErGI+zbjbdM66qLzbSBQ+VmxOEUoHCiSXz4m8cvnLBeYQPZCPwV
+         zugg==
+X-Gm-Message-State: AOAM533SxbyQXl7Vqool5Ru5U0JP1CFgtPcJIdi2qD5BSXXnsfUjNsUs
+	W8VoKbUnjWIy5toVsJy3biU=
+X-Google-Smtp-Source: ABdhPJxanhYBwS8jxRQ0rbw7CUId0z8XEfbv14+n87BFIydOfV/yeO/vBAR3WPUE+JhPHhU/ZtEM6A==
+X-Received: by 2002:a17:906:4fd2:b0:6d6:f920:f121 with SMTP id i18-20020a1709064fd200b006d6f920f121mr11680971ejw.467.1646360194616;
+        Thu, 03 Mar 2022 18:16:34 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a63:a442:0:b0:373:e8f3:b75 with SMTP id c2-20020a63a442000000b00373e8f30b75ls1763680pgp.11.gmail;
- Thu, 03 Mar 2022 18:16:29 -0800 (PST)
-X-Received: by 2002:aa7:88c2:0:b0:4f3:fca9:6422 with SMTP id k2-20020aa788c2000000b004f3fca96422mr27377320pff.5.1646360189210;
-        Thu, 03 Mar 2022 18:16:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1646360189; cv=none;
+Received: by 2002:aa7:d302:0:b0:40b:657:ac46 with SMTP id p2-20020aa7d302000000b0040b0657ac46ls260180edq.3.gmail;
+ Thu, 03 Mar 2022 18:16:33 -0800 (PST)
+X-Received: by 2002:aa7:c7c4:0:b0:407:52cc:3b32 with SMTP id o4-20020aa7c7c4000000b0040752cc3b32mr36750857eds.397.1646360193180;
+        Thu, 03 Mar 2022 18:16:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1646360193; cv=none;
         d=google.com; s=arc-20160816;
-        b=vs85MQedyHGssixSsT3xWAFHNIEet3UWFzPIoVbNZTA2UpiaC5sC/rYGGHPBx0JQWm
-         uVIaWYhq9eYyKmTitiBdNHhG05OANd4hvMPfIbEYbxJMPZt9rI+kVDVXqTMoiJ7LeHpc
-         ZfL1i8wWo9zRvt3R4pT0GG7zR+a5/iEX2JLb3DkcyePQbkOLv9uVDzrWh9SkwunGK1kq
-         Jj4cLHdmvadXogGU3flLkR71JRkh9Gzxsq0OGWm86Hg65ybcGBLqL+orntpjHEnja/ii
-         vs8JM1GDfbNLvkGKheRdu7zefOuK2fqhUNJIPhGls3CFXoNjNjjMKmfexq30Mt6sm3SM
-         MseQ==
+        b=K9mFT/dlOV7PjyGuCKRpO8Q5As+/hB0dQkdynQRgSJAXdhMv7qmc0+Q2swSZJslckW
+         60dbqA4KWw17nYygElgH1NUL7RD+t6PyghixC7jrxfOuglXN3sMGqECJJqCRf6p939dc
+         sm3tG1YxXbZjOfrlx6kbsvoz3f33Kdc97/oNxDaZFDVHZ218acjytgPAnFhLM3Cqxb42
+         YGOhlal+Zwwy6qhj0BTrRc53/6NHCedNNxWsfhhu985XYPG4IuBdinXFyNWAoDvPRAkY
+         Ek3QyQClALShQq+zL5dfd7ZlFN9ZyKLJ0eXXK1D95YO9tKSFcRIN9ls66SGgmTY6jkVR
+         ZifA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=y7CdhvntHhRXAjtxf9Kgujd1xLryyFVxkpW6BFS06XU=;
-        b=nVFBV4Fhk0mNN1lL50VzMshaiczb/Ls7NmWrZgJroXqVZCrTU/N8HOOmoamTnlN+WI
-         uj0U6KGzuz258UNC2jEkD+r2LbpEtNg5Ins/6Bo5ao5CTp7tqO5a65wdRqstemEUy4R7
-         2BOwl8AXC9g0ZqXWrYpcWCainZ4XzaJjsftkbIc+QLhugHmQYgk950sXEUbuWWl0YOQA
-         qvJJYpxmm7vHKEjmwN9K/L5+dP9YURszu0htMtgPxV7DZy+XYXjfkTh48NkVXg7k8Eop
-         TWU+kiClXsuHRsWGQYwlUIoUk0j6EDOSRgD7EoS+dq95eFENmuhnYaAGTrKf8xYhPFlE
-         o6lA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature;
+        bh=wv/2hR6CfBKarrH00hJUENHf16rDrYiAd3dyGoWjv+w=;
+        b=Nt1mBso0VOMs5/RCcyY8Cw6VtMFl6m4E192knKO56h366Jbxva6QHHJqhceKx8qv9X
+         Bl/GAZMUZQgrhwuEj6Fk8wCb5QbgkpokGHFEUWh7NCKeW80Vtvbu2RYSQv+T/O2JFiGS
+         x7oerGVVl8n4SW90gEBNpy8hhbJXDga4iNQw1obma3oL0MlkCS455fxkjSgoeM03k3nl
+         Z1NStDNtwTPC5dhVvhdd7Eu0r0KUdQsf4oKCU4bKWoU8D1lSThPaRBp8KLoducwqI4MA
+         jlvoglA3wCTnAazH+VDBFKbN8k0hpVZXuKgY6xA1c+ZXad0cu77yDJ/GQ65LOZGEMicX
+         MAEw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=sdXSOJO2;
-       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.23.249 as permitted sender) smtp.mailfrom=mranostay@ti.com;
+       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=G40QTWQn;
+       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.19.141 as permitted sender) smtp.mailfrom=mranostay@ti.com;
        dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com. [198.47.23.249])
-        by gmr-mx.google.com with ESMTPS id o64-20020a17090a0a4600b001bf0a82f880si38464pjo.2.2022.03.03.18.16.29
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com. [198.47.19.141])
+        by gmr-mx.google.com with ESMTPS id et1-20020a170907294100b006ce69d31a32si264331ejc.2.2022.03.03.18.16.32
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Mar 2022 18:16:29 -0800 (PST)
-Received-SPF: pass (google.com: domain of mranostay@ti.com designates 198.47.23.249 as permitted sender) client-ip=198.47.23.249;
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2242GSV1029549
-	for <jailhouse-dev@googlegroups.com>; Thu, 3 Mar 2022 20:16:28 -0600
-Received: from DFLE100.ent.ti.com (dfle100.ent.ti.com [10.64.6.21])
-	by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2242GSII130643
+        Thu, 03 Mar 2022 18:16:33 -0800 (PST)
+Received-SPF: pass (google.com: domain of mranostay@ti.com designates 198.47.19.141 as permitted sender) client-ip=198.47.19.141;
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+	by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2242GVrD016282
+	for <jailhouse-dev@googlegroups.com>; Thu, 3 Mar 2022 20:16:31 -0600
+Received: from DLEE103.ent.ti.com (dlee103.ent.ti.com [157.170.170.33])
+	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2242GVQ8033505
 	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
-	for <jailhouse-dev@googlegroups.com>; Thu, 3 Mar 2022 20:16:28 -0600
-Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+	for <jailhouse-dev@googlegroups.com>; Thu, 3 Mar 2022 20:16:31 -0600
+Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Thu, 3
- Mar 2022 20:16:28 -0600
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE110.ent.ti.com
- (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ Mar 2022 20:16:31 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14 via
- Frontend Transport; Thu, 3 Mar 2022 20:16:28 -0600
+ Frontend Transport; Thu, 3 Mar 2022 20:16:31 -0600
 Received: from ubuntu.ent.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
-	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2242GOif018363;
-	Thu, 3 Mar 2022 20:16:26 -0600
+	by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 2242GOig018363;
+	Thu, 3 Mar 2022 20:16:29 -0600
 From: "'Matt Ranostay' via Jailhouse" <jailhouse-dev@googlegroups.com>
 To: <jailhouse-dev@googlegroups.com>
 CC: Matt Ranostay <mranostay@ti.com>
-Subject: [PATCH 0/4] configs: k3-am654-idk eMMC and IVSHMEM changes
-Date: Thu, 3 Mar 2022 18:16:11 -0800
-Message-ID: <20220304021615.2862-1-mranostay@ti.com>
+Subject: [PATCH 1/4] configs: arm64: add eMMC support to k3-am654-idk linux demo inmate
+Date: Thu, 3 Mar 2022 18:16:12 -0800
+Message-ID: <20220304021615.2862-2-mranostay@ti.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220304021615.2862-1-mranostay@ti.com>
+References: <20220304021615.2862-1-mranostay@ti.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Original-Sender: mranostay@ti.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=sdXSOJO2;       spf=pass
- (google.com: domain of mranostay@ti.com designates 198.47.23.249 as permitted
+ header.i=@ti.com header.s=ti-com-17Q1 header.b=G40QTWQn;       spf=pass
+ (google.com: domain of mranostay@ti.com designates 198.47.19.141 as permitted
  sender) smtp.mailfrom=mranostay@ti.com;       dmarc=pass (p=QUARANTINE
  sp=NONE dis=NONE) header.from=ti.com
 X-Original-From: Matt Ranostay <mranostay@ti.com>
@@ -141,24 +144,127 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This patchset enables eMMC access from the linux demo inmate for the
-k3-am654-idk platform, and additionally adds a ivshmem demo interface.
+Add eMMC support to k3-am654-idk-linux-demo inmate which requires
+several device tree changes, and addition memory mappings open
 
-Matt Ranostay (4):
-  configs: arm64: add eMMC support to k3-am654-idk linux demo inmate
-  configs: arm64: change k3-am653-idk memory window
-  configs: arm64: increase PCI memory window for k3-am654-idk inmate
-  configs: arm64: add ivshmem demo to km-am654-idk platform
+Signed-off-by: Matt Ranostay <mranostay@ti.com>
+---
+ configs/arm64/dts/inmate-k3-am654-idk.dts | 36 +++++++++++++++++++++--
+ configs/arm64/k3-am654-idk-linux-demo.c   | 18 ++++++++++--
+ 2 files changed, 50 insertions(+), 4 deletions(-)
 
- configs/arm64/dts/inmate-k3-am654-idk.dts | 38 ++++++++++++-
- configs/arm64/k3-am654-idk-linux-demo.c   | 69 +++++++++++++++++++++--
- configs/arm64/k3-am654-idk.c              | 51 +++++++++++++++--
- 3 files changed, 145 insertions(+), 13 deletions(-)
-
+diff --git a/configs/arm64/dts/inmate-k3-am654-idk.dts b/configs/arm64/dts/inmate-k3-am654-idk.dts
+index 8e5066d3..a419d8d5 100644
+--- a/configs/arm64/dts/inmate-k3-am654-idk.dts
++++ b/configs/arm64/dts/inmate-k3-am654-idk.dts
+@@ -64,6 +64,30 @@
+ 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>; /* cnthpirq */
+ 	};
+ 
++	sdhci0: mmc@4f80000 {
++		compatible = "ti,am654-sdhci-5.1";
++		reg = <0x0 0x4f80000 0x0 0x260>, <0x0 0x4f90000 0x0 0x134>;
++		power-domains = <&k3_pds 47 1>;
++		clocks = <&k3_clks 47 0>, <&k3_clks 47 1>;
++		clock-names = "clk_ahb", "clk_xin";
++		interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
++		mmc-ddr-1_8v;
++		mmc-hs200-1_8v;
++		ti,otap-del-sel-legacy = <0x0>;
++		ti,otap-del-sel-mmc-hs = <0x0>;
++		ti,otap-del-sel-sd-hs = <0x0>;
++		ti,otap-del-sel-sdr12 = <0x0>;
++		ti,otap-del-sel-sdr25 = <0x0>;
++		ti,otap-del-sel-sdr50 = <0x8>;
++		ti,otap-del-sel-sdr104 = <0x7>;
++		ti,otap-del-sel-ddr50 = <0x5>;
++		ti,otap-del-sel-ddr52 = <0x5>;
++		ti,otap-del-sel-hs200 = <0x5>;
++		ti,otap-del-sel-hs400 = <0x0>;
++		ti,trm-icp = <0x8>;
++		dma-coherent;
++	};
++
+ 	cbass_main: interconnect@100000 {
+ 		compatible = "simple-bus";
+ 		#address-cells = <2>;
+@@ -122,7 +146,7 @@
+ 				interrupts = <GIC_SPI 565 IRQ_TYPE_LEVEL_HIGH>;
+ 				clock-frequency = <96000000>;
+ 				current-speed = <115200>;
+-				power-domains = <&k3_pds 149>;
++				power-domains = <&k3_pds 149 1>;
+ 			};
+ 
+ 			cbass_wakeup: interconnect@42040000 {
+@@ -145,7 +169,7 @@
+ 
+ 					k3_pds: power-controller {
+ 						compatible = "ti,sci-pm-domain";
+-						#power-domain-cells = <1>;
++						#power-domain-cells = <2>;
+ 					};
+ 
+ 					k3_clks: clocks {
+@@ -162,3 +186,11 @@
+ 		};
+ 	};
+ };
++
++&sdhci0 {
++	/* eMMC */
++	non-removable;
++	ti,driver-strength-ohm = <50>;
++	bus-width = <8>;
++	disable-wp;
++};
+diff --git a/configs/arm64/k3-am654-idk-linux-demo.c b/configs/arm64/k3-am654-idk-linux-demo.c
+index d03fd4cd..4fc23e0b 100644
+--- a/configs/arm64/k3-am654-idk-linux-demo.c
++++ b/configs/arm64/k3-am654-idk-linux-demo.c
+@@ -23,7 +23,7 @@
+ struct {
+ 	struct jailhouse_cell_desc cell;
+ 	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[12];
++	struct jailhouse_memory mem_regions[13];
+ 	struct jailhouse_irqchip irqchips[3];
+ 	struct jailhouse_pci_device pci_devices[1];
+ } __attribute__((packed)) config = {
+@@ -79,6 +79,20 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_IO,
+ 		},
++		/* sdhci0 */ {
++			.phys_start = 0x4f80000,
++			.virt_start = 0x4f80000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_IO,
++		},
++		/* sdhci0 */ {
++			.phys_start = 0x4f90000,
++			.virt_start = 0x4f90000,
++			.size = 0x1000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_IO,
++		},
+ 		/* main sproxy target_data host_id=A53_3 */ {
+ 			.phys_start = 0x3240f000,
+ 			.virt_start = 0x3240f000,
+@@ -120,7 +134,7 @@ struct {
+ 			.address = 0x01800000,
+ 			.pin_base = 160,
+ 			.pin_bitmap = {
+-			1 << (190 - 160), 0x0, 0x00, 0,
++			1 << (168 - 160) | 1 << (190 - 160), 0x00, 0x00, 0,
+ 			},
+ 		},
+ 		{
 -- 
 2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220304021615.2862-1-mranostay%40ti.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220304021615.2862-2-mranostay%40ti.com.
