@@ -1,151 +1,69 @@
-Return-Path: <jailhouse-dev+bncBDOPPN7U7ANRBCUKQ6IQMGQEGWZWMWA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCA6TFW6UQBRBVU6Q6IQMGQEMPAYS4I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x740.google.com (mail-qk1-x740.google.com [IPv6:2607:f8b0:4864:20::740])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA1D4CCF47
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Mar 2022 08:51:39 +0100 (CET)
-Received: by mail-qk1-x740.google.com with SMTP id m22-20020a05620a221600b005f180383baesf4956552qkh.15
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 03 Mar 2022 23:51:39 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1646380299; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=UhghLnCkHk9dD4mu0tPUtfT29aUw3YIMjj/s8wN0NFpBLva6nTknylzorgInFi++fw
-         FgXZ5qoSyY2iazOA0ZIBSAFiJtPpIkekMoNYNzsikdJQ7Lsol9/6sVaPpbLmq/V6OTNY
-         vmTxmOLR7OZ5cIK/UUEyIZXSvaxSV9vSD7+QGp21YYBKTX8UdWSYra6NHbpYGpk8odLw
-         Ow79eszJt/CO2RuoKdHpWNCWkCoraQWHthTz9Z2ihA4m5V4NCopdH9N7cukMvsi64kuH
-         /fS9gzfduhGeCSjoJlQgijy9qAnB+lugXX8z+RKdzC6t6oI4waT9KR6HiY+X8FV3cKLq
-         OVWw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version
-         :content-transfer-encoding:content-language:accept-language
-         :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:to:from:dkim-signature;
-        bh=CzeoCMRksg5ilb8i6EZQj8QFY6hQwRi8wUjZeAR8oNg=;
-        b=RDigv1TrqwLzkEDBgF0lEoB7A8P5ebHg7ShFuA1gvCMerImOSNP4FxIuWp67F1LSzh
-         ZkA2TOLJncYOolg3BzKn4+jhURv0uOyJmQR9Pcdp7xVyXbQtrghW+C/JBEBz0jKOllQn
-         z+IcPAW4WeMwMNVpchwDEIYzxcV4dgxb7jBYgG7Svf0mB3uxK1RuiskOekqzplIWdn4A
-         vsDMjN6+EVpra9Iq3rEvci9QVkApzxzuaHgUIZbbDWf7hOwmpvG075755Q1VPFICzk8P
-         LImlx+8q7nzdnnI3ylGBJh8tFPyQqM7mH2l+QGfKVBK+IMetbljjDjPC0dCtOrsMPxWe
-         pINw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=NCt9zlOb;
-       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=mranostay@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
+Received: from mail-qt1-x837.google.com (mail-qt1-x837.google.com [IPv6:2607:f8b0:4864:20::837])
+	by mail.lfdr.de (Postfix) with ESMTPS id E20564CCFFF
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  4 Mar 2022 09:35:35 +0100 (CET)
+Received: by mail-qt1-x837.google.com with SMTP id r16-20020ac87950000000b002de06985208sf5562787qtt.4
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 04 Mar 2022 00:35:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=from:to:subject:thread-topic:thread-index:date:message-id
-         :references:in-reply-to:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:list-post:list-help:list-archive:list-subscribe
-         :list-unsubscribe;
-        bh=CzeoCMRksg5ilb8i6EZQj8QFY6hQwRi8wUjZeAR8oNg=;
-        b=sB5geUa2SdWJKu2lQTA1TLTd/tXWSSPJHzwzOigo4WtoHO4hQdWOE4w1fndrNCYJF0
-         OqjUS0OwVlQJHhwKTE34S8ZYXCso4Gp8+zTlBrHN7XhiQyej4nRvRuPmR/rXkeVtEVHS
-         NG62gHH80g73u42JYJMklFWynAfTvxSibfAO7fdAExcqbeByIiH7RfZKy+YE3FmavGtZ
-         978QE+AjJEYfYokIAZHNjxC8IUza6ASAfUZzBXhsePku99zEiBifLKpxkGnmNH+E6q87
-         tgYlNdkyvlqkkWCXnhFXraF7aDtqZNYee/6xLLY1sZPO+XQXr/bX+dX3L/3BE44iYw8a
-         jPLQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=QclSD2uPOA4oCRc9tvkB2YGxwUAZpVEO9vZ6LhuR2Vs=;
+        b=VR15KG3Nu0hVvqJifPbbF+pu9wW7T4wsaQoJJe/QhAkbY7XqAHUsKvpZp8Z25DgP1y
+         zQzJabFy6oJm3LNTexBQYoiEASOhQZNLefl92GvM7s1qbYyiccYi2irdZol6SFFgRWTQ
+         kveibqz5hwT20UxmmQOkNfjixt1Vmepe4jg3pl70B0wH/quPnZN0emDpxGtcqhfKNQsa
+         3EXYOLdumB5RhVDz6ez6jA9C0qHNWtEIjT2O7RPJhAJc2s9iuvW6KdXbr0DTFu0nBSMr
+         g4tzWlO9taFmVvpsiyX66Hz+Q1BYPrVXfZngln14vf+4XrRI/uyPhi2FjfQLdiyJi0XG
+         fH2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=QclSD2uPOA4oCRc9tvkB2YGxwUAZpVEO9vZ6LhuR2Vs=;
+        b=cpTFc7OgjpHvXSaUGyts6aP9tD/gFLdcj8VcXcvCm8gzmYGEpOA38PiJ1uQ91wl/wn
+         4gLG6heVXEezLSS9/pQC/KApYFF+eLxF6oWNUqWFB3ezlUOOqMgspEMuRlfEb2mFG+bg
+         rm1ePEyIi/PPhJL2JQzj07FZE+zxqyl1aSkHerEAQqnrkcZtDNnUXYNeuZ1xHKUld0Kk
+         8DO2Zi/2uTrAQgle/Z5Yr3rnc4vfSWXN/alX7HZeNBFs/QwGqZd10trJaZdmRO3YkWCC
+         r1mAU2/IkoKVj9Vz4Eep3ACBu56ftytqEsinYsVV9F9eolPrclzdFbkmkZLZN8sjJIqd
+         Qijw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:thread-topic:thread-index:date
-         :message-id:references:in-reply-to:accept-language:content-language
-         :content-transfer-encoding:mime-version:x-original-sender
-         :x-original-authentication-results:reply-to:precedence:mailing-list
-         :list-id:x-spam-checked-in-group:list-post:list-help:list-archive
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=CzeoCMRksg5ilb8i6EZQj8QFY6hQwRi8wUjZeAR8oNg=;
-        b=xNChkEy3nsRzDW0t8s/Qtk1fO8BIwWCRNyvg48qf7lO8c/fDozu4rHOKLO3W95q4/y
-         E4/U4A0OjTkM2qgq4UzhuAdW91IQvBTg50eY8/64aTJ2CJYTMegR8xsH2m8Hdj+hpVw0
-         xv1TzBWeEh+VL6l6k89E0Y0f011SIpPyx3hsdkO+u5SI1v5UP+DhQ1bIBpHR4Mfogn/a
-         AyHDnsdV1BYz1y88v3uo2ZecXmgfuGWTFXr5l2JZo8+Utz2q963XceIhO8kbivHhXeXA
-         NCmeo19UHl9ZrHsyvBkt3jjcC6Da3WgpuNMa2WCvgoP5bTA4n9A68DdxIvSfsKT3YTvw
-         BGng==
-X-Gm-Message-State: AOAM531VhW2D63CtI6G87UxB7p6KUQYgU2RkD7Jv+M0uwArTwlHDBePe
-	yXGipyzs4Tlcdw/2djOCbTo=
-X-Google-Smtp-Source: ABdhPJyVe44KbIrYCK2ODbjyKBtxov74b4vSN+EDKrs9uLyjusOoC7iqIaLwAQtYBAZ107trODMDtw==
-X-Received: by 2002:a37:2f06:0:b0:5e9:83fd:7cc7 with SMTP id v6-20020a372f06000000b005e983fd7cc7mr1747346qkh.207.1646380298803;
-        Thu, 03 Mar 2022 23:51:38 -0800 (PST)
+        bh=QclSD2uPOA4oCRc9tvkB2YGxwUAZpVEO9vZ6LhuR2Vs=;
+        b=bJimnzLmGLxyJupM+KXmIML4Q1XXm49zXxOlhp/7qPN7WdTEJ/FHZkA+SuKy0kxK/A
+         5HgZixZ/01VpLnoYF9hD0CKBONbA4j3rsUUhag9CBqW3xEJBhjeKq2fwrXHJnvowCXlk
+         +7KFHK/ot6ZCqJPL0N4qGZqjTAEbW9OlXhFsvYtzzCOGRJSy73dWQoMUE56vj6PKKjGT
+         /1l1OmLmWhdAg9c23MsMbI4teH1UV4om9SS8IVmSw0KTTEs68eGfS0ckDa5cUkw5WxS7
+         4D5DEJIx1PLeI/LjYrTWFqib9pdf5jfN2EGN6b82/eBxliq4k1B15CJjgDsIFkKzlJrD
+         qayw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOAM532GTAuqmEGXQ7NkZpEtIcDDr556xboelsmvdmyQQtXVTc3z8+RE
+	q/Y733ULkKLF3zEFUfbYZB4=
+X-Google-Smtp-Source: ABdhPJzwSrwpWf2Xf6HrQd1rEQHEJxIzXZp3Mks+uE4IH7ciPtAYIo0s2eHzICIGuN87KxQSrfTqgg==
+X-Received: by 2002:ac8:59d2:0:b0:2de:8904:e25 with SMTP id f18-20020ac859d2000000b002de89040e25mr30844789qtf.52.1646382934856;
+        Fri, 04 Mar 2022 00:35:34 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:622a:5d4:b0:2d0:3e30:18a4 with SMTP id
- d20-20020a05622a05d400b002d03e3018a4ls2828910qtb.7.gmail; Thu, 03 Mar 2022
- 23:51:38 -0800 (PST)
-X-Received: by 2002:ac8:5a0a:0:b0:2de:b81:24ca with SMTP id n10-20020ac85a0a000000b002de0b8124camr30598162qta.271.1646380298036;
-        Thu, 03 Mar 2022 23:51:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1646380298; cv=none;
-        d=google.com; s=arc-20160816;
-        b=CXt/qGE0hAb4IoCY4vw63GYEohIBguBW/YKJ3UPvVlpNbVKG7fNbg6jfo3NsHuFUMY
-         n6QAm4T9OXugePZg1RtyQuxVATSpqhdZePdfM3UAPf8Ngnplk7XgyZHw826mk1LRmNKM
-         zZhP5e/XTmWsaVMb+mNFzP8e8eBH/9ajXOsXKQnhuoEFhzDsUO5FwrM4RzpetlFxx0Jd
-         ZzPhZ2TZlL+fp0DE/GrvkPFsnCAuM0j6zJ9jZdRb1WmR0SQsZW7PXI1nt2zmoK+6d+5t
-         9mLtCd1Hsh39r0tTBkJWSvh1jr9nTSc/0GbyZGSJCRwZaGMIpypNATWuR2El4gAiP9rX
-         w0QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:dkim-signature;
-        bh=UERkL9XA9OfjTH7OJR+fOfRTfi+6etgRwaAk91ZElVk=;
-        b=jt8vIPbxLhZGol/lR0TPM1+n1/Dwap4tEbwrZkzqww2vMOgt/+sbz/dCG6aqGg7HzB
-         vQXZkGukxfUmtbbanYB0v/TREo4ocVV10BDpl5RAvMZ1ZIB6cr+Ai72LSAt1eyrhRyLm
-         pHRKwidWMztlAN+Tij2FjFihycfY/Z/DNdiddi/zgwkpL5mXDX/86wh3GhV4DlpgbI2L
-         chQS+EWDLDunnsc2cE/WM6Dx90n+mtAXQgM0XbbLHieqXrfmo01/ZOlQMaTBn8+XNcZq
-         voGI/BSvohxb61ntmjQUr2FZb67DRrVA3qFDOf4/cb8mwwSYlLZ+2q3znmRws7tmFaDP
-         QZKQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@ti.com header.s=ti-com-17Q1 header.b=NCt9zlOb;
-       spf=pass (google.com: domain of mranostay@ti.com designates 198.47.23.248 as permitted sender) smtp.mailfrom=mranostay@ti.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=ti.com
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com. [198.47.23.248])
-        by gmr-mx.google.com with ESMTPS id p6-20020a05622a048600b002dcc2269cc0si128244qtx.1.2022.03.03.23.51.37
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Mar 2022 23:51:37 -0800 (PST)
-Received-SPF: pass (google.com: domain of mranostay@ti.com designates 198.47.23.248 as permitted sender) client-ip=198.47.23.248;
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 2247pbr8090963;
-	Fri, 4 Mar 2022 01:51:37 -0600
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
-	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 2247pbcd090769
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 4 Mar 2022 01:51:37 -0600
-Received: from DFLE106.ent.ti.com (10.64.6.27) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.14; Fri, 4
- Mar 2022 01:51:36 -0600
-Received: from DFLE106.ent.ti.com ([fe80::4dc:7374:f90c:1f12]) by
- DFLE106.ent.ti.com ([fe80::4dc:7374:f90c:1f12%17]) with mapi id
- 15.01.2308.014; Fri, 4 Mar 2022 01:51:36 -0600
-From: "'Ranostay, Matthew' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Jan Kiszka <jan.kiszka@siemens.com>,
-        "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>
-Subject: Re: [PATCH 1/4] configs: arm64: add eMMC support to k3-am654-idk
- linux demo inmate
-Thread-Topic: [PATCH 1/4] configs: arm64: add eMMC support to k3-am654-idk
- linux demo inmate
-Thread-Index: AQHYL23dmRRw+6fHG0++56NrM3145ayvKikA//+vDgg=
-Date: Fri, 4 Mar 2022 07:51:36 +0000
-Message-ID: <e3fd76521d2d45828072a6430c232403@ti.com>
-References: <20220304021615.2862-1-mranostay@ti.com>
- <20220304021615.2862-2-mranostay@ti.com>,<c8697abb-27a5-6560-513c-067c4d32c389@siemens.com>
-In-Reply-To: <c8697abb-27a5-6560-513c-067c4d32c389@siemens.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.248.242.15]
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: by 2002:a37:a9ca:0:b0:4b5:a976:975d with SMTP id s193-20020a37a9ca000000b004b5a976975dls2352776qke.3.gmail;
+ Fri, 04 Mar 2022 00:35:34 -0800 (PST)
+X-Received: by 2002:a05:620a:1506:b0:47c:fd66:7053 with SMTP id i6-20020a05620a150600b0047cfd667053mr1867511qkk.322.1646382933956;
+        Fri, 04 Mar 2022 00:35:33 -0800 (PST)
+Date: Fri, 4 Mar 2022 00:35:33 -0800 (PST)
+From: Giovanni Olino <gianni.olino@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <77226583-76dd-4c0b-9a0c-c69332e824b9n@googlegroups.com>
+Subject: [Banana Pi] make modules_install give "Makefile:1250: recipe for
+ target '_modinst_'  failed"
 MIME-Version: 1.0
-X-Original-Sender: mranostay@ti.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@ti.com header.s=ti-com-17Q1 header.b=NCt9zlOb;       spf=pass
- (google.com: domain of mranostay@ti.com designates 198.47.23.248 as permitted
- sender) smtp.mailfrom=mranostay@ti.com;       dmarc=pass (p=QUARANTINE
- sp=NONE dis=NONE) header.from=ti.com
-X-Original-From: "Ranostay, Matthew" <mranostay@ti.com>
-Reply-To: "Ranostay, Matthew" <mranostay@ti.com>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5146_240784242.1646382933392"
+X-Original-Sender: gianni.olino@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -158,34 +76,89 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Jan Kiszka <jan.kiszka@siemens.com>
-Sent: Thursday, March 3, 2022 10:36 PM
-To: Ranostay, Matthew; jailhouse-dev@googlegroups.com
-Subject: Re: [PATCH 1/4] configs: arm64: add eMMC support to k3-am654-idk l=
-inux demo inmate
-=C2=A0  =20
-On 04.03.22 03:16, 'Matt Ranostay' via Jailhouse wrote:
-> Add eMMC support to k3-am654-idk-linux-demo inmate which requires
-> several device tree changes, and addition memory mappings open
->=20
+------=_Part_5146_240784242.1646382933392
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5147_1528374183.1646382933392"
 
-And what does the root cell use then as mass storage? Normally, that's
-where the eMMC belongs to.
+------=_Part_5147_1528374183.1646382933392
+Content-Type: text/plain; charset="UTF-8"
 
-Matt: So the SD card is the mass storage for the root cell in this case. I'=
-m okay with making an additional inmate configuration with the eMMC change.
+Hi,
+I'm trying to get Jailhouse on  a Banana Pi M1.
+Siemens has a docomentation for it 
+(https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-banana-pi-arm-board.md) 
+but I'm using linux_4.19, in particular git clone -b 
+jailhouse-enabling/4.19 https://github.com/siemens/linux.git 
+linux_siemens_4.19.
+On the compile machine every seems to work properly, I can do Make of 
+Linux, Jailhouse and FreeRTOS without problems or errors but one moved on 
+the Board errors occours.
 
-Jan
+On the Bananian, trough sshfs, when I try to mount the compiled kernel with 
+"make mudules_install" this errors come out:
 
---=20
-Siemens AG, Technology
-Competence Center Embedded Linux
-   =20
+ * INSTALL block/bfq.ko*
+*scripts/sign-file: 2: scripts/sign-file: Syntax error: word unexpected 
+(expected "(" )*
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+*scripts/Makefile.modinst:36: recipe for target 'block/bfq.ko' failed*
+*make[1]: *** [block/bfq.ko] Error 2*
+*Makefile:1250: recipe for targer '_modinst_' failed*
+*make ***[_modinst_] Error 2*
+
+In the sign-file script I don't see where a parenthesis might be missing 
+and  for target block/bfq.ko don't know what to look for.
+
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/77226583-76dd-4c0b-9a0c-c69332e824b9n%40googlegroups.com.
+
+------=_Part_5147_1528374183.1646382933392
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi,</div><div>I'm trying to get Jailhouse on&nbsp; a Banana Pi M1.</di=
+v><div>Siemens has a docomentation for it (https://github.com/siemens/jailh=
+ouse/blob/master/Documentation/setup-on-banana-pi-arm-board.md) but I'm usi=
+ng linux_4.19, in particular <span><span>git clone -b jailhouse-enabling/4.=
+19 https://github.com/siemens/linux.git linux_siemens_4.19.</span></span></=
+div><div><span><span>On the compile machine every seems to work properly, I=
+ can do Make of Linux, Jailhouse and FreeRTOS without problems or errors bu=
+t one moved on the Board errors occours.</span></span></div><div><span><spa=
+n><br></span></span></div><div><span><span>On the Bananian, trough sshfs, w=
+hen I try to mount the compiled kernel with "make mudules_install" this err=
+ors come out:</span></span></div><div><span><span><br></span></span></div><=
+div><span><span>&nbsp;<i> INSTALL block/bfq.ko</i></span></span></div><div>=
+<i><span><span>scripts/sign-file: 2: scripts/sign-file: Syntax error: word =
+unexpected (expected "(" )</span></span></i></div><div><i><span><span>scrip=
+ts/Makefile.modinst:36: recipe for target 'block/bfq.ko' failed<br></span><=
+/span></i></div><div><i><span><span>make[1]: *** [block/bfq.ko] Error 2</sp=
+an></span></i></div><div><i><span><span>Makefile:1250: recipe for targer '_=
+modinst_' failed</span></span></i></div><div><span><span><i>make ***[_modin=
+st_] Error 2</i><br></span></span></div><div><span><span><br></span></span>=
+</div><div><span><span><span dir=3D"ltr"><span>In the sign-file script I do=
+n't see where a parenthesis might be missing and&nbsp; for target block/bfq=
+.ko don't know what to look for.<br></span></span></span></span></div><div>=
+<span><span><span dir=3D"ltr"><span><br></span></span></span></span></div><=
+div><span><span><span dir=3D"ltr"><span><br></span></span></span></span></d=
+iv>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/e3fd76521d2d45828072a6430c232403%40ti.com.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/77226583-76dd-4c0b-9a0c-c69332e824b9n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/77226583-76dd-4c0b-9a0c-c69332e824b9n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_5147_1528374183.1646382933392--
+
+------=_Part_5146_240784242.1646382933392--
