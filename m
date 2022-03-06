@@ -1,73 +1,118 @@
-Return-Path: <jailhouse-dev+bncBCA6TFW6UQBRBMEARWIQMGQEYP75Y4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQJLJ72Y4FRBMUXSGIQMGQESEOA3RQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E474CE449
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  5 Mar 2022 11:49:21 +0100 (CET)
-Received: by mail-qt1-x839.google.com with SMTP id bb7-20020a05622a1b0700b002e04e16d3easf4040483qtb.16
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 05 Mar 2022 02:49:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:in-reply-to:references:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=abai9gZhe10y1BKYUAXH1zGwQwpSV0jX2n97CxPtCjA=;
-        b=hBViyeTPwZy7t+iXU7KmRkw8vSBtwMgI5iiQZ4j8SuyvOdflBFLuzurdGLJBR9Xooz
-         kljjcHOWI1u30fg0GZyrs6vcmh3kYoZNwlHW1ewh0AC77IFmgFirzkA5DtwUjvUAAxMh
-         xkxzq4hUcEcmeZSpXJpih33HWa5fH0g6Bnun2YmY7Dqh7gILm0yXEFVFu5suSCWlhCix
-         Ah80VGmAcc6Mwo6rHn23eJsHUQSLhDCKa7FD5P/PmwwMk4oMrUVpIFdXYlmyuQ3crID0
-         Dpxx/gr/EiuS5k6h4hKC8YsQIknaCUkj4W/TyztGHlXwiMigj5Zq7HCL0+v4xXiwZo9+
-         lhPg==
+Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF98B4CE960
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  6 Mar 2022 06:50:43 +0100 (CET)
+Received: by mail-qk1-x73b.google.com with SMTP id t17-20020a05620a035100b0060df15e2977sf8853877qkm.21
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 05 Mar 2022 21:50:43 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1646545842; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=eMlHGfvj2VOdxRn/pmiT+eINmn70P+C8pjeO1vmIzEuDG3YDFOulbyxbbx8b1IXo1r
+         hjX/Aetx9vH4/LCE1r/fUgzh8MnRnxauRXU31TIDZqAgCNa/0UhJYdKzVPVyHDEiK+C5
+         fgU1ACmJL6gOyiK/d1JvqMdocHNRgtoFJdu+MtQ0oH199a+xGP0MLCGnnNdjH9GIozei
+         BDH8d4SlrFi/iMNzRq5TBwt2SlCI9CshS+LkNTEJEgFYzE4pga6wVk0TiduA4Zb2RwQJ
+         7r55H7O5qOQRXIrtzqLlRqxCJOpleUzTHLJRnabaVHqVsg9W8Ojr9brOro9vFtibzR4U
+         Q3Sw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :sender:mime-version:dkim-signature;
+        bh=CAqB2I6Yf0F52kzm3n//Eq0X3xsWLynd2OuyM2wSEbs=;
+        b=wTthzyGGeKbMNg1NRRZaf9S9uVZSj2RKnEmrPhpNl9DYzWupGWa8o8PviMu/vnhC8w
+         AwRzCqpK1psCc9qHRu5uBknjkp4joZWJD8/SKCrzZLi8/HOmXtBhCw3BtFV0S70+011f
+         2XsnL9kHmnqWiDdfolWEbqV7hnykoTaKxgxpqfJQ8oxH8mnf7jvwLwZYZci3bSBPA6ma
+         9w4YuGXHvVtfJoEzQbWLa12PY5xYuNUgur52NqKOR6lq3CgWVqBSIraD/MUgUkFPhpMG
+         uB7M8Fd8mdpcdQLw4cm2drHlaL/DSvmEzC/J1lG4iFXIVvoFRBn1ZRPYNne+Mhi/ePHb
+         xckg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=gH1zSac9;
+       spf=pass (google.com: domain of madamarawaaa@gmail.com designates 2607:f8b0:4864:20::1133 as permitted sender) smtp.mailfrom=madamarawaaa@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=abai9gZhe10y1BKYUAXH1zGwQwpSV0jX2n97CxPtCjA=;
-        b=IxW/hXed/jnIFZDdDDVY+0S5udt5Z4QL8tnh5HOgzBOuV6ccG2BTtGBKgzkyetjwoV
-         Kc2UjQarXDf7z0t8uFU2UBl8BZWh7M2ZQnUIthpNzY1s3Ej0bJlVuBkNlliR3Zv6dVZM
-         aj920heGQi0ynATUEaTN/KJecCnBGssMrt1QBOyETvaI8AjfpXDqQ+9Q7bEq6JWQIIFN
-         1IBQhnTKRvtuIf/D5P8AhD833P413Pwk3z0nIceIG31N4lQ2IriMLv2ZayOnitx0lIqg
-         DxoHmIgeQ4uOu5ZqDid3pxto6hKhhf7UTdtXulvCojhfvf4VklLiSrz24DR8IaQIChYQ
-         nNtA==
+        h=mime-version:sender:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=CAqB2I6Yf0F52kzm3n//Eq0X3xsWLynd2OuyM2wSEbs=;
+        b=DuTkih5kDyYvFR6VZOtQRqAx3oeB5WFJ+KaLeaC7YmhhQx54c9qB/S+bdCfend7umo
+         VB/ZETp/FLQg+E/5QeckoAOQrVp0C85UVj1fmb6ejpv6OaLHJSa8I58mtnKrKmlYzmGF
+         MBIPPKxbA2T8jT3J3jHBaOrrHYiISQG8scXgoh942kMmmmMxb/0zcppDZBYzt1vaZ46W
+         oOtFNClnwVSo/iD7akogcaa3ZgmQJ7kwcOLkOdmK0jzdPaJS+2y5eE8cH+hhZn5Cv6k/
+         JwUcfxOyaa54VuYZD6Q0LYNSDUEpNVfKFC1/wyMv0NgY/PjZvkWwGhyf5nJA27Zj9PdZ
+         KmnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
-         :references:subject:mime-version:x-original-sender:precedence
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
          :list-archive:list-subscribe:list-unsubscribe;
-        bh=abai9gZhe10y1BKYUAXH1zGwQwpSV0jX2n97CxPtCjA=;
-        b=2NGhYC0NT9r2frOdWtgqb83obiQHvGqmIY2PXR875BITM/7RRun+iPSKaxVJVCJJfp
-         54O1Lc0uT8YlEE7tXRQOVp1e65KgcRnhtknoSBih0gFjW9Kqe0z//SI4NACB4RUxSNyz
-         KknU42HhjEH+0cgfKJ9LeWmWxeXgcOk8MSue38yiX9bXU+VF3bB7/ThbTPr/phldMOCU
-         T2YxXa9A/gge65InLW3bLKv41mQYm0AZ5yEPysxVgQOEqmjrbuuVGyyeAJ0Z55xF6BRv
-         HerJqt4SRtJ/6M2fJ3zZ/2Szns0F3n6hhD9tMImXFFZWhZWMJ7el9mfY3HRzNbHrW/S0
-         OvIQ==
-Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531If3FiwEgo+8XWaiPMl/QGXgFSHJMEKp4twiA8J1ND6kTZpC0L
-	bM13Evx8Y5uw9JVW5cd+mUs=
-X-Google-Smtp-Source: ABdhPJyGzC0mataqVizlE9V+9SE1viFLe5UBBkVGCar+torJt3z9GW5b+bwuDQ3JnPM+jBUpOVXq4A==
-X-Received: by 2002:a37:f703:0:b0:62c:ecc5:37ea with SMTP id q3-20020a37f703000000b0062cecc537eamr1650569qkj.601.1646477360732;
-        Sat, 05 Mar 2022 02:49:20 -0800 (PST)
+        bh=CAqB2I6Yf0F52kzm3n//Eq0X3xsWLynd2OuyM2wSEbs=;
+        b=RkeThCM4BHo3AHr8NfKJ/3VYTuRFFRv0R2po8/ainrFWN7DZa3fgh9tiwIppivwkUS
+         0kwIRJ/dxWNxzrt0MoZ+AhS2X+8AvA+iVT3E4zg7sz98sH7k2rmFIjAFHEpPv0F4jrA+
+         lUTitGxLaCa96w5Jz4E890PyejQwMAFCxx/wfx2KwaPuFA7N8M0HYrF6gfbmTs65uUWN
+         P6SRz9kLhkzKAFmIW+3ODxSqbH8o0PZD2Mq5ls1Dl9GqljlFHN0fZZlMu0W1Hrw0eWfc
+         ribBRpcrdEPL0OSNsV8oDzUtXdILWS+T02AoCEAn4j061Rqn/8BDzBF25Gubu5ZXIAFY
+         4YrQ==
+X-Gm-Message-State: AOAM532Zu5cQG7QdwzpET59hkRJU7M35ExTK0kJidmBWNUiysLXXa/hm
+	vpiI7DKEUxtNzF4Ahs1VIWU=
+X-Google-Smtp-Source: ABdhPJygw8uX9AgA+LoHEX4oLwhrWrh7Q7ju7anGsKba7hc1bdNfpGfqOLbwswiKNkLOEcassIM+Dg==
+X-Received: by 2002:a05:620a:13f2:b0:60b:d595:6db1 with SMTP id h18-20020a05620a13f200b0060bd5956db1mr3628270qkl.366.1646545842671;
+        Sat, 05 Mar 2022 21:50:42 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6214:3002:b0:432:946e:7c28 with SMTP id
- ke2-20020a056214300200b00432946e7c28ls3489278qvb.5.gmail; Sat, 05 Mar 2022
- 02:49:20 -0800 (PST)
-X-Received: by 2002:a0c:fd4c:0:b0:432:9d4c:26b4 with SMTP id j12-20020a0cfd4c000000b004329d4c26b4mr1946793qvs.15.1646477359976;
-        Sat, 05 Mar 2022 02:49:19 -0800 (PST)
-Date: Sat, 5 Mar 2022 02:49:19 -0800 (PST)
-From: Giovanni Olino <gianni.olino@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f9df17f0-5dd5-426f-ba2a-34e1a17e33e8n@googlegroups.com>
-In-Reply-To: <06f69587-8e20-810b-a142-97378bf1f8da@siemens.com>
-References: <77226583-76dd-4c0b-9a0c-c69332e824b9n@googlegroups.com>
- <06f69587-8e20-810b-a142-97378bf1f8da@siemens.com>
-Subject: Re: [Banana Pi] make modules_install give "Makefile:1250: recipe
- for target '_modinst_' failed"
+Received: by 2002:a37:e209:0:b0:477:a7d6:5f83 with SMTP id g9-20020a37e209000000b00477a7d65f83ls4896646qki.0.gmail;
+ Sat, 05 Mar 2022 21:50:41 -0800 (PST)
+X-Received: by 2002:a05:620a:38d:b0:5f1:91db:9513 with SMTP id q13-20020a05620a038d00b005f191db9513mr3525140qkm.85.1646545841872;
+        Sat, 05 Mar 2022 21:50:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1646545841; cv=none;
+        d=google.com; s=arc-20160816;
+        b=gsFQMGYsZoJJIGwAdFGCbjMfP7in1V1EgQoqAbT+ziyueg1/Xoj/vkDXrcY4lqDzRA
+         am/3XgU0TZoDKeVWbN/eDTDs6CXXs6Zpq4gHIcl9ep04fByVsffrehXWl8+jjmZmVl2n
+         8O3KOuL37NZoeGqhqdjfScQ8utpoGchV6Tn3fN77NHqWzqNPofRPzfkoQzTEBgppFBNZ
+         /3bb3O5rM+u2siKGQ1s8t5+Grc5T4do0Hf030qmUW3VhtcwuEpCYChJWb1tmXn0UTkrq
+         Dt2A7boe3Tbq4vQ7jZF6Ns4wLKE+AhdqQAn6WOUCcbg5U463EH/OoeFUH2N5Id1Afjam
+         Pa0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:sender:mime-version:dkim-signature;
+        bh=VaaSLAJ+hgNGNq49WyPsh3ndDLo+mnrYcswrOHpJSv8=;
+        b=DIq7/YMNnBx4i9iBEYEhUqL/i+Lr63IwP7+Nr5OYj2wDxyjugbWA/bTChTS4F+yvqN
+         ocpRk+Ot8+n8EzZmgnm3/KOl+1EWXTHkc1OscSdk7bg0vkWh3mpFnll9yTcW/yC4G0+I
+         NRX3V5ISwUDRGO2MwDFlGH3q8R84uwklljiKMOV2cD8ppp7k7T5ZGyGsHuVQOq8h/Y70
+         931gcxbs25eAUXwXVpP2pqpymSC/LgYaoPo6ksFcKzg/Oy1uWXfHYsqJCKdMEMIl5wfW
+         nT+GOvHcUQ72brZ+KpbbJ5J/k4sJc8rT7vaTui0A9vmpz6ZfKWjj8/z3bixto7E31HG/
+         yR4Q==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=gH1zSac9;
+       spf=pass (google.com: domain of madamarawaaa@gmail.com designates 2607:f8b0:4864:20::1133 as permitted sender) smtp.mailfrom=madamarawaaa@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com. [2607:f8b0:4864:20::1133])
+        by gmr-mx.google.com with ESMTPS id g11-20020a05620a278b00b0067af44a3800si172947qkp.2.2022.03.05.21.50.41
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Mar 2022 21:50:41 -0800 (PST)
+Received-SPF: pass (google.com: domain of madamarawaaa@gmail.com designates 2607:f8b0:4864:20::1133 as permitted sender) client-ip=2607:f8b0:4864:20::1133;
+Received: by mail-yw1-x1133.google.com with SMTP id 00721157ae682-2dc585dbb02so68014987b3.13
+        for <jailhouse-dev@googlegroups.com>; Sat, 05 Mar 2022 21:50:41 -0800 (PST)
+X-Received: by 2002:a81:9210:0:b0:2dc:27d2:292e with SMTP id
+ j16-20020a819210000000b002dc27d2292emr4542327ywg.20.1646545841625; Sat, 05
+ Mar 2022 21:50:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2216_700140088.1646477359478"
-X-Original-Sender: gianni.olino@gmail.com
+Sender: madamarawaaa@gmail.com
+Received: by 2002:a05:7010:7044:b0:211:4c69:46e6 with HTTP; Sat, 5 Mar 2022
+ 21:50:41 -0800 (PST)
+From: Ssan Elwood Hara <mrs.susanelwoodhara17@gmail.com>
+Date: Sun, 6 Mar 2022 05:50:41 +0000
+Message-ID: <CAJRRPJ_b38PVwWiD_OCdo8UZd9YJv70oKVUhbNjDH+AGTQCykQ@mail.gmail.com>
+Subject: GOD BLESS YOU AS YOU REPLY URGENTLY
+To: undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: mrs.susanelwoodhara17@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b=gH1zSac9;       spf=pass
+ (google.com: domain of madamarawaaa@gmail.com designates 2607:f8b0:4864:20::1133
+ as permitted sender) smtp.mailfrom=madamarawaaa@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,178 +125,16 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2216_700140088.1646477359478
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2217_2013122491.1646477359478"
+GOD BLESS YOU AS YOU REPLY URGENTLY
 
-------=_Part_2217_2013122491.1646477359478
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Hello Dear,
+Greetings, I am contacting you regarding an important information i
+have for you please reply to confirm your email address and for more
+details Thanks
+Regards
+Mrs Susan Elwood Hara.
 
-You were right, after disabling Module Verification in the menuconfig=20
-finally on the Banana Pi the *make moduels_install *worked fine.
-Now I have another issue, I don't know why but:
-*make ARCH=3Darm CROSS_COMPILE=3Darm-linux-gnueabihf- -j$(( $(nproc) + 1 ))=
-=20
-uImage modules dtbs LOADADDR=3D40008000*
-doesn't compile the .dts files in arch/arm/boot/dts  into .dtb files=20
-despite in that folder I have a Makefile wich describes all the device tree=
-=20
-blob.
-
-Any suggestion?
-
-Thx a lot
-Il giorno venerd=C3=AC 4 marzo 2022 alle 15:39:35 UTC+1 j.kiszka...@gmail.c=
-om ha=20
-scritto:
-
-> On 04.03.22 09:35, Giovanni Olino wrote:
-> > Hi,
-> > I'm trying to get Jailhouse on  a Banana Pi M1.
-> > Siemens has a docomentation for it
-> > (
-> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-b=
-anana-pi-arm-board.md
-> )
-> > but I'm using linux_4.19, in particular git clone -b
-> > jailhouse-enabling/4.19 https://github.com/siemens/linux.git
-> > linux_siemens_4.19.
-> > On the compile machine every seems to work properly, I can do Make of
-> > Linux, Jailhouse and FreeRTOS without problems or errors but one moved
-> > on the Board errors occours.
-> >=20
-> > On the Bananian, trough sshfs, when I try to mount the compiled kernel
-> > with "make mudules_install" this errors come out:
-> >=20
-> >  /INSTALL block/bfq.ko/
-> > /scripts/sign-file: 2: scripts/sign-file: Syntax error: word unexpected
-> > (expected "(" )/
-> > /scripts/Makefile.modinst:36: recipe for target 'block/bfq.ko' failed
-> > /
-> > /make[1]: *** [block/bfq.ko] Error 2/
-> > /Makefile:1250: recipe for targer '_modinst_' failed/
-> > /make ***[_modinst_] Error 2/
-> >=20
-> > In the sign-file script I don't see where a parenthesis might be missin=
-g
-> > and  for target block/bfq.ko don't know what to look for.
-> >=20
->
-> Seems you have module signing enabled. Maybe you can already get away
-> with turning that off.
->
-> But that how-to is rather old by now, so is this 4.19 kernel. There
-> might be more traps remaining. For a more modern integration of a
-> similar board, look for the OrangePi image that jailhouse-images
-> generates. Never found the time to port that over to the M1, and now
-> 32-bit ARM is effectively legacy.
->
-> Jan
->
-> --=20
-> Siemens AG, Technology
-> Competence Center Embedded Linux
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f9df17f0-5dd5-426f-ba2a-34e1a17e33e8n%40googlegroups.com.
-
-------=_Part_2217_2013122491.1646477359478
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-You were right, after disabling Module Verification in the menuconfig final=
-ly on the Banana Pi the <i>make moduels_install </i>worked fine.<br><div>No=
-w I have another issue, I don't know why but:</div><div><i>make ARCH=3Darm =
-CROSS_COMPILE=3Darm-linux-gnueabihf- -j$(( $(nproc) + 1 )) uImage modules d=
-tbs LOADADDR=3D40008000</i><br></div><div>doesn't compile the .dts files in=
- arch/arm/boot/dts&nbsp; into .dtb files despite in that folder I have a Ma=
-kefile wich describes all the device tree blob.</div><div><br></div><div>An=
-y suggestion?</div><div><br></div><div>Thx a lot</div><div class=3D"gmail_q=
-uote"><div dir=3D"auto" class=3D"gmail_attr">Il giorno venerd=C3=AC 4 marzo=
- 2022 alle 15:39:35 UTC+1 j.kiszka...@gmail.com ha scritto:<br/></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px=
- solid rgb(204, 204, 204); padding-left: 1ex;">On 04.03.22 09:35, Giovanni =
-Olino wrote:
-<br>&gt; Hi,
-<br>&gt; I&#39;m trying to get Jailhouse on=C2=A0 a Banana Pi M1.
-<br>&gt; Siemens has a docomentation for it
-<br>&gt; (<a href=3D"https://github.com/siemens/jailhouse/blob/master/Docum=
-entation/setup-on-banana-pi-arm-board.md" target=3D"_blank" rel=3D"nofollow=
-" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&amp;q=3Dhttps:=
-//github.com/siemens/jailhouse/blob/master/Documentation/setup-on-banana-pi=
--arm-board.md&amp;source=3Dgmail&amp;ust=3D1646563311255000&amp;usg=3DAFQjC=
-NHegluJraT6SGxxM1X6HuhWRV54Tg">https://github.com/siemens/jailhouse/blob/ma=
-ster/Documentation/setup-on-banana-pi-arm-board.md</a>)
-<br>&gt; but I&#39;m using linux_4.19, in particular git clone -b
-<br>&gt; jailhouse-enabling/4.19 <a href=3D"https://github.com/siemens/linu=
-x.git" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://w=
-ww.google.com/url?hl=3Dit&amp;q=3Dhttps://github.com/siemens/linux.git&amp;=
-source=3Dgmail&amp;ust=3D1646563311255000&amp;usg=3DAFQjCNFlOH_3rMWpNhYO1WE=
-3wDaTWuHY1g">https://github.com/siemens/linux.git</a>
-<br>&gt; linux_siemens_4.19.
-<br>&gt; On the compile machine every seems to work properly, I can do Make=
- of
-<br>&gt; Linux, Jailhouse and FreeRTOS without problems or errors but one m=
-oved
-<br>&gt; on the Board errors occours.
-<br>&gt;=20
-<br>&gt; On the Bananian, trough sshfs, when I try to mount the compiled ke=
-rnel
-<br>&gt; with &quot;make mudules_install&quot; this errors come out:
-<br>&gt;=20
-<br>&gt; =C2=A0/INSTALL block/bfq.ko/
-<br>&gt; /scripts/sign-file: 2: scripts/sign-file: Syntax error: word unexp=
-ected
-<br>&gt; (expected &quot;(&quot; )/
-<br>&gt; /scripts/Makefile.modinst:36: recipe for target &#39;block/bfq.ko&=
-#39; failed
-<br>&gt; /
-<br>&gt; /make[1]: *** [block/bfq.ko] Error 2/
-<br>&gt; /Makefile:1250: recipe for targer &#39;_modinst_&#39; failed/
-<br>&gt; /make ***[_modinst_] Error 2/
-<br>&gt;=20
-<br>&gt; In the sign-file script I don&#39;t see where a parenthesis might =
-be missing
-<br>&gt; and=C2=A0 for target block/bfq.ko don&#39;t know what to look for.
-<br>&gt;=20
-<br>
-<br>Seems you have module signing enabled. Maybe you can already get away
-<br>with turning that off.
-<br>
-<br>But that how-to is rather old by now, so is this 4.19 kernel. There
-<br>might be more traps remaining. For a more modern integration of a
-<br>similar board, look for the OrangePi image that jailhouse-images
-<br>generates. Never found the time to port that over to the M1, and now
-<br>32-bit ARM is effectively legacy.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, Technology
-<br>Competence Center Embedded Linux
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f9df17f0-5dd5-426f-ba2a-34e1a17e33e8n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/f9df17f0-5dd5-426f-ba2a-34e1a17e33e8n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_2217_2013122491.1646477359478--
-
-------=_Part_2216_700140088.1646477359478--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAJRRPJ_b38PVwWiD_OCdo8UZd9YJv70oKVUhbNjDH%2BAGTQCykQ%40mail.gmail.com.
