@@ -1,125 +1,128 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBB3VCW6IQMGQEZZZPWQA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBZ5GW6IQMGQEGSB4JMI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23c.google.com (mail-lj1-x23c.google.com [IPv6:2a00:1450:4864:20::23c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 073174D74EE
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 13 Mar 2022 12:11:44 +0100 (CET)
-Received: by mail-lj1-x23c.google.com with SMTP id h4-20020a2ea484000000b002480c04898asf3866928lji.6
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 13 Mar 2022 04:11:44 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1647169903; cv=pass;
+Received: from mail-lj1-x237.google.com (mail-lj1-x237.google.com [IPv6:2a00:1450:4864:20::237])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEEB4D74F3
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 13 Mar 2022 12:20:08 +0100 (CET)
+Received: by mail-lj1-x237.google.com with SMTP id 20-20020a2e0914000000b0024635d136ddsf5225834ljj.22
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 13 Mar 2022 04:20:08 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1647170408; cv=pass;
         d=google.com; s=arc-20160816;
-        b=RwDnoyPPLg0tBzPuzyze4eBWVDOtD43a8J4xYGonnHrpPc1k97TOiVrAYugZqXkyPn
-         Cmufvr9fnxUQJzhI9Xbpw0LR/ksBBcoqgw0LQCJ1TTWtD2m7vdyLVUWfSByztL0Rlm6U
-         7GIG/veY6/UJiPt7Gkt7HZTs4dKw2Gc24JaifKd6IQHfVulXfKe8/R6J27/6v3uiVXrB
-         tPaCGQzvXAFNY5hYuBSPkWqY2SwIWBXL4Z7eSujqPiLfHHBQd5dgqBWaI6IHD0VJRXAQ
-         erN2quIAMLkaBojzNp4XGv3TPFKY5Lg5mSNE80ERhkN88O9BqYM7Q4kqi3JvqfxxwMQX
-         P7Ww==
+        b=v+bSp50FHCxdDkj4eW+98RxTyWyqiMLcEgwAyRShWrhKWNqEa0Lcow+dkZ5TLcFKzb
+         cjdnQSjPvNy7YWXZK1/I3tLKpWjdJ68elRB9QPs3Sm8PriRzbc40PgBx25ICibz1GriX
+         a7FUtjZCnumepQjpyMvLTnBbz7vAHeqWRcYiV8BOOJNhnxiXohuLxQaW+EMcN7zMN/64
+         ifRZ+/UumzGsTVZ8H2UqGeleNI0T4rdpg3MDqOr5RFfhxHAmAfIbgpZGOzsgMrFyrV3j
+         kjLmFLD1rHBaD+SKZHmEGO5bVbv0Ni3t5eZV4HUBPOb2zyCSBj+1EzlyA8r8gT40IyEi
+         FcQg==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=aunj0N1NHC3RJ0fKGKijrzjm7kLilQs4Vcuh8OvnBoo=;
-        b=QX5xrbgeC0w3fQoY2usj9PjTFNTPGp+YEdl4CcpyySr5B4/1RLzPQ5+sV9vQyxd0gj
-         8M5ogzSXOunGTDOndFxrLzhFR0NR21EiMTuAuAHsHwKcBWSH9iZa3muzrDqv/pKr36FP
-         q1SXSR+yJzbCd9+OV+pCktRQCFOkKNLQ2a12l7JVcjFL/mvhhy+a7AWyS79DxLdpIMSj
-         ni0SFq+FZ/qb2F446OGs1QUGBYvy9FAhoz57lnIzINGmfe+6bWsnmDZrZx3ybACl56S5
-         TUdWas8qlJHzVXIZCVei1anMN02JSQ6V0lzpqbvwkRo01eDUo/TGDGXLpWcBSfUuGAtp
-         jNpQ==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:sender:dkim-signature;
+        bh=hp2El00XFsZaQAGSYrYJdYY7DrJ/4J3mV4mUfnUhzHc=;
+        b=wz5iC1uQhy3Me2iym5rpnLdJbJsiYzWeHSpAF9II2FQcF5EEjeoVppx6PiDgn6viXC
+         bImIRMmY5neOnDmqWW9d/au18AA4EplX2uSCCCGGbn4xzhWenVMvTxxBYSe1AsBkiXjh
+         b/qfiFEX9l33f7QoGhGeREkgVRVzr/l8pP9iKgCBCKk5jyLnKAxdD/1UeJZuGHESTgJa
+         0GQ4Jug619ojeOI6ZqFQh96s0OA00i5cEtrOeWCyiHSIXFecO/cEF0c3LLmr5vQvi0tQ
+         wUcepKibnqWR7lTWDjQ1cG2RP7+S2HNiRaJSBLoHbCi7eaKH0l0sy0iys+Pu/6czaiOS
+         NAOQ==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=o0BUhqqD;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=leGXM30B;
        arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::61b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe07::607 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to:x-original-sender
+         :content-language:to:references:from:in-reply-to
+         :content-transfer-encoding:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=aunj0N1NHC3RJ0fKGKijrzjm7kLilQs4Vcuh8OvnBoo=;
-        b=gsI4U24W8zQ9x8EcaPMp5vhCHWFssuoKJWc29612c4Q/b75JqJBLaMqF4j1txe+hHn
-         ZyihjjaI93OQLHOaPabchUg8Fat8/J8E+32i4li+QCInmRn4+Vg56TOy+EC+2CALUq/S
-         bZigqK8YiC3qQZunpdzh83Y6cNd7o7MZUNO6Oca9ap7JTj0pGJquiFVxJ6LRdobkCLld
-         048s8IwWxEJ4zpycpgtc0s6EblJ1uaE1b7nX6b4NJYJRHdBvNgqFY0mJxGDILFQkYmRB
-         oXqJC11GpgGGWM1lQfKuzAeJtpDw1DTmkbVpHLCY+VtQIlfO6JnRnUW8G8oWv4nW9vz4
-         PSOw==
+        bh=hp2El00XFsZaQAGSYrYJdYY7DrJ/4J3mV4mUfnUhzHc=;
+        b=FnNqGDUSPEnz5V+i1wk5sKDtZyDJfMaRG1Zc1Y+huCd+x+C6+uG42xRSzL7kPixz7q
+         gkO4ALn+A294NdfFnDT0UzbyOk+MEbgR+ONsyXPdp01RKbaVglTZ7j3kUZ0gg7v2yEAT
+         XU/1Aj6cCFeSAh7hS7hfN89YOOkNGY+B4N6nnVZ5mqEaVpZARNwV+wrCDKKFbYMwpEIs
+         Xt+Iikxk9Me/BLfMfbvxMHCBk3QgwcMjfGNJ48KUDHQwXAuioGGXitCDOcDPxRYVfSuO
+         gr/MfKPNgaEYDiPSg5+wfX4DnCVT7VSNQ8nXKXYwgIHWpufdXy1ZVMmSID1xhHfbhoqS
+         OsJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
          :subject:content-language:to:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=aunj0N1NHC3RJ0fKGKijrzjm7kLilQs4Vcuh8OvnBoo=;
-        b=El9GFTX1qAkHbk1fTT4gcZ7Sqv4I/9CPXZts1xlygOYm9yTwnZsIuIWn1cgOT/EiR8
-         nXoNbzHMgJVDL8jpB0iSjTZB57DUl7vaNrM74c6joXdeFvxVdqw92yXn+vGjMg6rF0qX
-         6f+gjDED6lm8B3Lqt5bAxsGfiEqSPD5YllJvCwdckhdryt/qjT0EtwVWQXNPosNwumDu
-         NvWNGgrMpp19ewzVpeqk+NUMj6lVMrM0egH4oTg/HOclV+6TbM3WxwNByCBHvU2UAk5r
-         rC1gbFB91VC2d9iCmdcM0QEji8bMxOSVddlffaU/fM3ETncv117L3YEDbWhQCszcdtrb
-         LQHw==
+         :content-transfer-encoding:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=hp2El00XFsZaQAGSYrYJdYY7DrJ/4J3mV4mUfnUhzHc=;
+        b=ZzllPaXIHX2E9gNcC10bv217nrZflms4hz5DaqFWHFdSqVljV5zgPq+kCDQbDfP7UY
+         rJa6HqQ73pYuqom/1T1+PXCEn02VB8oTv/HnuhAQt/UFPqGObQaRQu1B8G0HjVc5W7Ju
+         H/ulSZODjY0ICLg1NnPq2TxtB6eW5eZhejNg+z7sQIdoVmmTFgnrVAfVEYNwsaaqWHhT
+         Xk+RnhVmD0WNvqzplBNV0fm8d/oNPW/NYYbmNSKtrgaw+riWC/fQPRGVUuUmyTGtBQ0Y
+         xwa+FzplGpCQWifRNbxHUbOY5yj+k1oQBvPywSZVIafvvcFmpbW1Ad9nldE1SuXon+zc
+         32jQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM53353O0t+CIRkN5KDGETgVZ3L8TPsbSA/yFkp7yoxYcmIMBNYiA7
-	aUehYxUDyP6B7KRAZrdJRs0=
-X-Google-Smtp-Source: ABdhPJy40CMoN7dMEZa3M+9t6sqHkvo/S7pRTeuTF70RB6h5i3zcn3BK52tueg5mTWcr1xspZXGjLA==
-X-Received: by 2002:a05:6512:128a:b0:448:2e09:4439 with SMTP id u10-20020a056512128a00b004482e094439mr11242602lfs.386.1647169903420;
-        Sun, 13 Mar 2022 04:11:43 -0700 (PDT)
+X-Gm-Message-State: AOAM533DssfNhc5W3PzSAA8LS1fi008m4G4j1Oc3xhPXhH2hNUAgvbux
+	YcBqr7wsWHwJdeA6H6CPBLY=
+X-Google-Smtp-Source: ABdhPJxma4H16ViTDqspGNWlz7KKVp9qjVRPbSd6YWh8+AFUTIrlXQXOX43OWKR5bzdB3H+rM10zeA==
+X-Received: by 2002:a05:6512:2312:b0:448:4bbd:3761 with SMTP id o18-20020a056512231200b004484bbd3761mr10583101lfu.255.1647170407926;
+        Sun, 13 Mar 2022 04:20:07 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:6e07:0:b0:248:b92:3d85 with SMTP id j7-20020a2e6e07000000b002480b923d85ls949018ljc.5.gmail;
- Sun, 13 Mar 2022 04:11:41 -0700 (PDT)
-X-Received: by 2002:a2e:98ca:0:b0:248:6af:7090 with SMTP id s10-20020a2e98ca000000b0024806af7090mr11204403ljj.334.1647169901654;
-        Sun, 13 Mar 2022 04:11:41 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1647169901; cv=pass;
+Received: by 2002:a05:6512:b05:b0:448:696a:ea62 with SMTP id
+ w5-20020a0565120b0500b00448696aea62ls231684lfu.0.gmail; Sun, 13 Mar 2022
+ 04:20:06 -0700 (PDT)
+X-Received: by 2002:a05:6512:3a85:b0:445:c812:cbc2 with SMTP id q5-20020a0565123a8500b00445c812cbc2mr11318423lfu.232.1647170406509;
+        Sun, 13 Mar 2022 04:20:06 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1647170406; cv=pass;
         d=google.com; s=arc-20160816;
-        b=0XXweTo/h8OWoVDmiXtWVbmwfc34GJXeY8eUwV+uKZFsAqrvqZ61Ypx+bgqHuMmsWO
-         A5tW1+oqsvXMHFAmQRTClh11uDvrh6+imGsPmYVoq7xDp5CeKQmzVYl4JUTMOwqq66Fc
-         gCaRIHUTo2jPn7g+MUbr6f05z4AUxAvJr6QL5GQRyG8ihdGx1/buAut924oy0K0pNQbk
-         4awDN6Cfzl9pg/gHD0ZkYyM0v6X1rZX/3MKp2r0c2rzIWwFtWXe7F0PuCjIcKnJOcJ2Q
-         oMb0ZUgfn4lLIEPLBfRhmsiZEk2Aj+StHGGojEeNQVhJrOu04UCOp5p0UkFDKSpPp86B
-         iqUg==
+        b=tcMmHt35Y7zP/HhW7cyPNoKJ3mmpxrw95bOmj5ZvMgQ9BBZz+XLZUq4aRT+bmADcih
+         nCl7ZXgM+Z6jS/x+w9A3UHzmkxXw2Gci38p0fZbwJreGpaSga24TOc2ZQ5zSvFvNx4Kc
+         bvXQo2tCsJ8TzxveUEze+WjQOCn6VtzQODXuWLlI3Ug8f2MYVQEMBFM6cIdatgbxmPeB
+         fk+iDH8j4G9DjkPYf4hBZ5DL2PccSYh7Il7VkGt3t+o78f3aVKKAzux3PwHbCzaK1lQj
+         z1L2MRpkuE2lU1rXHRmP/FJIiLxsRcu5VEejY3FTXJzkyjogNXLXlLcAOGHehCJ2/UK4
+         yZPQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :dkim-signature;
-        bh=gHBVVqxYfk5S2wfjZtwL+GBH2+IqAC0JFlJF2Kb8PcU=;
-        b=bU5RwI2cdXQ6ZIjD0WSeQl8b0EgIsQiJ0Wl0dee6tUfFCnifja0MMTzyJaOKtn+RGW
-         B9bkX1XAqePUzi3rUQB6eeQ2HM8NVdz545Dfb4fz/y3MOINna4q1AxrGoRLpqjhHY/i4
-         bytqJV2VwYShA3Ml7DG869Zji8wOuF4idUnaLLpeSOiciKsHcxizSDoVrwj4iAZvSg5d
-         2vgxU7PQI7aaAaub/iSH89G2fIldZHOvCvGJlc0e1+c2+J2w0sA3v6CZwE0PpO1rIhIx
-         m3QW30O8hRUjGU7uwxdzZ0uSL7ngJNS0+KfWojJilna6rRyJtQwJR7dLgqG5rRyAJSl4
-         pd8g==
+        bh=R7ETQrhYAsE6MwzcYItSCba3kNI1D0jeCjRTwGUBevo=;
+        b=FriTXN+Xc+T4qpEpBx55OdPqPRpJUg3hE5d1goZjzuDMiPXxT9fybRmhWINSEPPxFP
+         Fv7ukeWzh3+mvulXMvUzZitu4qBLfQH3BalGIcUXGOwpqQjEu7bcuygc3y6T7IG+ig0G
+         dw4DHdSLscPbbZmDkAg/uu3/ixVSDpKSv6OcX/EAe6FXZAZP1htqbbpqXwZRe+5SwZBh
+         quBbwuPjQ+JqaqVbiloJj7g6pYT7FOPV7koiB+hAo2UOqZpgJ2cxENTU6F22Q4+VlMBX
+         sLG8bqq7xzLmrJzRDBIJipbfZxw7xfT65l9dnBnIEqiVCFlvj8v5cAbwDhnJ0kTj2hqc
+         RmlA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=o0BUhqqD;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=leGXM30B;
        arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::61b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe07::607 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on2061b.outbound.protection.outlook.com. [2a01:111:f400:7e1a::61b])
-        by gmr-mx.google.com with ESMTPS id b19-20020a05651c099300b00247e331d3c1si656071ljq.5.2022.03.13.04.11.41
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com (mail-am5eur02on0607.outbound.protection.outlook.com. [2a01:111:f400:fe07::607])
+        by gmr-mx.google.com with ESMTPS id d5-20020a0565123d0500b004481e31c8adsi896382lfv.12.2022.03.13.04.20.06
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 13 Mar 2022 04:11:41 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::61b as permitted sender) client-ip=2a01:111:f400:7e1a::61b;
+        Sun, 13 Mar 2022 04:20:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe07::607 as permitted sender) client-ip=2a01:111:f400:fe07::607;
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l53tN8XN9nMxu3+hWuYNvffzlfpd+9SX1O/m2ZsOv0JEdvz0sf166C9K73m0tRDj7Oey3oQ6gyIVDQfCjX9dc/zxHfPQ8wKqmIyM6gwQb2jaFpWAV0PInulOP2X7KAw5ScgUTxEI3V65Yu9v4R9Qh1/LonLIlyVlQd6iC62i472rmPNj4Q7xt1mS5XZSt2Rp/7w49OtBt8NcRqQ3jd52YlIeIFC+agN+l3HivZBvMbnxHuwVthtnjqRYkJBLsDZ1yzZsZWs1A5lodSxwAL1yNhlXWnbQJex87c27UIkO7cUAyW4mqiFQzJc8YcZNaji1e7vK5tj/sYPAu4WtUHChEA==
+ b=Vz9XN5EjZFOlGqVvfu3bR8OKEmBCgTs1kmbnsZRrU5guterf/HfhIteyJMBTWZWLmwmPzVR0bH9/kh4Aqa2SpmU7vWG2TcEmh+7BLvx603CFoEZL7kAR9VEBJ/Lx8oMeoZf49al4H8DrGcgPAjmlJngAQmyyouAXOtxqFLp78kq2JEjdCbeTvmCho/G9y2u8AaKqgXDhlhjvKPrWkSdTYvGJ/rMpN2uploVR7bMzZLnc9hxiy/tqfM7CgC6cFStF+tCvXSAB0+bGF/ch4bLeQrdL3QgSKnEFaJyXHxKxv/I+umgEfC3Uhx4ei28uHRZ2VXW1DTMJl9QAU49R4SWSJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gHBVVqxYfk5S2wfjZtwL+GBH2+IqAC0JFlJF2Kb8PcU=;
- b=DKP/Vwkd0rCPerarBQqWlPbl6H6HMNYfWgZnwbheuspnqUG3NS4BtjwABoAsY39UhrAMiuvb+BLmcYRruiXdar6b8aH/f9JK1DhjdGWUeHOVeFg+gyB13bnWIvZbB0hMuDEPjRkEl1X1Nrs15fA5Uyf89N9nZ6RL6jWlKkiisWR53tIe5YmHVCcSXlS3Ybsjta+2IAiEOXEWuse3Dhr6kfGIAe0GXNDYP5+Ixo13tPvkxK8Yggt365knXBhSF7bGdy5ypdvehatyhA2Mk9Oy7nJYqZz5RVcNWaWBJ804RE5itmSzlnGWAtYBVmRwtetVebD5qdxeK0J1/pPceZv1/Q==
+ bh=R7ETQrhYAsE6MwzcYItSCba3kNI1D0jeCjRTwGUBevo=;
+ b=TJRKdG0ztYPUBgTVcgmeug6vLHjtkKDy+q/0D0xMkAib9WafO+6LdFWj0SnzR2QX5eNfzCGFYOHen+IHwXrnm7yCfJMtkjg5R1ZIUikOqxEvV7Bkep/3nK87qaTBAIs1YiF/BqIJYyIhjdnB4bIpa/vL/kgHAQeLEsrltNIrcwOzk+tbLHntTbg8sCLE92FgCeXS4JGLscUhR5y8ZZwQcIebQEuHnoEsHtZ6nm5r0xPuQ6YYj5oirf3TUtADVzBYYkthOgpIAV9y4UG905oiJGghajfmya5CjWJ6WB3nbfCvagfQWGdHaIkrnrT/c+orCPOjvF2fnXUByWv8vNJdVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.72) smtp.rcpttodomain=ti.com smtp.mailfrom=siemens.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=siemens.com; dkim=none
- (message not signed); arc=none
-Received: from SV0P279CA0055.NORP279.PROD.OUTLOOK.COM (2603:10a6:f10:14::6) by
- PAXPR10MB5406.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:286::11) with
+ 194.138.21.72) smtp.rcpttodomain=nxp.com smtp.mailfrom=siemens.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
+ dkim=none (message not signed); arc=none
+Received: from AS9PR06CA0011.eurprd06.prod.outlook.com (2603:10a6:20b:462::10)
+ by AM7PR10MB3842.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:14d::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25; Sun, 13 Mar
- 2022 11:11:40 +0000
-Received: from HE1EUR01FT038.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:f10:14:cafe::1b) by SV0P279CA0055.outlook.office365.com
- (2603:10a6:f10:14::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25 via Frontend
- Transport; Sun, 13 Mar 2022 11:11:39 +0000
+ 2022 11:20:04 +0000
+Received: from VE1EUR01FT105.eop-EUR01.prod.protection.outlook.com
+ (2603:10a6:20b:462:cafe::7c) by AS9PR06CA0011.outlook.office365.com
+ (2603:10a6:20b:462::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.20 via Frontend
+ Transport; Sun, 13 Mar 2022 11:20:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.72)
  smtp.mailfrom=siemens.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=siemens.com;
@@ -127,60 +130,62 @@ Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
  194.138.21.72 as permitted sender) receiver=protection.outlook.com;
  client-ip=194.138.21.72; helo=hybrid.siemens.com;
 Received: from hybrid.siemens.com (194.138.21.72) by
- HE1EUR01FT038.mail.protection.outlook.com (10.152.1.93) with Microsoft SMTP
+ VE1EUR01FT105.mail.protection.outlook.com (10.152.3.156) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Sun, 13 Mar 2022 11:11:39 +0000
+ 15.20.5081.10 via Frontend Transport; Sun, 13 Mar 2022 11:20:03 +0000
 Received: from DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) by
  DEMCHDC9SMA.ad011.siemens.net (194.138.21.72) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.18; Sun, 13 Mar 2022 12:11:38 +0100
+ 15.1.2375.18; Sun, 13 Mar 2022 12:20:03 +0100
 Received: from [167.87.72.30] (167.87.72.30) by DEMCHDC8A0A.ad011.siemens.net
  (139.25.226.106) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Sun, 13 Mar
- 2022 12:11:38 +0100
-Message-ID: <84b43004-79c9-4288-9314-7a8d3f2b5056@siemens.com>
-Date: Sun, 13 Mar 2022 12:11:37 +0100
+ 2022 12:20:03 +0100
+Message-ID: <47a111ed-3f54-e384-88a4-c73ec264e194@siemens.com>
+Date: Sun, 13 Mar 2022 12:20:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH v2 4/4] configs: arm64: add emmc inmate configuration for
- k3-am654-idk
+Subject: Re: [PATCH] configs: arm64: qemu zephyr inmate
 Content-Language: en-US
-To: Matt Ranostay <mranostay@ti.com>, <jailhouse-dev@googlegroups.com>
-References: <20220305030458.2938-1-mranostay@ti.com>
- <20220305030458.2938-5-mranostay@ti.com>
+To: Peng Fan <peng.fan@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+References: <20220301080926.15295-1-peng.fan@oss.nxp.com>
+ <e100f09e-0bcf-3113-5f78-d1dbacc6aa11@siemens.com>
+ <DU0PR04MB9417FB18D5606654EE4A51D888059@DU0PR04MB9417.eurprd04.prod.outlook.com>
 From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <20220305030458.2938-5-mranostay@ti.com>
+In-Reply-To: <DU0PR04MB9417FB18D5606654EE4A51D888059@DU0PR04MB9417.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [167.87.72.30]
-X-ClientProxiedBy: DEMCHDC89YA.ad011.siemens.net (139.25.226.104) To
+X-ClientProxiedBy: DEMCHDC8A1A.ad011.siemens.net (139.25.226.107) To
  DEMCHDC8A0A.ad011.siemens.net (139.25.226.106)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c3e97f9-84b2-49f5-f3c8-08da04e23f16
-X-MS-TrafficTypeDiagnostic: PAXPR10MB5406:EE_
-X-Microsoft-Antispam-PRVS: <PAXPR10MB54069BAC2C3FD2F1CA800AF0950E9@PAXPR10MB5406.EURPRD10.PROD.OUTLOOK.COM>
+X-MS-Office365-Filtering-Correlation-Id: 5cdc6b36-57c3-47e7-2e1b-08da04e36bd5
+X-MS-TrafficTypeDiagnostic: AM7PR10MB3842:EE_
+X-Microsoft-Antispam-PRVS: <AM7PR10MB38424450D2BFCE87B30C7A7A950E9@AM7PR10MB3842.EURPRD10.PROD.OUTLOOK.COM>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tob+s5cwi5FXY7+/+z16/lnoz56o0gquIgF+QiJDoNYaQDESYgZ39xqh+V8N7NLK4zT57bPvdMar87DdRuUzAJhvWjdXupcmFnvyJnN4ljiJle0wT297w3UMyZKWOXtgCoGzJreNxbkDjpHmX63uk8fcz3lHZE4N1nZai10juQQ5bEL3qyY1n89CQvttNPDpU5WyT5qcUanJ/tIuG9HoH6YzSdbPjLIRe1qX+hXslN1+u32BZvGfewxOh+TSKh0rbnXUB795BLOH6g7JaJrGP1PScb9Yvwf2lQpbtUVeR8Q+6IhajhdqUicLreUcMlwvpkgORy0oH41Dgyyjb0WSQ7tYDJmLPKPeLno91JukURuXg5XYTrvG6seEP9TEDNIcacId1Fj36bj+1fRJk087fEh1op5Zm3YUNt3O204HLwYaOjzThiRsscN35P61j7f8mV7PiBE7Pu4TTc45ukfT6XWW6FFd6uCF0AnhNczcbF93IwfEw0WxNbXUQwCSfE+wyvXDsfNoaqBtCp5ION6ZzI4ClU7LNKdtGLicq5SRiSufbbmxZjwnzqQaut+QmTMd2gzLS0h/vLK287s5P6oDw59icb6j0xtJLFHXpZ7wIPzZXSugXX1ArZ90/GDJLvtnspcWOtw7LM8TiXBmtQGCqSMrPbVYaGSkNrFz/wetL7/zrh1gjXKPxMdU01MYc0lfObSl0rFUWNTAZKcvH8nHq9nCNR3ovVyD3rjZ0Bm94GhgfQwtT/sq5LAINqZp1O9oxLN3j/pW2EbD5OzYpqYqfulR2CAqXsXLwarPcUCmImMSsVb/E++ytxgLcKbcNSitqoPuEMEHXx+0YgLlHqAh75grv74dh9eHfTIGKeMk6RM=
-X-Forefront-Antispam-Report: CIP:194.138.21.72;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(82960400001)(40460700003)(70206006)(36860700001)(336012)(8676002)(70586007)(82310400004)(16576012)(110136005)(6706004)(966005)(508600001)(83380400001)(47076005)(316002)(956004)(86362001)(8936002)(44832011)(356005)(2616005)(36756003)(5660300002)(2906002)(53546011)(26005)(31696002)(16526019)(186003)(31686004)(81166007)(3940600001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: RFNazMTli8sLqZkf1Zz1DYB9uh8VpYkTtqEYZ5C4Usv/S3yeqJ3+JOvIvcq+epvKogtG8qn31obzMssveji7TFvqlHdmEmcwpqhVxw0EvSESYkcMHmJF3mDc+PF1Rek8BfFeUpL8JQKNQsMWlh61+VL/cHBiocnyyGYcV+s6NRC4/DK0zpUXaorhQuSGqdhJAy6yf+XiCa+QxXCRbWqok8HLfoeJKCoAfII4Yw0UgeIHI07TvxuEn8c6gdHUyFiMtK2Ee7gi8YiGAifZvTmsSYqT1ctLtLTa/Uzw68ptIayZOtBTLPdbgM1ZljbZWQAO895czy8N0iWm5F7JpOlIfzzSLG2/XvyNdiQNyNdak/aPWJ8FRKtY609NFfap3aOUeg4W9eLuqxzP/h6qpPp0N1Gs4F/yNzqguaGm+C1iwZx5SoxPCFhircmJmfoEQia25eFWflNvxlKmqaZMSjn3kwB3961aF1A9QvUqfbESdpj9Hu20q4S+HrmFQCJ205re7iLKzlBuqe07pOaSMi2wxmuslJJRSKsKHscFyFLMU65zg7DcLxfN1eEz7Yg7uRZewZHEM0gkSa+sLGM5q1f62bG57Mg8MgZAJn5y1Jepruhn6ewQjXIPlw5o9fmXb5LyuzjO3M80L9q9ImkuJc+JmujLYFIT8mh9gB2GihWELGjIzN66NNTzM4P5P60pORcwEQLQrHS3kh9bbqM0MVsPNuNyDFuBlNCFCgYcH+TXHJZOXWbaDW/0MGPkH3pU1puUKkEhioYwgW6hF8uviVZNOg==
+X-Forefront-Antispam-Report: CIP:194.138.21.72;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(70586007)(356005)(81166007)(70206006)(31696002)(86362001)(47076005)(2906002)(186003)(53546011)(8936002)(36860700001)(82960400001)(26005)(16526019)(44832011)(956004)(2616005)(966005)(508600001)(40460700003)(5660300002)(316002)(8676002)(36756003)(31686004)(110136005)(6706004)(83380400001)(16576012)(336012)(82310400004)(3940600001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2022 11:11:39.3154
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2022 11:20:03.8941
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c3e97f9-84b2-49f5-f3c8-08da04e23f16
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cdc6b36-57c3-47e7-2e1b-08da04e36bd5
 X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.72];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: HE1EUR01FT038.eop-EUR01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: VE1EUR01FT105.eop-EUR01.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5406
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3842
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=o0BUhqqD;       arc=pass
+ header.i=@siemens.com header.s=selector2 header.b=leGXM30B;       arc=pass
  (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
        spf=pass (google.com: domain of jan.kiszka@siemens.com designates
- 2a01:111:f400:7e1a::61b as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+ 2a01:111:f400:fe07::607 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -194,298 +199,77 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 05.03.22 04:04, 'Matt Ranostay' via Jailhouse wrote:
-> Add eMMC support for k3-am654-idk in a linux inmate cell with both
-> k3-am654-idk-linux-demo-emmc.c configuration, and respective device
-> tree changes.
-> 
-> Signed-off-by: Matt Ranostay <mranostay@ti.com>
-> ---
->  .../arm64/dts/inmate-k3-am654-idk-emmc.dts    |  45 ++++
->  configs/arm64/k3-am654-idk-linux-demo-emmc.c  | 208 ++++++++++++++++++
->  2 files changed, 253 insertions(+)
->  create mode 100644 configs/arm64/dts/inmate-k3-am654-idk-emmc.dts
->  create mode 100644 configs/arm64/k3-am654-idk-linux-demo-emmc.c
-> 
-> diff --git a/configs/arm64/dts/inmate-k3-am654-idk-emmc.dts b/configs/arm64/dts/inmate-k3-am654-idk-emmc.dts
-> new file mode 100644
-> index 00000000..150e31fe
-> --- /dev/null
-> +++ b/configs/arm64/dts/inmate-k3-am654-idk-emmc.dts
-> @@ -0,0 +1,45 @@
-> +/dts-v1/;
-> +
-> +#include "inmate-k3-am654-idk.dts"
-> +
-> +/ {
-> +	sdhci0: mmc@4f80000 {
-> +		compatible = "ti,am654-sdhci-5.1";
-> +		reg = <0x0 0x4f80000 0x0 0x260>, <0x0 0x4f90000 0x0 0x134>;
-> +		power-domains = <&k3_pds 47 1>;
-> +		clocks = <&k3_clks 47 0>, <&k3_clks 47 1>;
-> +		clock-names = "clk_ahb", "clk_xin";
-> +		interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
-> +		mmc-ddr-1_8v;
-> +		mmc-hs200-1_8v;
-> +		ti,otap-del-sel-legacy = <0x0>;
-> +		ti,otap-del-sel-mmc-hs = <0x0>;
-> +		ti,otap-del-sel-sd-hs = <0x0>;
-> +		ti,otap-del-sel-sdr12 = <0x0>;
-> +		ti,otap-del-sel-sdr25 = <0x0>;
-> +		ti,otap-del-sel-sdr50 = <0x8>;
-> +		ti,otap-del-sel-sdr104 = <0x7>;
-> +		ti,otap-del-sel-ddr50 = <0x5>;
-> +		ti,otap-del-sel-ddr52 = <0x5>;
-> +		ti,otap-del-sel-hs200 = <0x5>;
-> +		ti,otap-del-sel-hs400 = <0x0>;
-> +		ti,trm-icp = <0x8>;
-> +		dma-coherent;
-> +	};
-> +};
-> +
-> +&mcu_uart0 {
-> +	power-domains = <&k3_pds 149 1>;
-> +};
-> +
-> +&k3_pds {
-> +	#power-domain-cells = <2>;
-> +};
-> +
-> +&sdhci0 {
-> +	/* eMMC */
-> +	non-removable;
-> +	ti,driver-strength-ohm = <50>;
-> +	bus-width = <8>;
-> +	disable-wp;
-> +};
-> diff --git a/configs/arm64/k3-am654-idk-linux-demo-emmc.c b/configs/arm64/k3-am654-idk-linux-demo-emmc.c
-> new file mode 100644
-> index 00000000..9fbc7a5f
-> --- /dev/null
-> +++ b/configs/arm64/k3-am654-idk-linux-demo-emmc.c
-> @@ -0,0 +1,208 @@
-> +/*
-> + * Jailhouse, a Linux-based partitioning hypervisor
-> + *
-> + * Configuration for Linux inmate on AM654 based platforms
-> + * 2 CPUs, 512MB RAM, 1 serial port(MCU UART), eMMC
-> + *
-> + * Copyright (c) 2019, 2022 Texas Instruments Incorporated - http://www.ti.com/
-> + *
-> + * Authors:
-> + *  Lokesh Vutla <lokeshvutla@ti.com>
-> + *  Matt Ranostay <mranostay@ti.com>
-> + *
-> + * This work is licensed under the terms of the GNU GPL, version 2.  See
-> + * the COPYING file in the top-level directory.
-> + */
-> +
-> +#include <jailhouse/types.h>
-> +#include <jailhouse/cell-config.h>
-> +
-> +#ifndef CONFIG_INMATE_BASE
-> +#define CONFIG_INMATE_BASE 0x0000000
-> +#endif
-> +
-> +struct {
-> +	struct jailhouse_cell_desc cell;
-> +	__u64 cpus[1];
-> +	struct jailhouse_memory mem_regions[19];
-> +	struct jailhouse_irqchip irqchips[3];
-> +	struct jailhouse_pci_device pci_devices[2];
-> +} __attribute__((packed)) config = {
-> +	.cell = {
-> +		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
-> +		.revision = JAILHOUSE_CONFIG_REVISION,
-> +		.name = "k3-am654-idk-linux-demo-emmc",
-> +		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG,
-> +
-> +		.cpu_set_size = sizeof(config.cpus),
-> +		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-> +		.num_irqchips = ARRAY_SIZE(config.irqchips),
-> +		.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-> +		.cpu_reset_address = 0x0,
-> +		.vpci_irq_base = 189 - 32,
-> +
-> +		.console = {
-> +			.address = 0x40a00000,
-> +			.divider = 0x35,
-> +			.type = JAILHOUSE_CON_TYPE_8250,
-> +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-> +				 JAILHOUSE_CON_REGDIST_4,
-> +		},
-> +	},
-> +
-> +	.cpus = {
-> +		0xc,
-> +	},
-> +
-> +	.mem_regions = {
-> +		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
-> +		{
-> +			.phys_start = 0x8dfa00000,
-> +			.virt_start = 0x8dfa00000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		{
-> +			.phys_start = 0x8dfa10000,
-> +			.virt_start = 0x8dfa10000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Peer 0 */ {
-> +			.phys_start = 0x8dfa20000,
-> +			.virt_start = 0x8dfa20000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Peer 1 */ {
-> +			.phys_start = 0x8dfa30000,
-> +			.virt_start = 0x8dfa30000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* Peer 2 */ {
-> +			.phys_start = 0x8dfa40000,
-> +			.virt_start = 0x8dfa40000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_ROOTSHARED,
-> +		},
-> +		/* IVSHMEM shared memory region for 00:01.0 */
-> +		JAILHOUSE_SHMEM_NET_REGIONS(0x8dfb00000, 1),
-> +		/* RAM load */ {
-> +			.phys_start = 0x8FFFF0000,
-> +			.virt_start = 0x0,
-> +			.size = 0x10000,	/* 64KB */
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> +				JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* RAM load */ {
-> +			.phys_start = 0x8e0000000,
-> +			.virt_start = 0x8e0000000,
-> +			.size = 0x1fff0000,	/* (512MB - 64KB) */
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> +				JAILHOUSE_MEM_LOADABLE,
-> +		},
-> +		/* MCU UART0 */ {
-> +			.phys_start = 0x40a00000,
-> +			.virt_start = 0x40a00000,
-> +			.size = 0x10000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* sdhci0 */ {
-> +			.phys_start = 0x4f80000,
-> +			.virt_start = 0x4f80000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* sdhci0 */ {
-> +			.phys_start = 0x4f90000,
-> +			.virt_start = 0x4f90000,
-> +			.size = 0x1000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* main sproxy target_data host_id=A53_3 */ {
-> +			.phys_start = 0x3240f000,
-> +			.virt_start = 0x3240f000,
-> +			.size = 0x05000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* main sproxy rt host_id=A53_3 */ {
-> +			.phys_start = 0x3280f000,
-> +			.virt_start = 0x3280f000,
-> +			.size = 0x05000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* main sproxy scfg host_id=A53_3 */ {
-> +			.phys_start = 0x32c0f000,
-> +			.virt_start = 0x32c0f000,
-> +			.size = 0x05000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_IO,
-> +		},
-> +		/* communication region */ {
-> +			.virt_start = 0x80000000,
-> +			.size = 0x00001000,
-> +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> +				JAILHOUSE_MEM_COMM_REGION,
-> +		},
-> +	},
-> +
-> +	.irqchips = {
-> +		{
-> +			.address = 0x01800000,
-> +			.pin_base = 32,
-> +			.pin_bitmap = {
-> +			0x0, 0x80, 0x00, 0,
-> +			},
-> +		},
-> +		{
-> +			.address = 0x01800000,
-> +			.pin_base = 160,
-> +			.pin_bitmap = {
-> +			/* sdhc */
-> +			1 << (168 - 160) |
-> +			/* vpci */
-> +			1 << (189 - 160) |
-> +			1 << (190 - 160),
-> +			0x00, 0x00, 0,
-> +			},
-> +		},
-> +		{
-> +			.address = 0x01800000,
-> +			.pin_base = 544,
-> +			.pin_bitmap = {
-> +			0, 0x200000, 0, 0,
-> +			},
-> +		},
-> +	},
-> +
-> +	.pci_devices = {
-> +		/* 00:00.0 */ {
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.bdf = 0 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX_64K,
-> +			.shmem_regions_start = 0,
-> +			.shmem_dev_id = 2,
-> +			.shmem_peers = 3,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-> +		},
-> +		/* 00:01.0 */ {
-> +			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-> +			.bdf = 1 << 3,
-> +			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX_64K,
-> +			.shmem_regions_start = 5,
-> +			.shmem_dev_id = 1,
-> +			.shmem_peers = 2,
-> +			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-> +		},
-> +	},
-> +};
+On 04.03.22 02:05, Peng Fan wrote:
+>=20
+>=20
+>> -----Original Message-----
+>> From: Jan Kiszka [mailto:jan.kiszka@siemens.com]
+>> Sent: 2022=E5=B9=B43=E6=9C=883=E6=97=A5 20:00
+>> To: Peng Fan (OSS) <peng.fan@oss.nxp.com>;
+>> jailhouse-dev@googlegroups.com
+>> Cc: Peng Fan <peng.fan@nxp.com>
+>> Subject: Re: [PATCH] configs: arm64: qemu zephyr inmate
+>>
+>> On 01.03.22 09:09, Peng Fan (OSS) wrote:
+>>> From: Peng Fan <peng.fan@nxp.com>
+>>>
+>>> After root cell start up, use following steps to start zephyr inmate:
+>>> jailhouse cell create qemu-arm64-zephyr-demo.cell jailhouse cell load
+>>> zephyr.bin -a 0x70000000 jailhouse cell start
+>>>
+>>> Currently ivshmem not supported.
+>>>
+>>> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>>> ---
+>>>
+>>> V1:
+>>>  Just a copy of linux inmate cell with minor update for zephyr usage.
+>>>  zephyr ivshmem-v2 is not supported for now, but I not remove that
+>>> from  cell file.
+>>>  Zephyr PR:
+>>> https://gith
+>>>
+>> ub.com%2Fzephyrproject-rtos%2Fzephyr%2Fpull%2F43301&amp;data=3D04%7
+>> C01%7
+>>>
+>> Cpeng.fan%40nxp.com%7Ce66ac20ef6444d239fab08d9fd0d5e35%7C686ea1
+>> d3bc2b4
+>>>
+>> c6fa92cd99c5c301635%7C0%7C0%7C637819056122949007%7CUnknown%
+>> 7CTWFpbGZsb
+>>>
+>> 3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0
+>> %3D%
+>>>
+>> 7C3000&amp;sdata=3D5W%2FeJXaP4LCVWAvrUePKG%2FlKb93oQuo%2FtT0rsv
+>> sQTrs%3D&
+>>> amp;reserved=3D0
+>>>
+>>
+>> What is the delta, and why do we need it (asking while being too lazy to=
+ diff
+>> myself - but you should also try to make my life easy here ;) ).
+>> Can we possibly enhance linux-inmate to cater both cases?
+>=20
+> Zephyr inmate has cpu_reset_address and use cpu 0,1.
+> Zephyr arm64 not only support boots from cpu 0 now, but this could be
+> addressed in future.
+>=20
 
-Applied patches 1-3.
-
-This one here still makes we wonder if we can model it by adding a
-config switch to the existing k3-am654-idk-linux-demo.c. That would
-avoid having to maintain common bits (the majority of both files) twice.
+OK, applying for now to move forward. But it would be great if we could
+sort this out and either reuse and existing config or make this one a
+forth cell which could run in parallel to the others.
 
 Jan
 
--- 
+--=20
 Siemens AG, Technology
 Competence Center Embedded Linux
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/84b43004-79c9-4288-9314-7a8d3f2b5056%40siemens.com.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/47a111ed-3f54-e384-88a4-c73ec264e194%40siemens.com.
