@@ -1,129 +1,128 @@
-Return-Path: <jailhouse-dev+bncBCMKJ4OZ6MLBBDG2UCJAMGQE5Y6FRCA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCQK3U555QDBBBNAU6JAMGQEPGO4IMI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A274F00E2
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  2 Apr 2022 13:01:33 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id l7-20020a05600c1d0700b0038c9c48f1e7sf4264949wms.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 02 Apr 2022 04:01:32 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1648897292; cv=pass;
+Received: from mail-yw1-x113d.google.com (mail-yw1-x113d.google.com [IPv6:2607:f8b0:4864:20::113d])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC5A4F0B55
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  3 Apr 2022 18:49:10 +0200 (CEST)
+Received: by mail-yw1-x113d.google.com with SMTP id 00721157ae682-2dc7bdd666fsf64748407b3.7
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 03 Apr 2022 09:49:10 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1649004549; cv=pass;
         d=google.com; s=arc-20160816;
-        b=l3JaOiwq4pC4TJGHKC/zlh4zaIs675SHh3BcHrzadaAo99QfGH8PFFU1Lq6gIyvsOI
-         3mDBIZa1RtxZrXfR6YHCGKjDfqb7/1v70b8aIbGXyaMYR1E7WxHaaYl1bkahSXUhzAVJ
-         ggHV2MzSJiRVBKV4UKZQY0wb+84FSQ5ugjd1hcs7kPzmXFnzsAMgOeSgiNiu7YEAddbd
-         4S7N1Uoiw6cLjfpcZWmzzWMuhibjcybyn/V8Hf+uQbMOcuoTjRSB/FiK+FesuGsEbrdK
-         uvT8eVWMJ4EWjmo/bd7b2c3z1wECNQ9NBJDNlsb1VJhJdgVogIZC+DjTNXMsO9Ts24A8
-         JkUw==
+        b=tItjaZqafzjybELMCJqSZ4u2bZscMtp/yVdv1aFBacya+k/Y9kjbotMTSwn6woKy/9
+         C96QQ346DvnhN1eu/DjQwvTsC72ClELh4IgMJw9O27cfhzzE+sLob1ZuSyIvIpjBGaMl
+         aVlhD2A4DIyQwkvvhMEJL1/THRLRALhlhMzA+84XqK3/qQETBAsAMB3wLn1fBg+yQpBm
+         Sa2vgf9m3KIEUnnmmysDt4q4D9iQWaByPKIIt+RjjIktd04Is17evIN8VIjtRKMX1BFO
+         zjkvbwnc+kj0VTb4OLHH2wFFGcEb2yXpPYX6mjdey5GiIOMozAANpD/+TnN0/4id298R
+         CJcQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=qjETiSE+4iqNLux4B8kMHHpkDn7lFGqMx+Bb8xWOppk=;
-        b=nAU9BszW1q7iEA2cRxWbtSxhH9dpsvse+Xxs0kRYMi1SAPLxz/qcMZ8fnnpeNo6qsv
-         0Gurct4f2suxPh1A6sTXge2w2oM3L1aDt8hY6qagxFrkVSAe0eQ+uv3S/JCNVR8DCzPH
-         afufREMjBfhAiXEBlHBw9LNZUIsp6bhKVvzqEmNEmNJHXSPkQVujI5BXAOjZ+mXNoEHT
-         FfMrFmMocyg2i9bo9vzvWYOeEX+qwYSdBLlac8txI9Tr5ZIbCEujutBkt+7HAkqA+WDN
-         i0eQ397z/VllI6hj+eg672DTIH+pVRkUODo0m3n997hT6aMXSJ1IaID1UXO+ko4P1W6p
-         P1BQ==
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=GJokZ9PuGYzTAfBWf9AjBnunr3N+3fPbElJGieuNlAE=;
+        b=sd+vXBCsZfmjJhY6BgfA0YBmOLQX8CScX1aRgL0oi2PmrPU11Zf+g+coRbY37yeGpn
+         xxtZB10o0XMu9NjQVbc0qNUxZV+wVwshC1xLxb0SAKGMVRTnxy5DdU2h5WQWUW/ZHhQt
+         v3b+vXs1nA8WSFq/WcagLFiMZoY5OYpdVOghhv3ptCNZxJ8DHDcxu/eiy16vpfEovAdF
+         kbcuotvzxGaY3ChGVUtwMHMvF8I2ilN6jSz43W0bpN9dzCWozv2cvyuaz6XXF53ZwznM
+         vto15KVFI78GM3BZgSu0JPWCq6MrsPq52tESYY/voNHH37SpJBBnlmxX7+Z9ts6ljovm
+         xLgQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@vmexit.de header.s=20180813 header.b=AnWXXkYA;
-       spf=pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) smtp.mailfrom=ralf@vmexit.de
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=Mejq+0ju;
+       spf=pass (google.com: domain of gozieerchi@gmail.com designates 2607:f8b0:4864:20::b43 as permitted sender) smtp.mailfrom=gozieerchi@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
+        h=sender:mime-version:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=GJokZ9PuGYzTAfBWf9AjBnunr3N+3fPbElJGieuNlAE=;
+        b=AkP+4UVBGDY99Y1fG6YUGwM6dCTonZdZQ+Cg85Yv/M2s5Qvm1imCJcUyUUX0MQoKH5
+         AC3iEpUOBl+85BZZSc7NJJ2w+swaM+RM/hosYWvRTLDx7OyOAqoUS2Id8CvUT/wuTFvk
+         5edgWYA6mvHmalbr/Gl1X/tXwKeKdFAe+lgLF1CITiOIi6/Ikm06J/Xz599+CydGNj4Z
+         ZhWoC7LCT+9ZpHPngPJgRbRKZyYcPYkRvQZtKQtnaHBGBNhi5llvuy85o0M5EkyJoXsv
+         TLE3m4BAPMSophKz5mL2zJ+cD9DG71iySGcsMogMHGAenRdC39h+Zu/4yql+rKp1qzi8
+         IYvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=qjETiSE+4iqNLux4B8kMHHpkDn7lFGqMx+Bb8xWOppk=;
-        b=MxreEs8kv6dqii+I/pmqTLi42RkYaEY+ffVotuUyYDgRmAaoVeffTmO+Q38V67Hav1
-         D25dNTnbeK9TaEU35yyIxKy4zGDdftzjfoenzAR6Ce2+8WCp+A7TO+aP3kg0y9uzyXvc
-         OSOs5skSL3fWbPqqm6KrPuoaOV6EpZijimkegUUm6hmgHUEajnI+x+NR+hd5mFkRI0SM
-         YCm+HxSmQHw5SAyMEeRKLl2fqb3IPdrQPcm4dWvB/9OS4R0kVIFo3u04p2sEZhrExXo2
-         9tHLh///LQDJk3FJNQD9Kx3zq9kWj4X6A/pHFa1+PcHwCefJfBQVcys4PeCC6Tc5uRBy
-         sHPg==
+        bh=GJokZ9PuGYzTAfBWf9AjBnunr3N+3fPbElJGieuNlAE=;
+        b=FoDqhl4Qi5u5www3XtsS7G6bv3nw1Z574VxOo5ZSobvN+hFhf14gqVU3H44uhkpZOU
+         hsacYUpvjLmRbMnLVs0zZXXrMhlc71ANv5uSESGMLtyd/nSXRoG+woB1HT/H7Hnhsn6g
+         3pHKO+5gbag3ZuiX5jiZLY8QIGDB4XhUpPYFCCyGdZXOE9gnlBdd4r8VxLdH+5yrlwhO
+         Qf0MSiZV06s9wGYPf5/BS6Pd6R06cdT1ESWwF0votIyiNH8wAsKto97zGV0uLpqLqBDD
+         dryupsQi/VYhEs3uo1TD/D176V/CiiTQooobyy0dOJkVgy3k0KXcZm2kJtd/mNOCTnoI
+         1xcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=qjETiSE+4iqNLux4B8kMHHpkDn7lFGqMx+Bb8xWOppk=;
-        b=nYRntGJKIVt05GUheWZ6G5y7Ms82R2Dwz9U1ekUueavQwg1Fg5/GlffeasHstZGGRm
-         7sXrU7hnZp9KGIPwN7MOrvrsGsNMXHg9zxZrL//ed7LFLCRlb6ePURf69iPkyGmBLxo1
-         bIg4rKRgugTcOZZCLVqULYFCdZZQgMDwYayrqf6ts+HfFLAQiTNMIrTuf7P850m5F5Bh
-         Y0icwqpaaLcaBqgy5/SocwFT/SP8JmQ+Q02N2fdRQdfhEv3HvfrWQbA7P5LR9xrV6tHB
-         eEAD0ySc81Mo7lzVq3MR36E2R8/prE1SCDjkaiBwm/1Xl78Z5iKXc/E79LIyT2wDBiM8
-         /17g==
+        h=sender:x-gm-message-state:mime-version:from:date:message-id:subject
+         :to:x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=GJokZ9PuGYzTAfBWf9AjBnunr3N+3fPbElJGieuNlAE=;
+        b=UwjO7jz96kW9b9/Z52PMT2HEGgsa+8SOXVgk3WgONIG3n3xnDOxbKpvu1uHQtdD5Qw
+         WFm2paQs8ETjNvBiGgmX94A49dtNJAn+EpeMB/FXeS23cjPLO1ChKlZMygMJddHqFeAw
+         IR53VIIbdtjG/icC9VeMOt8761bWbwl3zLTfqNHz7FHv3K7Dh6TAvrtAhknO0AhQXSgT
+         Qi0EXAHwFDjbmVbuW1HnE1zdSk3dLxha/NsF0Tu+NnmWswxbj7SNYlQ3UByoOVdlEofx
+         RuKGFK7Gp2VYXkOc6E3H1lCYpeq+kzFgjtMZGPbd3ccCnVOL377vzyCgeU+5N1j54VJn
+         tqbg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531T48NJfh/X+ofIB5ZSo1u4AmLQmG6qVKH41E5WbX4M7tRtnbYv
-	8JYqULmXiZ6ax6PebKo/T9Q=
-X-Google-Smtp-Source: ABdhPJx8QVYt3fI/W/wmhMeLvKixOMInhiqO6kYfReRypssPQUloczahH0DEFvbG3bhwl42lx4ZQ4A==
-X-Received: by 2002:a1c:f616:0:b0:37d:1e1c:f90a with SMTP id w22-20020a1cf616000000b0037d1e1cf90amr12549717wmc.148.1648897292779;
-        Sat, 02 Apr 2022 04:01:32 -0700 (PDT)
+X-Gm-Message-State: AOAM532/7UCM1IAJ/Ue8INFs5RFDgrMxytRVkqVLq6Zgoj+8nEzuvcCY
+	/GOkm3vW+BPhrnyUXc6aub4=
+X-Google-Smtp-Source: ABdhPJz4DbuADrMjMw5p3uJt4cxFbhz/L0prdy1M3L5hFrRWfvmvUp9QgzzOg5ai2DY6C4Dm3N5gxw==
+X-Received: by 2002:a81:ad44:0:b0:2eb:1afe:c724 with SMTP id l4-20020a81ad44000000b002eb1afec724mr13122061ywk.9.1649004549604;
+        Sun, 03 Apr 2022 09:49:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:f5cf:0:b0:205:e1d9:2a6b with SMTP id k15-20020adff5cf000000b00205e1d92a6bls768967wrp.1.gmail;
- Sat, 02 Apr 2022 04:01:31 -0700 (PDT)
-X-Received: by 2002:adf:f949:0:b0:203:e87d:1d38 with SMTP id q9-20020adff949000000b00203e87d1d38mr10840059wrr.137.1648897291405;
-        Sat, 02 Apr 2022 04:01:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1648897291; cv=none;
+Received: by 2002:a25:2c02:0:b0:638:425:2eec with SMTP id s2-20020a252c02000000b0063804252eecls5112922ybs.2.gmail;
+ Sun, 03 Apr 2022 09:49:08 -0700 (PDT)
+X-Received: by 2002:a05:6902:1103:b0:63d:dd16:87a3 with SMTP id o3-20020a056902110300b0063ddd1687a3mr148898ybu.492.1649004548921;
+        Sun, 03 Apr 2022 09:49:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1649004548; cv=none;
         d=google.com; s=arc-20160816;
-        b=aGDzoLp9w193V+KsD4MEr++2vSf5oYRmkM79GOskrR1VzQJAb1hgkwkMz7IzNjhlpZ
-         MUpBejhBf5U92EotVdv/8kzub92KdEGXaGahPN/vGnwSYNl2b2BB+6yHMo4CghhMRHKJ
-         5yKFDvlEjmWvT7y6JZpwGvePbSjYwYPDtC5jYCWHxRnFfhJYjt8OJcWXb4MOVOeb+pyO
-         yIARzSHvkhuKosFr0nBmYCEs+QOilQLS3mRJy53bTATw03rgk9MZBELbV80r1sksjAXh
-         j95hZYErZXfr9xH3EgsFuUmZqz0FpDPNpLU6YASRfZyoa6+TDPqN9T3/1Z4QIwk6mlQg
-         ST8g==
+        b=laOaqzLkANNN33RtB/fvg1udYz3o3pTgJqIbQ6+2AFm7c8KFEVn2w8yxS5uZrk9Ug1
+         IwlBRBmEDQJ54Nz7EKFkO/CKYwi/d8GnUnDB5wJFkxQMvDArj2WcYITGSlrfJ49Ivnud
+         C8k5alujPmDdctQBIknzXZCYkuvbavnxvXoZj73Dzz8h5E7Lr6h1fEOWGgny9OAhznJY
+         E98nc1klTny23gnkI0LWrk9ocZft0aSBipc7pMNW2PfYto2s4serjQ58pBgUQuwWbC1t
+         /tmMrSyD9FWnk98OyVDI8Td65ETHH/VKO1WfrVCgN4gNwsxsCMUGYfvS3xdTxNjEjCSh
+         R3Mg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=Df7VN3h01Zf4kZ3ERd5OWi9z1Grop6t58GwDJBfs0cs=;
-        b=FfAHwPiOfwFMkgLlZ0qOxBkVfbgqXOdMEbVB3NA6P4rTffA0Atse5pUTRzLzklVDQH
-         aMikYHySFNdQycN/1MI22gmCi852m5QVjV0ukyDYJgQEoJIVnoHa5TV3SrCxDd3cy2gr
-         vAL8tqolLqJQ763xnS3jZxOfTOrvU8Okhtpc9v5TP/ffuoZKPiRvOfQ7Zw88YxYmxz7W
-         nrOkjNJ6F271gTQkB2vyVOiZDkTHSjjGeBowYxDWnXRSQVBHX2Pmk0rHWGx7h/6istJa
-         +bSJB05X2U/hSQLa2II/pKrGSExXBBNV8O4hdBjnhiZ/7C/YOdQeICdjrHvAjK/SsZdp
-         6YqQ==
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=ChI0s4x412IRPUxsJSYewlnyQXdo9sWGe0OwBo5Colc=;
+        b=VdVahkI2B0ktZUk2+GnctxhuRhZUPXyp901EPwqkaisxmz39/gGJ4ypx0wk2bew492
+         exGcQAgVhgqic5kfHSgg2qw1OtoubB6X5f661tRbNKSPZ4kdOg8FaktBAniEZ6t9I3Am
+         djO1t2hp3GoLTapeVQoL2gDs1JepS5LPMS6C7tOgOTRO+uB+ZWOFm24g0Y07ke/nriYi
+         gUpj80x3DZUaALtemD/FQKwApEIUYmdcqsUShxn+THesZ6QyPZGRlcOboEVTY/pFGWOw
+         yOl9scB10Mzh4PLbug7rpasxGgD7d4zxOr83d7uQs21OdfEE1zQv/cOrjrQYNZh5U0st
+         LgXA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@vmexit.de header.s=20180813 header.b=AnWXXkYA;
-       spf=pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) smtp.mailfrom=ralf@vmexit.de
-Received: from mail.vmexit.de (vmexit.de. [2a03:4000:6:8069::2])
-        by gmr-mx.google.com with ESMTPS id y11-20020a05600015cb00b00205db67de65si130939wry.2.2022.04.02.04.01.31
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=Mejq+0ju;
+       spf=pass (google.com: domain of gozieerchi@gmail.com designates 2607:f8b0:4864:20::b43 as permitted sender) smtp.mailfrom=gozieerchi@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com. [2607:f8b0:4864:20::b43])
+        by gmr-mx.google.com with ESMTPS id k203-20020a8156d4000000b002d1484ca9bcsi404946ywb.0.2022.04.03.09.49.08
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Apr 2022 04:01:31 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) client-ip=2a03:4000:6:8069::2;
-Received: from [IPV6:2a02:810d:8fc0:44bc::60b] (unknown [IPv6:2a02:810d:8fc0:44bc::60b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(Client did not present a certificate)
-	by mail.vmexit.de (Postfix) with ESMTPSA id 252B46EEBBA4;
-	Sat,  2 Apr 2022 13:01:23 +0200 (CEST)
-Message-ID: <bd0cbbc1-7abb-8924-5228-da22e2aa51c5@vmexit.de>
-Date: Sat, 2 Apr 2022 13:01:30 +0200
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 03 Apr 2022 09:49:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of gozieerchi@gmail.com designates 2607:f8b0:4864:20::b43 as permitted sender) client-ip=2607:f8b0:4864:20::b43;
+Received: by mail-yb1-xb43.google.com with SMTP id g9so13689848ybf.1
+        for <jailhouse-dev@googlegroups.com>; Sun, 03 Apr 2022 09:49:08 -0700 (PDT)
+X-Received: by 2002:a25:1443:0:b0:63d:6c01:d26f with SMTP id
+ 64-20020a251443000000b0063d6c01d26fmr11198756ybu.296.1649004548463; Sun, 03
+ Apr 2022 09:49:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: Jetson TX2 - access to peripherals from inmate
-Content-Language: en-US
-To: Jan Kiszka <jan.kiszka@web.de>,
- johannes lex <johannes.lex.5@googlemail.com>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-References: <b708cd52-3034-4d11-a61c-1e4c992c096dn@googlegroups.com>
- <27e635ef-500f-6f19-a461-9a5e88d12c8d@web.de>
-From: Ralf Ramsauer <ralf@vmexit.de>
-In-Reply-To: <27e635ef-500f-6f19-a461-9a5e88d12c8d@web.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: ralf@vmexit.de
+From: Mrs Aisha Al-Qaddafi <mrsaishaalqaddfimrsaishaalqadd@gmail.com>
+Date: Sun, 3 Apr 2022 09:48:42 -0700
+Message-ID: <CAA25HkME3Cgz0RQUSPbMj3Xa+D=5UDX92qctxyZwsT8StCtKqg@mail.gmail.com>
+Subject: please Dear i need your urgent reply
+To: undisclosed-recipients:;
+Content-Type: multipart/alternative; boundary="00000000000058204805dbc2cac6"
+X-Original-Sender: mrsaishaalqaddfimrsaishaalqadd@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@vmexit.de header.s=20180813 header.b=AnWXXkYA;       spf=pass
- (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as
- permitted sender) smtp.mailfrom=ralf@vmexit.de
+ header.i=@gmail.com header.s=20210112 header.b=Mejq+0ju;       spf=pass
+ (google.com: domain of gozieerchi@gmail.com designates 2607:f8b0:4864:20::b43
+ as permitted sender) smtp.mailfrom=gozieerchi@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,61 +135,61 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+--00000000000058204805dbc2cac6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+please Dear i need your urgent reply
 
-On 02/04/2022 10:14, Jan Kiszka wrote:
-> On 25.03.22 16:11, 'johannes lex' via Jailhouse wrote:
->> Hello everybody,
->>
->> i'm investigating the jailhouse hypervisor for a research project of an
->> automotive company.
->>
->> As a first step, i want to set up the Jetson TX2 Board and add an inmate
->> which toggels one GPIO Pin. I used the VM from the ERIKA V3
->> (https://www.erika-enterprise.com/index.php/download/virtual-machines.ht=
-ml)
->> as a base development platform.
->> So far, Jailhouse is running and my configs seem to work.
->>
->> However, I can't access (not even read) the registers of the GPIO or any
->> other peripheral which i assign to my cell, except the already
->> configured UART.
->> The cell config and assignment of the registers themself seems to work:
->> i can, for example, read the register=C2=A00x02210890 from the Linux hos=
-t
->> before creating the cell. After creating the cell, a read attempt from
->> the Linux host leads to a system crash.
->> Unfortunately, i can't read that register from the inmate as well :/
->>
->> Do you have a clue why i can't read the register in my setup? I've
->> attached my configs and the source code for the bare metal application
->> of the inmate.
->>
->> Or do you have any examples in which you access the GPIOs (or other
->> peripherals) of the Jetson TX2 from an inmate which you could share?
->=20
-> Already checked your configs for undesired overlaps (jailhouse config
-> check)?
->=20
-> Looking at the jetson-tx2-demo.c config you shared, the GPIO range is
-> exclusively assigned from the root cell to the non-root demo. So, any
-> further accesses from the Linux root cell should indeed trigger a
-> violation. But accesses from the demo cell must be possible. However,
-> I'm not seeing any violation reports regarding that cell.
+Please bear with me. I am writing this letter to you with tears and sorrow
+from my heart.
 
-We had a offlist converstation - map_range in inmate + ROOTSHARED solved=20
-the issue.
+I am Aisha Muammar Gaddafi, the only daughter of the embattled president of
+Libya, Hon. Muammar Gaddafi. I know my mail might come
 
-Thanks
-   Ralf
+to you as a surprise because you don=E2=80=99t know me, but due to the unso=
+licited
+nature of my situation here in Refugee camp Ouagadougou
 
->=20
-> Jan
->=20
+Burkina Faso i decided to contact you for help. I have passed through pains
+and sorrowful moments since the death of my father. At the
 
---=20
-Ralf Ramsauer
-PGP: 0xC85252CC
+same time, my family is the target of Western nations led by Nato who want
+to destroy my father at all costs. Our investments and bank
+
+accounts in several countries are their targets to freeze.
+
+My Father of blessed memory deposited the sum of $27.5M (Twenty Seven
+Million Five Hundred Thousand Dollars) in a Bank at Burkina
+
+Faso which he used my name as the next of kin. I have been commissioned by
+the (BOA) bank to present an interested foreign
+
+investor/partner who can stand as my trustee and receive the fund in his
+account for a possible investment in his country due to my
+
+refugee status here in Burkina Faso.
+
+I am in search of an honest and reliable person who will help me and stand
+as my trustee so that I will present him to the Bank for the
+
+transfer of the fund to his bank account overseas. I have chosen to contact
+you after my prayers and I believe that you will not betray my
+
+trust but rather take me as your own sister or daughter. If this
+transaction interests you, you don't have to disclose it to anybody because
+
+of what is going on with my entire family, if the United nation happens to
+know this account, they will freeze it as they freeze others, so
+
+please keep this transaction only to yourself until we finalize it.
+
+Sorry for my pictures. I will enclose it in my next mail and more about me
+when I hear from you okay.
+
+Yours Sincerely
+Best Regard,
+Aisha Gaddafi
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -198,4 +197,54 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bd0cbbc1-7abb-8924-5228-da22e2aa51c5%40vmexit.de.
+jailhouse-dev/CAA25HkME3Cgz0RQUSPbMj3Xa%2BD%3D5UDX92qctxyZwsT8StCtKqg%40mai=
+l.gmail.com.
+
+--00000000000058204805dbc2cac6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">please Dear i need your urgent reply<br><br>Please bear wi=
+th me. I am writing this letter to you with tears and sorrow from my heart.=
+<br><br>I am Aisha Muammar Gaddafi, the only daughter of the embattled pres=
+ident of Libya, Hon. Muammar Gaddafi. I know my mail might come <br><br>to =
+you as a surprise because you don=E2=80=99t know me, but due to the unsolic=
+ited nature of my situation here in Refugee camp Ouagadougou <br><br>Burkin=
+a Faso i decided to contact you for help. I have passed through pains and s=
+orrowful moments since the death of my father. At the <br><br>same time, my=
+ family is the target of Western nations led by Nato who want to destroy my=
+ father at all costs. Our investments and bank <br><br>accounts in several =
+countries are their targets to freeze.<br><br>My Father of blessed memory d=
+eposited the sum of $27.5M (Twenty Seven Million Five Hundred Thousand Doll=
+ars) in a Bank at Burkina <br><br>Faso which he used my name as the next of=
+ kin. I have been commissioned by the (BOA) bank to present an interested f=
+oreign <br><br>investor/partner who can stand as my trustee and receive the=
+ fund in his account for a possible investment in his country due to my <br=
+><br>refugee status here in Burkina Faso.<br><br>I am in search of an hones=
+t and reliable person who will help me and stand as my trustee so that I wi=
+ll present him to the Bank for the <br><br>transfer of the fund to his bank=
+ account overseas. I have chosen to contact you after my prayers and I beli=
+eve that you will not betray my <br><br>trust but rather take me as your ow=
+n sister or daughter. If this transaction interests you, you don&#39;t have=
+ to disclose it to anybody because <br><br>of what is going on with my enti=
+re family, if the United nation happens to know this account, they will fre=
+eze it as they freeze others, so <br><br>please keep this transaction only =
+to yourself until we finalize it.<br><br>Sorry for my pictures. I will encl=
+ose it in my next mail and more about me when I hear from you okay.<br><br>=
+Yours Sincerely<br>Best Regard,<br>Aisha Gaddafi</div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CAA25HkME3Cgz0RQUSPbMj3Xa%2BD%3D5UDX92qctxyZwsT8St=
+CtKqg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
+ps.google.com/d/msgid/jailhouse-dev/CAA25HkME3Cgz0RQUSPbMj3Xa%2BD%3D5UDX92q=
+ctxyZwsT8StCtKqg%40mail.gmail.com</a>.<br />
+
+--00000000000058204805dbc2cac6--
