@@ -1,198 +1,68 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBTFK3KJAMGQEVWJQW7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDSLXZPS5ULBBJ7P3KJAMGQE3KLVGAY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pl1-x640.google.com (mail-pl1-x640.google.com [IPv6:2607:f8b0:4864:20::640])
-	by mail.lfdr.de (Postfix) with ESMTPS id A55B14FF337
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Apr 2022 11:18:06 +0200 (CEST)
-Received: by mail-pl1-x640.google.com with SMTP id w14-20020a1709027b8e00b0015386056d2bsf936289pll.5
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Apr 2022 02:18:06 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1649841485; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=LOXvorr0f23EowLNId/c08R+aTWx1tHoovVN7g9LTLY6wvYWeP6ZLB/sLXwDszrUfx
-         /huQc2sODMDpS4ivSX3AVbjASvpSQVwqmMmeVx5Yk/ydPKjjLQXZaOGScWSwkHv6kWzo
-         hKmmkJfjXNo5+OHvJHbVhPBmoEoXqw2dTujarEyQQ/izlXK3rpJvy5RnIGWzHdnbwwcz
-         jJ8PY5X7Mmndodx8QKcZjF2OQpmTuZNknFNWlE2Oe755wOcU1EkHHr9CBci0adlQkcil
-         ee8HeN7ysDbPmgrpGaftU9KgBOhfN7i/rWi1/yuWWQVv0+83EA0gMcJd1Q1DxlAfQl1X
-         MC9g==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=9esEWbNsQRo/gfmSUtTQvcL6txwdYVWf5gGRVaMvE8k=;
-        b=Jhp4Xtokjf4t4gEcQ+6I2fuL7sStSZGlVV1PnB3+GCtfu1kBaCIvy7nQrmjEszP4uo
-         XbrXp7905xXldpe6wFr+uuiudUBw5LCTTvMsG4vfL+XivsC7e4Tojg7JGmE66WFNWgLW
-         xQfYNnj0dsAs0G1iHZDPVhyaLoT57xniOSSp4diQ+9Of6itD51MiAqbWHyhsq7pvbqiG
-         ua9HbBTwtTPmfKEmupsp+GkneNfGMKYb6uIHFE5S6o6grxHP12rXY+8UxBiZ11+FM3I8
-         MX7o8JTP33KKD8taThrJRGmAzU+HfvAOjaLk63VcGN3h88+YKpNeg42+sO8+9R9+x73T
-         5rPw==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=I87zME0U;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::625 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qk1-x73b.google.com (mail-qk1-x73b.google.com [IPv6:2607:f8b0:4864:20::73b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96ABF4FF5FE
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Apr 2022 13:44:40 +0200 (CEST)
+Received: by mail-qk1-x73b.google.com with SMTP id q5-20020a05620a0d8500b004738c1b48besf941074qkl.7
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 13 Apr 2022 04:44:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=9esEWbNsQRo/gfmSUtTQvcL6txwdYVWf5gGRVaMvE8k=;
-        b=XSF5AcQDT2B89cmxSDWX/lyYi7EITyGDwvRl1NkO1FVbYgwffSwpgCbXbRF8KCfYic
-         2kdml8TZZRehS3YaxEWdP0LPQCpQf/t2RDVvM0upqsiYf8JJGah4q9ClD08JlZnZdzNf
-         LD0mJXvj3Y3M09WZW+YWe2qYmN6/4euT0eAMRjoQrR+YlKzkAP2jHz837fYC5fc7dyM9
-         WmED6wZTuEKK7KAHI8hfMrWWTIedcoSBNk2JlK6J5aYuqNbfeU23cwkyrW3cj13Y193e
-         hTBvVEqRQ2oe2xpPVfwOlX/QAWS2QSgMb7gYE+5syBKPFZlKH8eFV3pZNVsCp8S2wX7H
-         qlaw==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=GnILErlgwN2DsrsSvTxm+ycGpd5Z5HRnXqE+G+se7ow=;
+        b=EqQJPpn36NQFernXenMfO1joLwE+jOmdTh5ueL0EwYQFws47pfopZwoi2lre1A+oT2
+         iSIMzm3Oqvuja+2qzEqkANyuIaM8likjN6s20mKlEZSY6kwTCkLEIgKWsVLlX+8uw9rv
+         wikKljYQRb1Dr7Sd5QYhJUP5ugusrhRU5Zltb6FaecGOsNo3ig2a0gVYikuVPUlx7Db2
+         GCtXa6OrSrDRST1KVNReqPx/AsssK12z+VhPmwhj20Ggixm7KjoRGZhGrUyPs9lKF3qt
+         quoWPTyo8Dph27ZApFUBtXCYttUArBzQwCD5Zi4nn/9l4B0cYtnmXu+sLRRqRSe1WtbG
+         GbNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=GnILErlgwN2DsrsSvTxm+ycGpd5Z5HRnXqE+G+se7ow=;
+        b=ZpN09K3nu/YNAssdU+WPQ1CXt5XlIFd4YGBIGy6WbIzymkdyYZni3apFG+w+x55s84
+         KFwA5FhYbV7QBh+xKgcWCxmMR4a//7T564Xtx5KMj0Ucdex1CPOkp9YWMOc9jPOhTYH3
+         H9OE+tk27rsjprIEvi4Qedc6XaYIdqXPS4xO9aM6RZZoypDZLGhxENB2N3okMUO722lC
+         1h5D2Il/ZDlkK1ELrQP4jO+44Oj+VUTJ9Yx9PajAcoZfmOOOLKcHYZEUFe3ZP6BQDrcO
+         oNqK7Ty4THdbsdfmGwl1qxv57OvHnzFyoIVbpPoQfbS4c6y0s86crN/ET9ECiuHxRPbz
+         OIfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=9esEWbNsQRo/gfmSUtTQvcL6txwdYVWf5gGRVaMvE8k=;
-        b=ZIN8nW4luVtFOkgtbIx+O55Xg1wd00L9agB2CPFBQBMfDn3MufQSU1Zoe//NLLA96m
-         VJbVhdvOOZ30HI01RTP8GSU1PPKAsZK6tGu5koZ1tmpRUTANDmRMr/RAJpXs4IbyjEmr
-         UCsCoo77wfFeJy9GCITIjnWOHl8OJUp1hHuBamNcdPMubQlfKf//usWrIxCe+cEL7iCW
-         kceWj/3GkwmvwE62jCNGRaHi2wG2C2R3J8/3wiHjsOQ/geug4H1yOtwtXJr4UUn8E111
-         +lG2tPP9U+F/tR36QcdPltXaQZu6gWUf1mG4g1JfML7+RkhqPlXX4Y5dQWt0QnhInbKa
-         IE+A==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=GnILErlgwN2DsrsSvTxm+ycGpd5Z5HRnXqE+G+se7ow=;
+        b=KmnS9O54iuFkHk0MkXlAmi0pPV85aNrxVh6yzg3g7izMwvLDmAnYh4BtKl3ZtSYt0J
+         81f0cSYUYmOT/+yzt35Xqr3BuOYX0JpSwt0O+tIFoxAIzmyZPUbQnw00nk2cLKH/sWJN
+         KyBLd/Da4YhZBeFu2n6qEgKxhL2mYcEJqdrV/aqUr1sSuyF7m0SJ/2dXDRMPKkMinbav
+         Z76kM43666sgDaibvUIlAJzwTqjG4y4uZFUKvr1Jm50oMhCn9b4BhVKGqZxl7K2t7+fK
+         AeojjDcf1QkMMqyNKda1DUFKBHsrbVe5Gp8ZhbidXqzZFscEKKOjZGwGhAYHCzPncCRv
+         HYHw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533sU3II7R1CHc94X0rbN/ZmjxFiwQp6ge/iHi0OT9zjEdb0vGir
-	MjXnQYlaGTKYfSVUdhNbi9g=
-X-Google-Smtp-Source: ABdhPJxb8NDuT7whi1E4cFbIQeLt3F0rioP1hNOFebm37AVy8UYyEhuEb97KItm6DEhiG/lKEzNppQ==
-X-Received: by 2002:a05:6a00:1512:b0:505:da8c:26ba with SMTP id q18-20020a056a00151200b00505da8c26bamr10156474pfu.63.1649841484964;
-        Wed, 13 Apr 2022 02:18:04 -0700 (PDT)
+X-Gm-Message-State: AOAM531Bc179yrXOBOPhpR5X1Uu+PbbotFh/d2H/vccgbczqxMWhHTxW
+	7wl4Wqw+fbf0jVpAuf38ca0=
+X-Google-Smtp-Source: ABdhPJyoqMEQFU9DDptIOgQfokBDKS0pUy+abfU1Knn95FvVMpLZPfpUXo/n0C3TqujsegHct0sgTw==
+X-Received: by 2002:a05:620a:1714:b0:69c:2f16:ed76 with SMTP id az20-20020a05620a171400b0069c2f16ed76mr6369235qkb.750.1649850279568;
+        Wed, 13 Apr 2022 04:44:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6a00:1492:b0:505:acac:6e35 with SMTP id
- v18-20020a056a00149200b00505acac6e35ls1246461pfu.11.gmail; Wed, 13 Apr 2022
- 02:18:04 -0700 (PDT)
-X-Received: by 2002:a65:60c1:0:b0:39d:9c28:909a with SMTP id r1-20020a6560c1000000b0039d9c28909amr5379508pgv.352.1649841483922;
-        Wed, 13 Apr 2022 02:18:03 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1649841483; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=lt9MWiB3kmTXyleO/C7ti18I9eO8h2Vm4GbK0lBEgyasFgq4jbfvFN+FuDRelfipgA
-         UUq80zAc3bfKR4/YvJsqR1HBdSNqdF7Ae6ZBPwhAy6Pk6w+GynejMn2UWQCJSETiYtlG
-         AC+pFDzbFRQPRMMzcZ/GSFzMUShpVvDoz7+XaaB8DVuusNeT30LsrBmUFbmzGezAernN
-         3/9o2OD/92uBON0h7F3TlQiGpJ5mlGrA1BJHooQu/TCrGDjgE/bKNk2VVKJWZHaBxds5
-         SdAIWfu7sUGf0SAz2Mln+1x6Zyt8Z7i0GpNxPER8wGt1h5ILXTB/vSyaWlJulO4bnRXf
-         YQ/A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=NswG0EowK175RHmEZ/LzU48wq/1jzhZ9+MC78+vk+mA=;
-        b=tpG/EC+r51+iCFg0Jw9Oaongpf8w6wGjon4PVuu7QmcYREF3K5ZPXO6oJsLCaDQnQf
-         U29pAezJ1t48foZW5PX3eALUcpZvnxSvfJKkhkn/BPkSd3sPbj3wVuwccPrCo2a6gbp9
-         cxmTTL8aJw3TRJiCJqsnyYd/2XmMblhM3TXOnsq9Pt3kDPU/DAA1TXF4ZA2FJ0WW3fnw
-         n1P1/lMgsKJrlfUApStUPuvWzG8jF8XHIq7J56r28aA/aOxFnlB2VeCe0u3DthkkBldJ
-         XSMSuZjg8C3RHh3JKYdanNAHiz1t3UecpYylk83kKZLcmr3yPe6KUcf8I9cYlG9JuesS
-         QJMw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=I87zME0U;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::625 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05on20625.outbound.protection.outlook.com. [2a01:111:f400:7e1a::625])
-        by gmr-mx.google.com with ESMTPS id p42-20020a056a0026ea00b004e1a39c4e87si1222753pfw.0.2022.04.13.02.18.03
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 13 Apr 2022 02:18:03 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:7e1a::625 as permitted sender) client-ip=2a01:111:f400:7e1a::625;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KgbSnIEDAJvvVkS69JUHnT5gWb0zIV/uqKoL9FKcD+CkZprjZJ7r9R1B9NzFYASCyjVpWhnrcIqsrS+O0w/IemcB9mo3lpcZRFapzwJemAtrprHpRS3CluRL2cv++F5PGHRl1+SdQZhPHgXhp7d5At2+8shLoMIdSk9YIXb0jomcN+f1obV9MsB4ca6Dm+zpvGZruAhGLjgASt1vmvArkqX9qTb6ekmWHCz8aRWli2pG8J9wbaQgx8Xo/YKxxTYx/0wPbYrJsObefVHGAkUb0dhp8zB1iX/zMxPi6taO9MaXGsZxbOQ5YNPqwPoem2ib6iU6ipyJfAP7C/EZzGQP+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NswG0EowK175RHmEZ/LzU48wq/1jzhZ9+MC78+vk+mA=;
- b=mwfLMSJyIGNzAITgHk2QBeQNBvviiBTaWLPBqb+2WJzOSsAzwoqwUznS4B3GClWt+ippdQu+i5bMtnigiGusskBg3qXuQaKnNBcUwMXU2FMkNDf2GPPrPrK4IHTqNyuyZ3JyrmNOtJX1XCAvafBEupJ193nvnNneGCpmmJxJBBKo/l5rF/Rl3uHHNSr8OoZ9vW6aIWOPuU7BgmUFnTchsURLefq52jxsPg8pngdSORlh0QelSHoAWITBS/N5c4wCSsZ2KkSMoxjD5xEAXgfqO14Bs+aDHH6xGJHcuq7EZggVsG3o5j8+lI3Ow0AR0h5POiswwMAVnpht8JXBzGLZ+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.72) smtp.rcpttodomain=gmail.com smtp.mailfrom=siemens.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
- dkim=none (message not signed); arc=none
-Received: from SV0P279CA0046.NORP279.PROD.OUTLOOK.COM (2603:10a6:f10:13::15)
- by DB8PR10MB3068.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:e8::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Wed, 13 Apr
- 2022 09:18:01 +0000
-Received: from HE1EUR01FT032.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:f10:13:cafe::1a) by SV0P279CA0046.outlook.office365.com
- (2603:10a6:f10:13::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20 via Frontend
- Transport; Wed, 13 Apr 2022 09:18:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.72)
- smtp.mailfrom=siemens.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=siemens.com;
-Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
- 194.138.21.72 as permitted sender) receiver=protection.outlook.com;
- client-ip=194.138.21.72; helo=hybrid.siemens.com;
-Received: from hybrid.siemens.com (194.138.21.72) by
- HE1EUR01FT032.mail.protection.outlook.com (10.152.0.176) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5164.19 via Frontend Transport; Wed, 13 Apr 2022 09:18:00 +0000
-Received: from DEMCHDC89XA.ad011.siemens.net (139.25.226.103) by
- DEMCHDC9SMA.ad011.siemens.net (194.138.21.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 13 Apr 2022 11:17:59 +0200
-Received: from [139.25.68.37] (139.25.68.37) by DEMCHDC89XA.ad011.siemens.net
- (139.25.226.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 13 Apr
- 2022 11:17:59 +0200
-Message-ID: <1a43cff1-d631-f749-59c0-913a7ad645c4@siemens.com>
-Date: Wed, 13 Apr 2022 11:17:59 +0200
+Received: by 2002:ac8:584c:0:b0:2ed:227e:bf3b with SMTP id h12-20020ac8584c000000b002ed227ebf3bls1227124qth.10.gmail;
+ Wed, 13 Apr 2022 04:44:38 -0700 (PDT)
+X-Received: by 2002:a05:622a:254:b0:2e1:ca15:3cbe with SMTP id c20-20020a05622a025400b002e1ca153cbemr6689761qtx.650.1649850278804;
+        Wed, 13 Apr 2022 04:44:38 -0700 (PDT)
+Date: Wed, 13 Apr 2022 04:44:38 -0700 (PDT)
+From: manliang tang <manliang.tang@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <a46c03b4-9f14-4240-ad4f-0dad3a335f47n@googlegroups.com>
+Subject: Kernel crash after exiting from enter_hypervisor
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re:
-Content-Language: en-US
-To: hubin yang <yhbczj@gmail.com>, <jailhouse-dev@googlegroups.com>
-References: <CAD47rNQALFv6GNYbP-W8HgDpzpTGdGtL2xtONURepiGxtK28vg@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <CAD47rNQALFv6GNYbP-W8HgDpzpTGdGtL2xtONURepiGxtK28vg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [139.25.68.37]
-X-ClientProxiedBy: DEMCHDC89XA.ad011.siemens.net (139.25.226.103) To
- DEMCHDC89XA.ad011.siemens.net (139.25.226.103)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-AS-Result: No-10--11.275500-8.000000
-X-TMASE-MatchedRID: 0ayLSLUekQU5QaOxwNGfvo9bHfxDWoibUUP6fwHYzLa0sO72q2op4dhQ
-	O8CvZj/Xeucl7MdNw8QPEGClxngghEHOEnP0b7ytZEG/65H83ZlEW9VS9C2W1xbwCXv1ucAP7G9
-	b22wQFXOUAUfla+IhaLKXWmEvaG3ElyyR46PvItO2qNGaLuHnvk1+zyfzlN7ygxsfzkNRlfIRTI
-	LTyAA+ovoLR4+zsDTtjoczmuoPCq2Zc+0v3cEkykXU62fXosMNhKsAYCJSsXmp5W5UvwSYiiitI
-	BQyRlgz
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--11.275500-8.000000
-X-TMASE-Version: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-SNTS-SMTP: 49C828763E4708DCF82EC46D41294ADF4498DD48EEA6EFD01C7C2FDF2D01E78F2000:8
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e178465c-0045-4aa5-6cf1-08da1d2e81b6
-X-MS-TrafficTypeDiagnostic: DB8PR10MB3068:EE_
-X-Microsoft-Antispam-PRVS: <DB8PR10MB30687E3388470A59582AC99B95EC9@DB8PR10MB3068.EURPRD10.PROD.OUTLOOK.COM>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jdxwUQ9XZGtp0v+H+kjMPD4q0Ip81lRClXkOHrpxwd8HD2nXEhaXan8F5yv+T9B+cBEg8GtIeRjrbw1M2DYGKS0Jq/9cTQRM+mKisj+8Rs00fB9cuW5mkQmTdY73zcZ2smt7ZHCKgzEoy+j5Wlbft5xjEheh1vGnEMZ4hHwgRnL2AeZ8HZKlte8PSMbIanx+aidN7CQlw7vuR5l2RmeClRBYu2LdgT/QuFYTm+efwDpvVnEgC70wdhEK/riTcYlXkDrrAsPLniraeySLoZCqYqJlvzxQdNyh3w5Ozg63/HTnl94hGM/R8CVLD7+eMQX23Faamvw4Nt5LainkXRE5JzTHgJbvXZfDNOQLaTC/zQNRwoFK4cXPvGSEjGiF6nsdyr8ZWLv5EIvsIjPZZzdxCSqX/luUWVHmiU7xOwCbj9zhDHtMMyIQOa/qB3DDmykuFa/IgfEPIProcaKSeAMmsQKDfAnuxW9ZXfqHVDrgIgE47Yxp+yYwMTV7YQnrasQ8YTEG/QYgOcrRLcHVUvnV9neS2W158DIYBXVK6pCLbnuDHVy+CY7TE2i+lWq06x0X9gEG6FQQ0/zQhgwNMVjaHeGQ2PBaicWhXnKeNVTSOvqoN0LEEFu9tXzmsnRAkIy6O6leQa/9GCKkMpbAEAl8bhehhPdnDxRWj+HlXxJv0GKyuC6XL7geK5STjllzBmHs6vFIs0xfLaL6OM7a4BB64bo3/ntwbZye1VaNSRZXS0rjqXSNAk0yXbuZ0syi3JXYb6VfNUjAfDpAi18gzuIR4w==
-X-Forefront-Antispam-Report: CIP:194.138.21.72;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(16526019)(186003)(7116003)(82960400001)(4744005)(336012)(47076005)(44832011)(81166007)(70206006)(70586007)(3480700007)(2906002)(40460700003)(36860700001)(8936002)(5660300002)(31696002)(356005)(86362001)(8676002)(31686004)(26005)(110136005)(53546011)(2616005)(6706004)(82310400005)(956004)(16576012)(36756003)(498600001)(3940600001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2022 09:18:00.7326
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e178465c-0045-4aa5-6cf1-08da1d2e81b6
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.72];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: HE1EUR01FT032.eop-EUR01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3068
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=I87zME0U;       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates
- 2a01:111:f400:7e1a::625 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_378_783957455.1649850278213"
+X-Original-Sender: manliang.tang@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -205,27 +75,161 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 09.04.22 04:11, hubin yang wrote:
-> Hello everybody,
-> 
-> i want to remap memory region for a cell when its image has been loaded.
-> for example, the virtual address 0 was mapped to physical address
-> 0x3fa0_0000,
-> now, i want to remap it to physical address 0x3000_0000.
-> 
-> how to do that?
+------=_Part_378_783957455.1649850278213
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_379_312124738.1649850278213"
 
-Adjust the respective cell configuration? Or do you want to remap that
-after creating the cell, i.e. during runtime? That would not be
-supported by Jailhouse.
+------=_Part_379_312124738.1649850278213
+Content-Type: text/plain; charset="UTF-8"
 
-Jan
+Based on Kernel 4.19, I tried to run Jailhouse on real ARM board. I build 
+the driver/firmware/tool/configuration file successfully, copy all these 
+files to ARM board, then set the bootargs(mem=) and inert the driver 
+module. I saw the Kernel crash when run the "jailhouse enable" command.
+1. command
+/data # insmod jailhouse.ko 
+/data # cp jailhouse.bin /lib/firmware/
+/data # ./jailhouse enable aml-c2.cell
 
--- 
-Siemens AG, Technology
-Competence Center Embedded Linux
+2. Attached is the detailed log
+
+
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1a43cff1-d631-f749-59c0-913a7ad645c4%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a46c03b4-9f14-4240-ad4f-0dad3a335f47n%40googlegroups.com.
+
+------=_Part_379_312124738.1649850278213
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Based on Kernel 4.19, I tried to run Jailhouse on real ARM board. I build t=
+he driver/firmware/tool/configuration file successfully, copy all these fil=
+es to ARM board, then set the bootargs(mem=3D) and inert the driver module.=
+ I saw the Kernel crash when run the "jailhouse enable" command.<div>1. com=
+mand</div><div>/data # insmod jailhouse.ko <br>/data # cp jailhouse.bin /li=
+b/firmware/<br>/data # ./jailhouse enable aml-c2.cell<br></div><div><br></d=
+iv><div>2. Attached is the detailed log</div><div><br></div><div><br><br></=
+div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/a46c03b4-9f14-4240-ad4f-0dad3a335f47n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/a46c03b4-9f14-4240-ad4f-0dad3a335f47n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_379_312124738.1649850278213--
+
+------=_Part_378_783957455.1649850278213
+Content-Type: text/plain; charset=US-ASCII; 
+	name=Kernel_crash_after_exiting_hypervisor.txt
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; 
+	filename=Kernel_crash_after_exiting_hypervisor.txt
+X-Attachment-Id: 54ff89c0-76e6-44cc-bb80-fde6dde80d66
+Content-ID: <54ff89c0-76e6-44cc-bb80-fde6dde80d66>
+
+/data # insmod jailhouse.ko 
+/data # cp jailhouse.bin /lib/firmware/
+/data # ./jailhouse enable aml-c2.cell 
+
+Initializing Jailhouse hypervisor v0.12 (294-g6af5edfb-dirty) oPage pool usage after early setup:sOKOIi0Page pool usage after late setup[   61.844932@0] enter_hypervisor done
+[   61.845302@0] jailhouse_cmd_enable - 602
+[   61.845767@0] jailhouse_cmd_enable - 610
+[   61.846318@0] jailhouse_cmd_enable - 616
+[ rf  600.12x745@0] jailhouse_cmd_enable - 620
+[   61.846894@1] Unable to handle kernel execution of user memory at virtual address 0000000000000000
+[   61.848384@1] Mem abort info:
+2[   61.849574@1] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+Unhcf 790x2f[   61.850809@1] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+UnhLf0f 1f0x[   61.852056@1] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+[  0  3c.1x52l58@0]   ESR = 0x86000005
+[   61.852063@0]   Exception class = IABT (current EL), IL = 32 bits
+[   61.853317@1] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+[   61.854366@0]   SET = 0, FnV = 0
+[   61.854368@0]   EA = 0, S1PTW = 0
+[   61.854376@0] user pgtable: 4k pages, 39-bit VAs, pgdp = 00000000b434e935
+[   61.855486@1] Mem abort info:
+[   61.855872@0] [0000000000000000] pgd=0000000000000000, pud=0000000000000000
+[   61.856289@1]   ESR = 0x86000005
+[   61.856293@1]   Exception class = IABT (current EL), IL = 32 bits
+[   61.857130@0] Internal error: Oops: 86000005 [#1] PREEMPT SMP
+[   61.857503@1] Mem abort info:
+[   61.858362@0] Modules linked in: jailhouse(O) dhd(O) overlay exportfs
+[   60.x 40528764@1]   ESR = 0x86000005
+[   61.859522@0] Process iot_network (pid: 1991, stack limit = 0x00000000fe4c9003)
+[   61.859531@0] CPU: 0 PID: 1991 Comm: iot_network Tainted: G           O      4.19.180-11479-g46df404924cb-dirty #12
+[   61.860244@1] Mem abort info:
+[   61.860606@0] Hardware name: Google Venus B1 (DT)
+[   61.861690@1]   ESR = 0x86000005
+[   61.861854@0] pstate: 80400005 (Nzcv daif +PAN -UAO)
+[   61.862770@1]   Exception class = IABT (current EL), IL = 32 bits
+[   61.864061@0] pc :           (null)
+[   61.864072@0] lr : ipv6_dev_get_saddr+0xec/0x17c
+[   61.864074@0] sp : ffffff800b44ba70
+[   61.864076@0] x29: ffffff800b44bad0 x28: ffffffc01a748000 
+[   61.864080@0] x27: 0000000000000000 x26: 000000000000ff9b 
+[   61.864086@0] x25: 000000000000000e x24: ffffff800b44bc38 
+[   61.864452@1] Mem abort info:
+[   61.865015@0] x23: 0000000000000000 x22: ffffff8008f71850 
+[   61.865421@1]   ESR = 0x86000005
+[   61.866033@0] x21: ffffffc03b713050 x20: ffffff8008f71740 
+[   61.866799@1]   SET = 0, FnV = 0
+[   61.867223@0] x19: ffffff800b44bc48 x18: 0000000000000000 
+[   61.867227@0] x17: 0000000000000000 x16: 0000000000000001 
+[   61.867799@1]   EA = 0, S1PTW = 0
+[   61.868231@0] x15: 0000000000000000 x14: 0000604860480120 
+[   61.868234@0] x13: 00000000000000fc x12: 000000000000c0fe 
+[   61.868917@1] user pgtable: 4k pages, 39-bit VAs, pgdp = 00000000a2287d1f
+[   61.869595@0] x11: 0000000000000000 x10: 0000000000000001 
+[   61.869599@0] x9 : 0000000000000000 x8 : ffffffc01c007c08 
+[   61.870287@1]   Exception class = IABT (current EL), IL = 32 bits
+[   61.870648@0] x7 : 0000604860480120 x6 : 0000000000001000 
+[   61.871336@1]   SET = 0, FnV = 0
+[   61.871732@0] x5 : 0000000000000000 x4 : 0000000000000001 
+[   61.872421@1]   SET = 0, FnV = 0
+[   61.872815@0] x3 : ffffff800b44ba88 x2 : ffffffc01c007c00 
+[   61.873502@1]   EA = 0, S1PTW = 0
+[   61.874178@0] x1 : ffffff800b44ba70 x0 : 0000000000000001 
+[   61.874182@0] Call trace:
+[   61.874186@0]            (null)
+[   61.874594@1]   Exception class = IABT (current EL), IL = 32 bits
+[   61.875275@0]  ip6_dst_lookup_tail+0x268/0x3d8
+[   61.875278@0]  ip6_dst_lookup_flow+0x40/0x9c
+[   61.875284@0]  ip6_datagram_dst_update+0x184/0x248
+[   61.875957@1]   SET = 0, FnV = 0
+[   61.876802@0]  __ip6_datagram_connect+0x250/0x2ec
+[   61.876805@0]  ip6_datagram_connect+0x34/0x54
+[   61.876812@0]  inet_dgram_connect+0x70/0xd4
+[   61.877490@1]   EA = 0, S1PTW = 0
+[   61.878171@0]  __sys_connect+0xb4/0x100
+[   61.878930@1] user pgtable: 4k pages, 39-bit VAs, pgdp = 00000000a2287d1f
+[   61.879608@0]  __arm64_sys_connect+0x1c/0x28
+[   61.879613@0]  el0_svc_common+0x94/0x108
+[   61.879617@0]  el0_svc_handler+0x1c/0x24
+[   61.880010@1] [0000000000000000] pgd=0000000000000000, pud=0000000000000000
+[   61.880691@0]  el0_svc+0x8/0x14c
+[   61.880698@0] Code: bad PC value
+[   61.892977@0] ---[ end trace e1366e7c21b5e31d ]---
+[   61.906267@0] Kernel panic - not syncing: Fatal exception
+[   61.906297@0] SMP: stopping secondary CPUs
+[   62.961828@0] SMP: failed to stop secondary CPUs 0-1
+[   62.961848@0] Kernel Offset: disabled
+[   62.962205@0] CPU features: 0x0,20002000
+[   62.962692@0] Memory Limit: 800 MB
+[   62.975773@0] Rebooting in 5 seconds..
+[   67.975973@0] SMP: stopping secondary CPUs
+[   69.031060@0] SMP: failed to stop secondary CPUs 0-1
+[   69.031080@0] reboot reason 12
+[   69.031362@0] Reboot failed -- System halted
+
+------=_Part_378_783957455.1649850278213--
