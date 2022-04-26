@@ -1,129 +1,70 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBWOUUCJQMGQEEVCM2WA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDVP3IWNW4CBB6WVUCJQMGQEYM2ZFEY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE99051054C
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 19:22:34 +0200 (CEST)
-Received: by mail-lf1-x13e.google.com with SMTP id f19-20020a0565123b1300b004720c485b64sf2446462lfv.5
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 10:22:34 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1650993754; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=uImdWo5OdlM3vkgYMfSAtf/ZPmHtGMu7SfR2NR4RwfGd+jBOlcR5loO1dHzYiVBEV5
-         hTMCnVWCoWezr6rroIon24OqFTEuGa+oWsy+9f0KBhY7fYXUhPK6MEClL0ZgXj56iRn2
-         Di/NsRlUd6FRstfLTGgVDgHJWmRjYQVLq5hOiA6VVEa+BOEExy5cmD8JAlwZkQMn6EYX
-         SlOTP6ns/ycTzaZjcZJADx61XB8eIBsf6ixzy7N7Gov/2bZWMnuXXlucMcE+uhZKa/qv
-         XbzpRaIh1Jx02Dep35UclvpU0D8gXR6wzo/SPs9pCPO6vPpYCRuGkeIWa2cj1Zl5bqhG
-         x/6g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
-        b=V2R2ta6eLPUk68EGADlBX/qQbLiHwZ9UrufAi8filc/Fv8kuTjjNJw7laCnD37Nepm
-         evx8Poq9mVT/LP0y+Uo7w3veDNzbMYxw/wb2nsinZLrNMdMMLzqJv6wUu0p2hoc6+cwp
-         OM+udijdHGfGI+TP8NsPJikS/V3QRMTOavAQYHbpKCbAa6aEFY7WLJKYtT8z9vKIfSeY
-         nPq2aYy2ReT8eH7A9VvuFnaodI8GpSMLZTShJnNCzeUR0iVIfKhRVPZDCz39YfoiLBiX
-         CUGYyc3YqQHqwRDP8ngraWnXHzdvVSQhW5u+CBKH2nyMyoCHNKUnI2Oh7HTjX2JpMG+6
-         v/+w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8FE151055F
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 19:25:15 +0200 (CEST)
+Received: by mail-qk1-x73c.google.com with SMTP id bl27-20020a05620a1a9b00b0069994eeb30csf12145866qkb.11
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 10:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=FXd+qihifEVhSLawnFonq+/53jwlAGo1hnn3l8+yBiQ=;
+        b=qsY8QBFXaw3rs5mXs2oBRXGv+f2hbvUsm27smuAA7wJe2HrygdTiH2QRUGE4e6JC9H
+         FVtYcdLBqPr40d3LfEHVUMKXvpfeGOfo36DYMgAwJQpubeASw+9OhspkGrp1NdrLr4uE
+         m9L0XJSjW8ERWzwTQ59v1QdTNSOQAUoe6Qh0tvHhUzmh+be/otIEJCNTX/u2kcQT6kPy
+         FbddZJVLtriM3aUieqBpTOktZ15HAHEhl/zlM4guB49e7m+X04yW57nzCDMEDCm8PCcL
+         o9GPjtu4SFmcfZWV414OY5CH5eCg/HiRi/YMtd4LFcyG0UhPC8wgNIuY+pdPWQtBIRny
+         Otgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
-        b=WqYW0E/G0IXa1meM5RGmyQZrynIUDGKg7iLaSjyb8mmDTt72DDiJmp0TeJOLiyEf2O
-         yiuwvmGbACTKnUDJRFrFeeWokqPum0zGFBE8dVvzogNqpeYvWAdzGIDp6rsWn91dj+iN
-         o0uWknhDCm8YyX00yUR7Lg4tTSOrhJhUsRYa/dNzFHRXJ06Mog5Me6wFquVLHG8qhPbS
-         qpTJlymzAM8z6B18YltgC7h/lQ6sNsm/ZbIgyHYmuesJka9sPS5OUcVwrAszr4ElKp/W
-         QgYnBsHcsVqMolwTfsovMxvrCtj7Qk7nPzUtVkQqjydc8Tr7mYoG3/Tt/ZBBuFlGL4PD
-         1lvA==
+        bh=FXd+qihifEVhSLawnFonq+/53jwlAGo1hnn3l8+yBiQ=;
+        b=XfGHFq6OD+BVLIhSbxwGWcQRqFp0l67l+1dbrYxFEK8xUCVwkUsfuNcfCMmL/uWAvi
+         I/SBxE1pzchsZeNXef5y6TwUpYW4yA3KHPrZ3nv2Z3nib3uyTnuZtVYKtyrjDhhOrJhn
+         BYxPwmpZDr4oj4Q1oqykbWthAYoB0vPeefyYxJtPeTAZtuchdpC+uabYgGbKWqIwaPYQ
+         JQwmS8mQGA9LYMhQVNT4DvYI71WnjNCgz4gEEB8Hqe9yD9ooTKGrG2oNYJpHx6eU0Khd
+         X96tlJX6TC9a/W3TEN8Put/QfBO1bJR8GGpErAzqt6649opkoOY+vneFXFt18XCTBPdm
+         kxnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
-        b=Pqm9O9HH8hiGvMIn/W1UxFxKVwQs5DDX1SzZpe974KPIQAScTsNqi0O9Sxs+iK9bjG
-         fTHVg3FhBqicH361tb5diSkMdUJPlN/dbTNhIbaIHYwJrrMkby5H36tW/uMjdEmsV4bj
-         he0+tvsL9J1PFUP+ohY0hA8+5Hjjw/zj2nzsVs37Esb36IEwqwVlgWlpCTJ2AAKNu62a
-         tfCnCrcehkeDKLp1vdbpGMFF9QGPTN+Mp0tlObOP8b3S2ed0RtJKG1679rEj4190h6O4
-         6gAV0PRfxQg+CSPLUNXVDT7m3QqKRTofesAuwTnHr6DHhVpNL1enH2SfidZWsw/7H7hT
-         yp4w==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=FXd+qihifEVhSLawnFonq+/53jwlAGo1hnn3l8+yBiQ=;
+        b=YsEpfCTdCOJzsJ2XjuIgWkyvISMpATp4r6dx6gF7G8iT7JXw3J/xbEn7QzUcNfj6u+
+         rNv24xWTw3FM2Bb6b0BrjN4D5RaK+h32SkRZSPqJVPJXifx32DOWvMeIyVBKiftapejt
+         WpYsAPXpKRZChpHzdM/rbmLyava5EIS8lSFQhvzvih2V2cbeuvupMD36lrTUOY5gIsPn
+         15CA7UpbX7D4W3ecUUXD8RmtbGt6OFhOrkv/YydtoIBmugKI0vur0TtXvbD0dbfXsh/7
+         Bq1Pik3qA69k5hcmAobiHQ5/7z1zNKdlHdlZZXe95+IjTxOGt68nKrJP2VxzhmM+NLCV
+         1axg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM531a5hddh76YKb7wYO27p8Cr/fffCytLz452XSj3IpopDSXHkhom
-	qF9MkKV/zT03JVTzAJRuy6k=
-X-Google-Smtp-Source: ABdhPJxWu6xRe4OsnW3JieKLmFx5JtovWoKXq2IMs39myyc+0QxHoGmK/0eXSAp83w+NsFrDbY5p4g==
-X-Received: by 2002:ac2:5f74:0:b0:471:fe5b:8f03 with SMTP id c20-20020ac25f74000000b00471fe5b8f03mr11249725lfc.444.1650993754163;
-        Tue, 26 Apr 2022 10:22:34 -0700 (PDT)
+X-Gm-Message-State: AOAM530upkWYoCUP7ecZmgcxlF25bjt2I5FSMc7PiEX1bjQ+5iEVWY14
+	eG+km2Oo+xKgHOTq6V3psro=
+X-Google-Smtp-Source: ABdhPJx+qFUQ2LWUaLtga3XsVQVScosxd9zjm+SaVOYGCiaBBYpBzlMzmaFTIEkUMs0UR+3rXWC78A==
+X-Received: by 2002:ad4:5a12:0:b0:456:3040:6b0 with SMTP id ei18-20020ad45a12000000b00456304006b0mr10949851qvb.68.1650993914557;
+        Tue, 26 Apr 2022 10:25:14 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:1693:b0:448:3742:2320 with SMTP id
- bu19-20020a056512169300b0044837422320ls2164384lfb.1.gmail; Tue, 26 Apr 2022
- 10:22:32 -0700 (PDT)
-X-Received: by 2002:a05:6512:6d2:b0:472:ba9:7bb6 with SMTP id u18-20020a05651206d200b004720ba97bb6mr6960619lff.679.1650993752172;
-        Tue, 26 Apr 2022 10:22:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1650993752; cv=none;
-        d=google.com; s=arc-20160816;
-        b=KOxy66q2T1pwgp4nKc8+ebVrWfBPl791CByB+HEekWBGdRVh+sJXrwV3GWxnuQgZsp
-         p95e3+aAhlAZeNBso1qT/Lfv5Krx0W+K9DX0Ocrjr4LuRGw6peO2cSo7t8NOazKFL8iy
-         Q0Km77FXd0KC5g29li5Ph/ZVccKMBCHhSSj/kEOb3dL3bbZD79SP9/BzzVK91jLMYbl1
-         SkiD0SOZ8CjZ4qHQsn8q7UaotDw6d5XWSQGeKQONLYFeAVCeQaKttbH/iB1dJZhDDw0l
-         GiHzjBHkjyYqLdp7Wg0mgem9gZ7+fogU1Pg/M7u9IEuUChwJ/WVMlCNsMhNfjhs+InyT
-         T1/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=ysHABoJdz+It+u3rC5zt2BXR+mfEe34QYmXgMxpeJ7E=;
-        b=t8G5XtOH5zQEBekrR/qrsZZwy/xVC0kGUrFrBL3YhHi/GDdeiZoRm/4zoQlB0q/n+o
-         dsUKTO3nKCO5aFewClRm+bH1aBZ9vJPF4iTHQQtGPsvVuhbFeEXr6l7m0cTeusHkjWxg
-         Nhn3PA12lwboS8Ui92yWH7RDKYXqN8OvIwy59Hde6ShG++Qt+Y2L7sClbnARzTWYra6u
-         XANHx4HMJvQ4cIEGj0diXYvYNA7Nd2HUQBz7FBoTqyEhOR5G38iROVNfD3kWYBGd8PS3
-         Iy1vO7krPIF85/Z6OcyWcP8NlGIeYiedtLxEtFNWMfMn5UWJV2bgpPYUid2+X0EbFO0O
-         XmUQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id w28-20020a19491c000000b0046fede34ee5si858086lfa.5.2022.04.26.10.22.31
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 26 Apr 2022 10:22:32 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Knpbq1ffMzxyt;
-	Tue, 26 Apr 2022 19:22:31 +0200 (CEST)
-Received: from localhost.localdomain (2001:638:a01:8013::138) by
- E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 26 Apr 2022 19:22:30 +0200
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Stefan Huber
-	<stefan.huber@oth-regensburg.de>
-Subject: [PATCH] driver: sysfs: Replace default_attrs with default_groups
-Date: Tue, 26 Apr 2022 19:22:22 +0200
-Message-ID: <20220426172222.1910982-1-ralf.ramsauer@oth-regensburg.de>
-X-Mailer: git-send-email 2.36.0
+Received: by 2002:a05:6214:2585:b0:44e:dd77:819e with SMTP id
+ fq5-20020a056214258500b0044edd77819els1414103qvb.2.gmail; Tue, 26 Apr 2022
+ 10:25:13 -0700 (PDT)
+X-Received: by 2002:a05:6214:c81:b0:444:1c7e:7b6f with SMTP id r1-20020a0562140c8100b004441c7e7b6fmr16956741qvr.48.1650993913747;
+        Tue, 26 Apr 2022 10:25:13 -0700 (PDT)
+Date: Tue, 26 Apr 2022 10:25:13 -0700 (PDT)
+From: "vsun...@gmail.com" <vsuneja63@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <fd90fac9-bb12-4839-b659-c417b236e04an@googlegroups.com>
+Subject: imx8: could load 2nd linux in console but not getting how to get
+ the shell up in display screen
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [2001:638:a01:8013::138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_78_1687059504.1650993913275"
+X-Original-Sender: vsuneja63@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -136,66 +77,53 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Since Linux commit cdb4f26a63c3 ("kobject: kobj_type: remove
-default_attrs"), the deprecated kobj member default_attrs is gone. It is
-replaced by default_groups.
+------=_Part_78_1687059504.1650993913275
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_79_1193023565.1650993913275"
 
-default_groups is available since 2013, so simply switch to
-default_groups, without (hopefully) breaking any older kernel.
+------=_Part_79_1193023565.1650993913275
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
----
- driver/sysfs.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Hi,
 
-diff --git a/driver/sysfs.c b/driver/sysfs.c
-index a604afa4..f91d5ac5 100644
---- a/driver/sysfs.c
-+++ b/driver/sysfs.c
-@@ -180,10 +180,11 @@ static struct attribute *cell_stats_attrs[] = {
- #endif
- 	NULL
- };
-+ATTRIBUTE_GROUPS(cell_stats);
- 
- static struct kobj_type cell_stats_type = {
- 	.sysfs_ops = &kobj_sysfs_ops,
--	.default_attrs = cell_stats_attrs,
-+	.default_groups = cell_stats_groups,
- };
- 
- static struct attribute *cpu_stats_attrs[] = {
-@@ -212,10 +213,11 @@ static struct attribute *cpu_stats_attrs[] = {
- #endif
- 	NULL
- };
-+ATTRIBUTE_GROUPS(cpu_stats);
- 
- static struct kobj_type cell_cpu_type = {
- 	.sysfs_ops = &kobj_sysfs_ops,
--	.default_attrs = cpu_stats_attrs,
-+	.default_groups = cpu_stats_groups,
- };
- 
- static int print_cpumask(char *buf, size_t size, cpumask_t *mask, bool as_list)
-@@ -342,11 +344,12 @@ static struct attribute *cell_attrs[] = {
- 	&cell_cpus_failed_list_attr.attr,
- 	NULL,
- };
-+ATTRIBUTE_GROUPS(cell);
- 
- static struct kobj_type cell_type = {
- 	.release = jailhouse_cell_kobj_release,
- 	.sysfs_ops = &kobj_sysfs_ops,
--	.default_attrs = cell_attrs,
-+	.default_groups = cell_groups,
- };
- 
- static struct cell_cpu *find_cell_cpu(struct cell *cell, unsigned int cpu)
--- 
-2.36.0
+I could load custom image in emmc & that boot up successfully via jailhouse 
+non-root cell in console. Root cell image shell getting displayed on hdmi 
+but not getting how to display 2nd linux shell on imx8mq. How to achieve 
+this or any other way for display?  
+
+Thanks & Regards,
+Vipul Kumar
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220426172222.1910982-1-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/fd90fac9-bb12-4839-b659-c417b236e04an%40googlegroups.com.
+
+------=_Part_79_1193023565.1650993913275
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi,</div><div><br></div><div>I could load custom image in emmc &amp; t=
+hat boot up successfully via jailhouse non-root cell in console. Root cell =
+image shell getting displayed on hdmi but not getting how to display 2nd li=
+nux shell on imx8mq. How to achieve this or any other way for display? &nbs=
+p;<br></div><div><br></div><div>Thanks &amp; Regards,</div><div>Vipul Kumar=
+</div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/fd90fac9-bb12-4839-b659-c417b236e04an%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/fd90fac9-bb12-4839-b659-c417b236e04an%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_79_1193023565.1650993913275--
+
+------=_Part_78_1687059504.1650993913275--
