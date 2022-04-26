@@ -1,122 +1,129 @@
-Return-Path: <jailhouse-dev+bncBDC7NWPLREORBYMBRGJQMGQEURXIEDI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBWOUUCJQMGQEEVCM2WA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x439.google.com (mail-wr1-x439.google.com [IPv6:2a00:1450:4864:20::439])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9616350AFB2
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 22 Apr 2022 07:45:06 +0200 (CEST)
-Received: by mail-wr1-x439.google.com with SMTP id m10-20020adfc58a000000b0020ac7ba78b8sf155608wrg.14
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 21 Apr 2022 22:45:06 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1650606306; cv=pass;
+Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE99051054C
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 19:22:34 +0200 (CEST)
+Received: by mail-lf1-x13e.google.com with SMTP id f19-20020a0565123b1300b004720c485b64sf2446462lfv.5
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 26 Apr 2022 10:22:34 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1650993754; cv=pass;
         d=google.com; s=arc-20160816;
-        b=v7rME3WZtDskJW0BJqOgyk9jibXdjxo0gpgM8EXfgGVgYihMzMfeq3PeCqgATcg7aK
-         +EDh+kF/TUNj5gL5Uaa+6oHkZfxhkSJVV3sDxVgtjbfk281rgkox1VM9u54gzfPV8zFi
-         o9mtqoYA9PFD9q7j8/RTq2Mgos2TlJH/p8NLTGLMRyqkvDM1eHWGH1BR3OWno0Dpt7jZ
-         9cTeqwE0VRGh19sQrG7zjfX9yd4lERtPwmLzgLS4pDyU1PABRG83kCya7XjgJdpkyuIJ
-         9YUM7EN0lAyZS7u0ubz26PcjSUIRuQQYdLIniFXInuJhJdg6EzxDFrALIZKyOBUHv8E4
-         IkHg==
+        b=uImdWo5OdlM3vkgYMfSAtf/ZPmHtGMu7SfR2NR4RwfGd+jBOlcR5loO1dHzYiVBEV5
+         hTMCnVWCoWezr6rroIon24OqFTEuGa+oWsy+9f0KBhY7fYXUhPK6MEClL0ZgXj56iRn2
+         Di/NsRlUd6FRstfLTGgVDgHJWmRjYQVLq5hOiA6VVEa+BOEExy5cmD8JAlwZkQMn6EYX
+         SlOTP6ns/ycTzaZjcZJADx61XB8eIBsf6ixzy7N7Gov/2bZWMnuXXlucMcE+uhZKa/qv
+         XbzpRaIh1Jx02Dep35UclvpU0D8gXR6wzo/SPs9pCPO6vPpYCRuGkeIWa2cj1Zl5bqhG
+         x/6g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-subscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:to:subject:message-id:date:from
-         :list-unsubscribe:list-unsubscribe-post:mime-version:sender
-         :dkim-signature;
-        bh=KI5mt7YkkuRqtX4K+p0OSn02w29ipPobVh4TGb86ZLM=;
-        b=BfMHrTCw/JzW+k/I+FD31kel4ICIABhLjTPoInhkyciJip/P8fJ7ca55XkdZsCU3o4
-         FMHdSY0yWGulq1YAwxFtiQRjaARLHfs8/NqqI5bsNLsIWLT1b7cXxCzLQwhTQRjw6ubY
-         mB8B/HbOXmuws0wx9EcjZCSRuE8yJ2YzJ6XS0XBkhUpU/aC8W+JlNE8iy4Q16EX++Ut4
-         jUSBlpmc+hy1kabX1iI21lM06t86WLGFmA5UR+1l6K/9vQ6rQl+SjN9YftPARyhmX8Dy
-         6GtB/GUYgxZ0LhovuEgHbcd/6AL9INKPnY7O4J0cH75RrcMMBJb9wFnyDHpE2DLWPf7j
-         bahQ==
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
+        b=V2R2ta6eLPUk68EGADlBX/qQbLiHwZ9UrufAi8filc/Fv8kuTjjNJw7laCnD37Nepm
+         evx8Poq9mVT/LP0y+Uo7w3veDNzbMYxw/wb2nsinZLrNMdMMLzqJv6wUu0p2hoc6+cwp
+         OM+udijdHGfGI+TP8NsPJikS/V3QRMTOavAQYHbpKCbAa6aEFY7WLJKYtT8z9vKIfSeY
+         nPq2aYy2ReT8eH7A9VvuFnaodI8GpSMLZTShJnNCzeUR0iVIfKhRVPZDCz39YfoiLBiX
+         CUGYyc3YqQHqwRDP8ngraWnXHzdvVSQhW5u+CBKH2nyMyoCHNKUnI2Oh7HTjX2JpMG+6
+         v/+w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@rtu-ac-in.20210112.gappssmtp.com header.s=20210112 header.b=UScwtEGB;
-       spf=neutral (google.com: 2a00:1450:4864:20::136 is neither permitted nor denied by best guess record for domain of conf5@rtu.ac.in) smtp.mailfrom=conf5@rtu.ac.in
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:mime-version:list-unsubscribe-post:list-unsubscribe:from
-         :date:message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe;
-        bh=KI5mt7YkkuRqtX4K+p0OSn02w29ipPobVh4TGb86ZLM=;
-        b=Ir/pBJw7dvpAN6EbclavKJqXE+7VcSnGM4X1Lma9fY/480DbrTOPjw0pYdvc38Yo6I
-         eDDV20YAZJACsKGq/Fni2dAT2HNgihFzsC2j73XygimVbKxFSCMq5QjZRoTRA/ZTuZeH
-         4rai5AHwt/DKwhjGRUnRQ5RWtd5fpV614fDgVg6BtvVad9dusTkRXyvgd2aSz+6Uh3no
-         Fn6UewwYFjkCX5DelNVJWqyUW4S2NLhVkOL1u8roz9dTsjaIEZVjv5Paz6Q7F4eRHQBN
-         Yuqrb0Qx39mr64q9iEZYtsmt2Yg8Oz7Vg4og6ZT0ahQt9FWOxZZ6Tmvu618Wy5QFJ0Xr
-         ViMQ==
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
+        b=WqYW0E/G0IXa1meM5RGmyQZrynIUDGKg7iLaSjyb8mmDTt72DDiJmp0TeJOLiyEf2O
+         yiuwvmGbACTKnUDJRFrFeeWokqPum0zGFBE8dVvzogNqpeYvWAdzGIDp6rsWn91dj+iN
+         o0uWknhDCm8YyX00yUR7Lg4tTSOrhJhUsRYa/dNzFHRXJ06Mog5Me6wFquVLHG8qhPbS
+         qpTJlymzAM8z6B18YltgC7h/lQ6sNsm/ZbIgyHYmuesJka9sPS5OUcVwrAszr4ElKp/W
+         QgYnBsHcsVqMolwTfsovMxvrCtj7Qk7nPzUtVkQqjydc8Tr7mYoG3/Tt/ZBBuFlGL4PD
+         1lvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:mime-version:list-unsubscribe-post
-         :list-unsubscribe:from:date:message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe;
-        bh=KI5mt7YkkuRqtX4K+p0OSn02w29ipPobVh4TGb86ZLM=;
-        b=3W1GTNspAvfAxrKZlbjx4TdDjZZTxzFO+4FPyB/M277ik0bdSnJivAwzczLNZOQ4NK
-         ViT8/JrvbVJqnoxrIsOlxiLBAVGLOHuf+QTNc0XgjdQcQ3QZ0OYB2qlutOlYc3snA8aL
-         Tb0N5EecRMne9xFPx/Ysu7H2eR3ZKegtxo3F10odICFPoYrZ8CDLVJtUfnNm2/6yNRRA
-         Iqe7vYVAitPO5Avx0IZP0vZR29bRU4pATRXEDUl1z3PgLbFdLdU1Msq5OlCPpBcBLLR2
-         r5ZaTdJAn0Ij/ruHxantQb9jVBirJzDb9YqiNVD+50KFEB47VdDOLRt9DriT/QfyznKc
-         ayWw==
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=gjgBxbywwIT/9kFICaOnd6sI4+sU1RF+fBlJdHyJX2s=;
+        b=Pqm9O9HH8hiGvMIn/W1UxFxKVwQs5DDX1SzZpe974KPIQAScTsNqi0O9Sxs+iK9bjG
+         fTHVg3FhBqicH361tb5diSkMdUJPlN/dbTNhIbaIHYwJrrMkby5H36tW/uMjdEmsV4bj
+         he0+tvsL9J1PFUP+ohY0hA8+5Hjjw/zj2nzsVs37Esb36IEwqwVlgWlpCTJ2AAKNu62a
+         tfCnCrcehkeDKLp1vdbpGMFF9QGPTN+Mp0tlObOP8b3S2ed0RtJKG1679rEj4190h6O4
+         6gAV0PRfxQg+CSPLUNXVDT7m3QqKRTofesAuwTnHr6DHhVpNL1enH2SfidZWsw/7H7hT
+         yp4w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM5328fqRzsJByqhxTl1bGUDmdJ6WyOFZNmnxDPIv9gDmIjVc1jvVo
-	uY5kHLz5Navk2HkUYSHoESQ=
-X-Google-Smtp-Source: ABdhPJzip313xo+l5HWSXsko1sTd5UzHIpHdGQpniux8DcmHlo7bST3eQqd2FTRqKbaQPg72hp5/UA==
-X-Received: by 2002:a5d:5983:0:b0:20a:8801:597b with SMTP id n3-20020a5d5983000000b0020a8801597bmr2248262wri.287.1650606306205;
-        Thu, 21 Apr 2022 22:45:06 -0700 (PDT)
+X-Gm-Message-State: AOAM531a5hddh76YKb7wYO27p8Cr/fffCytLz452XSj3IpopDSXHkhom
+	qF9MkKV/zT03JVTzAJRuy6k=
+X-Google-Smtp-Source: ABdhPJxWu6xRe4OsnW3JieKLmFx5JtovWoKXq2IMs39myyc+0QxHoGmK/0eXSAp83w+NsFrDbY5p4g==
+X-Received: by 2002:ac2:5f74:0:b0:471:fe5b:8f03 with SMTP id c20-20020ac25f74000000b00471fe5b8f03mr11249725lfc.444.1650993754163;
+        Tue, 26 Apr 2022 10:22:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:47a7:0:b0:20a:a30e:f9ec with SMTP id 7-20020a5d47a7000000b0020aa30ef9ecls9259495wrb.3.gmail;
- Thu, 21 Apr 2022 22:45:04 -0700 (PDT)
-X-Received: by 2002:adf:f6c1:0:b0:20a:c408:4aeb with SMTP id y1-20020adff6c1000000b0020ac4084aebmr2208098wrp.74.1650606304714;
-        Thu, 21 Apr 2022 22:45:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1650606304; cv=none;
+Received: by 2002:a05:6512:1693:b0:448:3742:2320 with SMTP id
+ bu19-20020a056512169300b0044837422320ls2164384lfb.1.gmail; Tue, 26 Apr 2022
+ 10:22:32 -0700 (PDT)
+X-Received: by 2002:a05:6512:6d2:b0:472:ba9:7bb6 with SMTP id u18-20020a05651206d200b004720ba97bb6mr6960619lff.679.1650993752172;
+        Tue, 26 Apr 2022 10:22:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1650993752; cv=none;
         d=google.com; s=arc-20160816;
-        b=ic+5MPE17cN+ww4AqVeeT8MqZ1PKcgSZEQ0fyCNamWtLAQv6UPA5L+h73WuoqUlI8I
-         pXhzwknd3zEV0PTY13+6wKUdNULATVJ5K8T9IoO2xBa149UFZgK6iuXydO+Z9muGBF32
-         foOeef2L07dvEqRUMVSaZdqN+kc/bQQtaOzF6v1WLvPtKJ0jT5WMH9WMmy4Njz92Vjos
-         PWQD+Bzy50KkkOVehgmhY/3RqagQ7Z4TBUNDPPlCF8yFE04px0nsJAwmQlZhh2fKFxT9
-         8U9zScZ4JCv6LfbeKlrazBuWO7mICaRcaa6QRtSdAwtYZCzfvfABkakG1QW8+sp9oHgK
-         Mf1A==
+        b=KOxy66q2T1pwgp4nKc8+ebVrWfBPl791CByB+HEekWBGdRVh+sJXrwV3GWxnuQgZsp
+         p95e3+aAhlAZeNBso1qT/Lfv5Krx0W+K9DX0Ocrjr4LuRGw6peO2cSo7t8NOazKFL8iy
+         Q0Km77FXd0KC5g29li5Ph/ZVccKMBCHhSSj/kEOb3dL3bbZD79SP9/BzzVK91jLMYbl1
+         SkiD0SOZ8CjZ4qHQsn8q7UaotDw6d5XWSQGeKQONLYFeAVCeQaKttbH/iB1dJZhDDw0l
+         GiHzjBHkjyYqLdp7Wg0mgem9gZ7+fogU1Pg/M7u9IEuUChwJ/WVMlCNsMhNfjhs+InyT
+         T1/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:list-unsubscribe
-         :list-unsubscribe-post:mime-version:dkim-signature;
-        bh=Dtw6+ycx+X5v4esu7kYBYXMKcKqfl2bz+zwI41KHlXc=;
-        b=T6ei060dn9fd1dwy1O5RCdxrGqWQ+A28Xwd7oBj7rUBa77cio3gGZgZnZflaMEIk/K
-         tXutSojsF7U5b1r+SgdCigbgcDYR5QxnGVy9khL4QRUvLF1y7ql2mtl/I2373zpzGlhu
-         StTDIcQgkFGG/I6n96SQQtog4a7kmEONlES3lpBQtcIgW6ksUvlCjjn5VXU5eVDaU590
-         7mf/4oLleajAdjAAubhuiWcYNRb99xdvET5I2QuNTUUcD1IjJVALwUr5AL9gbAKBO1QD
-         SzaxwkvWB5sZZgg17kgr1VvvmtQZByeibxIP0om0vw+Y3oNSm59GGhPjJ3eUYc4UcyXQ
-         oWNg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=ysHABoJdz+It+u3rC5zt2BXR+mfEe34QYmXgMxpeJ7E=;
+        b=t8G5XtOH5zQEBekrR/qrsZZwy/xVC0kGUrFrBL3YhHi/GDdeiZoRm/4zoQlB0q/n+o
+         dsUKTO3nKCO5aFewClRm+bH1aBZ9vJPF4iTHQQtGPsvVuhbFeEXr6l7m0cTeusHkjWxg
+         Nhn3PA12lwboS8Ui92yWH7RDKYXqN8OvIwy59Hde6ShG++Qt+Y2L7sClbnARzTWYra6u
+         XANHx4HMJvQ4cIEGj0diXYvYNA7Nd2HUQBz7FBoTqyEhOR5G38iROVNfD3kWYBGd8PS3
+         Iy1vO7krPIF85/Z6OcyWcP8NlGIeYiedtLxEtFNWMfMn5UWJV2bgpPYUid2+X0EbFO0O
+         XmUQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@rtu-ac-in.20210112.gappssmtp.com header.s=20210112 header.b=UScwtEGB;
-       spf=neutral (google.com: 2a00:1450:4864:20::136 is neither permitted nor denied by best guess record for domain of conf5@rtu.ac.in) smtp.mailfrom=conf5@rtu.ac.in
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com. [2a00:1450:4864:20::136])
-        by gmr-mx.google.com with ESMTPS id d23-20020a1c7317000000b0038ebc691b17si266436wmb.2.2022.04.21.22.45.04
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id w28-20020a19491c000000b0046fede34ee5si858086lfa.5.2022.04.26.10.22.31
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 Apr 2022 22:45:04 -0700 (PDT)
-Received-SPF: neutral (google.com: 2a00:1450:4864:20::136 is neither permitted nor denied by best guess record for domain of conf5@rtu.ac.in) client-ip=2a00:1450:4864:20::136;
-Received: by mail-lf1-x136.google.com with SMTP id p12so6834690lfs.5
-        for <jailhouse-dev@googlegroups.com>; Thu, 21 Apr 2022 22:45:04 -0700 (PDT)
-X-Received: by 2002:ac2:4c4a:0:b0:471:cb8a:8c97 with SMTP id
- o10-20020ac24c4a000000b00471cb8a8c97mr1938983lfk.678.1650606304210; Thu, 21
- Apr 2022 22:45:04 -0700 (PDT)
-Received: from 1008170693301 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 22 Apr 2022 05:45:03 +0000
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 26 Apr 2022 10:22:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Knpbq1ffMzxyt;
+	Tue, 26 Apr 2022 19:22:31 +0200 (CEST)
+Received: from localhost.localdomain (2001:638:a01:8013::138) by
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Tue, 26 Apr 2022 19:22:30 +0200
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Stefan Huber
+	<stefan.huber@oth-regensburg.de>
+Subject: [PATCH] driver: sysfs: Replace default_attrs with default_groups
+Date: Tue, 26 Apr 2022 19:22:22 +0200
+Message-ID: <20220426172222.1910982-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
-From: General Chair PCCDS 2022 <conf5@rtu.ac.in>
-Date: Fri, 22 Apr 2022 05:45:03 +0000
-Message-ID: <CAN2ndJCDwpfM=Gsmuw6iyGOs8sz_E=fysAXLc0yjb_ZUeriVfw@mail.gmail.com>
-Subject: Call For Papers: PCCDS 2022 | Springer conference | MNIT Jaipur
-To: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="0000000000006d46c705dd37ba10"
-X-Original-Sender: conf5@rtu.ac.in
+Content-Type: text/plain; charset="UTF-8"
+X-Originating-IP: [2001:638:a01:8013::138]
+X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@rtu-ac-in.20210112.gappssmtp.com header.s=20210112
- header.b=UScwtEGB;       spf=neutral (google.com: 2a00:1450:4864:20::136 is
- neither permitted nor denied by best guess record for domain of
- conf5@rtu.ac.in) smtp.mailfrom=conf5@rtu.ac.in
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=mlg6bDlC;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -126,229 +133,69 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000006d46c705dd37ba10
-Content-Type: text/plain; charset="UTF-8"
+Since Linux commit cdb4f26a63c3 ("kobject: kobj_type: remove
+default_attrs"), the deprecated kobj member default_attrs is gone. It is
+replaced by default_groups.
 
-Dear Professor,
+default_groups is available since 2013, so simply switch to
+default_groups, without (hopefully) breaking any older kernel.
 
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+ driver/sysfs.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Greetings from Malaviya National Institute of Technology Jaipur and Soft
-Computing Research Society!
-
-
-We are pleased to share that Malaviya National Institute of Technology
-Jaipur, India, is organizing the 3rd International Conference on Paradigms
-of Communication, Computing and Data Sciences (PCCDS 2022) in association
-with the Soft Computing Research Society (SCRS) New Delhi. The conference
-will be organized in Virtual Format during July 05-07, 2022. The
-after-conference proceedings of the PCCDS 2022 will be published in the
-Springer Book Series' *Algorithms for Intelligent Systems*'. All books
-published in the series "Algorithms for Intelligent Systems" are submitted
-for consideration in the Web of Science. For more details, please visit the
-conference website: PCCDS2022
-<https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccxXL9xQfF9gDFCp0?url=https%3A%2F%2Fwww.pccds22.scrs.in%2F&key=f45813a42ce34bbe2bec40fde2bed47255101e2a>
-
-
-The topics covered (but are not limited to) at the conference are as
-follows:
-
-1. Soft Computing & Artificial Intelligence
-
-2. Data Science
-
-3. Signal & Image Processing
-
-4. Communication
-
-
-Submission Deadline: April 30, 2022
-
-Submission Link: https://easychair.org/conferences/?conf=pccds2022
-<https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccxXL9xQfF9gDFCp0?url=https%3A%2F%2Feasychair.org%2Fconferences%2F%3Fconf%3Dpccds2022&key=a42ce76be91228fc8daf5529eec981b4814714e1>
-
-------------------------------------------------------------
---------------------------------------
-
-CONTACT US: pccds.scrs@gmail.com
-
-
-Thanks & Regards
-Team PCCDS 2022
-
-To leave this group and stop getting email from it, Click here
-<https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccxXL9xQfF9gDFCp0/unsubscribe?hash=NDlhZGQ2MmY1NGRmMTEwZmM3OWE1MDMxZDBkMTllZmVhMzc2ZTYwYjpqYWlsaG91c2UtZGV2QGdvb2dsZWdyb3Vwcy5jb20=&>
+diff --git a/driver/sysfs.c b/driver/sysfs.c
+index a604afa4..f91d5ac5 100644
+--- a/driver/sysfs.c
++++ b/driver/sysfs.c
+@@ -180,10 +180,11 @@ static struct attribute *cell_stats_attrs[] = {
+ #endif
+ 	NULL
+ };
++ATTRIBUTE_GROUPS(cell_stats);
+ 
+ static struct kobj_type cell_stats_type = {
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cell_stats_attrs,
++	.default_groups = cell_stats_groups,
+ };
+ 
+ static struct attribute *cpu_stats_attrs[] = {
+@@ -212,10 +213,11 @@ static struct attribute *cpu_stats_attrs[] = {
+ #endif
+ 	NULL
+ };
++ATTRIBUTE_GROUPS(cpu_stats);
+ 
+ static struct kobj_type cell_cpu_type = {
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cpu_stats_attrs,
++	.default_groups = cpu_stats_groups,
+ };
+ 
+ static int print_cpumask(char *buf, size_t size, cpumask_t *mask, bool as_list)
+@@ -342,11 +344,12 @@ static struct attribute *cell_attrs[] = {
+ 	&cell_cpus_failed_list_attr.attr,
+ 	NULL,
+ };
++ATTRIBUTE_GROUPS(cell);
+ 
+ static struct kobj_type cell_type = {
+ 	.release = jailhouse_cell_kobj_release,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cell_attrs,
++	.default_groups = cell_groups,
+ };
+ 
+ static struct cell_cpu *find_cell_cpu(struct cell *cell, unsigned int cpu)
+-- 
+2.36.0
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAN2ndJCDwpfM%3DGsmuw6iyGOs8sz_E%3DfysAXLc0yjb_ZUeriVfw%40mail.gmail.com.
-
---0000000000006d46c705dd37ba10
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-
-<p style=3D"color:rgb(34,34,34);background-color:rgb(255,255,255);margin:0c=
-m;text-align:justify;line-height:16.8667px;background-image:initial;backgro=
-und-position:initial;background-size:initial;background-repeat:initial;back=
-ground-origin:initial;background-clip:initial"><span style=3D"line-height:1=
-5.3333px"><font face=3D"arial, sans-serif">Dear Professor,</font></span></p=
-><p style=3D"color:rgb(34,34,34);background-color:rgb(255,255,255);margin:0=
-cm;text-align:justify;line-height:16.8667px;background-image:initial;backgr=
-ound-position:initial;background-size:initial;background-repeat:initial;bac=
-kground-origin:initial;background-clip:initial"><span style=3D"line-height:=
-15.3333px"><font face=3D"arial, sans-serif"><br></font></span></p><p style=
-=3D"background-color:rgb(255,255,255);background-image:initial;background-p=
-osition:initial;background-size:initial;background-repeat:initial;backgroun=
-d-origin:initial;background-clip:initial;color:rgb(14,16,26);margin-top:0pt=
-;margin-bottom:0pt"><span style=3D"background-image:initial;background-posi=
-tion:initial;background-size:initial;background-repeat:initial;background-o=
-rigin:initial;background-clip:initial;margin-top:0pt;margin-bottom:0pt">Gre=
-etings from=C2=A0</span>Malaviya National Institute of Technology Jaipur an=
-d=C2=A0Soft Computing Research Society!</p><p style=3D"background-color:rgb=
-(255,255,255);background-image:initial;background-position:initial;backgrou=
-nd-size:initial;background-repeat:initial;background-origin:initial;backgro=
-und-clip:initial;color:rgb(14,16,26);margin-top:0pt;margin-bottom:0pt"><br>=
-</p><p style=3D"background-color:rgb(255,255,255);background-image:initial;=
-background-position:initial;background-size:initial;background-repeat:initi=
-al;background-origin:initial;background-clip:initial;color:rgb(14,16,26);ma=
-rgin-top:0pt;margin-bottom:0pt"><span style=3D"background-image:initial;bac=
-kground-position:initial;background-size:initial;background-repeat:initial;=
-background-origin:initial;background-clip:initial;margin-top:0pt;margin-bot=
-tom:0pt">We are pleased to share that Malaviya National Institute of Techno=
-logy Jaipur, India, is organizing the 3rd International Conference on Parad=
-igms of Communication, Computing and Data Sciences (PCCDS 2022) in associat=
-ion with the Soft Computing Research Society (SCRS) New Delhi. The conferen=
-ce will be organized in Virtual Format during July 05-07, 2022. The after-c=
-onference proceedings of the PCCDS 2022 will be published in the Springer B=
-ook Series&#39;=C2=A0</span><strong style=3D"background-image:initial;backg=
-round-position:initial;background-size:initial;background-repeat:initial;ba=
-ckground-origin:initial;background-clip:initial;margin-top:0pt;margin-botto=
-m:0pt">Algorithms for Intelligent Systems</strong><span style=3D"background=
--image:initial;background-position:initial;background-size:initial;backgrou=
-nd-repeat:initial;background-origin:initial;background-clip:initial;margin-=
-top:0pt;margin-bottom:0pt">&#39;. All books published in the series &quot;A=
-lgorithms for Intelligent Systems&quot; are submitted for consideration in =
-the Web of Science. For more details, please visit the conference website:=
-=C2=A0<a href=3D"https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccx=
-XL9xQfF9gDFCp0?url=3Dhttps%3A%2F%2Fwww.pccds22.scrs.in%2F&amp;key=3Df45813a=
-42ce34bbe2bec40fde2bed47255101e2a">PCCDS2022</a></span></p><p style=3D"back=
-ground-color:rgb(255,255,255);background-image:initial;background-position:=
-initial;background-size:initial;background-repeat:initial;background-origin=
-:initial;background-clip:initial;color:rgb(14,16,26);margin-top:0pt;margin-=
-bottom:0pt"><br></p><p style=3D"background-color:rgb(255,255,255);backgroun=
-d-image:initial;background-position:initial;background-size:initial;backgro=
-und-repeat:initial;background-origin:initial;background-clip:initial;color:=
-rgb(14,16,26);margin-top:0pt;margin-bottom:0pt"><span style=3D"background-i=
-mage:initial;background-position:initial;background-size:initial;background=
--repeat:initial;background-origin:initial;background-clip:initial;margin-to=
-p:0pt;margin-bottom:0pt">The topics covered (but are not limited to) at the=
- conference are as follows:</span></p><p style=3D"background-color:rgb(255,=
-255,255);background-image:initial;background-position:initial;background-si=
-ze:initial;background-repeat:initial;background-origin:initial;background-c=
-lip:initial;color:rgb(14,16,26);margin-top:0pt;margin-bottom:0pt"><span sty=
-le=3D"background-image:initial;background-position:initial;background-size:=
-initial;background-repeat:initial;background-origin:initial;background-clip=
-:initial;margin-top:0pt;margin-bottom:0pt">1.</span><span style=3D"backgrou=
-nd-image:initial;background-position:initial;background-size:initial;backgr=
-ound-repeat:initial;background-origin:initial;background-clip:initial;margi=
-n-top:0pt;margin-bottom:0pt">=C2=A0Soft Computing &amp; Artificial Intellig=
-ence</span></p><p style=3D"background-color:rgb(255,255,255);background-ima=
-ge:initial;background-position:initial;background-size:initial;background-r=
-epeat:initial;background-origin:initial;background-clip:initial;color:rgb(1=
-4,16,26);margin-top:0pt;margin-bottom:0pt"><span style=3D"background-image:=
-initial;background-position:initial;background-size:initial;background-repe=
-at:initial;background-origin:initial;background-clip:initial;margin-top:0pt=
-;margin-bottom:0pt">2.</span><span style=3D"background-image:initial;backgr=
-ound-position:initial;background-size:initial;background-repeat:initial;bac=
-kground-origin:initial;background-clip:initial;margin-top:0pt;margin-bottom=
-:0pt">=C2=A0Data Science</span></p><p style=3D"background-color:rgb(255,255=
-,255);background-image:initial;background-position:initial;background-size:=
-initial;background-repeat:initial;background-origin:initial;background-clip=
-:initial;color:rgb(14,16,26);margin-top:0pt;margin-bottom:0pt"><span style=
-=3D"background-image:initial;background-position:initial;background-size:in=
-itial;background-repeat:initial;background-origin:initial;background-clip:i=
-nitial;margin-top:0pt;margin-bottom:0pt">3. Signal &amp; Image Processing=
-=C2=A0</span></p><p style=3D"background-color:rgb(255,255,255);background-i=
-mage:initial;background-position:initial;background-size:initial;background=
--repeat:initial;background-origin:initial;background-clip:initial;color:rgb=
-(14,16,26);margin-top:0pt;margin-bottom:0pt"><span style=3D"background-imag=
-e:initial;background-position:initial;background-size:initial;background-re=
-peat:initial;background-origin:initial;background-clip:initial;margin-top:0=
-pt;margin-bottom:0pt">4. Communication</span></p><p style=3D"background-col=
-or:rgb(255,255,255);background-image:initial;background-position:initial;ba=
-ckground-size:initial;background-repeat:initial;background-origin:initial;b=
-ackground-clip:initial;color:rgb(14,16,26);margin-top:0pt;margin-bottom:0pt=
-"><br></p><p style=3D"background-color:rgb(255,255,255);background-image:in=
-itial;background-position:initial;background-size:initial;background-repeat=
-:initial;background-origin:initial;background-clip:initial;color:rgb(14,16,=
-26);margin-top:0pt;margin-bottom:0pt"><span style=3D"background-image:initi=
-al;background-position:initial;background-size:initial;background-repeat:in=
-itial;background-origin:initial;background-clip:initial;margin-top:0pt;marg=
-in-bottom:0pt">Submission Deadline: April 30, 2022</span></p><p style=3D"ba=
-ckground-color:rgb(255,255,255);background-image:initial;background-positio=
-n:initial;background-size:initial;background-repeat:initial;background-orig=
-in:initial;background-clip:initial;color:rgb(14,16,26);margin-top:0pt;margi=
-n-bottom:0pt"><span style=3D"background-image:initial;background-position:i=
-nitial;background-size:initial;background-repeat:initial;background-origin:=
-initial;background-clip:initial;margin-top:0pt;margin-bottom:0pt">Submissio=
-n Link:=C2=A0</span><a href=3D"https://conf5rtuacin-dot-mmanalytics.appspot=
-.com/em_PK8ccxXL9xQfF9gDFCp0?url=3Dhttps%3A%2F%2Feasychair.org%2Fconference=
-s%2F%3Fconf%3Dpccds2022&amp;key=3Da42ce76be91228fc8daf5529eec981b4814714e1"=
- target=3D"_blank" style=3D"font-family:&quot;Open Sans&quot;;font-size:13p=
-x;font-weight:700;text-align:justify;box-sizing:border-box;padding:0px;marg=
-in:0px;background-color:transparent;color:rgb(51,122,183);text-decoration-l=
-ine:none;outline:none">https://easychair.org/conferences/?conf=3Dpccds2022<=
-/a></p><p style=3D"background-color:rgb(255,255,255);background-image:initi=
-al;background-position:initial;background-size:initial;background-repeat:in=
-itial;background-origin:initial;background-clip:initial;color:rgb(14,16,26)=
-;margin-top:0pt;margin-bottom:0pt"><span style=3D"background-image:initial;=
-background-position:initial;background-size:initial;background-repeat:initi=
-al;background-origin:initial;background-clip:initial;margin-top:0pt;margin-=
-bottom:0pt">------------------------------<wbr>----------------------------=
---<wbr>------------------------------<wbr>--------</span></p><p style=3D"ba=
-ckground-color:rgb(255,255,255);background-image:initial;background-positio=
-n:initial;background-size:initial;background-repeat:initial;background-orig=
-in:initial;background-clip:initial;color:rgb(14,16,26);margin-top:0pt;margi=
-n-bottom:0pt"><span style=3D"background-image:initial;background-position:i=
-nitial;background-size:initial;background-repeat:initial;background-origin:=
-initial;background-clip:initial;margin-top:0pt;margin-bottom:0pt">CONTACT U=
-S:=C2=A0<a href=3D"mailto:pccds.scrs@gmail.com">pccds.scrs@gmail.com</a></s=
-pan></p><p style=3D"background-color:rgb(255,255,255);background-image:init=
-ial;background-position:initial;background-size:initial;background-repeat:i=
-nitial;background-origin:initial;background-clip:initial;color:rgb(14,16,26=
-);margin-top:0pt;margin-bottom:0pt"><span style=3D"background-image:initial=
-;background-position:initial;background-size:initial;background-repeat:init=
-ial;background-origin:initial;background-clip:initial;margin-top:0pt;margin=
--bottom:0pt"><br></span></p><div style=3D"color:rgb(34,34,34);background-co=
-lor:rgb(255,255,255)"><div dir=3D"ltr"><div dir=3D"ltr"><div>Thanks &amp; R=
-egards</div><div>Team=C2=A0PCCDS 2022</div></div></div></div><p style=3D"co=
-lor:rgb(34,34,34);background-color:rgb(255,255,255);margin:0cm;text-align:j=
-ustify;line-height:16.8667px"><font face=3D"arial, sans-serif"><span style=
-=3D"line-height:15.3333px;background-image:initial;background-position:init=
-ial;background-size:initial;background-repeat:initial;background-origin:ini=
-tial;background-clip:initial"><span style=3D"white-space:pre-wrap">To leave=
- this group and stop getting email from it</span><span style=3D"white-space=
-:pre-wrap">, </span></span><span style=3D"white-space:pre-wrap"><a href=3D"=
-https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccxXL9xQfF9gDFCp0/un=
-subscribe?hash=3DNDlhZGQ2MmY1NGRmMTEwZmM3OWE1MDMxZDBkMTllZmVhMzc2ZTYwYjpqYW=
-lsaG91c2UtZGV2QGdvb2dsZWdyb3Vwcy5jb20=3D&amp;">Click here</a></span></font>=
-</p><img src=3D"https://conf5rtuacin-dot-mmanalytics.appspot.com/em_PK8ccxX=
-L9xQfF9gDFCp0/asteroid.gif" style=3D"display:none !important;">
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAN2ndJCDwpfM%3DGsmuw6iyGOs8sz_E%3DfysAXLc0yjb_ZUe=
-riVfw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CAN2ndJCDwpfM%3DGsmuw6iyGOs8sz_E%3DfysA=
-XLc0yjb_ZUeriVfw%40mail.gmail.com</a>.<br />
-
---0000000000006d46c705dd37ba10--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220426172222.1910982-1-ralf.ramsauer%40oth-regensburg.de.
