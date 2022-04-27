@@ -1,209 +1,132 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBC7BUWJQMGQEQEJDKIQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBDUSU2JQMGQEO5LUU6Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96F7D511C61
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Apr 2022 18:34:20 +0200 (CEST)
-Received: by mail-ed1-x540.google.com with SMTP id k13-20020a50ce4d000000b00425e4447e64sf1268371edj.22
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Apr 2022 09:34:20 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1651077260; cv=pass;
+Received: from mail-ej1-x640.google.com (mail-ej1-x640.google.com [IPv6:2a00:1450:4864:20::640])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA6C6511CC7
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Apr 2022 20:18:55 +0200 (CEST)
+Received: by mail-ej1-x640.google.com with SMTP id dt18-20020a170907729200b006f377ebe5cbsf1582985ejc.22
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 27 Apr 2022 11:18:55 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1651083535; cv=pass;
         d=google.com; s=arc-20160816;
-        b=tVkM0kzWRjLeGhC4QOTcCAhmlo0bUFTNYoWM/k5CLfkCo4uwjlLCVh18RSzsuyAEc8
-         WJdcBUGIthp7FX5B/G3nvI0qkz4DActHBlFi2UlMc69eQPPpMjtcRomnsMbOSeo6zMlb
-         gDY7oGRcSRt0mqonyT8CYmQVK6em+E/KnaPrAxStF4Y6rEK90hNtxzi5Mf28a+/OaeMu
-         /errS35jvsYzlQbbPS/qRittDkAqlHiRYIgoVXuADgpNMtWMBi78djdzIxZdDVZuClQt
-         bA3DhU4LaMC/0SX9UmpE/cw0ghrvHPjvKYGyh3vOyI7093xGK9ZLAWv4QooDKKD1WjhK
-         JDfQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=a1VCjYh3keNA+UTUgQJuw39JPwFPIh2sS75rjz1pfZ6KliGZQDsHaXGwsLGb7TMmP6
+         Pe1vM1TWq3apkoI479JkabKAkTopIE0dFi4WLoOV+rvDzW1vZnfmxJgteTPB2JNH5S0v
+         WA6otbKElLo4ARnt+sKtXemkm+Ze4npBpeAoShmJRHHwCHBgJhJmetKot/trgVKw7lYL
+         BxrlScaP0aO/VGgL4Up1ZLSGrjgMyRDYflaj0B1PdAEkctgDmGwm1UiFH2ZBJ/RouOYB
+         vf0iFP7idJ58yn2f1S2aTawN1CVrY08HvS7HSgbRW//gmklttTo3l+Jpg19u25/bRFD1
+         UYSA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:sender:dkim-signature;
-        bh=hec/TZ/CGOOrK4y5JMoNVJt10o1W3kpY7TdxsKjBCPM=;
-        b=CmH+HttuWpOTot91dW7fFMOqY7Twkfw7HEyPaHTVY0IM5nWCtp8AQ2fcnk0ehh3hV8
-         UIN7imgihEE8hnPWgnKPrhZPnPiF6LJcohShEHyg/tkKL4i4zRByBF/Naxau1rnxd+C0
-         KpmoK4NzIOZBJF51BIl/WlyM2Rye7aTWwZsrRxhkCODnj8oQeqU7GQX/yl5ALH28xJSe
-         CbyVFwunuYE1B14retAqPZQp1flV0BrC+dLYVPMNpuCI1ZiZojC6I/GxU+kOm5GWYlxX
-         fP2JyWzJtjKB+jRZ6OGeGilsYHQIpQRxfKF1EmC66uDwLnln8tLBJM/+h1JxKLkxQQEY
-         6/gg==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b="RpP/AUi3";
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe05::618 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:dkim-signature;
+        bh=ajQJEI5/Dz+td5dR2s41G57KC42DGQSYX/Uwbb95hlU=;
+        b=RbfOHm4TGrdmg2Nr3m7B+MK9a7l3wDyxZLZ/xWOXWMZFZlX46etpEYsSGkVOUL3IiV
+         Y0Z58RflqhnDBi9jOKPip7YM6vAK1XA/2Alug9hSlMzAoE9peVXQuVwhi79k6qwCYHLS
+         DaF/+AEEr79uuQtV1daMliSb++4T6xtPvNo4p3XALlQBsKwCulDmQfBzW/cQ4cYt6EAj
+         mq9YuAQ10i5kdLEb8JzrTKB63osMWXpsojGPyqYX1/yV2LEuOqtPCHOBaM+uYdzR00bJ
+         7KlT4qUOgUUPBsQVHykAOv9eSGxQ85oPddrgQ+j/6lSmfIIsDGqu5YWPBoNHzQJSc18V
+         rADQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Vhflt0H8;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=hec/TZ/CGOOrK4y5JMoNVJt10o1W3kpY7TdxsKjBCPM=;
-        b=tsazNE2vRQtDzQDSuRZsaFf5BUTgYqX9XmM1QacK3Ynfi7vDstRPXoAiD3EEVgFwXo
-         XS4K59JJLhcryNTIU5k/NLajHx0yY+lVWV+2uMQYnyEthjEXmyMYAMfeIjyk4rB8wfPK
-         iscvqBIMAzdrNkSkGiQ/qgPF7iAvITwMqtDGaF6DLN8hUQv8cjOTXxleBiW03rLoHs7o
-         m9jLCZqaNk4AmUVbEc4tGzP5BgMIkombK8Nli8o85aNadQXiUMZvrLUAY/W2TL/tzPz0
-         j4CqG9aNSL9k/tM2eMMcSgr16xacVeugBrkLv14f8n8iRfkfJGdfiJ5QVuvw3nTR/9bc
-         SWRg==
+        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ajQJEI5/Dz+td5dR2s41G57KC42DGQSYX/Uwbb95hlU=;
+        b=c5Ar0nmL2EFQsEkaJnNrOQPW1lqHWsZ675XsRDzv2N38mW+gsUhiSa1H3EdUwqOOJP
+         LxuvnhraYu0GOwzoRs9wMW+1z/0iaRUqDQkny1lAtA9uVaCxz3/chwlKwgFTu1PgH/Wr
+         bJaHlF5pcquKbqX6gO4NtPtZq61Nj7BZur13UZVMyQD7mp5J2znuNB4XkymO04JBLLij
+         xFtFwxMfrrZ+GxstuXp4h5/fLNGzjji/NOQOKovqYmXueyHuADWKIaFIpn0W6YtZmel3
+         7Vk0pJqu7Qasc0JuCm7Iwbvvi0NvvvhUuoSvDxNwpQv6daU227hJJQ/QmBetF6a38GKH
+         AN/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
+        h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :in-reply-to:references:mime-version:x-original-sender
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=hec/TZ/CGOOrK4y5JMoNVJt10o1W3kpY7TdxsKjBCPM=;
-        b=1Pz/j3EM7d502MZuJ/2aiXNMrZcabogCqwWm0/tkGx16haMM9n8jBxvnXcaI8QQkZ3
-         NEgUIWbWP9pVW7m/4NTSSKN+nzSMsRdRULZf8mHgp3OlGAPVach4tokdNQbeEf6ZSQcb
-         2DgUuGMDkLOJYZyXeSOuyKbeHuHz0bXhzcSmcRQqRIxfA7ATzI9kAvp70ab1xYFUcw4p
-         FMESn/kCzK+ZQoGHFLCWoYJu9L1YSvoqz8G2ptiBRzqKhYM60sgmCZzYb0jG66fTvJbD
-         PKnE6OGJHv6XMGbtxdg97qYPcIpDkvubLIr1SX570K1FE72bj6lpTtOpVD02gkeyFQ6+
-         nP8g==
+        bh=ajQJEI5/Dz+td5dR2s41G57KC42DGQSYX/Uwbb95hlU=;
+        b=E6QrWUsuqMOGn445+KQ7tTrhdgULF2N6ZtGsFoknIR1916pcL/yiOd7c35KVI934tH
+         yA4ZeCRDaDJ55LQBqx8nTTCo8QuDVFsfTgGUP2SoGzPpy9FIPTH/pn2eLtlCvP4bxpgu
+         Oi1iRFY+8G4iuqV1vs6Kf3gSCdx+Z6SBubJZsSuLbcAf0Bd6TW7LOM7PINUzVC+BEQB9
+         9AuLorRX1tKFYl6hfv4R3rg+LtQz2be8VkDc8oE6XQh2rPWajIW4B9u/DXB800hwQma9
+         CRvYzQlBbyhDJ/+hpKb3yQQGO3enwNq2Hw66IvrPamsCVSpRHXRGaHflcq17SE51jMdP
+         nBRA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM533HDczmt+7ywQqKZqh2RG0VhWNjH6yyVntYlvOUsKjQTTynns2f
-	cjjzHv/reQK/tEF9cMbxKiU=
-X-Google-Smtp-Source: ABdhPJzWVcUZkNtB2uL/X6QTIH1h5/eTGVmGTbMUfgrcGKuIiGlwiaqo7xqtTDtZdMtxjMF0qXxPHA==
-X-Received: by 2002:a17:906:9b87:b0:6f3:a51e:80c9 with SMTP id dd7-20020a1709069b8700b006f3a51e80c9mr12296228ejc.362.1651077260372;
-        Wed, 27 Apr 2022 09:34:20 -0700 (PDT)
+X-Gm-Message-State: AOAM530u0FybVrrTgHxX1Ui86ONN/qmM2GCE/Jr4SsRfc0iqiwcuUb1X
+	Ds61iuWGzUXNkAOig9Gxn/Y=
+X-Google-Smtp-Source: ABdhPJwbRrYdVFu/hyH1nT1D04U8InUqf36Qa/+c2wyf3HMkdsizukkbbg+NgiK9Gf0QzvywAXVZ7Q==
+X-Received: by 2002:a17:907:3f9c:b0:6f0:28d1:3ad6 with SMTP id hr28-20020a1709073f9c00b006f028d13ad6mr27927552ejc.365.1651083535519;
+        Wed, 27 Apr 2022 11:18:55 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:2741:b0:41f:7eee:e393 with SMTP id
- z1-20020a056402274100b0041f7eeee393ls4624618edd.3.gmail; Wed, 27 Apr 2022
- 09:34:18 -0700 (PDT)
-X-Received: by 2002:a05:6402:254e:b0:424:244:faf with SMTP id l14-20020a056402254e00b0042402440fafmr31301105edb.260.1651077258811;
-        Wed, 27 Apr 2022 09:34:18 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1651077258; cv=pass;
+Received: by 2002:a17:907:628e:b0:6e8:76c2:5876 with SMTP id
+ nd14-20020a170907628e00b006e876c25876ls7339861ejc.7.gmail; Wed, 27 Apr 2022
+ 11:18:53 -0700 (PDT)
+X-Received: by 2002:a17:907:3d01:b0:6e0:c63b:1992 with SMTP id gm1-20020a1709073d0100b006e0c63b1992mr28413489ejc.422.1651083533795;
+        Wed, 27 Apr 2022 11:18:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1651083533; cv=none;
         d=google.com; s=arc-20160816;
-        b=PlnGszhSqBN8WUwQ09AlHHY4f6J+r7NfraMRu2rbKVuHBbR5GwekWt1a/i9fYIbIEM
-         Qae8S+PAtCjGEojTvJ9sg7cV1UvwOVlvbFTGK2N/XKwNHAlpIYkUcAySkVms91WWY5lq
-         0nQnydiLdZo0qQ+uj31R2KMA5YGPXQHoYV5Z02ZyZtahBdbk9f6QMcNcITh/X04VLJmt
-         toeF8vzP675F2QEzJ7x0MFoxi0nrhRBcbgpfprIVEqzQj+dYKxrPft2jiKNWTijTxDga
-         9ofEgtPRKGzRQIX5RFkTDprCNCjtSxCPUJv6IFrK9XgXEkOCOvPkTbarNC8rkJYv+spY
-         AF/A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=lVgkMsNrWQ3GM24d9HgvV3e2NgYh050ymRuxlx3a5Ec=;
-        b=HLs2oPnin3W1kxziJ5eezreZmEZOC3FljbJwZic0G3Mw/dCXLaZ5xcWlsv/ilskTi/
-         fqeOGkKJRqxNa07/K47s4WJqrjx8oQfJS2sLnZ8Q0Re9LNoEMvS+FMSJkjtZ88diIjST
-         ehic2qRUUDoMbNUBD5A1JPyD1xvay5BChnJbmMEMGaRf9iPgvdFXoxO4OJfea7Ekigmz
-         5VZ/J4ez6NK3XUL7jsJLWWqyGbiAkVkjuDT5C2Guon7or6sWEdO7OhAkihNUsD2wx2lL
-         iL+RIL6Am9PamI9XWJ6mxSR2KQv1xZkcbV4GwuSISnY1eKv72wXTPNuIkIgbxgyd1sBU
-         JeZw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b="RpP/AUi3";
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe05::618 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com (mail-he1eur02on0618.outbound.protection.outlook.com. [2a01:111:f400:fe05::618])
-        by gmr-mx.google.com with ESMTPS id ca7-20020aa7cd67000000b00425b0722545si103550edb.3.2022.04.27.09.34.18
+        b=jn+Sy6uTrNs0OnE6XpRHLHQk2pGhP88hiZdEZ+GIMOdjvrmMXpNxcq3wtVJehVWaYD
+         Ze1hHcv8vnTgH2ZHStwIW8KE0nSIKC4jfj1/tNK4+nEjN0LtYkeFVsZ2yWXhsfJw4zmC
+         SJ1mBLy8rFXVZw0NbM4mO3yj1+e4m76kjw4THUTPqxRwX9I3SiZcp3c2tAqEcv0PQf0E
+         1HTN9twH7xDebux7HzA5S+GjgPvTppULdqnT+dsATQLHl5F5lbESXaLam3rZ4UqBwY9a
+         +uRjDRWBfTRll56sJ2gwo0ucJu/RIsZA2MiiqXPU45woxP6F0EKKFTPd+ZrMse2X8597
+         DEYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature;
+        bh=5bjqrAQb8ZX5uasL962OPL2Nq+xEsmdLH0azCHAjtdg=;
+        b=Z2re5jiznS2WnfHoi2IhqH+tTRqZ5CcJ2JNtqEZ6p4+4j7dhApVISY6vk1euo8qSAF
+         rS0sTtcyApU4blY2cWDkk1pIq/wimUCDeZOXKInJJoizy2vjFMBEeHpiAGsfZB+9MEpy
+         ByejdIBtgiacETknSA8CzxV0fhrv2v1h/8bgqTIiyk/cT39UWhcsupfChmpQ7dpnXmDu
+         qmWmwKELtNeUFMzOdpJAKg1aPBH/11TCu3JLWoNQlwFyfUguvkGXr8YNsQ4jV+lWuiXy
+         aX78RqEK0dF/8Awhxh0keW+eljei9niChpImedAjG87merWm6vSUdFpHOA5QxHnWh/zN
+         fV1A==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Vhflt0H8;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id i13-20020a170906264d00b006f3bbd65a19si143541ejc.2.2022.04.27.11.18.53
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 27 Apr 2022 09:34:18 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe05::618 as permitted sender) client-ip=2a01:111:f400:fe05::618;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bsdaY3lr0r17H0rC6KyzbBwBG+FjpppEqKRGMnAkvqsccagUrEtoYi8O9cZFVOUcDUb2VCqSB/GzY0TYLPUvzo3hhUD2VtXhEc2CpqLx8L5grKHVpWsBj0IyQgdXYE1qyttganKKZ5E2kx+iYnQi0fl1gTcqztUjJXRumD/O/39aP1pjGowHQMEBenKCKpt9S9u127Ae+FR5Pvd0dgv8YiTLylF/1FppzurVO4TTzql/iIANvPbnTIU3k5WHmiTQwsSzc/0eWXT2nJ7LY8qPzSlaPpT9UT9MPiMFmDPPcjLCGibXtle/KlBXG4guSHqzB28jlZ3Ro2sFplvpPbkXjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lVgkMsNrWQ3GM24d9HgvV3e2NgYh050ymRuxlx3a5Ec=;
- b=NFL7WNr1ykCHa7sFEZxhxe+oCDJ4BsRXhbJis85LDpX5cg6l5ALnZa/yXvc9Aezt6EaTW8QlUV5cNb7ozBQgPH+l1ftb78jmXGHGatGcxD3JC2Szz9V/3fiD8zePGSMnyBSARVoGLsn9zTqZaV3BBshxCTz+802wl7HmkO4utare6CutZDbrdXn8dDxJpdRXbjp/5XQZFySoLH7GPqJgTc8FJLHaRUVj60EOjvJUS4q3kVY7vj61qOopH7ABHIbdCfBgoAILK1dKSxVkmdsTy8rJR/eWvjRLoAmBEitIN4Q3cvN/eiBWOvy9c88+BWmQtxyF6b0vgIO+sOwCTp4GZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.70) smtp.rcpttodomain=oth-regensburg.de smtp.mailfrom=siemens.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
- dkim=none (message not signed); arc=none
-Received: from AS9PR06CA0345.eurprd06.prod.outlook.com (2603:10a6:20b:466::7)
- by AM4PR1001MB1331.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:200:8d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Wed, 27 Apr
- 2022 16:34:17 +0000
-Received: from VE1EUR01FT012.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:20b:466:cafe::52) by AS9PR06CA0345.outlook.office365.com
- (2603:10a6:20b:466::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.12 via Frontend
- Transport; Wed, 27 Apr 2022 16:34:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.70)
- smtp.mailfrom=siemens.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=siemens.com;
-Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
- 194.138.21.70 as permitted sender) receiver=protection.outlook.com;
- client-ip=194.138.21.70; helo=hybrid.siemens.com;
-Received: from hybrid.siemens.com (194.138.21.70) by
- VE1EUR01FT012.mail.protection.outlook.com (10.152.2.210) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5206.12 via Frontend Transport; Wed, 27 Apr 2022 16:34:17 +0000
-Received: from DEMCHDC89XA.ad011.siemens.net (139.25.226.103) by
- DEMCHDC9SJA.ad011.siemens.net (194.138.21.70) with Microsoft SMTP Server
+        Wed, 27 Apr 2022 11:18:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4KpRpP27KBzxrs;
+	Wed, 27 Apr 2022 20:18:53 +0200 (CEST)
+Received: from atlantis.binary.kitchen (194.95.106.138) by
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 27 Apr 2022 18:34:16 +0200
-Received: from [167.87.0.81] (167.87.0.81) by DEMCHDC89XA.ad011.siemens.net
- (139.25.226.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 27 Apr
- 2022 18:34:16 +0200
-Message-ID: <179b997b-4830-fb3b-792d-79c25fb39788@siemens.com>
-Date: Wed, 27 Apr 2022 18:34:15 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [EXT] Re: [PATCH] driver: sysfs: Replace default_attrs with
- default_groups
-Content-Language: en-US
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Jailhouse
+ 15.1.2375.24; Wed, 27 Apr 2022 20:18:52 +0200
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+To: Jan Kiszka <jan.kiszka@siemens.com>, Jailhouse
 	<jailhouse-dev@googlegroups.com>
-CC: Stefan Huber <stefan.huber@oth-regensburg.de>
-References: <20220426172222.1910982-1-ralf.ramsauer@oth-regensburg.de>
- <c2c4c771-6772-9511-4b47-49e2473d5531@siemens.com>
- <2e24bb64-4111-a75c-1ed2-c79a717b5500@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <2e24bb64-4111-a75c-1ed2-c79a717b5500@oth-regensburg.de>
+CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Stefan Huber
+	<stefan.huber@oth-regensburg.de>
+Subject: [PATCH v2] driver: sysfs: Add compatibility for default_groups
+Date: Wed, 27 Apr 2022 20:18:42 +0200
+Message-ID: <20220427181842.2116064-1-ralf.ramsauer@oth-regensburg.de>
+X-Mailer: git-send-email 2.36.0
+In-Reply-To: <179b997b-4830-fb3b-792d-79c25fb39788@siemens.com>
+References: <179b997b-4830-fb3b-792d-79c25fb39788@siemens.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [167.87.0.81]
-X-ClientProxiedBy: DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) To
- DEMCHDC89XA.ad011.siemens.net (139.25.226.103)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-AS-Result: No-10--17.875600-8.000000
-X-TMASE-MatchedRID: AQ9SOYvqpDY5QaOxwNGfvo9bHfxDWoibR9fQDKDdQ3cSEYfcJF0pReqh
-	uTPUDQDt0MT4bYTRBTdIPDhB+IjkDc4ymjNl6z5PuNcow2BaEoiCrALIB9jKZtzeRUM2WkV7AQ8
-	mtiWx//oda1Vk3RqxOEAc6DyoS2rIj6kCfX0Edc48yTEHRf/stGi8YU2giSiP/1dEgwtQ6NCOVG
-	ny5q72hg6QlBHhBZuw7nlnMJDXl1nCfvo3UgFFJOSOkVbqE3osn/ux8vMQXzW3RxL+7EfzsCIk3
-	dpe5X+he+xt+hmLFRPx/hK2QE5rfr6qhTbZa5dPgHaw5VXiALvDmsS2PwIow15hVZTm4dD8DKvL
-	dahoIESbKItl61J/ybLn+0Vm71Lcq7rFUcuGp/EgBwKKRHe+r7VZecsfsKv7oWJBOGCxkY5yojz
-	CQd1Xvw15YxmyPvnnFee3kAoM9Pk=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--17.875600-8.000000
-X-TMASE-Version: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-SNTS-SMTP: F418DCE3591A4FCD696713D5FCDA82185D8FEE1943441A8BA5B65B57983F6AB82000:8
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fb8260a7-2d96-48f1-f2c5-08da286bc5c7
-X-MS-TrafficTypeDiagnostic: AM4PR1001MB1331:EE_
-X-LD-Processed: 38ae3bcd-9579-4fd4-adda-b42e1495d55a,ExtAddr
-X-Microsoft-Antispam-PRVS: <AM4PR1001MB1331BFA914F8C9F0AD26C6ED95FA9@AM4PR1001MB1331.EURPRD10.PROD.OUTLOOK.COM>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M748JsdJ7/u41UrAa0dq7GKFiMQ5g1n7OdDCEr+wiZBpAMNq+MLlrY+SKMl/zX3VyNFo7uZIt2rRBkhTr77XRRWzziy15A0dV9KeIysOryQD2/2qxpL4T64w4cV8FKjff2+e8F2jfZ8wD5PLGG61Q2rvSiDTq960xRinsSxQtR1dzYUxuIUdaLM6s30SQi8ac9aAe4l1M4Hd1Xa3oZir5qZQtSJXJfef4tBcwFHnKI29VVYltg+q7uvhU5k8WsIH6qWWC8KGVkF0PNEKgKqKwMCzFMW7EB/kPuMVEx1RDmmSFTZuUWANV0kfVfXUaFEKJeSi9yJaWtbtPO7kwgLw+5wwRddzSLuR2LO+BYY47KlvG+555mzMFo3gEo3qSKRh+xruIGT7h2RlbBQoZvaI/RmeRYHyEsZ0oQW17+OPzQIPoUl3GX6A+j5FHh3yyUmg2RuR9H67WqZyf93J3gn750SpwseYDBlJYsG8z3c8igLUuARpgjpbVf4wa94fh+wd8fZGJMwD6qU6l97dHBF2F3zdu63CaZQHj0gJd3dGwT4tNzmqvrVqThpSIoahpDnxlw3Riv1w0cX43MhTDko67sgP6U3mrePht8nXaRMoVWT1KxwpsaNXDtQT5M/yrJdN1+AGYDw1v5GLsxuN9sWwmqk/mfvE/pdS4xVOdkOmHH82gAXwMcDT9KawqAqXgBjYUI/Vb/xAVydRd4XAA6r92FDDMb89iF85xt66qvnakg9l0qaWFVuL7ua+MjUD4E3H
-X-Forefront-Antispam-Report: CIP:194.138.21.70;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:hybrid.siemens.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(82310400005)(36756003)(5660300002)(53546011)(70586007)(316002)(70206006)(7596003)(2906002)(6706004)(16576012)(110136005)(82960400001)(508600001)(8676002)(83380400001)(31686004)(86362001)(7636003)(356005)(26005)(36860700001)(44832011)(8936002)(40460700003)(4326008)(186003)(16526019)(336012)(956004)(47076005)(2616005)(31696002)(3940600001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 16:34:17.0704
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb8260a7-2d96-48f1-f2c5-08da286bc5c7
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.70];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: VE1EUR01FT012.eop-EUR01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR1001MB1331
-X-Original-Sender: jan.kiszka@siemens.com
+X-Originating-IP: [194.95.106.138]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b="RpP/AUi3";       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates
- 2a01:111:f400:fe05::618 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Vhflt0H8;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -216,93 +139,84 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 27.04.22 18:13, Ralf Ramsauer wrote:
->=20
->=20
-> On 27/04/2022 08:26, Jan Kiszka wrote:
->> On 26.04.22 19:22, Ralf Ramsauer wrote:
->>> Since Linux commit cdb4f26a63c3 ("kobject: kobj_type: remove
->>> default_attrs"), the deprecated kobj member default_attrs is gone. It i=
-s
->>> replaced by default_groups.
->>>
->>> default_groups is available since 2013, so simply switch to
->>> default_groups, without (hopefully) breaking any older kernel.
->>>
->>> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->>> ---
->>> =C2=A0 driver/sysfs.c | 9 ++++++---
->>> =C2=A0 1 file changed, 6 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/driver/sysfs.c b/driver/sysfs.c
->>> index a604afa4..f91d5ac5 100644
->>> --- a/driver/sysfs.c
->>> +++ b/driver/sysfs.c
->>> @@ -180,10 +180,11 @@ static struct attribute *cell_stats_attrs[] =3D {
->>> =C2=A0 #endif
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL
->>> =C2=A0 };
->>> +ATTRIBUTE_GROUPS(cell_stats);
->>> =C2=A0 =C2=A0 static struct kobj_type cell_stats_type =3D {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .sysfs_ops =3D &kobj_sysfs_ops,
->>> -=C2=A0=C2=A0=C2=A0 .default_attrs =3D cell_stats_attrs,
->>> +=C2=A0=C2=A0=C2=A0 .default_groups =3D cell_stats_groups,
->>> =C2=A0 };
->>> =C2=A0 =C2=A0 static struct attribute *cpu_stats_attrs[] =3D {
->>> @@ -212,10 +213,11 @@ static struct attribute *cpu_stats_attrs[] =3D {
->>> =C2=A0 #endif
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL
->>> =C2=A0 };
->>> +ATTRIBUTE_GROUPS(cpu_stats);
->>> =C2=A0 =C2=A0 static struct kobj_type cell_cpu_type =3D {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .sysfs_ops =3D &kobj_sysfs_ops,
->>> -=C2=A0=C2=A0=C2=A0 .default_attrs =3D cpu_stats_attrs,
->>> +=C2=A0=C2=A0=C2=A0 .default_groups =3D cpu_stats_groups,
->>> =C2=A0 };
->>> =C2=A0 =C2=A0 static int print_cpumask(char *buf, size_t size, cpumask_=
-t *mask,
->>> bool as_list)
->>> @@ -342,11 +344,12 @@ static struct attribute *cell_attrs[] =3D {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &cell_cpus_failed_list_attr.attr,
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NULL,
->>> =C2=A0 };
->>> +ATTRIBUTE_GROUPS(cell);
->>> =C2=A0 =C2=A0 static struct kobj_type cell_type =3D {
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .release =3D jailhouse_cell_kobj_release=
-,
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .sysfs_ops =3D &kobj_sysfs_ops,
->>> -=C2=A0=C2=A0=C2=A0 .default_attrs =3D cell_attrs,
->>> +=C2=A0=C2=A0=C2=A0 .default_groups =3D cell_groups,
->>> =C2=A0 };
->>> =C2=A0 =C2=A0 static struct cell_cpu *find_cell_cpu(struct cell *cell, =
-unsigned
->>> int cpu)
->>
->> Which kernel versions are compatible with the new API?
->=20
-> With the latest v5.18 release, it becomes mandatory.
->=20
-> I just successfully compile-tested v5.17, v5.16, v5.14, v5.10, v5.4 and
-> v5.2 (the latest one that works). Latest LTS 4.19.y and downwards won't
-> compile.
->=20
-> The question is, if we want to demand at least v5.2, or introduce yet
-> another workaround.
+Since Linux commit cdb4f26a63c3 ("kobject: kobj_type: remove
+default_attrs"), the deprecated kobj member default_attrs is gone. It is
+replaced by default_groups.
 
-I think wrapping could be fairly simple in this case, and 4.19 may still
-be used, and we actually wrap much further down, let's account for this
-difference once again.
+Add a compatibility layer to support older, as well as latest kernel
+versions.
 
-Jan
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
 
---=20
-Siemens AG, Technology
-Competence Center Embedded Linux
+Note: only compile-time tested!
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/179b997b-4830-fb3b-792d-79c25fb39788%40siemens.com.
+ driver/sysfs.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/driver/sysfs.c b/driver/sysfs.c
+index a604afa4..a5a02831 100644
+--- a/driver/sysfs.c
++++ b/driver/sysfs.c
+@@ -59,6 +59,14 @@ static const struct sysfs_ops cell_sysfs_ops = {
+ };
+ #define kobj_sysfs_ops cell_sysfs_ops
+ #endif /* < 3.14 */
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5,2,0)
++#define COMPAT_ATTRIBUTE_GROUPS(x)	/* not used */
++#define DEFAULT_GROUPS(x)		.default_attrs = x##_attrs
++#else
++#define COMPAT_ATTRIBUTE_GROUPS(x)	ATTRIBUTE_GROUPS(x)
++#define DEFAULT_GROUPS(x)		.default_groups = x##_groups
++#endif /* < 5.2 */
+ /* End of compatibility section - remove as version become obsolete */
+ 
+ static struct kobject *cells_dir;
+@@ -180,10 +188,11 @@ static struct attribute *cell_stats_attrs[] = {
+ #endif
+ 	NULL
+ };
++COMPAT_ATTRIBUTE_GROUPS(cell_stats);
+ 
+ static struct kobj_type cell_stats_type = {
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cell_stats_attrs,
++	DEFAULT_GROUPS(cell_stats),
+ };
+ 
+ static struct attribute *cpu_stats_attrs[] = {
+@@ -212,10 +221,11 @@ static struct attribute *cpu_stats_attrs[] = {
+ #endif
+ 	NULL
+ };
++COMPAT_ATTRIBUTE_GROUPS(cpu_stats);
+ 
+ static struct kobj_type cell_cpu_type = {
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cpu_stats_attrs,
++	DEFAULT_GROUPS(cpu_stats),
+ };
+ 
+ static int print_cpumask(char *buf, size_t size, cpumask_t *mask, bool as_list)
+@@ -342,11 +352,12 @@ static struct attribute *cell_attrs[] = {
+ 	&cell_cpus_failed_list_attr.attr,
+ 	NULL,
+ };
++COMPAT_ATTRIBUTE_GROUPS(cell);
+ 
+ static struct kobj_type cell_type = {
+ 	.release = jailhouse_cell_kobj_release,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+-	.default_attrs = cell_attrs,
++	DEFAULT_GROUPS(cell),
+ };
+ 
+ static struct cell_cpu *find_cell_cpu(struct cell *cell, unsigned int cpu)
+-- 
+2.36.0
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220427181842.2116064-1-ralf.ramsauer%40oth-regensburg.de.
