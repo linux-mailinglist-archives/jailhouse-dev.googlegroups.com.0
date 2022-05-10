@@ -1,139 +1,69 @@
-Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBGPGZWJQMGQEJEMD5QA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBUFT5GJQMGQETMGZGUA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pl1-x640.google.com (mail-pl1-x640.google.com [IPv6:2607:f8b0:4864:20::640])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41CA51B832
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 May 2022 08:47:55 +0200 (CEST)
-Received: by mail-pl1-x640.google.com with SMTP id u8-20020a170903124800b0015195a5826csf1854844plh.4
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 04 May 2022 23:47:55 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1651733274; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=VX6+g4TNaOxTEoJ+NWTH3txH8gFINoInCLfuwStjwcKKCTCidTCBsx8qqp1Cag0ZHU
-         r7cQxNIAMq4YQ+OQnznr1Ol98BNsoqM4RJfakK63/lIQYD4I7XEFbHV6rCsHtZ367ZoZ
-         fMkery3wUoAGhvsCwWyVXCddY8/f9QTMU0rUS3pqt90tu4dk9+SraF6yww2oLG4+SNo5
-         L+u8eyeuZG95sOU9aVACHrU8bsnx1+TzOo0e7r8wbrQeNtAGZRfmgqCq31JI2dlg+Y3S
-         F+43IPWwRVtAERNYhMTnyZu///KS1VGUWh3eN7Lj9Laj2mLX17C7pub758080sIsrNMe
-         v7tg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=JeIs95WFH3+gnGFm2V14XWq8SI90ltFWbnmuHCXSn7w=;
-        b=IZSaRmJY1K2jURhjgdo4nUiRjmVtEhqkKacmr4RofqjW8y25asEceHMkDX5scWwA4g
-         LyRLwgmHKyta1b+izYZ0o66SoGzccl3UpaS8zHH89lA9PfJtiE419Sqs7TEZxTQNZbsu
-         AEXfXplCPAvc6Ulrb++T5kRqB8BaC8BspT6zYGeSAFVP4Ej7osHsi+Q3h0+8/jzp04eO
-         Mt6wgdL2C79MMM9R8xqLaTDZn1Aq9myC2Ro/bWF+H4T7Y9kjjrCLPpzj79KtePYldgqk
-         hME+9CHzVVcln0V/kKzHCF+rhJnexBzcZCACCrjjhRcoRS9r7oZQuFgRh9+pk82vnlRY
-         k7WA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=Q0E1pALf;
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b36 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qv1-xf3d.google.com (mail-qv1-xf3d.google.com [IPv6:2607:f8b0:4864:20::f3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF07552155B
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 10 May 2022 14:25:53 +0200 (CEST)
+Received: by mail-qv1-xf3d.google.com with SMTP id s19-20020ad44b33000000b00456107e1120sf14138608qvw.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 10 May 2022 05:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:cc:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=JeIs95WFH3+gnGFm2V14XWq8SI90ltFWbnmuHCXSn7w=;
-        b=Ba6FO8v3dUzOcYrePLGTCsY9Lh58bIBdUlrnvgdA5HqV8CDciWR3asr3l4W2AzBw71
-         LnDR+yHJJNHsrnfGj2mou5pF/+bB8dyn0DYIRzrTAdfWCvS8DX6kARIA/j7pI/b1L/7n
-         ZgXPA/9Z2RWtN+YakNu/Ktt6mjW/uXi7w23cKgvsZg+t1gjnNnBnqn2eYbgbTQZZOYG1
-         xTIlOYMWti9ldsvsVOf9OM5fCVciTAoPNvqWEs8HnOJJRmeOMfDdQKaj/OQIY9pdAnNQ
-         wu2iVtzYdRLQJ2+UpjyAd9L7vOOSqgVsXuXd/b+Nh/8zy/46FHnshNkq+uCYwGjv6rRS
-         IJeQ==
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=fT3wbRF1LhF/uBYNudTNx7NSfIXdHYu/zYJIXxiGnyk=;
+        b=l/rPPjIpo+dZN+p5ghgB2zVvdUo/6im1Vu4vbM9+seRbNywDQfTrcKcJg/Diu1yzY3
+         F5DbP3cjk0vxiyRcz1GFT/vr8V7yThIlA/LYi37wBDSifcrdLFNdpWUDjydJFQfCI/VC
+         9tTBVI5b1etGEOG+vZcT/8f3Z6ddsyYlWmu/+rocf97VNlmH81t1Gd0LuAbfoQgMjpnI
+         iml1l5rvAgF+RAUcMYIY8JWePSZKlH9U0J8QcHLYuPz4D84eY9W6QFxgamLB8Km5rMw2
+         mF1tF7f9X2pjgTuNRMOEixtS+78Irn0KlZAttSiLGKxbdBivLTnhsVSw6QY5nZaYOP1+
+         5IbA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=JeIs95WFH3+gnGFm2V14XWq8SI90ltFWbnmuHCXSn7w=;
-        b=fMB5Mx03q+5Ki13AB7sYsOBJXpR2NJMjlrgA/FnPkTW2jIpXc/c7QoP3vQOBjV2Pyz
-         W3Lr63NNe9NDxm3I9Sci3UMgbeZiIpzbFBWvMqj5PKG5/kku9gzXDvGJMIBZ3vyUfNSJ
-         psdf5COipsYdJma8s02amo9Dh5dB6c2tI1TTDqlA4QfT+51T/HEau5Uf6ZMiSlUEpbrI
-         Utv8rfZ85qxT0TIWouOXVXFSd1ft4VF+R3xrs0f25xeo57HAn3spV8OP832sIbLSTwvd
-         gv0lhkmGZcmGNLKVegcyUClecJJu6mAAq6yuOtNI4RjDaJAtzYeX/WM4a5o7482jXRG8
-         NRjQ==
+        bh=fT3wbRF1LhF/uBYNudTNx7NSfIXdHYu/zYJIXxiGnyk=;
+        b=fbINftJYlRejee+GA70saMXMi2J5Cr9bEQb5Qn6Gc1Ba4D0sqofUIkJEdj+p/7raSs
+         DQOGoOavX6znLtja9xmr61lF0ndNdtClh/jf3s9sgV0TnM8QX8N1FTt6fCM95u1tN7kz
+         J2E7NBo5qANYOmOq7HwbtKzVN7E/wlI5f4jDOIllwHaiysnsaoCqT/WXelUufZnqPUVF
+         J55xsQNMyxgNy8XXXSBcfa2Ohw9fE/8bmgJChLvDHFdPleeXFeiPCVtAywJXhSAh6uaJ
+         tEHOOfBkMsCXRyDogSyhHYad7qoR2mZeg0M6jwGsrQ3QdAP9OOKEhyVPPbtS+qgBkeqp
+         CMoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:cc:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=JeIs95WFH3+gnGFm2V14XWq8SI90ltFWbnmuHCXSn7w=;
-        b=SGWxgoLHeGjFQo52VQZuf+drFi1PlvS9MeSMBWKeIO+bSk9tMPbUb6Fjn8Iqu2IBxA
-         exz/vEArEfiWGeg81SoGFH65agFHcQeTf01AapJPksNPA9sb3jsDfzezJcE1g1+TuMiD
-         rGD0hA60NR5//W7UaMmjP6kT2U/Azd6EJKkRVNA+ofbsoF6I9nI3xd8NGDedVS9ORhBp
-         p1o4WLv87quXcXzFoq0lEOoO7N44N/s+3woIVqz8+4uH8lhcs5RRgWzSo7/op68184Rs
-         x0G4UAeAzysNRHvkitGtbznPTfmobKMeiZw0C8QEVhKZbE9VCrnFeeUf7rvrpYogFycz
-         0JDQ==
+        bh=fT3wbRF1LhF/uBYNudTNx7NSfIXdHYu/zYJIXxiGnyk=;
+        b=3p3B2+ZZFEhoUqLbnmvUhv2pNuVCTByPUmtGh9IoRoQHC2ZWfjqpZiVEh8UgCJS5m/
+         sdPHKmxh0gxZUtJb82seUuhqxgCl2A0ABhsUCRKkgdHtTtQienONbRpm6OlBDayy4B8K
+         JjGkosM0vYrG9waa/4nD80lwJWmHMPBFV7xhASKoSzgImahnnmq1mMZdkkdz8AjV6KlH
+         Jg2JsOJ0vIssYrd9+ToG4otkUNs8pIsZgnEwuBHQlfWuWP8fTT1IPujgheS1SjAkgnmQ
+         XfxhvBIWyNC25YHjBP265S/ZiBM1k4WWyeqRTweRefWQyA67242lD3G1lGUszGGGlITX
+         899A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532WI1Xt/7y8KMFDbvogMSnm4DVG32TgeVSw2pRnDNiRjywiR1jh
-	bp3igQCdF0DXvsPW9NxCRpI=
-X-Google-Smtp-Source: ABdhPJyOwFnWwv/gVIrQzlehUmpZ4MyrxtrTWVaTf0LXofiTNd6SxshzcXpdTyO2gQxvf/7CXJppJg==
-X-Received: by 2002:a17:90b:3884:b0:1dc:5838:1bea with SMTP id mu4-20020a17090b388400b001dc58381beamr4276876pjb.90.1651733274138;
-        Wed, 04 May 2022 23:47:54 -0700 (PDT)
+X-Gm-Message-State: AOAM5339IK9a8vju8ZLqPqq3b2ZYhRUQIAe+AJ4/gGhmFvyYPE9j3kaC
+	d4RRUzaINpx4x8bp5VEV8V8=
+X-Google-Smtp-Source: ABdhPJyC9UBxzKG2WGPaCuKOjUS0cNCvCjtg5EhcrzwMfhQSaZqrKst7u4JfUdsYgweqN8ehoO4bcQ==
+X-Received: by 2002:a05:622a:1651:b0:2f3:e153:ebac with SMTP id y17-20020a05622a165100b002f3e153ebacmr5028273qtj.23.1652185552611;
+        Tue, 10 May 2022 05:25:52 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a63:244:0:b0:382:b131:96eb with SMTP id 65-20020a630244000000b00382b13196ebls1506557pgc.3.gmail;
- Wed, 04 May 2022 23:47:53 -0700 (PDT)
-X-Received: by 2002:a65:6556:0:b0:3c2:7f43:c116 with SMTP id a22-20020a656556000000b003c27f43c116mr9129653pgw.221.1651733272869;
-        Wed, 04 May 2022 23:47:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1651733272; cv=none;
-        d=google.com; s=arc-20160816;
-        b=j8Tlx199tO/iUZtwKC0nIJcoH13aKh900qzY0d7eGgbwuoyzOGeGibQzXvdFAdf7QV
-         qFO2+Q1RzUpGt8//QhrvgO6gtbPV+v/7Knkcbu7BCjUdVoRtDMmou7+mA7VZO2ctvJ2v
-         ibws1otRKLlUm0WTJRUfFhQHN0cpyoKUu31CUOZcfainj+ArT68NOkzIxbTNc2DR+2LY
-         JhMH73b0hr3m9LUQTDIZ1gp0Y2ovqh0xNwNaSDFZsWU5R0XPgMnw8ypQETyaGwQdZqXS
-         1cBBk3HMRKT4I4uZAwIK/T9hZrgtYP1U7x4TlfAXhusS5a1NcFbbFTPZLs6xtpalbZGV
-         cHHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=P00hLriTbvUotvng8KLIcXRAAtE2rFXAFBUK7lYwsWc=;
-        b=pa0fuKxCJxKqHVOGADuuvcqgKTnGWvUvJQKQCZufpsZkSUFU8Z+B0CzWZrUHygFeD7
-         uj7xeSVRW8gvbKZFZ1Xu8vX3/WTmB/M6sSnVeEOwZbaDnMnv7C4DPiqQg3Zc5VmBOvic
-         KA0W1V8MXc28DsnY4YV2IrMAIOtC+WMRkfvuOADYRVdxhRcE/6ct7lXy+NLK/QVq76sF
-         GjSwv5H2IN07ZoXACze3Q4H42bXAbVEUku+a6Kwb/l3zeuJdHPC5Ox/aWy4IHWS58RB7
-         bCtJwnZ5arZGPwoLYFoGFRzZbYekWqfrSKe4TAXxlRGPudqoI2Kdd8x4kz4zQtpx4n60
-         xDtQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=Q0E1pALf;
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b36 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com. [2607:f8b0:4864:20::b36])
-        by gmr-mx.google.com with ESMTPS id d16-20020a631d50000000b003c1fd25c98esi36036pgm.1.2022.05.04.23.47.52
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 May 2022 23:47:52 -0700 (PDT)
-Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b36 as permitted sender) client-ip=2607:f8b0:4864:20::b36;
-Received: by mail-yb1-xb36.google.com with SMTP id v59so6059252ybi.12
-        for <jailhouse-dev@googlegroups.com>; Wed, 04 May 2022 23:47:52 -0700 (PDT)
-X-Received: by 2002:a05:6902:4e9:b0:645:8122:3c81 with SMTP id
- w9-20020a05690204e900b0064581223c81mr21308905ybs.563.1651733271968; Wed, 04
- May 2022 23:47:51 -0700 (PDT)
+Received: by 2002:a05:6214:5098:b0:45a:ad75:8957 with SMTP id
+ kk24-20020a056214509800b0045aad758957ls8016722qvb.3.gmail; Tue, 10 May 2022
+ 05:25:51 -0700 (PDT)
+X-Received: by 2002:ad4:5cc1:0:b0:45b:115d:b9e1 with SMTP id iu1-20020ad45cc1000000b0045b115db9e1mr8069593qvb.123.1652185551748;
+        Tue, 10 May 2022 05:25:51 -0700 (PDT)
+Date: Tue, 10 May 2022 05:25:51 -0700 (PDT)
+From: Prabhakar Lad <prabhakar.csengg@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <2dcadf3d-1df9-497a-a530-be01a5da96e9n@googlegroups.com>
+Subject: Kernel panic on enabling root cell
 MIME-Version: 1.0
-References: <400480ed-70db-467a-b47d-b4c3f3641777n@googlegroups.com>
- <b7c5f1aa-e91c-3a9b-b74c-2255184d66a5@siemens.com> <CA+V-a8vGiT237W59_OMqxLuFSAsPYYVCGZW3mn5vaGnUhDCK+Q@mail.gmail.com>
- <aebdee8e-4074-b223-2cbe-42564624e7f6@siemens.com> <CA+V-a8vpx00x21N12bRQ9eGPHH3TnWr96HmxUPpJUgtHyMy-LA@mail.gmail.com>
- <CA+V-a8u0bPPZBk49twr9xuLNCPKV8isdSGTt+Pj6mYV=Dkh2OA@mail.gmail.com> <e4e83117-c094-0bec-40f6-627ab1dcd776@siemens.com>
-In-Reply-To: <e4e83117-c094-0bec-40f6-627ab1dcd776@siemens.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 5 May 2022 07:47:26 +0100
-Message-ID: <CA+V-a8vbErK-PXu0G8VKkff+Hg33dMUSWsG+-ZeosChJS1i1_g@mail.gmail.com>
-Subject: Re: Linux and u-boot requirements
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>, 
-	Chris Paterson <Chris.Paterson2@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1112_257477340.1652185551147"
 X-Original-Sender: prabhakar.csengg@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b=Q0E1pALf;       spf=pass
- (google.com: domain of prabhakar.csengg@gmail.com designates
- 2607:f8b0:4864:20::b36 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,94 +76,97 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Jan,
+------=_Part_1112_257477340.1652185551147
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1113_160138275.1652185551147"
 
-On Wed, May 4, 2022 at 6:52 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->
-> On 03.05.22 20:42, Lad, Prabhakar wrote:
-> > Hi Jan,
-> >
-> > On Tue, May 3, 2022 at 11:47 AM Lad, Prabhakar
-> > <prabhakar.csengg@gmail.com> wrote:
-> >>
-> >> Hi Jan,
-> >>
-> >> On Mon, May 2, 2022 at 9:30 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> >>>
-> >>> Hi Prabhakar, hi Chris,
-> >>>
-> >>> ok, now I understand your question last Thursday, Chris... ;)
-> >>>
-> >>> On 02.05.22 21:37, Lad, Prabhakar wrote:
-> >>>> Hi Jan,
-> >>>>
-> >>>> On Mon, May 2, 2022 at 5:13 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
-> >>>>>
-> >>>>> On 27.04.22 15:19, Prabhakar Lad wrote:
-> >>>>>> Hi All,
-> >>>>>>
-> >>>>>> I recently tried to build the v0.12 tag with the upstream kernel
-> >>>>>> (v5.18-rc4) for emconrzg1h, but the build failed due to api changes
-> >>>>>> (cpu_up/cpu_down mainly).
-> >>>>>
-> >>>>> You want to use master or even next for very recent kernels. I haven't
-> >>>>> done a release in a too-long-while, so patches to account for kernel
-> >>>>> changes can only be found there.
-> >>>>>
-> >>>> I see. I came across the linux [0] tree which has
-> >>>> jailhouse-enabling/x.x branches. Is this a good starting point for
-> >>>> Linux? These branches merge Linux releases into the jailhouse kernel
-> >>>> which makes it a bit difficult to track the changes specifically made
-> >>>> to jailhouse. For example, for the 4.19 branch it's currently on
-> >>>> v4.19.81 whereas I plan to work on 4.19.198 which makes porting things
-> >>>> a bit difficult.
-> >>>
-> >>> Not at all:
-> >>>
-> >>> git log --no-merges --oneline v4.19.81..jailhouse-enabling/4.19
-> >>>
-> >> Thanks for the hint.
-> >>
-> >>> The 4.19 branch was retired a while ago, so rebasing over latest stable
-> >>> or merging that in would definitely be recommended. Actually, you likely
-> >>> want to check the latest enabling branch or [1] for updates since 4.19
-> >>> was retired.
-> >>>
-> >> Great, I'll start with the latest enabling branch which you pointed to
-> >> and use it with the v0.12 release (I'll have to port my platform to
-> >> this though). And then later I consider either 5.10/4.19 kernel.
-> >>
-> >>>>
-> >>>>>>
-> >>>>>> So I wanted to check what are the strict requirements for Linux and
-> >>>>>> u-boot as I plan to add new arm64 platform.
-> >>>>>>
-> >>>>>> Also is there any document/link that I can refer to porting on new platform?
-> >>>>>
-> >>>>> No written documents, but if you follow the commit history of
-> >>>>> https://github.com/siemens/jailhouse-images you can see how new targets
-> >>>>> were hooked up there (mostly Jailhouse-unrelated integration work).
-> >>>>> Jailhouse also does not depend on U-Boot, first of all only a working
-> >>>>> Linux / firmware integration, ideally from upstream.
-> >>>>>
-> > I followed the jailhouse-images repo with the master branch and
-> > started with Linux first. For Linux it uses the
-> > jailhouse-enabling/5.10 branch [1] (commit id:
-> > eb6927f7eea77f823b96c0c22ad9d4a2d7ffdfce). In this kernel version the
-> > cpu_up/down api are static [2] due to which the build of jailhouse
-> > 0.12 is failing ( I tried to build for zynq platform just wanted to
-> > make sure build passes before porting my platform)
-> >
-> > I looked at the kernel recipe and there aren't any patches which
-> > exports cpu_up/down api and nor do I see any patch in
-> > jailhouse_0.12.bb [3] which drops cpu_up/down api. Is there anything
-> > I'm missing here?
-> >
->
-> https://github.com/siemens/jailhouse-images/commit/64c102a9df6f713170129ac0e8f7c94927a8592e
->
-Thanks for the pointer. Now I'm able to build the -next branch with
-5.10 enabling branch.
+------=_Part_1113_160138275.1652185551147
+Content-Type: text/plain; charset="UTF-8"
+
+Hi All,
+
+I am currently working on getting root cell up and running on Renesas 
+RZ/V2L SoC, which is equipped with 2 arm cortex A55.
+
+I have written a simple root cell configuration and verified against using 
+the "jailhouse config check", but as soon as I enable the root cell 
+configuration I get the below panic.
+
+root@smarc-rzg2l:~# insmod jailhouse.ko 
+[   17.327338] jailhouse: loading out-of-tree module taints kernel.
+root@smarc-rzg2l:~# 
+root@smarc-rzg2l:~# jailhouse config check -a arm64 renesas-r9a07g054l2.cell
+Reading configuration set:
+  Root cell:     Renesas RZ/V2L SMARC (renesas-r9a07g054l2.cell)
+Overlapping memory regions inside cell: None
+Overlapping memory regions with hypervisor: None
+Missing resource interceptions for architecture arm64: None
+root@smarc-rzg2l:~# 
+root@smarc-rzg2l:~#
+
+root@smarc-rzg2l:~# jailhouse enable renesas-r9a07g054l2.cell
+[   32.430107] ------------[ cut here ]------------
+[   32.430111] ------------[ cut here ]------------
+[   32.430126] kernel BUG at arch/arm64/kernel/traps.c:407!
+[   32.434730] kernel BUG at arch/arm64/kernel/traps.c:407!
+[   32.439323] Internal error: Oops - BUG: 0 [#1] PREEMPT SMP
+[   32.455346] Modules linked in: jailhouse(O)
+[   32.459523] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           O     
+ 5.10.112-cip6+ #8
+[   32.467490] Hardware name: Renesas SMARC EVK based on r9a07g054l2 (DT)
+[   32.473990] pstate: 00400085 (nzcv daIf +PAN -UAO -TCO BTYPE=--)
+[   32.479981] pc : do_undefinstr+0x26c/0x320
+[   32.484059] lr : do_undefinstr+0x1cc/0x320
+[   32.488134] sp : ffff80001128bd00
+[   32.491432] x29: ffff80001128bd00 x28: ffff800011102a80 
+[   32.496723] x27: ffff800011102a80 x26: ffff80001128c000 
+[   32.502018] x25: ffff800011288000 x24: ffff8000110fa344 
+[   32.507309] x23: 0000000020400085 x22: ffff800012004064 
+[   32.512600] x21: ffff80001128bee0 x20: ffff80001128bd90 
+[   32.517891] x19: ffff800010e4f000 x18: 0000000000000001 
+[   32.523181] x17: ffff800008b0180c x16: 0000000000000000 
+[   32.528473] x15: ffff800012004064 x14: 000000001004b800 
+[   32.533764] x13: 0000ffffc0200000 x12: 00000000b6f00000 
+[   32.539054] x11: ffff0000f6d00000 x10: ffff800011181580 
+[   32.544345] x9 : ffff800011181578 x8 : ffff000009c00270 
+[   32.549636] x7 : ffff800010e4f000 x6 : ffff80001128bd58 
+[   32.554927] x5 : 00000000d5300000 x4 : ffff800011104f50 
+[   32.560218] x3 : 00000000d4000000 x2 : 0000000000000000 
+[   32.565509] x1 : ffff800011102a80 x0 : 0000000020400085 
+[   32.570801] Call trace:
+[   32.573238]  do_undefinstr+0x26c/0x320
+[   32.576975]  el1_undef+0x30/0x50
+[   32.580189]  el1_sync_handler+0xc4/0xe0
+[   32.584007]  el1_sync+0x84/0x140
+[   32.587221]  0xffff800012004064
+[   32.590352]  flush_smp_call_function_queue+0xf8/0x268
+[   32.595381]  generic_smp_call_function_single_interrupt+0x14/0x20
+[   32.601449]  ipi_handler+0x8c/0x158
+[   32.604924]  handle_percpu_devid_fasteoi_ipi+0x74/0x88
+[   32.610043]  generic_handle_irq+0x30/0x48
+[   32.614035]  __handle_domain_irq+0x60/0xb8
+[   32.618116]  gic_handle_irq+0x58/0x128
+[   32.621846]  el1_irq+0xc8/0x180
+[   32.624974]  arch_cpu_idle+0x18/0x28
+[   32.628534]  default_idle_call+0x24/0x5c
+[   32.632440]  do_idle+0x1ec/0x288
+[   32.635653]  cpu_startup_entry+0x24/0x68
+[   32.639557]  rest_init+0xd8/0xe8
+[   32.642772]  arch_call_rest_init+0x10/0x1c
+[   32.646850]  start_kernel+0x4b0/0x4e8
+[   32.650500] Code: f94013b5 17fffff1 a9025bb5 f9001bb7 (d4210000) 
+[   32.656575] ---[ end trace 6f8e50d223964988 ]---
+[   32.661173] Kernel panic - not syncing: Oops - BUG: Fatal exception in 
+interrupt
+[   32.668537] SMP: stopping secondary CPUs
+[   33.756157] SMP: failed to stop secondary CPUs 0-1
+[   33.760926] Kernel Offset: disabled
+[   33.764399] CPU features: 0x0040026,2a00a238
+[   33.768648] Memory Limit: 750 MB
+[   33.771863] ---[ end Kernel panic - not syncing: Oops - BUG: Fatal 
+exception in interrupt ]---
+
+Any pointers where I should be looking into for the above issue?
 
 Cheers,
 Prabhakar
@@ -241,4 +174,92 @@ Prabhakar
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8vbErK-PXu0G8VKkff%2BHg33dMUSWsG%2B-ZeosChJS1i1_g%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/2dcadf3d-1df9-497a-a530-be01a5da96e9n%40googlegroups.com.
+
+------=_Part_1113_160138275.1652185551147
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi All,</div><div><br></div><div>I am currently working on getting roo=
+t cell up and running on Renesas RZ/V2L SoC, which is equipped with 2 arm c=
+ortex A55.<br></div><div><br></div><div>I have written a simple root cell c=
+onfiguration and verified against using the "jailhouse config check", but a=
+s soon as I enable the root cell configuration I get the below panic.<br></=
+div><div><br></div><div>root@smarc-rzg2l:~# insmod jailhouse.ko <br>[ &nbsp=
+; 17.327338] jailhouse: loading out-of-tree module taints kernel.<br>root@s=
+marc-rzg2l:~# <br>root@smarc-rzg2l:~# jailhouse config check -a arm64 renes=
+as-r9a07g054l2.cell<br>Reading configuration set:<br>&nbsp; Root cell: &nbs=
+p; &nbsp; Renesas RZ/V2L SMARC (renesas-r9a07g054l2.cell)<br>Overlapping me=
+mory regions inside cell: None<br>Overlapping memory regions with hyperviso=
+r: None<br>Missing resource interceptions for architecture arm64: None<br>r=
+oot@smarc-rzg2l:~# <br>root@smarc-rzg2l:~#</div><div><br></div><div>root@sm=
+arc-rzg2l:~# jailhouse enable renesas-r9a07g054l2.cell<br>[ &nbsp; 32.43010=
+7] ------------[ cut here ]------------<br>[ &nbsp; 32.430111] ------------=
+[ cut here ]------------<br>[ &nbsp; 32.430126] kernel BUG at arch/arm64/ke=
+rnel/traps.c:407!<br>[ &nbsp; 32.434730] kernel BUG at arch/arm64/kernel/tr=
+aps.c:407!<br>[ &nbsp; 32.439323] Internal error: Oops - BUG: 0 [#1] PREEMP=
+T SMP<br>[ &nbsp; 32.455346] Modules linked in: jailhouse(O)<br>[ &nbsp; 32=
+.459523] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; O &nbsp; &nbsp; &nbsp;5.10.112-cip6+ #8<br>[ &nbsp; 32.467490] Ha=
+rdware name: Renesas SMARC EVK based on r9a07g054l2 (DT)<br>[ &nbsp; 32.473=
+990] pstate: 00400085 (nzcv daIf +PAN -UAO -TCO BTYPE=3D--)<br>[ &nbsp; 32.=
+479981] pc : do_undefinstr+0x26c/0x320<br>[ &nbsp; 32.484059] lr : do_undef=
+instr+0x1cc/0x320<br>[ &nbsp; 32.488134] sp : ffff80001128bd00<br>[ &nbsp; =
+32.491432] x29: ffff80001128bd00 x28: ffff800011102a80 <br>[ &nbsp; 32.4967=
+23] x27: ffff800011102a80 x26: ffff80001128c000 <br>[ &nbsp; 32.502018] x25=
+: ffff800011288000 x24: ffff8000110fa344 <br>[ &nbsp; 32.507309] x23: 00000=
+00020400085 x22: ffff800012004064 <br>[ &nbsp; 32.512600] x21: ffff80001128=
+bee0 x20: ffff80001128bd90 <br>[ &nbsp; 32.517891] x19: ffff800010e4f000 x1=
+8: 0000000000000001 <br>[ &nbsp; 32.523181] x17: ffff800008b0180c x16: 0000=
+000000000000 <br>[ &nbsp; 32.528473] x15: ffff800012004064 x14: 00000000100=
+4b800 <br>[ &nbsp; 32.533764] x13: 0000ffffc0200000 x12: 00000000b6f00000 <=
+br>[ &nbsp; 32.539054] x11: ffff0000f6d00000 x10: ffff800011181580 <br>[ &n=
+bsp; 32.544345] x9 : ffff800011181578 x8 : ffff000009c00270 <br>[ &nbsp; 32=
+.549636] x7 : ffff800010e4f000 x6 : ffff80001128bd58 <br>[ &nbsp; 32.554927=
+] x5 : 00000000d5300000 x4 : ffff800011104f50 <br>[ &nbsp; 32.560218] x3 : =
+00000000d4000000 x2 : 0000000000000000 <br>[ &nbsp; 32.565509] x1 : ffff800=
+011102a80 x0 : 0000000020400085 <br>[ &nbsp; 32.570801] Call trace:<br>[ &n=
+bsp; 32.573238] &nbsp;do_undefinstr+0x26c/0x320<br>[ &nbsp; 32.576975] &nbs=
+p;el1_undef+0x30/0x50<br>[ &nbsp; 32.580189] &nbsp;el1_sync_handler+0xc4/0x=
+e0<br>[ &nbsp; 32.584007] &nbsp;el1_sync+0x84/0x140<br>[ &nbsp; 32.587221] =
+&nbsp;0xffff800012004064<br>[ &nbsp; 32.590352] &nbsp;flush_smp_call_functi=
+on_queue+0xf8/0x268<br>[ &nbsp; 32.595381] &nbsp;generic_smp_call_function_=
+single_interrupt+0x14/0x20<br>[ &nbsp; 32.601449] &nbsp;ipi_handler+0x8c/0x=
+158<br>[ &nbsp; 32.604924] &nbsp;handle_percpu_devid_fasteoi_ipi+0x74/0x88<=
+br>[ &nbsp; 32.610043] &nbsp;generic_handle_irq+0x30/0x48<br>[ &nbsp; 32.61=
+4035] &nbsp;__handle_domain_irq+0x60/0xb8<br>[ &nbsp; 32.618116] &nbsp;gic_=
+handle_irq+0x58/0x128<br>[ &nbsp; 32.621846] &nbsp;el1_irq+0xc8/0x180<br>[ =
+&nbsp; 32.624974] &nbsp;arch_cpu_idle+0x18/0x28<br>[ &nbsp; 32.628534] &nbs=
+p;default_idle_call+0x24/0x5c<br>[ &nbsp; 32.632440] &nbsp;do_idle+0x1ec/0x=
+288<br>[ &nbsp; 32.635653] &nbsp;cpu_startup_entry+0x24/0x68<br>[ &nbsp; 32=
+.639557] &nbsp;rest_init+0xd8/0xe8<br>[ &nbsp; 32.642772] &nbsp;arch_call_r=
+est_init+0x10/0x1c<br>[ &nbsp; 32.646850] &nbsp;start_kernel+0x4b0/0x4e8<br=
+>[ &nbsp; 32.650500] Code: f94013b5 17fffff1 a9025bb5 f9001bb7 (d4210000) <=
+br>[ &nbsp; 32.656575] ---[ end trace 6f8e50d223964988 ]---<br>[ &nbsp; 32.=
+661173] Kernel panic - not syncing: Oops - BUG: Fatal exception in interrup=
+t<br>[ &nbsp; 32.668537] SMP: stopping secondary CPUs<br>[ &nbsp; 33.756157=
+] SMP: failed to stop secondary CPUs 0-1<br>[ &nbsp; 33.760926] Kernel Offs=
+et: disabled<br>[ &nbsp; 33.764399] CPU features: 0x0040026,2a00a238<br>[ &=
+nbsp; 33.768648] Memory Limit: 750 MB<br>[ &nbsp; 33.771863] ---[ end Kerne=
+l panic - not syncing: Oops - BUG: Fatal exception in interrupt ]---<br></d=
+iv><div><br></div><div>Any pointers where I should be looking into for the =
+above issue?</div><div><br></div><div>Cheers,</div><div>Prabhakar</div><div=
+><br></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/2dcadf3d-1df9-497a-a530-be01a5da96e9n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/2dcadf3d-1df9-497a-a530-be01a5da96e9n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_1113_160138275.1652185551147--
+
+------=_Part_1112_257477340.1652185551147--
