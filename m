@@ -1,203 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBFMO56JQMGQEHEBYWRA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCH5DAO5VMDRB7E756JQMGQE6VOASGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23a.google.com (mail-lj1-x23a.google.com [IPv6:2a00:1450:4864:20::23a])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5951523553
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 11 May 2022 16:24:22 +0200 (CEST)
-Received: by mail-lj1-x23a.google.com with SMTP id m6-20020a2eb6c6000000b002509fdb1dbasf795664ljo.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 11 May 2022 07:24:22 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1652279062; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=nABx+NAWDYQc2CN0nxiAALt2CfRGhZ9+j8kANLIgGf6CPNi/p9mvH30NMzgDVF2SG1
-         wsXa25MCxP3mKYnLVojbhlhfS+2xSJdIbrYC03eYrS+fQnwr9+6XeUccaFdzR/Am71uU
-         gHxNoXYnNzOhS1QbMpEJ8DN8Hrc8N29UCfwwuw3H7mPQz07CRvCGpsnbIKuhy8B3thnH
-         1hbi5Ef7DwU5IKiOiXYpMLWlxDCTmVqfVrbeOwptc4tGBpV7xNwk3FZVCCTcmvd6TfcI
-         uq1HIC/kb2cMbDtHu2DNCuWmOKa5Ora3xejrL7yACtu/MJKph4ihYfbRmZePVzFE0iaS
-         MGug==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=Fmrra2R+arICNrHnBSNonbonWGPDEe+WjEB61m88K7w=;
-        b=uoc2WgIPCg79fuRc0g+x9Jo2z84xcfHYVMRPExJYxnE9M7F1zqiEfmrv/2oqzKeOYn
-         XjxnVgwmGzoQUokJcf82tUrtE2EzVKRXvf85UkNOpmPGQQFOgYFsIELqYbIClPqT1OWB
-         WcFm5caL/r9yAswM2itIgn5awHqlqJRVv1dKvWteFDZr8r7Dcq1wzhxYvaYZwYTXR8Oi
-         BbaH4foQ8fvzKxM9j9bddLUlBZMRp2QE1Wv3yE14xXsIBvf7ektWKpHNbnM9S90esDNZ
-         HaYWIoWg/KdEf6lvYHdf6Ypd1hfOCRQ23j8I/SrLPjUzvpaj7hdYNuEW4guwVKgBIkdC
-         Eqeg==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=BjIObCIu;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe1f::627 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from mail-qt1-x838.google.com (mail-qt1-x838.google.com [IPv6:2607:f8b0:4864:20::838])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC9BA523698
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 11 May 2022 17:02:21 +0200 (CEST)
+Received: by mail-qt1-x838.google.com with SMTP id a24-20020ac81098000000b002e1e06a72aesf1790993qtj.6
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 11 May 2022 08:02:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
          :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=Fmrra2R+arICNrHnBSNonbonWGPDEe+WjEB61m88K7w=;
-        b=QLMPHQpj0cGuQioJ9O1Faa4a/Il/k2JiLjy93cTaNmPkdv+RbUUsbLYmB1JxPe29DM
-         5poJs0KUgBw7a0RmKe878hFRSheGEWPqI3MtVywcPnrNKdYtJpcJkgnyA0c8tKTOlYhU
-         jZRtYb2tHMDv7S4j3mlkQRgJ2NEcUKRz/EJlO+eRWHmOTDT1DoC5ZZkXVUcpBKWhWPl6
-         t6Cn4TxURaAbdCNFLKkV5+9Vzl2NbzSZOatxVzjaPn3OWhTCT8AEZyRfDOhCHbXki05T
-         cvrz8zpUScRvR3n4OUkvn/lFkiV5MIT5jbmH0eQV8gAZzHllMIbMBZx3PYVQBqLRIka4
-         aLfg==
+        bh=RHXSrNWT1Wka/LQz21dzrk8cxp1CF7eUzCxUar3LEaY=;
+        b=rxR7xvaTv/T1ulWhTTKVPANEDGow4Y2OgUGANt58QaCf1Lt590HliLSQAK4ab+SxuU
+         5d/jt3Th5Lq8laEX20F6d8fgv5jzQe+haH4/UY+N5vWrRF3SxpKl9MgsyHAOPEYRYNmS
+         rtVQRBY67N2ri49Aap/uG+ioqx9LlCAuIQXXoU4Flxpb3F5GBA+9ufwwyCtLIC5lJO1h
+         w80a3GkeUfGF8JZm769dhF+mdexoevpTIi2PTFbA7+HJk4hkvNyCW0FCx/qrYfgHUVwb
+         X8uca9VFEDoJQgJcuLien+M4cgxZEa+S6Gn3PKrLSJRLNPXtw/MguXZ/ow63A5L3F/WD
+         BUWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=RHXSrNWT1Wka/LQz21dzrk8cxp1CF7eUzCxUar3LEaY=;
+        b=az2oZVb64eUpxKa5qHfUDZvLwXUOQyAD+BY1a9SRiLHpR0YpyOwhP+17tNEZLuJmP8
+         zKcuwUdy+0atFRuvJ+hBNlpocjFkp2fTbNgrEy1p3M70RKFVuMa3nXNCVxrcZtkYqqKQ
+         qhr6NDbN08IPC1K3wk5CxlymnxpwH9PnksDWY9wF2GcIqLMO5tn0tGJD2KIY9+2z4Non
+         yMYaEPTX6CixMH+TTea6TMDoaQY/8K7rO1LdUJ8hffGRZT+nC/Vwvavn6+hMiBmELhJc
+         lMtEPNL7VqnijnoFc89CJO16+NcdDBkw03M5ChckqfIPd3XjL5uQ9QshppDhxD3MaSFE
+         G+Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:references:from:in-reply-to
-         :content-transfer-encoding:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=Fmrra2R+arICNrHnBSNonbonWGPDEe+WjEB61m88K7w=;
-        b=XAAnyCX3GOo0e3SoKu+pCxBuzS+sielG1mrVrz+rGEG0cgPfIekC+878kkkepbq5uo
-         vmMieK6zzS9Ki+9d2z+7Ii/gm3ETDG1ahaoFkXLyLqbUQ9XqCDj7FoyZCgy+aU2Zywf4
-         CO0+qya10YTNeG7dZbj7TdswwiOqlji7+lkbEVejEWKWprYMkktDvf8uW0RZoS5Xpg6A
-         p+T5154OgISXsGnFOdPaPUGs7MVRyjiUCkL+JOFCVGLgQq3NqvgY4GbCj2yy1ixXetq5
-         Hi2PvUxjIPz5NF8dTMtj8kZ8k2Mz6ajQguro19Jr2G4MBeeYyGU/3EULxX3bEaRXc1II
-         1N1A==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=RHXSrNWT1Wka/LQz21dzrk8cxp1CF7eUzCxUar3LEaY=;
+        b=09Bm0ggbMndS13HP+lOUILWsWcBv3rfPULRcfRcEK7rfXRYh4XuU1G/H6lWv6Hc7tX
+         BGZBXPRSwY8tGoHpPlDTxTA9J7cRMWi5xb8BARTCGiD3CIsFPv5tQNuCC1/b8HGwhkiO
+         5zT7reezdkCG0+JWHBu+PiE78Vtn1tfV6UquYboxVdnIjY07Y2fGosGPWAdPV/CxuZTO
+         NU25v9yvLP3aEJk9yzun9b6PX68SPOvLSRXUUN+fSXXjT4TR0EjhcGdBObCxnA48CYOK
+         o6GaDoXXZ9+Xmc+zv2UhVrVaOfxFLAeABpmD4QfJA2mZFOe8vwVXu0yfNpVbYYWewdUv
+         kx2w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM532Lhnij4tUweT2iBahqS6537aO39sjZz3BjnZ+Ha2lq3Xarntbo
-	c0ijt+DLz28sOjaOLOgyjxk=
-X-Google-Smtp-Source: ABdhPJy98B78zPN2MpKMjm+Aey8WuYELzgqO5HptIoa7zzaJUIgvxGPnj37OTAmjhizZrAcdp5HX4g==
-X-Received: by 2002:a2e:84c7:0:b0:24b:6842:1923 with SMTP id q7-20020a2e84c7000000b0024b68421923mr17811364ljh.166.1652279062240;
-        Wed, 11 May 2022 07:24:22 -0700 (PDT)
+X-Gm-Message-State: AOAM5316uARmhyDXMTwbgWEL0180ussVYVUjUTv5maKSn67pmrkdTIZj
+	sTWGy9q7KOxHRZ7XFmvjjmg=
+X-Google-Smtp-Source: ABdhPJzo3OGTo1hm2ZPkADoQrUASe1EEXoYK1zq5cXXBKFsLijf2WvUawciNj4bbNRKw2VC3Fv9v6A==
+X-Received: by 2002:a05:620a:424e:b0:67e:4c1b:c214 with SMTP id w14-20020a05620a424e00b0067e4c1bc214mr19738429qko.651.1652281340463;
+        Wed, 11 May 2022 08:02:20 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:4c49:0:b0:472:627f:9c3c with SMTP id o9-20020ac24c49000000b00472627f9c3cls203683lfk.3.gmail;
- Wed, 11 May 2022 07:24:20 -0700 (PDT)
-X-Received: by 2002:ac2:4892:0:b0:471:febe:2e7b with SMTP id x18-20020ac24892000000b00471febe2e7bmr20462938lfc.69.1652279060150;
-        Wed, 11 May 2022 07:24:20 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1652279060; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=BHSoFH8LCTYdKmEbg1psjLgNX002uQwqDUElzVKPHbk4ySjPjuXF1NqhxAu5yXF55T
-         f4ZwYHMyyjsThFT46s/qvCucVvv1wf8b9rKPIZzhmvZzfOQFDD2HKfXElGjxhjzcMjss
-         X9gpVPCFJysnxmIFV/A48rl3Ef9U84/uUFSrSfJFl4b9oe67eNP6/ITvfzFHJWzj5+mV
-         PWPPrhNhL14IPfRhWgP3Oa0HLe6/08DJN+Boxqtjx4MzuP5DxC7gjojKA8wqXD+aLJdz
-         Aodg0hjqTRT+bKFjhpWWkHBV7Rq0QZ89eIDwH61w+YimanIB9z69girQGirn+oALy4Ia
-         TI1A==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=p8v9HENkJtrcoYVBkGWcEuz49pYftEwmm5CvyNvq2mk=;
-        b=Gx6/yzTwRJ1LXBY6uyynv3/2SAtR28woUa8PQs+oiXopuKX6kdeHkGQAt2lBjUVrzU
-         ylDEvSml/TtOYYrKlKr+XR6h9SVzMpgXCdF760eqLbEew6ZKTd6WPFMvTfJYzTesrq1A
-         QpuT53WzPH5tuuc0CvxpArz2hT2o8t9XsL/tiK5IWl2ucoOZJw+37wYHzgOpChT4jlWl
-         +jz1/UAevguoud4OFlrobubk/R7DuJNoCK9M5cxUpPvjq6e437nfrXu5BUPOUffJ5Jbe
-         oq/o32t4KsR6UuvFclEEc7KwWGVU7c0JH0apZ5eukrPk0Q24IcDc9Wcvke6DKubwP8E2
-         NKSw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=BjIObCIu;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe1f::627 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (mail-ve1eur01on0627.outbound.protection.outlook.com. [2a01:111:f400:fe1f::627])
-        by gmr-mx.google.com with ESMTPS id x8-20020a056512078800b00473a659879csi103221lfr.13.2022.05.11.07.24.19
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 11 May 2022 07:24:20 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 2a01:111:f400:fe1f::627 as permitted sender) client-ip=2a01:111:f400:fe1f::627;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hwLh2T4ZA709+dlULyAxikSKFpS7P+FmKUBKVSME+07p43WPr5AvZlyPS6NTD+FFgfvzS07PPIRpOupdUmpVyNMSb4ItCzG5FA093x4XYXg7NNcK1TSBCn8Xvl9bmDHDdzn8doNk9U9fMCQygQxCN3RNylQCx0lpAky6pNa0keFhcePWy2ZpjzWgl/ZHF5XkXPaWfB206kLGmzOuqMJdI4jYtR3+kOgd6A/p8JCNj5lIg9afq0b6cDplepJntIdC0k1N7tUlucNrrSBkKqSRdm4ajZfnvnUYap04Z/OEu8u7+E6PgDAsmlU094M2GunITCVo7TOtePTTGmMURSeCbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p8v9HENkJtrcoYVBkGWcEuz49pYftEwmm5CvyNvq2mk=;
- b=DHiiTqzDQD0o90wHnDNq5oW+U4QTGsqZBtG0fMb3PVogOZ6RJMJwMVEWJjRik6vIHBaZgnD7kOYjoI46zl2RNzx5XzTTt2ZegkWQCdOn33KtGDsZQtp0uOQiEF/0wrs3mHrdboQsZpt+CVS62hzRzltQjtxaWIN0IhikObk5bThDoW4fKngfapXABcwDvonLKY1Wx42EtFxcpzZr1DtsH67/nuGosoQpCumYjZGtVqf3BzEH9+bOYrS7knISa2v9gvfrDOlYNercSPFqBcCncGe2aIHEcVvBVo0e9b6HR2lp4/hF7vyLb3D6+qcGwLquLd+JjDyJjOKgkuKtn4e9Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 194.138.21.70) smtp.rcpttodomain=gmail.com smtp.mailfrom=siemens.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=siemens.com;
- dkim=none (message not signed); arc=none
-Received: from AM6P191CA0051.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::28)
- by AM0PR10MB3027.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:166::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.20; Wed, 11 May
- 2022 14:24:18 +0000
-Received: from VE1EUR01FT054.eop-EUR01.prod.protection.outlook.com
- (2603:10a6:209:7f:cafe::ff) by AM6P191CA0051.outlook.office365.com
- (2603:10a6:209:7f::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.20 via Frontend
- Transport; Wed, 11 May 2022 14:24:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 194.138.21.70)
- smtp.mailfrom=siemens.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=siemens.com;
-Received-SPF: Pass (protection.outlook.com: domain of siemens.com designates
- 194.138.21.70 as permitted sender) receiver=protection.outlook.com;
- client-ip=194.138.21.70; helo=hybrid.siemens.com;
-Received: from hybrid.siemens.com (194.138.21.70) by
- VE1EUR01FT054.mail.protection.outlook.com (10.152.2.169) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5250.13 via Frontend Transport; Wed, 11 May 2022 14:24:17 +0000
-Received: from DEMCHDC89XA.ad011.siemens.net (139.25.226.103) by
- DEMCHDC9SJA.ad011.siemens.net (194.138.21.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 11 May 2022 16:24:15 +0200
-Received: from [139.25.68.37] (139.25.68.37) by DEMCHDC89XA.ad011.siemens.net
- (139.25.226.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 11 May
- 2022 16:24:15 +0200
-Message-ID: <9a81cc8e-3064-cad8-b66f-0711c2705111@siemens.com>
-Date: Wed, 11 May 2022 16:24:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: Jailhouse over ZCU-104
-Content-Language: en-US
-To: Daniele Ottaviano <danieleottaviano97@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
+Received: by 2002:a05:620a:2698:b0:699:facb:954e with SMTP id
+ c24-20020a05620a269800b00699facb954els1376915qkp.7.gmail; Wed, 11 May 2022
+ 08:02:19 -0700 (PDT)
+X-Received: by 2002:a37:aa87:0:b0:6a0:6596:a367 with SMTP id t129-20020a37aa87000000b006a06596a367mr13941132qke.507.1652281339271;
+        Wed, 11 May 2022 08:02:19 -0700 (PDT)
+Date: Wed, 11 May 2022 08:02:18 -0700 (PDT)
+From: Daniele Ottaviano <danieleottaviano97@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <9806b760-e030-4183-8d18-7bc6349a027dn@googlegroups.com>
+In-Reply-To: <9a81cc8e-3064-cad8-b66f-0711c2705111@siemens.com>
 References: <9baeea16-0fdd-4be9-a227-ff94d1ae5e82n@googlegroups.com>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <9baeea16-0fdd-4be9-a227-ff94d1ae5e82n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [139.25.68.37]
-X-ClientProxiedBy: DEMCHDC8A0A.ad011.siemens.net (139.25.226.106) To
- DEMCHDC89XA.ad011.siemens.net (139.25.226.103)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-AS-Result: No-10--10.242500-8.000000
-X-TMASE-MatchedRID: AQ9SOYvqpDY5QaOxwNGfvo9bHfxDWoib8lboxuXXyrOiVU7u7I4INbqz
-	pQvjy9EAUHcBn70iJQfjiiXxeWt0GlvaFBwAVOfdEQOIcCJ9jA3p3D7FGdYHwixYq3WqsPihnKp
-	Qna4coUBLpCLN4NR43rUKDHDysN3B5d+E554qIHAA9kG/R4Hl8rRNqc/uU7mBbugX94bbu3vihJ
-	3Xxt2bAln4z0T8fHooYsjL2LYyAOIVkC7q8O5HUm91nAF9dkUY2FN29CD80DDKdqr1QlwmQd1hW
-	sVVuzNokshAoFcG3yTgJ7BP9+K1CklHAyqTyQKKyDC5+Spq4vqV76rqTtD9zC/MuWzsdN8Zy0Mf
-	D1GsI1ubKItl61J/yZkw8KdMzN86KrauXd3MZDWCuB04EGxxxvsHW3p63hohKvEHQNh/AZhRfCK
-	wCsiTGNVNF7OJvuTUPpCuffGH9zI=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--10.242500-8.000000
-X-TMASE-Version: SMEX-14.0.0.3080-8.6.1018-26680.007
-X-TM-SNTS-SMTP: A8E5D50C88446B741350FA44D9FC59970E910803915DE956E65E37F47B12A8412000:8
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c34e725d-32a8-4360-0975-08da3359eeb8
-X-MS-TrafficTypeDiagnostic: AM0PR10MB3027:EE_
-X-Microsoft-Antispam-PRVS: <AM0PR10MB3027FDDC8E88EDC55B9FD90295C89@AM0PR10MB3027.EURPRD10.PROD.OUTLOOK.COM>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UW4yO4cxxTRFpEsyioZpNaltofeeYJFSwBmLHjh7ZQBfxNUzRosr1rGWo1NgPaI0chRjIBTYQzd2n/KFTct7+bIjX4qn++LfsY6IZqZFe0UxR2ak0qgTt87T/poP9XCWRdfD51e7qfii/ln9Kd33L6vxLiqJTigk5nQNsiXKsBOds+0DCmHvI1orUMgF7fdRp67xkeNfYEGs0HFKpUSe3PTBk1shrMht/U9ctqyZovtLbdp6WN77f9jx9k+XBzSbRn1ej47KWS47Bmi6Jt+GaU6M91f9b28VXADVARiTEHoTY+51OMIFd4ezfwA6jTQaS/laK631fMTJ/+ZYx1WO6T+gKE4OCEL23uK6eSM2xjIfAPboQQYX6gxnztZxqxrvFtuUhdSD8XS1c68EHXsPyc2FPitZ0qbdZyBITRCfw9se962bXSYY23SKRwkaecL/tu5/8gvoY9M9wj80xwAYWbkF6V8JEBEfQX3KXcYeeBmjdUDGzWQaLQLCl2Bx5UZc0oAWY3xlFYb7etYl5ZIx+VnheAPxvPwnE6r3vPikAvlY//Vb6VRDnD3c7WGtuTUGEGAoThVGzcCo7kGAWOwCsUlJm+OsteMDlmHncWvisi4vGC1Yc9YheV02EwJW8m1AtVIAgipnMhoAzJ7zDuYYxbagAOu9aiVwd0LtY5iox31G4EfozaU4eO4W7oPtw0R1bTZI1rnRW2uxW3COuZN3Cn57aQd7Lgv9tIB/jBroxGOJdAn9zZtGKvJpwn6/TaQhVczFYbWJLJJTBo9xSX0B3ePnJKQUSQGpnZLA8trgmyxkp31i9Oqr1uA/hfMgFSNw
-X-Forefront-Antispam-Report: CIP:194.138.21.70;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hybrid.siemens.com;PTR:hybrid.siemens.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(47076005)(336012)(40460700003)(966005)(5660300002)(82310400005)(44832011)(16526019)(83380400001)(2906002)(186003)(36756003)(16799955002)(31686004)(31696002)(8936002)(2616005)(8676002)(86362001)(316002)(16576012)(956004)(110136005)(70206006)(70586007)(6706004)(7596003)(7636003)(26005)(508600001)(82960400001)(356005)(53546011)(3940600001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 14:24:17.5916
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c34e725d-32a8-4360-0975-08da3359eeb8
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=38ae3bcd-9579-4fd4-adda-b42e1495d55a;Ip=[194.138.21.70];Helo=[hybrid.siemens.com]
-X-MS-Exchange-CrossTenant-AuthSource: VE1EUR01FT054.eop-EUR01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3027
-X-Original-Sender: jan.kiszka@siemens.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=BjIObCIu;       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates
- 2a01:111:f400:fe1f::627 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+ <9a81cc8e-3064-cad8-b66f-0711c2705111@siemens.com>
+Subject: Re: Jailhouse over ZCU-104
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_848_557180963.1652281338656"
+X-Original-Sender: Danieleottaviano97@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -210,37 +79,201 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10.05.22 16:07, Daniele Ottaviano wrote:
-> Hi,
-> I'm trying to run Jailhouse over Zynq Ultrascale+ ZCU104. I have found a
-> guide showing the setup for ZCU102 but it doesn't work for me:
+------=_Part_848_557180963.1652281338656
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_849_1605198334.1652281338656"
+
+------=_Part_849_1605198334.1652281338656
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+Hi, thank you for your reply.=20
+I prefer, if possible, to use petalinux as a baseline to test also other=20
+mechanisms such as OpenAMP and kernel configurations such as the Linux=20
+Preempt-RT patch.=20
+Anyway, you were right, there was a problem in the petalinux build that=20
+luckily I managed to resolve. Now I'm able to boot the system but when I=20
+try to enable jailhouse I have the following error:
+
+root@xilinx-zcu104-2019_1:~# jailhouse enable /zynqmp-zcu104-root.cell
+
+Initializing Jailhouse hypervisor v0.12 on CPU 3
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 39/994, remap 0/131072
+Initializing processors:
+ CPU 3... OK
+ CPU 1... OK
+ CPU 0... OK
+ CPU 2... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU v3
+Initializing unit: PVU IOMMU
+Initializing unit: PCI
+Adding virtual PCI device 00:00.0 to cell "ZCU104-root"
+/home/user/jailhouse/hypervisor/ivshmem.c:407: returning error -EINVAL
+JAILHOUSE_ENABLE: Invalid argument
+
+I used a configuration file for zcu104 that I found in a mailing list=20
+conversation https://groups.google.com/g/jailhouse-dev/c/vMTEE3pYyPg/m/Ueeq=
+cdOhBgAJ=20
+(It is a modified version of the Ultra96 file):
+/*
+ * Configuration for the ZCU104 root cell. Copied from ultra96.c
+ * and changed where necessary.
+ */
+
+#include <jailhouse/types.h>
+#include <jailhouse/cell-config.h>
+
+struct {
+    struct jailhouse_system header;
+    __u64 cpus[1];
+    struct jailhouse_memory mem_regions[3];
+    struct jailhouse_irqchip irqchips[1];
+    struct jailhouse_pci_device pci_devices[1];
+} __attribute__((packed)) config =3D {
+    .header =3D {
+        .signature =3D JAILHOUSE_SYSTEM_SIGNATURE,
+        .revision =3D JAILHOUSE_CONFIG_REVISION,
+        .flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+        .hypervisor_memory =3D {
+            .phys_start =3D 0x7fc00000,
+            .size =3D       0x00400000,
+        },
+        .debug_console =3D {
+            .address =3D 0xff000000,
+            .size =3D 0x1000,
+            .type =3D JAILHOUSE_CON_TYPE_XUARTPS,
+            .flags =3D JAILHOUSE_CON_ACCESS_MMIO |
+                 JAILHOUSE_CON_REGDIST_4,
+        },
+        .platform_info =3D {
+            .pci_mmconfig_base =3D 0xfc000000,
+            .pci_mmconfig_end_bus =3D 0,
+            .pci_is_virtual =3D 1,
+            .arm =3D {
+                .gic_version =3D 2,
+                .gicd_base =3D 0xf9010000, /*GIC distributor register base*=
+/
+                .gicc_base =3D 0xf902f000, /*GIC cpu interface register bas=
+e*/
+                .gich_base =3D 0xf9040000, /*GIC virtual interface control=
+=20
+register base*/
+                .gicv_base =3D 0xf906f000, /*GIC virtual cpu interface=20
+register base*/
+                .maintenance_irq =3D 25,
+            },
+        },
+        .root_cell =3D {
+            .name =3D "ZCU104-root",
+
+            .cpu_set_size =3D sizeof(config.cpus),
+            .num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
+            .num_irqchips =3D ARRAY_SIZE(config.irqchips),
+            .num_pci_devices =3D ARRAY_SIZE(config.pci_devices),
+
+            .vpci_irq_base =3D 136-32,
+        },
+    },
+
+    .cpus =3D {
+        0xf,
+    },
+
+    .mem_regions =3D {
+        /* MMIO (permissive) */ {
+            .phys_start =3D 0xfd000000,
+            .virt_start =3D 0xfd000000,
+            .size =3D          0x03000000,
+            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_IO,
+        },
+        /* RAM */ {
+            .phys_start =3D 0x00000000,
+            .virt_start =3D 0x00000000,
+            .size =3D       0x7fb00000,
+            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_EXECUTE,
+        },
+        /* IVSHMEM shared memory region for 00:00.0 */ {
+            .phys_start =3D 0x7fb00000,
+            .virt_start =3D 0x7fb00000,
+            .size =3D       0x00100000,
+            .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+        },
+    },
+
+    .irqchips =3D {
+        /* GIC */ {
+            .address =3D 0xf9010000,
+            .pin_base =3D 32,
+            .pin_bitmap =3D {
+                0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
+            },
+        },
+    },
+
+    .pci_devices =3D {
+        /* 0000:00:00.0 */ {
+            .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+            .domain =3D 0,
+            .bdf =3D 0x00 << 3,
+            .bar_mask =3D {
+                0xffffff00, 0xffffffff, 0x00000000,
+                0x00000000, 0x00000000, 0x00000000,
+            },
+            .shmem_region =3D 2,
+            .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+        },
+    },
+};
+
+Do you have any clues about this problem?  Maybe there are errors in the=20
+".pci_devices" field.=20
+
+Il giorno mercoled=C3=AC 11 maggio 2022 alle 16:24:22 UTC+2=20
+j.kiszka...@gmail.com ha scritto:
+
+> On 10.05.22 16:07, Daniele Ottaviano wrote:
+> > Hi,
+> > I'm trying to run Jailhouse over Zynq Ultrascale+ ZCU104. I have found =
+a
+> > guide showing the setup for ZCU102 but it doesn't work for me:
+> >=20
 > https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-z=
-ynqmp-zcu102.md=C2=A0
->=20
-> First I tried to compile jailhouse on a build created with petalinux
-> 2022 but it fails.=C2=A0
-> So I decided to use the old release of petalinux 2019.1 because it works
-> according to this guide:
+ynqmp-zcu102.md
+> =20
+> >=20
+> > First I tried to compile jailhouse on a build created with petalinux
+> > 2022 but it fails.=20
+> > So I decided to use the old release of petalinux 2019.1 because it work=
+s
+> > according to this guide:
+> >=20
 > https://www.erika-enterprise.com/wiki/index.php/Xilinx_ZCU102#Setup_of_th=
-e_GNU_Compiler_for_aarch64.
->=20
-> In this case, I'm able to compile Jailhouse but when I start the board
-> the process stops at boot time.
-
-Before even enabling Jailhouse? Then it's a Petalinux topic, I assume.
-
->=20
-> Has anyone successfully ported Jailhouse to zcu104 yet?
-
-Conceptually, it should be close to the Ultra96, thus the integration
-done in jailhouse-images - unless you really want or have to use
-petalinux as baseline. But even then, looking at configs can be helpful.
-
-Jan
-
---=20
-Siemens AG, Technology
-Competence Center Embedded Linux
+e_GNU_Compiler_for_aarch64
+> .
+> >=20
+> > In this case, I'm able to compile Jailhouse but when I start the board
+> > the process stops at boot time.
+>
+> Before even enabling Jailhouse? Then it's a Petalinux topic, I assume.
+>
+> >=20
+> > Has anyone successfully ported Jailhouse to zcu104 yet?
+>
+> Conceptually, it should be close to the Ultra96, thus the integration
+> done in jailhouse-images - unless you really want or have to use
+> petalinux as baseline. But even then, looking at configs can be helpful.
+>
+> Jan
+>
+> --=20
+> Siemens AG, Technology
+> Competence Center Embedded Linux
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -248,4 +281,181 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/9a81cc8e-3064-cad8-b66f-0711c2705111%40siemens.com.
+jailhouse-dev/9806b760-e030-4183-8d18-7bc6349a027dn%40googlegroups.com.
+
+------=_Part_849_1605198334.1652281338656
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br>Hi, thank you for your reply.&nbsp;<div>I prefer, if possible, to use p=
+etalinux as a baseline to test also other mechanisms such as OpenAMP and ke=
+rnel configurations such as the Linux Preempt-RT patch.&nbsp;</div><div>Any=
+way, you were right, there was a problem in the petalinux build that luckil=
+y I managed to resolve. Now I'm able to boot the system but when I try to e=
+nable jailhouse I have the following error:</div><div><br></div><div>root@x=
+ilinx-zcu104-2019_1:~# jailhouse enable /zynqmp-zcu104-root.cell<br><br>Ini=
+tializing Jailhouse hypervisor v0.12 on CPU 3<br>Code location: 0x0000ffffc=
+0200800<br>Page pool usage after early setup: mem 39/994, remap 0/131072<br=
+>Initializing processors:<br>&nbsp;CPU 3... OK<br>&nbsp;CPU 1... OK<br>&nbs=
+p;CPU 0... OK<br>&nbsp;CPU 2... OK<br>Initializing unit: irqchip<br>Initial=
+izing unit: ARM SMMU v3<br>Initializing unit: PVU IOMMU<br>Initializing uni=
+t: PCI<br>Adding virtual PCI device 00:00.0 to cell "ZCU104-root"<br>/home/=
+user/jailhouse/hypervisor/ivshmem.c:407: returning error -EINVAL<br>JAILHOU=
+SE_ENABLE: Invalid argument<br></div><div><br></div><div>I used a configura=
+tion file for zcu104 that I found in a mailing list conversation&nbsp;https=
+://groups.google.com/g/jailhouse-dev/c/vMTEE3pYyPg/m/UeeqcdOhBgAJ (It is a =
+modified version of the Ultra96 file):</div><div>/*<br>&nbsp;* Configuratio=
+n for the ZCU104 root cell. Copied from ultra96.c<br>&nbsp;* and changed wh=
+ere necessary.<br>&nbsp;*/<br><br>#include &lt;jailhouse/types.h&gt;<br>#in=
+clude &lt;jailhouse/cell-config.h&gt;<br><br>struct {<br>&nbsp; &nbsp; stru=
+ct jailhouse_system header;<br>&nbsp; &nbsp; __u64 cpus[1];<br>&nbsp; &nbsp=
+; struct jailhouse_memory mem_regions[3];<br>&nbsp; &nbsp; struct jailhouse=
+_irqchip irqchips[1];<br>&nbsp; &nbsp; struct jailhouse_pci_device pci_devi=
+ces[1];<br>} __attribute__((packed)) config =3D {<br>&nbsp; &nbsp; .header =
+=3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; .signature =3D JAILHOUSE_SYSTEM_SIGNAT=
+URE,<br>&nbsp; &nbsp; &nbsp; &nbsp; .revision =3D JAILHOUSE_CONFIG_REVISION=
+,<br>&nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CON=
+SOLE,<br>&nbsp; &nbsp; &nbsp; &nbsp; .hypervisor_memory =3D {<br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x7fc00000,<br>&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; 0x00400000,<br=
+>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; .debug_conso=
+le =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .address =3D 0xff0000=
+00,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D 0x1000,<br>&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .type =3D JAILHOUSE_CON_TYPE_XUARTPS,<=
+br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_CON_ACCES=
+S_MMIO |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;J=
+AILHOUSE_CON_REGDIST_4,<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; =
+&nbsp; &nbsp; .platform_info =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; .pci_mmconfig_base =3D 0xfc000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; .pci_mmconfig_end_bus =3D 0,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; .pci_is_virtual =3D 1,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; .arm =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .gi=
+c_version =3D 2,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ .gicd_base =3D 0xf9010000, /*GIC distributor register base*/<br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .gicc_base =3D 0xf902f000, /*=
+GIC cpu interface register base*/<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; .gich_base =3D 0xf9040000, /*GIC virtual interface contro=
+l register base*/<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; .gicv_base =3D 0xf906f000, /*GIC virtual cpu interface register base*/<br=
+>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .maintenance_irq =
+=3D 25,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; .root_cell =3D {<br>&nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; .name =3D "ZCU104-root",<br><br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; .cpu_set_size =3D sizeof(config.cpus),<br>&=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .num_memory_regions =3D ARRAY_SIZE=
+(config.mem_regions),<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .num_irq=
+chips =3D ARRAY_SIZE(config.irqchips),<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; .num_pci_devices =3D ARRAY_SIZE(config.pci_devices),<br><br>&nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .vpci_irq_base =3D 136-32,<br>&nbsp; &n=
+bsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; },<br><br>&nbsp; &nbsp; .cpus =3D {<=
+br>&nbsp; &nbsp; &nbsp; &nbsp; 0xf,<br>&nbsp; &nbsp; },<br><br>&nbsp; &nbsp=
+; .mem_regions =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; /* MMIO (permissive) */=
+ {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0xfd000000,=
+<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .virt_start =3D 0xfd000000,<b=
+r>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;0x03000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flag=
+s =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_IO,<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; /* RAM */ {<br>&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x00000000,<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; .virt_start =3D 0x00000000,<br>&nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; 0x7fb00000,<br>&nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_M=
+EM_WRITE |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILH=
+OUSE_MEM_EXECUTE,<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp;=
+ &nbsp; /* IVSHMEM shared memory region for 00:00.0 */ {<br>&nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x7fb00000,<br>&nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; .virt_start =3D 0x7fb00000,<br>&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; 0x00100000,<br>&nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOU=
+SE_MEM_WRITE,<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; },<br><br>=
+&nbsp; &nbsp; .irqchips =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; /* GIC */ {<br=
+>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .address =3D 0xf9010000,<br>&nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .pin_base =3D 32,<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; .pin_bitmap =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,=
+<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &n=
+bsp; },<br>&nbsp; &nbsp; },<br><br>&nbsp; &nbsp; .pci_devices =3D {<br>&nbs=
+p; &nbsp; &nbsp; &nbsp; /* 0000:00:00.0 */ {<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,<br>&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; .domain =3D 0,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; .bdf =3D 0x00 &lt;&lt; 3,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; .bar_mask =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; 0xffffff00, 0xffffffff, 0x00000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; 0x00000000, 0x00000000, 0x00000000,<br>&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; .shmem_region =3D 2,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .shmem=
+_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,<br>&nbsp; &nbsp; &nbsp; &nbs=
+p; },<br>&nbsp; &nbsp; },<br>};<br></div><div><br></div><div>Do you have an=
+y clues about this problem?&nbsp; Maybe there are errors in the ".pci_devic=
+es" field.&nbsp;</div><div><br></div><div class=3D"gmail_quote"><div dir=3D=
+"auto" class=3D"gmail_attr">Il giorno mercoled=C3=AC 11 maggio 2022 alle 16=
+:24:22 UTC+2 j.kiszka...@gmail.com ha scritto:<br/></div><blockquote class=
+=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(2=
+04, 204, 204); padding-left: 1ex;">On 10.05.22 16:07, Daniele Ottaviano wro=
+te:
+<br>&gt; Hi,
+<br>&gt; I&#39;m trying to run Jailhouse over Zynq Ultrascale+ ZCU104. I ha=
+ve found a
+<br>&gt; guide showing the setup for ZCU102 but it doesn&#39;t work for me:
+<br>&gt; <a href=3D"https://github.com/siemens/jailhouse/blob/master/Docume=
+ntation/setup-on-zynqmp-zcu102.md" target=3D"_blank" rel=3D"nofollow" data-=
+saferedirecturl=3D"https://www.google.com/url?hl=3Dit&amp;q=3Dhttps://githu=
+b.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-zcu102.md=
+&amp;source=3Dgmail&amp;ust=3D1652367109560000&amp;usg=3DAOvVaw168L0NvNe3HK=
+UtSmTdSD_X">https://github.com/siemens/jailhouse/blob/master/Documentation/=
+setup-on-zynqmp-zcu102.md</a>=C2=A0
+<br>&gt;=20
+<br>&gt; First I tried to compile jailhouse on a build created with petalin=
+ux
+<br>&gt; 2022 but it fails.=C2=A0
+<br>&gt; So I decided to use the old release of petalinux 2019.1 because it=
+ works
+<br>&gt; according to this guide:
+<br>&gt; <a href=3D"https://www.erika-enterprise.com/wiki/index.php/Xilinx_=
+ZCU102#Setup_of_the_GNU_Compiler_for_aarch64" target=3D"_blank" rel=3D"nofo=
+llow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&amp;q=3Dht=
+tps://www.erika-enterprise.com/wiki/index.php/Xilinx_ZCU102%23Setup_of_the_=
+GNU_Compiler_for_aarch64&amp;source=3Dgmail&amp;ust=3D1652367109560000&amp;=
+usg=3DAOvVaw32a5-wgaxSWeYdxFSq2SIk">https://www.erika-enterprise.com/wiki/i=
+ndex.php/Xilinx_ZCU102#Setup_of_the_GNU_Compiler_for_aarch64</a>.
+<br>&gt;=20
+<br>&gt; In this case, I&#39;m able to compile Jailhouse but when I start t=
+he board
+<br>&gt; the process stops at boot time.
+<br>
+<br>Before even enabling Jailhouse? Then it&#39;s a Petalinux topic, I assu=
+me.
+<br>
+<br>&gt;=20
+<br>&gt; Has anyone successfully ported Jailhouse to zcu104 yet?
+<br>
+<br>Conceptually, it should be close to the Ultra96, thus the integration
+<br>done in jailhouse-images - unless you really want or have to use
+<br>petalinux as baseline. But even then, looking at configs can be helpful=
+.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, Technology
+<br>Competence Center Embedded Linux
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/9806b760-e030-4183-8d18-7bc6349a027dn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/9806b760-e030-4183-8d18-7bc6349a027dn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_849_1605198334.1652281338656--
+
+------=_Part_848_557180963.1652281338656--
