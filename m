@@ -1,164 +1,145 @@
-Return-Path: <jailhouse-dev+bncBDDNLV6S7AOBBI7JZCKAMGQEP425JCI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBB37IZGKAMGQELRD3L2A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id 704A9536D52
-	for <lists+jailhouse-dev@lfdr.de>; Sat, 28 May 2022 16:41:42 +0200 (CEST)
-Received: by mail-lj1-x239.google.com with SMTP id g3-20020a2e9cc3000000b00253cc2b5ab5sf1669850ljj.19
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 28 May 2022 07:41:42 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1653748900; cv=pass;
+Received: from mail-qk1-x73c.google.com (mail-qk1-x73c.google.com [IPv6:2607:f8b0:4864:20::73c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B564536E27
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 28 May 2022 21:13:53 +0200 (CEST)
+Received: by mail-qk1-x73c.google.com with SMTP id c16-20020ae9e210000000b006a32c6a3830sf6094191qkc.12
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 28 May 2022 12:13:53 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1653765232; cv=pass;
         d=google.com; s=arc-20160816;
-        b=NriAsGrcmaoyomhXItDlbB0k26ev+rXL0YHoCHyXbqN2Bfik7PScXHJCqQP0UC4qkM
-         QUr1nHeBE0VgPl/fO7b88Rjr1eTjIxyiwJwHP39qNgGBbb5d+v/PswZiAFkHLA4YFaIk
-         XZdVm6+w6SQcVoDgiOFWNfSRcIqnzr7Jy7rynIEagiqZeC2Shi/vTqk8tfA8Tu73yhzx
-         8+4GP86cisXympRT6jTs5nkl2/hm9co+WUZYYTgTVuryZL5TpDU2ul8uZSxt4mARU09g
-         jUXJ0DPpwwJXLr9QBsaV9MnQ0VO3huxTRzpSySrAE5ZRmWzjqFtWoZfSIM3tphTeOZGB
-         1F0w==
+        b=rwleHxn/Dl+m7vvUkFSwPcNqNoWwrJybcx9PmwkBYzE5fHW7sxKPjxPcFxZ/phMhG/
+         eGIgiZLgPIVab1T0RrQ/Gf3RkBd0jW+ar8ohODTWIcJbKsulChbwjtev/RKIEUAfQBg6
+         rZbEKpGkti+WrIRoMFuMn10qQDB80tybyhy1LFBmuxdMKOHGBe1qXqyMP9pznEJnCZvv
+         w0rxE5ejJscFB1uizs0iv3LUwRdltwJVfbMzEHLjvpR711Z6HgYvrCp0sNOEG/WdyKLJ
+         Q3tpy0k5dvQM+uvXCbJmU5UntBeqmnFst6rfhFkJEoTNoesgbvvMJrqhJEefRz8c2jns
+         aMaA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=WUu8+eaF5JB4K1eGe6TN3TRCy7Ntz7LVeWrPTWdqWxI=;
-        b=uYgEXsojiha7FBg/iLciAKbgGFwcRn3arwFgRnrA6px0IkCqGa/FTwCCngitXnm4yS
-         ytZE4j8TOK21InCNqVMxjnKA9EtrQ17WZ4HB/fPuOxckPdHn/5Bwb9FO/A42WU6Oifg9
-         oTRdMZpFLFnbICw3rvrpgD6ilE/q9Bxpa4rwYUE16jS63ssjfHa9xtco3+00kvxOwTiC
-         oNOCzTcgH0wgrebz/lgTkVhorJX3RCZfadMXbmNjycJ1SwKd1ea5cJmzdT+YGozuDGlW
-         SgNqAkAlfYmtJncXLq6jP5kce5hypO4AhpXdAhymAbwHBkISqDrazEq2xqemTh5njN7L
-         cRAw==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=0nwE65m3stSb7uT4OGUwZ24avps+eSU+aU8a/qZwAPM=;
+        b=qH8FzbXi17uQEvJnDqPPAYw/i4O46qwWcCeilH3FhFTT54aGFDby7k47PHypVjFTtL
+         bB/fDsape3crkVn0rRU4nVbhTPMF3ysoUHuFGEV5GIls+sHLTU1oiTuVY7OhREht9M+P
+         a8EKbKxbOSPpP2eoXY/MKi5gJvmoqW1qkmn+nOAvMlbAhwxPy0HiQjpN24op23TzKQWq
+         j4vRlraob0AqY1nQuoAEozxeK4Oi6jQry7zWHT9/WW1cvBLCCz0JTTOSDVDTFNdUxqjA
+         jCplqPGwcFrJw/MRcIfqcIaBjj2qOUcdJuyncF+dEnvS+NOd9+XMFEvMpuEGmw7fEck8
+         gdVg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=i25C6p3c;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=q7AAMz2T;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:cc:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=0nwE65m3stSb7uT4OGUwZ24avps+eSU+aU8a/qZwAPM=;
+        b=NB/+dflIGQTW3BVXoYEH6NgbT0w69EBcSDmmpIYibhHTx3rIMNDIhMorfekIXW3WyB
+         TZKxnfftHkEz7MQYuLIEor9o/Ub+DePS0zLwdUPmIa5EjZB9xO57jcltawoIPKJO+ALp
+         ltm2G78yccEoOqbopmIGXKVVeYrGxpWWKlL9qTpoFGOUP2ZuObjkWNej0DGwjzW2ghJG
+         BBxPV3jwOWUkGR0kdkAJhQC5swzF+WE5Lif7um2xbLohfVhCdA3ap0isU/hHDBhzfc2S
+         4+NRCxFhOxz9SxvsY44ENCvOStk+C64LMy99p9mXo/oW61RgL1WYx3TyV2mSxl2sSO0G
+         1iPg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=WUu8+eaF5JB4K1eGe6TN3TRCy7Ntz7LVeWrPTWdqWxI=;
-        b=mu+0r/PaZey5tVBMYWnxinZxGeP6GWYwt0kq+oqHbtxTblwHWmYEU3hg5ob2RHbBm/
-         LdGbpXKSfLvOAHFIxRPtxw8CeAanq0fXN+74l5EVkAdGW7yX5DR2j/JcFfmCvyc3oRij
-         f+rJlkflmK/uuMSFlpl6g+bZvzpcJDFyyDQHCkiKH+vwiSskE2zYx09JFpHG82AXFbIK
-         6CoC2ALtho6dsQR334JEKdgi5Z/SMykwCneXsVq8gylKYcmpuVBpanYMUSie0udBmdtr
-         H6Ji56d3dycgla9aJ8AI4xRd+kL26LUzzbhMDgowQQxy+Cl7s62mBGWSp6irKgsjuROy
-         fwzA==
+        bh=0nwE65m3stSb7uT4OGUwZ24avps+eSU+aU8a/qZwAPM=;
+        b=othuzqloGhAVu5CG826O8i7QjZqO8yc051djYRGKSPYUqtz4LhIU0eoxMxwwah3ebh
+         HnRj0Ve8GyCFKA24K1eMVrkMgY6k25tHjLzBFBND/AuvZEXCsgQ6CRtG3sbce9Tdcev2
+         PwzFGnK+VMVI32Bz0kDVs5rd3z5uAOHSCltjejzP+1YHKhahyEoMxZwHU0Frfrr8VgeL
+         RjRQ3WfXXkETAMGMzHR9W0XBTZv7KiOxvARQCnaBGT+AuBRvyue13v78hrlk9xWXT3mn
+         /Ds7+/uM8MzRQgOmljEAndx2QniTO8pNzcIdI84gvLPVW+RDkwm+zadziaOIn+luLV3Q
+         GjGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=WUu8+eaF5JB4K1eGe6TN3TRCy7Ntz7LVeWrPTWdqWxI=;
-        b=dVFCgGC/Ak+rsOCA81pYQMVNitZdtPr04BsKzHIkWvE8lJ0P54uSgyb3xLeL/JLTl9
-         2RMCSD+gMIYBpa5rMMkymOATnUtMXSPrjGuPtHuRvBy2B5Kgfthw8o5IkQ9UTdneMPiV
-         5XNwcOD4p0GLMVyMHtxAUsGrPqlIHKw0deEV27lsUvaidog9fXcA+Y1rpkbBJioaoaGH
-         OfAvpu2LgCoytFnnkrE53/z12jULnJlm3lbV9VjbPnoJLgV3VCDzQyjiksEh5wu9LQgg
-         Af9q1myK7iXJfdESBq4fRdcypCw0BQUjd8ALoow5Dplkp7Rktvo5inKIu7Q65Q7F/aOB
-         b98w==
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:cc:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=0nwE65m3stSb7uT4OGUwZ24avps+eSU+aU8a/qZwAPM=;
+        b=VFX4StsB+uAhPvIF40gs7pxL/0Ps4jsJ/ZS4OYKAc3apzitu+ghHj/hlaN7UzfcjsA
+         ePsKlD2HGNzXC6tgMVIS0+yoZyfSrARzOKY+gU6+2UkhXhR3/kL1x/t8kqhzIKaQF+fw
+         6iRYd8O4r5nyYWuyXZyRmoHpjuHfWzTe/aFZ/WADmG/zTzAf1HAO8dzJBv88E3ymr+oW
+         ZM1hE2hWZqxT70/vw4mUgGzSs6sgbyJvxltISROSANXpoaDuKS1GxahWRVC4P+KA1+7z
+         DvIyNWOa/OTP4aaQ9eds8KXznS11fBq7hGP8UrdXV8KV4Q+e+kdFx2AVKfOgc1fXdJux
+         9Ajw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530bMz2ExI99Ja6pD/9NaNkSiLSsDRhyHmBUgVJhGytEv7Et2eux
-	246wqy+BDGQ5anuW3+WeLus=
-X-Google-Smtp-Source: ABdhPJxJg1E/ZbynuioX1zvhw6L/TA9beCF+1OZAij0DWsv5+n+96gO5elCzn8bCdtFQGvrDcVOBKg==
-X-Received: by 2002:a05:651c:887:b0:247:f630:d069 with SMTP id d7-20020a05651c088700b00247f630d069mr28599550ljq.514.1653748900469;
-        Sat, 28 May 2022 07:41:40 -0700 (PDT)
+X-Gm-Message-State: AOAM532GjawrN05oRkP5aJUGz7wxcUFiGVqfOB2aGT0YL+RGLy4wYUT1
+	tkhubNi5p20d5p+1CULGqk0=
+X-Google-Smtp-Source: ABdhPJx6p/91VstmQgjZ+Tvmbe3pkVOXugnQrO8VDlx7HY+cu3w8fxdwntPAsOquPxdiTlR/4ujv0g==
+X-Received: by 2002:ad4:55f1:0:b0:461:c6ed:82bc with SMTP id bu17-20020ad455f1000000b00461c6ed82bcmr40245529qvb.30.1653765232053;
+        Sat, 28 May 2022 12:13:52 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:10cb:b0:478:7256:822a with SMTP id
- k11-20020a05651210cb00b004787256822als2724987lfg.3.gmail; Sat, 28 May 2022
- 07:41:38 -0700 (PDT)
-X-Received: by 2002:a05:6512:128b:b0:478:7e7e:7383 with SMTP id u11-20020a056512128b00b004787e7e7383mr19491628lfs.502.1653748898777;
-        Sat, 28 May 2022 07:41:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1653748898; cv=none;
+Received: by 2002:a05:620a:4001:b0:6a3:2d5d:f77 with SMTP id
+ h1-20020a05620a400100b006a32d5d0f77ls15642993qko.2.gmail; Sat, 28 May 2022
+ 12:13:51 -0700 (PDT)
+X-Received: by 2002:a37:456:0:b0:6a3:6f0d:7fb7 with SMTP id 83-20020a370456000000b006a36f0d7fb7mr24730992qke.57.1653765231199;
+        Sat, 28 May 2022 12:13:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1653765231; cv=none;
         d=google.com; s=arc-20160816;
-        b=By5fDx6sjMbtk0BAgmiIz94scNpyHZ9e4xp4QFMidqsyuJK2GAtcXP+RjX1hOt3+dQ
-         o8LTpUm9/72ZGKMj9fSTm+BuQZEXBDUi06QDRVRmBT/WDDTYGlJY3JUWgJGAVKPY/lpt
-         5Q4zNGayF4uKGVzv37/Ubs2TaX/pC+poY6nlppoZpY7zY+FhEdqOwZyJpU6U6UtSmLMJ
-         9HQIkhVQK4ZVFPYo7/WQ+xe5TqbMla4LIKoQyQCO2lXoqU04eUKn9VZ3Euoh74uaq4un
-         7psWLkcmPmOP2YON5Z711liowIL4Ls6ml9H7wR8LhxBDy9vlEokxy8UaxJdzgzusU+69
-         +QQA==
+        b=ElJJIPnqa7R4N0OTgEENwZHp1pa1nBNuRmyhIX7nZZoH+Ky4FWzIxN+DLxReHLG/2I
+         3rDf4/VkkKyD2ankewsawFOFETEDgA2WseQzMzOJeqJixmr4yAMaM7AFk5hm0MkAPnSP
+         hx2IFgE4YKu3mUf24aUKD+gdrQY75KDjjgzHrKos09RAuyiUR5ee7N3ZkMpxLh5R8Wzr
+         kUVFHmDbdrSH3aZvfQbkvcb0evh8qMhxz+nWcr6Cnfy8p3ICt6ztn5BgTrDFLXDc/v8h
+         1TxFBdQ0rEO//PZPkKNiw6BvtsZzLGmv145+DF0o2jVSMMKP9iPnVcoxXyE3Q+JrfEOo
+         FI1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=oH9wFtOeXfwkLXUbiC2jlU6vNiIZexjVjx6UxoU9rR4=;
-        b=UF7yb03zKhbHjkZQr+Wohrab8PnyTFNHZQpVr+H8NrrtMy2sMZ3s1DATAe65DhefCS
-         kJdtR2xO0orzaKXQfM/6NfTcvQXgN0S7vdHoC+kwSgS81BqrLXPKJLaXZ7aRoyVsA1ur
-         ZeBgwnrncUamt3+GyaRjWh4mb8a7YdfENWQHTowJ+io4xZT+qtdKNN1zE2bLLLBFRVBP
-         DcWFX2uZtNh3PXZCz610MX9ntWW9GkgNqYI/GLgQEpZK9hnvjD8WMM6k1cKeri0KA1ga
-         lRD/nIrtFrrumyy0nR0oxj8dfepDVKhXsZdLyI1F+YGsuoPmsz6bOBIEAezwbjkaqASr
-         YOzw==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=l/cqpgpKMmOPN1o8F/pD+hpd5MXDYMl5rdBvKgyrGJI=;
+        b=Tso8tVHcH/UP8oN+56lNZMnutexQuAz1P/1JJzEn+4w+D54TgISBSL3SDSwpzR96wv
+         xVotxV+vnIrScBJqHKnk8Z6Kxe2hKR4/h8m8V+rv6seWl8ampj4bECuiJgV1oEE2N0fk
+         JdIzRkC9dGijNAd1nSKxK8R6eWZYx2HSu0lLmYo72CLMITwkHgNW6wl1P79ujsxx//eF
+         opcxV56NwenWp+cpi4YVMCybvXnExOt+kUlWVkn+f5zijezKm2Z7xUdK2MU4PBzzbGY/
+         T92cYKFAPznSz/DMZ42N1xSQ7GPgEviJ8B5dOEMjJV4p0TkeqB2/ZZlHdjCVeIJPXvWp
+         B7PQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=i25C6p3c;
-       spf=pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) smtp.mailfrom=jan.kiszka@web.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=web.de
-Received: from mout.web.de (mout.web.de. [212.227.15.3])
-        by gmr-mx.google.com with ESMTPS id k22-20020a2ea276000000b0024da01a8c6dsi304950ljm.1.2022.05.28.07.41.38
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=q7AAMz2T;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com. [2607:f8b0:4864:20::1132])
+        by gmr-mx.google.com with ESMTPS id 1-20020a05620a078100b006a585be8750si575983qka.3.2022.05.28.12.13.51
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 May 2022 07:41:38 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted sender) client-ip=212.227.15.3;
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.11.10] ([88.215.102.122]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MWQyl-1oIuhW1uZf-00Xxmx; Sat, 28
- May 2022 16:41:37 +0200
-Message-ID: <dd337a1c-d678-7c7b-d371-f8bd2b019c28@web.de>
-Date: Sat, 28 May 2022 16:41:36 +0200
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 28 May 2022 12:13:51 -0700 (PDT)
+Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) client-ip=2607:f8b0:4864:20::1132;
+Received: by mail-yw1-x1132.google.com with SMTP id 00721157ae682-30c1c9b9b6cso11988547b3.13
+        for <jailhouse-dev@googlegroups.com>; Sat, 28 May 2022 12:13:51 -0700 (PDT)
+X-Received: by 2002:a0d:c101:0:b0:2ff:5824:e8a8 with SMTP id
+ c1-20020a0dc101000000b002ff5824e8a8mr50277297ywd.413.1653765230767; Sat, 28
+ May 2022 12:13:50 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: Kernel panic on enabling root cell
-Content-Language: en-US
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
 References: <2dcadf3d-1df9-497a-a530-be01a5da96e9n@googlegroups.com>
- <8e895901-cd60-9696-935a-293245586a77@siemens.com>
- <CA+V-a8tLSnKSRVOGwHmNUs+y58QoiDazwBA9rrQ1yGXWcFLVRg@mail.gmail.com>
- <234b1a2d-ea25-e38c-5053-eea15f57b933@siemens.com>
- <CA+V-a8vUAEZUkbhhHEHKHzf-OhXqnfMkojP5o0nSEtgBdSbRQw@mail.gmail.com>
- <35cddc35-a563-ca93-8e29-b9ae06844030@siemens.com>
- <CA+V-a8uGOP49BWzY1bwprzLzhUXFjfqW6yD1c-LZN7i94mrzbQ@mail.gmail.com>
- <a87eb794-7dc1-f447-c13a-de600a48d59e@siemens.com>
- <CA+V-a8uBuBZb5z-HvuLF96jTtKLLKCt8nHmqKt4jtX9ninJAtw@mail.gmail.com>
- <eafaaed1-604f-569b-47f5-232b01cfcee5@siemens.com>
- <CA+V-a8vshtRo3Kot2xCVV=L+kySoP1XkOrc3U8tWXxLeCCb4Ow@mail.gmail.com>
- <385f8761-8d70-d0c4-f903-9adadb3c9a90@siemens.com>
- <CA+V-a8uGNUis=XLwewkePUTUDrJp0QBfgkaOMf=8KvPJh4pW_A@mail.gmail.com>
+ <8e895901-cd60-9696-935a-293245586a77@siemens.com> <CA+V-a8tLSnKSRVOGwHmNUs+y58QoiDazwBA9rrQ1yGXWcFLVRg@mail.gmail.com>
+ <234b1a2d-ea25-e38c-5053-eea15f57b933@siemens.com> <CA+V-a8vUAEZUkbhhHEHKHzf-OhXqnfMkojP5o0nSEtgBdSbRQw@mail.gmail.com>
+ <35cddc35-a563-ca93-8e29-b9ae06844030@siemens.com> <CA+V-a8uGOP49BWzY1bwprzLzhUXFjfqW6yD1c-LZN7i94mrzbQ@mail.gmail.com>
+ <a87eb794-7dc1-f447-c13a-de600a48d59e@siemens.com> <CA+V-a8uBuBZb5z-HvuLF96jTtKLLKCt8nHmqKt4jtX9ninJAtw@mail.gmail.com>
+ <eafaaed1-604f-569b-47f5-232b01cfcee5@siemens.com> <CA+V-a8vshtRo3Kot2xCVV=L+kySoP1XkOrc3U8tWXxLeCCb4Ow@mail.gmail.com>
+ <385f8761-8d70-d0c4-f903-9adadb3c9a90@siemens.com> <CA+V-a8uGNUis=XLwewkePUTUDrJp0QBfgkaOMf=8KvPJh4pW_A@mail.gmail.com>
  <CA+V-a8uA+y-p5GmYavLpc6s1O-TJiRGSkpRHM4-dEA=XsqU_mA@mail.gmail.com>
- <5172e723-49ce-a870-2066-d22f44115da3@siemens.com>
- <CA+V-a8vxVLxV8iog0-JUH-Bd4nnCj5ELYkd_SkDDmPuKOAiJKg@mail.gmail.com>
-From: Jan Kiszka <jan.kiszka@web.de>
-In-Reply-To: <CA+V-a8vxVLxV8iog0-JUH-Bd4nnCj5ELYkd_SkDDmPuKOAiJKg@mail.gmail.com>
+ <5172e723-49ce-a870-2066-d22f44115da3@siemens.com> <CA+V-a8vxVLxV8iog0-JUH-Bd4nnCj5ELYkd_SkDDmPuKOAiJKg@mail.gmail.com>
+ <dd337a1c-d678-7c7b-d371-f8bd2b019c28@web.de>
+In-Reply-To: <dd337a1c-d678-7c7b-d371-f8bd2b019c28@web.de>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Sat, 28 May 2022 20:13:24 +0100
+Message-ID: <CA+V-a8uMOW2PopUbMhaOmCs-RZWqzOJcC3zXOToF2pWSs_=O5w@mail.gmail.com>
+Subject: Re: Kernel panic on enabling root cell
+To: Jan Kiszka <jan.kiszka@web.de>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:sC2+0iDkiPgvehhmq8FqEQcwBjKxjfOrcfGEva5CoCKJglJw/Gn
- XiCYie0IfhNa57OJIk6xl83A3pRF2eg5DSDfujmgqvC4Jb/GAq8XSzNq8AZyJVDpgBytJ7M
- nnbWFSKDl2iZkbyBSKmM7uEYjL1hJR2/a/wSfZVgw1B0MGNNFKezI7aSRll0KGWUej0DVO5
- 9hTwzmXwJnUm1bjAa8LLw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:GKtYyeJAQic=:2GByILfuLUsqZvL2AZPAJw
- cowXx05B418iIXa02D4rKXDh4cwgten25nFz8pY0sRP5DQZlMb92WE2SV2H2kTTkfcsql+huS
- nQ+WpYsI+NE5Z6xHqa6ZrJPzZzGJpxoSX5G+a/WUNAqqGplUuND9Ly9ETxvtF44CvnB8JY6ic
- npXAUuWTymP9D7NbbymhNOzFbhChxPEMCuWmNt7q1BBpOxPvVPy0mHHKb5SGbcdnaRf+/e4dD
- 4U8grsFpjy1YjtZOyBN9mV9lqLEDylO86AjyAKBkKVEwUptMGUPUIMBXTDIbq5tD++sR3e7/b
- d4xy+s+55C9EoDVOX8HSxACXXTmfWGKrDylgGz87l9knx0sSHjplFJRs0+025PsxxvfZhFsmH
- giwqt4neTYWjza8Iyp5BFaaadEweTiHdo4+YvIhL7yHAtjbRGkWieSLqHV/HhwwaxSZ6QvuLO
- Tefn/+2FQjtMRVA6CragNCta/fY5q7FmLser+jmEN5pxsguQ8Olfu8oPboIFEEIEbRbchq3e3
- u5L9NvbLWh50SI10Hu1fZIGpsstGWcCciyU8XO+3CKF+kLJH6sl0qI1XBrWtdZ6AF9Bd1Xe1i
- DTcH3mU87QkMjqn/0MTPMtu5i3MLVq762Ezv7B7xzT/+TFMFm0GRy1dCt5hq5RY35xg9+oAfR
- imqYpu9RMZY7vKYUieFpS1pTGEphiEDFdv4zfbjjq/mZwJZf5jo6Pg8EPTbRB/K7MBWaZKrPH
- ULinrHpYzkWU9aUR+ifhhxght5eX1Ymxl7qSPjm4vPSb9FQ6vZB+Xpbs2nAV5aFMZ9YOreHdg
- vehj7LWXytn044X1THevfBdniUgbQJOiaM76OvBsAvCQ8dFRLVJgzCsNJ+akMxTSZSttOQFXo
- Rm+QO/V4uiI3tjMV7L8MP2zon1k0Kk/1gz17DfLoYzmazgep5JKSOGn1yq9z9e2VsA0d2Jhxo
- j6+IQAnO85S7bHtz6MLcpYn7J624b2Z66Sn5sgZUXWqnofcGlQr8oto7ymEXuwvZ3RaNEtiJw
- fM8V9EZqw/irgIIm0LXKyrmh70ZNi0kw9BRy7OUMMVox+/EfvoBegq9r975cHRiLiRedoIRnk
- am0y1wdR1Mz3VfZnKVHOGhF5WbT6YJpIi+ERFVNTIZ+nj+QuTLYVUGyvg==
-X-Original-Sender: jan.kiszka@web.de
+X-Original-Sender: prabhakar.csengg@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@web.de header.s=dbaedf251592 header.b=i25C6p3c;       spf=pass
- (google.com: domain of jan.kiszka@web.de designates 212.227.15.3 as permitted
- sender) smtp.mailfrom=jan.kiszka@web.de;       dmarc=pass (p=NONE
- sp=QUARANTINE dis=NONE) header.from=web.de
+ header.i=@gmail.com header.s=20210112 header.b=q7AAMz2T;       spf=pass
+ (google.com: domain of prabhakar.csengg@gmail.com designates
+ 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -171,201 +152,139 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 28.05.22 15:22, Lad, Prabhakar wrote:
-> On Fri, May 27, 2022 at 6:07 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>
->> On 26.05.22 17:48, Lad, Prabhakar wrote:
->>> Hi Jan,
->>>
->>> On Tue, May 24, 2022 at 12:55 PM Lad, Prabhakar
->>> <prabhakar.csengg@gmail.com> wrote:
->>>>
->>>> On Mon, May 23, 2022 at 4:13 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>>>>
->>>>> On 23.05.22 15:55, Lad, Prabhakar wrote:
->>>>>> Hi Jan,
->>>>>>
->>>>>> On Fri, May 20, 2022 at 7:08 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>>>>>>
->>>>>>> On 19.05.22 15:23, Lad, Prabhakar wrote:
->>>>>>>> Hi Jan,
->>>>>>>>
->>>>>>>> On Thu, May 19, 2022 at 12:39 PM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>>>>>>>>
->>>>>>>>> On 19.05.22 11:44, Lad, Prabhakar wrote:
->>>>>>>>>> On Thu, May 19, 2022 at 6:30 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
->>>>>>>>>>> Forgot: that cannot work. The call of arm_dcaches_flush will overwrite
->>>>>>>>>>> lr, thus the second ret will only return to where the first ret jumped
->>>>>>>>>>> to - endless loop. You would have to restore lr (x30) from x17 in
->>>>>>>>>>> arch_entry first:
->>>>>>>>>>>
->>>>>>>>>>> mov x30, x17
->>>>>>>>>>> ret
->>>>>>>>>>>
->>>>>>>>>> That did the trick thanks!
->>>>>>>>>>
->>>>>>>>>> diff --git a/hypervisor/arch/arm64/entry.S b/hypervisor/arch/arm64/entry.S
->>>>>>>>>> index a9cabf7f..7b340bd1 100644
->>>>>>>>>> --- a/hypervisor/arch/arm64/entry.S
->>>>>>>>>> +++ b/hypervisor/arch/arm64/entry.S
->>>>>>>>>> @@ -109,6 +109,8 @@ arch_entry:
->>>>>>>>>>         mov     x0, #LINUX_HVC_SET_VECTORS_LEGACY
->>>>>>>>>>  1:
->>>>>>>>>>         hvc     #0
->>>>>>>>>> +       mov x30, x17
->>>>>>>>>> +       ret
->>>>>>>>>>
->>>>>>>>>>         hvc     #0      /* bootstrap vectors enter EL2 at el2_entry */
->>>>>>>>>>         b       .       /* we don't expect to return here */
->>>>>>>>>>
->>>>>>>>>>
->>>>>>>>>> With the above diff I do get the below:
->>>>>>>>>>
->>>>>>>>>> [   42.980805] jailhouse: loading out-of-tree module taints kernel.
->>>>>>>>>> Reading configuration set:
->>>>>>>>>>   Root cell:     Renesas RZ/V2L SMARC (renesas-r9a07g054l2.cell)
->>>>>>>>>> Overlapping memory regions inside cell: None
->>>>>>>>>> Overlapping memory regions with hypervisor: None
->>>>>>>>>> Missing resource interceptions for architecture arm64: None
->>>>>>>>>> [   46.582588] obcode @arm_dcaches_flush: d53b0024
->>>>>>>>>> [   46.582616] obcode @arm_dcaches_flush: d53b0024
->>>>>>>>>> [   46.611311] The Jailhouse is opening.
->>>>>>>>>>
->>>>>>>>>> So it looks like something to do with the debug console. This has to
->>>>>>>>>> be poked in the dark or any easy way to debug?
->>>>>>>>>
->>>>>>>>> Well, we do not yet know what goes wrong. We do know that we can call
->>>>>>>>> into the hyp take-over stub and register Jailhouse with it. We do not
->>>>>>>>> know if we will then end up in Jailhouse in hyp mode and just lack
->>>>>>>>> console output or if we crash on entry already.
->>>>>>>>>
->>>>>>>> Right agreed.
->>>>>>>>
->>>>>>>>> To move the uart console out of the picture: Did you already check if
->>>>>>>>> the driver you select in the Jailhouse config is actually one that
->>>>>>>>> should support the UART on your board? Next is to double check if poking
->>>>>>>> The UART on this platform is almost identical to
->>>>>>>> JAILHOUSE_CON_TYPE_SCIFA type, but with some differences which I have
->>>>>>>> patched to work on this platform.
->>>>>>>>
->>>>>>>>> registers in the way the Jailhouse driver will do at the addresses you
->>>>>>>>> configured will work: Pull the code into the kernel module or even into
->>>>>>>>> a userspace application with /dev/mem raw register access and try out if
->>>>>>>>> that works in a "safe" environment (without hypervisor mode).
->>>>>>>>>
->>>>>>>> Sure will give that a shot, any pointers on doing this from userspace?
->>>>>>>>
->>>>>>>
->>>>>>> Something like this may help if you do that the first time:
->>>>>>> https://bakhi.github.io/devmem/
->>>>>>>
->>>>>> Thanks for the pointer.
->>>>>> I have tried reading/writing from the hypervisor location and that
->>>>>> goes all OK.
->>>>>
->>>>> Means, you were able to generate output on the UART. Hmm, would have
->>>>> been too easy.
->>>>>
->>>> No I meant I was able to read/write into the hypervisor memory which
->>>> is reserved in DTS.
->>>>
->>>>>> To avoid any issue related to debug UART is there any way
->>>>>> I could test this prior to enabling?
->>>>>
->>>>> Not without extra measures: Without JAILHOUSE_BORROW_ROOT_PT, which
->>>>> applies to arm64, the driver will not map the physical UART page. That
->>>>> only happens in init_bootstrap_pt which is run after jumping to EL2. So,
->>>>> we the jump goes wrong, you cannot find out where you are.
->>>>>
->>>> I see. Just to confirm it's not the debug UART the watchdog is enabled
->>>> in Linux and I see the platform reboots after 60 seconds, which is
->>>> hinting we are seeing a kernel freeze.
->>>>
->>>> Just a fyi I tried the queues/jailhouse branch from [0] and still
->>>> seeing the same issue.
->>>>
->>>>> Do you have the chance to get hold of some jtag to find out where the
->>>>> CPUs are?
->>>>>
->>>
->>> X0   FFFF00063F7ECD88  X16                 0  ^S+ ^Stack_________+
->>> X1                  0  X17                 0
->>> X2                  0  X18  FFFFFFFFFFFFFFFF
->>> X3   FFFF8000112870E8  X19                80
->>> X4   FFFF00063F7ECD80  X20  FFFF800011179000
->>> X5   FFFF800011179A48  X21  FFFF80001130BE70
->>> X6   FFFF80001101E000  X22  FFFF800010DFDED8
->>> X7   FFFF800011179000  X23          86000004
->>> X8   FFFF00063F7ECD80  X24  FFFF80001101CB38
->>> X9                  0  X25  FFFF800011308000
->>> X10          00040000  X26  FFFF80001130C000
->>> X11                 0  X27  FFFF800011182A40
->>> X12                 0  X28  FFFF800011182A40
->>> X13  FFFFFFFFFFFE0000  X29  FFFF80001130BC40
->>> X14  FFFF800011192008  X30  FFFF800010B3B464
->>> X15  FFFF800011192048  PC   FFFF8000100D9F78
->>> --------------------------------------------
->>> CPSR     80000085   N N  I I  SS  _
->>> EL1h                Z _  F _  IL  _
->>> nsec                C _  A _
->>>                     V _  D _
->>> --------------------------------------------
->>> Current ELx:           SP   FFFF80001130BC40
->>>                        ELR                 0
->>>                        SPSR         20000085
->>> --------------------------------------------
->>> EL0:                   EL1:
->>> SP   FFFF800011182A40  SP   FFFF80001130BC40
->>>                        ELR                 0
->>>                        SPSR         20000085
->>>
->>> EL2:                   EL3:
->>> SP   0000FF0000011000  SP           4400A500
->>> ELR  FFFF8000104CC8A8  ELR  0000FFFFC02064AC
->>> SPSR         20000085  SPSR         200003C9
->>> --------------------------------------------
->>> SPSR_ABT            0  SPSR_SVC     20000085
->>> SPSR_IRQ            0  SPSR_HYP     20000085
->>> SPSR_FIQ            0
->>> SPSR_UND            0  ELR_HYP      104CC8A8
->>>
->>>
->>> Above is the CPU state, when the kernel freezes. Any hints on what
->>> might have happened?
->>
->> Can you correlate the PC value with the hypervisor disassembly? Or are
->> we actually back in Linux? Current SP == EL1 SP...
->>
->> If that should be the case, you could use the JTAG to "trace" how far
->> you get: Add an infinite loop at some point the setup should get along,
->> and then check with the debugger if PC points to that address and if EL2
->> is active. With that, you could also check if the UART print-out is
->> executed.
->>
-> After tracing back I see it's looping infinitely somewhere in the
-> hypervisor.o file, below is the code where it repeatedly loops.
+Hi Jan,
+
+On Sat, May 28, 2022 at 3:41 PM Jan Kiszka <jan.kiszka@web.de> wrote:
 >
->     ffffc0209550:    b9400680     ldr    w0, [x20, #4]
->     ffffc0209554:    b9403481     ldr    w1, [x4, #52]
->     ffffc0209558:    6b00003f     cmp    w1, w0
->     ffffc020955c:    540013a8     b.hi    ffffc02097d0 <entry+0x2d8>
->     .....
->     ffffc02097d0:    17ffff60     b    ffffc0209550 <entry+0x58>
+> On 28.05.22 15:22, Lad, Prabhakar wrote:
+> > On Fri, May 27, 2022 at 6:07 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
+> >>
+> >> If that should be the case, you could use the JTAG to "trace" how far
+> >> you get: Add an infinite loop at some point the setup should get along,
+> >> and then check with the debugger if PC points to that address and if EL2
+> >> is active. With that, you could also check if the UART print-out is
+> >> executed.
+> >>
+> > After tracing back I see it's looping infinitely somewhere in the
+> > hypervisor.o file, below is the code where it repeatedly loops.
+> >
+> >     ffffc0209550:    b9400680     ldr    w0, [x20, #4]
+> >     ffffc0209554:    b9403481     ldr    w1, [x4, #52]
+> >     ffffc0209558:    6b00003f     cmp    w1, w0
+> >     ffffc020955c:    540013a8     b.hi    ffffc02097d0 <entry+0x2d8>
+> >     .....
+> >     ffffc02097d0:    17ffff60     b    ffffc0209550 <entry+0x58>
+> >
+> > I haven't managed to find where exactly in the C file this is
+> > happening yet. Any thoughts on what could be happening?
+> >
 >
-> I haven't managed to find where exactly in the C file this is
-> happening yet. Any thoughts on what could be happening?
+> That's very likely
 >
+> while (entered_cpus < hypervisor_header.online_cpus)
+>         cpu_relax();
+>
+Thanks for the pointer really appreciated.
 
-That's very likely
+> Did you configure more CPUs than there are in the system?
+>
+No I haven't, I've set it up as cpus = 0x3f for 6 CPUs (2xa57 +
+4xa53). I don't know what was happening there when I removed the
+infinite loop (which I used for break point) from entry.S that went
+OK. There was also an issue with the debug uart driver which I've
+fixed and able to get the prints now.
 
-while (entered_cpus < hypervisor_header.online_cpus)
-	cpu_relax();
+So now moving forward I am seeing "Unhandled data read"!
 
-Did you configure more CPUs than there are in the system?
+Looking at the address for Unhandled data read one belongs to GIC
+(0xf102f00c) and the other one belongs to the debug uart (0xe6e88008).
 
-Jan
+The configuration for in the root cell is below:
+       .debug_console = {
+            .address = 0xe6e88000,
+            .size = 0x40,
+            .type = JAILHOUSE_CON_TYPE_SCIFA,
+            .flags = JAILHOUSE_CON_ACCESS_MMIO |
+                 JAILHOUSE_CON_REGDIST_4,
+        },
+        .platform_info = {
+            .arm = {
+                .gic_version = 2,
+                .gicd_base = 0xf1010000,
+                .gicc_base = 0xf1020000,
+                .gich_base = 0xf1040000,
+                .gicv_base = 0xf1060000,
+                .maintenance_irq = 25,
+            }
+        },
+
+Below is the log:
+root@hihope-rzg2m:~# insmod jailhouse.ko
+[   19.054972] jailhouse: loading out-of-tree module taints kernel.
+root@hihope-rzg2m:~#
+root@hihope-rzg2m:~#
+root@hihope-rzg2m:~# jailhouse enable renesas-r8a774a1.cell
+[   22.532474] entering.
+
+Initializing Jailhouse hypervisor v0.12 (318-gcc2122a6-dirty) on CPU 5
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 53/4063, remap 0/131072
+Initializing processors:
+ CPU 5... OK
+ CPU 1... OK
+ CPU 3... OK
+ CPU 0... OK
+ CPU 2... OK
+ CPU 4... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU v3
+Initializing unit: ARM SMMU
+Initializing unit: PVU IOMMU
+Initializing unit: PCI
+Page pool usage after late setup: mem 82/4063, remap 5/131072
+Unhandled data read at 0xf102f00c(4)
+
+FATAL: unhandled trap (exception class 0x24)
+Cell state before exception:
+ pc: ffff8000104cc930   lr: ffff8000104cc9a4 spsr: 20000085     EL1
+ sp: ffff800011323fc0  elr: ffff8000104cc930  esr: 24 1 1800007
+ x0: 0000000000000000   x1: ffff80001101cb20   x2: ffff80062e813000
+ x3: 0000000000000003   x4: 001ff1326ed0c676   x5: 00ffffffffffffff
+ x6: 00000000108bece3   x7: 0000000000000000   x8: 0000000000000000
+ x9: 0000000000000000  x10: 0000000000000000  x11: 0000000000000000
+x12: 0000000000000000  x13: 0000000000000000  x14: 0000000000000000
+x15: 0000000000000000  x16: 0000000000000000  x17: 0000000000000000
+x18: 0000000000000000  x19: 0000000000000001  x20: ffff80001134f010
+x21: ffff80001134f00c  x22: ffff80001117cc28  x23: ffff8000113dbde0
+x24: ffff80001101cb38  x25: ffff800011320000  x26: ffff800011324000
+x27: ffff0005c00c63c0  x28: ffff0005c00c63c0  x29: ffff800011323fc0
+
+Parking CPU 3 (Cell: "Renesas HopeRun HiHope RZ/G2M")
+Unhandled data read at 0xe6e88008(2)
+
+FATAL: unhandled trap (exception class 0x24)
+Cell state before exception:
+ pc: ffff8000106341f0   lr: ffff800010632af8 spsr: 60000085     EL1
+ sp: ffff80001131b420  elr: ffff8000106341f0  esr: 24 1 1410006
+ x0: ffff8000113bd000   x1: ffff8000113bd008   x2: 0000000000000000
+ x3: ffff800010bf9a58   x4: 0000000000000000   x5: 0000000000000064
+ x6: ffff800010632a48   x7: 72646461206c6175   x8: 3030303020737365
+ x9: 65636e6572656665  x10: 7472697620746120  x11: 696f70204c4c554e
+x12: 726564207265746e  x13: 656c646e6168206f  x14: 206c656e72656b20
+x15: ffff800011179948  x16: 0000000000000000  x17: 0000000000000000
+x18: ffffffffffffffff  x19: ffff8000112da2f8  x20: ffff8000112da2f8
+x21: 0000000000000000  x22: ffff8000112da2f8  x23: ffff800011292128
+x24: 0000000000000000  x25: ffff8000112da2f8  x26: ffff8000112918b8
+x27: 0000000000000080  x28: 0000000000000064  x29: ffff80001131b420
+
+Parking CPU 2 (Cell: "Renesas HopeRun HiHope RZ/G2M")
+
+Any thoughts why we are getting "Unhandled data read"?
+
+Cheers,
+Prabhakar
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/dd337a1c-d678-7c7b-d371-f8bd2b019c28%40web.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8uMOW2PopUbMhaOmCs-RZWqzOJcC3zXOToF2pWSs_%3DO5w%40mail.gmail.com.
