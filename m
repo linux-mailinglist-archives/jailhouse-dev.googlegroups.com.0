@@ -1,68 +1,135 @@
-Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBDE73CKAMGQEYTYQ23Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBB4WR3GKAMGQELBWTQKY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3f.google.com (mail-qv1-xf3f.google.com [IPv6:2607:f8b0:4864:20::f3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E426539123
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 31 May 2022 14:52:30 +0200 (CEST)
-Received: by mail-qv1-xf3f.google.com with SMTP id u17-20020a0ced31000000b004645738eff6sf2740302qvq.8
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 31 May 2022 05:52:30 -0700 (PDT)
+Received: from mail-oa1-x3f.google.com (mail-oa1-x3f.google.com [IPv6:2001:4860:4864:20::3f])
+	by mail.lfdr.de (Postfix) with ESMTPS id E24C15396C4
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 31 May 2022 21:13:55 +0200 (CEST)
+Received: by mail-oa1-x3f.google.com with SMTP id 586e51a60fabf-f1e78da1a9sf9893186fac.16
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 31 May 2022 12:13:55 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1654024434; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=zkwoFq0scY/s51ZxRKJQzsrf4kDS0+Co1IXguY2RJZfVVUcdpHw0vY6TGph12vRdEw
+         n9Lzw94nj7cirrCkw5KYezbNUwRQIHsey710mst3RV2LkPMBQFxjpvWtw/H8BQCtbngu
+         t2liHoiAQT8BERXui1ua3KKKA7ZP99/SUFceGIQl/OocG7QMxGkuqLE9HaJCnZLaiQM8
+         W4LzN04a4QjLVXe+9M3Ths0HndYd+yDmngbs/A7NIdn7Bcf3t/rh4lCwpMsqo5L+vu7p
+         9NlnV92E3w28VvtO3GVbybKSHB0X40d3G1+NQwtP3Z5Rjgbiy/v+WqVAT3PN25XJAO6U
+         ACvg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=ItG2oK/ZKuV2z38NP7XRU+ohgHsmSZvxa17OWwcmN3E=;
+        b=MNx8q3KFZ6hgZp/8ckLzQVBi3fEHkpKoM5lyKtusY7F9YtCVDj+D8eYHaZp5n0O+Uv
+         fNGMtWYhj5sBKnba9zVz92k1HSqdLbiR/fhvPzd7z8OVTmjzGmyVG/3KBS/RtnH0JjXC
+         EpoZtOrBnA8IL8hZlMx/cgmAKy5iSLZ+DRaJjzwfQv/HKQ3cPMcR2AnC/ID4eELdjc1D
+         RJJBldGgjByhUldMiOQ8gFdi8EutkgZ7bF1CWYNY0iazL1dmUEDsvSZ8FE3jLmKS1RAx
+         1f29vTNGZxVrZRQ1aKoAjB1Rf7/Nwv2T1m1zkvJNeL9gQIV9h/HRIk+6FHeP3TB92fYI
+         zDRA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=hpNfxYQx;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=DqIcVw53Oe7AWMFpOxYP7OQv1SpXCp4W0p85/d6BrSs=;
-        b=slPI42dnldjOR5MT0+QVbH7RnITth9xOdK1+Ly5iyH1R96C/yP/86Q8y0gpoaI45+F
-         G2B6J2SccYGg1LWZ3HcDk3gjGL981/Ue5YY/IkOBQ5UuCau9BMXj0/NZppP4JTjHOA3c
-         0fBQNUtKExRd+n+SwNBMHWADdKUkzzHHd94nuQDVZw7z42hM7xpSKezhQO15zcs5j26i
-         58Bc2PeudKf4aLtW3aNVxT6EGiAx/Q2U6K4pNUx5NVKv/0Z8XsSZKrhsLrEfawzBpTLX
-         9ysIAAovjGCFlYdFrwjdvp5OexSR0GJyos/D7clqbRUzFxfJWllgmbHmikCLbB7yB+y+
-         HCEQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
+        h=sender:mime-version:references:in-reply-to:from:date:message-id
+         :subject:to:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DqIcVw53Oe7AWMFpOxYP7OQv1SpXCp4W0p85/d6BrSs=;
-        b=nNXkSJYt5gFfWhmIPP3sq3hC6gINzrQvx2VT9ZjRzSB4YTBsp5u5XnBUxeMWdVLArj
-         7YH5mN4znqKgotu51lZ9c2xnyfZczrkPdZ59t2V7VNjkneONhXFUc4hsvZ7KCQKd8Wgy
-         W8+930ONadUPpqt0W1mzK7fp7QOZDU/329rmKeKF2Z0/DACjqp1xBbZY9sgsgzgxJqoU
-         tCvPBsoAqq3ulEhcBPvg3E+Q8LRdvmR0iw9VpbNkAY2Gmdmg3h/oxy0MyQxqPB43vzJt
-         9n8ESRA75tnkbByCs6Ro22hNgiXOMgL8JIXQZL0ePxhl8i8tUa+z7lA/OlQRW60vF214
-         myAw==
+        bh=ItG2oK/ZKuV2z38NP7XRU+ohgHsmSZvxa17OWwcmN3E=;
+        b=JwHk67y/D6wyrEWsNf262JauFhdi3u+MD358bPPTZ7b3TS0X0f0IJVa5jedxSvVYfL
+         60Zr/ft+X+RHd137dACeo9tSENXJj8N0O1lby0IPjKiL7sPz2n7C/CLrHV/IzW1x+wcV
+         5Ltenp4NQVsBhlw9ytQeg/XPiVKn6wBIu/UqZk7cuF52w6b2FSi/Rhl+ipyhAQdcwvFr
+         dzEXbtox+NU19x48Ze0P5ZA5lX8q7AfK4BzZ9fddltqcQqWD+a7CwLB64qlQhmo0JzMH
+         pR8G4QAP8ORGqNtFm/8e6+0QWQ/zDrG3xmdI+GrOXC48WmeE1mmIKfx4abbk6Fn8HcKD
+         mt+A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :x-original-sender:x-original-authentication-results:precedence
+         :mailing-list:list-id:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=ItG2oK/ZKuV2z38NP7XRU+ohgHsmSZvxa17OWwcmN3E=;
+        b=h63kRKSwzF9nd4Qr92KKbV+453IVzWVXXXzVHGTujnLN7TvHYqiUdBNUh9r4IA2UoJ
+         hSIZLv1hFMdVnfkbXooZ6WV5UlJqvNGU8aRStO1J6GFaxB9hBuhZAUlCe/12dVz3JBk9
+         4xPlJCuLH1+RuP5XOb1lVSCeXuw0VTyDP1fCKMliu+8PlZIzLaPnAWB/H6nLgxN6CsxZ
+         tpFmQ9hOoUPrWBqccT1P9mZ71swbkbmmR7pKPgatr9fAXPXAjqxQaToTxM9T7SJPO9xt
+         niZw+rlmoJGSVgahqcyglqEscBSS+RjfuyUHW5LgkDwMGVTjeo19MQs4pmEvbjD6ansa
+         XlYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
+        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
+         :date:message-id:subject:to:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=DqIcVw53Oe7AWMFpOxYP7OQv1SpXCp4W0p85/d6BrSs=;
-        b=ANzQ0m4a+rKvay2ZovA0HGfNvsFzfI9k/4D3srPQcQ83HBmrJmAfFsSCXG4Xja2gn/
-         bmJ9SRQDQ44YoME6l76srktTHJElQfIeTq0ir80HmYyz23gT5viYflL/pOXMqIyOFyXh
-         /Cf7S0Ac79t60f5HA5aRGv91afbWs/Z7p6G2+2k1nn+YhIOhlooH6S+JWnlT47ro3qOR
-         Od2aRtaip+b4PK6J2/0n6X+7sNuNakbNgzzuIg0rJJGrB7FbmGy34W/Cle7hhDcHIBaW
-         S1r32UaAkHh/eky7lPYdOWT6T2Z56/zrPWdm9O77fOeO2TltiUwDmq5ABwT7ZTeFYFAh
-         SBwg==
+        bh=ItG2oK/ZKuV2z38NP7XRU+ohgHsmSZvxa17OWwcmN3E=;
+        b=mC462oogc8aA5GaPa9HUHP76yCl0H0TnP9r0diyepOhFMiuAqUroBv/T+eNOSk415Z
+         PV0Yvqzt+Mn4nKGKs3kw0cr/s+PsJST50+sS/pqlXVg0fs8zMnW1fIYUewoNu/cCBKzR
+         wjuO60JQ+JJ0XJtagydk4ElPo9p2qWC2eiBgeGnqe9cYgrNKZNgEeFrKTQrocLNXtUr5
+         zLmvnc9rNwwRRdAvfb6XXBfgdXdd4PD8wsLJxOc7PB9UXc2AGOO0mve/5FsfDQ8h2mB5
+         LfpJ82bBfpH/EePsup/8UdjUvckamoQrQV6lEcz6ZmdFFYFnVTl5iehMzbg0dwICHo+v
+         NjHw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530LlqUo7oIxnyhHVubhN7OFBmdHS7yI/Q5/u1N29TFwrWr/8pem
-	EPvAz8PaQgfWYhn5txnNbFA=
-X-Google-Smtp-Source: ABdhPJwDX202Z+0QVFdAEl8RDIGDnrBNbsL+F0nnbSHWqIN/8389ZOgZDvJLa0Wi1dWHiMfn1aXDhQ==
-X-Received: by 2002:a05:620a:1588:b0:6a3:5a44:5ff5 with SMTP id d8-20020a05620a158800b006a35a445ff5mr35708213qkk.556.1654001549022;
-        Tue, 31 May 2022 05:52:29 -0700 (PDT)
+X-Gm-Message-State: AOAM532dyZ9hfoopYBQa67mFOcjY9BJmFTl1cINsOvw4OraDt/IvMFVw
+	9ZD6OA8VOsQt4IqOFVbHCSM=
+X-Google-Smtp-Source: ABdhPJwqISq+W/zDBl/u7FvvXZTM4BcYfCeKCh69Y8/3uc6eWhNgyOBmGEyP/h7tsMUvtxv49Mcxhg==
+X-Received: by 2002:a05:6808:f13:b0:32e:e25:f198 with SMTP id m19-20020a0568080f1300b0032e0e25f198mr1685248oiw.167.1654024434416;
+        Tue, 31 May 2022 12:13:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a0c:ee64:0:b0:461:e7c0:a4bb with SMTP id n4-20020a0cee64000000b00461e7c0a4bbls15675460qvs.3.gmail;
- Tue, 31 May 2022 05:52:28 -0700 (PDT)
-X-Received: by 2002:a05:6214:f2e:b0:461:f264:ba5 with SMTP id iw14-20020a0562140f2e00b00461f2640ba5mr49613998qvb.124.1654001548067;
-        Tue, 31 May 2022 05:52:28 -0700 (PDT)
-Date: Tue, 31 May 2022 05:52:27 -0700 (PDT)
-From: Prabhakar Lad <prabhakar.csengg@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <94bae287-eaf2-4ae2-bcdd-fc87342256e5n@googlegroups.com>
-Subject: Linux imate unhandled read
+Received: by 2002:a05:6830:815:b0:60b:18ee:64dc with SMTP id
+ r21-20020a056830081500b0060b18ee64dcls208580ots.3.gmail; Tue, 31 May 2022
+ 12:13:53 -0700 (PDT)
+X-Received: by 2002:a9d:60d4:0:b0:60b:1936:26ab with SMTP id b20-20020a9d60d4000000b0060b193626abmr16325513otk.246.1654024433648;
+        Tue, 31 May 2022 12:13:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1654024433; cv=none;
+        d=google.com; s=arc-20160816;
+        b=IM9BcWap4egL57EKIJWAU94hDNu6c1Lv8Sq5ReNTpqXGcNtpdEpD73aoUgAzXDvfib
+         7hTxGtdkzBhl6cYy7WeJBHdPFFr4fPXGvmGe+dBYh0aFsaarx6aktXjWtzhY407NiR8M
+         ysqddS5HMRgcwHyoRBJNKGoTzf8mZh5IWkmJzam401V95+ogRCzlZKp6+4n+ik4wllaA
+         mu6XSn6NJhUtHCSchY8PQvXmpGpNEObMaSG0a9trkNjf5R99lgMUm+8/BWoSP2ItuIjM
+         3fpFDbiaZnJDsWu5JW+C6OG59JOMaxo8pnEpdSz9hPeBMi5Q31e6PIYXhsslzjLu1H1U
+         o0xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=1yQYka0C+UQ5vfXO357xDXZatTbjoEpUJXyJ0gsd8AA=;
+        b=ylp8SUdRfsRkQSNmKpBGhYdZnWm+TZYrPpHCRlqw6fRlrQAg2FyCyYTnnDC8EHOk5C
+         PVjNlRIuLIP4x8gAnvk9L4c22J2+NvKssdm7I42j6COwnRyC8RdF444GTd800kRgSijM
+         4/+TaHqDeFwnTirDAmgwUraYGvjQoC28wpyYQOUgZZ+WpI6EoSHW/96+HXri5T0jlb87
+         vek5V0l78i/ZGmHFzyxjsF6SlkIg/MfJCB1nMVHUWoxZev6rLReYI9iGUZe0F5OjXQOX
+         GPEaubhllU6o5OoNDYDpn7xH4oKw/0d6LsLloGG34o5ySJxTm9lEgb2bC5p/efDC8Bo7
+         P9mg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=hpNfxYQx;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com. [2607:f8b0:4864:20::1132])
+        by gmr-mx.google.com with ESMTPS id le14-20020a0568700c0e00b000f5d73c60c3si155061oab.3.2022.05.31.12.13.53
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 May 2022 12:13:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1132 as permitted sender) client-ip=2607:f8b0:4864:20::1132;
+Received: by mail-yw1-x1132.google.com with SMTP id 00721157ae682-30c1c9b9b6cso86203667b3.13
+        for <jailhouse-dev@googlegroups.com>; Tue, 31 May 2022 12:13:53 -0700 (PDT)
+X-Received: by 2002:a81:4f87:0:b0:30c:1fe0:f85a with SMTP id
+ d129-20020a814f87000000b0030c1fe0f85amr18620715ywb.292.1654024433223; Tue, 31
+ May 2022 12:13:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_3338_858904513.1654001547458"
+References: <94bae287-eaf2-4ae2-bcdd-fc87342256e5n@googlegroups.com>
+In-Reply-To: <94bae287-eaf2-4ae2-bcdd-fc87342256e5n@googlegroups.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 31 May 2022 20:13:27 +0100
+Message-ID: <CA+V-a8uE2PzOF2mh0xEQmQ=akMTWXHy7usqEaM1C754DHS1=+w@mail.gmail.com>
+Subject: Re: Linux imate unhandled read
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Original-Sender: prabhakar.csengg@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b=hpNfxYQx;       spf=pass
+ (google.com: domain of prabhakar.csengg@gmail.com designates
+ 2607:f8b0:4864:20::1132 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,173 +142,57 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_3338_858904513.1654001547458
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_3339_1621151853.1654001547458"
+On Tue, May 31, 2022 at 1:52 PM Prabhakar Lad
+<prabhakar.csengg@gmail.com> wrote:
+>
+>
+<snip>
+> * Looking at some of the linux inmate  configs there are two regions of RAM specified is this a strict requirement?
+> * For the inmate RAM should the virt_start = CONFIG_INMATE_BASE?
+>
+After updating my memory layout, i.e. after creating one region for
+loading the linux another for DDR RAM and lastly the communication
+region in my inmate I no longer see the unhandled read error.
 
-------=_Part_3339_1621151853.1654001547458
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-Blow is my setup details:
-
->>I have the below RAM:
-
-    memory@48000000 {
-        device_type = "memory";
-        /* first 128MB is reserved for secure area. */
-        reg = <0x0 0x48000000 0x0 0x78000000>;
-    };
-
-    memory@600000000 {
-        device_type = "memory";
-        reg = <0x6 0x00000000 0x0 0x80000000>;
-    };
-
->>I have the below configuration for Linux in DTS to reserve the memory for 
-Jailhouse,
-
-    reserved-memory {
-        #address-cells = <2>;
-        #size-cells = <2>;
-        ranges;
-
-        jailhouse: jailhouse@58000000 {
-            reg = <0x0 0x58000000 0x0 0x1000000>;
-            no-map;
-            status = "okay";
-        };
-
-        jh_inmate@59000000 {
-            status = "okay";
-            no-map;
-            reg = <0x00 0x59000000 0x00 0x20000000>;
-        };
-    };
-
->>In the root cell configuration I have the RAM regions as below:
-
-    .mem_regions = {
-        /* RAM */ {
-            .phys_start = 0x48000000,
-            .virt_start = 0x48000000,
-            .size = 0x10000000,
-            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                JAILHOUSE_MEM_EXECUTE,
-        },
-        /* Leave hole for hypervisor */
-        /* RAM */ {
-            .phys_start = 0x79000000,
-            .virt_start = 0x79000000,
-            .size = 0x47000000,
-            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                JAILHOUSE_MEM_EXECUTE,
-        },
-        /* RAM */ {
-            .phys_start = 0x600000000,
-            .virt_start = 0x600000000,
-            .size = 0x80000000,
-            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-                JAILHOUSE_MEM_EXECUTE,
-        },
-....
-}
-
->>And for the Linux inmate I have the memory regions as,
-
-    .mem_regions = {
-        /* RAM */ {
+        /* linux-loader space */ {
             .phys_start = 0x59000000,
-            .virt_start = CONFIG_INMATE_BASE,
-            .size = 0x20000000,
+            .virt_start = 0x0,
+            .size = 0x6400000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+        },
+        /* RAM */ {
+            .phys_start = 0x5F400000,
+            .virt_start = 0x5F400000,
+            .size = 0x19C00000,
             .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
                 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
                 JAILHOUSE_MEM_LOADABLE,
         },
-........
-}
+        /* communication region */ {
+            .virt_start = 0x80000000,
+            .size = 0x00001000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_COMM_REGION,
+        },
 
-When I try and load the Linux image I am getting unhandled reads at the DDR 
-location (0x59000000):
+I am able to load the linux on one of the CPUs but I cannot see any
+console output on the serial.
 
-root@hihope-rzg2m:~# jailhouse cell linux renesas-r8a774a1-linux-demo.cell 
-Image.gz -d inmate-r8a774a1-hihope.dtb -c "clk_ignore_unused rootwait rw"
-Cell "renesas-r8a774a1-linux-demo" can be loaded
-Unhandled data write at 0x59000000(1)
+root@hihope-rzg2m:~# jailhouse cell linux
+renesas-r8a774a1-linux-demo.cell Image.gz -d
+inmate-r8a774a1-hihope.dtb -c "clk_ignore_unused rootwait rw"
+Started cell "renesas-r8a774a1-linux-demo"
+root@hihope-rzg2m:~#
+root@hihope-rzg2m:~# jailhouse cell list
+ID      Name                    State             Assigned CPUs
+   Failed CPUs
+0       Renesas HopeRun HiHope RZ/G2Mrunning           0,2-5
+1       renesas-r8a774a1-linux-demorunning           1
+root@hihope-rzg2m:~#
 
-FATAL: unhandled trap (exception class 0x24)
-Cell state before exception:
- pc: ffff8000104762f0   lr: ffff800008b10e64 spsr: 20000005     EL1
- sp: ffff8000118ebd40  elr: ffff8000104762f0  esr: 24 1 0000046
- x0: ffff800011640000   x1: 00000000016278c0   x2: 0000000000003440
- x3: 0000ffffffffffff   x4: 0000000000000000   x5: ffff8000116434c0
- x6: ffff800011640000   x7: d518c00058007c40   x8: 9100001f58007c40
- x9: d5181040d2a00600  x10: d5033fdfd51b423f  x11: d10403ff14000cb0
-x12: a9010fe2a90007e0  x13: a9031fe6a90217e4  x14: a9052feaa90427e8
-x15: 0000000000000000  x16: 0000000000000000  x17: 0000000000000000
-x18: 0000000000000000  x19: ffff800011640000  x20: 00000000000034c0
-x21: 0000ffffd57f1b28  x22: ffff800011109000  x23: 0000000000000000
-x24: 00ffffd57f1b4800  x25: ffff8000118ebda8  x26: 0000000000000000
-x27: ffff800011640000  x28: 00ffffd57f1b2800  x29: ffff8000118ebd40
-
-Parking CPU 0 (Cell: "Renesas HopeRun HiHope RZ/G2M")
-[  970.239415] Unable to handle kernel NULL pointer dereference at virtual 
-address 0000000000000000
-[  970.248241] Mem abort info:
-[  970.251073]   ESR = 0x86000006
-[  970.254150]   EC = 0x21: IABT (current EL), IL = 32 bits
-[  970.259482]   SET = 0, FnV = 0
-[  970.262555]   EA = 0, S1PTW = 0
-[  970.265704] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000604241000
-[  970.272163] [0000000000000000] pgd=0000000602b44003, 
-p4d=0000000602b44003, pud=0000000602b5b003, pmd=0000000000000000
-[  970.282807] Internal error: Oops: 86000006 [#1] PREEMPT SMP
-[  970.288386] Modules linked in: jailhouse(O)
-[  970.292586] CPU: 0 PID: 396 Comm: python3 Tainted: G           O     
- 5.10.31+ #36
-[  970.300161] Hardware name: HopeRun HiHope RZ/G2M with sub board (DT)
-[  970.306521] pstate: 20000005 (nzCv daif -PAN -UAO -TCO BTYPE=--)
-[  970.312539] pc : 0x0
-[  970.314737] lr : jailhouse_cmd_cell_load+0x2d4/0x3f8 [jailhouse]
-[  970.320748] sp : ffff8000118ebd40
-[  970.324067] x29: ffff8000118ebd40 x28: 00ffffd57f1b2800
-[  970.329388] x27: ffff800011640000 x26: 0000000000000000
-[  970.334707] x25: ffff8000118ebda8 x24: 00ffffd57f1b4800
-[  970.340026] x23: 0000000000000000 x22: ffff800011109000
-[  970.345345] x21: 0000ffffd57f1b28 x20: 00000000000034c0
-[  970.350665] x19: ffff800011640000 x18: 0000000000000000
-[  970.355984] x17: 0000000000000000 x16: 0000000000000000
-[  970.361303] x15: 0000000000000000 x14: a9052feaa90427e8
-[  970.366623] x13: a9031fe6a90217e4 x12: a9010fe2a90007e0
-[  970.371942] x11: d10403ff14000cb0 x10: d5033fdfd51b423f
-[  970.377262] x9 : d5181040d2a00600 x8 : 9100001f58007c40
-[  970.382580] x7 : d518c00058007c40 x6 : ffff800011640000
-[  970.387900] x5 : ffff8000116434c0 x4 : 0000000000000000
-[  970.393220] x3 : 0000ffffffffffff x2 : 0000000000003440
-[  970.398540] x1 : 00000000016278c0 x0 : ffff800011640000
-[  970.403860] Call trace:
-[  970.406313]  0x0
-[  970.408161]  jailhouse_ioctl+0xd8/0x100 [jailhouse]
-[  970.413053]  __arm64_sys_ioctl+0xac/0xf0
-[  970.416985]  el0_svc_common.constprop.3+0x68/0x170
-[  970.421782]  do_el0_svc+0x24/0x90
-[  970.425105]  el0_svc+0x14/0x20
-[  970.428165]  el0_sync_handler+0x90/0xb8
-[  970.432008]  el0_sync+0x158/0x180
-[  970.435335] Code: bad PC value
-[  970.438406] ---[ end trace 23ec5ec9e67e1b67 ]---
-[  970.443029] Kernel panic - not syncing: Oops: Fatal exception
-[  970.448780] SMP: stopping secondary CPUs
-[  970.452722] Kernel Offset: disabled
-[  970.456217] CPU features: 0x0040022,21002004
-[  970.460493] Memory Limit: none
-[  970.463557] ---[ end Kernel panic - not syncing: Oops: Fatal exception 
-]---
-
-* Looking at some of the linux inmate  configs there are two regions of RAM 
-specified is this a strict requirement?
-* For the inmate RAM should the virt_start = CONFIG_INMATE_BASE?
+Any pointers on debugging this? (jailhouse cell stat 1 doesn't seem to
+updating the number so I assume it's panicked somewhere)
 
 Cheers,
 Prabhakar
@@ -249,147 +200,4 @@ Prabhakar
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/94bae287-eaf2-4ae2-bcdd-fc87342256e5n%40googlegroups.com.
-
-------=_Part_3339_1621151853.1654001547458
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hi,</div><div><br></div><div>Blow is my setup details:</div><div><br><=
-/div><div>&gt;&gt;I have the below RAM:</div><div><br></div><div>&nbsp; &nb=
-sp; memory@48000000 {<br>&nbsp; &nbsp; &nbsp; &nbsp; device_type =3D "memor=
-y";<br>&nbsp; &nbsp; &nbsp; &nbsp; /* first 128MB is reserved for secure ar=
-ea. */<br>&nbsp; &nbsp; &nbsp; &nbsp; reg =3D &lt;0x0 0x48000000 0x0 0x7800=
-0000&gt;;<br>&nbsp; &nbsp; };<br><br>&nbsp; &nbsp; memory@600000000 {<br>&n=
-bsp; &nbsp; &nbsp; &nbsp; device_type =3D "memory";<br>&nbsp; &nbsp; &nbsp;=
- &nbsp; reg =3D &lt;0x6 0x00000000 0x0 0x80000000&gt;;<br>&nbsp; &nbsp; };<=
-/div><div><br></div><div>&gt;&gt;I have the below configuration for Linux i=
-n DTS to reserve the memory for Jailhouse,<br></div><div><br></div><div>&nb=
-sp; &nbsp; reserved-memory {<br>&nbsp; &nbsp; &nbsp; &nbsp; #address-cells =
-=3D &lt;2&gt;;<br>&nbsp; &nbsp; &nbsp; &nbsp; #size-cells =3D &lt;2&gt;;<br=
->&nbsp; &nbsp; &nbsp; &nbsp; ranges;<br><br>&nbsp; &nbsp; &nbsp; &nbsp; jai=
-lhouse: jailhouse@58000000 {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; r=
-eg =3D &lt;0x0 0x58000000 0x0 0x1000000&gt;;<br>&nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; no-map;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; status =
-=3D "okay";<br>&nbsp; &nbsp; &nbsp; &nbsp; };<br><br>&nbsp; &nbsp; &nbsp; &=
-nbsp; jh_inmate@59000000 {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sta=
-tus =3D "okay";<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; no-map;<br>&nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reg =3D &lt;0x00 0x59000000 0x00 0x2=
-0000000&gt;;<br>&nbsp; &nbsp; &nbsp; &nbsp; };<br>&nbsp; &nbsp; };</div><di=
-v><br></div><div>&gt;&gt;In the root cell configuration I have the RAM regi=
-ons as below:</div><div><br></div><div>&nbsp; &nbsp; .mem_regions =3D {<br>=
-&nbsp; &nbsp; &nbsp; &nbsp; /* RAM */ {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; .phys_start =3D 0x48000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; .virt_start =3D 0x48000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; .size =3D 0x10000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .f=
-lags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_EXECUTE,<br>&nbsp; &nbsp;=
- &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; /* Leave hole for hypervis=
-or */<br>&nbsp; &nbsp; &nbsp; &nbsp; /* RAM */ {<br>&nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; .phys_start =3D 0x79000000,<br>&nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; .virt_start =3D 0x79000000,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; .size =3D 0x47000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_EXECUTE,<br>&nbs=
-p; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; /* RAM */ {<br>&n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x600000000,<br>&nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .virt_start =3D 0x600000000,<br>&nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .size =3D 0x80000000,<br>&nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM=
-_WRITE |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOU=
-SE_MEM_EXECUTE,<br>&nbsp; &nbsp; &nbsp; &nbsp; },</div><div>....</div><div>=
-}</div><div><br></div><div>&gt;&gt;And for the Linux inmate I have the memo=
-ry regions as,</div><div><br></div><div>&nbsp; &nbsp; .mem_regions =3D {</d=
-iv><div>&nbsp; &nbsp; &nbsp; &nbsp; /* RAM */ {<br>&nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; .phys_start =3D 0x59000000,<br>&nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; .virt_start =3D CONFIG_INMATE_BASE,<br>&nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; .size =3D 0x20000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_EXECUTE |=
- JAILHOUSE_MEM_DMA |<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; JAILHOUSE_MEM_LOADABLE,<br>&nbsp; &nbsp; &nbsp; &nbsp; },</div><div>..=
-......</div><div>}</div><div><br></div><div>When I try and load the Linux i=
-mage I am getting unhandled reads at the DDR location (0x59000000):</div><d=
-iv><br></div><div><div><div>root@hihope-rzg2m:~# jailhouse cell linux renes=
-as-r8a774a1-linux-demo.cell Image.gz -d inmate-r8a774a1-hihope.dtb -c "clk_=
-ignore_unused rootwait rw"<br>Cell "renesas-r8a774a1-linux-demo" can be loa=
-ded<br>Unhandled data write at 0x59000000(1)<br><br>FATAL: unhandled trap (=
-exception class 0x24)<br>Cell state before exception:<br>&nbsp;pc: ffff8000=
-104762f0 &nbsp; lr: ffff800008b10e64 spsr: 20000005 &nbsp; &nbsp; EL1<br>&n=
-bsp;sp: ffff8000118ebd40 &nbsp;elr: ffff8000104762f0 &nbsp;esr: 24 1 000004=
-6<br>&nbsp;x0: ffff800011640000 &nbsp; x1: 00000000016278c0 &nbsp; x2: 0000=
-000000003440<br>&nbsp;x3: 0000ffffffffffff &nbsp; x4: 0000000000000000 &nbs=
-p; x5: ffff8000116434c0<br>&nbsp;x6: ffff800011640000 &nbsp; x7: d518c00058=
-007c40 &nbsp; x8: 9100001f58007c40<br>&nbsp;x9: d5181040d2a00600 &nbsp;x10:=
- d5033fdfd51b423f &nbsp;x11: d10403ff14000cb0<br>x12: a9010fe2a90007e0 &nbs=
-p;x13: a9031fe6a90217e4 &nbsp;x14: a9052feaa90427e8<br>x15: 000000000000000=
-0 &nbsp;x16: 0000000000000000 &nbsp;x17: 0000000000000000<br>x18: 000000000=
-0000000 &nbsp;x19: ffff800011640000 &nbsp;x20: 00000000000034c0<br>x21: 000=
-0ffffd57f1b28 &nbsp;x22: ffff800011109000 &nbsp;x23: 0000000000000000<br>x2=
-4: 00ffffd57f1b4800 &nbsp;x25: ffff8000118ebda8 &nbsp;x26: 0000000000000000=
-<br>x27: ffff800011640000 &nbsp;x28: 00ffffd57f1b2800 &nbsp;x29: ffff800011=
-8ebd40<br><br>Parking CPU 0 (Cell: "Renesas HopeRun HiHope RZ/G2M")<br>[ &n=
-bsp;970.239415] Unable to handle kernel NULL pointer dereference at virtual=
- address 0000000000000000<br>[ &nbsp;970.248241] Mem abort info:<br>[ &nbsp=
-;970.251073] &nbsp; ESR =3D 0x86000006<br>[ &nbsp;970.254150] &nbsp; EC =3D=
- 0x21: IABT (current EL), IL =3D 32 bits<br>[ &nbsp;970.259482] &nbsp; SET =
-=3D 0, FnV =3D 0<br>[ &nbsp;970.262555] &nbsp; EA =3D 0, S1PTW =3D 0<br>[ &=
-nbsp;970.265704] user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000060424100=
-0<br>[ &nbsp;970.272163] [0000000000000000] pgd=3D0000000602b44003, p4d=3D0=
-000000602b44003, pud=3D0000000602b5b003, pmd=3D0000000000000000<br>[ &nbsp;=
-970.282807] Internal error: Oops: 86000006 [#1] PREEMPT SMP<br>[ &nbsp;970.=
-288386] Modules linked in: jailhouse(O)<br>[ &nbsp;970.292586] CPU: 0 PID: =
-396 Comm: python3 Tainted: G &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; O &nbsp; &n=
-bsp; &nbsp;5.10.31+ #36<br>[ &nbsp;970.300161] Hardware name: HopeRun HiHop=
-e RZ/G2M with sub board (DT)<br>[ &nbsp;970.306521] pstate: 20000005 (nzCv =
-daif -PAN -UAO -TCO BTYPE=3D--)<br>[ &nbsp;970.312539] pc : 0x0<br>[ &nbsp;=
-970.314737] lr : jailhouse_cmd_cell_load+0x2d4/0x3f8 [jailhouse]<br>[ &nbsp=
-;970.320748] sp : ffff8000118ebd40<br>[ &nbsp;970.324067] x29: ffff8000118e=
-bd40 x28: 00ffffd57f1b2800<br>[ &nbsp;970.329388] x27: ffff800011640000 x26=
-: 0000000000000000<br>[ &nbsp;970.334707] x25: ffff8000118ebda8 x24: 00ffff=
-d57f1b4800<br>[ &nbsp;970.340026] x23: 0000000000000000 x22: ffff8000111090=
-00<br>[ &nbsp;970.345345] x21: 0000ffffd57f1b28 x20: 00000000000034c0<br>[ =
-&nbsp;970.350665] x19: ffff800011640000 x18: 0000000000000000<br>[ &nbsp;97=
-0.355984] x17: 0000000000000000 x16: 0000000000000000<br>[ &nbsp;970.361303=
-] x15: 0000000000000000 x14: a9052feaa90427e8<br>[ &nbsp;970.366623] x13: a=
-9031fe6a90217e4 x12: a9010fe2a90007e0<br>[ &nbsp;970.371942] x11: d10403ff1=
-4000cb0 x10: d5033fdfd51b423f<br>[ &nbsp;970.377262] x9 : d5181040d2a00600 =
-x8 : 9100001f58007c40<br>[ &nbsp;970.382580] x7 : d518c00058007c40 x6 : fff=
-f800011640000<br>[ &nbsp;970.387900] x5 : ffff8000116434c0 x4 : 00000000000=
-00000<br>[ &nbsp;970.393220] x3 : 0000ffffffffffff x2 : 0000000000003440<br=
->[ &nbsp;970.398540] x1 : 00000000016278c0 x0 : ffff800011640000<br>[ &nbsp=
-;970.403860] Call trace:<br>[ &nbsp;970.406313] &nbsp;0x0<br>[ &nbsp;970.40=
-8161] &nbsp;jailhouse_ioctl+0xd8/0x100 [jailhouse]<br>[ &nbsp;970.413053] &=
-nbsp;__arm64_sys_ioctl+0xac/0xf0<br>[ &nbsp;970.416985] &nbsp;el0_svc_commo=
-n.constprop.3+0x68/0x170<br>[ &nbsp;970.421782] &nbsp;do_el0_svc+0x24/0x90<=
-br>[ &nbsp;970.425105] &nbsp;el0_svc+0x14/0x20<br>[ &nbsp;970.428165] &nbsp=
-;el0_sync_handler+0x90/0xb8<br>[ &nbsp;970.432008] &nbsp;el0_sync+0x158/0x1=
-80<br>[ &nbsp;970.435335] Code: bad PC value<br>[ &nbsp;970.438406] ---[ en=
-d trace 23ec5ec9e67e1b67 ]---<br>[ &nbsp;970.443029] Kernel panic - not syn=
-cing: Oops: Fatal exception<br>[ &nbsp;970.448780] SMP: stopping secondary =
-CPUs<br>[ &nbsp;970.452722] Kernel Offset: disabled<br>[ &nbsp;970.456217] =
-CPU features: 0x0040022,21002004<br>[ &nbsp;970.460493] Memory Limit: none<=
-br>[ &nbsp;970.463557] ---[ end Kernel panic - not syncing: Oops: Fatal exc=
-eption ]---</div><div><br></div><div>* Looking at some of the linux inmate&=
-nbsp; configs there are two regions of RAM specified is this a strict requi=
-rement?</div><div>* For the inmate RAM should the virt_start =3D CONFIG_INM=
-ATE_BASE?</div><div><br></div></div></div><div>Cheers,</div><div>Prabhakar<=
-br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/94bae287-eaf2-4ae2-bcdd-fc87342256e5n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/94bae287-eaf2-4ae2-bcdd-fc87342256e5n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_3339_1621151853.1654001547458--
-
-------=_Part_3338_858904513.1654001547458--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8uE2PzOF2mh0xEQmQ%3DakMTWXHy7usqEaM1C754DHS1%3D%2Bw%40mail.gmail.com.
