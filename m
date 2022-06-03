@@ -1,135 +1,134 @@
-Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBZ7P4GKAMGQEG6UUB2Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDOKTXXSZADRBS4G5CKAMGQE6Q5QBJI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103d.google.com (mail-pj1-x103d.google.com [IPv6:2607:f8b0:4864:20::103d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F34953B545
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  2 Jun 2022 10:42:17 +0200 (CEST)
-Received: by mail-pj1-x103d.google.com with SMTP id s18-20020a17090aa11200b001d92f7609e8sf2491499pjp.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 02 Jun 2022 01:42:17 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1654159336; cv=pass;
+Received: from mail-ot1-x339.google.com (mail-ot1-x339.google.com [IPv6:2607:f8b0:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2331E53CA2F
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Jun 2022 14:49:17 +0200 (CEST)
+Received: by mail-ot1-x339.google.com with SMTP id g45-20020a9d12b0000000b0060bd8e9d3ecsf88460otg.10
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Jun 2022 05:49:17 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1654260555; cv=pass;
         d=google.com; s=arc-20160816;
-        b=r43BqeeH4hXBl169hxKY5dV4iPU6LcrOOvBcMq7jFDmsHLphkvUPCqS1UAkTHHpoH9
-         PwWK6Sx/CTrFRv+TRhy7zepVvQwwLF0HQlaOSBGJaQp245JxMiNtXXo29pg9eEDeb3Xd
-         qr/T4YwjSljsMCpnS6QrY9CqUH1gNZLzXru/aNZ631oS8XC/XBHTS1ONaA2qpC+K43qA
-         g6ATRIUSiTOQgQJJfXE5c9yq4IfzpsqtcEu9JndhDIMM8uR/67H/bnig4pvofyODdyuO
-         Yy4Nv/WKX6dJAoY2cQ3Qi06imYKxcyZLDEJTMP5wnJiPdwfm0E7naE8nu8jeXl4e5ucT
-         ISCg==
+        b=i0oXUhvk7MGYCzRJqX8am86+03YXrHt8Pu17puYnkrmsgNbqhGUQ0+UBQiKqgdhppC
+         UsAiud21T6sduOZFDTWthQPTzBWt3K2mvoaMcW6pYUWIKCMDNEvaU4mgQ/3HmXAuQsJr
+         h5hSFjV9CuC+LofWizIacPlDMd2xvVV8RdfYlXM0lenRjE3XKvO1gokxj9B1zPBiihiK
+         78U1wx6M4L5SUVAm/qV5Tw2bZyhjGyefbJ6748zvNsVdrDXS0IPWtJ45OvqV+HlHiRBv
+         hI6z+4AuxY1MDXAdJVN0r8Oc3H1L61p326BugAftEuGIaI33n1/vS4BuZ+MpMdeWOshK
+         rTfg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=O19w6Wkai9FSYTEIXr+FzGfVpMi2FDkUH8bDKyvMRfM=;
-        b=F2cBppmgxhW3shi4yytagFt+UiwvxDXmMflk/wFuqHvvAf0Rka9QAjAcdnPq6/rvPk
-         j0Od//oQ7+77gEv8NFiFmsIs7ODZbbItp8nYefuUfn224PzICpiaMuUdI+mlL3F3yLVP
-         BOU+MUvZucCCwAs5LbxRpCVYnKP+0x2X8IzhAC6b2BgTplfTKAu8Qie/JmZnWsV+LN2Q
-         87h9q9yyeS+fiAZhL5Ef0Vn0gQNIZz5ES/8B442NtrxYSPI0IgYsWK0cuyjTsKAuo/Db
-         a0xaq7igyggoIufWG1CHv6u4lMkyCjZwjq0vVjrfAZzr0hDz/hYqTIly8cCrUSNDRlxo
-         wvHA==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:to:from:sender:dkim-signature:dkim-signature;
+        bh=Tp/UXiwPAm2tko/n6zsYUo03QOwLl09H8DDeAE94+OY=;
+        b=zp1YFJ+x2pj6tX8dQ6ae3M4eVw5EN1eT5iQjb28mabg46drTa6lmVAcXSaPgTathXn
+         IRVHCJxuA9Hic7FBXzJPeIyrncMaHIlQmGIv7MTWLE2XCK2l+W+IKt+DuhAMfr9EXT7g
+         m/gwc0Efixl0YVLFHB6+01Si6bfhe9X7Xm+jfmnIPt6HxEU1L2OgW0kSzNsIdkcCfjgR
+         P/7lU+8w7ySeB4j4pLeKZzyb0NGhV1EtaNq9ghzL4bGWUT6RuXhBg7mQTSqS4UPMy3gY
+         f/48paglqQ+UWPNgBCbFgjwPoTNEfQ+r4z1k6RP25TtFh0nDjUR5OuH0ROAyCJNE3GNY
+         JekQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b="Eu/0mgrf";
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b32 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=eRDI4uGC;
+       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::541 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:mime-version:references:in-reply-to:from:date:message-id
-         :subject:to:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=O19w6Wkai9FSYTEIXr+FzGfVpMi2FDkUH8bDKyvMRfM=;
-        b=nLtkLNxxEbCmjmI7be+i0sngY8DZvfoa3WUBUhlpqQkvDVPQ7M5HMrMCeMBVYvUNbh
-         XAqr3cLV8BuHaKMgOMGlwEfbVyIhTiqE3ozpX6LfgM8mykiAUkZsZU0HKGBTuHCoHnp+
-         bR3ZDR7FhFuNUgal7zoDGCdJwhakBjoVaTXWOIsYs/h+OwD45PdhbzqHW8sL1GOH6zWC
-         dAAx39RU3whS81CZyq2Bo+4bF8Z650b9FJ0YGhwFe6inHChDUM5HlWTk9l4bIz18iCQK
-         LUlQFnmbIRMmPRl+j/U8VcHr/9oirAbmzIQbMLkCOaNY7iDt2SaIfVWhqKcwwLdFczJl
-         ddqA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+        h=sender:from:to:subject:date:message-id:mime-version
          :x-original-sender:x-original-authentication-results:precedence
          :mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=O19w6Wkai9FSYTEIXr+FzGfVpMi2FDkUH8bDKyvMRfM=;
-        b=m8kZ4NbUu57JI0vRr2HQ3UJdoGnsNf2WymSn7mucl563LodzAUH28HP4D26OEvsI1E
-         TnpaiMmOTIQCRb3ZrrR0lhPfIWgkLjtihO4pFaz8qAEyMB9XyXue7hNVHxVEuSaamxnH
-         rWXYoTatJmRkywYUzipmE38+XSQk7c6iHm3geUcbwOUzOtij1Ak7brIyedfdA1actGRZ
-         oqVrXKZ7Y/mvfUff3EneFoURiYd96luZZdSs/v7oJpmc8vk2gDyjQv6l8unkIhDJX2Wi
-         S2meUWKLsok7/Om/TdBDy9aYb4YtAgm653o1VVrRrUy4IF8a3CZ2IZo36if6OlXjOfHB
-         XjKw==
+        bh=Tp/UXiwPAm2tko/n6zsYUo03QOwLl09H8DDeAE94+OY=;
+        b=kRNl1EbADKS7HhyiuTYdwTz6RVloL2kH5TKOAriAOmkTMeRaPNg4ZLKWZj54jYknVo
+         lrRrb9kf41lWJnwk7DlW9uPEe973p+47GJwK5ebmCcf9ISSzyTQnESpoC3uCX9KLnmQS
+         uKTo/DDx5Xf5hxvAj3Sj8ULBT47kdDxDJXcUkTNvBlDBdJWpUIYMW8DfuZNueJW+R3aW
+         YJ6crpX9CCmayw745NyPhOGoAMeMPIeU002ZgKNeI1ZGccP3z39BUw9ESK7Ty2R9oUpe
+         kA0+u8vUVShP6OZQopwns69hCUnF2ZWAQ7nOgk4THPirNT67bovmh6+gbCpj0LMt8MAu
+         rmTg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:subject:date:message-id:mime-version:x-original-sender
+         :x-original-authentication-results:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Tp/UXiwPAm2tko/n6zsYUo03QOwLl09H8DDeAE94+OY=;
+        b=TOy8Atua7X0uyXhVBrKhS8/JwE7eZ9a7ho7R9/6CcsgFzbcUX8g6mBix3cChwlGJCJ
+         PgroZHPt6zb1IXcwtPW+IgsDrwW4cb4FXn8JTJV1MnJKzmsrgxY1F5an82fAjqsxCDx6
+         SzdulrQ8fSA5hUbqoaxJYUOaBXFSh9kTks2YmweZXTOdEtjK4aNSlTrZokziOn/jEv/A
+         rXZx3TqcVZVCpg6Bs6PNua1RVhjqMV3EuLkoTXkH9aAk5Fox9UyEpyMpctfYaI5S0kpz
+         R7V6yQVtoGVWQbV71ZoGuXLFE3oy8Rb61pPzf9vWGhfV7fwvxL0ySlpO30vIJpUXZfYs
+         Wgug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:mime-version:references:in-reply-to:from
-         :date:message-id:subject:to:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=O19w6Wkai9FSYTEIXr+FzGfVpMi2FDkUH8bDKyvMRfM=;
-        b=gwCXzp/MKvWm/CfQdobDy8MizJL55mL6B157Vpg+gughHUUK3Cinvyg6J7YQuf6Roq
-         CUHqFN6C9rC+EqeFSiUmDtromcM8gmzL307mz5hl6M7731ZCD24tosuSSYs5vt4O7aOa
-         yUt5zYcwC5Us/lwj+GfplvORdSuHoMFZnuPoYMu8/caG4Jf9zIOfNGxtRr21MocAlsx7
-         GmmCnrDidJd3eYXSPlHdKgBhgk4hUfdK+vYXGCwpOS2lNHt3WHHB2LiHAhxyzFgMTHnB
-         Ssm3G7Qrjxu0zCyaGINw2HejS7/a9qbfJORoX8qmi8CV/yJBuRzJUNZbQgZSHwOoQEto
-         ZAkg==
+        h=sender:x-gm-message-state:from:to:subject:date:message-id
+         :mime-version:x-original-sender:x-original-authentication-results
+         :precedence:mailing-list:list-id:x-spam-checked-in-group:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=Tp/UXiwPAm2tko/n6zsYUo03QOwLl09H8DDeAE94+OY=;
+        b=DIOV8S0ikUpL3nDd3JSzuaj/Dc6sG+4Zk+D3Bej2WRpejMUiEOnDlZer5AtgEoqm9i
+         Juoaw+XdSvplS0d8q0xYsoKlR2/XQ02Xw80bWfhfD7vIB0A6RM9xu2hCXKXAMi5RrV3Q
+         fkJZjKMa8FUD+5rgNX9OYvepmcTGnC0xGdZ76/cKG5Sz+ncqHGbAc0OsBEBlhGy8E+tS
+         sUTUtv5b+TC+sqdqjl/SFWbb2iSh2ewZ6fAEi5+Wpwdtvycb4/WoA22HXtaDEU21UcwU
+         DbqPsJRvYgvz/HBbxPxHeCOiqzMpiPgHCUoqITnCkC9An7X7aOZ4qykDEK7rB9A1K0X0
+         l/tg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOAM530NOrQy2RK7HmEdSSxI4hOMoe4QRLjidjk/S3rK0BBUDdLmIg6v
-	riD/xRIHzRuP5Qjpi1oNMxk=
-X-Google-Smtp-Source: ABdhPJzeHsU9X97Xtpss7dZd4Lpl3XcRB7RXAr7jZT1xdkVs2X7UZsQ82/aKF87YmSe0eaLmTd1kYA==
-X-Received: by 2002:a65:6a16:0:b0:39d:4f3:67e6 with SMTP id m22-20020a656a16000000b0039d04f367e6mr3345543pgu.84.1654159335730;
-        Thu, 02 Jun 2022 01:42:15 -0700 (PDT)
+X-Gm-Message-State: AOAM533RYe/VqvZjJRim2tq41djNWQ3gI3x/ffs9ICK6tNafrSPzQM9+
+	k7nXJ8N9gqjlWHfKFDPGDsE=
+X-Google-Smtp-Source: ABdhPJxEGjYRkHxhIw1fa7/vGEGe+DT8GC9tkQXOm7q2sa6jEofcs8t11AtO8l82mWN5G31IokP36Q==
+X-Received: by 2002:a05:6871:7a1:b0:f1:b33d:7875 with SMTP id o33-20020a05687107a100b000f1b33d7875mr5635704oap.272.1654260555728;
+        Fri, 03 Jun 2022 05:49:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6a00:1a53:b0:51b:b47d:4c10 with SMTP id
- h19-20020a056a001a5300b0051bb47d4c10ls2149596pfv.11.gmail; Thu, 02 Jun 2022
- 01:42:14 -0700 (PDT)
-X-Received: by 2002:a63:91c2:0:b0:3fc:8f8e:ec48 with SMTP id l185-20020a6391c2000000b003fc8f8eec48mr3220292pge.578.1654159334518;
-        Thu, 02 Jun 2022 01:42:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1654159334; cv=none;
+Received: by 2002:a4a:391a:0:b0:41b:45da:7207 with SMTP id m26-20020a4a391a000000b0041b45da7207ls119869ooa.6.gmail;
+ Fri, 03 Jun 2022 05:49:15 -0700 (PDT)
+X-Received: by 2002:a4a:e1a9:0:b0:40e:83d8:9884 with SMTP id 9-20020a4ae1a9000000b0040e83d89884mr4073454ooy.7.1654260555062;
+        Fri, 03 Jun 2022 05:49:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1654260555; cv=none;
         d=google.com; s=arc-20160816;
-        b=C8NHIYoRn5l4gUDC76AmIvgeEGBWYcGS7YhlAlHH76IR6KhOTuIGOvhmT0mcUX044N
-         AV6SO1dJRujTl99/4M6ND4/eb54YjXfo7sHBJmWvASTUytgkcqoICGfam2sHM+AwTnkR
-         Axebh5zppCfsQTuH30dbvphVW2hrOT5yaxRXugdXOkBOYSQTjFRKDsCZN1HIlLUG2tvI
-         jkuQuyQaBeBV6i+oH5QvvfWBnPlHbLmvgUcEPt9LspJFXCQm+yxXxwLgEvBo7poTmS7a
-         X52R7GF0lSGSSapKrABaWBUGj0d728VtQXjmXQgM2fw1fyywXC0O7xh5PCNxSVlsNpOG
-         8JtQ==
+        b=Qu4ddz8QyRxok8p1/djFYgdTrNhAkymWH41cfkAUldo34c2brtfYL2G1O5HcJG8yvR
+         XuMCSYw3eGAadhqv030zEeU7yx7UQRdohsPIh4u6I72DJW/rOI+E8sO3AqN8L6gF+W4Z
+         k7fCPZsJ7iN1bnBVoG8PEfWFF5XPeqt+yxCrtpNYwcNqze2L1R3iW/OQUXeA5OtYTm5d
+         hAu36LHpfkk4U+Fr9IYCeCrHx3vKrP9cYzGkrd5oDCGClQwr8LbXaPFWh5D+jiG6ncv0
+         5da5WOi/3gZ0DSzSjRoaXJrSqr69qAw5G3Vw1fvRFZ/I39VBAgS+Qe+1KkGqu8P9THMg
+         yjBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=7Xpv4xY4lmU84DkB8MyQuiasQCQLI6CtFUGK1eALjCg=;
-        b=BvQNGP6BANAksBXmZD4oa1ZssZXAm2MiZbsGqNTfyBskaUaI9zAIR0kvv7FrCZNRf0
-         pL6FUrSe/SJ6yj/W5x7FLbTg0LXeoagrJkDM2FFVMF2G59lVzRRvQmYjeg+4uyQ3ngwl
-         02Bdnwq1Vqm2UJUuPX/mIArTSTPDnbF56Kpmel7UAOyErq0p2RO+QHjbRvf9Fh9SQzLj
-         248wVztC/pMVqTeFyqsw2WVQZL1c4sml/D26KtBbiIMBWbccL7beAyfQVDpi72F4K9XB
-         1wsEUdMNgLjnvlifLj7R5UkCj1G0QS9y6psgk2R2awEfRtwH9PvIeD0Xb1cWqm6toryx
-         2i0A==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:dkim-signature;
+        bh=FlPk0Kw8dnh9o2LO73wwpKD3N7ecC5UFJSaMMq9YKTo=;
+        b=twz3JcymJJe3A3IEvhpbrnqZG1BozsEc4xxtvEWXsuDiOy7bAqnLxR8eG+TLTctx1z
+         +r+6CP2ULFgwBQIh6V34673+LnNBbfMwfby4coxoqVXTMmtpClxL5eO1Vtf4320zZXvK
+         j7iwGhctEmOUtyR8BGQh3IPqt5DAe7BY2aLBkX3YT2jrwxJ5mR4hQ5gNPLa8pk18rxsS
+         ZxyqpcnMg504RAy7z23teGUnHBqwC0N3DJPOfFVzVgWW6/qRe9/A4xGnMm3bebmF3TV/
+         i1a0r76yIpLnOftbmxjPF3lQMvdKtTJuDB6oXJMsvC850LEAhiORi5PFHQRQuMx9UGoj
+         FXAQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b="Eu/0mgrf";
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b32 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=eRDI4uGC;
+       spf=pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::541 as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com. [2607:f8b0:4864:20::b32])
-        by gmr-mx.google.com with ESMTPS id y11-20020a170902d64b00b001635db610absi154412plh.3.2022.06.02.01.42.14
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com. [2607:f8b0:4864:20::541])
+        by gmr-mx.google.com with ESMTPS id w24-20020a4a9d18000000b0035f627c29easi355421ooj.1.2022.06.03.05.49.15
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 02 Jun 2022 01:42:14 -0700 (PDT)
-Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b32 as permitted sender) client-ip=2607:f8b0:4864:20::b32;
-Received: by mail-yb1-xb32.google.com with SMTP id a64so7108180ybg.11
-        for <jailhouse-dev@googlegroups.com>; Thu, 02 Jun 2022 01:42:14 -0700 (PDT)
-X-Received: by 2002:a25:d609:0:b0:65c:f2a1:6cf0 with SMTP id
- n9-20020a25d609000000b0065cf2a16cf0mr4136683ybg.417.1654159334000; Thu, 02
- Jun 2022 01:42:14 -0700 (PDT)
+        Fri, 03 Jun 2022 05:49:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::541 as permitted sender) client-ip=2607:f8b0:4864:20::541;
+Received: by mail-pg1-x541.google.com with SMTP id g184so7167614pgc.1
+        for <jailhouse-dev@googlegroups.com>; Fri, 03 Jun 2022 05:49:15 -0700 (PDT)
+X-Received: by 2002:a62:e90e:0:b0:51b:3f85:c97c with SMTP id j14-20020a62e90e000000b0051b3f85c97cmr10383169pfh.86.1654260554383;
+        Fri, 03 Jun 2022 05:49:14 -0700 (PDT)
+Received: from ubuntu.hz.ali.com ([47.89.83.13])
+        by smtp.gmail.com with ESMTPSA id w17-20020aa79a11000000b0051bed79a5e6sm297492pfj.90.2022.06.03.05.49.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Jun 2022 05:49:13 -0700 (PDT)
+From: Dongjiu Geng <gengdongjiu1@gmail.com>
+To: jan.kiszka@siemens.com,
+	jailhouse-dev@googlegroups.com
+Subject: [PATCH] arm64: check whether HPFAR is valid before getting IPA
+Date: Fri,  3 Jun 2022 20:49:10 +0800
+Message-Id: <20220603124910.1959472-1-gengdongjiu1@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <94bae287-eaf2-4ae2-bcdd-fc87342256e5n@googlegroups.com> <CA+V-a8uE2PzOF2mh0xEQmQ=akMTWXHy7usqEaM1C754DHS1=+w@mail.gmail.com>
-In-Reply-To: <CA+V-a8uE2PzOF2mh0xEQmQ=akMTWXHy7usqEaM1C754DHS1=+w@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 2 Jun 2022 09:41:48 +0100
-Message-ID: <CA+V-a8uJVDLNGjtcoZHN_FcvVMnxq5MjQRudtR1zQznPja2Kng@mail.gmail.com>
-Subject: Re: Linux imate unhandled read
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: prabhakar.csengg@gmail.com
+X-Original-Sender: gengdongjiu1@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b="Eu/0mgrf";       spf=pass
- (google.com: domain of prabhakar.csengg@gmail.com designates
- 2607:f8b0:4864:20::b32 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@gmail.com header.s=20210112 header.b=eRDI4uGC;       spf=pass
+ (google.com: domain of gengdongjiu1@gmail.com designates 2607:f8b0:4864:20::541
+ as permitted sender) smtp.mailfrom=gengdongjiu1@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -142,141 +141,229 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Tue, May 31, 2022 at 8:13 PM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
->
-> On Tue, May 31, 2022 at 1:52 PM Prabhakar Lad
-> <prabhakar.csengg@gmail.com> wrote:
-> >
-> >
-> <snip>
-> > * Looking at some of the linux inmate  configs there are two regions of RAM specified is this a strict requirement?
-> > * For the inmate RAM should the virt_start = CONFIG_INMATE_BASE?
-> >
-> After updating my memory layout, i.e. after creating one region for
-> loading the linux another for DDR RAM and lastly the communication
-> region in my inmate I no longer see the unhandled read error.
->
->         /* linux-loader space */ {
->             .phys_start = 0x59000000,
->             .virt_start = 0x0,
->             .size = 0x6400000,
->             .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->                 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
->         },
->         /* RAM */ {
->             .phys_start = 0x5F400000,
->             .virt_start = 0x5F400000,
->             .size = 0x19C00000,
->             .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->                 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
->                 JAILHOUSE_MEM_LOADABLE,
->         },
->         /* communication region */ {
->             .virt_start = 0x80000000,
->             .size = 0x00001000,
->             .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
->                 JAILHOUSE_MEM_COMM_REGION,
->         },
->
-> I am able to load the linux on one of the CPUs but I cannot see any
-> console output on the serial.
->
-> root@hihope-rzg2m:~# jailhouse cell linux
-> renesas-r8a774a1-linux-demo.cell Image.gz -d
-> inmate-r8a774a1-hihope.dtb -c "clk_ignore_unused rootwait rw"
-> Started cell "renesas-r8a774a1-linux-demo"
-> root@hihope-rzg2m:~#
-> root@hihope-rzg2m:~# jailhouse cell list
-> ID      Name                    State             Assigned CPUs
->    Failed CPUs
-> 0       Renesas HopeRun HiHope RZ/G2Mrunning           0,2-5
-> 1       renesas-r8a774a1-linux-demorunning           1
-> root@hihope-rzg2m:~#
->
-> Any pointers on debugging this? (jailhouse cell stat 1 doesn't seem to
-> updating the number so I assume it's panicked somewhere)
->
-I was able to get the console output on the root cell for debugging by
-setting "console=jailhouse earlycon..."
+The HPFAR can be invalid if the stage 2 fault did not happen during a
+stage 1 page table walk (the ESR_EL2.S1PTW bit is clear) and one of the
+two following cases are true:
+  1). The fault was due to a permission fault
+  2). The processor carries errata 834220
 
-I'm seeing that when trying to initialize the GIC its causing a panic:
+Therefore, for all non S1PTW faults where we either have a permission
+fault or the errata workaround is enabled, we resolve the IPA using the
+AT instruction.
 
-[    0.000000] ------------[ cut here ]------------
-[    0.000000] unable to map gic dist registers
-[    0.000000] WARNING: CPU: 0 PID: 0 at
-drivers/irqchip/irq-gic.c:1393 gic_of_setup+0xa8/0xf0
-[    0.000000] Modules linked in:
-[    0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W
-  5.10.31+ #37
-[    0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/G2M
-R8A774A1 (DT)
-[    0.000000] pstate: 60000085 (nZCv daIf -PAN -UAO -TCO BTYPE=--)
-[    0.000000] pc : gic_of_setup+0xa8/0xf0
-[    0.000000] lr : gic_of_setup+0xa8/0xf0
-[    0.000000] sp : ffff800011203dd0
-[    0.000000] x29: ffff800011203dd0 x28: ffff800010f936c0
-[    0.000000] x27: ffff80001120cc18 x26: ffff80001120cc18
-[    0.000000] x25: 0000000000000000 x24: ffff800011209000
-[    0.000000] x23: ffff000077c36460 x22: ffff80001120c000
-[    0.000000] x21: ffff800010f93000 x20: ffff000077c36460
-[    0.000000] x19: ffff80001120cc18 x18: ffffffffffffffff
-[    0.000000] x17: 00000000000000c0 x16: fffffdffffe00340
-[    0.000000] x15: ffff800011209948 x14: 0000000000000056
-[    0.000000] x13: ffff800011203a70 x12: 00000000ffffffea
-[    0.000000] x11: ffff8000112914c0 x10: ffff800011279480
-[    0.000000] x9 : ffff8000112794d8 x8 : 0000000000017fe8
-[    0.000000] x7 : c0000000ffffefff x6 : 0000000000000001
-[    0.000000] x5 : 0000000000000000 x4 : 0000000000000000
-[    0.000000] x3 : 00000000ffffffff x2 : ffff800011221450
-[    0.000000] x1 : 0000000000000000 x0 : 0000000000000000
-[    0.000000] Call trace:
-[    0.000000]  gic_of_setup+0xa8/0xf0
-[    0.000000]  gic_of_init+0x88/0x390
-[    0.000000]  of_irq_init+0x194/0x33c
-[    0.000000]  irqchip_init+0x18/0x40
-[    0.000000]  init_IRQ+0xc8/0xfc
-[    0.000000]  start_kernel+0x2ec/0x4f8
-[    0.000000] ---[ end trace f68728a0d3053b52 ]---
-[    0.000000] OF: of_irq_init: children remain, but no parents
-[    0.000000] Kernel panic - not syncing: No interrupt controller found.
-[    0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W
-  5.10.31+ #37
-[    0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/G2M
-R8A774A1 (DT)
-[    0.000000] Call trace:
-[    0.000000]  dump_backtrace+0x0/0x1c0
-[    0.000000]  show_stack+0x18/0x68
-[    0.000000]  dump_stack+0xd8/0x134
-[    0.000000]  panic+0x188/0x3a8
-[    0.000000]  init_IRQ+0xe0/0xfc
-[    0.000000]  start_kernel+0x2ec/0x4f8
-[    0.000000] ---[ end Kernel panic - not syncing: No interrupt
-controller found. ]---
+Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
+---
+ hypervisor/arch/arm64/include/asm/paging.h  |  8 ++
+ hypervisor/arch/arm64/include/asm/sysregs.h |  8 ++
+ hypervisor/arch/arm64/include/asm/traps.h   |  2 +
+ hypervisor/arch/arm64/mmio.c                |  7 +-
+ hypervisor/arch/arm64/traps.c               | 90 +++++++++++++++++++--
+ 5 files changed, 105 insertions(+), 10 deletions(-)
 
-I have the below GIC node in the inmate dts:
-
-    gic: interrupt-controller@f1010000 {
-        compatible = "arm,gic-400";
-        #interrupt-cells = <3>;
-        #address-cells = <0>;
-        interrupt-controller;
-        reg = <0x0 0xf1010000 0 0x1000>,
-            <0x0 0xf1020000 0 0x20000>,
-            <0x0 0xf1040000 0 0x20000>,
-            <0x0 0xf1060000 0 0x20000>;
-        interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(6) | IRQ_TYPE_LEVEL_HIGH)>;
-    };
-
-In the inmate cell file for GIC configuration, do we need to enable
-pin_bitmap mask just for the peripherals which are only enabled in DT
-(For now I have the pin_bitmap mask in the inmate cell same as the
-root cell) ?
-
-Cheers,
-Prabhakar
+diff --git a/hypervisor/arch/arm64/include/asm/paging.h b/hypervisor/arch/arm64/include/asm/paging.h
+index e600cf58..4f0cb81c 100644
+--- a/hypervisor/arch/arm64/include/asm/paging.h
++++ b/hypervisor/arch/arm64/include/asm/paging.h
+@@ -198,6 +198,14 @@ unsigned int get_cpu_parange(void);
+ 				| (cpu_parange_encoded << TCR_PS_SHIFT)	\
+ 				| VTCR_RES1)
+ 
++/* Flags for get fault ipa from gva */
++#define GV2M_READ		(0u<<0)
++#define GV2M_WRITE		(1u<<0)
++
++/* Indicates address translation aborted */
++#define PAR_F			(1UL)
++#define PADDR_MASK		((1UL << 48) - 1UL)
++
+ int arm_paging_cell_init(struct cell *cell);
+ void arm_paging_cell_destroy(struct cell *cell);
+ 
+diff --git a/hypervisor/arch/arm64/include/asm/sysregs.h b/hypervisor/arch/arm64/include/asm/sysregs.h
+index 868ef887..2c683832 100644
+--- a/hypervisor/arch/arm64/include/asm/sysregs.h
++++ b/hypervisor/arch/arm64/include/asm/sysregs.h
+@@ -117,6 +117,14 @@
+ #define ESR_IL(esr)		GET_FIELD((esr), 25, 25)
+ /* Instruction specific syndrome */
+ #define ESR_ISS(esr)		GET_FIELD((esr), 24, 0)
++
++/* Fault status code of instruction specific syndrome */
++#define ESR_ISS_FSC(esr)	GET_FIELD((esr), 5, 0)
++
++/* Shared ISS fault status code(IFSC/DFSC) for Data/Instruction aborts */
++#define ESR_ISS_FSC_TYPE	(0x3C)
++#define ESR_ISS_FSC_PERM	(0x0C)
++
+ /* Exception classes values */
+ #define ESR_EC_UNKNOWN		0x00
+ #define ESR_EC_WFx		0x01
+diff --git a/hypervisor/arch/arm64/include/asm/traps.h b/hypervisor/arch/arm64/include/asm/traps.h
+index a7c07624..0efedef1 100644
+--- a/hypervisor/arch/arm64/include/asm/traps.h
++++ b/hypervisor/arch/arm64/include/asm/traps.h
+@@ -25,6 +25,8 @@ struct trap_context {
+ 
+ void arch_handle_trap(union registers *guest_regs);
+ void arch_el2_abt(union registers *regs);
++bool arch_get_fault_ipa(struct trap_context *ctx, unsigned long *ipa,
++				 unsigned int flag);
+ 
+ /* now include from arm-common */
+ #include_next <asm/traps.h>
+diff --git a/hypervisor/arch/arm64/mmio.c b/hypervisor/arch/arm64/mmio.c
+index 7fbfef75..70301ab3 100644
+--- a/hypervisor/arch/arm64/mmio.c
++++ b/hypervisor/arch/arm64/mmio.c
+@@ -43,7 +43,6 @@ enum trap_return arch_handle_dabt(struct trap_context *ctx)
+ {
+ 	enum mmio_result mmio_result;
+ 	struct mmio_access mmio;
+-	unsigned long hpfar;
+ 	unsigned long hdfar;
+ 	/* Decode the syndrome fields */
+ 	u32 iss		= ESR_ISS(ctx->esr);
+@@ -57,10 +56,10 @@ enum trap_return arch_handle_dabt(struct trap_context *ctx)
+ 	u32 is_write	= iss >> 6 & 0x1;
+ 	u32 size	= 1 << sas;
+ 
+-	arm_read_sysreg(HPFAR_EL2, hpfar);
+ 	arm_read_sysreg(FAR_EL2, hdfar);
+-	mmio.address = hpfar << 8;
+-	mmio.address |= hdfar & 0xfff;
++
++	if (!arch_get_fault_ipa(ctx, &mmio.address, GV2M_READ))
++		return TRAP_HANDLED; /* Try again */
+ 
+ 	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_MMIO]++;
+ 
+diff --git a/hypervisor/arch/arm64/traps.c b/hypervisor/arch/arm64/traps.c
+index 488dd7f8..f2d50000 100644
+--- a/hypervisor/arch/arm64/traps.c
++++ b/hypervisor/arch/arm64/traps.c
+@@ -33,6 +33,85 @@ void arch_skip_instruction(struct trap_context *ctx)
+ 	arm_write_sysreg(ELR_EL2, pc);
+ }
+ 
++static bool check_workaround_834220(void)
++{
++        unsigned long midr;
++	unsigned int variant, revision, part;
++
++	arm_read_sysreg(MIDR_EL1, midr);
++
++	variant = (midr >> 20) & 0xf;
++	revision = midr & 0xf;
++	part = (midr >> 4) & 0xfff;
++
++	/* Cortex-A57 r0p0 - r1p2 */
++	if (part == 0xD07 && variant <= 1 && revision <= 2)
++		return true;
++
++	return false;
++}
++
++static bool hpfar_is_not_valid(bool s1ptw, u8 fsc)
++{
++	/*
++	 * The HPFAR can be invalid if the stage 2 fault did not
++	 * happen during a stage 1 page table walk (the ESR_EL2.S1PTW
++	 * bit is clear) and one of the two following cases are true:
++	 *   1. The fault was due to a permission fault
++	 *   2. The processor carries errata 834220
++	 *
++	 */
++	return (s1ptw == 0U) && (((fsc & ESR_ISS_FSC_TYPE) == ESR_ISS_FSC_PERM) || check_workaround_834220());
++}
++
++bool arch_get_fault_ipa(struct trap_context *ctx, unsigned long *ipa, unsigned int flags)
++{
++	unsigned long hpfar, hdfar, par, tmp;
++
++	u32 s1ptw = ESR_ISS(ctx->esr) >> 7 & 0x1;
++	u8 fsc = ESR_ISS_FSC(ctx->esr);
++
++	arm_read_sysreg(FAR_EL2, hdfar);
++
++	if (hpfar_is_not_valid(s1ptw, fsc)) {
++
++		/* Save current PAR_EL1 */
++		arm_read_sysreg(PAR_EL1, tmp);
++
++		/*
++		 *  Performs stage 1 address translation, with permissions as if
++		 *  writing to or reading from the given virtual address from EL1
++		 */
++                if ( (flags & GV2M_WRITE) == GV2M_WRITE ) {
++                        asm volatile ("at s1e1w, %0;" : : "r" (hdfar));
++                } else {
++                        asm volatile ("at s1e1r, %0;" : : "r" (hdfar));
++                }
++
++		isb();
++
++		/* The resulting address can be read from the PAR_EL1 */
++		arm_read_sysreg(PAR_EL1, par);
++
++		/* Recover current PAR_EL1 */
++		arm_write_sysreg(PAR_EL1, tmp);
++
++		/* If PAR_EL1.F = 1, address translation aborted */
++		if ((par & PAR_F) == PAR_F) {
++			printk("Failed to ipa!\n");
++			return false;
++		} else {
++			*ipa = (par & PADDR_MASK & PAGE_MASK) | (hdfar & (~PAGE_MASK));
++		}
++	} else {
++		arm_read_sysreg(HPFAR_EL2, hpfar);
++		*ipa = hpfar << 8;
++		*ipa |= hdfar & 0xfff;
++	}
++
++	return true;
++}
++
+ static enum trap_return handle_hvc(struct trap_context *ctx)
+ {
+ 	unsigned long *regs = ctx->regs;
+@@ -47,7 +126,6 @@ static enum trap_return handle_hvc(struct trap_context *ctx)
+ 		paging_map_all_per_cpu(this_cpu_id(), true);
+ 		arch_shutdown_self(per_cpu(this_cpu_id()));
+ 	}
+-
+ 	return TRAP_HANDLED;
+ }
+ 
+@@ -71,7 +149,7 @@ static enum trap_return handle_sysreg(struct trap_context *ctx)
+ 
+ static enum trap_return handle_iabt(struct trap_context *ctx)
+ {
+-	unsigned long hpfar, hdfar;
++	unsigned long hpfar;
+ 
+ 	if (this_cpu_data()->sdei_event) {
+ 		this_cpu_data()->sdei_event = false;
+@@ -83,11 +161,11 @@ static enum trap_return handle_iabt(struct trap_context *ctx)
+ 		return TRAP_HANDLED;
+ 	}
+ 
+-	arm_read_sysreg(HPFAR_EL2, hpfar);
+-	arm_read_sysreg(FAR_EL2, hdfar);
++	if (arch_get_fault_ipa(ctx, &hpfar, GV2M_READ))
++		panic_printk("FATAL: instruction abort at 0x%lx\n", hpfar);
++	else
++		panic_printk("FATAL: instruction abort and can not get ipa\n");
+ 
+-	panic_printk("FATAL: instruction abort at 0x%lx\n",
+-		     (hpfar << 8) | (hdfar & 0xfff));
+ 	return TRAP_FORBIDDEN;
+ }
+ 
+-- 
+2.25.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8uJVDLNGjtcoZHN_FcvVMnxq5MjQRudtR1zQznPja2Kng%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220603124910.1959472-1-gengdongjiu1%40gmail.com.
