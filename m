@@ -1,68 +1,77 @@
-Return-Path: <jailhouse-dev+bncBCX7HWUSSQARBW7EWCKQMGQEQJTEQOQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDQKRTU7ZIKBB3HEWWKQMGQEIY4PH7Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qk1-x739.google.com (mail-qk1-x739.google.com [IPv6:2607:f8b0:4864:20::739])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9469954F234
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jun 2022 09:50:52 +0200 (CEST)
-Received: by mail-qk1-x739.google.com with SMTP id bk10-20020a05620a1a0a00b006a6b1d676ebsf4291259qkb.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jun 2022 00:50:52 -0700 (PDT)
+Received: from mail-qk1-x737.google.com (mail-qk1-x737.google.com [IPv6:2607:f8b0:4864:20::737])
+	by mail.lfdr.de (Postfix) with ESMTPS id 653D655033B
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 18 Jun 2022 08:36:30 +0200 (CEST)
+Received: by mail-qk1-x737.google.com with SMTP id u8-20020a05620a454800b006a74e6b39eesf7312429qkp.12
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Jun 2022 23:36:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:date:from:to:message-id:subject:mime-version
-         :x-original-sender:precedence:mailing-list:list-id:list-post
-         :list-help:list-archive:list-subscribe:list-unsubscribe;
-        bh=5UuPh9tR8RptfT2Yw29HwfHf2wwCOFtFmjY/e4JMHvg=;
-        b=RLXtzzo3WxJcGRDphgdZYQgjg1Xb08SAiER3oQkDi1XuMSnXGQsU7GDt4iZpPHjtho
-         SBsqcGAQsB7oWq5rMesuShwUrCmE8qfuHGO6/89iW4r4ArHNqDpxt/S7Lqu6MV2GAqZG
-         8FbK0SpAwVVcgUWTuVpryKlsJatJHuVrXf5/oBYfWx5r4nmWiRPdEBZCP3EM9bzwy3KE
-         JETm/5K3FTxE8r6KJivqklUqZVHLoxgE8x64JKs6Di08SZ5ySe3LmrusAHnj7NZVO51C
-         EZ5bPnWS7Y1JK081dTC63Of2kzWysidetJ866qnujLkKzfZ+oDzuqh2K66889UWKkwJ9
-         y/Ww==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=ZbfEjdr5kKuVWc067hPX6uyrcqgc2mwNiMhjET0En4s=;
+        b=DDPZd0mDd6RaVoXu2uCSYAjDsv7+CVv/A8zkSL30BeBnCwiqkyo2GWRLmg58mASdjy
+         GS8lQwfiKEO7JCWz6GUbTl93Dmj3HJIuJ8lXCvagOjfzpUzROMAJHhInfaw2iNk9/pGr
+         rrvTdaCsEcu1oK0F0UvZsaNSFqoajtnHBqgepvC3OsIm77rjChBJ1io1SGuLlQfB8gBC
+         O2SK4j2W1bc3Tkw+7b/HAu3jn8cj2BZv6kkrKVzSAGrA7iHqTINt8IHE4WY+B8ysAYf0
+         3kZS8ymk05NEy/MYvutLJJt0CSsRlj2g8C/k9VO0+J+wVX0QJq0zrCB/GtT7V9DfS1DG
+         ciDw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:message-id:subject:mime-version:x-original-sender
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5UuPh9tR8RptfT2Yw29HwfHf2wwCOFtFmjY/e4JMHvg=;
-        b=V6rvWJ75/xtxk+vnd8HUVUyqLKVWeOVoZUO0CXQD84JyRxJ41bjIY99mgYghjszTAR
-         sKOGwJ/tgF7ian8RW8PncYPWosa3t1IPH8SpoxTGdjCw1I20o4hjNzUuGqqiQTNWC2FB
-         i87TtyLV4576shgcMBrSm9yhrL6VKjpIo77g0U3tJFSyBNWgz5J6Ofh18RuqCXvB/ZEE
-         wbNXh5nGfyHlCz4v9hJmUQyANYKxptwCw/EMtNmdOr35NOT2z/pxOrGvBID9CBiNhq+w
-         OGOOrYVH3RnkxCnIkubELH6qbyAhpNwZI4m7qEGfoWwtIHwGwxnFJGfEMxQ/mU/KmfW2
-         KgUg==
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=ZbfEjdr5kKuVWc067hPX6uyrcqgc2mwNiMhjET0En4s=;
+        b=emZTK5S0k/zM32AXth1T/a/XisXXsS4tphHBNohedWKX2V6AXXlihzOeA7Z/gFqPFg
+         5gdr/IXl5TeNHNyEk0fSl7K5C2ILmidYD0AvCzxFP+5xExpkJ+91QscpjHe3IEFJkau3
+         WB/8RWSODpNkF+80egpdeP0+E1cIT1Avxczp+yp2fRlf/MNZBVxh8uzdUusfcEcjfw3l
+         r78UjyeEHHAujgD/VvnbgVUrHdPpTxiu7I5g9dfBSXWbf++SelhsDPcKWTb2tUJEmn2u
+         wP0muIDY53rId4P3qzfo37SMOowF78iZq6SvRPs+YQuhmQezOKm2o1mHthz3O7qL+QVl
+         fVrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:date:from:to:message-id:subject
-         :mime-version:x-original-sender:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=5UuPh9tR8RptfT2Yw29HwfHf2wwCOFtFmjY/e4JMHvg=;
-        b=QeMnpwW45YTXiug2xFD2KPvogrXQHvacAytlgHxDVRGDs67NFLsM2GrR2/4sOTMwGq
-         qPavmhD40XB3FSgu9g7m9rpaWaIyrMzm0jXhe/kfe+hcKpOiz7TWBu++SDSaN8CqtLNr
-         Jydvvb6e5IqLvlXvx0ulj/S/nFRZo1tQKTnEsn/l3HJIYiy7P85KbD4WFmxr/1AuUvQK
-         DshZeNbF/owyyLr5OgR/pyaY+OQUxFLF+HZJnOToxm5Vgaocd/NEBfufdcJ17+ahMq8g
-         hR+lhvFH5hYyvNL59warXQOqfLCmoG2uDqUmA82xqv+Ty88YZnVk7QUQcKfIuIUAcSAn
-         /m6Q==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=ZbfEjdr5kKuVWc067hPX6uyrcqgc2mwNiMhjET0En4s=;
+        b=UxvgNxyJJNkv9gsMX5ig8YHsckxTJZKpn+S4k3AMYw1x1+7MFfHQeJb9+c+vli6gyK
+         4hOuCXDW6zsKvZJbpdnLW1E2TsiJiRAwBP8gF3SYsD7s8l84Ho+3K2/VZcOsf0NrBw81
+         bUBr+vRVGkV4Q7R5SSp1rrfcnxN0rH2xAV/3PHufcI6FRsfWG8Ejs68rGHDiWY/0hwbu
+         GG5bmewaRdgqCgA0xLvEIBAtklgh/UxoT6HFUPDrbAfVDOjFoQk4T55tuV1p6hLz250C
+         8+DiGU9p4VVwgHnN5TDkZ8THpuADd8d3rJA5ruuF1ysIWVuKo/u8+Yg0O57FxiFTXKLl
+         /L4w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora+h/nBfhCYekwv5tAD3qyul+vGsMzxwv6rAKWgQ9cJJ/pfULZA+
-	YOwAlB4Gr6DDXo+UbZJ4GAw=
-X-Google-Smtp-Source: AGRyM1vHKAAuIZBHtjmZb0JODaFDl0LkY9O/e1JPTh6OyvzruhjzLWzmilNTki41xMqCgjnxAtAhKA==
-X-Received: by 2002:a05:622a:d5:b0:305:abf:dcd6 with SMTP id p21-20020a05622a00d500b003050abfdcd6mr7437306qtw.666.1655452251448;
-        Fri, 17 Jun 2022 00:50:51 -0700 (PDT)
+X-Gm-Message-State: AJIora/QbK8Iw5V96N0CTmQnSr0YfaDgZkjJI6tzflKbJebwhIZeKJoT
+	gV/CbE7He9hIjaHZclRR6cM=
+X-Google-Smtp-Source: AGRyM1thjYYbkNJUyC6Pf2NVD7o1vHKn5Igy4abYEB01OByZXzqUls2i9cVCZorN1/SNjGwKaqk6eA==
+X-Received: by 2002:a05:620a:1787:b0:6ab:8ea0:6b2b with SMTP id ay7-20020a05620a178700b006ab8ea06b2bmr5480177qkb.271.1655534189284;
+        Fri, 17 Jun 2022 23:36:29 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:7d90:0:b0:304:ddf4:21ab with SMTP id c16-20020ac87d90000000b00304ddf421abls2665981qtd.10.gmail;
- Fri, 17 Jun 2022 00:50:50 -0700 (PDT)
-X-Received: by 2002:a05:622a:64e:b0:305:1aba:c70b with SMTP id a14-20020a05622a064e00b003051abac70bmr7276115qtb.390.1655452250617;
-        Fri, 17 Jun 2022 00:50:50 -0700 (PDT)
-Date: Fri, 17 Jun 2022 00:50:49 -0700 (PDT)
-From: Jean de Bonfils <jdebonfils5@gmail.com>
+Received: by 2002:a0c:d648:0:b0:46d:80ee:d34c with SMTP id e8-20020a0cd648000000b0046d80eed34cls3122865qvj.8.gmail;
+ Fri, 17 Jun 2022 23:36:28 -0700 (PDT)
+X-Received: by 2002:a05:6214:2525:b0:462:661b:3d11 with SMTP id gg5-20020a056214252500b00462661b3d11mr11253417qvb.56.1655534188565;
+        Fri, 17 Jun 2022 23:36:28 -0700 (PDT)
+Date: Fri, 17 Jun 2022 23:36:28 -0700 (PDT)
+From: star sun <sunxing960116@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n@googlegroups.com>
-Subject: jailhouse inter-cluster operations
+Message-Id: <73c81520-68a0-4d95-9686-221a8c953ec5n@googlegroups.com>
+In-Reply-To: <01c7501d-7b12-49b8-b544-fa5ffe749387n@googlegroups.com>
+References: <CAGdCPwvsiHYiCOVWr8s_Ey6knD2LiEo_SjP2tNWFLm0LzgWS7g@mail.gmail.com>
+ <32ebc4ac-1d9d-8983-4c25-e23856da2fad@siemens.com>
+ <CAGdCPwsigcxRcikcfUovOp7=q0g8eqXv3Cois+w_0cZR6R=v_Q@mail.gmail.com>
+ <e2aed10a-4d8f-1d0a-852a-bd399ac5e667@web.de>
+ <CAGdCPwu4v5S-ss9UzTi4tXJBQFZ1b-J6isA+TM301BdPRPHkxg@mail.gmail.com>
+ <89ad4d62-8005-44a0-9153-ace14b658e64n@googlegroups.com>
+ <798dc279-8f39-b3c6-c0ec-ff10c94c2f86@siemens.com>
+ <01c7501d-7b12-49b8-b544-fa5ffe749387n@googlegroups.com>
+Subject: Re: Root cell configuration for RPi4 with more than 1G of memory
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_938_1154512273.1655452249903"
-X-Original-Sender: jdebonfils5@gmail.com
+	boundary="----=_Part_998_538405226.1655534188015"
+X-Original-Sender: sunxing960116@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -75,38 +84,177 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_938_1154512273.1655452249903
+------=_Part_998_538405226.1655534188015
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_939_1630025517.1655452249903"
+	boundary="----=_Part_999_74054859.1655534188015"
 
-------=_Part_939_1630025517.1655452249903
+------=_Part_999_74054859.1655534188015
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi everyone,
-I would like to know if jailhouse is able to run on multiple core clusters. 
-For example, Imx8 Quad Max has one cluster of 4x Cortex A-53 and another 
-cluster of 4x Cortex-A72. 
-If so, do you know how Jailhouse manages inter-cluster MMU operations ?
+I have the same question...Could you please introduce the solution in=20
+detail? Thank you
 
-Thank you in advance and have a nice day.
 
-Jean de Bonfils Lavernelle
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n%40googlegroups.com.
 
-------=_Part_939_1630025517.1655452249903
+
+=E5=9C=A82021=E5=B9=B48=E6=9C=8820=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+=
+8 16:04:33<mustafa...@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+
+> Thanks for your advice.=20
+> It took me a lot of time, to make it work, I was only missing the=20
+> ARM-Trusted-Firmware. And now it is working like charm.
+> I needed to understand jaihouse better and every time I discover new and=
+=20
+> interesting information.=20
+> Moustafa
+> On Thursday, 19 August 2021 at 15:56:23 UTC+2 j.kiszka...@gmail.com wrote=
+:
+>
+>> On 19.08.21 13:59, Moustafa Nofal wrote:=20
+>> > I tried this configuration, but it did not work with me, I attached th=
+e=20
+>> > log file. I have Pi4(4GB version). Initially installed 5.10, it did no=
+t=20
+>> > compile so I back-patched to 5.3 and added CONFIG_HOTPLUG_CPU=3Dy to t=
+he=20
+>> > build configuration, I was able to understand, why it was essential.=
+=20
+>> > Then I tried different memory reservations using device tree:=20
+>> >     reserved-memory {=20
+>> >         #address-cells=3D<2>;=20
+>> >         #size-cells=3D<1>;=20
+>> >         ranges;=20
+>> >         memmap:memmap@0x20000000{=20
+>> >             reg =3D <0x0 0x20000000 0x10000000>;=20
+>> >             };=20
+>> >     };=20
+>> > The memory is reserved and observable at proc/iomem but the result is=
+=20
+>> > either crash as in the log file or this:=20
+>> > [ 1463.849868] jailhouse: request_mem_region failed for hypervisor=20
+>> memory.=20
+>> > [ 1463.849882] jailhouse: Did you reserve the memory with "memmap=3D" =
+or=20
+>> > "mem=3D"?=20
+>> > In rpi4.c=20
+>> > I edited memory regions to begin with 2:=20
+>> >=20
+>> >         .hypervisor_memory =3D {=20
+>> >             .phys_start =3D 0x2fc00000,=20
+>> >             .size       =3D 0x00400000,=20
+>> >         },=20
+>> > and the same for all memory regions.=20
+>> >=20
+>> > Something that I do not really understand, is the RAM address. In the=
+=20
+>> > jailhouse Image, there was a RAM at 0x20000000 and the image works=20
+>> fine.=20
+>> > But in my case there is nothing at this address.=20
+>> > Any help would be appreciated and thanks in advance.=20
+>> >=20
+>>
+>> Integrating all the loose ends of these targets is a hairy process (I=20
+>> stopped counting hours I invested). Therefore, I strongly recommend=20
+>> starting from jailhouse-images where the RPi4 works fine, at least here,=
+=20
+>> and then step-wise deviate from that towards whatever alternative=20
+>> configuration is desired.=20
+>>
+>> Jan=20
+>>
+>> --=20
+>> Siemens AG, T RDA IOT=20
+>> Corporate Competence Center Embedded Linux=20
+>>
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/73c81520-68a0-4d95-9686-221a8c953ec5n%40googlegroups.com.
+
+------=_Part_999_74054859.1655534188015
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi everyone,<div>I would like to know if jailhouse is able to run on multip=
-le core clusters.&nbsp;</div><div>For example, Imx8 Quad Max has one cluste=
-r of 4x Cortex A-53 and another cluster of 4x Cortex-A72.&nbsp;</div><div>I=
-f so, do you know&nbsp;how Jailhouse manages inter-cluster MMU operations ?=
-</div><div><br></div><div>Thank you in advance and have a nice day.</div><d=
-iv><br></div><div>Jean de Bonfils Lavernelle</div>
+I have the same question...Could you please introduce the solution in detai=
+l? Thank you<div><br><br><br><br><br><div class=3D"gmail_quote"><div dir=3D=
+"auto" class=3D"gmail_attr">=E5=9C=A82021=E5=B9=B48=E6=9C=8820=E6=97=A5=E6=
+=98=9F=E6=9C=9F=E4=BA=94 UTC+8 16:04:33&lt;mustafa...@gmail.com&gt; =E5=86=
+=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"m=
+argin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
+: 1ex;">Thanks for your advice. <br>It took me a lot of time, to make it wo=
+rk, I was only missing the ARM-Trusted-Firmware. And now it is working like=
+ charm.<br>I needed to understand jaihouse better and every time I discover=
+ new and interesting information. <br>Moustafa<br><div class=3D"gmail_quote=
+"><div dir=3D"auto" class=3D"gmail_attr">On Thursday, 19 August 2021 at 15:=
+56:23 UTC+2 <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">j.kiszka..=
+.@gmail.com</a> wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>On 19.08.21 13:59, Moustafa Nofal wrote:
+<br>&gt; I tried this configuration, but it did not work with me, I attache=
+d the
+<br>&gt; log file. I have Pi4(4GB version). Initially installed 5.10, it di=
+d not
+<br>&gt; compile so I back-patched to 5.3 and added CONFIG_HOTPLUG_CPU=3Dy =
+to the
+<br>&gt; build configuration, I was able to understand, why it was essentia=
+l.
+<br>&gt; Then I tried different memory reservations using device tree:
+<br>&gt; &nbsp;&nbsp;&nbsp; reserved-memory {
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; #address-cells=3D&lt;2&gt;;
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; #size-cells=3D&lt;1&gt;;
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; ranges;
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; memmap:memmap@0x20000000{
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; reg =3D &=
+lt;0x0 0x20000000 0x10000000&gt;;
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; };
+<br>&gt; &nbsp;&nbsp; &nbsp;};
+<br>&gt; The memory is reserved and observable at proc/iomem but the result=
+ is
+<br>&gt; either crash as in the log file or this:
+<br>&gt; [ 1463.849868] jailhouse: request_mem_region failed for hypervisor=
+ memory.
+<br>&gt; [ 1463.849882] jailhouse: Did you reserve the memory with "memmap=
+=3D" or
+<br>&gt; "mem=3D"?
+<br>&gt; In rpi4.c
+<br>&gt; I edited memory regions to begin with 2:
+<br>&gt;=20
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; .hypervisor_memory =3D {
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .phys_sta=
+rt =3D 0x2fc00000,
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .size&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D 0x00400000,
+<br>&gt; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; },
+<br>&gt; and the same for all memory regions.
+<br>&gt;=20
+<br>&gt; Something that I do not really understand, is the RAM address. In =
+the
+<br>&gt; jailhouse Image, there was a RAM at 0x20000000 and the image works=
+ fine.
+<br>&gt; But in my case there is nothing at this address.
+<br>&gt; Any help would be appreciated and thanks in advance.
+<br>&gt;=20
+<br>
+<br>Integrating all the loose ends of these targets is a hairy process (I
+<br>stopped counting hours I invested). Therefore, I strongly recommend
+<br>starting from jailhouse-images where the RPi4 works fine, at least here=
+,
+<br>and then step-wise deviate from that towards whatever alternative
+<br>configuration is desired.
+<br>
+<br>Jan
+<br>
+<br>--=20
+<br>Siemens AG, T RDA IOT
+<br>Corporate Competence Center Embedded Linux
+<br></blockquote></div></blockquote></div></div>
 
 <p></p>
 
@@ -117,11 +265,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n%40googlegrou=
+om/d/msgid/jailhouse-dev/73c81520-68a0-4d95-9686-221a8c953ec5n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n%40googlegroups.co=
+msgid/jailhouse-dev/73c81520-68a0-4d95-9686-221a8c953ec5n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_939_1630025517.1655452249903--
+------=_Part_999_74054859.1655534188015--
 
-------=_Part_938_1154512273.1655452249903--
+------=_Part_998_538405226.1655534188015--
