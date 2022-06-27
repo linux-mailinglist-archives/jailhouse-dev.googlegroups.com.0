@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBBW242KQMGQEDUQAJPY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBA6242KQMGQE6LRRJYA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1955555B9C5
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:13:45 +0200 (CEST)
-Received: by mail-lj1-x23e.google.com with SMTP id i23-20020a2e9417000000b0025a739223d1sf1005027ljh.4
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:13:45 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656335624; cv=pass;
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F26055B9BD
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:13:40 +0200 (CEST)
+Received: by mail-wm1-x340.google.com with SMTP id 10-20020a1c020a000000b003a03f8cc1acsf3981377wmc.6
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:13:40 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1656335620; cv=pass;
         d=google.com; s=arc-20160816;
-        b=lSS8WuNxnqsFNplqVpVSe/wLELpeOzsL1Wxt0B7TUomZAcD0PkCfkpg8HsxqYcami+
-         zLs0rOeREnmAY2/Euwj9qpoIsYfnS2alBfgGVMQETwUnzvPZBf9QGJ4daENhEmTdUAbu
-         Nd78sWe1OvOMBgjERKDdhUON3OlxIPXNCHFnUWHfdsu9o07VIoRoHYPz5Dzo3LPM76du
-         aB0R6jRaQZG8A3WRvbu9RSlQnwAyvJFc6Q32nHmm3iKvjKDakr+ze72imlPPqTfxQDTo
-         O0aX5Ok+yjiUC5CkLF/lKZLNxsGqpgGayL6NUtsefC3VdWVBHl60TrqmQmy5E3Xyxk6T
-         4Ykw==
+        b=PfKSKgZw7Qc25WQXWuH43/WR3x/LhRoy231ChF2EgmOLZI7tvGepKC3ul+YXE46Mk7
+         pRFMDG8svwGDnyU44/KHx3qUT1n3qQeD1PYQuhwPsuMKOrcogVkxXLNV3smro9M2YXMH
+         WcFVgnI2nh25OBaJH5hDh41rxFTG04UlV0Zq2rtheCoZ6VYyMLDUSOIRkKPEK8lnsVbc
+         Ci/34IMQHUKBbiuD34IaVY9QzIgZB42uYcva9cRSH0oN/+HeMikgbc5y4PmrfdGNE+6/
+         egvSYPDvepydrLhXWbt9JwM6NuIM/DxpNreL/3Rf6T57T4UqJZefKJWqmYDv+5pghiGj
+         i7KQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=ZYq0a8fChVaDrD1ar2u/rTy2gt6tu6uprqQmJNDssTk=;
-        b=ufJQe9toPSb8YHvCKYfUzUcJodO6VCCcy2ZoKWQAKv3DqbYH2m9TbQY2hD3/qHqhuj
-         xx2XHsWpyEJow+mUGXklVm7xSVMQAuMbYCN6qRbbWIS8iTlvszl7VlOrIk3L0X9qjkMH
-         COvj9fafW0H2qjMt2Vzv9U/wkQzwGNOcUkbg2PQ7HADPqS+DaPtkXlr4TiQZ2Cy5NAkY
-         UbHrHSsQEU4+pvqsGFob5CVflsUwdmRJwa67HQLlFjwmuMolPXuDWerKl/wK3Bo5f9MH
-         PzuUAt0JTIGKxBujXcq2Tb+1RuQx17m21AUXKWBD3XiWw60yrN4P3y4dPn+4ssuXHAEv
-         zLJA==
+        bh=V47sIZwFHqb11HHYG2VmA+65d8mKVRpuiz7VF9i/fak=;
+        b=PS80LWR4SmHmno1v3G6zN0AcQlAggpZzR6d0LzV9YOyFyyH64Kbq6QjUNsNI4313Zp
+         GGYDeHaxvF2X/qU2WpEsoA9BkiHOoHZggARhNDXlVmLrbOtnEiNxfsfp5yKSE+31yj0N
+         EKWtI07z7uVv1BoumRMl2F0/GUzje3nOhCKPXCSE1rIdpDggK79Ars36XgAUZ0vqzhp6
+         9ZXTx8Bod1V705JhQrfyArnhPbBnSU0OMgjEFNCQG3Y3Y+hbUEclAy5RlSXB2EiHFMjr
+         dQIjrYVYb4ORE9Z67ZArLpdDsQKh6QvCfLDLKVTXECnkPBkbL34SnsKKkxlvS8KPyTHk
+         6vgQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=soHEuDct;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="a0/zJEbH";
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ZYq0a8fChVaDrD1ar2u/rTy2gt6tu6uprqQmJNDssTk=;
-        b=gDVNfQO6PPRAGOn6HJ6D3z1KA+6nHY57BFWEW33wctfgNf9/VnguOIggzxOcPP5if3
-         kKBeDJWi5Rz2O2OmJ/M1RIEaveXqOdks12E2qb4EPPK7pd/Ezrf/aWEf9AUibwbGy29w
-         JrauWReFBtUZJMgSDgpzCrr9cgirCEMHND5pLDCNUCEv2AScNUEtj8nwubSjgGR/P3m8
-         MfRKNXAkOzgp1saa54dTLmXQAB031fapDcD6VN2HD9XIEapbTp/wffuI62T/tqUFbRZY
-         gAxcPZzIX4h2BFRd1dxlveJ85f3NxmETrd8T4FCmz22Sonq3yirfxXt6lMmEXWrw0F0g
-         byBg==
+        bh=V47sIZwFHqb11HHYG2VmA+65d8mKVRpuiz7VF9i/fak=;
+        b=rk5hXD2wFbQbleKcpeDGjQKKObKrLUIo0TaZDaI+Y+dXFC38KXf26ZEu4SAZhEtl/4
+         oGOKU8je1h+emZ1aWUpxDNfD1qQioWtA50LDvvrsqLO15s8EIoqpW8EhGSSFrlt5mF+s
+         chlL27wcVhu/USKYcmcPBkb1yTW2Vt6FZBM7e5JU03tNhHrkPbHUpkB0uDLwueidGWP/
+         5QqzL83KrRyO7biTGCtlPBK7887rPRoTK70ioNezeayaGiA65kwArPku2+q0RK1/uvUS
+         qf/XPcJEtJs1CEu7M+JqYKwImGPh5pu4CtoYqPV5+UuD+5LdnAidKgoKcyV1tvIaxmEX
+         84Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,70 +49,69 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=ZYq0a8fChVaDrD1ar2u/rTy2gt6tu6uprqQmJNDssTk=;
-        b=oTcN84C4yPPD1Fna7gxezkOXNyP0tvHjpANaZI2+QG4bZEhKWWnrtSwU9kHXfZyBRj
-         wxDUMp+gpuBgFNtqvRkHhG4NnVITXY9e5wh3eQJT/nmxFYGYsKWoqfcoMDLRfASdHXLB
-         8vkBBsWs5ydiT/ZDgarENTyAKnMiYu3PplPQnLUg/LB/DgGqIXmd4GFQZCx8Is0xNZrY
-         4PUvkRjnb21FqhITpXoO0xNgChN5sSFqbh3sfWolpPkMAS/hzubgsWhJkURMiqv42zSV
-         8obnCFAV2NP070hjWzKx650/gQJXK9UDZpJtpcz0meLMB6cZ0D91PFLRPfsszmCKwnxa
-         Fi3g==
+        bh=V47sIZwFHqb11HHYG2VmA+65d8mKVRpuiz7VF9i/fak=;
+        b=AYAs76yhh8wCBGh+RNZ01gwwzLAZddJ5SxmT/35y7v7dDRa6MSSJz3jD1xGIuTeQ6/
+         hy0uMnhmdqhi8k6IbgeSY+VbpfSwSs1ehdYaL7rH+amB033G3gbV7cRFiimq/o/dFOmR
+         yLECq9dFNpXZ1xt0zNi6QeJ4CQceKd8uJ6XlZ+qAM/oJCFuzkFmdRfsCv04KL4RAw4PL
+         +CUUpmfHxKNgcESWVeruqmYP9U50dehKwazOJdbedoREqKPA2jq5DGMRzw6F+PdCBY2P
+         bqr+eU8U+KoXZnlWCAIi/Vhyx5NwqsU6WWfyzqIZ/XgKoBHm40bm91CFGjcHMpzZ63bF
+         y/dA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora+72GMObHAv4dC/GWHmzrchjmjUr4N+ixg1OKkallSwulL+RId8
-	OlfEa5z+gB+XxsxuPh+MZPs=
-X-Google-Smtp-Source: AGRyM1snaRYfhvX6Ci5bk9lgc9g1ZQ1w4IYfetzFxhllNkyD5Wa/JurOemZs5deKmHCDPLkaj16Pnw==
-X-Received: by 2002:ac2:558e:0:b0:47f:777c:a5ed with SMTP id v14-20020ac2558e000000b0047f777ca5edmr8621805lfg.190.1656335623065;
-        Mon, 27 Jun 2022 06:13:43 -0700 (PDT)
+X-Gm-Message-State: AJIora9QdV2uOjvCtTI7MwdduQfRuvFO5bCCLN2FZPQtVcd5rL6GSNtg
+	2dRtviElAuv53baKBB94DFI=
+X-Google-Smtp-Source: AGRyM1vExI1q9j9eAGUdlDHWh3Z7CpRV3X0E6Dd7U2rv7jDaHh52pdagEk1DNEkunJ0eJb23/pltng==
+X-Received: by 2002:a5d:4d02:0:b0:21b:89e9:87a9 with SMTP id z2-20020a5d4d02000000b0021b89e987a9mr11937996wrt.601.1656335619940;
+        Mon, 27 Jun 2022 06:13:39 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:1693:b0:448:3742:2320 with SMTP id
- bu19-20020a056512169300b0044837422320ls177559lfb.1.gmail; Mon, 27 Jun 2022
- 06:13:38 -0700 (PDT)
-X-Received: by 2002:a05:6512:1508:b0:47f:46c4:82db with SMTP id bq8-20020a056512150800b0047f46c482dbmr8180302lfb.56.1656335618831;
+Received: by 2002:a5d:5848:0:b0:219:b7ea:18e1 with SMTP id i8-20020a5d5848000000b00219b7ea18e1ls26728427wrf.2.gmail;
+ Mon, 27 Jun 2022 06:13:38 -0700 (PDT)
+X-Received: by 2002:a5d:47c9:0:b0:20f:e7da:6a48 with SMTP id o9-20020a5d47c9000000b0020fe7da6a48mr12414442wrc.315.1656335618552;
         Mon, 27 Jun 2022 06:13:38 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1656335618; cv=none;
         d=google.com; s=arc-20160816;
-        b=obIHSMehhSJ2vvp27z8tx9RdT09ZBA3IYKV8qWnSwVUrIOxK+7T/wW0DMLAYzYGLSi
-         XFhpv235YHN0YFPJX0fVR0g4nv5lZZRPKmKHPGjISK1Qt4Ym3rf1uiRDWwZMp+80+o11
-         Op/Ju3mfdhtGZ0Q1Q9CWYcT8pkwemay0EwecdWSaHFNIaPGBOdS+V4rYcERVbS34u75y
-         dN1nR515s55B1g14cXWXt2EWNybWJyg10C5kUsZ5E3l71T+Loxvtm4wVTPKyHrwMURbY
-         ZZGRHRhqsp0t397Ny8lIth8hsleSEba5mB9ygtC68bJ/6gC1urTW6zL4VxdyTey/jt+O
-         qCVA==
+        b=Ap6GKGze7Ktn+CbaKt0UCd4tePxAcNVHku0Z0GDSyyO8fMWQhxwybPI0avGIm8IVx6
+         javNFylfWLCnX1fSNj6tUCRerdeVZlkQp8P1tHS/yerMKZ/xQvI7GlDVxCJ7btI4Yogy
+         1X0EOozqU3uo8NYK9l15CAbHwSASpZCagL5mV5BIdfkfBEaWZh3o8Zva42UTSCURfMpz
+         KR1TkJC8gPe5bBoB6yRouC6eNMbZaXdNdQ2jBWzbPLi/ycaIQPlMGMZb1z5WE0nkN+LW
+         o711mgwUmLHKxUmgHDrG0a7w7zzA8AXpow/sloaLpHXzJmqLh2CztNtEwrb9ONFx/4Yo
+         kkXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=rSj45UHvrXVW8rdt4pZZIXOuIenzdewsDlqsmI81Qt0=;
-        b=VLbiN8jLHF2UGNrALSgerIKBI+HvrjL16PMjOZYciipH5I5WDX3fM08ZdjZ4S7PNar
-         xrvzOj2cpKdys3a9eD1jLDxlap6eGrX7EOzTIw3QvEqvwdpNZecMZakdmmnVrcLiQnY1
-         yiK9vYje5V47VesYCrRKK5wnmIVELdXjMA0vWHUd6/RmUYsChQJ8fEbw22gRU8CAa56D
-         bw3b351JjEipSKyuXsJly22Z25C9yCz6o2IHQ2LWurLiHFjBhsxyeTx5C2xpoAtB+g3Y
-         o9WryIue4tjJw/Ectk5zKFriNhqodFILIn+hpVB7q1J0YqUhAmcWV/se26iUNPW7taAD
-         zGYg==
+        bh=M3VgLdbVR/iGeJeasngO9z3CJwrZiOnYgOE7V+BxftQ=;
+        b=hWECRhe6NiuSOFzEL1Lj2ojZxJYfhiOFK5G549g7S5KoZAKMtsqOfsgSeyufQz+8QM
+         eQJfDIihkS1783cCzSHhlvxbP6rCaW2ILCGodMe/u/f7Ml9Ub4vBpRx/8CqoiINkjAmV
+         aq60vvWw/tYryyGsVOeXa9VHICbGSukka332txY5Ce3RtvctXB4AvTbyKlwr8sb7FY56
+         Lv3bUZLB7AAyXnoZciwyoe3AVp0fE2iJdDWH07YqsqEyWpY+oi8YM5zIJd7FK5UoIeCz
+         JykhN7IHb5++EQ/I4FWfDOqQqEB/2/FcjKZ1hImEJZ+C1yVN6OumRLDIoeLB25apU13r
+         jcPQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=soHEuDct;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="a0/zJEbH";
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
-        by gmr-mx.google.com with ESMTPS id bp20-20020a056512159400b0047f8c989147si408805lfb.3.2022.06.27.06.13.38
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id i17-20020a7bc951000000b0039c903985c6si602033wml.2.2022.06.27.06.13.38
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 27 Jun 2022 06:13:38 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWp8216dyzy1c;
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWp821vKPzy2F;
 	Mon, 27 Jun 2022 15:13:38 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 27 Jun 2022 15:13:37 +0200
+ 15.1.2375.28; Mon, 27 Jun 2022 15:13:38 +0200
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 13/20] driver: Convert to new CPU configuration format
-Date: Mon, 27 Jun 2022 15:13:22 +0200
-Message-ID: <20220627131329.3659-14-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 14/20] core: Convert to new CPU configuration format
+Date: Mon, 27 Jun 2022 15:13:23 +0200
+Message-ID: <20220627131329.3659-15-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
@@ -123,9 +122,9 @@ X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=soHEuDct;
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="a0/zJEbH";
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -141,361 +140,393 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-The new format requires the driver to identify a CPU by its physical ID
-and then pass its config array index to the hypervisor, both on enabling
-as well as during runtime (status queries).
+These are the necessary changes to adapt the hypervisor core to the new
+struct-array CPU configuration format.
 
-For that purpose, two per-cpu variables are initialized while enabling
-Jailhouse: phys_cpu_id and jailhouse_cpu_id. Those allow to map the
-physical and the Jailhouse-logical CPU IDs to the Linux-logical ID.
-Where possible, Jailhouse will validate this mapping during setup.
-
-The driver continues to maintain shadow cpumasks for the assigned CPUs
-of a cell using Linux IDs so that those masks can be used for iterating
-over them on Linux side.
-
-The new configuration format allows the Linux and Jailhouse CPU ordering
-to deviate. As this can cause confusion, a warning is issued by the
-driver when such a constellation is detected during setup.
+Some things become easier: cpu_id_valid() is now a simple inline bounds
+check, counting CPUs is already done in the config. Other things become
+more complex: An arch-provided cpu_by_phys_processor_id() is now
+required in order to map a non-root cell CPU to the logical ID used
+inside Jailhouse during cell creation. Jailhouse keeps the bitmap of
+assigned CPUs per cell in order to iterate over them without requiring
+that physical-to-logical mapping during critical code paths.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- driver/cell.c  | 20 +++++++----
- driver/main.c  | 96 +++++++++++++++++++++++++++++---------------------
- driver/main.h  |  5 ++-
- driver/sysfs.c | 20 +++++++----
- 4 files changed, 87 insertions(+), 54 deletions(-)
+ hypervisor/arch/arm-common/lib.c         |  6 ++---
+ hypervisor/arch/arm-common/psci.c        | 13 +++++----
+ hypervisor/arch/arm64/gic-v3.c           | 20 +++++---------
+ hypervisor/arch/arm64/paging.c           |  5 ++--
+ hypervisor/arch/x86/apic.c               |  8 ++++++
+ hypervisor/arch/x86/control.c            |  5 +---
+ hypervisor/control.c                     | 34 +++++++++---------------
+ hypervisor/include/jailhouse/control.h   |  2 --
+ hypervisor/include/jailhouse/percpu.h    |  4 +--
+ hypervisor/include/jailhouse/processor.h |  4 ++-
+ hypervisor/setup.c                       | 17 ++++++------
+ 11 files changed, 52 insertions(+), 66 deletions(-)
 
-diff --git a/driver/cell.c b/driver/cell.c
-index ade61edb..9b960013 100644
---- a/driver/cell.c
-+++ b/driver/cell.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013-2016
-+ * Copyright (c) Siemens AG, 2013-2022
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -47,8 +47,10 @@ void jailhouse_cell_kobj_release(struct kobject *kobj)
- 
- static struct cell *cell_create(const struct jailhouse_cell_desc *cell_desc)
- {
-+	const struct jailhouse_cpu *cell_cpu = jailhouse_cell_cpus(cell_desc);
-+	unsigned int id, n, cpu;
- 	struct cell *cell;
--	unsigned int id;
-+	u64 phys_cpu;
- 	int err;
- 
- 	if (cell_desc->num_memory_regions >=
-@@ -72,10 +74,16 @@ retry:
- 
- 	cell->id = id;
- 
--	bitmap_copy(cpumask_bits(&cell->cpus_assigned),
--		    jailhouse_cell_cpu_set(cell_desc),
--		    min((unsigned int)nr_cpumask_bits,
--		        cell_desc->cpu_set_size * 8));
-+	for (n = 0; n < cell_desc->num_cpus; n++) {
-+		phys_cpu = cell_cpu[n].phys_id;
-+
-+		for_each_possible_cpu(cpu) {
-+			if (per_cpu(phys_cpu_id, cpu) == phys_cpu) {
-+				cpumask_set_cpu(cpu, &cell->cpus_assigned);
-+				break;
-+			}
-+		}
-+	}
- 
- 	cell->num_memory_regions = cell_desc->num_memory_regions;
- 	cell->memory_regions = vmalloc(sizeof(struct jailhouse_memory) *
-diff --git a/driver/main.c b/driver/main.c
-index 64e2b9a4..d0e7f980 100644
---- a/driver/main.c
-+++ b/driver/main.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013-2017
-+ * Copyright (c) Siemens AG, 2013-2022
-  * Copyright (c) Valentine Sinitsyn, 2014
-  *
-  * Authors:
-@@ -39,6 +39,7 @@
- #include <asm/tlbflush.h>
- #ifdef CONFIG_ARM
- #include <asm/virt.h>
-+#include <asm/cputype.h>
- #endif
- #ifdef CONFIG_X86
- #include <asm/msr.h>
-@@ -97,9 +98,13 @@ DEFINE_MUTEX(jailhouse_lock);
- bool jailhouse_enabled;
- void *hypervisor_mem;
- 
-+DEFINE_PER_CPU(u64, phys_cpu_id);
-+DEFINE_PER_CPU(int, jailhouse_cpu_id) = -1;
-+
- static struct device *jailhouse_dev;
- static unsigned long hv_core_and_percpu_size;
- static atomic_t call_done;
-+static atomic_t cpu_mismatch;
- static int error_code;
- static struct jailhouse_virt_console* volatile console_page;
- static bool console_available;
-@@ -151,6 +156,42 @@ static void init_hypercall(void)
- }
- #endif
- 
-+static u64 get_physical_cpu_id(void)
-+{
-+#if defined(CONFIG_ARM) || defined(CONFIG_ARM64)
-+	return read_cpuid_mpidr() & MPIDR_HWID_BITMASK;
-+#elif defined(CONFIG_X86)
-+	return read_apic_id();
-+#else
-+#	error Unsupported architecture
-+#endif
-+}
-+
-+static void identify_cpu(void *info)
-+{
-+	struct jailhouse_cell_desc *root_desc = info;
-+	const struct jailhouse_cpu *cell_cpu = jailhouse_cell_cpus(root_desc);
-+	u64 phys_id = get_physical_cpu_id();
-+	unsigned int cpu;
-+
-+	for (cpu = 0; cpu < root_desc->num_cpus; cpu++) {
-+		if (cell_cpu[cpu].phys_id == phys_id) {
-+			this_cpu_write(phys_cpu_id, phys_id);
-+			this_cpu_write(jailhouse_cpu_id, cpu);
-+
-+			if (cpu != smp_processor_id() &&
-+			    atomic_inc_return(&cpu_mismatch) == 1)
-+				pr_warn("jailhouse: Logical CPU IDs differ between Linux and Jailhouse\n");
-+
-+			return;
-+		}
-+	}
-+
-+	pr_err("jailhouse: Cannot find Linux CPU %d (physical ID 0x%llx) in configuration\n",
-+	       smp_processor_id(), phys_id);
-+	error_code = -EINVAL;
-+}
-+
- static void copy_console_page(struct jailhouse_virt_console *dst)
- {
- 	unsigned int tail;
-@@ -179,27 +220,6 @@ static inline void update_last_console(void)
- 	last_console.valid = true;
+diff --git a/hypervisor/arch/arm-common/lib.c b/hypervisor/arch/arm-common/lib.c
+index 5c0dde0a..b3d48da7 100644
+--- a/hypervisor/arch/arm-common/lib.c
++++ b/hypervisor/arch/arm-common/lib.c
+@@ -23,12 +23,12 @@ unsigned long phys_processor_id(void)
+ 	return mpidr & MPIDR_CPUID_MASK;
  }
  
--static long get_max_cpus(u32 cpu_set_size,
--			 const struct jailhouse_system __user *system_config)
--{
--	u8 __user *cpu_set =
--		(u8 __user *)jailhouse_cell_cpu_set(
--				(const struct jailhouse_cell_desc * __force)
--				&system_config->root_cell);
--	unsigned int pos = cpu_set_size;
--	long max_cpu_id;
--	u8 bitmap;
+-unsigned int arm_cpu_by_mpidr(struct cell *cell, unsigned long mpidr)
++unsigned int cpu_by_phys_processor_id(u64 phys_id)
+ {
+ 	unsigned int cpu;
+ 
+-	for_each_cpu(cpu, &cell->cpu_set)
+-		if (mpidr == (public_per_cpu(cpu)->mpidr & MPIDR_CPUID_MASK))
++	for (cpu = 0; cpu < system_config->root_cell.num_cpus; cpu++)
++		if (phys_id == (public_per_cpu(cpu)->mpidr & MPIDR_CPUID_MASK))
+ 			return cpu;
+ 
+ 	return INVALID_CPU_ID;
+diff --git a/hypervisor/arch/arm-common/psci.c b/hypervisor/arch/arm-common/psci.c
+index a0f0b6a7..e832adf9 100644
+--- a/hypervisor/arch/arm-common/psci.c
++++ b/hypervisor/arch/arm-common/psci.c
+@@ -2,7 +2,7 @@
+  * Jailhouse, a Linux-based partitioning hypervisor
+  *
+  * Copyright (c) ARM Limited, 2014
+- * Copyright (c) Siemens AG, 2016
++ * Copyright (c) Siemens AG, 2016-2022
+  *
+  * Authors:
+  *  Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
+@@ -13,6 +13,7 @@
+  */
+ 
+ #include <jailhouse/control.h>
++#include <jailhouse/processor.h>
+ #include <asm/control.h>
+ #include <asm/psci.h>
+ #include <asm/smccc.h>
+@@ -26,9 +27,8 @@ static long psci_emulate_cpu_on(struct trap_context *ctx)
+ 	unsigned int cpu;
+ 	long result;
+ 
+-	cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1] & mask);
+-	if (cpu == INVALID_CPU_ID)
+-		/* Virtual id not in set */
++	cpu = cpu_by_phys_processor_id(ctx->regs[1] & mask);
++	if (!cell_owns_cpu(this_cell(), cpu))
+ 		return PSCI_DENIED;
+ 
+ 	target_data = public_per_cpu(cpu);
+@@ -61,10 +61,9 @@ static long psci_emulate_cpu_on(struct trap_context *ctx)
+ 
+ static long psci_emulate_affinity_info(struct trap_context *ctx)
+ {
+-	unsigned int cpu = arm_cpu_by_mpidr(this_cell(), ctx->regs[1]);
++	unsigned int cpu = cpu_by_phys_processor_id(ctx->regs[1]);
+ 
+-	if (cpu == INVALID_CPU_ID)
+-		/* Virtual id not in set */
++	if (!cell_owns_cpu(this_cell(), cpu))
+ 		return PSCI_DENIED;
+ 
+ 	return public_per_cpu(cpu)->wait_for_poweron ?
+diff --git a/hypervisor/arch/arm64/gic-v3.c b/hypervisor/arch/arm64/gic-v3.c
+index 8d18f6ec..3da0053f 100644
+--- a/hypervisor/arch/arm64/gic-v3.c
++++ b/hypervisor/arch/arm64/gic-v3.c
+@@ -35,7 +35,6 @@
+ 
+ static unsigned int gic_num_lr;
+ static unsigned int gic_num_priority_bits;
+-static unsigned int last_gicr;
+ static u32 gic_version;
+ 
+ static void *gicr_base;
+@@ -136,10 +135,6 @@ static int gicv3_init(void)
+ 	if (!(mmio_read32(gicd_base + GICD_CTLR) & GICD_CTLR_ARE_NS))
+ 		return trace_error(-EIO);
+ 
+-	last_gicr = system_config->root_cell.cpu_set_size * 8 - 1;
+-	while (!cpu_id_valid(last_gicr))
+-		last_gicr--;
 -
--	while (pos-- > 0) {
--		if (get_user(bitmap, cpu_set + pos))
--			return -EFAULT;
--		max_cpu_id = fls(bitmap);
--		if (max_cpu_id > 0)
--			return pos * 8 + max_cpu_id;
+ 	/*
+ 	 * Let the per-cpu code access the redistributors. This makes the
+ 	 * assumption, that redistributors can be found in a sequence.
+@@ -147,7 +142,7 @@ static int gicv3_init(void)
+ 	if (gic_version == 4)
+ 		redist_size = GIC_V4_REDIST_SIZE;
+ 
+-	gicr_size = redist_size * (last_gicr + 1);
++	gicr_size = redist_size * system_config->root_cell.num_cpus;
+ 	gicr_base = paging_map_device(
+ 			system_config->platform_info.arm.gicr_base, gicr_size);
+ 	if (!gicr_base)
+@@ -341,8 +336,8 @@ static void gicv3_adjust_irq_target(struct cell *cell, u16 irq_id)
+ {
+ 	void *irouter = gicd_base + GICD_IROUTER + 8 * irq_id;
+ 	u64 mpidr = public_per_cpu(first_cpu(&cell->cpu_set))->mpidr;
+-	u32 route = arm_cpu_by_mpidr(cell,
+-				     mmio_read64(irouter) & MPIDR_CPUID_MASK);
++	unsigned int route = cpu_by_phys_processor_id(mmio_read64(irouter) &
++						      MPIDR_CPUID_MASK);
+ 
+ 	if (!cell_owns_cpu(cell, route))
+ 		mmio_write64(irouter, mpidr);
+@@ -357,8 +352,8 @@ static enum mmio_result gicv3_handle_redist_access(void *arg,
+ 	switch (mmio->address) {
+ 	case GICR_TYPER:
+ 		mmio_perform_access(cpu_public->gicr.base, mmio);
+-		if (cpu_public->cpu_id == last_gicr)
+-				mmio->value |= GICR_TYPER_Last;
++		if (cpu_public->cpu_id == system_config->root_cell.num_cpus - 1)
++			mmio->value |= GICR_TYPER_Last;
+ 		return MMIO_HANDLED;
+ 	case GICR_TYPER + 4:
+ 		mmio_perform_access(cpu_public->gicr.base, mmio);
+@@ -409,14 +404,11 @@ static int gicv3_cell_init(struct cell *cell)
+ 	 * We register all regions so that the cell can iterate over the
+ 	 * original range in order to find corresponding redistributors.
+ 	 */
+-	for (cpu = 0; cpu < system_config->root_cell.cpu_set_size * 8; cpu++) {
+-		if (!cpu_id_valid(cpu))
+-			continue;
++	for (cpu = 0; cpu < system_config->root_cell.num_cpus; cpu++)
+ 		mmio_region_register(cell, public_per_cpu(cpu)->gicr.phys_addr,
+ 				     gic_version == 4 ? 0x40000 : 0x20000,
+ 				     gicv3_handle_redist_access,
+ 				     public_per_cpu(cpu));
 -	}
--	return -EINVAL;
+ 
+ 	return 0;
+ }
+diff --git a/hypervisor/arch/arm64/paging.c b/hypervisor/arch/arm64/paging.c
+index 27adcf55..cc3c50f7 100644
+--- a/hypervisor/arch/arm64/paging.c
++++ b/hypervisor/arch/arm64/paging.c
+@@ -38,9 +38,8 @@ unsigned int get_cpu_parange(void)
+ 	 * for_each_cpu yet. So we need to iterate over the configuration
+ 	 * of the root cell.
+ 	 */
+-	for (cpu = 0; cpu < system_config->root_cell.cpu_set_size * 8; cpu++)
+-		if (cpu_id_valid(cpu) &&
+-		    (per_cpu(cpu)->id_aa64mmfr0 & 0xf) < cpu_parange_encoded)
++	for (cpu = 0; cpu < system_config->root_cell.num_cpus; cpu++)
++		if ((per_cpu(cpu)->id_aa64mmfr0 & 0xf) < cpu_parange_encoded)
+ 			cpu_parange_encoded = per_cpu(cpu)->id_aa64mmfr0 & 0xf;
+ 
+ 	return cpu_parange_encoded < ARRAY_SIZE(pa_bits) ?
+diff --git a/hypervisor/arch/x86/apic.c b/hypervisor/arch/x86/apic.c
+index 9c6313eb..74b43e5d 100644
+--- a/hypervisor/arch/x86/apic.c
++++ b/hypervisor/arch/x86/apic.c
+@@ -140,6 +140,14 @@ unsigned long phys_processor_id(void)
+ 	return apic_ops.read_id();
+ }
+ 
++unsigned int cpu_by_phys_processor_id(u64 phys_id)
++{
++	unsigned int cpu_id = phys_id < APIC_MAX_PHYS_ID ?
++		apic_to_cpu_id[phys_id] : INVALID_CPU_ID;
++
++	return cpu_id != APIC_INVALID_CPU ? cpu_id : INVALID_CPU_ID;
++}
++
+ int apic_cpu_init(struct per_cpu *cpu_data)
+ {
+ 	unsigned int xlc = MAX((apic_ext_features() >> 16) & 0xff,
+diff --git a/hypervisor/arch/x86/control.c b/hypervisor/arch/x86/control.c
+index 3d84308d..188a6d19 100644
+--- a/hypervisor/arch/x86/control.c
++++ b/hypervisor/arch/x86/control.c
+@@ -88,13 +88,10 @@ void arch_cell_destroy(struct cell *cell)
+ void arch_cell_reset(struct cell *cell)
+ {
+ 	struct jailhouse_comm_region *comm_region = &cell->comm_page.comm_region;
+-	unsigned int cpu;
+ 
+ 	comm_region->pm_timer_address =
+ 		system_config->platform_info.x86.pm_timer_address;
+-	/* comm_region, and hence num_cpus, is zero-initialised */
+-	for_each_cpu(cpu, &cell->cpu_set)
+-		comm_region->num_cpus++;
++	comm_region->num_cpus = cell->config->num_cpus;
+ 	comm_region->tsc_khz = system_config->platform_info.x86.tsc_khz;
+ 	comm_region->apic_khz = system_config->platform_info.x86.apic_khz;
+ 
+diff --git a/hypervisor/control.c b/hypervisor/control.c
+index 9642493c..8eaaa46a 100644
+--- a/hypervisor/control.c
++++ b/hypervisor/control.c
+@@ -58,22 +58,6 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
+ 	return cpu;
+ }
+ 
+-/**
+- * Check if a CPU ID is contained in the system's CPU set, i.e. the initial CPU
+- * set of the root cell.
+- * @param cpu_id	CPU ID to check.
+- *
+- * @return True if CPU ID is valid.
+- */
+-bool cpu_id_valid(unsigned long cpu_id)
+-{
+-	const unsigned long *system_cpu_set =
+-		jailhouse_cell_cpu_set(&system_config->root_cell);
+-
+-	return (cpu_id < system_config->root_cell.cpu_set_size * 8 &&
+-		test_bit(cpu_id, system_cpu_set));
 -}
 -
- #if LINUX_VERSION_CODE >= KERNEL_VERSION(5,8,0)
- #define __get_vm_area(size, flags, start, end)			\
- 	__get_vm_area_caller(size, flags, start, end,		\
-@@ -240,18 +260,14 @@ void *jailhouse_ioremap(phys_addr_t phys, unsigned long virt,
- static void enter_hypervisor(void *info)
+ /**
+  * Suspend a remote CPU.
+  * @param cpu_id	ID of the target CPU.
+@@ -240,14 +224,22 @@ static void cell_reconfig_completed(void)
+  */
+ int cell_init(struct cell *cell)
  {
- 	struct jailhouse_header *header = info;
--	unsigned int cpu = smp_processor_id();
-+	unsigned int cpu = this_cpu_read(jailhouse_cpu_id);
- 	int (*entry)(unsigned int);
- 	int err;
+-	const unsigned long *config_cpu_set =
+-		jailhouse_cell_cpu_set(cell->config);
+-	unsigned long cpu_set_size = cell->config->cpu_set_size;
++	const struct jailhouse_cpu *cell_cpu =
++		jailhouse_cell_cpus(cell->config);
++	unsigned long cpu_set_size = (cell->config->num_cpus + 7) / 8;
++	unsigned int cpu_idx, result;
  
- 	entry = header->entry + (unsigned long) hypervisor_mem;
- 
--	if (cpu < header->max_cpus)
--		/* either returns 0 or the same error code across all CPUs */
--		err = entry(cpu);
--	else
--		err = -EINVAL;
--
-+	/* either returns 0 or the same error code across all CPUs */
-+	err = entry(cpu);
- 	if (err)
- 		error_code = err;
- 
-@@ -375,7 +391,6 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 	unsigned long config_size;
- 	unsigned int clock_gates;
- 	const char *fw_name;
--	long max_cpus;
- 	int err;
- 
- 	fw_name = jailhouse_get_fw_name();
-@@ -399,12 +414,6 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 
- 	config_header.root_cell.name[JAILHOUSE_CELL_NAME_MAXLEN] = 0;
- 
--	max_cpus = get_max_cpus(config_header.root_cell.cpu_set_size, arg);
--	if (max_cpus < 0)
--		return max_cpus;
--	if (max_cpus > UINT_MAX)
--		return -EINVAL;
--
- 	if (mutex_lock_interruptible(&jailhouse_lock) != 0)
- 		return -EINTR;
- 
-@@ -450,7 +459,7 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 		goto error_release_fw;
- 
- 	hv_core_and_percpu_size = header->core_size +
--		max_cpus * header->percpu_size;
-+		config_header.root_cell.num_cpus * header->percpu_size;
- 	config_size = jailhouse_system_config_size(&config_header);
- 	if (hv_core_and_percpu_size >= hv_mem->size ||
- 	    config_size >= hv_mem->size - hv_core_and_percpu_size)
-@@ -494,7 +503,7 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 	       hv_mem->size - hypervisor->size);
- 
- 	header = (struct jailhouse_header *)hypervisor_mem;
--	header->max_cpus = max_cpus;
-+	header->max_cpus = config_header.root_cell.num_cpus;
- 
- #if defined(CONFIG_ARM) || defined(CONFIG_ARM64)
- 	header->arm_linux_hyp_vectors = virt_to_phys(*__hyp_stub_vectors_sym);
-@@ -527,6 +536,15 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 		goto error_unmap;
- 	}
- 
-+	atomic_set(&cpu_mismatch, 0);
-+	error_code = 0;
+ 	if (cpu_set_size > sizeof(cell->cpu_set.bitmap))
+ 		return trace_error(-EINVAL);
+ 	cell->cpu_set.max_cpu_id = cpu_set_size * 8 - 1;
+-	memcpy(cell->cpu_set.bitmap, config_cpu_set, cpu_set_size);
 +
-+	on_each_cpu(identify_cpu, &config->root_cell, true);
-+	if (error_code) {
-+		err = error_code;
-+		goto error_unmap;
++	for (cpu_idx = 0; cpu_idx < cell->config->num_cpus; cpu_idx++) {
++		result = cpu_by_phys_processor_id(cell_cpu[cpu_idx].phys_id);
++		if (result == INVALID_CPU_ID)
++			return -ENOENT;
++
++		set_bit(result, cell->cpu_set.bitmap);
 +	}
-+
- 	if (config->debug_console.clock_reg) {
- 		clock_reg = ioremap(config->debug_console.clock_reg,
- 				    sizeof(clock_gates));
-@@ -579,8 +597,6 @@ static int jailhouse_cmd_enable(struct jailhouse_system __user *arg)
- 	if (err)
- 		goto error_unmap;
  
--	error_code = 0;
+ 	return mmio_cell_init(cell);
+ }
+@@ -892,7 +884,7 @@ static long hypervisor_get_info(struct per_cpu *cpu_data, unsigned long type)
+ static int cpu_get_info(struct per_cpu *cpu_data, unsigned long cpu_id,
+ 			unsigned long type)
+ {
+-	if (!cpu_id_valid(cpu_id))
++	if (cpu_id >= system_config->root_cell.num_cpus)
+ 		return -EINVAL;
+ 
+ 	/*
+diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
+index cb720af5..f01af617 100644
+--- a/hypervisor/include/jailhouse/control.h
++++ b/hypervisor/include/jailhouse/control.h
+@@ -119,8 +119,6 @@ static inline bool cell_owns_cpu(struct cell *cell, unsigned int cpu_id)
+ 		test_bit(cpu_id, cell->cpu_set.bitmap));
+ }
+ 
+-bool cpu_id_valid(unsigned long cpu_id);
 -
- 	preempt_disable();
+ int cell_init(struct cell *cell);
  
- 	header->online_cpus = num_online_cpus();
-diff --git a/driver/main.h b/driver/main.h
-index 7c9f661c..3e9fb3fe 100644
---- a/driver/main.h
-+++ b/driver/main.h
+ void config_commit(struct cell *cell_added_removed);
+diff --git a/hypervisor/include/jailhouse/percpu.h b/hypervisor/include/jailhouse/percpu.h
+index 4f0867da..c5a9c109 100644
+--- a/hypervisor/include/jailhouse/percpu.h
++++ b/hypervisor/include/jailhouse/percpu.h
 @@ -1,7 +1,7 @@
  /*
   * Jailhouse, a Linux-based partitioning hypervisor
   *
-- * Copyright (c) Siemens AG, 2013-2017
+- * Copyright (c) Siemens AG, 2013-2018
 + * Copyright (c) Siemens AG, 2013-2022
   *
   * Authors:
   *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -21,6 +21,9 @@ extern struct mutex jailhouse_lock;
- extern bool jailhouse_enabled;
- extern void *hypervisor_mem;
+@@ -34,7 +34,7 @@ struct public_per_cpu {
+ 	 *  page walks at any time. */
+ 	u8 root_table_page[PAGE_SIZE] __attribute__((aligned(PAGE_SIZE)));
  
-+DECLARE_PER_CPU(u64, phys_cpu_id);
-+DECLARE_PER_CPU(int, jailhouse_cpu_id);
-+
- void *jailhouse_ioremap(phys_addr_t phys, unsigned long virt,
- 			unsigned long size);
- int jailhouse_console_dump_delta(char *dst, unsigned int head,
-diff --git a/driver/sysfs.c b/driver/sysfs.c
-index a5a02831..61b851cc 100644
---- a/driver/sysfs.c
-+++ b/driver/sysfs.c
+-	/** Logical CPU ID (same as Linux). */
++	/** Logical CPU ID. */
+ 	unsigned int cpu_id;
+ 	/** Owning cell. */
+ 	struct cell *cell;
+diff --git a/hypervisor/include/jailhouse/processor.h b/hypervisor/include/jailhouse/processor.h
+index 639b2e5e..26f0907f 100644
+--- a/hypervisor/include/jailhouse/processor.h
++++ b/hypervisor/include/jailhouse/processor.h
 @@ -1,7 +1,7 @@
  /*
   * Jailhouse, a Linux-based partitioning hypervisor
   *
-- * Copyright (c) Siemens AG, 2014-2020
-+ * Copyright (c) Siemens AG, 2014-2022
+- * Copyright (c) Siemens AG, 2013
++ * Copyright (c) Siemens AG, 2013-2022
   *
   * Authors:
   *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -91,10 +91,11 @@ static ssize_t cell_stats_show(struct kobject *kobj,
- 	unsigned int code = JAILHOUSE_CPU_INFO_STAT_BASE + stats_attr->code;
- 	struct cell *cell = container_of(kobj, struct cell, stats_kobj);
- 	unsigned long sum = 0;
-+	int jailhouse_cpu, value;
- 	unsigned int cpu;
--	int value;
+@@ -16,4 +16,6 @@
  
- 	for_each_cpu(cpu, &cell->cpus_assigned) {
-+		jailhouse_cpu = per_cpu(jailhouse_cpu_id, cpu);
- 		value = jailhouse_call_arg2(JAILHOUSE_HC_CPU_GET_INFO, cpu,
- 					    code);
- 		if (value > 0)
-@@ -112,9 +113,11 @@ static ssize_t cpu_stats_show(struct kobject *kobj,
- 		container_of(attr, struct jailhouse_cpu_stats_attr, kattr);
- 	unsigned int code = JAILHOUSE_CPU_INFO_STAT_BASE + stats_attr->code;
- 	struct cell_cpu *cell_cpu = container_of(kobj, struct cell_cpu, kobj);
--	int value;
-+	int jailhouse_cpu, value;
+ unsigned long phys_processor_id(void);
  
--	value = jailhouse_call_arg2(JAILHOUSE_HC_CPU_GET_INFO, cell_cpu->cpu,
-+	jailhouse_cpu = per_cpu(jailhouse_cpu_id, cell_cpu->cpu);
++unsigned int cpu_by_phys_processor_id(u64 phys_id);
 +
-+	value = jailhouse_call_arg2(JAILHOUSE_HC_CPU_GET_INFO, jailhouse_cpu,
- 				    code);
- 	if (value < 0)
- 		value = 0;
-@@ -252,18 +255,21 @@ static int print_cpumask(char *buf, size_t size, cpumask_t *mask, bool as_list)
- static int print_failed_cpus(char *buf, size_t size, const struct cell *cell,
- 			 bool as_list)
- {
-+	int jailhouse_cpu, written;
- 	cpumask_var_t cpus_failed;
- 	unsigned int cpu;
--	int written;
+ #endif
+diff --git a/hypervisor/setup.c b/hypervisor/setup.c
+index 7f7cf041..00bc280c 100644
+--- a/hypervisor/setup.c
++++ b/hypervisor/setup.c
+@@ -59,6 +59,11 @@ static void init_early(unsigned int cpu_id)
  
- 	if (!zalloc_cpumask_var(&cpus_failed, GFP_KERNEL))
- 		return -ENOMEM;
+ 	root_cell.config = &system_config->root_cell;
  
--	for_each_cpu(cpu, &cell->cpus_assigned)
--		if (jailhouse_call_arg2(JAILHOUSE_HC_CPU_GET_INFO, cpu,
-+	for_each_cpu(cpu, &cell->cpus_assigned) {
-+		jailhouse_cpu = per_cpu(jailhouse_cpu_id, cpu);
-+		if (jailhouse_call_arg2(JAILHOUSE_HC_CPU_GET_INFO,
-+					jailhouse_cpu,
- 					JAILHOUSE_CPU_INFO_STATE) ==
- 		    JAILHOUSE_CPU_FAILED)
- 			cpumask_set_cpu(cpu, cpus_failed);
++	if (hypervisor_header.online_cpus != root_cell.config->num_cpus) {
++		error = trace_error(-EINVAL);
++		return;
 +	}
++
+ 	error = arch_init_early();
+ 	if (error)
+ 		return;
+@@ -99,7 +104,8 @@ static void cpu_init(struct per_cpu *cpu_data)
  
- 	written = print_cpumask(buf, size, cpus_failed, as_list);
+ 	printk(" CPU %d... ", cpu_data->public.cpu_id);
  
+-	if (!cpu_id_valid(cpu_data->public.cpu_id))
++	if (cpu_data->public.cpu_id >= system_config->root_cell.num_cpus ||
++	    cpu_data->public.cell != NULL)
+ 		goto failed;
+ 
+ 	cpu_data->public.cell = &root_cell;
+@@ -160,21 +166,14 @@ failed:
+ 
+ static void init_late(void)
+ {
+-	unsigned int n, cpu, expected_cpus = 0;
+ 	const struct jailhouse_memory *mem;
+ 	struct unit *unit;
++	unsigned int n;
+ 
+ 	error = cell_init(&root_cell);
+ 	if (error)
+ 		return;
+ 
+-	for_each_cpu(cpu, &root_cell.cpu_set)
+-		expected_cpus++;
+-	if (hypervisor_header.online_cpus != expected_cpus) {
+-		error = trace_error(-EINVAL);
+-		return;
+-	}
+-
+ 	for_each_unit(unit) {
+ 		printk("Initializing unit: %s\n", unit->name);
+ 		error = unit->init();
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-14-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-15-ralf.ramsauer%40oth-regensburg.de.
