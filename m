@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBBG242KQMGQEGXTVKHY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A6255B9C0
+Received: from mail-wm1-x340.google.com (mail-wm1-x340.google.com [IPv6:2a00:1450:4864:20::340])
+	by mail.lfdr.de (Postfix) with ESMTPS id B218255B9C1
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:13:41 +0200 (CEST)
-Received: by mail-wr1-x43c.google.com with SMTP id u9-20020adfa189000000b0021b8b3c8f74sf1186865wru.12
+Received: by mail-wm1-x340.google.com with SMTP id az40-20020a05600c602800b003a048edf007sf1164262wmb.5
         for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:13:41 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1656335621; cv=pass;
         d=google.com; s=arc-20160816;
-        b=aRACxrk/s2m72WapJ562/jtHsEwnu4kM6Lpm7c0j8L0dl5gATPpW6RORq3EnM926u0
-         2RpyyVsCCM1Vr4wwF89WRK9aaTVBiWGHCKGzqFyRpWzn+DzJnERoibVjLC+zKJFhrrMT
-         JmL02tDkGKwd5AnZcTVm3xY+b0uzL2MXn5wnBSikGUqKb/ae68NgFIwmEBxriiP54NdQ
-         7ZTulfPzgw9b/+sVOLMzTQlECw1CkdtKu8ldpVpuVPyKoas4IXF+7BgPtdCbRMFb4uKT
-         rupuI2FWN3+bp73599ifESlc8xn+QZoxj9k0Mk8TE1Ff+61xyTt9hJjviEUiycuhvomC
-         s+9w==
+        b=J3pR+swKZIqtm7480n5rrWffd+BoKE/V33/Dxrm6pxxCZS9p30BcZEubEzh/pz7TBL
+         f8kY4LHFisoEbe+nnhx3eh0wk9azllIIHP3Dvgorgdn3hjI/auObrZm/l4ySJ8srUXsR
+         Ckfik1uC4EuPNu70e1Cvv7RbPWFx/zrNw27W6EqEW/zcgha4OJlXT4tNeKRTIM6SVIKO
+         qS5LjjX8NBDincYyIGqz0nmFeZ1L0GfxIh5P+kpO+cgCiTKoXAjGtx92jPkR1ASYKPFO
+         AJE/HPYC+LYTVRyb3PofCs6X8Wb97Ik10BWfc86yvw2cA359HOfq3/odr3M35czSBntM
+         tDag==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=Fn2P4znfOB2iHYFILMDRgIxO2c47xTKWVytS9vD/yNE=;
-        b=eFVix/RRB5wujTpP6OuaC5sUQPyKK51wuJ/P9TuOdu+J+NvvgAs4Ym6/53MkVRYP1t
-         jbEQadaLGwJGwVSzvCR1mhEf04V98y/db8zaTrZBBzA48fZePM7u8jCY0oQLQrS9vSRu
-         7+6Y42ICoEw5CiNCevAmKgTmyDZRAxBgp7xZwHD7vDhOwRdUWjoIKP0AMeZVPio3QBB0
-         WeyiO1Qa9wRU8tI16MShz/ej0/k+iOFJRYaUk93iwe7/3qJYf+BII1eSI/22YteMVCKX
-         sXV3FgBTViRC4XzLBBbNu8WgvpCeuD1x1p1zdgIN1tGa2XgQpD9Q+SnQsDk2QT5MN4MS
-         yOCw==
+        bh=ohywvQSvwBMul1Lfha2GjUoNaDGGEPqXNUEc8hHg+/o=;
+        b=jL+onabuKHyi6+L7Iv7MMAuQVd/RlNm9iluPwj4uelUemPzJ01+wbVxT5mOx/X7a9p
+         fq3xyjgUedV5U47QHjL4k10D9olW838TDalFVY+pLcjn3fVduDUZcvjSdSZdXadJaH1t
+         +8rMImdYNGYxXxWPa0biyBrBZWvqCyOlzJFhW6GH+Q7U9nJTy5h9Cvqjv8D9p255kiWS
+         sY1nn3TFSI1Au3zNkaSN+bhK4XGe8SEKNViA80JF5hOQ81f+11OJ8SSigYUnltJ0lr+q
+         ZRS8dihns3aitkA2inBHSwWkPGByn2wlpjUD3DcpyHO9l4+bZQT7roXM8yUqPlMceu2E
+         YOCQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=GF4qLrNZ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=W0vWOzDr;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Fn2P4znfOB2iHYFILMDRgIxO2c47xTKWVytS9vD/yNE=;
-        b=B244VndKyQmcmMnqxTK4mK1k2fA6xGOFIpW0f7WCc39cfp+Oc4kKRhob7JFnZoOvOJ
-         O8IQCxkQto/XbiahcQVCYJLq/89fH7E9wuGlmBjntQ/fsESnHnVHMX+rrDpz2hMmMX2D
-         YPlDudYpEV7ebkj4TNcD63o/MiVkF7QHqDuNuysLv8o0FMu5D19lfni34/BzKfZuG8cR
-         /zxu7z1RajP2W8w7SBjtnRsLnGYlyTb4+xr0B/Bqu7Rn5Wq5QYUfHNLOr9VCq28wvn1d
-         h/EKESHqmVEkWYB4VglDp7YFTM91rSBINIBigZ2N9P1XuXNsM9NDPMFbPSQFRKvydBNj
-         ZyaA==
+        bh=ohywvQSvwBMul1Lfha2GjUoNaDGGEPqXNUEc8hHg+/o=;
+        b=FjwVbv7bdOn+3ASozXtKJ2wTK6d6lx2AhDFWrvWZa0vLuP35QWBfErURpGMPxRVsSM
+         LOTPvuB9ohqMWRpH68DJPMUe3pEX2ldAeeltq0W8F+4wpvF/Lb7ls5Er/9EAon9tanAO
+         IGy3J+OEUtIzDk1FfIMVTqch6qLGqr0mY8bhb5QQSvMROsgA/ChQeNVHNPyOnASxFta3
+         CcPzfWCv7iStaPSU8ULUBaNIXbTKzNRLjEFyLsXl9921RDkU2FgRdPFwB42hVdOEH35d
+         yUgjiSpnl/vUc9DxX9l+UegZ8YA/4AOkaQ12vYqwr8e9BzCyvfQdYnKPk8TuZeL8c75C
+         a0pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,70 +49,70 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=Fn2P4znfOB2iHYFILMDRgIxO2c47xTKWVytS9vD/yNE=;
-        b=VDS6laVzRJd90mdEx9+tBp16qFU/eMWomHPoXlEbJ4x+MDfVYw0cX6eiN/hgkXYtl/
-         gPDhy4VAq8GVQLeYUJ5wl9a/C2Q3mSTPKt5o4jv02GmG/F4EPafWooHUGBsT8Jcw610d
-         36UyZq2x9/R+y0fnUG1LDWUb3wRMyCxpj/PXkTv3yUFrAMzd7RYpZcXbn5K7hlEN4CkN
-         yRMbTN3Cta8uiw0JVcCkBY4pP6cOaH/LcMXpZ0Wx0kFCgTus75Bb7VOPjors05Fuc7VN
-         8K44gOvHFiVQW1pteEAEvbBN6vUdm6/n8HFs0iysES3+d9U8XFzLRXOBqTlfVgLH1+ix
-         LZUg==
+        bh=ohywvQSvwBMul1Lfha2GjUoNaDGGEPqXNUEc8hHg+/o=;
+        b=hzm0/Z2OMuZLm/M2W/2Ez7jyhqe6dHIB+83zJ3CBtNIraBJ8KvpcpGdDmvYGNi/vH5
+         2KVEZi1lB71bAn/sPeBJA1glLAfSg/QD572fHY03vEoCc/e+i9vrKGtvOzfdNIMinEiY
+         IHkJCmp+3IQHnr7q2BaYwfCn8FA4OJdmdMYzWj+WtxSV8xmfUFnesEKMn5TblCZgdQE6
+         6BzRDrJPHICUlTjVPdc3NZwMtRDt8Y2fpyhydQwWmOTNYBb80JpUzHPWmLWCwc/ZtUwY
+         hu4y164ZWkOz0O4o/OozN7+BnJJP4uxy9yJ0v6wkZM8eM2eV5qvKCu66OOaEtuDHT8Ic
+         95rQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora9oosdlwzuB41P1LmqiImT0TpxR9QAQwiKAUlcF7Qy/srGqs0PE
-	0qwOy9gAluKw0xoCywfpUYM=
-X-Google-Smtp-Source: AGRyM1uDxzrfRDKKAb0E9MIOzl5yR5lumYSsJ43exxH2AZTsknHxnyVMKOZbTNuOP0fQp2fKZSM+oA==
-X-Received: by 2002:a05:600c:1410:b0:39c:6fef:4b4c with SMTP id g16-20020a05600c141000b0039c6fef4b4cmr19943745wmi.124.1656335621080;
+X-Gm-Message-State: AJIora93IBQ4AsCY7pnL6ZkIYGDMrDEiJBJIAEG24RyH5A/c0890ziZb
+	0r8fVnkuW1JCMzvJDwdRByA=
+X-Google-Smtp-Source: AGRyM1vfIUpyK0UTVEBxObdu+7Ue19ocQbHTnoNcUXA7K02Eg9DRJsKft3PZWgBAUn8q2RBdYbZC9Q==
+X-Received: by 2002:adf:ea87:0:b0:21b:83f8:d911 with SMTP id s7-20020adfea87000000b0021b83f8d911mr12079112wrm.556.1656335621466;
         Mon, 27 Jun 2022 06:13:41 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:350f:b0:397:475d:b954 with SMTP id
- h15-20020a05600c350f00b00397475db954ls3207134wmq.0.canary-gmail; Mon, 27 Jun
+Received: by 2002:a05:600c:4ec7:b0:39c:871d:313f with SMTP id
+ g7-20020a05600c4ec700b0039c871d313fls3208267wmq.2.canary-gmail; Mon, 27 Jun
  2022 06:13:39 -0700 (PDT)
-X-Received: by 2002:a7b:c745:0:b0:3a0:43fb:679f with SMTP id w5-20020a7bc745000000b003a043fb679fmr12568777wmk.29.1656335619576;
+X-Received: by 2002:a05:600c:1d94:b0:3a0:4e09:122f with SMTP id p20-20020a05600c1d9400b003a04e09122fmr1912803wms.190.1656335619770;
         Mon, 27 Jun 2022 06:13:39 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1656335619; cv=none;
         d=google.com; s=arc-20160816;
-        b=r17qFWa4nOCqkxiEE5P2MwrCtfCzN5ApYGQttfbiytPNp5BS0cWx63GM3nixpJyBBJ
-         J892ZfxiYBnEr9roGCuHtWvDCn7bOEKPSjZFIMU294jXCLu8jFKgrXKwYZM9ZWRT7/Eu
-         p4/9YKnAhKx8hOR90ZHhGlTIIqn4AceaWDsimHZzGzj42npDNJpfSsDK5SZy5hB+LCO3
-         MamrcuOpijN6GYnszI9iCzGvgeZdUR0Yi3ZZafgwzVYcfozJYTHGMRXcaIMrXlMLZ1rU
-         8vi0yS3PIU439rQKf6LWkHPcH2zK9aLuJYUYoyoO1vmMDZJbzTOOrXjASr72buodOLYC
-         dRuA==
+        b=uT5Tcpv7bkIFbDwolLkhfJvH9aJwRhbHwHzc/3F66FUsnnjcmcKypBuiaOdv8VGIhT
+         IOn9IdVzMpEMi6QXvuM9iqAMdxSMLvCaAkeMjmAByrDIrhf+zBi2Ieyn3B5BkNhyZslv
+         9DTPBHtQt5DbJBbkz2q8HQ01AiUC6U4MGw8DObjnTJNdvMueMKbIkgte2JL+v7fpUXOH
+         oozeWKedmkayXB47Us7nXzSU8HzKH+nF7MH0rEPmHlsCD9l7vOAxKjyevydxRaBdmNuK
+         bjMWbsfUFd7BadTbuBbzn+aO3pYny05ee3fltEkNS7m3ZqpcICwrKjXnv8Dg7edAndI+
+         XiSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=s3AzOT6ve7qyxbOZtaSJxQWdMNlwESngF+f80wX6NC4=;
-        b=wKCDH/lVALmR3dQRfefv/Aooh6we3s0p9GUHpNWHvalp6JCsFzFIrTYMISuOGWFq8x
-         4XY36upK1QYuL1OASDPtbgJe46ipMZMj9KIvsn7xOq3mzlrju8QkgAdWdTgKuMDLwi+4
-         vqvMh+077ykXiiF/TyaUVlkN5VqVhEmkIFDCTqNIMO1FWx4eW275IGtw8sXis/dTWTGh
-         4lEB8Mbenpb97J/0jrX5yQFya4cy/8MwM9Ms+r73GCgvR2AXiDttljLDPl+i70Esd0N6
-         hdUVR5wP7TSCqant91ouFs/dXLUNBRyR7x/oCpywxmbIvSRYZ+xPyCMCGwPrfJsB+5zu
-         2wmg==
+        bh=1pEb3040HghAB/umgu2VYCmwloNoZuekIVAgY6vmCBY=;
+        b=opryEViBK1GKUUC3ISvnkjJLBwGp87HlHZxjyWfNKTmfhL8vQtUwBoJwsDAK9x/xU4
+         ehQHx9SAW7kirVROKeifxi9Y3QC70K9nnOWhK050/G8Dm+sHjJes4AL6PTUCeTDw6vRH
+         DcSkIkHT7FPcnx47I3C5Nqw4cVLHmoIcoxYq83OlX5N8dzPDwKENeEu9S9WaEWmD+uJr
+         glzlmvsE5PdejkqB+D3uAQUey3GoI1Xx2FZxSTx7Q8vrK8K7+Gh26mpSbaZHDBu97JKF
+         vrWo3+4WBTk3G2n2P1CoWAN94kr/cIxR4jRn985+X9mnqBdrcaLpmUNY+gcXiCUaD1As
+         bGOA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=GF4qLrNZ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=W0vWOzDr;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
-        by gmr-mx.google.com with ESMTPS id l64-20020a1c2543000000b003a04819672csi137167wml.0.2022.06.27.06.13.39
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id f3-20020a7bcd03000000b0039c4133ae38si474742wmj.2.2022.06.27.06.13.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 27 Jun 2022 06:13:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWp8329rrzy86;
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWp8334H1zy87;
 	Mon, 27 Jun 2022 15:13:39 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28; Mon, 27 Jun 2022 15:13:38 +0200
+ 15.1.2375.28; Mon, 27 Jun 2022 15:13:39 +0200
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 19/20] core: Optimize parsing of large CPU sets
-Date: Mon, 27 Jun 2022 15:13:28 +0200
-Message-ID: <20220627131329.3659-20-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 20/20] RISC-V cornerstone
+Date: Mon, 27 Jun 2022 15:13:29 +0200
+Message-ID: <20220627131329.3659-21-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
@@ -123,9 +123,9 @@ X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=GF4qLrNZ;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=W0vWOzDr;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -141,136 +141,965 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-Currently, the for_each_cpu iterators scan the whole given CPU set
-bitwise. Since we use static CPU set sizes, we scan even more bits
-needlessly for most workloads. This is particularly relevant for sending
-IPIs that go out to a set of CPUs.
-
-But the common case of having a small and non-sparse bitmap can easily
-be optimized by scanning the lower and upper boundaries once during
-setup of the CPU set and then using those limits in for_each_cpu*.
-
-At this chance, reduce the type of the boundaries to unsigned int
-because we do not support 4 billion CPUs anyway.
+This allows to build Jailhouse for RISC-V, using QEMU as a first target.
+The assembly entry routine can be called and returns a funky error for
+now. All the rest are stubs.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+[ralf: rebase to next, add stubs for missing routines]
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/control.c                   | 26 +++++++++++++++++++++++---
- hypervisor/include/jailhouse/control.h |  4 ++--
- hypervisor/include/jailhouse/types.h   |  6 ++++--
- 3 files changed, 29 insertions(+), 7 deletions(-)
+ configs/riscv/qemu-riscv64.c                  | 65 ++++++++++++++++
+ driver/main.c                                 |  2 +
+ hypervisor/arch/riscv/Kbuild                  | 17 ++++
+ hypervisor/arch/riscv/Makefile                | 13 ++++
+ hypervisor/arch/riscv/asm-defines.c           | 19 +++++
+ hypervisor/arch/riscv/control.c               | 78 +++++++++++++++++++
+ hypervisor/arch/riscv/dbg-write.c             | 17 ++++
+ hypervisor/arch/riscv/entry.S                 | 17 ++++
+ hypervisor/arch/riscv/include/asm/bitops.h    | 37 +++++++++
+ hypervisor/arch/riscv/include/asm/cell.h      | 24 ++++++
+ hypervisor/arch/riscv/include/asm/control.h   |  0
+ hypervisor/arch/riscv/include/asm/ivshmem.h   | 14 ++++
+ .../arch/riscv/include/asm/jailhouse_header.h | 14 ++++
+ hypervisor/arch/riscv/include/asm/mmio.h      |  0
+ hypervisor/arch/riscv/include/asm/paging.h    | 54 +++++++++++++
+ .../arch/riscv/include/asm/paging_modes.h     |  0
+ hypervisor/arch/riscv/include/asm/percpu.h    | 23 ++++++
+ hypervisor/arch/riscv/include/asm/processor.h | 33 ++++++++
+ hypervisor/arch/riscv/include/asm/sections.h  | 14 ++++
+ hypervisor/arch/riscv/include/asm/spinlock.h  | 27 +++++++
+ hypervisor/arch/riscv/include/asm/types.h     | 14 ++++
+ hypervisor/arch/riscv/ivshmem.c               | 29 +++++++
+ hypervisor/arch/riscv/lib.c                   | 19 +++++
+ hypervisor/arch/riscv/paging.c                | 23 ++++++
+ hypervisor/arch/riscv/pci.c                   | 49 ++++++++++++
+ hypervisor/arch/riscv/setup.c                 | 32 ++++++++
+ include/arch/riscv/asm/jailhouse_hypercall.h  | 68 ++++++++++++++++
+ inmates/demos/riscv/Makefile                  |  0
+ inmates/lib/riscv/Makefile                    |  0
+ inmates/tests/riscv/Makefile                  |  0
+ inmates/tools/riscv/Makefile                  |  0
+ scripts/include.mk                            |  3 +
+ 32 files changed, 705 insertions(+)
+ create mode 100644 configs/riscv/qemu-riscv64.c
+ create mode 100644 hypervisor/arch/riscv/Kbuild
+ create mode 100644 hypervisor/arch/riscv/Makefile
+ create mode 100644 hypervisor/arch/riscv/asm-defines.c
+ create mode 100644 hypervisor/arch/riscv/control.c
+ create mode 100644 hypervisor/arch/riscv/dbg-write.c
+ create mode 100644 hypervisor/arch/riscv/entry.S
+ create mode 100644 hypervisor/arch/riscv/include/asm/bitops.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/cell.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/control.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/ivshmem.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/jailhouse_header.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/mmio.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/paging.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/paging_modes.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/percpu.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/processor.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/sections.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/spinlock.h
+ create mode 100644 hypervisor/arch/riscv/include/asm/types.h
+ create mode 100644 hypervisor/arch/riscv/ivshmem.c
+ create mode 100644 hypervisor/arch/riscv/lib.c
+ create mode 100644 hypervisor/arch/riscv/paging.c
+ create mode 100644 hypervisor/arch/riscv/pci.c
+ create mode 100644 hypervisor/arch/riscv/setup.c
+ create mode 100644 include/arch/riscv/asm/jailhouse_hypercall.h
+ create mode 100644 inmates/demos/riscv/Makefile
+ create mode 100644 inmates/lib/riscv/Makefile
+ create mode 100644 inmates/tests/riscv/Makefile
+ create mode 100644 inmates/tools/riscv/Makefile
 
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index 8eaaa46a..7a5304a0 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -58,6 +58,25 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
- 	return cpu;
- }
- 
-+/**
-+ * Update CPU set min/max boundaries.
-+ * @param cpu_set	CPU set to update.
+diff --git a/configs/riscv/qemu-riscv64.c b/configs/riscv/qemu-riscv64.c
+new file mode 100644
+index 00000000..3c68ad71
+--- /dev/null
++++ b/configs/riscv/qemu-riscv64.c
+@@ -0,0 +1,65 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
 + *
-+ * @note For internal use only. CPU set must not be empty.
++ * Configuration for QEMU riscv64 virtual target, 1G RAM, 4 cores
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * NOTE: Add "mem=768M" to the kernel command line.
 + */
-+static void cpu_set_update(struct cpu_set *cpu_set)
++
++#include <jailhouse/types.h>
++#include <jailhouse/cell-config.h>
++
++struct {
++	struct jailhouse_system header;
++	struct jailhouse_cpu cpus[4];
++	struct jailhouse_memory mem_regions[1];
++} __attribute__((packed)) config = {
++	.header = {
++		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
++		.revision = JAILHOUSE_CONFIG_REVISION,
++		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
++		.hypervisor_memory = {
++			.phys_start = 0xbfc00000,
++			.size =       0x00400000,
++		},
++		.root_cell = {
++			.name = "qemu-riscv64",
++
++			.num_cpus = ARRAY_SIZE(config.cpus),
++			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
++		},
++	},
++
++	.cpus = {
++		{
++			.phys_id = 0,
++		},
++		{
++			.phys_id = 1,
++		},
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
++	},
++
++	.mem_regions = {
++		/* RAM */ {
++			.phys_start = 0x80000000,
++			.virt_start = 0x80000000,
++			.size = 0x3fa10000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE,
++		},
++	}
++};
+diff --git a/driver/main.c b/driver/main.c
+index d0e7f980..d13afeb6 100644
+--- a/driver/main.c
++++ b/driver/main.c
+@@ -162,6 +162,8 @@ static u64 get_physical_cpu_id(void)
+ 	return read_cpuid_mpidr() & MPIDR_HWID_BITMASK;
+ #elif defined(CONFIG_X86)
+ 	return read_apic_id();
++#elif defined(CONFIG_RISCV)
++	return cpuid_to_hartid_map(smp_processor_id());
+ #else
+ #	error Unsupported architecture
+ #endif
+diff --git a/hypervisor/arch/riscv/Kbuild b/hypervisor/arch/riscv/Kbuild
+new file mode 100644
+index 00000000..dd114a6c
+--- /dev/null
++++ b/hypervisor/arch/riscv/Kbuild
+@@ -0,0 +1,17 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# This work is licensed under the terms of the GNU GPL, version 2.  See
++# the COPYING file in the top-level directory.
++#
++
++-include $(GEN_CONFIG_MK)
++
++always-y := lib.a
++
++lib-y := entry.o setup.o dbg-write.o control.o ivshmem.o paging.o pci.o lib.o
+diff --git a/hypervisor/arch/riscv/Makefile b/hypervisor/arch/riscv/Makefile
+new file mode 100644
+index 00000000..c41bed7a
+--- /dev/null
++++ b/hypervisor/arch/riscv/Makefile
+@@ -0,0 +1,13 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2020
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# This work is licensed under the terms of the GNU GPL, version 2.  See
++# the COPYING file in the top-level directory.
++#
++
++KBUILD_CFLAGS += -mcmodel=medany
+diff --git a/hypervisor/arch/riscv/asm-defines.c b/hypervisor/arch/riscv/asm-defines.c
+new file mode 100644
+index 00000000..17c2f256
+--- /dev/null
++++ b/hypervisor/arch/riscv/asm-defines.c
+@@ -0,0 +1,19 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/gen-defines.h>
++
++void common(void);
++
++void common(void)
 +{
-+	unsigned int cpu, max_cpu = 0;
++}
+diff --git a/hypervisor/arch/riscv/control.c b/hypervisor/arch/riscv/control.c
+new file mode 100644
+index 00000000..ab0bb449
+--- /dev/null
++++ b/hypervisor/arch/riscv/control.c
+@@ -0,0 +1,78 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
 +
-+	cpu_set->min_cpu_id = 0;
-+	cpu_set->max_cpu_id = sizeof(cpu_set->bitmap) * 8 - 1;
++#include <jailhouse/control.h>
 +
-+	cpu_set->min_cpu_id = first_cpu(cpu_set);
-+	for_each_cpu(cpu, cpu_set)
-+		max_cpu = cpu;
-+	cpu_set->max_cpu_id = max_cpu;
++int arch_cell_create(struct cell *cell)
++{
++	return -ENOSYS;
 +}
 +
- /**
-  * Suspend a remote CPU.
-  * @param cpu_id	ID of the target CPU.
-@@ -226,12 +245,10 @@ int cell_init(struct cell *cell)
- {
- 	const struct jailhouse_cpu *cell_cpu =
- 		jailhouse_cell_cpus(cell->config);
--	unsigned long cpu_set_size = (cell->config->num_cpus + 7) / 8;
- 	unsigned int cpu_idx, result;
- 
--	if (cpu_set_size > sizeof(cell->cpu_set.bitmap))
-+	if (cell->config->num_cpus > sizeof(cell->cpu_set.bitmap) * 8)
- 		return trace_error(-EINVAL);
--	cell->cpu_set.max_cpu_id = cpu_set_size * 8 - 1;
- 
- 	for (cpu_idx = 0; cpu_idx < cell->config->num_cpus; cpu_idx++) {
- 		result = cpu_by_phys_processor_id(cell_cpu[cpu_idx].phys_id);
-@@ -240,6 +257,7 @@ int cell_init(struct cell *cell)
- 
- 		set_bit(result, cell->cpu_set.bitmap);
- 	}
-+	cpu_set_update(&cell->cpu_set);
- 
- 	return mmio_cell_init(cell);
- }
-@@ -358,6 +376,7 @@ static void cell_destroy_internal(struct cell *cell)
- 		memset(public_per_cpu(cpu)->stats, 0,
- 		       sizeof(public_per_cpu(cpu)->stats));
- 	}
-+	cpu_set_update(&root_cell.cpu_set);
- 
- 	for_each_mem_region(mem, cell->config, n) {
- 		if (!JAILHOUSE_MEMORY_IS_SUBPAGE(mem))
-@@ -493,6 +512,7 @@ static int cell_create(struct per_cpu *cpu_data, unsigned long config_address)
- 		memset(public_per_cpu(cpu)->stats, 0,
- 		       sizeof(public_per_cpu(cpu)->stats));
- 	}
-+	cpu_set_update(&root_cell.cpu_set);
- 
- 	/*
- 	 * Unmap the cell's memory regions from the root cell and map them to
-diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
-index f01af617..2e2446f0 100644
---- a/hypervisor/include/jailhouse/control.h
-+++ b/hypervisor/include/jailhouse/control.h
-@@ -44,7 +44,7 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
-  *
-  * @return First CPU in set, or max_cpu_id + 1 if the set is empty.
-  */
--#define first_cpu(set)		next_cpu(INVALID_CPU_ID, (set), INVALID_CPU_ID)
-+#define first_cpu(set)	next_cpu((set)->min_cpu_id - 1, (set), INVALID_CPU_ID)
- 
- /**
-  * Loop-generating macro for iterating over all CPUs in a set.
-@@ -67,7 +67,7 @@ unsigned int next_cpu(unsigned int cpu, struct cpu_set *cpu_set,
-  * @see for_each_cpu
-  */
- #define for_each_cpu_except(cpu, set, exception)		\
--	for ((cpu) = -1;					\
-+	for ((cpu) = (set)->min_cpu_id - 1;			\
- 	     (cpu) = next_cpu((cpu), (set), (exception)),	\
- 	     (cpu) <= (set)->max_cpu_id;			\
- 	    )
-diff --git a/hypervisor/include/jailhouse/types.h b/hypervisor/include/jailhouse/types.h
-index 5ca81034..f8580f2f 100644
---- a/hypervisor/include/jailhouse/types.h
-+++ b/hypervisor/include/jailhouse/types.h
-@@ -23,8 +23,10 @@ typedef enum { true = 1, false = 0 } bool;
- 
- /** Describes a CPU set. */
- struct cpu_set {
--	/** Maximum CPU ID expressible with this set. */
--	unsigned long max_cpu_id;
-+	/** Smallest CPU ID in the set. */
-+	unsigned int min_cpu_id;
-+	/** Largest CPU ID in the set. */
-+	unsigned int max_cpu_id;
- 	/** Bitmap of CPUs in the set. */
- 	unsigned long bitmap[(MAX_CPUS + BITS_PER_LONG - 1) / BITS_PER_LONG];
- };
++int arch_map_memory_region(struct cell *cell,
++			   const struct jailhouse_memory *mem)
++{
++	return -ENOSYS;
++}
++
++int arch_unmap_memory_region(struct cell *cell,
++			     const struct jailhouse_memory *mem)
++{
++	return -ENOSYS;
++}
++
++void arch_check_events(void)
++{
++}
++
++void arch_flush_cell_vcpu_caches(struct cell *cell)
++{
++}
++
++void arch_cell_destroy(struct cell *cell)
++{
++}
++
++void arch_cell_reset(struct cell *cell)
++{
++}
++
++void arch_prepare_shutdown(void)
++{
++}
++
++void __attribute__((noreturn)) arch_panic_stop(void)
++{
++	while (1);
++}
++
++void arch_panic_park(void)
++{
++}
++
++void arch_reset_cpu(unsigned int const cpu_id)
++{
++}
++
++void arch_park_cpu(unsigned int cpu_id)
++{
++}
++
++void arch_send_event(struct public_per_cpu *target_data)
++{
++}
++
++// Likely misplaced
++#include <jailhouse/processor.h>
++unsigned int cpu_by_phys_processor_id(u64 phys_id)
++{
++	return -1;
++}
+diff --git a/hypervisor/arch/riscv/dbg-write.c b/hypervisor/arch/riscv/dbg-write.c
+new file mode 100644
+index 00000000..6bd75887
+--- /dev/null
++++ b/hypervisor/arch/riscv/dbg-write.c
+@@ -0,0 +1,17 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/printk.h>
++
++void arch_dbg_write_init(void)
++{
++}
+diff --git a/hypervisor/arch/riscv/entry.S b/hypervisor/arch/riscv/entry.S
+new file mode 100644
+index 00000000..def55516
+--- /dev/null
++++ b/hypervisor/arch/riscv/entry.S
+@@ -0,0 +1,17 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++	.text
++	.globl arch_entry
++arch_entry:
++	li	a0,-55
++	ret
+diff --git a/hypervisor/arch/riscv/include/asm/bitops.h b/hypervisor/arch/riscv/include/asm/bitops.h
+new file mode 100644
+index 00000000..4b7e31b1
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/bitops.h
+@@ -0,0 +1,37 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_BITOPS_H
++#define _JAILHOUSE_ASM_BITOPS_H
++
++static inline __attribute__((always_inline)) int
++test_bit(unsigned int nr, const volatile unsigned long *addr)
++{
++	return 0;
++}
++
++static inline int atomic_test_and_set_bit(int nr, volatile unsigned long *addr)
++{
++	return 0;
++}
++
++static inline unsigned long ffzl(unsigned long word)
++{
++	return 0;
++}
++
++static inline unsigned long ffsl(unsigned long word)
++{
++	return 0;
++}
++
++#endif /* !_JAILHOUSE_ASM_BITOPS_H */
+diff --git a/hypervisor/arch/riscv/include/asm/cell.h b/hypervisor/arch/riscv/include/asm/cell.h
+new file mode 100644
+index 00000000..63ba43ce
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/cell.h
+@@ -0,0 +1,24 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_CELL_H
++#define _JAILHOUSE_ASM_CELL_H
++
++#include <jailhouse/types.h>
++
++// this shouldn't be here
++#include <jailhouse/cell-config.h>
++
++struct arch_cell {
++};
++
++#endif /* !_JAILHOUSE_ASM_CELL_H */
+diff --git a/hypervisor/arch/riscv/include/asm/control.h b/hypervisor/arch/riscv/include/asm/control.h
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/hypervisor/arch/riscv/include/asm/ivshmem.h b/hypervisor/arch/riscv/include/asm/ivshmem.h
+new file mode 100644
+index 00000000..03251590
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/ivshmem.h
+@@ -0,0 +1,14 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++struct arch_ivshmem_irq_cache {
++};
+diff --git a/hypervisor/arch/riscv/include/asm/jailhouse_header.h b/hypervisor/arch/riscv/include/asm/jailhouse_header.h
+new file mode 100644
+index 00000000..a0c22083
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/jailhouse_header.h
+@@ -0,0 +1,14 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (C) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#define JAILHOUSE_BASE			__JH_CONST_UL(0xffffffdfff000000)
++#define JAILHOUSE_BORROW_ROOT_PT	1
+diff --git a/hypervisor/arch/riscv/include/asm/mmio.h b/hypervisor/arch/riscv/include/asm/mmio.h
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/hypervisor/arch/riscv/include/asm/paging.h b/hypervisor/arch/riscv/include/asm/paging.h
+new file mode 100644
+index 00000000..866f9a3f
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/paging.h
+@@ -0,0 +1,54 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_PAGING_H
++#define _JAILHOUSE_ASM_PAGING_H
++
++#include <jailhouse/types.h>
++
++#define PAGE_SHIFT		12
++
++#define MAX_PAGE_TABLE_LEVELS	3
++
++#define PAGE_FLAG_FRAMEBUFFER	0
++#define PAGE_FLAG_DEVICE	0
++
++#define PAGE_DEFAULT_FLAGS	0
++#define PAGE_READONLY_FLAGS	0
++#define PAGE_PRESENT_FLAGS	0
++#define PAGE_NONPRESENT_FLAGS	0
++
++#define INVALID_PHYS_ADDR	(~0UL)
++
++#define TEMPORARY_MAPPING_BASE	0x0000008000000000UL
++#define NUM_TEMPORARY_PAGES	16
++
++#define REMAP_BASE		0xffffff8000000000UL
++#define NUM_REMAP_BITMAP_PAGES	4
++
++#define CELL_ROOT_PT_PAGES	1
++
++#ifndef __ASSEMBLY__
++
++typedef u64 *pt_entry_t;
++
++static inline void arch_paging_flush_page_tlbs(unsigned long page_addr)
++{
++}
++
++static inline void arch_paging_flush_cpu_caches(void *addr, long size)
++{
++}
++
++#endif /* !__ASSEMBLY__ */
++
++#endif /* !_JAILHOUSE_ASM_PAGING_H */
+diff --git a/hypervisor/arch/riscv/include/asm/paging_modes.h b/hypervisor/arch/riscv/include/asm/paging_modes.h
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/hypervisor/arch/riscv/include/asm/percpu.h b/hypervisor/arch/riscv/include/asm/percpu.h
+new file mode 100644
+index 00000000..fce6c052
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/percpu.h
+@@ -0,0 +1,23 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++// this shouldn't be here
++#include <asm/processor.h>
++
++#define STACK_SIZE			PAGE_SIZE
++
++#define ARCH_PUBLIC_PERCPU_FIELDS					\
++	spinlock_t control_lock;					\
++	;
++
++#define ARCH_PERCPU_FIELDS						\
++	;
+diff --git a/hypervisor/arch/riscv/include/asm/processor.h b/hypervisor/arch/riscv/include/asm/processor.h
+new file mode 100644
+index 00000000..8d4b1c60
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/processor.h
+@@ -0,0 +1,33 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_PROCESSOR_H
++#define _JAILHOUSE_ASM_PROCESSOR_H
++
++#include <jailhouse/types.h>
++
++union registers {
++};
++
++static inline void cpu_relax(void)
++{
++}
++
++static inline void memory_barrier(void)
++{
++}
++
++static inline void memory_load_barrier(void)
++{
++}
++
++#endif /* !_JAILHOUSE_ASM_PROCESSOR_H */
+diff --git a/hypervisor/arch/riscv/include/asm/sections.h b/hypervisor/arch/riscv/include/asm/sections.h
+new file mode 100644
+index 00000000..d13a46bd
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/sections.h
+@@ -0,0 +1,14 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++/* no special sections */
++#define ARCH_SECTIONS
+diff --git a/hypervisor/arch/riscv/include/asm/spinlock.h b/hypervisor/arch/riscv/include/asm/spinlock.h
+new file mode 100644
+index 00000000..a5e707d7
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/spinlock.h
+@@ -0,0 +1,27 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#ifndef _JAILHOUSE_ASM_SPINLOCK_H
++#define _JAILHOUSE_ASM_SPINLOCK_H
++
++typedef struct {
++} spinlock_t;
++
++static inline void spin_lock(spinlock_t *lock)
++{
++}
++
++static inline void spin_unlock(spinlock_t *lock)
++{
++}
++
++#endif /* !_JAILHOUSE_ASM_SPINLOCK_H */
+diff --git a/hypervisor/arch/riscv/include/asm/types.h b/hypervisor/arch/riscv/include/asm/types.h
+new file mode 100644
+index 00000000..b133cf4c
+--- /dev/null
++++ b/hypervisor/arch/riscv/include/asm/types.h
+@@ -0,0 +1,14 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Konrad Schwarz <konrad.schwarz@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#define MAX_CPUS 	__riscv_xlen
++#define BITS_PER_LONG	64
+diff --git a/hypervisor/arch/riscv/ivshmem.c b/hypervisor/arch/riscv/ivshmem.c
+new file mode 100644
+index 00000000..e5dd7973
+--- /dev/null
++++ b/hypervisor/arch/riscv/ivshmem.c
+@@ -0,0 +1,29 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/entry.h>
++#include <jailhouse/ivshmem.h>
++
++void arch_ivshmem_trigger_interrupt(struct ivshmem_endpoint *ive,
++				    unsigned int vector)
++{
++}
++
++int arch_ivshmem_update_msix(struct ivshmem_endpoint *ive, unsigned int vector,
++			     bool enabled)
++{
++	return -ENOSYS;
++}
++
++void arch_ivshmem_update_intx(struct ivshmem_endpoint *ive, bool enabled)
++{
++}
+diff --git a/hypervisor/arch/riscv/lib.c b/hypervisor/arch/riscv/lib.c
+new file mode 100644
+index 00000000..5fe45bc7
+--- /dev/null
++++ b/hypervisor/arch/riscv/lib.c
+@@ -0,0 +1,19 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/processor.h>
++
++// Check if it be moved elsewhere
++unsigned long phys_processor_id(void)
++{
++	return 0;
++}
+diff --git a/hypervisor/arch/riscv/paging.c b/hypervisor/arch/riscv/paging.c
+new file mode 100644
+index 00000000..294ea958
+--- /dev/null
++++ b/hypervisor/arch/riscv/paging.c
+@@ -0,0 +1,23 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/paging.h>
++
++void arch_paging_init(void)
++{
++}
++
++// Might be misplaced
++unsigned long arch_paging_gphys2phys(unsigned long gphys, unsigned long flags)
++{
++	return 0;
++}
+diff --git a/hypervisor/arch/riscv/pci.c b/hypervisor/arch/riscv/pci.c
+new file mode 100644
+index 00000000..067a7651
+--- /dev/null
++++ b/hypervisor/arch/riscv/pci.c
+@@ -0,0 +1,49 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/entry.h>
++#include <jailhouse/pci.h>
++
++u32 arch_pci_read_config(u16 bdf, u16 address, unsigned int size)
++{
++	return 0;
++}
++
++void arch_pci_write_config(u16 bdf, u16 address, u32 value, unsigned int size)
++{
++}
++
++int arch_pci_add_physical_device(struct cell *cell, struct pci_device *device)
++{
++	return -ENOSYS;
++}
++
++void arch_pci_remove_physical_device(struct pci_device *device)
++{
++}
++
++void arch_pci_set_suppress_msi(struct pci_device *device,
++			       const struct jailhouse_pci_capability *cap,
++			       bool suppress)
++{
++}
++
++int arch_pci_update_msi(struct pci_device *device,
++			const struct jailhouse_pci_capability *cap)
++{
++	return -ENOSYS;
++}
++
++int arch_pci_update_msix_vector(struct pci_device *device, unsigned int index)
++{
++	return -ENOSYS;
++}
+diff --git a/hypervisor/arch/riscv/setup.c b/hypervisor/arch/riscv/setup.c
+new file mode 100644
+index 00000000..53cdce80
+--- /dev/null
++++ b/hypervisor/arch/riscv/setup.c
+@@ -0,0 +1,32 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/entry.h>
++
++int arch_init_early(void)
++{
++	return -ENOSYS;
++}
++
++int arch_cpu_init(struct per_cpu *cpu_data)
++{
++	return -ENOSYS;
++}
++
++void __attribute__((noreturn)) arch_cpu_activate_vmm(void)
++{
++	while (1);
++}
++
++void arch_cpu_restore(unsigned int cpu_id, int return_code)
++{
++}
+diff --git a/include/arch/riscv/asm/jailhouse_hypercall.h b/include/arch/riscv/asm/jailhouse_hypercall.h
+new file mode 100644
+index 00000000..7d54047c
+--- /dev/null
++++ b/include/arch/riscv/asm/jailhouse_hypercall.h
+@@ -0,0 +1,68 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2020
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#define JAILHOUSE_NUM_CPU_STATS			JAILHOUSE_GENERIC_CPU_STATS
++
++#ifndef __ASSEMBLY__
++
++static inline __u32 jailhouse_call(__u32 num)
++{
++	return -ENOSYS;
++}
++
++static inline __u32 jailhouse_call_arg1(__u32 num, __u32 arg1)
++{
++	return -ENOSYS;
++}
++
++static inline __u32 jailhouse_call_arg2(__u32 num, __u32 arg1, __u32 arg2)
++{
++	return -ENOSYS;
++}
++
++struct jailhouse_comm_region {
++        COMM_REGION_GENERIC_HEADER;
++} __attribute__((packed));
++
++static inline void
++jailhouse_send_msg_to_cell(struct jailhouse_comm_region *comm_region,
++			   __u32 msg)
++{
++}
++
++#endif /* !__ASSEMBLY__ */
+diff --git a/inmates/demos/riscv/Makefile b/inmates/demos/riscv/Makefile
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/inmates/lib/riscv/Makefile b/inmates/lib/riscv/Makefile
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/inmates/tests/riscv/Makefile b/inmates/tests/riscv/Makefile
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/inmates/tools/riscv/Makefile b/inmates/tools/riscv/Makefile
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/scripts/include.mk b/scripts/include.mk
+index d0139d8e..35855e7d 100644
+--- a/scripts/include.mk
++++ b/scripts/include.mk
+@@ -67,3 +67,6 @@ endif
+ ifeq ($(ARCH),aarch64)
+ override ARCH = arm64
+ endif
++ifeq ($(ARCH),riscv64)
++override ARCH = riscv
++endif
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-20-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-21-ralf.ramsauer%40oth-regensburg.de.
