@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBMPB42KQMGQEZVSHWMY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBMXB42KQMGQEMEWMDAA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82ECC55B9F8
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:22 +0200 (CEST)
-Received: by mail-ed1-x53e.google.com with SMTP id t14-20020a056402524e00b0043595a18b91sf7133317edd.13
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:22 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656336562; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9606755B9FF
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:23 +0200 (CEST)
+Received: by mail-lf1-x137.google.com with SMTP id y8-20020ac24208000000b0047f9fc8f632sf4713310lfh.11
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:23 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1656336563; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Or6lb9PkpV07H3QEU+i+5bon0oZxoWATK0QNT2I5lGB/AnP/PAAnlyZGL75/cml/uf
-         9nu22qeqahmDk6nI21zHFoj+L+Bw+pYBfyZixddndmQ7X2kAFHlYsWn1QNGy7wLAc2S+
-         jxCBxeZ4YAYIX+vshML6BXK1yjy/v8+/JFbKEDOFK+vKff3vdmUMYEksw+v6rtysMTRR
-         T8y6PmtLiZI+v29M6lRszQLivHndi8S7PDdnhUPUqRiBsU+Xx7F0OvWnKaa0ExoaU9zf
-         teXlhsth/FYGIwpik6L9m3WJAhFt0jVeFhJFz+Kr14d7b7NlVSkpidANuE2TclTPLpYT
-         scGw==
+        b=cY2sUmjBaQ/ZHKkLE+fDQfWMvaL1Bq8UBf3I5sPK2wTQC3H1FluRSe0/hs0ktzym6R
+         DoVxomXf6kY8OmtmI0oaU2oGzC/JeXIuHz5jkW+dJqg7NqybM2FMZHsqY/TJgxmyGYMl
+         F5DHyr0cezURRvcSbTknMN0ulhS0N3SoJdCLSIMGB2HO0Bok5NWV18jH1u5pYRMAMrud
+         dIqU/4OUJa0m4+omjHU1ru+11YEbRUAINU9W2Nj2a4L+UTz4MLCFUSEyhy5iND+FY5a7
+         MoZBNxv61vMQGUrktGhD7iRlCZX0NI/ombogUpe7ULeDhQSOsC/1+j/LtG6vomEOsoRV
+         +9Sg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=1oBa60fxqtm5SjMchTvxdC5WvKVH0njUGivk9YU5F10=;
-        b=uX9+lGITSlmweZPEfZHNAhJ70dq7M8/VtW30MGRySfpgx45m8FzqhNHFqKk/5XwjUy
-         HbYrBKaqZet4ELHeuxcDoaqQJBIsGszP1XEwPRzKXwXbAmHZCXie3lTbEcZjvP4jXZ6k
-         9tZNn5CpjgWo3OuUS4k49Ci/e4mwrITdWYltalJm6GRYmVtpdpkX4VgfE0nMGmgOfjkn
-         x2mKHKUNB9Bv31uEfCeoQZfQS/N/jO3kiemunySitIbFfpjudPlOn+1g/2wLsVU/8Ojd
-         bMvF2zRR7SQS3nuy2wZED4KmrlnKtPO0KJXV9rd3v8YUKpswJ6n4rJTmRUqvr4NFcjZJ
-         ozaw==
+        bh=ZDSz4cllqQru2S9Kp90eyrdbTXtLTDzGAyDcies1miY=;
+        b=STqL0qGC03HUYYBEy9ORxfc83UkQRAaPw0ZZcV9cwbjn5pjUTvnRfNNnjgPIMzqmGf
+         R6wn1V20Kyh1i+EfRQ5HIozxXNW8qoItj+met/tfmJm0No/nrFwsraLYsd2NRDwpDL+t
+         lrpDGuCe1vXX1DwRmAYkv3VBrXc6uND4zEinL8wksc76wXnD6pfaCDEoLCwCs1OJsBaC
+         WVw/HCEubYJqjGoBT1I0PjesxUv3MN3FMmzsAzl2d2fa/llzD/LQR2WqOAU+aswoDvDC
+         FfowVJhqKhrbjzt63vpiG2EQ78AKIkqUWnb81FK8/jWslRe/97da7l+AiHqiS6lAZbFc
+         BpWw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=Bwm7f910;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=PZ4r+lWb;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=1oBa60fxqtm5SjMchTvxdC5WvKVH0njUGivk9YU5F10=;
-        b=EBbO0f3R1T4CfA8JisbbDOFFC+rp04b89L4vx3c9p6j7B+Hs1AYZqreNo9o3ef8N3Z
-         BkJ4Rq3Pue5zV0lkMlagsFPv5EKDtRCqRNa6OiBC+NS76v4zTW+nTLZ79ERHqSaBzxMs
-         gVZOVXpXfe3r/fl/F/kg0PEjbcf7khUGlf3Q9TTroj9tqm5qjP4tkVufsBHm6AWsvND3
-         nsSVO4yWeodFasEb6GxFLXMIrMnHuVE/ZSmeT2Rb0AsKybXCqfWrqu4Dt/+FBSWxBrNp
-         dPvN34ZEPSnFA1agN70z18ScpO3GqijKL8pv3ZMJBaNJqfkOT9pzLJ/wdcnS0+OXjJvD
-         JN4A==
+        bh=ZDSz4cllqQru2S9Kp90eyrdbTXtLTDzGAyDcies1miY=;
+        b=hYh6whCYQftymPpQUBhuvfFfCsB4Y9C2pUc9FA+yWP5JqhKVwr/4qJX6aVDTMqr8du
+         NPvOp5yapxlKsWDaOy5E0x1OUNLUYkVy4+E9rb9iDE/Qo23IRRMRw4zfNoni4sJ0vM5H
+         S2jEpkHztojjqFGrYwyP0wbMyhCEEL7i/JlTyGIyqduWhHzRnwTl9+5IRp9kK3Oi3Vs3
+         Z1VmzoaFeXGOFsOtIP2c02Bk2sD8doK6P6NXXGnlXi5RXlO7ZlY2iflMI6Y60MvhhiIC
+         cNHopkl3O2UcHXhar7CLJLmNZ06pPHuGK3xw58jPViH2L6KzyLzKtRgaaBdyo493WNC3
+         BEjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,57 +49,56 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=1oBa60fxqtm5SjMchTvxdC5WvKVH0njUGivk9YU5F10=;
-        b=mTaO/lP1qYhyDbB4ge9Czby/DdSiNr9oA+fnZn99OChMB1+aGO8Mrb3Y/WiDGb/Z30
-         qCRuvyeNnAlUlVmVOKW+POhPkNYjmZarovYG4TQYfGO2kCSyig3QhByd5BFSE3NL+6bf
-         koJzqkqW0zEdObcCSzCueYSfJmI1asH16rE0KyNYjLpcARRtwjrB4CnSaYo+jyk0Tk5C
-         NbdB17dHlqkZP7/M6Gv/c+aDoKG0s6b2t4duRK7MJUpey9OBlMOMVS3uR+9J7kYLhtbx
-         tOqF+p+kPCr1zVBu9jPd627yflwU2eSXkdJ/veIDvIJuT1UcOj2quWKf8FxTqM55wck7
-         7kbA==
+        bh=ZDSz4cllqQru2S9Kp90eyrdbTXtLTDzGAyDcies1miY=;
+        b=YmUahLdmhWr38dXcE6l2vhOC6kWjmCvvYpE8IqPzzOozSy2COqvMgclTW/EVd9oLlv
+         Hmmto3j/5B1oOawxit9/GW9Lqi+z3H1XVHlKw6S+68gMLFrBUFaeQRmtG8kbdJ0HMA5w
+         kFgfiLeIboo5vWrXSULy4Lm6fHfNEyyx5ekLrqNTdToCs9GszgtIImhuYuOoUeTM9jl1
+         5x/Wm3CrdV+7d20OpxLzMwd3LaDvXqjKU7tQYBqLydEpTV9v9+pkRExSMtqPkPrl1/g6
+         Ld5xo4hY1ozt2VgIgN+1SbV3JL54RXHXYk3xn3s8eBSW/Rw82VrroNxR0pkZM0uo0eF2
+         MZtg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora8rMBblb8Ehu3eZAHAfxzvYxeGb6txrzpbqR63eAywAhPJ6w62C
-	nYFy/+TLQmibVUpDMJGKAuY=
-X-Google-Smtp-Source: AGRyM1vWw44x2Wx0RkaRN4qePjanniMh+HqcQWCfMzEMoVXZiyHNFVkOHa6KrjAA6Jq2EZvY7Ofvzg==
-X-Received: by 2002:a05:6402:4244:b0:437:726c:e1a with SMTP id g4-20020a056402424400b00437726c0e1amr14083251edb.107.1656336562395;
-        Mon, 27 Jun 2022 06:29:22 -0700 (PDT)
+X-Gm-Message-State: AJIora+xcQKjaXhgop3zvTLoN+8MVkKJ8rlUxuZhiUPv6ts9D2NSFD2U
+	tgEPjqScVH0hKx/cf5f1NEg=
+X-Google-Smtp-Source: AGRyM1tS1tRQMvSz6SV5WJMeHV3/f8S965h0cOGGcXOEUCxENTPv1u+wug/w0Td/GKF8ZoqkqGkBug==
+X-Received: by 2002:a05:6512:32c1:b0:47f:9d5b:d558 with SMTP id f1-20020a05651232c100b0047f9d5bd558mr9092329lfg.488.1656336563188;
+        Mon, 27 Jun 2022 06:29:23 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:50cf:b0:435:9b77:f6e3 with SMTP id
- h15-20020a05640250cf00b004359b77f6e3ls1431384edb.0.gmail; Mon, 27 Jun 2022
- 06:29:20 -0700 (PDT)
-X-Received: by 2002:a05:6402:1d53:b0:437:9737:24f3 with SMTP id dz19-20020a0564021d5300b00437973724f3mr4660956edb.397.1656336560861;
-        Mon, 27 Jun 2022 06:29:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1656336560; cv=none;
+Received: by 2002:a2e:9e03:0:b0:25b:c694:1134 with SMTP id e3-20020a2e9e03000000b0025bc6941134ls324038ljk.7.gmail;
+ Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
+X-Received: by 2002:a2e:b602:0:b0:25b:b233:8cb with SMTP id r2-20020a2eb602000000b0025bb23308cbmr5510338ljn.425.1656336561414;
+        Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1656336561; cv=none;
         d=google.com; s=arc-20160816;
-        b=lQj0KEIL0PZwCAlhxuq/JS0vZGWJsO7tqkLa7WuRkaTbVOLhe7u2gy0wtP2ueWTU4L
-         KNVsWFhaGsHfsjcWdW3xQpjRzG8GLrNqa/bx3TAlABtBNO5zgi+pads8klbvfrsNlskB
-         f/EhFrCdULxx/UYDTSor34tYEHq8VXGII3/otWlD+7GYPELlTZMJ3mDJ/DLZaiQ1SRyI
-         +UY8+I/Dqw1DHZhajsDvC3usjVbcKcPoclrh2rbYekim10+Itj/N4ZRl5NniSCkxcnNR
-         d22LkhpqIjJY5ZdsrFMVMLxa+gjP71T1HYk1kqhR+Dj4fM+a6aJZRXznaupi16ou08d8
-         YbxQ==
+        b=DjhOvxYUSPApTUcKceL4tTS1Ou+f0fqKZ70bNXBgPgocgME+iN4ygoOMlNhAhOhLNE
+         O4dZIAjjQY+pAEDCgdkG2coJRK9ckNi+lyucSI8MbepvUzsLXU+WoM9Uulofago/E9qL
+         YHhGOXxF0zuSUWpE5LSJmv21ORkC8WmfuHWrNPm/uAXvBc1aHv0j1+sp3fVNlpK6iRAD
+         Lz0zA1lP7D4WMM5/mrjSfCkl/b0IIsG9xodzEvZYSqT6vBpsVrOXYHGLKR1AvNkT7gUA
+         CoD7uoqP9s7OLrB71jISLzeM74/83ydEVM6WCf3Xa7EYuiBUrWEhD2elyrOyTZxwLRIp
+         d3Qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=KOBvhSkihx8Fjz3wEUmUb72+MgP8CWkelWb6PYEYt70=;
-        b=X3pKEUmfg165PXntV2phIXdGF29nNYkfNe++8HnNgHTfPP+vi8iAvh/e7q+2zHVCgJ
-         yxH4FJybSoLBcwMPMTyspozxtYjb8u3G4eAMA6EMPppS/EYTkZT/GC4sQZiCUJonV3ag
-         S1iaX+7zQYSzTxa7jiy3iWEV3gSco4Wu4Cv82Kh1n6sRoDTJ0iywMdeKif/e/faFT5af
-         HEakKTlNwk9az6709F6+ToaAGBBQLIGX/23vPenQJ5HUPHQDQ+c9IgdjTckohQQi8HHg
-         UO0XE5SJeCd2S/5FQhrfnWvwehOa3d+OFTHDtm80x0ejpuuz20cGo0MTVYAFakTE94lh
-         P68g==
+        bh=Wts1iQHAKI2RCEg+O1SPqC7cmTgdXPCH40+ahPiO9gQ=;
+        b=hzTzQcfgxoXDtaJFiwZZ02OcIveyfpXTG4iPbu01fcuzpQFfY2VbvrhAzhdZOBbYBp
+         tZVvU2NPXUR8I3HdEWwndKXri4Wsx82oUPKf3E45/lTGHO5T4mNktJj58yBLOZ4kvdhp
+         zIqa5/ZAGcbrdmt+CtuU2kNne+ohYxkmJ94hxDVvek9FLaZVU+aV2GxvKqC97j0y6A0Q
+         oxwig6HbLMITldFZTL2+cfHKpbMeCodb7ZAdNQJmd2QuUgJ4kpjgC8nm+EjyptmPESkq
+         6772X7ysHh4PKvjU8jdxfH0Dv6QYwqVec7OPilV0iApgDCi8ugVNBqjDy+9WYR9vTh7/
+         RV7g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=Bwm7f910;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=PZ4r+lWb;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id ci3-20020a170906c34300b0072546cfeee8si452408ejb.2.2022.06.27.06.29.20
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id o9-20020ac25e29000000b0047f8e0add59si488951lfg.10.2022.06.27.06.29.21
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 27 Jun 2022 06:29:20 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+        Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV83lP7zy1c;
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV85LG7zy0y;
 	Mon, 27 Jun 2022 15:29:20 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
@@ -110,9 +109,9 @@ To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 21/42] core: riscv: implement arch_send_event
-Date: Mon, 27 Jun 2022 15:28:44 +0200
-Message-ID: <20220627132905.4338-22-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 22/42] core: riscv: Add spinlock primitives
+Date: Mon, 27 Jun 2022 15:28:45 +0200
+Message-ID: <20220627132905.4338-23-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
@@ -123,9 +122,9 @@ X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=Bwm7f910;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=PZ4r+lWb;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -139,57 +138,93 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On RISC-V, there's no possibility to parameterise IPIs resp. enrich them
-with some userdata. Great. We need to do it in software...
-
-We differentiate between two IPI types in software: IPI_CAUSE_MGMT, and
-IPI_CAUSE_GUEST.
-
-When a guest sends an IPI to a HART within the cell, the HV will trap,
-and we forward the IPI call to the SBI. Before, we set the cause to
-IPI_CAUSE_GUEST.
-
-Follow the same logic for management IPIs accordingly.
-
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/arch/riscv/control.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ hypervisor/arch/riscv/include/asm/spinlock.h | 52 +++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/hypervisor/arch/riscv/control.c b/hypervisor/arch/riscv/control.c
-index b848994b..263708a7 100644
---- a/hypervisor/arch/riscv/control.c
-+++ b/hypervisor/arch/riscv/control.c
-@@ -11,6 +11,8 @@
-  */
+diff --git a/hypervisor/arch/riscv/include/asm/spinlock.h b/hypervisor/arch/riscv/include/asm/spinlock.h
+index a5e707d7..db9b33bc 100644
+--- a/hypervisor/arch/riscv/include/asm/spinlock.h
++++ b/hypervisor/arch/riscv/include/asm/spinlock.h
+@@ -4,7 +4,7 @@
+  * Copyright (c) Siemens AG, 2020
+  *
+  * Authors:
+- *  Jan Kiszka <jan.kiszka@siemens.com>
++ *  Konrad Schwarz <konrad.schwarz@siemens.com>
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+  * the COPYING file in the top-level directory.
+@@ -13,15 +13,63 @@
+ #ifndef _JAILHOUSE_ASM_SPINLOCK_H
+ #define _JAILHOUSE_ASM_SPINLOCK_H
  
- #include <jailhouse/control.h>
-+#include <jailhouse/printk.h>
-+#include <asm/sbi.h>
- 
- int arch_cell_create(struct cell *cell)
- {
-@@ -68,4 +70,16 @@ void arch_park_cpu(unsigned int cpu_id)
- 
- void arch_send_event(struct public_per_cpu *target_data)
- {
-+	struct sbiret result;
++#define	RISCV_USE_LR_SC	1
 +
-+	target_data->ipi_cause = IPI_CAUSE_MGMT;
-+	memory_barrier();
-+
-+	result = sbi_send_ipi(1UL << (target_data->phys_id % BITS_PER_LONG),
-+			      target_data->phys_id / BITS_PER_LONG);
-+	if (result.error != SBI_SUCCESS) {
-+		printk("IPI send to HART %lu failed: %ld\n",
-+		       target_data->phys_id, result.error);
-+		panic_stop();
-+	}
+ typedef struct {
++	int unsigned spin; /* has to have offset 0 */
+ } spinlock_t;
+ 
+-static inline void spin_lock(spinlock_t *lock)
++static inline void spin_init(spinlock_t *lock)
+ {
++	lock->spin = 0;
  }
+ 
+ static inline void spin_unlock(spinlock_t *lock)
+ {
++	__asm__ ("\n\
++	.if	%[use_lr_sc]\n\
++	fence	rw, w\n\
++	sw	zero, %[spin]\n\
++	.else\n\
++	amoswap.w.rl	x0, x0, %[spin]\n\
++	.endif\n"
++	: [spin] "=&m" (lock->spin):
++	[use_lr_sc] "n" (RISCV_USE_LR_SC):
++	"memory");
++}
++
++static inline void spin_lock(spinlock_t *lock)
++{
++	/* test and test and set */
++	__asm__ ("\n\
++	.if	%[use_lr_sc]\n\
++\n\
++	la	t2, 1\n\
++\n\
++1:	lw	t1, %[spin]\n\
++	bnez	t1, 1b\n\
++\n\
++2:	lr.w.aq	t1, %[spin]\n\
++	bnez	t1, 1b\n\
++	sc.w	t1, t2, %[spin]\n\
++	bnez	t1, 1b\n\
++\n\
++	.else\n\
++\n\
++	# see figure 8.2 in the RISC-V Unprivileged ISA\n\
++	li	t2, 1\n\
++\n\
++3:	lw	t1, %[spin]\n\
++	bnez	t1, 3b\n\
++\n\
++	amoswap.w.aq	t1, t2, %[spin]\n\
++	bnez	t1, 3b\n\
++\n\
++	.endif\n\
++"	:
++	[spin] "=&m" (lock->spin):
++	[use_lr_sc] "n" (RISCV_USE_LR_SC):
++	"t1", "t2", "memory");
+ }
+ 
+ #endif /* !_JAILHOUSE_ASM_SPINLOCK_H */
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-22-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-23-ralf.ramsauer%40oth-regensburg.de.
