@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBLXB42KQMGQEWOHLNFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33b.google.com (mail-wm1-x33b.google.com [IPv6:2a00:1450:4864:20::33b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2989355B9E7
+Received: from mail-wm1-x33c.google.com (mail-wm1-x33c.google.com [IPv6:2a00:1450:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0393855B9E6
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:19 +0200 (CEST)
-Received: by mail-wm1-x33b.google.com with SMTP id l17-20020a05600c4f1100b0039c860db521sf5607697wmq.5
+Received: by mail-wm1-x33c.google.com with SMTP id j19-20020a05600c191300b003a048196712sf2269278wmq.4
         for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656336559; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1656336558; cv=pass;
         d=google.com; s=arc-20160816;
-        b=e5zpChxLsoKoVdVGtGebmLxoF4aUtd9ppW5B+tYBD67N2Q/NTjKOdt2mTU6HyIKKxN
-         MjBK6LLOQvQo294AXtzSEAKb6Skdh9p7ncpIu5DAwg82WY8WDMpSWIeR+W7gD2SEY+Ev
-         lMjunxOo6hUZv9gUg9rgPGEv3BDDjwMQ62UAlCB84//awpEmFNTFWsKJZo7FvPlJkYkt
-         0GNbAdZXXUO/Xz8AQCv1dHDMp4iqDmd7o7i7osfwR+wRTYd/8ZzFaaPsB22Wcz58LJdQ
-         4INA76PkSGvbHn6JtLNUNQdIcdjOmxST9vaHUom17ZBzPM4Gis2PRm4zOPHcxCYM+sXB
-         V/4g==
+        b=X79FVsB8XqCC6tIC5ZBzh9aRGs/yBsw8pnT3F8MEvxKB8ovPEcvkRpaLQvAzxGQdJM
+         EHASebuFpXN8BehPhv9b/Gh8bIJEsfUUYxcRHBz86ME/bKMqv+B3FcITwLdwd0dsNktx
+         S7QeBvLJJoE+DKEOvLHIXUgol7hjXM0N2t5WbEib0TlkRrR340SBPA1Q6P0C8hyPPuNR
+         IdbldK0HQS9Zak/AWoDr+Ayzfbi0mfW0KXk6JCxNjVpL1rQzGQf73FoO0ezx4A5XoFhX
+         AhKmlAucGOu/ZsdMlHvUaa3ymBTnJ4EfDl6fXZ0It+RueCK6IUJhJDEXV6RG9VMpgBe1
+         /NKA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=rxbiEc42OU/VXcW0H7YSytb7txUB9h8yj+RJaVaMtWs=;
-        b=vvuXz22cAzhgOTz2is0VRRRj0x55Mu6J77JwjGvFDGhz+Ov7NUjTiwQ26u6DqAsUku
-         HihUvUmK86Vj36WMhAiDuFRDwPtU+NN8ZNU4R0OYRojMSvb7grPGSZb8nY1oBTRLH3bL
-         KN8u4G2anfgi0/fNk19eG4xszUTSqqmJ/+k9cdUt3xR8oCe6EEWZQ952ewZ7JtJ7c2hE
-         MoLDzouDNji1N+rrVKNxdQoJYh+Eqsnn43Bg0aa5tu5OU8R6B8jP3+bZ3nUYI2zHZZ7v
-         7xydVsNrB6ZbvP41Wrt671hEtwN6TWofZFWs9t0Zddqvshr2cEWgTVOG7V72fAOW4Ca6
-         LPlw==
+        bh=R4vEMjX5Yks4xaJee+zSBgLKos39rCA3G+R4J3Vefg8=;
+        b=GhCQt4uVcFZwXfUK4nBxSOPBBPRPT7BdfTnL1UfVGQU8KqS+X52T/7OQz5ZmgBO4yA
+         fZC6Z9J607y3TDmmPyWieqqVU3jUXwOeMPezzCWQz+EbOWXEQWlAbDY0WUiByrzFwjtZ
+         gEerk7xvulQHZ1MnLZZv0YRVQWlmqjZeK0D/w4MpK4eieHVAQ7Da0RiZhgwOQU5InvwQ
+         afM7sVeGKYvtl9LEzEkVeccn2y/RU0RS3TnXKYu/WTvSV1+ypN1i8msIJrMFaGdNESWc
+         GLqkmeBzutbM+HMDhBL2clmlDtaOCP+W/qYasa7V9L8JuIx3mdtkaeobiEUN+qS5fHma
+         ltoA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=QUS9LxIz;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="o2MQ/fMb";
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=rxbiEc42OU/VXcW0H7YSytb7txUB9h8yj+RJaVaMtWs=;
-        b=oAzRIL+y70K5bVS1sB6auS14RXqrkhhxodC+AbX4HzSNeoP0JgFMrJ657Ypy/rFKEE
-         FTIY4+zef/nGOKVmf4p65TuZZW/VUf2EJn5jOhNJkMf4pX0gUI17kDk2ems0jY+JxmqV
-         oPw8rg9zmIVijW1e0HGneweUSyxmJHgKpcEtLSQo2oGXSDjyVCVp5ZBNF80rFCmprMzH
-         ZzCffOhqrVCN6NrYRSvhNxpbSmyU0OjrY+eX4JqmX+GETKokew5dNLr5B5TbhevdSgEH
-         2bPpCl233KDjYZyjRRSbo3lD53Zuy/2m5CoPNwwNgJ8lU/TIX5Nz1FySThk0TePr1IPq
-         Oi+Q==
+        bh=R4vEMjX5Yks4xaJee+zSBgLKos39rCA3G+R4J3Vefg8=;
+        b=GTjfMSbBs3RkUxLwAgQOQE4yIgNvP2BJp4xmSgHP2igekYfpMBlDk/ukk+P1Jg6KQj
+         Mf6Q6IVzb5M8MLbnGaCCpSH7bXZPfGQ/hr+ztfnu3vAX5L4RItzIqvPgQctLUiKGXKDp
+         9mGTZgaZNY936KFqH9oBQpGkPOcW+Y7wz8V0vJkCpdBzx3dQ7PO60ciUofMKP70NJskq
+         9cBVxPF4btXNdzM5IKweftDK5NxuoBGkLpDlNU3gq31+uWbKghrRNMj3FSSXDJ+EN0C4
+         cEn/nWJrVq9jv3yI0qPApfOEXe0Dr93jPQgMk7nKLjoaDCKF45i+4ybuv3hgBPlrONJi
+         7mhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,57 +49,57 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=rxbiEc42OU/VXcW0H7YSytb7txUB9h8yj+RJaVaMtWs=;
-        b=hjCBkhdeQh9F4sjtLNv6rYeBu2KRGLD/g+xkdNiirpfe0CVGpjaBPosyfsqu2Q1mlw
-         i2MHkQKoC1aZEIVDQlGi3uFJoAQNzMhXaP7xBlEdHQxARb7zdlgZovwMLqQHoJp83UC0
-         FUr0IGy5eS8nge7WYPgYHse4whoHTf4HmF3PZjR614mrw5YRLWBVphhj9iZ3cErW7fZg
-         pmGMUWMgOSwXddi75+hSuIaui8sF4H0W0ZetuhdY+F/zB7NXQlX5u/9CoPgH2sCJ7wGs
-         KsbLZcp4X4Hfi5gzmByggZcXbVPSl4jvjt/q6ZFYxwSMJtcuuwQHLz1kCJ/OLMtPCUXe
-         75rw==
+        bh=R4vEMjX5Yks4xaJee+zSBgLKos39rCA3G+R4J3Vefg8=;
+        b=JlIkYQbxuVaWYNH5ImqEL1JO/iVR1jD2tWNuiyulxZ39+e/w6XCqjC5GB+xhQ3+JYI
+         54UuJNHhJIRQaBgedDBJzX4YfbdBHwsIAgNaa6/l738qjHKoFhtzi07W0PwNfCp6UR5Q
+         Z4LXgipHOGuDS+BYd0WntboPTlmQ33plD8K9lM1qSHaTgabqKvMLiYyU4vFWGw08GZAS
+         rzt5KuPe0/DkReIHiX2IdhpYbzdmcpJsYoUyrev+AaGnT9Fs12gVFDfb5sZRei9izVEG
+         g3rPeuyFjxLDbLt02DWo0N+L5PepATlL1DzLBp2re1VJq11FZbEO13WVd/UOf8uOm4x+
+         dLQg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora/soXb1QRTZyu+FecdSVoR7L10kzC2+Ya4fQNziFu9U9yiD3qOe
-	kj2ajhqMkumM5oNooJDqHFA=
-X-Google-Smtp-Source: AGRyM1te6Wd32Ba5wvR70+4M7wXF/9sJ+5VxsP+Ir1ihpR4wvNq2/gX29WbbRk6M/dANyQrTqTdDhg==
-X-Received: by 2002:a5d:51d2:0:b0:21b:bd52:c9c9 with SMTP id n18-20020a5d51d2000000b0021bbd52c9c9mr11803759wrv.498.1656336558697;
+X-Gm-Message-State: AJIora+WEx8VI3WMmHnWJSnJm5D4XYbI5MXzDI0UWEY7qavaEwOQw59S
+	G9wus8JqabiJpdD1B8cFzlw=
+X-Google-Smtp-Source: AGRyM1ti7kSGTt+3Q4LZkkDpWowsEbBcHJ3GDH8ULlKvPPV+IhwtxEA5YjInnBsJNSjs8lb4K8YtxA==
+X-Received: by 2002:a05:600c:210a:b0:3a0:3be1:718f with SMTP id u10-20020a05600c210a00b003a03be1718fmr19165266wml.181.1656336558798;
         Mon, 27 Jun 2022 06:29:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:5848:0:b0:219:b7ea:18e1 with SMTP id i8-20020a5d5848000000b00219b7ea18e1ls26793104wrf.2.gmail;
+Received: by 2002:a5d:6dab:0:b0:212:d9db:a98 with SMTP id u11-20020a5d6dab000000b00212d9db0a98ls26785004wrs.3.gmail;
  Mon, 27 Jun 2022 06:29:17 -0700 (PDT)
-X-Received: by 2002:adf:d1ea:0:b0:21b:a6cb:fcf6 with SMTP id g10-20020adfd1ea000000b0021ba6cbfcf6mr12245776wrd.477.1656336557240;
+X-Received: by 2002:a05:6000:71e:b0:21b:adf2:c9ab with SMTP id bs30-20020a056000071e00b0021badf2c9abmr12605578wrb.153.1656336557452;
         Mon, 27 Jun 2022 06:29:17 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1656336557; cv=none;
         d=google.com; s=arc-20160816;
-        b=Ue6ynyYISo+DVxUJO2nJNTVPF1phvsLCnFuayVz+6GoLHVV8G1keKH7WMGilKJHzIJ
-         H5v7eoNzFzGYjb+qX/S+lwB9U4IO7nDBxKFPj8uoIPtB/9hJS2uhTB1nDRFJAeFSC7YI
-         87657CyUaMxoXUWT71rPBIyyJaBaVy7inKkIbATtS6JvBePLEpvKlYjovt+41RpYrwUJ
-         oL+AghdiuJ7facs3ukZ2e143qEiiLJH47/s2U3tA43SXwg+KmDGU7kxslBifCEnuXxJD
-         FcKFYBV8g34lCkZexSVeQhl1fRwjssrxieXo9KoKLqAn2IFsNnxEGc+iP8l98wRn105E
-         sgHQ==
+        b=VtYZBeQhkGhgFYit630khuSeMJ2zFZd78bnGH9cLUq2psgBcDb3PDZmL9JNOrJPMsX
+         vZNvYthv1kgxqHR0nybtnJRVYa0dTZP3zX36FphzPsEBzqaio80kHlDsAU1j9/yFfVKs
+         Pih2V4IHzWxpTEFE0WwJE50Afj3hJggnioug1SS8pyY5X0cuFQhyLGlzSnLa2YB/6bLI
+         4edCjNBv25MdmYW35FJWyXwemx2px5uxH/SjUNOdrvcfknQWj4hAx61rAtFXqXR4G6Kz
+         IOD/nIvdtZoQ42d/dh9Rhh+PsEitM8MAZfBk97q1+16gAX/FE8dQ1KhXt0QhkUv9znAK
+         UX+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=5ejG8QMg1sse+taGNFojCa8PJEXGhKoA3wQCfktgXcc=;
-        b=HexkhCj2LkfLoJ8dnwT3zGXsWMGTz4JfHhrUkN+RcH3mXiPRYXhgkOkWOpK5MrP8Gp
-         +oSpuqQM66WrLfZNMZK2K3tGbQHUfr3M4/i117tsD9JbnWL8mijIerIBYUNNtTGeONAq
-         6d0wLBCz8wVyU/VnMY1f3yzzOvvgzjWhgMXk+J4DadBUlVaOOIYyCR7bqoofVIimH8iT
-         52KtapJI5eu/i4vxamorm2Yv18QSruVIOAeREDmx8IPzGt9dUapeXLwRoKJ5uCO9fm7I
-         rem6k7OWT8UoO2pNKM40iJ/6ykpXsNffyhxT+UwQk6S/wQAL5E+QLQiHRlnMc9SRMspm
-         nvUw==
+        bh=BdzV9zdKkHCE5dhOYNZLKsLxoFMo851pou7ELSTUL9E=;
+        b=PUjXavNCM5JqOxDJsiIa2KlD8mC6wlj+fHpaiOomzOsuAFITjUN7hkkbYaJQXeKhiS
+         ruprbFBR1M6nAEvUXYZY35TZzRuiG/JsxFBxR/m4OGZWIwrC2Fzl8qfXnZUZcqpjLTMa
+         3+poKdeaoPSI/oibqrSj4cpaDwUQFOlrsrzOeupWVuyrOO9F/OAlEkHOAOaKfjDyw2o5
+         542gAZzxxX8k7duBC/OSoQxCyZF0zjuYQ7vUMEBE+1a1+EUnkyukY77tUcbosVNTHEb1
+         TiRrkwrzcu1pm+90drxxSb33atptTsXO+thMUW9JyygKOAgNlccxrBV7GmnBpw237m4H
+         HZAA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=QUS9LxIz;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="o2MQ/fMb";
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id n42-20020a05600c3baa00b0039c948d7614si505772wms.3.2022.06.27.06.29.17
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id k24-20020a7bc318000000b0039c4d96e9efsi878635wmj.1.2022.06.27.06.29.17
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 27 Jun 2022 06:29:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV4719gzxxR;
-	Mon, 27 Jun 2022 15:29:16 +0200 (CEST)
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV51Rsnzy0c;
+	Mon, 27 Jun 2022 15:29:17 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
@@ -109,9 +109,9 @@ To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 02/42] driver: sysfs: prepare for exit accounting on RISC-V
-Date: Mon, 27 Jun 2022 15:28:25 +0200
-Message-ID: <20220627132905.4338-3-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 03/42] core: riscv: define MMIO accessors
+Date: Mon, 27 Jun 2022 15:28:26 +0200
+Message-ID: <20220627132905.4338-4-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
@@ -122,9 +122,9 @@ X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=QUS9LxIz;
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b="o2MQ/fMb";
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -138,86 +138,128 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Besides generic traps, we will have a bunch of RISC-V specific traps:
+GCC may emit 4x 1 Byte reads in case of our regular mmio_read32
+accessor, when used in combination with -Os. Yes, I've seen it.
 
-Platform handling:
- - VMEXITS_SBI: Calls from the guest (VS-Mode) to the SBI firmware
-
-IRQ handling:
- - VMEXITS_TIMER: Timers will arrive in S-Mode
- - VMEXITS_IPI: IPIs arrive in S-Mode
- - VMEXITS_VIRQ: external IRQs arrive in S-Mode
-
-Generally, using a simple PLIC, all IRQs will arrive in S-Mode.
+Define safe handlers to overcome this issue.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- driver/sysfs.c                               | 15 +++++++++++++++
- include/arch/riscv/asm/jailhouse_hypercall.h |  7 ++++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ hypervisor/arch/riscv/include/asm/mmio.h | 67 ++++++++++++++++++++++++
+ hypervisor/include/jailhouse/mmio.h      |  4 ++
+ 2 files changed, 71 insertions(+)
 
-diff --git a/driver/sysfs.c b/driver/sysfs.c
-index 61b851cc..5ea1a8b0 100644
---- a/driver/sysfs.c
-+++ b/driver/sysfs.c
-@@ -163,6 +163,11 @@ JAILHOUSE_CPU_STATS_ATTR(vmexits_smccc, JAILHOUSE_CPU_STAT_VMEXITS_SMCCC);
- #ifdef CONFIG_ARM
- JAILHOUSE_CPU_STATS_ATTR(vmexits_cp15, JAILHOUSE_CPU_STAT_VMEXITS_CP15);
- #endif
-+#elif CONFIG_RISCV
-+JAILHOUSE_CPU_STATS_ATTR(vmexits_sbi, JAILHOUSE_CPU_STAT_VMEXITS_SBI);
-+JAILHOUSE_CPU_STATS_ATTR(vmexits_timer, JAILHOUSE_CPU_STAT_VMEXITS_TIMER);
-+JAILHOUSE_CPU_STATS_ATTR(vmexits_ipi, JAILHOUSE_CPU_STAT_VMEXITS_IPI);
-+JAILHOUSE_CPU_STATS_ATTR(vmexits_virq, JAILHOUSE_CPU_STAT_VMEXITS_VIRQ);
- #endif
- 
- static struct attribute *cell_stats_attrs[] = {
-@@ -188,6 +193,11 @@ static struct attribute *cell_stats_attrs[] = {
- #ifdef CONFIG_ARM
- 	&vmexits_cp15_cell_attr.kattr.attr,
- #endif
-+#elif CONFIG_RISCV
-+	&vmexits_sbi_cell_attr.kattr.attr,
-+	&vmexits_timer_cell_attr.kattr.attr,
-+	&vmexits_ipi_cell_attr.kattr.attr,
-+	&vmexits_virq_cell_attr.kattr.attr,
- #endif
- 	NULL
- };
-@@ -221,6 +231,11 @@ static struct attribute *cpu_stats_attrs[] = {
- #ifdef CONFIG_ARM
- 	&vmexits_cp15_cpu_attr.kattr.attr,
- #endif
-+#elif CONFIG_RISCV
-+	&vmexits_sbi_cpu_attr.kattr.attr,
-+	&vmexits_timer_cpu_attr.kattr.attr,
-+	&vmexits_ipi_cpu_attr.kattr.attr,
-+	&vmexits_virq_cpu_attr.kattr.attr,
- #endif
- 	NULL
- };
-diff --git a/include/arch/riscv/asm/jailhouse_hypercall.h b/include/arch/riscv/asm/jailhouse_hypercall.h
-index 7d54047c..1a76ba2b 100644
---- a/include/arch/riscv/asm/jailhouse_hypercall.h
-+++ b/include/arch/riscv/asm/jailhouse_hypercall.h
-@@ -36,7 +36,12 @@
-  * THE POSSIBILITY OF SUCH DAMAGE.
+diff --git a/hypervisor/arch/riscv/include/asm/mmio.h b/hypervisor/arch/riscv/include/asm/mmio.h
+index e69de29b..e19d0cec 100644
+--- a/hypervisor/arch/riscv/include/asm/mmio.h
++++ b/hypervisor/arch/riscv/include/asm/mmio.h
+@@ -0,0 +1,67 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2022
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++/*
++ * We need those definitions, as I saw the compiler emitting 4x 1B loads in
++ * case of mmio_read32.
++ */
++
++#define DEFINE_MMIO_READ
++#define DEFINE_MMIO_WRITE
++
++static inline void mmio_write8(volatile void *addr, u8 val)
++{
++	asm volatile("sb %0, 0(%1)" : : "r" (val), "r" (addr));
++}
++
++static inline void mmio_write16(volatile void *addr, u16 val)
++{
++	asm volatile("sh %0, 0(%1)" : : "r" (val), "r" (addr));
++}
++
++static inline void mmio_write32(volatile void *addr, u32 val)
++{
++	asm volatile("sw %0, 0(%1)" : : "r" (val), "r" (addr));
++}
++
++static inline void mmio_write64(volatile void *addr, u64 val)
++{
++	asm volatile("sd %0, 0(%1)" : : "r" (val), "r" (addr));
++}
++
++static inline u8 mmio_read8(const volatile void *addr)
++{
++	u8 val;
++	asm volatile("lb %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
++
++static inline u16 mmio_read16(const volatile void *addr)
++{
++	u16 val;
++	asm volatile("lh %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
++
++static inline u32 mmio_read32(const volatile void *addr)
++{
++	u32 val;
++	asm volatile("lw %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
++
++static inline u64 mmio_read64(const volatile void *addr)
++{
++	u64 val;
++	asm volatile("ld %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
+diff --git a/hypervisor/include/jailhouse/mmio.h b/hypervisor/include/jailhouse/mmio.h
+index aa85a089..f5ace9e9 100644
+--- a/hypervisor/include/jailhouse/mmio.h
++++ b/hypervisor/include/jailhouse/mmio.h
+@@ -32,6 +32,7 @@ struct cell;
+  * Define MMIO read accessor.
+  * @param size		Access size.
   */
++#ifndef DEFINE_MMIO_READ
+ #define DEFINE_MMIO_READ(size)						\
+ static inline u##size mmio_read##size(void *address)			\
+ {									\
+@@ -49,12 +50,14 @@ DEFINE_MMIO_READ(8)
+ DEFINE_MMIO_READ(16)
+ DEFINE_MMIO_READ(32)
+ DEFINE_MMIO_READ(64)
++#endif
+ /** @} */
  
--#define JAILHOUSE_NUM_CPU_STATS			JAILHOUSE_GENERIC_CPU_STATS
-+/* CPU statistics, RISC-V-specific part */
-+#define JAILHOUSE_CPU_STAT_VMEXITS_SBI		JAILHOUSE_GENERIC_CPU_STATS
-+#define JAILHOUSE_CPU_STAT_VMEXITS_TIMER	JAILHOUSE_GENERIC_CPU_STATS + 1
-+#define JAILHOUSE_CPU_STAT_VMEXITS_IPI		JAILHOUSE_GENERIC_CPU_STATS + 2
-+#define JAILHOUSE_CPU_STAT_VMEXITS_VIRQ		JAILHOUSE_GENERIC_CPU_STATS + 3
-+#define JAILHOUSE_NUM_CPU_STATS			JAILHOUSE_GENERIC_CPU_STATS + 4
+ /**
+  * Define MMIO write accessor.
+  * @param size		Access size.
+  */
++#ifndef DEFINE_MMIO_WRITE
+ #define DEFINE_MMIO_WRITE(size)						\
+ static inline void mmio_write##size(void *address, u##size value)	\
+ {									\
+@@ -71,6 +74,7 @@ DEFINE_MMIO_WRITE(8)
+ DEFINE_MMIO_WRITE(16)
+ DEFINE_MMIO_WRITE(32)
+ DEFINE_MMIO_WRITE(64)
++#endif
+ /** @} */
  
- #ifndef __ASSEMBLY__
- 
+ /**
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-3-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-4-ralf.ramsauer%40oth-regensburg.de.
