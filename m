@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBAW242KQMGQEIDHAOKQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EC3C55B9B7
+Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4E955B9B6
 	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:13:39 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id b2-20020a0565120b8200b00477a4532448sf4709472lfv.22
+Received: by mail-lf1-x13a.google.com with SMTP id e10-20020a19674a000000b0047f8d95f43csf4703976lfj.0
         for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:13:39 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1656335619; cv=pass;
         d=google.com; s=arc-20160816;
-        b=nqgKi2j1iclOVdMSYO03vZ958gg2UrsJCvlaV7UJ9+V9IsxpFtKqbWnvXKnUMJZ9VH
-         F1v7X5HwQ6GvmXg1aYKYKSiuO8noz6pskc9WLJQTk9Bq8bZyCGhkskq6cwp9j3HEauln
-         skM84IFfT88igw2OhuPAKeXBTJUc11vp0u918geP3JCGRyM0nHIg3Ps2tY/9XmjPEAzV
-         i/wsd5qx6kv2P2hxml/S7jxhtnoSTo/QnAFBoaY0dVD02n53Ov9YymRRnobormM/q51+
-         e1MIEVo181iSMuyN2+Qi/ysR81H8eAqQ9IXgycnQf4i5F8S76Zp+a163IuA/Wexvl/HQ
-         F6tw==
+        b=Ebv1t3SaEUB9ofziBkkJvhzW9pGbaZxDwUR7GrXqZ8xcf7eokQxQ/lZin6AUQIK6gt
+         KP1LjhldueCoyZABzhXWkembLNUWNSSaaq8pvgXv1kpgUyEBponB0dGrYsXNil2VxRBC
+         CEnWwF0eeej6xH20xmAMAa6OV8dMmg184szsn/hmYyn7PjFICaDeWobuIamnQkmORNyS
+         3wHYQvBUFNsUshBUy+9jhS602bKg1qMT+I5qZJ3P7/gxg0s0OhfzUXhFMRNbKT7Zl91L
+         mc/HBP8ALDr+O3ypm43KfopzpnsBJRCNjmcG652CVA2hL0ZGkoC1EoT+tWOrJkKW418E
+         HhWA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=pIGyH3rDhxDJh6v5L4uR8d1mdAehIQ5kkP77hV+phPU=;
-        b=y1HASD4mmYKSq2tGrqVEkNQefsZm4REH2BkFq4hb5gL8IStghZEehI8frbD5q8A1Qc
-         Sz6Zxeg7nAgXxXZOQXdgTVBW/VRT6q6PXGSWY3Sl/uOfotHVwXNV6uzHvphvugWxhl+B
-         AFTt2b8DIPLIwhA677mgwRJcQgurTTM4ETh0cDxOuPuukQYopRHngR/2Gp2ySi6JL2rQ
-         aLavHSunSeHqCC60Hx9CWwSu+YCC8zZMNCBgArP0QlAiJE5PUWy5FrkBXaM1ayDDBouJ
-         rQn4XLCXNM3c99dwB5HZe9Xfwi2MJWK5mpBQmS5BwP11kEALv0LzD4LWcCtNhSWpWBi3
-         ICAQ==
+        bh=ra0HXvOb/d9bx4pBnHp3b0LFS8bbNobcDLXls8OPY5w=;
+        b=fGCkVfLWx9S433V+0b+3ksI38dChed23RyNDJ+etRLMO9ee4gCCbXeWc52WOXrblJv
+         aU1/2CdyriL9rkiGcPiHfx5sXRY8levQjon7XVGCbAEz49GJ1zTsafUsihqUFDdqNc/P
+         OgJXCSYPEl/nhlp2bFDNgtV6/IFE5Pdq2XnU2b2hxub3hpLIQ83dOyZZiz8rlnn6unfd
+         9XQWmMrfzRPTHf26XVzQ7A+Wtsyl8njh3/6lpVIBQajPdK7+00X83S9iehLO58rFLOVj
+         b7j5vM0bajRy5lsJkwxR90UEbgdaLX3WGO+vbwW+62pVjY3vPSTT61cJu0qjUyHJBxmN
+         pOpA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=pXQnq87v;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=KbP9Ek9z;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pIGyH3rDhxDJh6v5L4uR8d1mdAehIQ5kkP77hV+phPU=;
-        b=Q/IqoPGRs7QExsD0KnxtQmfilKGeupEKMDGxvZ5bezA8iLU4mTh+VRuj0o6mc/xHEM
-         T1F+kkgWoc6DORbU5oE6dndE0k5kEXulra71+an3++NOhTiDBMLGy/w2DJh6giuVWY8D
-         NAcaxdsxWCwtffgKTY382FuVXy9YwaX1F6hTSRPhM0uXq1GdBVErA71J9mOFZmynA90N
-         p4ZenvEohxnWjrm64z6MMUdFGPXXI8Q+zr+7CP9C9rMcVdvLJYuDDZ45eRv2c/bJhL92
-         t5OwJNF/PJQnwSDNejbGT25eg1LKGBe2frTDUhFIGOabgMuSSsAoPMSXJoU1FC7JNo/X
-         Ft+A==
+        bh=ra0HXvOb/d9bx4pBnHp3b0LFS8bbNobcDLXls8OPY5w=;
+        b=SES9CoETTOM4nmWIc85DP6DBldEC1d32oxr4JrkdPMW67GJpECS2PfqApUhxWHrecw
+         OWADREG9Jj6GfxkrBeYk3TZI6++JNeUpKYVtUK5wIlWNbaEbcf/Zj+J3dvHwTsAgLsok
+         LsZpORH+La6F78wI1mbnI0EPNvkRTZIb51IQqvLirJqfjN/5FE0xtJkPxI/6bK48V0Nw
+         n7WSqxp0VGEOa3WSkqQz/KKWF2BdkJI1cR8aS5+LAo+I3LchmfLNGgPEvj9OauZ1QhnF
+         oBlkkIuqilXTICc7gV3WwIgAgKf0UhqlAkeZ3GVQMUNbhzwkRJjgW1CesRkG+8vjGIby
+         FopQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,56 +49,56 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=pIGyH3rDhxDJh6v5L4uR8d1mdAehIQ5kkP77hV+phPU=;
-        b=QKZC5GrptGdp71+WMmNROK9wGWqfl+aSC+rhV5MpXfQuo1mC+expz/s2t10qEVBxlC
-         zeJMyyJ8wZawPoXJWpvtxfYoWMCqj6hYLHPjknGYKlInYhnqnYwD8KKM2E6zMxINY3In
-         bF0SSoOY5tDjB6oTpNzcIIbSjPjufGz9D2/wq0Q7VHYlbinYiI5WJCED7hsZsuBqJvUF
-         ZustyPCnuWpys28lWfsi2eCAjp2dcTWGwEhDbO829mZQ4Z7o8qB5F2Grwh+zLdoe649l
-         xA1syo9VCYOz3LR9b1+rS75zuRbEjYCdAUkdX58/7hsvS/JfStlBZqsxzls3MvaaHrp3
-         2QHA==
+        bh=ra0HXvOb/d9bx4pBnHp3b0LFS8bbNobcDLXls8OPY5w=;
+        b=S3fXD3hE+xxCHbHbSAAt0sfPcduL1G4Lq79xPumkMBjSoeYI9ta/Oi3fvbysmrBB3w
+         D/U29WNXjKGw/1jyYt+55BvvWxxBnyqxEm+lxjJmzitcMvOMXy6O0aFgE64xmxvLDA8Z
+         17fhNH2VG84Q5dXNe/3ZHRK7qcogiuZ6mm6tt77mDUlCptDGUvkVkXJJRDTuLldUe3LN
+         Sbo5C+ArBRhmEMkabnMqwzKT1SfcfbEsokSBTUqylS2Rqfx9aQPD5s82d2kkqozWpSTj
+         KfSKkb847RS1/JqWkoYoeDqFeAXvvj+1aHMimO1wWz9oWv/Mx1Im5O7wSr6bxXGaOP5n
+         c9nQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora9W091chuXxH5O+Zr9lvCIhH/aR+3H5cOw8ykyt/NM1SKe0COCB
-	1TXuEAdR9EyNSZEzAckBOG0=
-X-Google-Smtp-Source: AGRyM1sqUeMwxy76T2Rvnlpk3x667618xjJep1BsWXY+4PO0fnqI7FyfbOQI56vVIruzyj6n66TzNA==
-X-Received: by 2002:a2e:9ad0:0:b0:25a:7156:26bb with SMTP id p16-20020a2e9ad0000000b0025a715626bbmr6594273ljj.141.1656335618752;
+X-Gm-Message-State: AJIora8xEvJRk1l3A3GU80qEnHf2hPf6+6Yy38Qa+UsTRtfoK5wzUDcI
+	865W24LP9cQnfzo33+eVS18=
+X-Google-Smtp-Source: AGRyM1vrLbLkZwqemaXm7pPEzZ+zf5cfxEoXU4vmSNv1biuEdQ0ctZ7QSixZvnFH3dlRZGCeDQJrpQ==
+X-Received: by 2002:a05:6512:3d0d:b0:47f:b8eb:86ae with SMTP id d13-20020a0565123d0d00b0047fb8eb86aemr8935479lfv.78.1656335618718;
         Mon, 27 Jun 2022 06:13:38 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:b041:0:b0:25a:7050:86fb with SMTP id d1-20020a2eb041000000b0025a705086fbls3325863ljl.10.gmail;
+Received: by 2002:a2e:864e:0:b0:25a:6d5e:adb1 with SMTP id i14-20020a2e864e000000b0025a6d5eadb1ls3436700ljj.2.gmail;
  Mon, 27 Jun 2022 06:13:36 -0700 (PDT)
-X-Received: by 2002:a2e:b911:0:b0:25a:9942:4171 with SMTP id b17-20020a2eb911000000b0025a99424171mr6397451ljb.426.1656335616872;
+X-Received: by 2002:a2e:8349:0:b0:254:224a:3c8 with SMTP id l9-20020a2e8349000000b00254224a03c8mr6819838ljh.406.1656335616871;
         Mon, 27 Jun 2022 06:13:36 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1656335616; cv=none;
         d=google.com; s=arc-20160816;
-        b=QbB1Gmb5tOE5+At53ru1XZg0W2WzjVdVKLRwPz75k4nY5Dyd7xv1VZk+Sw9XY0bTUD
-         /XZVNeLVQklsAdt3l2cMsgubErI2ZwloC2QeoyFpStPpjJLUiD62Jc3m/3dOnR5blHqN
-         pk0LD6m1QAv79oK9W4K+d0XnoJibNHM7/dPawaukjIlbYS+hmXpP5gDCB08IKzQtiTA3
-         lkxRkR/X0BB1J4mDKhC5h/9homgQwUpIsFQuocGrg4ReEue6BB03gMgN+RLxgeye7WOL
-         Oh8pXpNnKZw2Bd0UWOJHQclOfPjyp0Yuezzwv6ydORwfrltF6OU0O8mk3Z38ww/6Gigg
-         W28w==
+        b=KXn2+rH7IOqmF/CDyq975jK5mOdYULImK4rH0eU5RjQcBdCuPcSNzrbI2hy5k4GNbn
+         ICpmdqBdgxS2LO6eNDgeMdR8P+tyvwjIPlWQiifZf+UQFb1yFa5A5t2p+0n678PM2YO+
+         7M9UL6nh4VuGMkEQ+Yt8qYgLkaAaopb72Y22ADmiIz+lomzLC8rrRGyZgmk/LSwbV14k
+         vUY6ndg0gb8+1eWuK5JLxACENVZELBU9GdCfncFAbx/qB/f8o/z9lZMh2IYphR4I/BY/
+         PQrEfEs09PiBbyz9OgFhJyRKCOhjG191H3YmJyQi/JyCsjyZms2cc1WOzp9y14x4dDjE
+         6Ljg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=S3nDismc4g0n3YlCRoAIENcWIUf3Pm/CxGWH7x+MWi8=;
-        b=0A9O341+RX2UcUxtpgFZ5sXWNzdRnbQEeyKzKibmffbcyKl6FiGEoBLFsbnGAjHz1R
-         +ikTMUnpXEoVjSr9OWliyjGgI7q35Ufihvd0YtLsDcI+2T2TtVGD8I9P2FkZ7CnXX+fq
-         L/CBV/Dh5Un3SSjH+rJ8yCf/u4vgmcp79dDyXCQ24V18xMSYkGm6nefl4zwo9HxtbNRz
-         ASIqHcEZwsfXgU2kJ9SRQJYu46nqTsiAO/02szCF0le+XS4ujP+u22Ay/F8atINBFmiv
-         xoj0gmWCQ1PhPClPBXdL2eHhuv2xNnRFtHJXOldQgLpqqBin5VtIdY9IfySF863UhpJG
-         I90g==
+        bh=yxwCDIcn0Ry+ONfMWaezubtBYzruBI5s8wZUwseWX6k=;
+        b=Ap704Yh2cTrTurj4VUEQHu2/13U2MnSdR564blvWPg71jU34nLf30PjCVPIygC6dua
+         dRAUeQmtbrLHmuoxzkRGmmxGuI/IBtjxA9+EMYEQXc592aDHpDG3OeEJBDOBW93LFdRY
+         rLG7YP2/alj2BV0/6bpRkWYcG6M4ST4qExIzvhvaLmBRayPcPxCXnauoHDH2AZgyirFc
+         pw3lSZFFZ9/XiFXZyPeR0QLG4I4vMcArPzAYs260CcYtyf9IOfmhYUkGY39JYqqmdOr4
+         EKNLKgNaOyAB0jpcuOq0EID5L28Z+JDDm2VyRDz6LkRphB6UfQYZGbp/reWudekSmdLR
+         BiNA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=pXQnq87v;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=KbP9Ek9z;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id p16-20020a2eb7d0000000b0025a71229262si380769ljo.3.2022.06.27.06.13.36
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id b23-20020a0565120b9700b0047fa023c4f6si442038lfv.7.2022.06.27.06.13.36
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 27 Jun 2022 06:13:36 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWp800VQSzxxZ;
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWp801bhmzy6H;
 	Mon, 27 Jun 2022 15:13:36 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
@@ -109,9 +109,9 @@ To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 01/20] core: Add internal event check before hypervisor activation
-Date: Mon, 27 Jun 2022 15:13:10 +0200
-Message-ID: <20220627131329.3659-2-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 02/20] core: Skip arch_flush_cell_vcpu_caches during setup
+Date: Mon, 27 Jun 2022 15:13:11 +0200
+Message-ID: <20220627131329.3659-3-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627131329.3659-1-ralf.ramsauer@oth-regensburg.de>
@@ -122,9 +122,9 @@ X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=pXQnq87v;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=KbP9Ek9z;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -140,214 +140,56 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-If setup code triggers any event that is to be handled on all CPUs, this
-should be processed right before VMM activation. Adding this will
-consume the superfluous and to-be-removed flush_vcpu_caches. More
-importantly, it will enable handling of update_cat properly on Intel
-x86. As there might be more cases in the future, install this pattern
-for all archs right from the beginning.
+There is no need to kick off a vcpu cache flush right after setup. We
+just installed the new mapping and didn't use it yet, thus nothing can
+be cached.
+
+Actually, this didn't fully trigger a flush on ARM and ARM64 anyway
+because those archs didn't kick all CPUs but rather expected them to be
+suspended - which they aren't during setup.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/arm-common/control.c      | 7 ++++---
- hypervisor/arch/x86/control.c             | 6 +++---
- hypervisor/arch/x86/include/asm/control.h | 4 +---
- hypervisor/arch/x86/svm.c                 | 6 +++---
- hypervisor/arch/x86/vmx.c                 | 4 ++--
- hypervisor/include/jailhouse/control.h    | 7 ++++++-
- hypervisor/setup.c                        | 5 ++++-
- 7 files changed, 23 insertions(+), 16 deletions(-)
+ hypervisor/control.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/hypervisor/arch/arm-common/control.c b/hypervisor/arch/arm-common/control.c
-index 9fc42761..400490ae 100644
---- a/hypervisor/arch/arm-common/control.c
-+++ b/hypervisor/arch/arm-common/control.c
-@@ -2,7 +2,7 @@
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-  * Copyright (c) ARM Limited, 2014
-- * Copyright (c) Siemens AG, 2016
-+ * Copyright (c) Siemens AG, 2016-2022
-  *
-  * Authors:
-  *  Jean-Philippe Brucker <jean-philippe.brucker@arm.com>
-@@ -62,8 +62,9 @@ void arch_park_cpu(unsigned int cpu_id)
- 	resume_cpu(cpu_id);
- }
- 
--static void check_events(struct public_per_cpu *cpu_public)
-+void arch_check_events(void)
- {
-+	struct public_per_cpu *cpu_public = this_cpu_public();
- 	bool reset = false;
- 
- 	spin_lock(&cpu_public->control_lock);
-@@ -125,7 +126,7 @@ void arch_handle_sgi(u32 irqn, unsigned int count_event)
- 	case SGI_EVENT:
- 		cpu_public->stats[JAILHOUSE_CPU_STAT_VMEXITS_MANAGEMENT] +=
- 			count_event;
--		check_events(cpu_public);
-+		arch_check_events();
- 		break;
- 	default:
- 		printk("WARN: unknown SGI received %d\n", irqn);
-diff --git a/hypervisor/arch/x86/control.c b/hypervisor/arch/x86/control.c
-index 2bc47a6a..b46347cc 100644
---- a/hypervisor/arch/x86/control.c
-+++ b/hypervisor/arch/x86/control.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013
-+ * Copyright (c) Siemens AG, 2013-2022
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -160,7 +160,7 @@ void x86_send_init_sipi(unsigned int cpu_id, enum x86_init_sipi type,
- 	 */
- 	if (type == X86_INIT) {
- 		while (target_data->init_signaled) {
--			x86_check_events();
-+			arch_check_events();
- 			cpu_relax();
- 		}
- 	}
-@@ -177,7 +177,7 @@ void __attribute__((weak)) cat_update(void)
- {
- }
- 
--void x86_check_events(void)
-+void arch_check_events(void)
- {
- 	struct public_per_cpu *cpu_public = this_cpu_public();
- 	int sipi_vector = -1;
-diff --git a/hypervisor/arch/x86/include/asm/control.h b/hypervisor/arch/x86/include/asm/control.h
-index 2566e115..7b15de35 100644
---- a/hypervisor/arch/x86/include/asm/control.h
-+++ b/hypervisor/arch/x86/include/asm/control.h
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2014
-+ * Copyright (c) Siemens AG, 2014-2022
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -19,7 +19,5 @@ enum x86_init_sipi { X86_INIT, X86_SIPI };
- void x86_send_init_sipi(unsigned int cpu_id, enum x86_init_sipi type,
- 			int sipi_vector);
- 
--void x86_check_events(void);
--
- void __attribute__((noreturn))
- x86_exception_handler(struct exception_frame *frame);
-diff --git a/hypervisor/arch/x86/svm.c b/hypervisor/arch/x86/svm.c
-index 9b1664a5..1193bd25 100644
---- a/hypervisor/arch/x86/svm.c
-+++ b/hypervisor/arch/x86/svm.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013
-+ * Copyright (c) Siemens AG, 2013-2022
-  * Copyright (c) Valentine Sinitsyn, 2014
-  *
-  * Authors:
-@@ -893,7 +893,7 @@ void vcpu_handle_exit(struct per_cpu *cpu_data)
- 		cpu_public->stats[JAILHOUSE_CPU_STAT_VMEXITS_MANAGEMENT]++;
- 		/* Temporarily enable GIF to consume pending NMI */
- 		asm volatile("stgi; clgi" : : : "memory");
--		x86_check_events();
-+		arch_check_events();
- 		goto vmentry;
- 	case VMEXIT_VMMCALL:
- 		vcpu_handle_hypercall();
-@@ -944,7 +944,7 @@ void vcpu_handle_exit(struct per_cpu *cpu_data)
- 			vmcb->eventinj |= SVM_EVENTINJ_ERR_VALID;
- 			vmcb->eventinj_err = vmcb->exitinfo1;
- 		}
--		x86_check_events();
-+		arch_check_events();
- 		goto vmentry;
- 	/* TODO: Handle VMEXIT_AVIC_NOACCEL and VMEXIT_AVIC_INCOMPLETE_IPI */
- 	default:
-diff --git a/hypervisor/arch/x86/vmx.c b/hypervisor/arch/x86/vmx.c
-index 5a69710d..03dfc69a 100644
---- a/hypervisor/arch/x86/vmx.c
-+++ b/hypervisor/arch/x86/vmx.c
+diff --git a/hypervisor/control.c b/hypervisor/control.c
+index 2214406f..5da95ada 100644
+--- a/hypervisor/control.c
++++ b/hypervisor/control.c
 @@ -1,7 +1,7 @@
  /*
   * Jailhouse, a Linux-based partitioning hypervisor
   *
 - * Copyright (c) Siemens AG, 2013-2016
 + * Copyright (c) Siemens AG, 2013-2022
-  * Copyright (c) Valentine Sinitsyn, 2014
-  *
-  * Authors:
-@@ -918,7 +918,7 @@ void vcpu_skip_emulated_instruction(unsigned int inst_len)
- static void vmx_check_events(void)
- {
- 	vmx_preemption_timer_set_enable(false);
--	x86_check_events();
-+	arch_check_events();
- }
- 
- static void vmx_handle_exception_nmi(void)
-diff --git a/hypervisor/include/jailhouse/control.h b/hypervisor/include/jailhouse/control.h
-index f2b07c0d..e0c21270 100644
---- a/hypervisor/include/jailhouse/control.h
-+++ b/hypervisor/include/jailhouse/control.h
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013
-+ * Copyright (c) Siemens AG, 2013-2022
   *
   * Authors:
   *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -190,6 +190,11 @@ void arch_park_cpu(unsigned int cpu_id);
+@@ -285,9 +285,16 @@ static void cell_exit(struct cell *cell)
   */
- void arch_send_event(struct public_per_cpu *target_data);
+ void config_commit(struct cell *cell_added_removed)
+ {
+-	arch_flush_cell_vcpu_caches(&root_cell);
+-	if (cell_added_removed && cell_added_removed != &root_cell)
+-		arch_flush_cell_vcpu_caches(cell_added_removed);
++	/*
++	 * We do not need to flush the caches during setup, i.e. when the root
++	 * cell was added, because there was no reconfiguration of the new
++	 * mapping done yet.
++	 */
++	if (cell_added_removed != &root_cell) {
++		arch_flush_cell_vcpu_caches(&root_cell);
++		if (cell_added_removed)
++			arch_flush_cell_vcpu_caches(cell_added_removed);
++	}
  
-+/**
-+ * Check and process any internal events pending for the current CPU.
-+ */
-+void arch_check_events(void);
-+
- /**
-  * Performs the architecture-specific steps for mapping a memory region into a
-  * cell's address space.
-diff --git a/hypervisor/setup.c b/hypervisor/setup.c
-index f0ee0896..e4e7fe1f 100644
---- a/hypervisor/setup.c
-+++ b/hypervisor/setup.c
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
-  *
-- * Copyright (c) Siemens AG, 2013-2017
-+ * Copyright (c) Siemens AG, 2013-2022
-  *
-  * Authors:
-  *  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -261,6 +261,9 @@ int entry(unsigned int cpu_id, struct per_cpu *cpu_data)
- 		return error;
- 	}
- 
-+	/* Process any internal events generated during setup. */
-+	arch_check_events();
-+
- 	if (master)
- 		printk("Activating hypervisor\n");
- 
+ 	arch_config_commit(cell_added_removed);
+ 	pci_config_commit(cell_added_removed);
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-2-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627131329.3659-3-ralf.ramsauer%40oth-regensburg.de.
