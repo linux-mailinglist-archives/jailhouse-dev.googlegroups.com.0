@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBMXB42KQMGQEMEWMDAA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43d.google.com (mail-wr1-x43d.google.com [IPv6:2a00:1450:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id C025855B9FA
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:22 +0200 (CEST)
-Received: by mail-wr1-x43d.google.com with SMTP id q6-20020adfea06000000b0021bad47edaesf1201096wrm.20
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:22 -0700 (PDT)
+Received: from mail-wr1-x437.google.com (mail-wr1-x437.google.com [IPv6:2a00:1450:4864:20::437])
+	by mail.lfdr.de (Postfix) with ESMTPS id 03CA355B9FB
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:23 +0200 (CEST)
+Received: by mail-wr1-x437.google.com with SMTP id r20-20020adfb1d4000000b0021b8507563esf1198327wra.16
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:23 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1656336562; cv=pass;
         d=google.com; s=arc-20160816;
-        b=KQ8N/wGe1GWyjvQrSqeoZx5WhbbBLEFCpSpXZekOA2dHFBZ67jF3tSwjytIZD+4Bk3
-         2cAhsKfq1Pf3LeyYdEC2tsrniNPnTKfXstoVmXFrZbQvSDhNVOk8z9QOBpEdG7jdC56Y
-         D699V3tPBJ2K7jMQXCLtLFvYyX7BrLhcLj8is+9QZScuVhr6d/2IQ6jV199KLkstXwNC
-         GRnKys8dlci/Xnm9QcVVTwXWBhh1lUjr8aPlU3yBc5MO3yZMJ4Hgi2drNsuQRKxyIUQe
-         +C9K83wIiN3b1Uz2DMjZPXBwJv+ydVqSlxMyBEeAJcCX3DZGxX/ZJe+m5LB8tH/Ttbyp
-         zhBA==
+        b=ZOp16eHyRqA04rkHAg0ld1G3KGJkkXsXgZ9Ww55GEfXHBW8ZBZS2Q/zmTYMy/Nlzpj
+         XRrfylAnEVOLr+GrBkToLnanvc0CItLEh2iCiqJ/66cU7OLrdeYcoMmOg2+U3NrHi9o7
+         iRdz0Q/wPHMXkymcvwkDvN/WqUtj+hIiJT6zrrKoeR/Yqsd8G+eD7t1tbYeZBgQefAsV
+         +U1rqqMdkpwEnr+HttJ1qo7UfsrpWne+bZJJKhBbSvaa7K7qfVb/LtWmfM90iJvd55zc
+         m07RHAaBnmCsgrBIp2WW9a/nroyF2+c307ahlV/RdpRqYGMBxgAxzb6F+dC3YOC28KaF
+         CxEQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=XIwtyczSKLhk8fW5jwZKkirPIMKir8NEEuOowfPCQME=;
-        b=JT8wdiiBaKBsN5QW0C4uSaM4LOEk+G12XOXSjg0mKdynvesVbkYCYDLLw/6o3/9IJl
-         H2Fmdb2IsVVcldhvnZuJY/Kb/SHYxvKt9DMy3YjXn0PObPSroYGQpItJsi4kRAKXZqFr
-         H9gKdiqwbOyF0mHZTXD/j/fhenbexjKi6iiJj94jUCkr/BoTJ7cUCgIuLHr7mY7PgOJv
-         OiXkQN3jCdrqjpvyEwfuZWGu92U+GzIJIBTD2Q7kN635/1VPnndVYxU4AXlAn6bUv8el
-         uPeTWmMUB+FbXrWnybwVWa640GFyZmbu0qG0iU16BhGKCHWv801xNKAwjglbEdpqxDh9
-         W8eg==
+        bh=7m0/QBAgJAPE81xMZJRVFkvtfQWUvQiGls4o5ZmEc/g=;
+        b=fxoCC6e8akzPI+XBIOGJE9jb9Rf8szvaH9RzF5abiKx1Kyyx+bgsB+RJVJPgnMYXKi
+         XkbfbFMU3/aSVYmyKvawjR7TcSq+e9IAA5Ch1Yt6xlmzfd/zw53NGgcVbO94d5Yo0t8c
+         L86l/KasvNiCxX7oHsVBOIcG2DsRMlf/o7aMrPKs5RYFbMYUmX4IdC2sehXyqRrCvwg5
+         opl0MncmzTrnPPSW4CFpf7y2hBYIxCAI+tVB3I3vdpt/a3AH+KGtucmvU5DArg9n93Zg
+         1XhmqtrhZPzv9PSFhvUhdJY/C50Y+HUxa6Chq06vXtYWekLXLNFM6jX2bmGeN8q9Q0/e
+         1gFA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Q7B1mPq0;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=lxUcie4e;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XIwtyczSKLhk8fW5jwZKkirPIMKir8NEEuOowfPCQME=;
-        b=JBMqVGswphgzi+t8HYWYAiV19S4ZE8bzDzATXorkg6aCRuM8DIT1pazcZ/Y51hDn1I
-         yt0HluE624wIaChhVcOHb1ZsJvk69q8SnptpctzfOWhTTgKjybiM1BiiItvfs6HFKCAm
-         BKmw+I3ChxyEXA3KpdFi7iMNpyE4v2wZOEuhblu7ZiKsJdaKOMLhJm01ZbO0iirei8FS
-         sI0KdmIr5M1IwEsAHYiWEjEhL3VIEYrXpI4CQZQexdNNn9pJQuT22eOkTHyxKUBg4Iph
-         UfYAdg3BGFPUKZuoD+O8sRAfbnE4+62horDrPpE64DUs/KKTIpA6Sk8HtxRE9D722Lk7
-         qPhA==
+        bh=7m0/QBAgJAPE81xMZJRVFkvtfQWUvQiGls4o5ZmEc/g=;
+        b=LO1avyYHvwwuLscZZ2nUPsC8sXKZcklMpx0n8FkQybdmkfgo+SUj+gL5kcmL1r2xUa
+         mvCbH0sFmnwP6d1jEcLR/f/XoMopGYAN6ZBeYTjo/n9L92VZBNgPJ8Rwu9qq53wtqWZ2
+         U39qkzH/i3GmbLecVYJta23HARq43XvtZ/xhbko0lQ34+vuzWUHPxuyaF5mCkwKmddvG
+         EvGuphMLaKfqVJ8Ksda/MzB3yGKz3m6VB+kNEuc8M4S5wiyMYNYzMrSYREEGpG55/YLB
+         PNVfKqhcaQuVQ4LkPEdTPMiSBeAn1eZX0Q3PgkdLVvmmTfg55xYRbolRzba4nVHP5jx6
+         N9NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,57 +49,57 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=XIwtyczSKLhk8fW5jwZKkirPIMKir8NEEuOowfPCQME=;
-        b=lNwUtF+Pr6zh/Qpy9bGEDNhPTTJp5YvinSLANbPIXqKhWYw3cvCb54HVKnxEaz30Qg
-         fYsf92VnFqoXU5CUzyh5zTMBijBLHlWpf0ENxKSR36/+N9mMvVLCuuUp1Kj1YPB7aGJL
-         lpsT0DZYrUFED37cWyu4roAsu9McLaPmNBiVPp5ZeE3HdnwO2MzDm3IsCKwFghyOBbPc
-         KNK36Q1tX40jnlIrpIOIZGZ5RPkc1HONX/bbluU+WNkXqk3b76y+MmKlCJssYxsAJyB6
-         wOwTa9mI3icBLyXHw5+Uf+YSDfAotokj79goZCKpqTWIPcn85KIkSp73Y9EQgDbQh/MY
-         WvtQ==
+        bh=7m0/QBAgJAPE81xMZJRVFkvtfQWUvQiGls4o5ZmEc/g=;
+        b=nAXQEksktCetJnFxOCPoDuarZ9ys58wZAqMEUG8IQtUyeyqwkgUgHXmgeffGguSogQ
+         0T131Xu7eTYsiN4d7C7crFtWc3ibOh2z1xkejq41T83k6peIdfVCrLaPglaRw5bOybFK
+         NNvYbhH+kktfJpEZPQgC9K435xLjIRPlpDCZp8OlsRwfR1CNqt+JY84eZ+rjTYVUBUcM
+         P85nBG/R5H3pWyiOvEaV+ef7h9Ddw4vl+tKr/jVUlNgoJU/Suj0qfpqwe9rmw764eEpR
+         m9nLdWisT0KK0ZO1x6d1Ng0Lqyk/lZ5MKwBrswdf5ZpBEn/BtsuAYxSs/dQh7B6tuEbi
+         H2Cw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora8VXCKYU1XcybEgnK3puCSz2L8F0GYohDuYdD51ibmC+9BEPf0M
-	XCeBnj3HBjyy89q8CXGOvKQ=
-X-Google-Smtp-Source: AGRyM1uxPnSLlYg+OInLbYERgQTRjMooxFOF9SMtmTfVL2hHHJrynkfi8/Zs0kdvuZIw+gmxHt8nBw==
-X-Received: by 2002:adf:fb46:0:b0:210:2316:dd02 with SMTP id c6-20020adffb46000000b002102316dd02mr12819049wrs.557.1656336562553;
+X-Gm-Message-State: AJIora+zNpZjXR4sXgavWTDAtGrGtqrQYaeyfl0KNM9msjNkPhScGUz+
+	9Nc/SrFg4h14HavH3OzXFPQ=
+X-Google-Smtp-Source: AGRyM1tngP5zA1Zgpg/2lykEQIRkk/r8b4YTL5Cxf/XZz89PMb5bnzU8gVXFHYnTgH+2C0sN8939PQ==
+X-Received: by 2002:a5d:470d:0:b0:21a:3dac:8bcf with SMTP id y13-20020a5d470d000000b0021a3dac8bcfmr12679255wrq.113.1656336562651;
         Mon, 27 Jun 2022 06:29:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:6dab:0:b0:212:d9db:a98 with SMTP id u11-20020a5d6dab000000b00212d9db0a98ls26785215wrs.3.gmail;
+Received: by 2002:adf:eb04:0:b0:21b:b3cc:1640 with SMTP id s4-20020adfeb04000000b0021bb3cc1640ls13083440wrn.1.gmail;
  Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
-X-Received: by 2002:a5d:448e:0:b0:21b:887f:23f with SMTP id j14-20020a5d448e000000b0021b887f023fmr12715407wrq.240.1656336561126;
+X-Received: by 2002:a5d:6791:0:b0:21b:9e4b:2f95 with SMTP id v17-20020a5d6791000000b0021b9e4b2f95mr12941439wru.399.1656336561291;
         Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1656336561; cv=none;
         d=google.com; s=arc-20160816;
-        b=CiP2Wjtytc+whSY3fTg0oC2c0A0DoTYGQlKmlz6zjGX/MdbTyXbhi3RFaa5xT5fcn/
-         /D+5C2BJUzwwyrX7M1B6Y8ztFIXUMoY+qfcgh/ubBnDLVb7R3BIzhg7fl8HnslX+LX9J
-         LdmclbpY52+MJ1xYwNGI+tPpmm53VSL9hasUb3dGXnODfpxe9B/rfLSoOBrchs23x5sp
-         IvOSyM+ZZ5XW5xk316rlPaBUKqrPJY6zIcdUYJNqzQM/lIH9wlat0ou39KyyiQdfXDyA
-         /sqrHGQ4xMJdO7Uz/jJfNIoOWZVon66JTFgto5Fm1VAV1GFx5fItMycVjAXXLP6IyOBR
-         3jdA==
+        b=Gw9vYX0P4tFO/nVKiL/Oj9oEt6RzlfK7bf5duAUNMU2a5/L2rLTDfkNE2gTIoZ16ZM
+         Tj2kilrcatjgLPDLgxFH6/+IkPV3zicWt7LdhS9Yzvas8mpFaGn/UmhpdpaFRp1ZF2Ii
+         kWJqkT0kOjRUbvwD6CETxDgRK56lw7geh38zrBSsYhS2WCa1v9SGzF95EKi7YtMxEFE5
+         H4PiVPXvPYP5k5rqUdWLoiMZVLfGLdNS8FmFfKY9abBPh0nu0dMjuPeS62aEAumlq+9G
+         XE/b+NtHJZOUXcCOSJTD4RJp3YrzMJ1PpeAg3damlSKKJ5Y6HVaeqnEbpt0sF2oDXT2k
+         YnhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=sMkKTProawg5qWOhL4G4H+WyBbt+UkHMtxGu76bZbUk=;
-        b=kjrL7Vzyt9mbE8Ls2Q4kNRqN0Z1kbBKRYet076pr4E5pu7+NSF7LTzBcngOqowdkkV
-         Uw2rMK/ocKJ7CW4s/2wxyL2DouMnK4aGnQIfHoQz7lp972edHaEgELDuqgjweCCrBWTF
-         ecLxCIRamQN9vAQZbtd8E+GsvvKA1vNf17eUYXe7Pzi9CDZe7EH1kKEyvqgtmAFMkIAl
-         sFyNU3O7gttkHfuUOMYb53mytK7zb4aVBD2vQkuKmUNzwW8BLMdqXkVGivHvU8ptJpZi
-         6pJ5j7zGTVwaBD9wiRbilOvGsBMXz8ogvtlduStfw3hyI0KpWxX5UVWynw7BwqXoKfW8
-         AFcg==
+        bh=4Lcf77fOdnady/sLAqEDPycLMisL1iOccksPDD2GIm0=;
+        b=OUog2oVj+/jV0t9HgkTfrKsQJluPQbrR/6ZvhHJg1oZitX9tDEfCR4zm/ohcoTpWXW
+         6xna0OQtlhp7Gz+R5rEhHIPo58vx2M0rQQqpgFhc/wBjKyBg+m7UVIpSfyQDBRt0riNs
+         1GsB7bFIGwqgTzbiXg/T3nSegUzd1hjWl3bcoZViUYIbvFi13w9frC0l3tRtJNKeEcG1
+         OC8oPRdUJqFZ4GIYs55AXWbZVgC0kthPVfZPY5hU/bgwPd2//hGI3Eb/zaaLBGihfjmI
+         a5s/KkV9UHPvetQV+w8DoaVFwIjvWtdQVS/SbWRsG+e/7poX9QhM86RPTx3vIOwoUKKv
+         KfZw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Q7B1mPq0;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=lxUcie4e;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id k24-20020a7bc318000000b0039c4d96e9efsi878648wmj.1.2022.06.27.06.29.21
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [194.95.104.11])
+        by gmr-mx.google.com with ESMTPS id m7-20020adffa07000000b0021a07a20517si344482wrr.7.2022.06.27.06.29.21
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.11 as permitted sender) client-ip=194.95.104.11;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV86C3Pzy6H;
-	Mon, 27 Jun 2022 15:29:20 +0200 (CEST)
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV90KCyzxpy;
+	Mon, 27 Jun 2022 15:29:21 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
@@ -109,9 +109,9 @@ To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 23/42] Documentation: Add some documentation
-Date: Mon, 27 Jun 2022 15:28:46 +0200
-Message-ID: <20220627132905.4338-24-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 24/42] core: riscv: implement control.c
+Date: Mon, 27 Jun 2022 15:28:47 +0200
+Message-ID: <20220627132905.4338-25-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
@@ -122,9 +122,9 @@ X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=Q7B1mPq0;
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=lxUcie4e;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 194.95.104.11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -138,105 +138,308 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Specifically on RISC-V, and fix some typos.
-
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- Documentation/hypervisor-interfaces.txt | 16 ++++++++++++++--
- Documentation/memory-layout.txt         | 20 ++++++++++++--------
- 2 files changed, 26 insertions(+), 10 deletions(-)
+ hypervisor/arch/riscv/control.c             | 213 ++++++++++++++++++--
+ hypervisor/arch/riscv/include/asm/control.h |  13 ++
+ 2 files changed, 209 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/hypervisor-interfaces.txt b/Documentation/hypervisor-interfaces.txt
-index d888dab7..fe493e46 100644
---- a/Documentation/hypervisor-interfaces.txt
-+++ b/Documentation/hypervisor-interfaces.txt
-@@ -13,8 +13,8 @@ Detection
- ---------
+diff --git a/hypervisor/arch/riscv/control.c b/hypervisor/arch/riscv/control.c
+index 263708a7..fa9921e6 100644
+--- a/hypervisor/arch/riscv/control.c
++++ b/hypervisor/arch/riscv/control.c
+@@ -2,70 +2,230 @@
+  * Jailhouse, a Linux-based partitioning hypervisor
+  *
+  * Copyright (c) Siemens AG, 2020
++ * Copyright (c) OTH Regensburg, 2022
+  *
+  * Authors:
+- *  Jan Kiszka <jan.kiszka@siemens.com>
++ *  Konrad Schwarz <konrad.schwarz@siemens.com>
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+  * the COPYING file in the top-level directory.
+  */
  
- This interface is useful for cell code that should work not only inside a
--Jailhouse cell. The ABI is architecture specific. So far, it is only available
--for x86.
-+Jailhouse cell. The ABI is architecture specific and not available for
-+all processor architectures.
+ #include <jailhouse/control.h>
++#include <jailhouse/paging.h>
+ #include <jailhouse/printk.h>
++#include <jailhouse/string.h>
++#include <asm/control.h>
++#include <asm/csr64.h>
+ #include <asm/sbi.h>
  
- 
- x86 ABI
-@@ -53,6 +53,18 @@ Result in EAX:  0
-           EDX:  0
- 
- 
-+RISC-V ABI
-+- - - - - -
+-int arch_cell_create(struct cell *cell)
++extern void __attribute__((noreturn)) riscv_park_loop(void);
 +
-+Jailhouse adhers to the Supervisor Binary Interface (SBI) defined in
-+https://github.com/riscv/riscv-sbi-doc/blob/master/riscv-sbi.adoc
-+That is, it provides the SBI to guests (as well as using the system
-+provided SBI).
++static void riscv_cpu_reset(unsigned long pc, unsigned long a0, unsigned long a1)
++{
++	union registers *regs;
 +
-+The sbi_get_impl_id() function returns 'JHOU', 0x4a484f55.
-+The get_sbi_impl_version() function returns the version of the Jailhouse SBI.
++	regs = &this_cpu_data()->guest_regs;
 +
++	memset(regs, 0, sizeof(union registers));
++	regs->pc = pc;
++	regs->a0 = a0;
++	regs->a1 = a1;
 +
- Hypercalls
- ----------
- 
-diff --git a/Documentation/memory-layout.txt b/Documentation/memory-layout.txt
-index 82029f17..7e8281af 100644
---- a/Documentation/memory-layout.txt
-+++ b/Documentation/memory-layout.txt
-@@ -6,10 +6,10 @@ visible hypervisor memory, globally visible I/O memory remappings and CPU-
- specific remappings of hypervisor memory as well as cell memory pages.
- 
- Cells are not mapped as a whole into the hypervisor address space. Only
--explicitely shared pages and pages that are temporarily mapped, e.g. during
--MMIO instruction parsing, are visible by the hypervisor during runtime.
--Furthermore, the visibility is limited to the CPU that create it because they
--are only added to the CPU-specifc mapping.
-+explicitly shared pages and pages that are temporarily mapped, e.g. during
-+MMIO instruction parsing, are visible to the hypervisor during runtime.
-+Furthermore, their visibility is limited to the CPU that creates the mapping
-+because they are only added to the CPU-specific mapping.
- 
- 
- Common memory region
-@@ -23,9 +23,9 @@ Prior to enabling the hypervisor and after disabling it, this region is also
- mapped into the address space of Linux that acts as root cell. The virtual
- address of this mapping is identical to the one used by the hypervisor when the
- architecture set JAILHOUSE_BORROW_ROOT_PT (currently x86 and ARM), on other,
--this addressed can differ.
-+this address can differ.
- 
--The commom memory region contains an array of per-CPU data structures, one for
-+The common memory region contains an array of per-CPU data structures, one for
- each configured CPU. Each per-CPU data structure consists of a private part and
- a public part. The public part will remain visible for all CPUs throughout the
- hypervisor operation. The private part, however, is only visible during setup
-@@ -112,15 +112,19 @@ Size: PAGE_SIZE * NUM_REMAP_BITMAP_PAGES * PAGE_SIZE * 8
-         |                                      |
-         +--------------------------------------+ - higher address
- 
-+The architecture-independent code assumes that the I/O mememory remapping
-+region is described by the same top-level PTE as the common memory region
-+(JAILHOUSE_BASE).
++	/* TBD: Check if we need to clear more registers */
++	csr_write(sepc, regs->pc);
++	csr_write(CSR_VSATP, 0);
++	csr_write(CSR_HIE, 0);
++	csr_write(CSR_HIP, 0);
++	csr_write(CSR_VSSTATUS, 0);
 +
++	csr_set(sstatus, SR_SPP); /* Return to VS-Mode */
++}
++
++void arch_check_events(void)
+ {
+-	return -ENOSYS;
++	struct public_per_cpu *pcpu;
++
++	pcpu = this_cpu_public();
++
++	spin_lock(&pcpu->control_lock);
++
++	if (pcpu->suspend_cpu) {
++		pcpu->cpu_suspended = true;
++
++		spin_unlock(&pcpu->control_lock);
++
++		while (pcpu->suspend_cpu)
++			cpu_relax();
++
++		spin_lock(&pcpu->control_lock);
++	}
++
++	pcpu->cpu_suspended = false;
++
++	if (pcpu->wait_for_power_on) {
++		pcpu->wait_for_power_on = false;
++		goto out;
++	}
++
++	if (pcpu->hsm.state == START_PENDING) { /* We could also check if START_PENDING is set... */
++		pcpu->reset = false;
++		riscv_cpu_reset(pcpu->hsm.start_addr, pcpu->phys_id, pcpu->hsm.opaque);
++		riscv_paging_vcpu_init(&this_cell()->arch.mm);
++		pcpu->hsm.state = STARTED;
++	} else if (pcpu->park) {
++		riscv_park_cpu();
++	}
++
++	if (pcpu->reset) {
++		pcpu->reset = false;
++		riscv_cpu_reset(0x0, pcpu->phys_id, 0);
++		riscv_paging_vcpu_init(&this_cell()->arch.mm);
++	}
++
++out:
++	spin_unlock(&pcpu->control_lock);
+ }
  
- CPU-specific remapping region
- -----------------------------
+ int arch_map_memory_region(struct cell *cell,
+ 			   const struct jailhouse_memory *mem)
+ {
+-	return -ENOSYS;
++	int result = paging_create(
++		&cell->arch.mm,
++		mem->flags & JAILHOUSE_MEM_COMM_REGION ?
++		paging_hvirt2phys (&cell->comm_page) : mem->phys_start,
++		mem->size, mem->virt_start,
++		/* guests require U access */
++		RISCV_PTE_FLAG(V) | RISCV_PTE_FLAG(U) |
++		(mem->flags & JAILHOUSE_MEM_READ ? RISCV_PTE_FLAG(R) : 0) |
++		(mem->flags & JAILHOUSE_MEM_WRITE ? RISCV_PTE_FLAG(W) : 0) |
++		(mem->flags & JAILHOUSE_MEM_EXECUTE ? RISCV_PTE_FLAG(X) : 0),
++		PAGING_COHERENT |
++		(mem->flags & JAILHOUSE_MEM_NO_HUGEPAGES ? 0 : PAGING_HUGE));
++
++	return result;
+ }
  
--This region is differently mapped for each CPU. It consistes of a virtual
-+This region is mapped differently for each CPU. It consists of a virtual
- address range that is used for temporarily mapping individual pages of the cell
- that runs on the same CPU.
+-int arch_unmap_memory_region(struct cell *cell,
+-			     const struct jailhouse_memory *mem)
++int arch_unmap_memory_region(struct cell *const cell,
++			     const struct jailhouse_memory *mem_original)
+ {
+-	return -ENOSYS;
++	return paging_destroy (&cell->arch.mm,
++				mem_original->virt_start,
++				mem_original->size,
++				PAGING_COHERENT);
+ }
  
--Futhermore, the private per-CPU data which is hidden from the common memory
-+Furthermore, the private per-CPU data which is hidden from the common memory
- region is made available at fixed virtual address here. This allows to
- dereference CPU local data quickly and generically. Moreover, it hides cell-
- private data that the hypervisor may collect on VM exit, e.g. register content,
+-void arch_check_events(void)
++void arch_flush_cell_vcpu_caches(struct cell *const cell)
+ {
++	/* the necessary TLB invalidation has already been performed
++	in the map/unmap routines */
++	/* doing it here would require the entire cell's TLB to be
++	flushed, because this function does not receive information
++	about the memory segment to invalidate.  That would be overkill
++	(although the current unmap_region implementation does this
++	nonetheless, owing to other API shortcomings).
++	*/
+ }
+ 
+-void arch_flush_cell_vcpu_caches(struct cell *cell)
++int arch_cell_create(struct cell *const cell)
+ {
++	struct public_per_cpu *ppc;
++	unsigned int cpu;
++
++	cell->arch.mm.root_paging = riscv_Sv39x4;
++	cell->arch.mm.root_table = page_alloc_aligned(&mem_pool, CELL_ROOT_PT_PAGES);
++
++	for_each_cpu(cpu, &cell->cpu_set) {
++		ppc = public_per_cpu(cpu);
++		ppc->wait_for_power_on = false;
++		ppc->park = true;
++		ppc->reset = false;
++	}
++
++	if (!cell->arch.mm.root_table)
++		return -ENOMEM;
++
++	return 0;
+ }
+ 
+-void arch_cell_destroy(struct cell *cell)
++void arch_cell_destroy(struct cell *const cell)
+ {
++	unsigned int cpu;
++	struct public_per_cpu *ppc;
++
++	page_free(&mem_pool, cell->arch.mm.root_table, CELL_ROOT_PT_PAGES);
++
++	for_each_cpu(cpu, &cell->cpu_set) {
++		ppc = public_per_cpu(cpu);
++		ppc->wait_for_power_on = false;
++		ppc->park = true;
++		ppc->reset = false;
++	}
+ }
+ 
+-void arch_cell_reset(struct cell *cell)
++void arch_cell_reset(struct cell *const cell)
+ {
++	unsigned int first = first_cpu(&cell->cpu_set);
++	struct public_per_cpu *pcpu;
++	unsigned int cpu;
++
++	/*
++	 * All CPUs except the first one shall not be started, they shall park
++	 */
++	pcpu = public_per_cpu(first);
++	pcpu->wait_for_power_on = false;
++	pcpu->park = false;
++	for_each_cpu_except(cpu, &cell->cpu_set, first)
++		public_per_cpu(cpu)->wait_for_power_on = true;
+ }
+ 
+-void arch_prepare_shutdown(void)
++void arch_reset_cpu(unsigned int const cpu_id)
+ {
++	public_per_cpu(cpu_id)->reset = true;
++
++	resume_cpu(cpu_id);
+ }
+ 
+-void __attribute__((noreturn)) arch_panic_stop(void)
++void arch_park_cpu(unsigned int const cpu_id)
+ {
+-	while (1);
++	struct public_per_cpu *pc = public_per_cpu(cpu_id);
++
++	if (pc->hsm.state == STOPPED)
++		return;
++
++	if (pc->cpu_suspended == true)
++		return;
++
++	spin_lock(&pc->control_lock);
++	pc->park = true;
++	arch_send_event(pc);
++	spin_unlock(&pc->control_lock);
++
++	while (pc->hsm.state != STOPPED)
++		cpu_relax();
++
+ }
+ 
+-void arch_panic_park(void)
++void arch_prepare_shutdown(void)
+ {
+ }
+ 
+-void arch_reset_cpu(unsigned int const cpu_id)
++void __attribute__((noreturn)) arch_panic_stop(void)
+ {
++	/* No need to check return code here */
++	sbi_hart_stop();
++
++	/*
++	 * If this happens, which should never be the case, then let the CPU
++	 * execute the park loop.
++	 */
++	riscv_park_loop();
+ }
+ 
+-void arch_park_cpu(unsigned int cpu_id)
++void arch_panic_park(void)
+ {
++	riscv_park_cpu();
+ }
+ 
+ void arch_send_event(struct public_per_cpu *target_data)
+@@ -83,3 +243,22 @@ void arch_send_event(struct public_per_cpu *target_data)
+ 		panic_stop();
+ 	}
+ }
++
++void riscv_park_cpu(void)
++{
++	struct public_per_cpu *pcpu = this_cpu_public();
++
++	pcpu->hsm.state = STOPPED;
++	/*
++	 * BUG FIXME: The Timer IRQ might be pending, and we're
++	 * effectively busy waiting here. Apparently, Linux doesn't
++	 * shut down the timer before offlining the CPU. Check this!
++	 *
++	 * Second, do we need to manually disable all external PLIC IRQs of the
++	 * cell? Actually, yes.
++	 */
++	sbi_set_timer(-1);
++
++	riscv_paging_vcpu_init(&parking_pt);
++	riscv_cpu_reset(0, 0, 0);
++}
+diff --git a/hypervisor/arch/riscv/include/asm/control.h b/hypervisor/arch/riscv/include/asm/control.h
+index e69de29b..466311f8 100644
+--- a/hypervisor/arch/riscv/include/asm/control.h
++++ b/hypervisor/arch/riscv/include/asm/control.h
+@@ -0,0 +1,13 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2022
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++void riscv_park_cpu(void);
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-24-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-25-ralf.ramsauer%40oth-regensburg.de.
