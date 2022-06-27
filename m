@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBMHB42KQMGQEW7KDKDI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBMPB42KQMGQEZVSHWMY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x337.google.com (mail-wm1-x337.google.com [IPv6:2a00:1450:4864:20::337])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE1355B9F3
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:21 +0200 (CEST)
-Received: by mail-wm1-x337.google.com with SMTP id k32-20020a05600c1ca000b0039c4cf75023sf7307029wms.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656336561; cv=pass;
+Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E72A55B9F7
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 15:29:22 +0200 (CEST)
+Received: by mail-lf1-x13e.google.com with SMTP id h18-20020a056512055200b004810d1b257asf2128298lfl.13
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 06:29:22 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1656336562; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ULDT404ik0PqSS8UPUg1XvsS432cWI5nF+aNB/4eu9yqVY28m2YsaIbtcHNxN95LAq
-         4vNLDH+FruIjTu3KjWefwYWiCMx+HXpuetevFC7oT+T9ULNnDi3N9z0HNSMkBo/maLMT
-         kso2+LyJsH6D9Am7DzT1rnMuJ18z/6RJh9mEXjdkgk2iCVckuSQMBAIXGlACdlGtUi7Y
-         fkr2JrtIB2IA81Ro6qqkuc4YeqeXLiguvqZRl/tsv5pIfCkuxXUnDHAJSBKs2HGtt25b
-         JFL67Q+KMmK48Hz4zPQ6ZYyGYioy/nbsaOSk8G/vQpycH6Y0+kWSIMhw6LwZbVJncNzA
-         3XHg==
+        b=eFlkqGE+JMKfJtpV7yeobujqQkLkIC5Z0eFC0J+tNT2dgYcbWAS4mqMOpxRIjNrPXc
+         B6FZMklRRJbGoAxG5tIx+XX16ES8WmeK1Jmw/Tf2FRR2x7aSIJPF1/rUCHFc6M5ZQDnt
+         8FL5FXv2YrXxVv0qt+prPiqM7MIPwDdXOirfjgevTPn08zb2DgOulqGW6axhfxPlrRs7
+         qIvFTwr3ZcdkJszq0DrzQXW/IOtlKxBp2oVGXTkKTntVlcxU5FVr0qYGBsz2i4LuOsbu
+         CNm7StxUDiOYyoLIrwk1lzy5R9xQtRhBECa8qy6nM4RNMDDMn3DXmJZHNP64Vamzsits
+         IAPg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=04eEdybZTEsMdJVvPeb2LH1jsXJzerbgctt5UemYorQ=;
-        b=pP59nkXOVq1TyCBzLvuzUUYne9GOEX6XoZfH4m3tkGvLVjeKTuJnLkz+BRjQJMTg+l
-         CHva1P6rnVAM1CUe1vqdev4G6JWWAN372Sw7f10WbGE/Nd62+auHk1l6M7lSVdvHIAn5
-         lwAoE3YXmchWpYXcJE3M9dl8QLdZImlG4HdEkcSYKS2LwfGFDtGQf6bjuNHhYd6n67hM
-         TyHy9TSmDjgxGiJmbcEXCsXyTejYL/Ibzkuw+4tOuyRQWx3PE5vnPpkudpLX4bRt45se
-         0K3e1roRJc0lIsePYyHPiEU6dGHdqrKHzAj8v4p3lNWSm6KE7+CPUFcgsnD7BlFJFjQY
-         NOyw==
+        bh=9NrqnIUfs5YrkN1SHaBuqjMxhrGKgCxF8alRzK0b5zQ=;
+        b=NTZ8TKtCvoDlLdW3zzKC3iu61oICwV1ix7nG+Nw2ygQXK0AWVG8ckm47/uATFwuCn+
+         06IQ08Ct+LRUHbQJnnKqUK0IvR5HZQ4vOr8nI3SQe925Aq0AJyQCtFiyRAFqRlNmr/Ly
+         oCb80Dec/pmEB56ceF+H1z04QF7BJl3eGHWHCXfwD/wsje6TO2NkYfaaS2Rya562Np7v
+         0p65+oc0JHNeNsmOOBY7i3mZ/GBjtw5vxtQgAqLcIGpchowHTsAS71S35LNrsUwAyYX6
+         FJYoawSDYKMBy/eUroIUGD+ZD1ZPt10ToKD1R3H7nVL9+Paj8rpgXklQUf53jDzNYltU
+         Cahg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=kC9ZynAE;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=BHyxKUF3;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:x-original-sender:x-original-authentication-results
          :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=04eEdybZTEsMdJVvPeb2LH1jsXJzerbgctt5UemYorQ=;
-        b=BSjcmRN2Lh4Wfu+QT/M9d71iGYpLAbHn2qPIDLz60EixR50jagBPlpZfpm/zuQyqvR
-         YO9qU84Pyf7D3RPN4wcf7AlI/a69qhVcusdkAhrcDUwWN7T1mzlCEBYzzJhqtJKqKUNS
-         9pr0ThbONznyLkAUhgBtYbTSveUp8M2GsfwyDY5eWEnMcwt9e01xVKuOVOBvtdYkt+j1
-         LS/3scguKlC630hoZHbTjCA5vTr/tl55KT19ckkB78QibzkBB6Mp4TH/joZd721gHyGK
-         NIGvOx80vAoo9tHpA8i0i5vv8XN0PmgFStdp13wjXs9zVlCFmYS+W8QVis0eLTYV0bih
-         0IlA==
+        bh=9NrqnIUfs5YrkN1SHaBuqjMxhrGKgCxF8alRzK0b5zQ=;
+        b=dUmqS9Q6tJnO9ZTgb+M3CSCYwDMIpMBAcBVWqm1+nB6oH6gnODU1Nbb+IifCUyLWnj
+         IzmZGCDGtd4enaswf8Q3DH/vYrb+aDnJhhsSA50LlO4jSR1Lcxy4tkITLrnwj0sxwZyh
+         5kHSVta+TR5Kem1WqpfjFjI3TrHWRfUKBYKqx1KhF/fKRjRJ2m//zS+nkhn1Qo8OxCQa
+         5ldBpzQI7U1B7bOVh7k7n00o1TOgcU82A2Fe5KMs9UWnAMeRoJ+yh6pGra27AJsKGxis
+         DbYxBUT9E108KJEdD2pHxmnm8/IZk+V2cy9aNI6mGzjKnZEyM2ICUjyRyIMYELPr1GWO
+         4pJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=sender:x-gm-message-state:from:to:cc:subject:date:message-id
@@ -49,56 +49,57 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:precedence:mailing-list:list-id
          :x-spam-checked-in-group:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=04eEdybZTEsMdJVvPeb2LH1jsXJzerbgctt5UemYorQ=;
-        b=cNbRgFoV0u+ay6bQ4W26cY1on5tOyynbq6/T2PnEOCew1dV1bW59UaYg+znoGhat/Y
-         u+zTxC5odAHxd1Yk1UPO4SVaZBGWkPmLiBq0MfhJEjJUSyVYN9+BP/XCPVD/7s/UDzpl
-         KqYRQ6mYTTRY6ItmYNrEkHvDdPZ1PdaHOVqrqkNau32nSBbXNnRmBUcXvamxBOIg+v5Q
-         9MfZG4V+aOd4I8o/gL/X1l+jmnxWQ9kEywidwgJTQRygzh2Zw9EUyMXvE5yC9gMQE5nk
-         8RKlgOk1R6B+kD+CRYL0i2vRS44km9LYP/RANU6HpM+BqnPUloP9Bqf7R92NG5dCfbA9
-         vQSA==
+        bh=9NrqnIUfs5YrkN1SHaBuqjMxhrGKgCxF8alRzK0b5zQ=;
+        b=eTMcKjxjfXbeTUj8dIk/ZhSfXRZ4S8hhfckM1MUWT8sUH4UBSZQWSQQXPLUp1mpC1u
+         iLV2EbnmzCBtVCxoE+NEmcZN/rCQvas8Ouwe4FGQLyratlv3E24xXgAqIf6xNZOrIo3O
+         2Xmc1UfZnhUaJHuJ7IEBgOItdjlyjSqjqh6d+k2R5UJUmZ3vLj2nvK7EddlzMDRiay8H
+         90F3f8oYJABl+qH1fCmkWEV2CKM6vQvqvHngZYKwokHnVBekBhnyk6t/kzCymQlxRcEE
+         h5eWLSTP7aTf4xBbJ0XCgtrkWk1/2e4rdzqLtx9lAqtyUnX+6QFtihiKrDnQJ2YYDSYt
+         rpFQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora/jYn6etCKFpP/YCrsznSxNO0BayFkxSHC+HIEvqaWZ1SLPWgzh
-	P/ZJ7iqAlz9qAL/f34FImA8=
-X-Google-Smtp-Source: AGRyM1tq/7rrTuPStEJa98lljUshSN2nZGKDyCnBctM8nw/fOE2fGDTEE+fc7e0KqYHzGFSKSSgmig==
-X-Received: by 2002:a5d:4bce:0:b0:21b:9f38:e23d with SMTP id l14-20020a5d4bce000000b0021b9f38e23dmr12377597wrt.322.1656336561181;
+X-Gm-Message-State: AJIora9C/VEoPuWX9UHFEdC7eYlQ/Mo9ur4C8U0C5MhKIeUdW7q0OZ4Y
+	ONc+wJd5CQw6ExPmA3cM2MI=
+X-Google-Smtp-Source: AGRyM1sCVEQryEverNB1dwnbAs/lUeNxLvRcNklg0F4EwrxsGSzwZfw7QzDtz+4kGmRm/qB9VzkgrA==
+X-Received: by 2002:a05:6512:2524:b0:47f:b0d9:d096 with SMTP id be36-20020a056512252400b0047fb0d9d096mr8078592lfb.243.1656336561938;
         Mon, 27 Jun 2022 06:29:21 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:adf:eb04:0:b0:21b:b3cc:1640 with SMTP id s4-20020adfeb04000000b0021bb3cc1640ls13083358wrn.1.gmail;
- Mon, 27 Jun 2022 06:29:19 -0700 (PDT)
-X-Received: by 2002:adf:ef10:0:b0:21b:8740:7085 with SMTP id e16-20020adfef10000000b0021b87407085mr12084786wro.9.1656336559768;
-        Mon, 27 Jun 2022 06:29:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1656336559; cv=none;
+Received: by 2002:a05:6512:1693:b0:448:3742:2320 with SMTP id
+ bu19-20020a056512169300b0044837422320ls213865lfb.1.gmail; Mon, 27 Jun 2022
+ 06:29:20 -0700 (PDT)
+X-Received: by 2002:a05:6512:260b:b0:47f:b04e:3116 with SMTP id bt11-20020a056512260b00b0047fb04e3116mr8786165lfb.474.1656336560368;
+        Mon, 27 Jun 2022 06:29:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1656336560; cv=none;
         d=google.com; s=arc-20160816;
-        b=yrFQUmXr+gooHj0h+7EB9sYcfwVg8mSfdFdifF4s40cGjNu9Cf/rfgGWqqpJRe/LBF
-         7dBGa7EjuWxK6HQr6ahdMEUHgrMJFZT37x7x8FMiY5dr872rL9BP2el6XpF+1jn6J8yi
-         x6Zd+eida47uMtWGVWe/WtU7Wa0+81b8tnpLUZyacVctUrJSKN6y+huztbY0FRnLICpL
-         bReaVXmOGJ4+iDfKS7XQ0qHlmGXtm6IGqHqzV0Uz+wf2Q/rvSOBtkyIW5t/CfTew28dC
-         /1a2gtjc6lazWm9jr1WaF+/5XaKk6LPBaSrLliPjibwon1452x5oEWmeIA7g9oaELgHg
-         wYxg==
+        b=bVS+Cv9lIAw1nrKbr5NdicqmAA37cQjldVxoTC9dFgoAZVUJGEqiQjDqmqh3induMn
+         iiOLF325RgfaCV59EF3YsoK0w+rJL6cMTqGL7FnxvGnguq32lT5bUaYwozzHxsFfL1h8
+         XP/BIB05wPhlkqvQEYNJM1Upisa/wyv5tf982b9bg9TX2T3A5rgUQxX3SHoBXygP85vL
+         pqSJlMXMyRav9C/wC5LqU2kPjnQF8J4mGuD36xRkw34o3hfW2S1uXoCyZDClynWxwcZH
+         DGG4Dw5heAAdGndVUKkVxG71ieGPE8jcOlGrjhcsAagAdRTm/2cBeYkRenzSGBMD1OI1
+         N7WA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=/Ia/m9j+mbo+zBwftYxEfohUErDKYYU0wEy0PY7KR/A=;
-        b=G/PiRoeDPi/mlOuVfB4jrRG9blz6+jjF/gbs07ufRBHqMKXIQoqtw2kUnwOJRsQeUq
-         NlYJnurGq5PlrKj3RjBzNbTfbiWDh0tP5WFEwAGuMl4m38wAmWfy0lDs5d+X2pVeOKdU
-         ALNawCDmGwbDJ8fvfJpxPnzj/beXsKT565CsvZDEnmoxgoSkJYI5E2yKDCHzVhKZoNGX
-         3s2SvscwnQyFIMz/Qfj6GdR4XNP+T68wFMOlfE/hFOYaHx+RIkqesZe/ob9jUIPDa5D9
-         IjRCnKu2oSn/2t3xG10vEgf4//PNP13sVNQ0t2bjfh055uvDsIcJaOLeTpopNAZkFJZ4
-         ZsJw==
+        bh=sZgvfUszQw/i0RDdsdAMdcG41DRNfFgTP3JYhkrRkGU=;
+        b=ty7R30aP5fc70Ro2dWgOpMgyHliNWPB3VV2X52XVtmaYkb2KdfQM+DYAGoIP8cdDOF
+         1Xgpv2HlqEJ7emFcp6bqp1sThfqY4XL8jBjvv+hObkpIOcu6U5THKLfcmJNx9vNvgD2a
+         7YPQys+UmmaygaZDjXYbdv6O+az9Efn7D0Pp0X/eAHXY3XmmoccLUHEep2be+XmTC3vv
+         BRTR4neS6ZO9e8vn/384yxj20Jmt/+aAw/tXcZfbUe5p2e3b5K7VJLHrXSRH9HbFX0dv
+         81GotQx3XC+w+duNqaCQ8Gj13ffJLabPHp9gpSZ19udhmnYMM1+J9f9kK7UZbD8ZinT7
+         AZeA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=kC9ZynAE;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=BHyxKUF3;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
-        by gmr-mx.google.com with ESMTPS id c15-20020a5d4f0f000000b0021b947060b9si458358wru.6.2022.06.27.06.29.19
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
+        by gmr-mx.google.com with ESMTPS id cf26-20020a056512281a00b0047fb02e889fsi442383lfb.2.2022.06.27.06.29.20
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 27 Jun 2022 06:29:19 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+        Mon, 27 Jun 2022 06:29:20 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV73cn9zy0c;
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWpV75fJyzxxR;
 	Mon, 27 Jun 2022 15:29:19 +0200 (CEST)
 Received: from atlantis.buero (2001:638:a01:8013::138) by
  E16S03.hs-regensburg.de (2001:638:a01:8013::93) with Microsoft SMTP Server
@@ -109,9 +110,9 @@ To: <jailhouse-dev@googlegroups.com>
 CC: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Konrad Schwarz
 	<konrad.schwarz@siemens.com>, Jan Kiszka <jan.kiszka@siemens.com>, Stefan
  Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v1 16/42] core: riscv: paging: add headers
-Date: Mon, 27 Jun 2022 15:28:39 +0200
-Message-ID: <20220627132905.4338-17-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v1 17/42] core: riscv: add asm-defines.c
+Date: Mon, 27 Jun 2022 15:28:40 +0200
+Message-ID: <20220627132905.4338-18-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
 References: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
@@ -122,9 +123,9 @@ X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=kC9ZynAE;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=BHyxKUF3;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -138,221 +139,79 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Export offsets that we will later need in assembly.
+
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/arch/riscv/include/asm/paging.h    | 119 ++++++++++++++++--
- .../arch/riscv/include/asm/paging_modes.h     |  18 +++
- hypervisor/include/jailhouse/header.h         |   5 +
- 3 files changed, 130 insertions(+), 12 deletions(-)
+ hypervisor/arch/riscv/asm-defines.c        | 27 ++++++++++++++++++++++
+ hypervisor/include/jailhouse/gen-defines.h |  8 ++++++-
+ 2 files changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/hypervisor/arch/riscv/include/asm/paging.h b/hypervisor/arch/riscv/include/asm/paging.h
-index 866f9a3f..5044a5fb 100644
---- a/hypervisor/arch/riscv/include/asm/paging.h
-+++ b/hypervisor/arch/riscv/include/asm/paging.h
-@@ -4,7 +4,7 @@
-  * Copyright (c) Siemens AG, 2020
-  *
-  * Authors:
-- *  Jan Kiszka <jan.kiszka@siemens.com>
-+ *  Konrad Schwarz <konrad.schwarz@siemens.com>
-  *
-  * This work is licensed under the terms of the GNU GPL, version 2.  See
-  * the COPYING file in the top-level directory.
-@@ -14,41 +14,136 @@
- #define _JAILHOUSE_ASM_PAGING_H
- 
- #include <jailhouse/types.h>
-+#include <jailhouse/header.h>
-+#include <asm/csr64.h>
- 
- #define PAGE_SHIFT		12
- 
--#define MAX_PAGE_TABLE_LEVELS	3
-+#define RISCV_PAGE_SV_DEPTH	39
-+#define RISCV_HV_PAGE_SV_DEPTH	39
- 
-+/*
-+ * SV32 requires 2, SV39 3, SV48 4. Once we support SV57, this should be 5.
-+ */
-+#define MAX_PAGE_TABLE_LEVELS	4
- #define PAGE_FLAG_FRAMEBUFFER	0
-+/* RISC-v does not insert caching/prefetching/... information into page tables.
-+ * Instead, this is done via `Physical Memory Attributes'. However, the ISA
-+ * does not define a concrete form of PMAs.  E.g., they could be hardcoded by
-+ * physical address in a SoC.
-+ */
- #define PAGE_FLAG_DEVICE	0
- 
--#define PAGE_DEFAULT_FLAGS	0
--#define PAGE_READONLY_FLAGS	0
--#define PAGE_PRESENT_FLAGS	0
-+#define RISCV_PAGE_WIDTH	12
-+#define RISCV_PTE_SIZE		3
-+#define RISCV_PTES_PER_NODE	(RISCV_PAGE_WIDTH - RISCV_PTE_SIZE)
-+
-+#define RISCV_PTE_V	0
-+#define RISCV_PTE_R	1
-+#define RISCV_PTE_W	2
-+#define RISCV_PTE_X	3
-+#define RISCV_PTE_U	4
-+#define RISCV_PTE_G	5
-+#define RISCV_PTE_A	6
-+#define RISCV_PTE_D	7
-+#define RISCV_PTE_RSW	8
-+#define RISCV_PTE_RSW_w	2
-+
-+#define RISCV_PTE_FLAG(FLAG)	(1 << RISCV_PTE_ ## FLAG)
-+
-+#define	PAGE_DEFAULT_FLAGS	(0\
-+				| RISCV_PTE_FLAG (V)\
-+				| RISCV_PTE_FLAG (R)\
-+				| RISCV_PTE_FLAG (W)\
-+				| RISCV_PTE_FLAG (X)\
-+					)
-+#define PAGE_READONLY_FLAGS	(0\
-+				| RISCV_PTE_FLAG (V)\
-+				| RISCV_PTE_FLAG (R)\
-+				)
-+#define PAGE_READWRITE_FLAGS	(0\
-+				| RISCV_PTE_FLAG (V)\
-+				| RISCV_PTE_FLAG (R)\
-+				| RISCV_PTE_FLAG (W)\
-+				)
-+#define PAGE_PRESENT_FLAGS	(0\
-+				| RISCV_PTE_FLAG (V)\
-+				)
- #define PAGE_NONPRESENT_FLAGS	0
- 
--#define INVALID_PHYS_ADDR	(~0UL)
-+#define INVALID_PHYS_ADDR	(~0ul)
- 
--#define TEMPORARY_MAPPING_BASE	0x0000008000000000UL
-+#define TEMPORARY_MAPPING_BASE	(~0ul << (RISCV_PAGE_SV_DEPTH - 1))
- #define NUM_TEMPORARY_PAGES	16
- 
--#define REMAP_BASE		0xffffff8000000000UL
- #define NUM_REMAP_BITMAP_PAGES	4
-+/*
-+ * REMAP_BASE hast to be described by the same top-level PTE as JAILHOUSE_BASE,
-+ * otherwise it won't be added to non-CPU 0 page tables automatically
-+ */
-+#define REMAP_BASE\
-+	(JAILHOUSE_BASE & ~0ul << (RISCV_HV_PAGE_SV_DEPTH - 9))
- 
--#define CELL_ROOT_PT_PAGES	1
-+#if REMAP_BASE + (NUM_REMAP_BITMAP_PAGES * 1ul << /*
-+				*/   12 /* ld bytes/page
-+				*/ +  3 /* ld bits/byte
-+				*/ + 12 /* each bit represents a page
-+				*/) > JAILHOUSE_BASE
-+
-+# error Overlap between REMAP area and JAILHOUSE_BASE!
-+#endif
-+
-+#define CELL_ROOT_PT_PAGES	(1 << 2)
-+
-+#define ATP_MODE_SHIFT		60
-+#define ATP_MODE_SV39		0x8
-+#define ATP_MODE_SV48		0x9
-+#define ATP_MODE_SV57		0xa
- 
- #ifndef __ASSEMBLY__
- 
--typedef u64 *pt_entry_t;
-+#include <jailhouse/string.h>
-+
-+typedef size_t *pt_entry_t;
- 
--static inline void arch_paging_flush_page_tlbs(unsigned long page_addr)
-+/* MMU mode for Jailhouse (S-Mode) */
-+extern unsigned char hv_atp_mode;
-+
-+static inline void arch_paging_flush_page_tlbs(size_t page_addr)
- {
-+	asm volatile("sfence.vma /* rd, */ zero, %[addr]" :
-+		     : [addr] "r" (page_addr));
- }
- 
--static inline void arch_paging_flush_cpu_caches(void *addr, long size)
-+/*
-+ * In RISC-V, the MMU accesses page tables through the caches (the MMU is a
-+ * coherent agent)
-+ */
-+static inline void arch_paging_flush_cpu_caches(void const *addr, size_t size)
- {
- }
- 
-+#define ENABLE_MMU(NAME, REG)						\
-+static inline void enable_mmu_##NAME(u8 mode, unsigned long pt)		\
-+{									\
-+	u64 atp;							\
-+									\
-+	atp = (u64)mode << ATP_MODE_SHIFT | (u64)pt >> PAGE_SHIFT;	\
-+	asm volatile("sfence.vma\n"					\
-+		     "csrw %0, %1\n"					\
-+		     "sfence.vma\n"					\
-+		     : : "i"(REG), "rK"(atp) : "memory");		\
-+}
-+
-+ENABLE_MMU(satp, CSR_SATP)
-+ENABLE_MMU(hgatp, CSR_HGATP)
-+
-+struct paging_structures;
-+struct cell;
-+
-+void riscv_paging_vcpu_init(struct paging_structures *pg_structs);
-+int riscv_paging_cell_init(struct cell *const cell);
-+
- #endif /* !__ASSEMBLY__ */
- 
- #endif /* !_JAILHOUSE_ASM_PAGING_H */
-diff --git a/hypervisor/arch/riscv/include/asm/paging_modes.h b/hypervisor/arch/riscv/include/asm/paging_modes.h
-index e69de29b..b7beb168 100644
---- a/hypervisor/arch/riscv/include/asm/paging_modes.h
-+++ b/hypervisor/arch/riscv/include/asm/paging_modes.h
-@@ -0,0 +1,18 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2022
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/paging.h>
-+
-+extern const struct paging riscv_Sv39[];
-+extern const struct paging riscv_Sv48[];
-+extern const struct paging riscv_Sv39x4[];
-+extern const struct paging riscv_Sv48x4[];
-diff --git a/hypervisor/include/jailhouse/header.h b/hypervisor/include/jailhouse/header.h
-index 518bc5cb..c5285262 100644
---- a/hypervisor/include/jailhouse/header.h
-+++ b/hypervisor/include/jailhouse/header.h
-@@ -10,6 +10,9 @@
-  * the COPYING file in the top-level directory.
+diff --git a/hypervisor/arch/riscv/asm-defines.c b/hypervisor/arch/riscv/asm-defines.c
+index 17c2f256..0143d5c9 100644
+--- a/hypervisor/arch/riscv/asm-defines.c
++++ b/hypervisor/arch/riscv/asm-defines.c
+@@ -11,9 +11,36 @@
   */
  
-+#ifndef _JAILHOUSE_HEADER_H
-+#define _JAILHOUSE_HEADER_H
-+
- #include <asm/jailhouse_header.h>
+ #include <jailhouse/gen-defines.h>
++#include <jailhouse/percpu.h>
  
- #define JAILHOUSE_SIGNATURE	"JAILHOUS"
-@@ -94,3 +97,5 @@ struct jailhouse_header {
- };
+ void common(void);
  
- #endif /* !__ASSEMBLY__ */
+ void common(void)
+ {
++	OFFSETU(REG_SP, registers, sp);
++	OFFSETU(REG_RA, registers, ra);
++	OFFSETU(REG_T0, registers, t0);
++	OFFSETU(REG_TP, registers, tp);
++	OFFSETU(REG_GP, registers, gp);
++	OFFSETU(REG_S0, registers, s0);
++	OFFSETU(REG_S1, registers, s1);
++	OFFSETU(REG_S2, registers, s2);
++	OFFSETU(REG_S3, registers, s3);
++	OFFSETU(REG_S4, registers, s4);
++	OFFSETU(REG_S5, registers, s5);
++	OFFSETU(REG_S6, registers, s6);
++	OFFSETU(REG_S7, registers, s7);
++	OFFSETU(REG_S8, registers, s8);
++	OFFSETU(REG_S9, registers, s9);
++	OFFSETU(REG_S10, registers, s10);
++	OFFSETU(REG_S11, registers, s11);
 +
-+#endif /* _JAILHOUSE_HEADER_H */
++	OFFSET(HEADER_MAX_CPUS, jailhouse_header, max_cpus);
++	OFFSET(HEADER_PERCPU_SIZE, jailhouse_header, percpu_size);
++
++	OFFSET(CFG_PHYS_START, jailhouse_system, hypervisor_memory.phys_start);
++
++	OFFSET(PCPU_GUEST_REGS, per_cpu, guest_regs);
++
++	DEFINE(REGISTERS_SIZE, sizeof(union registers));
+ }
+diff --git a/hypervisor/include/jailhouse/gen-defines.h b/hypervisor/include/jailhouse/gen-defines.h
+index d42fe255..7b348761 100644
+--- a/hypervisor/include/jailhouse/gen-defines.h
++++ b/hypervisor/include/jailhouse/gen-defines.h
+@@ -22,8 +22,14 @@
+ 
+ #define BLANK() asm volatile("\n=>" : : )
+ 
++#define OFF(type, sym, str, mem) \
++	DEFINE(sym, __builtin_offsetof(type str, mem))
++
+ #define OFFSET(sym, str, mem) \
+-	DEFINE(sym, __builtin_offsetof(struct str, mem))
++	OFF(struct, sym, str, mem)
++
++#define OFFSETU(sym, str, mem) \
++	OFF(union , sym, str, mem)
+ 
+ #define COMMENT(x) \
+ 	asm volatile("\n=>#" x)
 -- 
 2.36.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-17-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220627132905.4338-18-ralf.ramsauer%40oth-regensburg.de.
