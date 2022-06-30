@@ -1,139 +1,68 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBOHC46KQMGQEDZBK4KI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDDZR3MZ3QKBBLNU62KQMGQEUXRYEEY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13e.google.com (mail-lf1-x13e.google.com [IPv6:2a00:1450:4864:20::13e])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBADF55BB73
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 20:04:41 +0200 (CEST)
-Received: by mail-lf1-x13e.google.com with SMTP id o7-20020a056512230700b004810a865709sf2704503lfu.3
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Jun 2022 11:04:41 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656353081; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=dddaroJ/J3cQXq9I7WrByTQn+lvScowC+hjepJAEoMQGw0Jy081cjO9SsBFuh1Ugur
-         ULqtG8iGURAXYCMtaq+BZ3aX6I89u4QvZ5H6dJgM08Q2H8hI3XUsvEVbxB9q/s23hipV
-         JpHIUwDgta3mwr9/RaHLTIfwCAmpJq/btntBw2KT5cGWJ4jpTdti+BOBzuepOkKkVQL2
-         8n76Euonw33shTSSYAsTCmm0jhqHNtT0YFtiLT3LY+Tr+NMWY3gsf64+WxqV2FHkDcXB
-         FCAoDIsioOHmJZKeCBmA8jDcoMJa6zB7rV9kx6ucSnIvyPCJ8WIjluz8i1TRZhe0+zvf
-         OF7w==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=a0GdSoTesGG9thfbAfKhRhC/buzxSiGUUKQTJTz3cvM=;
-        b=eWf7FXMfzikU5y4CotdZeIxRVxu5YaenJvNfTvKtROiaEY2ELs4PJPfL/dOsX46A8p
-         wwPaGxIRXIvkWpl1v4eW6Jr47UMInj83SntjlHwqqSsDzAQdAYBrn9f93dr8ljdjP16g
-         ak9PrzZkNBU7hr3zGsWg0FA26uZ98uu+yXUgWa6XB8vjjKxXVJrDQ9K3OanGuoJv2eI8
-         uMW+ZJIV77xdb17eP+4qEDoNSooTLHKv6PKsPAfV+rRefD9q8LQ6nomKTlqz2hAZXa54
-         OaO1uwPAtKAKlnJxgQlcicDuYhrdtZiWePdEo8aObATr9H58L8sTgFuHGbkSi80XL0v1
-         v70g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=U5uJt4sJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-qv1-xf40.google.com (mail-qv1-xf40.google.com [IPv6:2607:f8b0:4864:20::f40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4D4561A8D
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Jun 2022 14:42:23 +0200 (CEST)
+Received: by mail-qv1-xf40.google.com with SMTP id q36-20020a0c9127000000b00461e3828064sf18269418qvq.12
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 Jun 2022 05:42:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:list-post:list-help:list-archive
+        h=sender:date:from:to:message-id:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=CqfI3tlE6MSDw5aFlWn0Nav28sJ8YUDq4BqrjRwwb/A=;
+        b=QR+YHM9clgUabVg1xTx9l3uwt5RYVCicoCQZiyhKPOzo3wExzVhZQ2/69H5tS0EKcp
+         xuL5aJdOaYmcW7NPbgCXBdFqYrIQvHegn4xSWqV/1qTbh1AoWYd+XWplPNcDa9biCKQH
+         +vjEQa3906ygt+dwd8S0WiGp3pzX8Ao+6eD+QBWNZrz8sWabJfsOrWVPFzBNrbGlb3Aa
+         AmTuMLVR3GqCMtHGidken8DL6Z2Tcw+BnkpU6eTlZaV1BnmbKSx/6H+Yz+xWWzIMFw1e
+         aszX7vd3bcJG6HpDxoQuiHrfHeQ7A0XGzgMp9lK7UXyAsOOp4fBH1Dn7lmiQXgCKzjQd
+         WNUA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=devlabs-pro.20210112.gappssmtp.com; s=20210112;
+        h=date:from:to:message-id:subject:mime-version:x-original-sender
+         :precedence:mailing-list:list-id:list-post:list-help:list-archive
          :list-subscribe:list-unsubscribe;
-        bh=a0GdSoTesGG9thfbAfKhRhC/buzxSiGUUKQTJTz3cvM=;
-        b=pPRBUVfWBhJkVCH3VT039uey6vpwcf8Zx6VtjNYkrzgCCjiH7ezyglFZcW4FCeLRR9
-         WXHBipqZ7Qh6M79uELqCvB5Ob0xZCJZteFhghD61Ivx9nAXSQslUtFFl6GgsEh5YWQcb
-         j/77Tvwhk2SVq0Gtu/B0d3iTzCRkdPIPerll7EHUfOpXh+4ZAD+34sEC5uunmAmLQgYu
-         C+ZsSBGUNp0POo0EQpCXzYnIfJ0g0NhIhN3TFl9aZbJYhaytqMY9GtHykPZJK999s5jv
-         z+BcT4eZR7JATRA/K1wHDyX6g8vL0S2V1hZuhJ4k2rE4W+H9CoJLvpsDPP/yqnQDRiRk
-         h9yg==
+        bh=CqfI3tlE6MSDw5aFlWn0Nav28sJ8YUDq4BqrjRwwb/A=;
+        b=GG4kW/ZdMIGKQANTPh83ZC8YLIgL36vWI3GV1aCO33st5BfVNX0qhKLMCpOeN43rEX
+         YulLquHe4uIw63PEKLEsNVP2bU5Bo77eRPPewV6dleI8JofeXZopkeiHSUvPgvZGugiv
+         LQQZU+D3F3AYEUJpq//iyYW98wkFdNu0/xn7vM1JfQAXc9qeYQ9Z+H1yw7Kn0gU0pQmY
+         QgasEt/M5MrSHxwmnHkGvlk7V8MG/jpTqjw1MvkDfk8PoN4vT6m2lk+vruTIJpUhFeqm
+         6JOrQ0tUDEdXgjtms3RHXHVgv98JRm70O5g6CWtLi9UYBRHkslenUgbOf8nIAEDn741H
+         /lsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:message-id:date:mime-version:user-agent
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :x-original-sender:x-original-authentication-results:precedence
-         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
-         :list-archive:list-subscribe:list-unsubscribe;
-        bh=a0GdSoTesGG9thfbAfKhRhC/buzxSiGUUKQTJTz3cvM=;
-        b=R+uYI1+9wU2MRxmAoFrHoLggZAmdAjD0U42F/x6VHWghHMyuAr4MfAlBS3EN5fhyQK
-         5woj8kaDmkceSz9j3x435K1wEFR0cq4J2GU/DLhdu8OVpBfubGvVmMmQccGcr3s+Qa1x
-         MI6HwaYMx9wHtemqxprV1gvOE89YJaBqPOTE7mDSiw/0t7WU2Be38eAXX2mzLrb86w+o
-         i2AmHF4oX7zqdDsWI7zGAKVuqfPo0ihXGIdTC9AQx4N+f+Gq1RDDf5Wjtu++c/EPoC9S
-         zc7NI2efwYYsiteCR0slgyk+RmkB/Rj1Dmd1yf/qP0HV6NavQS85PTEwh4KPYyjgVweO
-         IfDw==
+        h=sender:x-gm-message-state:date:from:to:message-id:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :x-spam-checked-in-group:list-post:list-help:list-archive
+         :list-subscribe:list-unsubscribe;
+        bh=CqfI3tlE6MSDw5aFlWn0Nav28sJ8YUDq4BqrjRwwb/A=;
+        b=FZzb7OMisZRRUG6gJ3zURFkF4sJiAmOtXqPBqh4FdS0epCZ3EeUcXqehEz0gdlPkzP
+         heEsDPqwTa5yTfY/3lYrJ+L7rr/IYc5RIrdY2rS7lAZiJ0i1yaeZdIr6g8CVudmvWmVP
+         tAB/P5mLBjHBtkM76UqtIog/ra9n5RbTi+iYd6HXBNkaYlMzi8dB9T1eStTDId9TUBG8
+         SwIq16Diq8lFF5U80JpqfdoKafNhJZUaMhw55gULO2ODUdxJ9/gf7CngbHWJAoqTppJL
+         g8oyZkiKaJBUiLkN9TbFDEekQWewB0DSonqnWIK92PmDX621B3NsbP9oUW18WphQ5qsH
+         ACpw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora9X5djXfnZKCnR6FVcNQHGbg7cFQPpGbj3qlDf9u+ieRa6akqv6
-	9dLVSgyA/F+HQFB261ERFAU=
-X-Google-Smtp-Source: AGRyM1smG6r2hPOK27rknJaTjKrxLvwkC4WDbd4EbK1bjcgvnIWdK1k0X6Hfo8zb3LdYxseNFZw/Fw==
-X-Received: by 2002:a2e:1453:0:b0:25a:725a:db92 with SMTP id 19-20020a2e1453000000b0025a725adb92mr7651316lju.483.1656353081277;
-        Mon, 27 Jun 2022 11:04:41 -0700 (PDT)
+X-Gm-Message-State: AJIora+dyD0la1q9+eoq41qNPLPIKrkzCPMIrPWw//w5RdEFVns5hfeM
+	jz8H2VGFNpTzn5lnwp7/Uic=
+X-Google-Smtp-Source: AGRyM1uDvSRnP8fP1Oxp6jpYXuruCXEO/uQ9c/7MgYH80MYpcHWtOUXfTSw28FvdIIuJZ79YfXK5Sg==
+X-Received: by 2002:a37:9f4a:0:b0:6ae:e0da:a321 with SMTP id i71-20020a379f4a000000b006aee0daa321mr5894915qke.752.1656592942282;
+        Thu, 30 Jun 2022 05:42:22 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3f16:b0:449:f5bf:6f6a with SMTP id
- y22-20020a0565123f1600b00449f5bf6f6als563069lfa.2.gmail; Mon, 27 Jun 2022
- 11:04:39 -0700 (PDT)
-X-Received: by 2002:ac2:58c4:0:b0:47f:a019:a024 with SMTP id u4-20020ac258c4000000b0047fa019a024mr9425487lfo.636.1656353079364;
-        Mon, 27 Jun 2022 11:04:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1656353079; cv=none;
-        d=google.com; s=arc-20160816;
-        b=cRtU+mwkxIddymgThU1waOD2P8jhx4ZQ9kXe8HX0x9VZ+QLpM5kdIL7htqDEYyKQeH
-         ff0vom1JHVHenLP7P9D5L6TQod+xMfLzthBQdjUeq9md+qwQSSi9TLkWs4VrrVyWRBdt
-         ILbtlvR2WwAUqAfmsxL9peufO6hu7uJIM7B+1Vf8JmED+bN9/bAhhnHsST9sjGoV+vh7
-         SSNvBRGWavML8mQnW+oZHoeTqCSYjUQz2Ep99h8uFtsDdrEwZHQ8k7947W7VHpC1TtEn
-         BMDin+bKBb7+gxzaIcxYWt+DyHwBbfHHc4fdTmhFGqta9iZv6ACNZCZKEna44TdDNy8K
-         A1zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=mCQFe1ao4lnDf82TFxzw5eE92wVPERpe5EghZgJzVOk=;
-        b=NtapqyE6bmEvTIh4N+V9F+s1L01m0/6Nen0hvnCVA3DBiNICRVVE05CYNSfmP0Asw0
-         +xukVoAE9GUqsr8m9QFyJ97BgkcdCIi02jU6Ms8P6mxz8OwDx4M8BeHo71ZvYUPqR4eB
-         oh5E9ICRGGRxBegoSlJ4g3Hxx4a1UsWMN02Vs9OJLMkQMjOg1jYH9B6jURT4dFgPN0av
-         mUafQ6upd8Sogsg4T9FfwMb5E0803rQ1o8tMVCCSswqgWWzXYaeG/npxCJtbdE+46yHi
-         HgTY4IWByLFFC27u2d/LpirAAhIgSPlPwqnSfiN5o6LMUzb7umqmdciK0IJ0M4jOc+fB
-         hSVg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=U5uJt4sJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id bj25-20020a2eaa99000000b0024da01a8c6dsi384824ljb.1.2022.06.27.11.04.39
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 27 Jun 2022 11:04:39 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4LWwbp305zzxws;
-	Mon, 27 Jun 2022 20:04:38 +0200 (CEST)
-Received: from [172.23.3.47] (194.95.106.138) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 27 Jun
- 2022 20:04:38 +0200
-Message-ID: <d1aa2611-081c-cac5-fe9d-06000a53754c@oth-regensburg.de>
-Date: Mon, 27 Jun 2022 20:04:37 +0200
+Received: by 2002:ac8:58cb:0:b0:318:dc4:3e8c with SMTP id u11-20020ac858cb000000b003180dc43e8cls8952229qta.7.gmail;
+ Thu, 30 Jun 2022 05:42:21 -0700 (PDT)
+X-Received: by 2002:ac8:5851:0:b0:317:cd4c:e7f2 with SMTP id h17-20020ac85851000000b00317cd4ce7f2mr7267890qth.580.1656592940538;
+        Thu, 30 Jun 2022 05:42:20 -0700 (PDT)
+Date: Thu, 30 Jun 2022 05:42:19 -0700 (PDT)
+From: lpfeifhofer <l.pfeifhofer@devlabs.pro>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <515276d4-6a49-4734-92f9-8fcae109edd3n@googlegroups.com>
+Subject: Root cell configuration for new arm64 target (interrupt controller)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [RFC v1 34/42] configs: riscv: qemu: add system configs
-Content-Language: en-US
-To: Jan Kiszka <jan.kiszka@siemens.com>, Ralf Ramsauer
-	<ralf.ramsauer@oth-regensburg.de>, <jailhouse-dev@googlegroups.com>
-CC: Konrad Schwarz <konrad.schwarz@siemens.com>, Stefan Huber
-	<stefan.huber@oth-regensburg.de>
-References: <20220627132905.4338-1-ralf.ramsauer@oth-regensburg.de>
- <20220627132905.4338-35-ralf.ramsauer@oth-regensburg.de>
- <d85ed09a-9979-c40c-9b15-ba68187ab22f@siemens.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <d85ed09a-9979-c40c-9b15-ba68187ab22f@siemens.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Originating-IP: [194.95.106.138]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=U5uJt4sJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_508_730802160.1656592939880"
+X-Original-Sender: l.pfeifhofer@devlabs.pro
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,42 +75,264 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+------=_Part_508_730802160.1656592939880
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_509_1197424081.1656592939880"
+
+------=_Part_509_1197424081.1656592939880
+Content-Type: text/plain; charset="UTF-8"
+
+Hi, I am currently trying to get jailhouse running on a new arm64 target 
+(Cortex-A53). I am trying to get a minimal root cell configuration working 
+but at the moment when enabling it it just immediately crashes the board 
+(stuck without any output).
+
+The physical memory on the board seems to be available from 
+00000000-1fffffff (/proc/iomem) and initially I reduced the memory for 
+Linux using mem=128M to be able to place jailhouse into the upper regions 
+(see below, starting at 0x08000000).
+
+Following that I tried to make sense on how the GIC needs to be set up. 
+From what I know the device uses a GIC v2 with base address 0xffc01000. 
+This can be found in the linux device tree here: 
+https://github.com/khadas/linux/blob/khadas-vims-5.4.y/arch/arm64/boot/dts/amlogic/mesont7.dtsi#L285
+
+However, there it only features 2 entries, and in all v2 configurations 
+found in the jailhouse repo 4 addresses are used. (GIC v3 seems to use only 
+two).
+
+In addition I am not sure what the purpose of irqchips is and how that 
+should look like. Is this to communicate to jailhouse what interrupts it 
+can make use of?
+
+It would be great to get some feedback if I correctly configured the GIC 
+(and memory) and if what I am seeing could be related to a incorrect 
+configuration on my side. (I might also have to extend this configuration, 
+I assumed what I have is enough for a minimal setup.)
+
+struct {
+    struct jailhouse_system header;
+    __u64 cpus[1];
+    struct jailhouse_memory mem_regions[1];
+    struct jailhouse_irqchip irqchips[1];
+    struct jailhouse_pci_device pci_devices[0];
+} __attribute__((packed)) config = {
+    .header = {
+        .signature = JAILHOUSE_SYSTEM_SIGNATURE,
+        .revision = JAILHOUSE_CONFIG_REVISION,
+        .flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
+        .hypervisor_memory = {
+            .phys_start = 0x08000000,
+            .size =       0x04000000,
+        },
+        .debug_console = {
+            .flags = JAILHOUSE_CON_TYPE_NONE,
+        },
+        .platform_info = {
+            .pci_mmconfig_base = 0x0C000000,
+            .pci_mmconfig_end_bus = 0,
+            .pci_is_virtual = 1,
+            .arm = {
+                .gic_version = 2,
+                .gicd_base = 0xffc01000,
+                .gicc_base = 0xffc02000,
+                .gich_base = 0xffc04000,
+                .gicv_base = 0xffc06000,
+                .maintenance_irq = 25,
+            },
+        },
+        .root_cell = {
+            .name = "AM113",
+
+            .cpu_set_size = sizeof(config.cpus),
+            .num_memory_regions = ARRAY_SIZE(config.mem_regions),
+            .num_irqchips = ARRAY_SIZE(config.irqchips),
+            .num_pci_devices = ARRAY_SIZE(config.pci_devices),
+
+            .vpci_irq_base = 108,
+        },
+    },
+
+    .cpus = {
+        0b1111,
+    },
+
+    .mem_regions = {
+        /* System RAM */ {
+            .phys_start = 0x08000000,
+            .virt_start = 0x08000000,
+            .size = 0x04000000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+                JAILHOUSE_MEM_EXECUTE,
+        },
+    },
+
+    .irqchips = {
+        /* GIC */ {
+            .address = 0xffc01000,
+            .pin_base = 32,
+            .pin_bitmap = {
+                0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
+            },
+        },
+    },
+
+    .pci_devices = {
+
+    },
+};
 
 
-On 27/06/2022 15:36, Jan Kiszka wrote:
-> On 27.06.22 15:28, Ralf Ramsauer wrote:
->> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
->> ---
->>   configs/riscv/qemu-riscv64.c | 218 +++++++++++++++++++++++++++++++++--
->>   include/jailhouse/console.h  |   1 +
->>   2 files changed, 211 insertions(+), 8 deletions(-)
->>
-> 
-> ...
-> 
->> diff --git a/include/jailhouse/console.h b/include/jailhouse/console.h
->> index 34dd7209..0b6c558b 100644
->> --- a/include/jailhouse/console.h
->> +++ b/include/jailhouse/console.h
->> @@ -50,6 +50,7 @@
->>   #define JAILHOUSE_CON_TYPE_SCIFA	0x0007
->>   #define JAILHOUSE_CON_TYPE_IMX		0x0008
->>   #define JAILHOUSE_CON_TYPE_IMX_LPUART	0x0009
->> +#define JAILHOUSE_CON_TYPE_RISCV_SBI	0x000a
->>   
->>   /* Flags: bit 0 is used to select PIO (cleared) or MMIO (set) access */
->>   #define JAILHOUSE_CON_ACCESS_PIO	0x0000
-> 
-> This is likely needed earlier in order to allow building things.
+# cat /proc/iomem 
+00000000-07ffffff : System RAM
+  03000000-03e3ffff : Kernel code
+  04030000-04bcbfff : Kernel data
+ff3f0000-ff3fffff : /ethernet@0xff3f0000
+ff500000-ff507fff : /dwc3@ff500000
+  ff500000-ff507fff : /dwc3@ff500000
+ff50c100-ff5fffff : /dwc3@ff500000
+ff634018-ff63401b : /rng
+ff634430-ff63446b : gpio
+ff634480-ff6344bf : mux
+ff6344e8-ff6344fb : pull
+ff634520-ff634533 : pull-enable
+ff634540-ff634547 : /ethernet@0xff3f0000
+ff63c400-ff63c44b : /mhu@c883c400
+ff642000-ff643fff : /soc/audiobus@0xff642000
+ff800014-ff80001b : mux
+ff800024-ff80002b : gpio
+ff80002c-ff80002f : pull
+ff803000-ff803017 : ff803000.serial
+ff805000-ff80501f : /soc/aobus@ff800000/i2c@5000
+ff809000-ff809037 : /saradc
+ffd13000-ffd1303b : /spi@ffd130000
+ffd1e000-ffd1e01f : /soc/cbus@ffd00000/i2c@1e000
+ffd23000-ffd23017 : ffd23000.serial
+ffe05000-ffe06fff : /sdio@ffe05000
+ffe07800-ffe079ff : ffe07800.mtd_nand
+ffe09000-ffe0907f : /usb2phy@ffe09000
+ffe09080-ffe0909f : /usb3phy@ffe09080
+fffd3000-fffd37ff : /mhu@c883c400
 
-Hmm, I checked that every commit compiles. So in fact there's no user of 
-JAILHOUSE_CON_TYPE_RISCV_SBI. This is still missing in dbg-write.c. Will 
-fix it.
-
-Thanks
-   Ralf
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d1aa2611-081c-cac5-fe9d-06000a53754c%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/515276d4-6a49-4734-92f9-8fcae109edd3n%40googlegroups.com.
+
+------=_Part_509_1197424081.1656592939880
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi, I am currently trying to get jailhouse running on a new arm64 targ=
+et (Cortex-A53).
+ I am trying to get a minimal root cell configuration working but at the
+ moment when enabling it it just immediately crashes the board (stuck=20
+without any output).</div><div><br></div><div><span> The physical memory on=
+ the board seems to be available from 00000000-1fffffff (/proc/iomem) and i=
+nitially </span>I reduced the memory for Linux using <span>mem=3D128M to be=
+ able to place jailhouse into the upper regions (see below, starting at <sp=
+an>0x08000000)</span>.</span></div><div><span><br></span></div><div><span>F=
+ollowing that I tried to make sense on how the GIC needs to be set up. From=
+ what I know the device uses a GIC<span> v2</span> with base address <span>=
+0xffc01000. This can be found in the linux device tree here: https://github=
+.com/khadas/linux/blob/khadas-vims-5.4.y/arch/arm64/boot/dts/amlogic/mesont=
+7.dtsi#L285</span></span></div><div><span><br></span></div><div><span>Howev=
+er,
+ there it only features 2 entries, and in all v2 configurations found in
+ the jailhouse repo 4 addresses are used. (GIC v3 seems to use only=20
+two).</span></div><div><span><br></span></div><div><span>In addition I am n=
+ot sure what the purpose of <span>irqchips is and how that should look like=
+. Is this to communicate to jailhouse what interrupts it can make use of?<b=
+r></span></span></div><div><span><span><br></span></span></div><div><span><=
+span>It
+ would be great to get some feedback if I correctly configured the GIC (and=
+=20
+memory) and if what I am seeing could be related to a incorrect=20
+configuration on my side. (I might also have to extend this configuration, =
+I assumed what I have is enough for a minimal setup.)<br></span></span></di=
+v><div><span><br></span></div><div><span>struct {<br>&nbsp; &nbsp; struct j=
+ailhouse_system header;<br>&nbsp; &nbsp; __u64 cpus[1];<br>&nbsp; &nbsp; st=
+ruct jailhouse_memory mem_regions[1];<br>&nbsp; &nbsp; struct jailhouse_irq=
+chip irqchips[1];<br>&nbsp; &nbsp; struct jailhouse_pci_device pci_devices[=
+0];<br>} __attribute__((packed)) config =3D {<br>&nbsp; &nbsp; .header =3D =
+{<br>&nbsp; &nbsp; &nbsp; &nbsp; .signature =3D JAILHOUSE_SYSTEM_SIGNATURE,=
+<br>&nbsp; &nbsp; &nbsp; &nbsp; .revision =3D JAILHOUSE_CONFIG_REVISION,<br=
+>&nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE=
+,<br>&nbsp; &nbsp; &nbsp; &nbsp; .hypervisor_memory =3D {<br>&nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; .phys_start =3D 0x08000000,<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; .size =3D &nbsp; &nbsp; &nbsp; 0x04000000,<br>&nb=
+sp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; .debug_console =
+=3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .flags =3D JAILHOUSE_CON=
+_TYPE_NONE,<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp=
+; .platform_info =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .pci_mm=
+config_base =3D 0x0C000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .p=
+ci_mmconfig_end_bus =3D 0,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .pc=
+i_is_virtual =3D 1,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .arm =3D {=
+<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .gic_version =
+=3D 2,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .gicd_bas=
+e =3D 0xffc01000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; .gicc_base =3D 0xffc02000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; .gich_base =3D 0xffc04000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; .gicv_base =3D 0xffc06000,<br>&nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .maintenance_irq =3D 25,<br>&nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp=
+; &nbsp; &nbsp; &nbsp; .root_cell =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; .name =3D "AM113",<br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; .cpu_set_size =3D sizeof(config.cpus),<br>&nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; .num_memory_regions =3D ARRAY_SIZE(config.mem_regions),<br>&nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .num_irqchips =3D ARRAY_SIZE(config.i=
+rqchips),<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .num_pci_devices =3D=
+ ARRAY_SIZE(config.pci_devices),<br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; .vpci_irq_base =3D 108,<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; =
+&nbsp; },<br><br>&nbsp; &nbsp; .cpus =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; 0=
+b1111,<br>&nbsp; &nbsp; },<br><br>&nbsp; &nbsp; .mem_regions =3D {<br>&nbsp=
+; &nbsp; &nbsp; &nbsp; /* System RAM */ {<br>&nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; .phys_start =3D 0x08000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; .virt_start =3D 0x08000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; .size =3D 0x04000000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>&nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JAILHOUSE_MEM_EXECUTE,<br>&nbsp; &nbs=
+p; &nbsp; &nbsp; },<br>&nbsp; &nbsp; },<br><br>&nbsp; &nbsp; .irqchips =3D =
+{<br>&nbsp; &nbsp; &nbsp; &nbsp; /* GIC */ {<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; .address =3D 0xffc01000,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; .pin_base =3D 32,<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .p=
+in_bitmap =3D {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,<br>&nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; &nbsp; &nbsp; },<br>&nbsp; &nbsp; },<=
+br><br>&nbsp; &nbsp; .pci_devices =3D {<br><br>&nbsp; &nbsp; },<br>};</span=
+></div><div><span><br></span></div><div><span><br></span></div><div><span>#=
+ cat /proc/iomem <br>00000000-07ffffff : System RAM<br>&nbsp; 03000000-03e3=
+ffff : Kernel code<br>&nbsp; 04030000-04bcbfff : Kernel data<br>ff3f0000-ff=
+3fffff : /ethernet@0xff3f0000<br>ff500000-ff507fff : /dwc3@ff500000<br>&nbs=
+p; ff500000-ff507fff : /dwc3@ff500000<br>ff50c100-ff5fffff : /dwc3@ff500000=
+<br>ff634018-ff63401b : /rng<br>ff634430-ff63446b : gpio<br>ff634480-ff6344=
+bf : mux<br>ff6344e8-ff6344fb : pull<br>ff634520-ff634533 : pull-enable<br>=
+ff634540-ff634547 : /ethernet@0xff3f0000<br>ff63c400-ff63c44b : /mhu@c883c4=
+00<br>ff642000-ff643fff : /soc/audiobus@0xff642000<br>ff800014-ff80001b : m=
+ux<br>ff800024-ff80002b : gpio<br>ff80002c-ff80002f : pull<br>ff803000-ff80=
+3017 : ff803000.serial<br>ff805000-ff80501f : /soc/aobus@ff800000/i2c@5000<=
+br>ff809000-ff809037 : /saradc<br>ffd13000-ffd1303b : /spi@ffd130000<br>ffd=
+1e000-ffd1e01f : /soc/cbus@ffd00000/i2c@1e000<br>ffd23000-ffd23017 : ffd230=
+00.serial<br>ffe05000-ffe06fff : /sdio@ffe05000<br>ffe07800-ffe079ff : ffe0=
+7800.mtd_nand<br>ffe09000-ffe0907f : /usb2phy@ffe09000<br>ffe09080-ffe0909f=
+ : /usb3phy@ffe09080<br>fffd3000-fffd37ff : /mhu@c883c400</span></div><br><=
+br>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/515276d4-6a49-4734-92f9-8fcae109edd3n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/515276d4-6a49-4734-92f9-8fcae109edd3n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_509_1197424081.1656592939880--
+
+------=_Part_508_730802160.1656592939880--
