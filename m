@@ -1,128 +1,73 @@
-Return-Path: <jailhouse-dev+bncBAABBP6XRWLAMGQE354W3JA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCX7HWUSSQARBW7TSCLAMGQEQSCMFMI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x13f.google.com (mail-il1-x13f.google.com [IPv6:2607:f8b0:4864:20::13f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D10E565F6E
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  5 Jul 2022 00:37:53 +0200 (CEST)
-Received: by mail-il1-x13f.google.com with SMTP id n13-20020a056e021bad00b002dc0580da61sf2502649ili.21
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 Jul 2022 15:37:53 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1656974272; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=ocLAnJg0xGTIUi2vySrumX5A1ueWkWTsH7u8IvuPAajKrh1KHCxPJ94RamPF2k+Hoh
-         j99BKNB5T9KTHLT2S5Kd4y7tHMKSs0wCh/6JK6DSONsyVfp5gm07bgbzddXotfbWxp9D
-         /KpTRts9C5bFbY5Lf0bKDrg/TtxZwTMg3jp/+j5m+ZTRfMDBKtg8azJqt8dsyZMAUOR+
-         EdtwGy/6fvhCDxFu1qBXwJ6cy9QCr4eVmwKUg/gQ/5sgwnZgRjCKpKPaHHccbhmO1z8v
-         tSSfEybiZLrR4fgY6xDp15sRbUiTqN8rfUq8L88Xe2HI9eqQWPR+oN57PRdHw8FlbnAo
-         rsmA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:reply-to
-         :subject:to:from:date:user-agent:sender:dkim-signature;
-        bh=djpIrEb2PKR3KHvvX8pkT9HodjMcFrqFb/XuIxie+0I=;
-        b=jhHym2KQo9kJpozHm8fv/PmUcuWmjT1KHtYKLXy3EhM4A1Iiun0WFz9h1X7HtgNuvi
-         MKcVZNUuGVnJpm4w22FeQ5HzuvKF8xGGXZ8W/ok3hiRituOMCmWGUtfx5092F8acQi1d
-         AWiQrXJyxc6/C2VmXGgX/+0v64fbVn6JyGDV+jXaoJdwM36DoWjPj5dhodtQcTNlWcB4
-         VaSgD0L8Z9Jb5ABtNYSSz8h7Iu4AcLVN2klwJ/WjPsHRqyarTVIUK1ahyTbX5bB/MbgL
-         cHopboi/Tt+jfUwO7nYYkkntQa2bk/RWg6N4eItHOGjNfEJTgjLzdVT23H9TQ5y89BWV
-         T/HA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@qiji.com.sg header.s=default header.b=MgCNhoF3;
-       spf=pass (google.com: domain of no-reply@qiji.com.sg designates 103.15.234.209 as permitted sender) smtp.mailfrom=no-reply@qiji.com.sg
+Received: from mail-qk1-x73d.google.com (mail-qk1-x73d.google.com [IPv6:2607:f8b0:4864:20::73d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 233BE566F10
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  5 Jul 2022 15:17:17 +0200 (CEST)
+Received: by mail-qk1-x73d.google.com with SMTP id 194-20020a3704cb000000b006af069d1e0asf11399194qke.15
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 05 Jul 2022 06:17:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
-        h=sender:user-agent:date:from:to:subject:reply-to:message-id
-         :mime-version:x-original-sender:x-original-authentication-results
-         :precedence:mailing-list:list-id:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=djpIrEb2PKR3KHvvX8pkT9HodjMcFrqFb/XuIxie+0I=;
-        b=Tv/IYcShOaXIJSvrk3XICXMJhQZfJpxVlRNnCwbWtgy68HLCwdElwTD1hjNfsgzHN+
-         5FA4obHp44j7GBN3r/wvsf1UcCubBHdEASoXi5ywsJ+X+7uYtfScScGMNKXESdeITkoE
-         Gz/s3oCI/c1a1wlKLkkPbcsdBV3f5n4OtUEd/Y9/aipiagoVEy0iipV0fcGpw6UHYfOv
-         yhXpES1xIEMHSTXJ7sKAsUkAhJt+T7c+9lQbsWnK/cc6qKlE6A+Q5xwnS/3MnqkjchfK
-         +xMocflrGmK1z0py6wU/kpEgmncgUZqdsUOV6Rtgo5mCoqAXSc4NrnFR5Tr+m3IGSKQq
-         X9UA==
+        h=sender:date:from:to:message-id:in-reply-to:references:subject
+         :mime-version:x-original-sender:precedence:mailing-list:list-id
+         :list-post:list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=v5EAvYVwYn8eENRkVadTkX//6HL5yk0KpZeOvqvziLo=;
+        b=Ola1zjSzb6w7xJ5eknNai+qKzuGCjjqNUOV7oE3GFbPUjKekcUmTPQlZj1nAK9T1iD
+         WjswXX9gw6RoiRIAd399k6C23avHAaFXs/gOvP1y2+kEdZWDwmK/UgNjrWgIu6y2dszZ
+         VmRK3oUBv/WnLZOG6qW43ih2j048YGeI8KI0v7Q2FJrqJj4RGC3Z/lwzEcMvNac/Lvit
+         HAGsZyU/fYgTpi5l7qefQ+wbA5Ug315XqF1u0kLuQVauu8Hy8r8DD9TV/cIjoCfsWSs/
+         ah5x4FkIdHo34j36EkDhMMhqekIOwMWkYZHxFdMVQ1w4+TX4IjbscoSmyC25RxFzV3ta
+         YDpQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:message-id:in-reply-to:references:subject:mime-version
+         :x-original-sender:precedence:mailing-list:list-id:list-post
+         :list-help:list-archive:list-subscribe:list-unsubscribe;
+        bh=v5EAvYVwYn8eENRkVadTkX//6HL5yk0KpZeOvqvziLo=;
+        b=RER4Mzqe9f3RC+ODC/+q1U3aSKP1eGIp/Xk7ithDF8QlIGrsT2tSrgPjyxo+cyNoqp
+         xNoguPPNdAKg6dqD5NcTdj3ahIc0o3XafaL3jxsewfT7fw0Wva81WagXdGDNLPkopxia
+         If8K+A/bZt1HCREN0FgXj6PhXAhBkVASiugNNVudFGPU/u2eJi2xvqkBExCkSzspOvVq
+         +xBjxMeIbBfyssXApJ+co9a9ZziWd/xIkceQoQ5FKMbMt9/gPOQKibPJtvBbvmWCpYQK
+         qFpTrss/d3pLYKHYMTJkx4hG2SbVGz8X0QU9dgrk9g3YHr702OVs6YS56Dzvy2UGvJcp
+         HfnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=sender:x-gm-message-state:user-agent:date:from:to:subject:reply-to
-         :message-id:mime-version:x-original-sender
-         :x-original-authentication-results:precedence:mailing-list:list-id
-         :x-spam-checked-in-group:list-post:list-help:list-archive
-         :list-subscribe:list-unsubscribe;
-        bh=djpIrEb2PKR3KHvvX8pkT9HodjMcFrqFb/XuIxie+0I=;
-        b=09zbJnN976EdJ3RLEArpZSGj+XhCmozku2Amr4HMOvlhsJZapaNlfv5GBdRCTSoN3g
-         XMEIKVZGoq9A7lmn32O3NusM/yHCeKsIZK6VTryKhEgk5+K/aO8MqLLlEJQ7MnQcVWae
-         6O9jZbUr2Y19U+4P+KBBrvigbhFqgfd+9INe+eewB1VXe9INBORidLf/h2r5HLNhoOKH
-         V6G9Yn9+xqDV+ujXV8KC4mQGJGZhewx6xi8iOIE4/WdWiyfmI5Lj16IXHVIPZ2QRAfZQ
-         YnpLOHzbp4N/lRyp4FLmhYvq4prtfk/X91ZWBRAm2e7A/mvsL7sZBOsv540KVWDHljKu
-         fiGg==
+        h=sender:x-gm-message-state:date:from:to:message-id:in-reply-to
+         :references:subject:mime-version:x-original-sender:precedence
+         :mailing-list:list-id:x-spam-checked-in-group:list-post:list-help
+         :list-archive:list-subscribe:list-unsubscribe;
+        bh=v5EAvYVwYn8eENRkVadTkX//6HL5yk0KpZeOvqvziLo=;
+        b=OvDT2LQu2XAMX9LbKRDIsCxpzsjjRIFZ/K3clPAji068nMKW85ucmdqW9dX0sSzFGF
+         9hovCxiTDLqZtGaBiFQm9lhL15dyqaNQmvdY6XvxO2e13sA38txm15itr23YtdCNRtiE
+         Yljkii9DKyh0xAMu8lPMxIEt2m+gSDvbALU0/VFE1ovXXehWhvUDEoe/fpjl2NPlB/QV
+         qkfOKPmDK3LKtz+w4n7VgOdC+lIUzNIIfcpDB+QJ2Tur/Ij7Vl7eXxOMs/RELxwv3g3Q
+         /a3HcqYLW0aHwyrT1kaIN4RA1ZjhQ+6ySlScOCPcthAKr8BgizYsnvgvbbjLAI4sSK1a
+         JYtw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AJIora8Tucbrp7E1QNuBdlFeCZatG+oz/Xsy1QkPnPy64CWGQJ9sva+L
-	mhPpC0pGYZQcLSnN8I1zgBY=
-X-Google-Smtp-Source: AGRyM1tDpLTz2LWlUiyQOOKnF1Sg66V4dWegsBTiCHtNXOtTMtzCbQ39Br+p1YHpTbjLQP3S4EBo7Q==
-X-Received: by 2002:a05:6638:1506:b0:33e:ba5d:b2c4 with SMTP id b6-20020a056638150600b0033eba5db2c4mr8633777jat.279.1656974272049;
-        Mon, 04 Jul 2022 15:37:52 -0700 (PDT)
+X-Gm-Message-State: AJIora+xXo7OBNjtziBdnDMdjrpzTvI7+cxnpdr/kfEhoTXhbd8hakCW
+	pQOjsCWk0ybh87Phf6cZyOI=
+X-Google-Smtp-Source: AGRyM1vhxdgYKvuHb1Y2p/qEZyGa5a5LPaIQoopid+48KJDbHhNqIrKTvGr+dPcLml9IK90SoOZxPw==
+X-Received: by 2002:a05:6214:c6e:b0:43d:684c:f538 with SMTP id t14-20020a0562140c6e00b0043d684cf538mr11880500qvj.58.1657027035630;
+        Tue, 05 Jul 2022 06:17:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a6b:8e0c:0:b0:675:970a:3958 with SMTP id q12-20020a6b8e0c000000b00675970a3958ls1172013iod.2.gmail;
- Mon, 04 Jul 2022 15:37:50 -0700 (PDT)
-X-Received: by 2002:a6b:fd13:0:b0:675:3114:23a0 with SMTP id c19-20020a6bfd13000000b00675311423a0mr17100835ioi.54.1656974270036;
-        Mon, 04 Jul 2022 15:37:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1656974270; cv=none;
-        d=google.com; s=arc-20160816;
-        b=SZPRvwUpAJqJ9LbTs1ENa2u8xis2WoWODDZ0+V01xdVYVkokinsK41R92zySTUeH2G
-         Ln5u9oLpFd9lVWYxHFw8P7ZUNAKAJSZu+f35KO7gqZWTFcPo51FmFWlzNbKWmcuLOe1y
-         B/d0RQfUlrHxVhXr+q0hgKP6/L5bjdMVUrY7jfUiKvkdzlSLoT6G0gpCeWqRkfPsRDuB
-         WCB1+BQOY9+yzg2T341/iP4knzFK31me0QkvGltZIzHJTDxOgxH+uwQCGHklRlgcLud+
-         A2G/k00a7aAULOE9T4bIkXl4C0ptxBugeMINm1YOcmWLqdX4dYmqH0QNA3hjPCAgUOwM
-         voyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:message-id:reply-to:subject:to:from:date:user-agent
-         :dkim-signature;
-        bh=YbWxouVbcVzeqAcyVxED5AqFxsALPfAdylCvUqWK9Lo=;
-        b=UNwZg1Wwyopi+pnEJMGfvE65Pw5N5hVZCxvdiNlwJAv7l0Bcj4qIa78x0nvw4E9m1d
-         cQ7f+ArEbCyl7ePIxxvNNZevWOEPn+SqdWdnRNFURzmstx7Il65baOgDJyywHw9T5Zq+
-         0JD5seLtdvM3ZRzLeEL9r183wKVDnejyoGYkPkxElVOeBfJ9fgNkIiYgiLHbmRYXMQPh
-         2kDMQNt57+OgK5+2ZPAov9awWoJhbyzrMfHQm9odpGn1FGGHIL7JNcRyD8Irwi/vGAr0
-         Igunm3CwGrWKcOs/qphgmR48riP7JLkaVrAuUL4G60mSha5rgrZTWz4jBBpD7mL0O4eX
-         AUjA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@qiji.com.sg header.s=default header.b=MgCNhoF3;
-       spf=pass (google.com: domain of no-reply@qiji.com.sg designates 103.15.234.209 as permitted sender) smtp.mailfrom=no-reply@qiji.com.sg
-Received: from v234209.serveradd.com (v234209.serveradd.com. [103.15.234.209])
-        by gmr-mx.google.com with ESMTPS id a6-20020a92d106000000b002d77420723csi977630ilb.3.2022.07.04.15.37.48
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 Jul 2022 15:37:49 -0700 (PDT)
-Received-SPF: pass (google.com: domain of no-reply@qiji.com.sg designates 103.15.234.209 as permitted sender) client-ip=103.15.234.209;
-Received: from v234209.serveradd.com ([103.15.234.209]:54056 helo=www.qiji.com.sg)
-	by v234209.serveradd.com with esmtpa (Exim 4.95)
-	(envelope-from <no-reply@qiji.com.sg>)
-	id 1o8UhO-0004am-SZ
-	for jailhouse-dev@googlegroups.com;
-	Tue, 05 Jul 2022 06:37:46 +0800
-User-Agent: CodeIgniter
-Date: Tue, 5 Jul 2022 06:37:46 +0800
-From: "Qi Ji" <no-reply@qiji.com.sg>
-To: jailhouse-dev@googlegroups.com
-Subject: =?utf-8?Q?Qi_Ji_Online_Order:_New_Sign_Up_Verification?=
-Reply-To: "no-reply@qiji.com.sg" <no-reply@qiji.com.sg>
-X-Sender: no-reply@qiji.com.sg
-X-Mailer: CodeIgniter
-X-Priority: 3 (Normal)
-Message-ID: <62c36bbaa40c6@qiji.com.sg>
-Mime-Version: 1.0
-Content-Type: multipart/alternative; boundary="B_ALT_62c36bbaa4106"
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - v234209.serveradd.com
-X-AntiAbuse: Original Domain - googlegroups.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - qiji.com.sg
-X-Get-Message-Sender-Via: v234209.serveradd.com: authenticated_id: no-reply@qiji.com.sg
-X-Authenticated-Sender: v234209.serveradd.com: no-reply@qiji.com.sg
-X-Original-Sender: no-reply@qiji.com.sg
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@qiji.com.sg header.s=default header.b=MgCNhoF3;       spf=pass
- (google.com: domain of no-reply@qiji.com.sg designates 103.15.234.209 as
- permitted sender) smtp.mailfrom=no-reply@qiji.com.sg
+Received: by 2002:a05:620a:4496:b0:6b1:5134:adee with SMTP id
+ x22-20020a05620a449600b006b15134adeels10010600qkp.8.gmail; Tue, 05 Jul 2022
+ 06:17:14 -0700 (PDT)
+X-Received: by 2002:a37:a0c3:0:b0:6b2:70dc:56a3 with SMTP id j186-20020a37a0c3000000b006b270dc56a3mr10649989qke.563.1657027034538;
+        Tue, 05 Jul 2022 06:17:14 -0700 (PDT)
+Date: Tue, 5 Jul 2022 06:17:13 -0700 (PDT)
+From: Jean de Bonfils <jdebonfils5@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <d892634a-d2ee-4b41-bbc3-43b67936108en@googlegroups.com>
+In-Reply-To: <DU0PR04MB94176E4803FA6CA0EACC848588BE9@DU0PR04MB9417.eurprd04.prod.outlook.com>
+References: <AQHYgh74nANUY7FPQk6OjUBxiJJzjq1t3YzQ>
+ <1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n@googlegroups.com>
+ <DU0PR04MB94176E4803FA6CA0EACC848588BE9@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Subject: Re: jailhouse inter-cluster operations
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_6750_293064670.1657027033934"
+X-Original-Sender: jdebonfils5@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -135,36 +80,88 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This is a multi-part message in MIME format.
-Your email application may not support this format.
+------=_Part_6750_293064670.1657027033934
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_6751_976630158.1657027033934"
 
---B_ALT_62c36bbaa4106
+------=_Part_6751_976630158.1657027033934
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Dear rsrqbx =E2=9D=A4=EF=B8=8F Have you ever tried this sex game before? GI=
-VE IT A TRY:
-https://letsg0dancing.page.link/go?uwovu =E2=9D=A4=EF=B8=8F
 
-Thank you for signing up with us. Here are just some of the benefits
-you&#39;ll enjoy as a registered user:&nbsp;
+Hi,
+Sorry, I am a novice on this subject. I am just not getting how MMU works=
+=20
+with two differents A core groups (4 A53 and 2 A72) and how Jailhouse=20
+manages it...
+Nevertheless, thank you for your replay
 
-Fuss-free order and checkout experience
-Access to your purchase history
-Retrieve your payment receipt
+Kind regards,
 
-Please click on the link below to verify your email address
-jailhouse-dev@googlegroups.com and start ordering -&nbsp;
+Jean
+Le lundi 4 juillet 2022 =C3=A0 08:42:03 UTC+2, Peng Fan a =C3=A9crit :
 
-http://www.qiji.com.sg/customers/verify/62c36bba9ad46
-
-&nbsp;
-
-KA Food Link
-171 Kampong Ampat #04-11
-Singapore 368330
-Tel : (65) 6283 8572
-Fax : (65) 6283 8573
+> i.MX8QM could support jailhouse, with 4 A53 in a cell, 2 A72 in a cell.
+>
+> =20
+>
+> I not get you about inter-cluster MMU operations (:
+>
+> =20
+>
+> Regards,
+>
+> Peng.
+>
+> =20
+>
+> *From:* jailho...@googlegroups.com <jailho...@googlegroups.com> *On=20
+> Behalf Of *Jean de Bonfils
+> *Sent:* 2022=E5=B9=B46=E6=9C=8817=E6=97=A5 15:51
+> *To:* Jailhouse <jailho...@googlegroups.com>
+> *Subject:* jailhouse inter-cluster operations
+>
+> =20
+>
+> Hi everyone,
+>
+> I would like to know if jailhouse is able to run on multiple core=20
+> clusters.=20
+>
+> For example, Imx8 Quad Max has one cluster of 4x Cortex A-53 and another=
+=20
+> cluster of 4x Cortex-A72.=20
+>
+> If so, do you know how Jailhouse manages inter-cluster MMU operations ?
+>
+> =20
+>
+> Thank you in advance and have a nice day.
+>
+> =20
+>
+> Jean de Bonfils Lavernelle
+>
+> --=20
+> You received this message because you are subscribed to the Google Groups=
+=20
+> "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send an=
+=20
+> email to jailhouse-de...@googlegroups.com.
+> To view this discussion on the web visit=20
+> https://groups.google.com/d/msgid/jailhouse-dev/1c3da06c-f3f6-479b-a3d4-4=
+e4aa18ca3d7n%40googlegroups.com=20
+> <https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgrou=
+ps.google.com%2Fd%2Fmsgid%2Fjailhouse-dev%2F1c3da06c-f3f6-479b-a3d4-4e4aa18=
+ca3d7n%2540googlegroups.com%3Futm_medium%3Demail%26utm_source%3Dfooter&data=
+=3D05%7C01%7Cpeng.fan%40nxp.com%7Ce39b3ff2f0e44e156ca208da50361a4c%7C686ea1=
+d3bc2b4c6fa92cd99c5c301635%7C0%7C1%7C637910490541656854%7CUnknown%7CTWFpbGZ=
+sb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3=
+000%7C%7C%7C&sdata=3D6rbs5y8qRlYwzWOpcQxTNM81F11xBz%2BAZyeV0ujTkwI%3D&reser=
+ved=3D0>
+> .
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -172,40 +169,119 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/62c36bbaa40c6%40qiji.com.sg.
+jailhouse-dev/d892634a-d2ee-4b41-bbc3-43b67936108en%40googlegroups.com.
 
---B_ALT_62c36bbaa4106
+------=_Part_6751_976630158.1657027033934
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<p>Dear rsrqbx =E2=9D=A4=EF=B8=8F Have you ever tried this sex game before?=
- GIVE IT A TRY: https://letsg0dancing.page.link/go?uwovu =E2=9D=A4=EF=B8=8F=
-</p>
+<br>Hi,<div>Sorry,&nbsp;I am a novice on this subject. I am just not gettin=
+g how MMU works with two differents A core groups (4 A53 and 2 A72) and how=
+ Jailhouse manages it...</div><div>Nevertheless, thank you for your replay<=
+br></div><div><br></div><div>Kind regards,</div><div><br></div><div>Jean</d=
+iv><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">Le lun=
+di 4 juillet 2022 =C3=A0 08:42:03 UTC+2, Peng Fan a =C3=A9crit=C2=A0:<br/><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border=
+-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
 
-<p>Thank you for signing up with us. Here are just some of the benefits you=
-&#39;ll enjoy as a registered user:&nbsp;</p>
 
-<ol>
-	<li>Fuss-free order and checkout experience</li>
-	<li>Access to your purchase history</li>
-	<li>Retrieve your payment receipt</li>
-</ol>
 
-<p>Please click on the link below to verify your email address jailhouse-de=
-v@googlegroups.com and start ordering -&nbsp;</p>
 
-<p><a href=3D"http://www.qiji.com.sg/customers/verify/62c36bba9ad46">http:/=
-/www.qiji.com.sg/customers/verify/62c36bba9ad46</a></p>
 
-<p>&nbsp;</p>
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:break=
+-word">
+<div>
+<p class=3D"MsoNormal">i.MX8QM could support jailhouse, with 4 A53 in a cel=
+l, 2 A72 in a cell.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">I not get you about inter-cluster MMU operations (:<=
+u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
+<p class=3D"MsoNormal">Peng.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
+4.0pt"></div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=3D"purple"=
+ style=3D"word-wrap:break-word"><div><div style=3D"border:none;border-left:=
+solid blue 1.5pt;padding:0cm 0cm 0cm 4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #e1e1e1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm">
+<p class=3D"MsoNormal"><b>From:</b> <a href data-email-masked rel=3D"nofoll=
+ow">jailho...@googlegroups.com</a> &lt;<a href data-email-masked rel=3D"nof=
+ollow">jailho...@googlegroups.com</a>&gt;
+<b>On Behalf Of </b>Jean de Bonfils<br>
+<b>Sent:</b> 2022<span lang=3D"ZH-CN" style=3D"font-family:SimSun">=E5=B9=
+=B4</span>6<span lang=3D"ZH-CN" style=3D"font-family:SimSun">=E6=9C=88</spa=
+n>17<span lang=3D"ZH-CN" style=3D"font-family:SimSun">=E6=97=A5</span> 15:5=
+1<br>
+<b>To:</b> Jailhouse &lt;<a href data-email-masked rel=3D"nofollow">jailho.=
+..@googlegroups.com</a>&gt;<br>
+<b>Subject:</b> jailhouse inter-cluster operations<u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Hi everyone,<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">I would like to know if jailhouse is able to run on =
+multiple core clusters.=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">For example, Imx8 Quad Max has one cluster of 4x Cor=
+tex A-53 and another cluster of 4x Cortex-A72.=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">If so, do you know=C2=A0how Jailhouse manages inter-=
+cluster MMU operations ?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thank you in advance and have a nice day.<u></u><u><=
+/u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Jean de Bonfils Lavernelle<u></u><u></u></p>
+</div>
+</div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=3D"purple" style=
+=3D"word-wrap:break-word"><div><div style=3D"border:none;border-left:solid =
+blue 1.5pt;padding:0cm 0cm 0cm 4.0pt"><p class=3D"MsoNormal">-- <br>
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to
+<a href data-email-masked rel=3D"nofollow">jailhouse-de...@googlegroups.com=
+</a>.<br>
+To view this discussion on the web visit <a href=3D"https://eur01.safelinks=
+.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgroups.google.com%2Fd%2Fmsgid%=
+2Fjailhouse-dev%2F1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n%2540googlegroups.co=
+m%3Futm_medium%3Demail%26utm_source%3Dfooter&amp;data=3D05%7C01%7Cpeng.fan%=
+40nxp.com%7Ce39b3ff2f0e44e156ca208da50361a4c%7C686ea1d3bc2b4c6fa92cd99c5c30=
+1635%7C0%7C1%7C637910490541656854%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwM=
+DAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=
+=3D6rbs5y8qRlYwzWOpcQxTNM81F11xBz%2BAZyeV0ujTkwI%3D&amp;reserved=3D0" targe=
+t=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.co=
+m/url?hl=3Dfr&amp;q=3Dhttps://eur01.safelinks.protection.outlook.com/?url%3=
+Dhttps%253A%252F%252Fgroups.google.com%252Fd%252Fmsgid%252Fjailhouse-dev%25=
+2F1c3da06c-f3f6-479b-a3d4-4e4aa18ca3d7n%252540googlegroups.com%253Futm_medi=
+um%253Demail%2526utm_source%253Dfooter%26data%3D05%257C01%257Cpeng.fan%2540=
+nxp.com%257Ce39b3ff2f0e44e156ca208da50361a4c%257C686ea1d3bc2b4c6fa92cd99c5c=
+301635%257C0%257C1%257C637910490541656854%257CUnknown%257CTWFpbGZsb3d8eyJWI=
+joiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%253D%257C3000%25=
+7C%257C%257C%26sdata%3D6rbs5y8qRlYwzWOpcQxTNM81F11xBz%252BAZyeV0ujTkwI%253D=
+%26reserved%3D0&amp;source=3Dgmail&amp;ust=3D1657113020487000&amp;usg=3DAOv=
+Vaw3EVZD5eBYeWWlJZmup2Y7a">
+https://groups.google.com/d/msgid/jailhouse-dev/1c3da06c-f3f6-479b-a3d4-4e4=
+aa18ca3d7n%40googlegroups.com</a>.<u></u><u></u></p>
+</div>
+</div>
+</div>
 
-<p><img alt=3D"" src=3D"https://www.qiji.com.sg/assets/upload/images/QJ%20L=
-ogo_QJ%20Green%20Orange.png" style=3D"width: 119px; height: 84px;" /><br />
-KA Food Link<br />
-171 Kampong Ampat #04-11<br />
-Singapore 368330<br />
-Tel : (65) 6283 8572<br />
-Fax : (65) 6283 8573</p>
+</blockquote></div>
 
 <p></p>
 
@@ -216,8 +292,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/62c36bbaa40c6%40qiji.com.sg?utm_medium=3Demail&utm=
-_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse-dev/62c36bbaa=
-40c6%40qiji.com.sg</a>.<br />
+om/d/msgid/jailhouse-dev/d892634a-d2ee-4b41-bbc3-43b67936108en%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/d892634a-d2ee-4b41-bbc3-43b67936108en%40googlegroups.co=
+m</a>.<br />
 
---B_ALT_62c36bbaa4106--
+------=_Part_6751_976630158.1657027033934--
+
+------=_Part_6750_293064670.1657027033934--
