@@ -1,137 +1,120 @@
-Return-Path: <jailhouse-dev+bncBD4OLX6KQUDRB7M3RWMAMGQE2SPUZ7Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCFKT2ENXMKRB4PZR6MAMGQEBAT6THQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x13a.google.com (mail-il1-x13a.google.com [IPv6:2607:f8b0:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABE2B59BCEB
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Aug 2022 11:35:59 +0200 (CEST)
-Received: by mail-il1-x13a.google.com with SMTP id s11-20020a056e02216b00b002e9d4c9d98fsf832948ilv.22
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Aug 2022 02:35:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1661160958; cv=pass;
+Received: from mail-io1-xd40.google.com (mail-io1-xd40.google.com [IPv6:2607:f8b0:4864:20::d40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D45459CB47
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Aug 2022 00:02:28 +0200 (CEST)
+Received: by mail-io1-xd40.google.com with SMTP id g4-20020a6b7604000000b0068a39eb2b95sf1370358iom.11
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Aug 2022 15:02:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1661205746; cv=pass;
         d=google.com; s=arc-20160816;
-        b=gLs0KVlUNaOe2YtJcW8vckj8bXKvQNxiZlUH+X03dLBirm4hFchcfifcEvDqIbkmuy
-         KyVfYPo0pnEovAyJU9gSlf5NU6oYaHRO9VibRMv2iMRj5NTCuxFidNcl4U7xw3mmWoxo
-         6SkSCkGTYatOtQmj74czJiMGuCJxuLfy/UTo2d1vff5B6LoztPu697/psMUXMhO4esCv
-         B0R75f3BiuGz0g3/4iIS+sp9qOENsq7XVN3JxwH0paqlRNi/0kgyuc3Ww+AtIR2dO9hc
-         XW1U7UWhv8w496jNHkLIQJCZO2lYbWKvPXnH1VTnkNsjnQE3CW9wO41L12pvVmSffMq9
-         qL/Q==
+        b=niD0hXD2/G1NFhgdP5Xmm4ICJSvsx8DqCELXexjjC9fFvL+RGxdSNr8+7Gr4Gffx8I
+         +J7mEda/Zq009HUEuEMObyVFm6prhiLn7Uo4XkvIKTRmI75WB9FsFoWELKcxYqlKfLT4
+         ZJcIeGc6ZO6AtrI7suSsXCdnyDN27fTcr3X1n+/k4XiKUgNkX17nYOJK+1Cu0cpk9sdv
+         iEngAruhzrQHn7DL0tuSmMlWsoE81TEgyCUzkVhKfZSRiFZzCA9V8RoVVDJVw2OrNFIc
+         to7XMYPgxG7v8P2T7wfrkxAuhyoSn2f2lEmLHO4JGG68rNuLRBUTk+IAQ0jlwDnIftEZ
+         2UNw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding:to
-         :subject:message-id:date:from:reply-to:mime-version:sender
-         :dkim-signature:dkim-signature;
-        bh=4V+sibc3ytu5MLlRjMyfNdIezK8L9Ci5j077d9vs5tU=;
-        b=FSs04y6NfkPf5YfPIad5FdMAAraKKnMzYjlUTcmyl/2L3MtCIcr1XmxovSPiSNY9ro
-         gPCuQ1KaIABbKu/e7+D6/iotN+Lf7UTCaUNRC+VcbBP76fBoSnD7vxYcoTGr8MHj8eeo
-         qovMW75jOMtxVsk/2H5dAgwpgThlo0V9AEjxzXA482KjjRKo9NzjbdKry2ey1pVoYqqw
-         Fsm9I7qCDAe6BolP8TrSQFinjVczeiAt3eIwrAn0uKrVM9Nh1GPg29GN2mFSCJaN6us0
-         MQXTdWNFBXNCHzPGRY5XpzPRwNBRsOmfNoKp8G55bzvTUwR0nKGgQiL8cIecpqMDQuUr
-         dtHQ==
+         :list-id:mailing-list:precedence:message-id:date:subject:cc:to:from
+         :mime-version:sender:dkim-signature;
+        bh=Ipb+7wqbkqHfBJdtBb+kZCqUAkj1LBAWr2wL6/fr/1c=;
+        b=FbxJDflubj3w5RBqWHLBIfA7Vsz6zcvxnQtEsMbH4+uOFxZDuiuwX12lTLJQaLQUxA
+         +MmCE15J041jgNBqbXdCpq3T+cJKHSXV4tTpi2r5iYNKLOoEX9mBP1F3UB1IMT/xPCO8
+         89zZQleYJUREciB7JvsVJ5Re2nkg9qvSDblxtb0uF6bBsJi/GPZk5N6h51Yo1gTHS8yW
+         FZB+NLKsYY5mDzZFYwf1GlvWBOXbUD2XyO5JULa2/g3tXrUpJwDJHYmH74ciM+2wCCPG
+         9QpzD8gGTicUlI2xvIayV2aqhd8ez1eeI8wMjxJa5mTU8B6jzu9jdSKO4j49uvDldBhn
+         m6jg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=DMF1AHaz;
-       spf=pass (google.com: domain of williamwinfield60@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) smtp.mailfrom=williamwinfield60@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:to:subject:message-id
-         :date:from:reply-to:mime-version:sender:from:to:cc;
-        bh=4V+sibc3ytu5MLlRjMyfNdIezK8L9Ci5j077d9vs5tU=;
-        b=jl1zTD+f6bYd4xaSU6JIazCzpM2OixBnOkUEIiILDvgegQtM78XjsKcCgKOeQlIaOF
-         5VgXAhKXauLCfeboPk7yEDV6sl5oN6E4N7JkCDtXnJ/Ks4wGwv6j2Qe9QMtqVzhkA1Fl
-         4DjsRFdbDev4h2QzZkwPK0xfD/8T/B2tgFsotiQqgCm6eNhXeDytIGfRK3vD7tK2Bpkt
-         ylz4W6byyN4grRcEBf8qmZVgy+1nYj9pN8oZPEkqLgtjeGeoRYTViwTuIpcHXKzs5ppF
-         vdL9hdcUHCGcfWISAnluSvEasP4ulaOKrs+i4rjzb/AXvHGX4zPsGsahNM6zFT9BOx2n
-         X3XA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:to:subject:message-id
-         :date:from:reply-to:mime-version:from:to:cc;
-        bh=4V+sibc3ytu5MLlRjMyfNdIezK8L9Ci5j077d9vs5tU=;
-        b=mGx0YmycvNEuk0b7HuyAOliiPl1wFdgLQTdVVNEMrXmfUpSnGAHxjzczTkxf8yJjQy
-         Fbk4xYnkAsbRdzSnSV10Ym4fqrwf9J45kHdyY6aeT0qXb1dNsC/9HHOpRqbm6WRv6oqx
-         OXR9c7Bvn12KyuCQtQdUMwrsLZOVppwmCudUjbxK1o7kXx3AtFmTAcvuw0SLutQQJFuS
-         iHzpEaLeXXUm4Th9t3ZRJ6JKPmUHrJKHdd9f5U+vm3vpU0CKMhRDn76pooh8GECjDcj2
-         SGNxhJ/Yl6d/m6VD7Pd9yer0xVAfEH5fZPlmRmYv8l6bso2k0KysNchSCOrSGxPFZuan
-         8fNw==
+         :x-original-sender:message-id:date:subject:cc:to:from:mime-version
+         :sender:from:to:cc;
+        bh=Ipb+7wqbkqHfBJdtBb+kZCqUAkj1LBAWr2wL6/fr/1c=;
+        b=RBeB/FpYl+fLviuECyVjrxaT69ptmdT3XJUbVsOv6NE1/XxvRMyp/SB1tQ1SVOZ7Ck
+         4XXgMDU6u3CIOw15z0CXRLxgmRlMbcwXMPHkbP+R0S4x/1LcA6kytzlGdqGAIi2Gb0nY
+         XIgHAH9A5osxvIMAaQJvOaJyNIsRBhotAB8nh1kaT6vkfmeJc9FpIfMxbbB2SYMjv5h/
+         8ftg5wUnEEo8aqw8Hty9orldJ10E0IcF40mYuBnu6wOPqeyx9cmAtOL7AkjM3sjEbjvw
+         idtIbN/QRhVmRoEA87bjFQN4Hh9HotkUSWoUF2yn03Bf/4ORndPbRfZoISLy/fU9cnM1
+         rIaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:x-gm-message-state:sender:from:to:cc;
-        bh=4V+sibc3ytu5MLlRjMyfNdIezK8L9Ci5j077d9vs5tU=;
-        b=3JkHBcAtGtQXdrIOCnBbZJC7kjFNdLywz/d4P3itVdZf5pJu1aaMEii5Y8V0ZvJzuT
-         hwIVvxdJKYNIn1AHMXUINipHI18u63NWHN8jkB76niEKGnE+ej0CXrUSGtswcu0yJQFK
-         XXlRFRXXEj1F0qPjvAAv1dVsA28B5OYNOT0D4v9cEo+BFJBGnTy9sYNUXVku/0uACa4K
-         wjyAaogagNnbLG+X7vG9yhAirQg4f4puAwqJ3ljaPqIfo+uCDYsCtq7knvYuWvffe0Mv
-         Iy/Dr3Vv4VkF6natynu5NTeC9EZIrFuuMD/a7Dv1qmWknZfmytmU+N5OCj/QVOlKnd44
-         eb5w==
+         :x-original-authentication-results:x-original-sender:message-id:date
+         :subject:cc:to:from:mime-version:x-gm-message-state:sender:from:to
+         :cc;
+        bh=Ipb+7wqbkqHfBJdtBb+kZCqUAkj1LBAWr2wL6/fr/1c=;
+        b=qRdx29PlRqA16hwWGgEV/Fl16sAyFrSCMnSZ6nztrnBb0MZOgJsEPtUS/9DvR8/CEk
+         cBESmwewfD6JHyQkMZ26yndl/KsMg65pm/EeUZCHG1Lw3g+80947Tk5jYjSRCklZSuSF
+         EgLVt+CP2OaXg95t7bH5kQEcVWsJXNG6c8Pa2W+UJ8a4EooR8bvOtF9TaaVSK12eIbRE
+         dZGZJTDPH28Soxj2PssXehXZmHTYjc3fzKi4cMIbCh1YR0FbCXGKo/MbqTLqEaoHPnaI
+         9Sz8jBNwJAgqxqZ94lCZYMv5tNzkOE4ONKI57RtA1hikMeCsrQqfyTx5f2Z9J9cX242j
+         tKjw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACgBeo1mO3dQbcbXZIV8RHVfcAvilnzIPMAli7ZgRFCtazSJdZ9djUQ2
-	zh7+Ow2rze0oFlrw1U8KS0U=
-X-Google-Smtp-Source: AA6agR7w99iiWNUliZYLv04IPz9MvYPwDQbiEy3wNP0jvxChbsd4Y1n2TcZEAEtktF9Z04BBlHLbBQ==
-X-Received: by 2002:a05:6602:2c89:b0:67b:7e8c:11c1 with SMTP id i9-20020a0566022c8900b0067b7e8c11c1mr8659571iow.101.1661160958485;
-        Mon, 22 Aug 2022 02:35:58 -0700 (PDT)
-X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6e02:f08:b0:2e9:385e:7b59 with SMTP id
- x8-20020a056e020f0800b002e9385e7b59ls1490635ilj.2.-pod-prod-gmail; Mon, 22
- Aug 2022 02:35:57 -0700 (PDT)
-X-Received: by 2002:a05:6e02:17cc:b0:2e8:f067:ae90 with SMTP id z12-20020a056e0217cc00b002e8f067ae90mr9349029ilu.196.1661160957593;
-        Mon, 22 Aug 2022 02:35:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1661160957; cv=none;
-        d=google.com; s=arc-20160816;
-        b=iwfB3O5gSRxyaW/rZVq0x1PuFOH0bJdAK9hVX1NPsM7n/80+R+qPTjXwxRSC0UKCi/
-         U9NZZIbbRPDlkorp3xdDf89JSL4ZKytbgaG9fPBeMnWrp96cD5bszfVab8MdqqU5SQfi
-         KN+SKpHBOaGbzjNjc711Z2cw4XoW9vhEXAKqnWTC/XrLnEalJBo1a1X69r/VDoYbvTyg
-         tGrfRXnzcOhtzTrSVl+IEkh9Q+DuaVQvrWB7XImJjzmqeeNBRE+O3GKD3rLyoijdZf+X
-         uSKt4J5x/rftfM9l1R21qobJSxKOpW8zKxbZxHLJNYwpZ2s9ajK4G7lj4MLmJU/NUEVo
-         4QKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:dkim-signature;
-        bh=RNqF77wjqF8iy1HAW8fdhj7DkrHd1/Ilt+i0IdRP9TY=;
-        b=ufnIdlB6f2HbLXOni8o2A0o52dL/EAngYpcso+4Qcn7BaQACySmBt7RGc7YT+HZKGv
-         Xsjn55UdC7e2SFJ5+vorK5J5BRO7kbX2mXNsIR1WMB3QS3Ugcoj7cwHcMA/t24tP8O48
-         CW5DY9rkq/L8l5aV00iW58DKZAuup8LI2TICntOS64Pgk4C8kvzu1SEosc5QPq6WSSoL
-         VeK0Ji6lXFejOEEidVoD7QCR6NIAkK/509Hj94S/XfOAy6wT6ag+P0758Sn1a3excjos
-         jJV0zsIRLluCOGTGi7qEoIbGdyjlGKqrAVbgcB3AM+h9AA41xYigarqYlcEFnoehmnVO
-         kXrA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=DMF1AHaz;
-       spf=pass (google.com: domain of williamwinfield60@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) smtp.mailfrom=williamwinfield60@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com. [2607:f8b0:4864:20::1043])
-        by gmr-mx.google.com with ESMTPS id v14-20020a056e020f8e00b002de7816ab29si537254ilo.5.2022.08.22.02.35.57
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Aug 2022 02:35:57 -0700 (PDT)
-Received-SPF: pass (google.com: domain of williamwinfield60@gmail.com designates 2607:f8b0:4864:20::1043 as permitted sender) client-ip=2607:f8b0:4864:20::1043;
-Received: by mail-pj1-x1043.google.com with SMTP id pm13so1454834pjb.5
-        for <jailhouse-dev@googlegroups.com>; Mon, 22 Aug 2022 02:35:57 -0700 (PDT)
-X-Received: by 2002:a17:902:dac7:b0:172:e189:f717 with SMTP id
- q7-20020a170902dac700b00172e189f717mr6549726plx.129.1661160956938; Mon, 22
- Aug 2022 02:35:56 -0700 (PDT)
+X-Gm-Message-State: ACgBeo2TDE6Eb8Hj0mqK2VFiMDHprOF/w37k5n5IfXge9Qh7VfSaRLcS
+	cIzZma4XIIUD+aRX6ZcEMJk=
+X-Google-Smtp-Source: AA6agR7qJVdmnkaLgRyV9xjKBhCP4SQi6+hQjmjJL8/fw7l94G3NtzqFDNUUw8fO+s9L4Mfzuh2Veg==
+X-Received: by 2002:a05:6638:dd1:b0:349:dee3:4b1e with SMTP id m17-20020a0566380dd100b00349dee34b1emr2813405jaj.56.1661205746375;
+        Mon, 22 Aug 2022 15:02:26 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6a10:f94f:b0:2d5:2242:724 with HTTP; Mon, 22 Aug 2022
- 02:35:56 -0700 (PDT)
-Reply-To: info@depfinfinance.co.za
-From: Depfin Finance <williamwinfield60@gmail.com>
-Date: Mon, 22 Aug 2022 02:35:56 -0700
-Message-ID: <CAJpWKqwB3Nu6gELU5qfGn_FZU+ZGxHLuJ4+e_GuuNMWT09hUBw@mail.gmail.com>
-Subject: 
-To: undisclosed-recipients:;
+X-BeenThere: jailhouse-dev@googlegroups.com
+Received: by 2002:a02:9387:0:b0:348:2f1c:9948 with SMTP id z7-20020a029387000000b003482f1c9948ls2109290jah.3.-pod-prod-gmail;
+ Mon, 22 Aug 2022 15:02:25 -0700 (PDT)
+X-Received: by 2002:a02:ab9a:0:b0:349:c87e:d90e with SMTP id t26-20020a02ab9a000000b00349c87ed90emr5135165jan.39.1661205745379;
+        Mon, 22 Aug 2022 15:02:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1661205745; cv=none;
+        d=google.com; s=arc-20160816;
+        b=jJcpT98DOjSVbUkjfmgzPIbUcX1YO2uusBcfFgpXPHX3MKHQBjmdgjtncxLUf3/iFm
+         jnKuV0PuoAzsl2fpK7WNYoPp66hiqBsyRZ1V1LpN2xEwVPR5x9b5xQw7UK1eXq0gV/Ut
+         wwgzwPeqXjrFfOBxExBrunejAgR/Oh5CD08WoP+36d2pwisDH/IsdcIcJOE33Cl2sQEL
+         xOLejWaKsAdsKFuq5Re80+5uYuSN+6xLImO79MPP2syvBn4LvgVafWYD9vbDDwfxXLTm
+         xcRgWYhc2tUJQ+LPJTwYOjtBxkpVi+8MGXZUQlnr6HyVuL6lEkTgCKmImpYg0zWIhijq
+         vaYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:date:subject:cc:to:from;
+        bh=z89efwsZtBkn0cNDAOQrgdD/4S+jqqdV4sk87FogHuU=;
+        b=p+fO1erpb1q0VvbHFSTs3iMBnfQGjZ4CXqhO9YhdYNmZi8n5ZjyqfQfNMeNjj6a9ZM
+         1mvfYomkSl0OT9AGP31z2q/6WIwCWQbslBQmLIOBKnNDyyJqJx284X0C+CqlCe/4rwIf
+         KJFL/sUe7t3oCQ4DEZycwQ4UQ63usXrTfJo3q5g2ZEDmfpwwZ9uxw4ZChpyw3whFnb18
+         rzOYWQ5NzF5qWEoI73hfllsRtiDpqqO4dJQPsRC/OdSOkCYht1QBD5ERjGZbyaS2kV91
+         V2OsQFLpsymAUtaogcbO7JM24ks1g519FRQLKA9SnTX02BpCCMYJDdNKGyLYWE39wmso
+         WtSg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com. [210.160.252.172])
+        by gmr-mx.google.com with ESMTP id g17-20020a056638061100b00349d0b68f0asi253105jar.4.2022.08.22.15.02.24
+        for <jailhouse-dev@googlegroups.com>;
+        Mon, 22 Aug 2022 15:02:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) client-ip=210.160.252.172;
+X-IronPort-AV: E=Sophos;i="5.93,255,1654527600"; 
+   d="scan'208";a="132167608"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie6.idc.renesas.com with ESMTP; 23 Aug 2022 07:02:22 +0900
+Received: from localhost.localdomain (unknown [10.226.36.204])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id C268E400755E;
+	Tue, 23 Aug 2022 07:02:20 +0900 (JST)
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: jailhouse-dev@googlegroups.com
+Cc: Jan Kiszka <jan.kiszka@siemens.com>,
+	Chris Paterson <chris.paterson2@renesas.com>,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 0/3] Add support for Renesas RZ/G2M
+Date: Mon, 22 Aug 2022 23:01:59 +0100
+Message-Id: <20220822220202.26218-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.17.1
+X-Original-Sender: prabhakar.mahadev-lad.rj@bp.renesas.com
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates
+ 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: williamwinfield60@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b=DMF1AHaz;       spf=pass
- (google.com: domain of williamwinfield60@gmail.com designates
- 2607:f8b0:4864:20::1043 as permitted sender) smtp.mailfrom=williamwinfield60@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,41 +127,50 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---=20
+Hi All,
 
-Good day,
+This patch series adds support for Renesas RZ/G2M SoC [0] (root cell
+config) and adds demo cell config for HopeRun HiHope RZ/G2M platform [1].
 
-To whom it may concern.
+Changes apply on top of next branch [2] and the kernel used for testing is
+5.10 (-cip) based on BSP-3.0.0 [3] release from Renesas.
 
-Do you need a loan without stress to pay all your outstanding debts,
-Depfin Finance is here to help you with the Quick and Easy Application
-Process. Apply Now Online via our website https://depfinfinance.co.za/
-Instant Loan approval =C2=B7Customer Protection Blacklist Protection =C2=B7=
- Debt
-Consolidation =C2=B7 Business Loan =C2=B7 Personal Loan =C2=B7 With No Cred=
-it Check
-at 6% Interest Rate =C2=B7 Debt Counselling =C2=B7 Flexible Instalment Serv=
-ices:
-Flexible Repayments, Customer Protection, and Paperless Application.
-Instant decision, No Appointments =C2=B7 Apply Now And Get Instant Cash in
-your Bank account.
+[0] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-ultra-high-performance-microprocessors-arm-cortex-a57-and-arm-cortex-a53-cpus-3d-graphics-and-4k
+[1] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-hihope-rzg2m-reference-board#overview
+[2] https://github.com/siemens/jailhouse/tree/next
+[3] https://github.com/renesas-rz/meta-renesas/tree/BSP-3.0.0
 
-Send Reply To: info@depfinfinance.co.za or Visit our Website
-https://depfinfinance.co.za/apply/ and sign up for a quick paperless
-application process and immediate approval.
+Cheers,
+Prabhakar
 
-Depfin Finance Contact
-Tel: +27 87 510 7793
-WhatsApp: +27630900202
-Email: info@depfinfinance.co.za
-https://depfinfinance.co.za/
-Address: 208 De Waal Rd, Southfield, Cape Town, 7800
+Lad Prabhakar (3):
+  renesas: Add SCIF support
+  configs: arm64: Add root cell config for Renesas RZ/G2M SoC
+  configs: arm64: Add demo cell config for Renesas RZ/G2M
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CAJpWKqwB3Nu6gELU5qfGn_FZU%2BZGxHLuJ4%2Be_GuuNMWT09hUBw%40mai=
-l.gmail.com.
+ Documentation/debug-output.md                 |    1 +
+ configs/arm64/dts/inmate-r8a774a1-hihope.dts  |  228 ++++
+ configs/arm64/renesas-r8a774a1-linux-demo.c   |  114 ++
+ configs/arm64/renesas-r8a774a1.c              | 1134 +++++++++++++++++
+ hypervisor/arch/arm-common/Kbuild             |    2 +-
+ hypervisor/arch/arm-common/dbg-write.c        |    2 +
+ hypervisor/arch/arm-common/include/asm/uart.h |    2 +-
+ hypervisor/arch/arm-common/uart-scif.c        |   44 +
+ include/jailhouse/console.h                   |    1 +
+ inmates/lib/arm-common/Makefile.lib           |    2 +-
+ inmates/lib/arm-common/uart-scif.c            |   65 +
+ inmates/lib/arm-common/uart.c                 |    2 +
+ 12 files changed, 1594 insertions(+), 3 deletions(-)
+ create mode 100644 configs/arm64/dts/inmate-r8a774a1-hihope.dts
+ create mode 100644 configs/arm64/renesas-r8a774a1-linux-demo.c
+ create mode 100644 configs/arm64/renesas-r8a774a1.c
+ create mode 100644 hypervisor/arch/arm-common/uart-scif.c
+ create mode 100644 inmates/lib/arm-common/uart-scif.c
+
+-- 
+2.17.1
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220822220202.26218-1-prabhakar.mahadev-lad.rj%40bp.renesas.com.
