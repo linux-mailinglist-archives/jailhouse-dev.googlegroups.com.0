@@ -1,30 +1,30 @@
-Return-Path: <jailhouse-dev+bncBCFKT2ENXMKRB5HZR6MAMGQEECK3FPQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCFKT2ENXMKRB5XZR6MAMGQEAJOLLXQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43d.google.com (mail-pf1-x43d.google.com [IPv6:2607:f8b0:4864:20::43d])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3DB259CB49
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Aug 2022 00:02:30 +0200 (CEST)
-Received: by mail-pf1-x43d.google.com with SMTP id cg5-20020a056a00290500b0053511889856sf5058086pfb.18
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Aug 2022 15:02:30 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1661205749; cv=pass;
+Received: from mail-pl1-x63d.google.com (mail-pl1-x63d.google.com [IPv6:2607:f8b0:4864:20::63d])
+	by mail.lfdr.de (Postfix) with ESMTPS id D8F2B59CB4A
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 23 Aug 2022 00:02:32 +0200 (CEST)
+Received: by mail-pl1-x63d.google.com with SMTP id l3-20020a170902f68300b00172e52e5297sf2981880plg.2
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 22 Aug 2022 15:02:32 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1661205751; cv=pass;
         d=google.com; s=arc-20160816;
-        b=O4CVvs0ekTz9nj7OlJzvQBxAGHhNqYfz2HVLq2ZWVqMNPWvef7sA/NUScYGyz1pH2n
-         7fiDQb/sx2kJgrr9z7k+7Eacoy5E7huEcS3BUhuHlNfkaZeeowZqUvV8ZnhpWoDIfTmN
-         xcIrjmjrSjtHN3HjbGmkT/Z9X6dcIyDgDctKCFZ/xqCR2oyOh6vQdQCFIlt6SPnQkLgW
-         7FkKsFgxHvO8FLA2P2SsFGnkgKVx0RIxsoMF6QvhvFVuBLHyFKtzau8A7yBNxA50rwkj
-         g15eXks0hNuFBFOKBPsxmhka3MkGBVX5bwDjNpztF4J1Lv16vLu0SMIZ+FsPyI3ik8SS
-         HkGQ==
+        b=uLZG+g47jxCEpe7fbhnnBnEVexMxCbAhr527CUQ8143K0IOHVySgQ98JKA0J0NqRWk
+         y6phfw8/5IEWdWszhPt637B6t6zkuG+HUe4CFg0iZ14U5Sf0UTb2ArV4wIeQeViBp+TR
+         31/sunp+XE6/6Fx6IQzX9ZCgICl/zj0fLe7EW9rWadt1HzTm0nTVw3/NpC5yUAfeZ0qK
+         0aCdtPD1fntY74nuVg4ZY77MvGONLXNi9+20n+tSEfrF/641hDI4PDToP5NmzFHkLOBR
+         3liCzuG88+44tVNvn9QB8gX0qidrs7b/S8FVEUU51Xvt023w3O75P2toOyweLS+NiDJ4
+         aMwg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:references:in-reply-to:message-id
          :date:subject:cc:to:from:mime-version:sender:dkim-signature;
-        bh=jG3njM38Ac/CjrY824hZ6jSlw0CzfKiHaxe7wmuLHks=;
-        b=kddAsUBPalYAMNRqZ/hQmkSduGE1EVGZuYC6w8ox2HMMHvEu/TLNDX9aBxyrUfhXKj
-         b6X3DOi0BaGFG0915lQPoOUYjKUhFhuJpxJVzkBeGFZzoaA8bboRxdtqAPaJbWl4QlVh
-         YeQRGzJmxidrl3sMkf4hGOg/jD3M7t62zGLA2rcI9XVpuNPc4wN+KiG0CcwUV0AYIXkP
-         QOY8BJQTqRRs8bo70dltm67EEQr9Wp/m7+X61Z/8GuAUGR+Q6A8SRQ8hbrgHQ5n+Hm9W
-         P8pGckmUiFIz3S6F7RenZaV5elHYOlr46Fv/Xdez7zINO3U9quFs0A+4QO99kBbSxio1
-         LePg==
+        bh=RLP9o0oJC15yDnZzpl5b5uDe3y/CbTL+uwlfdVO08Y0=;
+        b=pZ9kVWhLMv4QKj2Sy0sYknzfaAvv/4iVcSJdsGwDZsv9acHB8uLLJ7+SnTseTquPpm
+         dWgoU7EDN6oeg2Ow0xLMsWNU4U0SLfGs6toa9hAb0qfMHXqfnLnpJiDN0fcF5JkhVmN4
+         wPzHsP+NVek6MEFlndJ9LPy1fjaKJ6gdhLYbkZjSiosAdq3eRUjsw0jym2FC4jUSOvw1
+         lOlPMJmar7SSw1bveMMSDpQKq8Pp5PYGKmlNlyzLCKanWBuhyXAFIGWCKONYVWP17b7a
+         UTMQQtOyPYSOClyjKP0N0P1xAJZ+UG/WGkX42bKtwxBzGn8EjSZO5b1g0Sol4i5/3x5M
+         Tskw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
@@ -34,13 +34,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:references:in-reply-to:message-id:date:subject:cc
          :to:from:mime-version:sender:from:to:cc;
-        bh=jG3njM38Ac/CjrY824hZ6jSlw0CzfKiHaxe7wmuLHks=;
-        b=bJRM0d5k/5/yaygpupyt9ZX99WLA23QbI7JzMEHa8ak/4at7QtGugZ2EpzrIW0emE3
-         /zNPNGk6X9mPAy7SJlH5z3qGkW3tXOih2xDK4xk6zts6JdChSxqn6OJKSeXRYQwpaLbQ
-         +pvavzYKRdmoU1c5hwVfyhppgXCdpAB6CTIGEzXMprhCcInP1lp6EW87V4eeU5o+DNHa
-         CSEF/QzNXZTbrKZ9jIENKekZwSz+dfVhgrsYSjSDj7BHpa84RglJjV3FrKgPIWL1AJV2
-         wzr38NCFDoandu6sA18ddHCrwck6lCojFtiDAaju/RxHOe5BZGoTFJy3aL3IYKeVuEIG
-         sYJg==
+        bh=RLP9o0oJC15yDnZzpl5b5uDe3y/CbTL+uwlfdVO08Y0=;
+        b=UK5Vyo+39UPKHqL7d+Ilwtuwum+Z8kFXFYUusB/VPFGxm591lKYZxWqmctIaR0EKFo
+         xfQ8J+RDKUfWLmDwtLjmJxXVQqrltVaEZgvvoX5oXrMlkRMFs02QfQHez8NVa68RUPdL
+         qPiqSb6uh0Th1xskgEbTYNucyC6JYcFknewLdSZlKRokTtAoJEeWQ8fbhC614cRqFXvG
+         +mvHsGnQfLtx2KjERdlDw5j2qCMpeKyFKFgFww7QgTf1BjBtTKlP5zXPTxOlngvNBh4w
+         RYmduzJLVn73x5MlQ8ESzpuqtxFLxlQKO/LZLWo4jW49diQWSGCIqbbNBZt4MNl2FgQx
+         VpPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -48,67 +48,66 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-authentication-results:x-original-sender:references
          :in-reply-to:message-id:date:subject:cc:to:from:mime-version
          :x-gm-message-state:sender:from:to:cc;
-        bh=jG3njM38Ac/CjrY824hZ6jSlw0CzfKiHaxe7wmuLHks=;
-        b=2sYBbco4GhaLHYj5xo17R+LFb4j35wjDct5bp9Bed15e+2kWC+TbGUSboCPXw+ANcJ
-         NCOVo0xgpb0KZL4YS5eciGl3Y39luqnXUMVdIcxpGx97DHXHkW9Dwd6xrs2Z2UqQBlmc
-         tZc65DpeiEa8kpmTlUN/S4G5+63jbJII/9M25ETWnmrQPtaD14YRqTZMb12Turraj4BF
-         O+ZHpg0DZauHfhQY6o51j0NhE2ja8fflkIMruBjQPzjZENIFuxzJ/Fj4RaQmBVsC/LeQ
-         fh1BIyMAB+1JKLgh/OZ+zTjUhh+q/Uo9gJwwebUaygdBhJA51LUlkNm/GxJ+mwW0IfmS
-         D3Fg==
+        bh=RLP9o0oJC15yDnZzpl5b5uDe3y/CbTL+uwlfdVO08Y0=;
+        b=ds19S4nV2C8fFJmO1fXu0g10bvtqluDPDj1vSUoJXZBQSwUcpD/1Exp7lJM36OLsQp
+         pqlrBpqnxdp2uupXfjkh5B0WOBzVugd8JrvTlliSVRUohPKHMluyVo+lNNqpjGDliaLr
+         rfxbcE9WP0HMND9mrI5S1fcG5R804i9r387Upx7Hks7tRBNM885+eTtiPMG3icIgIMr6
+         /lYmSU/vt6ACZnvkEBUyCL/xhjIXQufNuK5hhZ5jUwrgZov7bAzSPxrfkUD91H8NZCRT
+         SO1N4J0Fv1vSfxRVwoxJH7fhmo2Qw0htw952qxL5nvABEPkLYc4/mstxnqkqDkUA1BJ5
+         Xr3g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACgBeo0mn+TmbucDrQibRk2cQWpcdcLNHUWZHnLzufzXsfpjxsxiBz39
-	ZGyJVChHX6Svb/vLk2PWsHM=
-X-Google-Smtp-Source: AA6agR4ba0yu1nIMXHpYUhIk8+wW1vHHq0a5sOb7UNWkeItKkMRM4/xbNUo/OPMiEyzQNSJqJnhFTA==
-X-Received: by 2002:a05:6a00:1345:b0:536:d73a:4392 with SMTP id k5-20020a056a00134500b00536d73a4392mr3282560pfu.6.1661205749274;
-        Mon, 22 Aug 2022 15:02:29 -0700 (PDT)
+X-Gm-Message-State: ACgBeo13piUCMVK3QgaEs3AcgoC3iGAYLZH+teRzLcn2mnWmwfakDWv9
+	OIRc1gmVEgjlFoJe/oIkPdU=
+X-Google-Smtp-Source: AA6agR5IZIp4rOd4BnapAhBUc9EHB5cjCfox26nVj6tGssmYgmoXQ7zTiLxCuNU3+BbdXZRGu5bukQ==
+X-Received: by 2002:a63:ad02:0:b0:41a:910f:5195 with SMTP id g2-20020a63ad02000000b0041a910f5195mr18753989pgf.472.1661205751366;
+        Mon, 22 Aug 2022 15:02:31 -0700 (PDT)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90a:eac4:b0:1fa:cffd:9d32 with SMTP id
- ev4-20020a17090aeac400b001facffd9d32ls15466pjb.2.-pod-preprod-gmail; Mon, 22
- Aug 2022 15:02:28 -0700 (PDT)
-X-Received: by 2002:a17:902:f684:b0:172:d54d:6f9e with SMTP id l4-20020a170902f68400b00172d54d6f9emr12063537plg.174.1661205748143;
-        Mon, 22 Aug 2022 15:02:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1661205748; cv=none;
+Received: by 2002:a63:86c8:0:b0:40d:4b5d:70b8 with SMTP id x191-20020a6386c8000000b0040d4b5d70b8ls5825829pgd.0.-pod-prod-gmail;
+ Mon, 22 Aug 2022 15:02:30 -0700 (PDT)
+X-Received: by 2002:a05:6a00:ac4:b0:535:c08:2da7 with SMTP id c4-20020a056a000ac400b005350c082da7mr22621758pfl.69.1661205750310;
+        Mon, 22 Aug 2022 15:02:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1661205750; cv=none;
         d=google.com; s=arc-20160816;
-        b=vokjfnDMRG2GCUUvfXCtKjNFOr5dkU9qwgZCuADRTzuoTUokfyvaSx2bPtXZgPgoxY
-         FTeevR4bicFySQiqNyYcgzv4MxucPPv7SKDg/P1bxfzrj3+yorlke6/f5Pv0KeaLNWd5
-         NKmbaj/uZZKXcM0N6V0+Sb+dN21pfOaXHNLAn3MpwY/xnX3mVQTKlltC+0JGKAvaTuZL
-         v1XsKQDdSTT8Y6JGV9wBvGuahGNmblHbZV4eSGowkCWAtyJqSKfvEI/5TQd5/TWS9vwj
-         pcgDCjYHbXaAT5dfKoZHD9J7HjOugVKmlUhVVpZd+22+CofKGpP3PnFLwlMtyP6NWd3I
-         dZrg==
+        b=DR5W1hlIM7E+azJVtt3jEw8FM1nf+vszjJ/lTYGjItbAVqb4M5C2AA8Kk3f9qvtv04
+         mQItw1def69UWeBRwP+AFzXP+UWggaOUNhMjUc0i8gRySE5/vFlq3CWUzJ5iF82E4xm7
+         zl+4zsO0pr/lGTe4nUQEDZXGimIbfv2qdmKVbF3wytytcfFeJsGwYY14b+uX63IGrldP
+         gwnvxb5ffUkPtttY+n9U+M63PPOrzCP8X7WcOIqGLMLBWoPmjw4uucXkWIyys7mV4Yw5
+         mQLiJDqbY/cD8Lt5yWoV9WyJN0F9xs1LTsNiFA3hbzGZaaXDS79u3Ch3oiDixeT04DVc
+         KDaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=references:in-reply-to:message-id:date:subject:cc:to:from;
-        bh=2nM8gM+pf+P217sv1OW89TBUTtksjuFIka/f2q/Ywt0=;
-        b=QLxws9s22ZhezMebRT2YSGp1fi4uPMHq6+3bAFc8/Xb/VEfC9UJmWYwS1utmH8T6jX
-         FpTJI5undzke4hClENvNqbVGLwJ7Ffri1QfC8744W1SNd48GLD1/oTIlkA7zCcHKhXDL
-         lvCmnQJGZPvRtixRQ88EMtAJaqFrb3o/ndCmGdIm5KE10tfaC0Uu5o94q2BEVFyYdMVD
-         oDTAVBffFsvvRC2Wwc27aOvco43ImfrXgXtjwYi9T4eku6C/BC9JZkKH2WWtRrVbeJvA
-         s/MHtFePcAVs0ddiv6cgXFPA0+na+Z9Kxj+QM/K/o2ocA73EXY2zGY1wB/zn1GQrrbJh
-         ngbw==
+        bh=BZ+I+uESTorDCcI83CPJ9gqumj5Tw5SXrRPiMA46kzc=;
+        b=CXBRnW2RoUynQ6i45p0Pl0Ze7rdGLM55H5zjTbLAdAgTLQC9afnjIfMJsoPgd5es+1
+         W0ZWFLdscvuSNmHfFZZw3KpAUuudj2C9ETwQN7nrhBxbnR71Rz3OeKGZE1Y7hais7WRl
+         81wXtPef97ftemNo+1zZwE2gA+2NL9czTCUqW6q5dGqGoIttKx8KfwXIE6K925K359vs
+         8mx8/0uXsu/IXxGNy/zTbmFe15MsP3agj9Lti7ik3TFzPlHD0yO9+poHenkwIC3P20jP
+         Oc19B6IbtEPV8het7BPkV2gST9Uccyt29CQ4vhNpQigP/1V2/m9w2cmfAClidDhHrFMn
+         vQkw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com. [210.160.252.171])
-        by gmr-mx.google.com with ESMTP id q19-20020a638c53000000b00423291dc756si497650pgn.5.2022.08.22.15.02.27
+        by gmr-mx.google.com with ESMTP id q19-20020a638c53000000b00423291dc756si497650pgn.5.2022.08.22.15.02.29
         for <jailhouse-dev@googlegroups.com>;
-        Mon, 22 Aug 2022 15:02:28 -0700 (PDT)
+        Mon, 22 Aug 2022 15:02:30 -0700 (PDT)
 Received-SPF: pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) client-ip=210.160.252.171;
 X-IronPort-AV: E=Sophos;i="5.93,255,1654527600"; 
-   d="scan'208";a="130222644"
+   d="scan'208";a="130222650"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
-  by relmlie5.idc.renesas.com with ESMTP; 23 Aug 2022 07:02:27 +0900
+  by relmlie5.idc.renesas.com with ESMTP; 23 Aug 2022 07:02:29 +0900
 Received: from localhost.localdomain (unknown [10.226.36.204])
-	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 23C6040078A9;
-	Tue, 23 Aug 2022 07:02:24 +0900 (JST)
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8F019400755E;
+	Tue, 23 Aug 2022 07:02:27 +0900 (JST)
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: jailhouse-dev@googlegroups.com
 Cc: Jan Kiszka <jan.kiszka@siemens.com>,
 	Chris Paterson <chris.paterson2@renesas.com>,
 	Prabhakar <prabhakar.csengg@gmail.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 2/3] configs: arm64: Add root cell config for Renesas RZ/G2M SoC
-Date: Mon, 22 Aug 2022 23:02:01 +0100
-Message-Id: <20220822220202.26218-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 3/3] configs: arm64: Add demo cell config for Renesas RZ/G2M
+Date: Mon, 22 Aug 2022 23:02:02 +0100
+Message-Id: <20220822220202.26218-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220822220202.26218-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20220822220202.26218-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -130,615 +129,324 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Add root cell config for Renesas RZ/G2M SoC based on Renesas BSP-3.0.0 [0]
-(5.10 kernel).
-
-Tested on HopeRun HiHope RZ/G2M platform [1].
-
-[0] https://github.com/renesas-rz/meta-renesas/tree/BSP-3.0.0
-[1] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-hihope-rzg2m-reference-board#overview
+Add demo cell config along with the corresponding DTS for HopeRun HiHope
+RZ/G2M platform.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- configs/arm64/renesas-r8a774a1.c | 1134 ++++++++++++++++++++++++++++++
- 1 file changed, 1134 insertions(+)
- create mode 100644 configs/arm64/renesas-r8a774a1.c
+ configs/arm64/dts/inmate-r8a774a1-hihope.dts | 228 +++++++++++++++++++
+ configs/arm64/renesas-r8a774a1-linux-demo.c  | 114 ++++++++++
+ 2 files changed, 342 insertions(+)
+ create mode 100644 configs/arm64/dts/inmate-r8a774a1-hihope.dts
+ create mode 100644 configs/arm64/renesas-r8a774a1-linux-demo.c
 
-diff --git a/configs/arm64/renesas-r8a774a1.c b/configs/arm64/renesas-r8a774a1.c
+diff --git a/configs/arm64/dts/inmate-r8a774a1-hihope.dts b/configs/arm64/dts/inmate-r8a774a1-hihope.dts
 new file mode 100644
-index 00000000..1d51c829
+index 00000000..d1fc03bb
 --- /dev/null
-+++ b/configs/arm64/renesas-r8a774a1.c
-@@ -0,0 +1,1134 @@
++++ b/configs/arm64/dts/inmate-r8a774a1-hihope.dts
+@@ -0,0 +1,228 @@
 +/*
 + * Jailhouse, a Linux-based partitioning hypervisor
 + *
-+ * Configuration for HopeRun HiHope RZ/G2M platform
-+ * based on R8A774A1/R8A774A3
++ * Device tree for Linux inmate test on HopeRun HiHope RZ/G2M
++ * platform based on R8A774A1/R8A774A3, corresponds to
++ * configs/arm64/renesas-r8a774a1-linux-demo.c
 + *
-+ * Copyright (C) 2022 Renesas Electronics Corp.
++ * Copyright (c) 2022, Renesas Electronics Corporation
 + *
 + * Authors:
 + *  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 + *
 + * This work is licensed under the terms of the GNU GPL, version 2.  See
 + * the COPYING file in the top-level directory.
++ */
++
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/dts-v1/;
++
++/ {
++	model = "Jailhouse cell on HopeRun HiHope RZ/G2M platform based on r8a774a1";
++	compatible = "hoperun,hihope-rzg2m", "renesas,r8a774a1";
++
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	aliases {
++		serial0 = &scif1;
++	};
++
++	chosen {
++		bootargs = "ignore_loglevel";
++		stdout-path = "serial0:115200n8";
++	};
++
++	hypervisor {
++		compatible = "jailhouse,cell";
++		interrupt-parent = <&gic>;
++	};
++
++	memory@8f400000 {
++		device_type = "memory";
++		reg = <0x0 0x8f400000 0x0 0x19c00000>;
++	};
++
++	extal_clk: extal {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <16666666>;
++	};
++
++	extalr_clk: extalr {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
++
++	scif_clk: scif {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <14745600>;
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		a53_0: cpu@100 {
++			compatible = "arm,cortex-a53";
++			reg = <0x100>;
++			device_type = "cpu";
++			next-level-cache = <&L2_CA53>;
++			enable-method = "psci";
++			#cooling-cells = <2>;
++			dynamic-power-coefficient = <277>;
++			capacity-dmips-mhz = <560>;
++		};
++
++		a53_1: cpu@101 {
++			compatible = "arm,cortex-a53";
++			reg = <0x101>;
++			device_type = "cpu";
++			next-level-cache = <&L2_CA53>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <560>;
++		};
++
++		a53_2: cpu@102 {
++			compatible = "arm,cortex-a53";
++			reg = <0x102>;
++			device_type = "cpu";
++			next-level-cache = <&L2_CA53>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <560>;
++		};
++
++		a53_3: cpu@103 {
++			compatible = "arm,cortex-a53";
++			reg = <0x103>;
++			device_type = "cpu";
++			next-level-cache = <&L2_CA53>;
++			enable-method = "psci";
++			capacity-dmips-mhz = <560>;
++		};
++
++		L2_CA53: cache-controller-1 {
++			compatible = "cache";
++			cache-unified;
++			cache-level = <2>;
++		};
++	};
++
++	psci {
++		compatible = "arm,psci-1.0", "arm,psci-0.2";
++		method = "smc";
++	};
++
++	clocks {
++		scif1_clk: scif1_clk {
++			compatible = "fixed-clock";
++			#clock-cells = <1>;
++			clock-frequency  = <66666664>;
++			clock-output-names = "scif1_clk";
++		};
++
++		s3d1_clk: s3d1_clk {
++			compatible = "fixed-clock";
++			#clock-cells = <1>;
++			clock-frequency  = <266666656>;
++			clock-output-names = "s3d1_clk";
++		};
++
++		sdif3_clk: sdif3_clk {
++			compatible = "fixed-clock";
++			#clock-cells = <1>;
++			clock-frequency  = <199999992>;
++			clock-output-names = "sdif3_clk";
++		};
++
++		intacp_clk: intacp_clk {
++			compatible = "fixed-clock";
++			#clock-cells = <1>;
++			clock-frequency  = <266666656>;
++			clock-output-names = "intacp_clk";
++		};
++	};
++
++	soc {
++		compatible = "simple-bus";
++		interrupt-parent = <&gic>;
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		gpio6: gpio@e6055400 {
++			compatible = "renesas,gpio-r8a774a1",
++				     "renesas,rcar-gen3-gpio";
++			reg = <0 0xe6055400 0 0x50>;
++			interrupts = <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++			#gpio-cells = <2>;
++			gpio-controller;
++			gpio-ranges = <&pfc 0 192 32>;
++			#interrupt-cells = <2>;
++			interrupt-controller;
++		};
++
++		pfc: pinctrl@e6060000 {
++			compatible = "renesas,pfc-r8a774a1";
++			reg = <0 0xe6060000 0 0x50c>;
++
++			scif1_pins: scif1 {
++				groups = "scif1_data_a";
++				function = "scif1";
++			};
++		};
++
++		scif1: serial@e6e68000 {
++			compatible = "renesas,scif-r8a774a1",
++				      "renesas,rcar-gen3-scif", "renesas,scif";
++			reg = <0 0xe6e68000 0 0x40>;
++			interrupts = <0 153 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&scif1_clk 0>,
++				 <&s3d1_clk 0 >,
++				 <&scif_clk 0>;
++			clock-names = "fck", "brg_int", "scif_clk";
++			pinctrl-0 = <&scif1_pins>;
++			pinctrl-names = "default";
++		};
++
++		gic: interrupt-controller@f1010000 {
++			compatible = "arm,gic-400";
++			#interrupt-cells = <3>;
++			#address-cells = <0>;
++			interrupt-controller;
++			reg = <0x0 0xf1010000 0 0x1000>,
++			      <0x0 0xf102f000 0 0x20000>,
++			      <0x0 0xf1040000 0 0x20000>,
++			      <0x0 0xf106f000 0 0x20000>;
++			interrupts = <GIC_PPI 9
++					(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
++			clocks = <&intacp_clk 0>;
++			clock-names = "clk";
++		};
++
++		prr: chipid@fff00044 {
++			compatible = "renesas,prr";
++			reg = <0 0xfff00044 0 4>;
++		};
++	};
++
++	timer {
++		compatible = "arm,armv8-timer";
++		interrupts-extended = <&gic GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++				      <&gic GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++				      <&gic GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
++				      <&gic GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led1 {
++			gpios = <&gpio6 12 0>;
++			default-state = "on";
++		};
++	};
++};
+diff --git a/configs/arm64/renesas-r8a774a1-linux-demo.c b/configs/arm64/renesas-r8a774a1-linux-demo.c
+new file mode 100644
+index 00000000..18d24e5f
+--- /dev/null
++++ b/configs/arm64/renesas-r8a774a1-linux-demo.c
+@@ -0,0 +1,114 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
 + *
++ * Configuration for linux-demo inmate on HopeRun HiHope RZ/G2M
++ * platform based on r8a774a1/r8a774a3: 4xA53 CPUs, PFC, SCIF1,
++ * GPIO6, PRR and LED1.
++ *
++ * Copyright (c) 2022, Renesas Electronics Corporation
++ *
++ * Authors:
++ *  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
 + */
 +
 +#include <jailhouse/types.h>
 +#include <jailhouse/cell-config.h>
 +
++#ifndef CONFIG_INMATE_BASE
++#define CONFIG_INMATE_BASE 0x0000000
++#endif
++
 +struct {
-+	struct jailhouse_system header;
++	struct jailhouse_cell_desc cell;
 +	__u64 cpus[1];
-+	struct jailhouse_memory mem_regions[148];
-+	struct jailhouse_irqchip irqchips[4];
++	struct jailhouse_memory mem_regions[7];
++	struct jailhouse_irqchip irqchips[1];
 +} __attribute__((packed)) config = {
-+	.header = {
-+		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
++	.cell = {
++		.signature = JAILHOUSE_CELL_DESC_SIGNATURE,
 +		.revision = JAILHOUSE_CONFIG_REVISION,
-+		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-+		.hypervisor_memory = {
-+			.phys_start = 0x88000000,
-+			.size =       0x1000000,
-+		},
-+		.debug_console = {
-+			.address = 0xe6e88000,
++		.name = "renesas-r8a774a1-linux-demo",
++		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
++			 JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE,
++
++		.cpu_set_size = sizeof(config.cpus),
++		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
++		.num_irqchips = ARRAY_SIZE(config.irqchips),
++
++		.console = {
++			.address = 0xe6e68000,
 +			.size = 0x40,
 +			.type = JAILHOUSE_CON_TYPE_SCIF,
 +			.flags = JAILHOUSE_CON_ACCESS_MMIO |
 +				 JAILHOUSE_CON_REGDIST_4,
 +		},
-+		.platform_info = {
-+			.arm = {
-+				.gic_version = 2,
-+				.gicd_base = 0xf1010000,
-+				.gicc_base = 0xf102f000,
-+				.gich_base = 0xf1040000,
-+				.gicv_base = 0xf106f000,
-+				.maintenance_irq = 25,
-+			}
-+		},
-+		.root_cell = {
-+			.name = "Renesas HopeRun HiHope RZ/G2M",
-+			.cpu_set_size = sizeof(config.cpus),
-+			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-+			.num_irqchips = ARRAY_SIZE(config.irqchips),
-+		},
 +	},
 +
 +	.cpus = {
-+		0x3f,
++		0x3c,
 +	},
 +
 +	.mem_regions = {
-+		/* RAM */ {
-+			.phys_start = 0x48000000,
-+			.virt_start = 0x48000000,
-+			.size = 0x40000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+		/* Leave hole for hypervisor */
-+		/* RAM - reserved for baremetal apps */ {
-+			.phys_start = 0x89000000,
-+			.virt_start = 0x89000000,
-+			.size = 0x6400000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-+		},
-+		/* RAM - reserved for inmate */ {
-+			.phys_start = 0x8f400000,
-+			.virt_start = 0x8f400000,
-+			.size = 0x19c00000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-+		},
-+		/* RAM */ {
-+			.phys_start = 0xa9000000,
-+			.virt_start = 0xa9000000,
-+			.size = 0x17000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+		/* RAM */ {
-+			.phys_start = 0x600000000,
-+			.virt_start = 0x600000000,
-+			.size = 0x80000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_EXECUTE,
-+		},
-+		/* QOS */ {
-+			.phys_start = 0xe67e0000,
-+			.virt_start = 0xe67e0000,
-+			.size = 0x10090,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* RWDT */ {
-+			.phys_start = 0xe6020000,
-+			.virt_start = 0xe6020000,
-+			.size = 0x0c,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO0 */ {
-+			.phys_start = 0xe6050000,
-+			.virt_start = 0xe6050000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO1 */ {
-+			.phys_start = 0xe6051000,
-+			.virt_start = 0xe6051000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO2 */ {
-+			.phys_start = 0xe6052000,
-+			.virt_start = 0xe6052000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO3 */ {
-+			.phys_start = 0xe6053000,
-+			.virt_start = 0xe6053000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO4 */ {
-+			.phys_start = 0xe6054000,
-+			.virt_start = 0xe6054000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO5 */ {
-+			.phys_start = 0xe6055000,
-+			.virt_start = 0xe6055000,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
 +		/* GPIO6 */ {
 +			.phys_start = 0xe6055400,
 +			.virt_start = 0xe6055400,
 +			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GPIO7 */ {
-+			.phys_start = 0xe6055800,
-+			.virt_start = 0xe6055800,
-+			.size = 0x50,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_ROOTSHARED |
 +				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
 +		},
 +		/* PFC */ {
 +			.phys_start = 0xe6060000,
 +			.virt_start = 0xe6060000,
 +			.size = 0x50c,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_ROOTSHARED |
 +				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CMT0 */ {
-+			.phys_start = 0xe60f0000,
-+			.virt_start = 0xe60f0000,
-+			.size = 0x1004,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CMT1 */ {
-+			.phys_start = 0xe6130000,
-+			.virt_start = 0xe6130000,
-+			.size = 0x1004,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CMT2 */ {
-+			.phys_start = 0xe6140000,
-+			.virt_start = 0xe6140000,
-+			.size = 0x1004,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CMT3 */ {
-+			.phys_start = 0xe6148000,
-+			.virt_start = 0xe6148000,
-+			.size = 0x1004,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CPG */ {
-+			.phys_start = 0xe6150000,
-+			.virt_start = 0xe6150000,
-+			.size = 0x0bb0,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* RST */ {
-+			.phys_start = 0xe6160000,
-+			.virt_start = 0xe6160000,
-+			.size = 0x018c,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SYSC */ {
-+			.phys_start = 0xe6180000,
-+			.virt_start = 0xe6180000,
-+			.size = 0x0400,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TSC */ {
-+			.phys_start = 0xe6198000,
-+			.virt_start = 0xe6198000,
-+			.size = 0x0100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TSC */ {
-+			.phys_start = 0xe61a0000,
-+			.virt_start = 0xe61a0000,
-+			.size = 0x0100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TSC */ {
-+			.phys_start = 0xe61a8000,
-+			.virt_start = 0xe61a8000,
-+			.size = 0x0100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* INTC EX */ {
-+			.phys_start = 0xe61c0000,
-+			.virt_start = 0xe61c0000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TMU0 */ {
-+			.phys_start = 0xe61e0000,
-+			.virt_start = 0xe61e0000,
-+			.size = 0x30,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TMU1 */ {
-+			.phys_start = 0xe6fc0000,
-+			.virt_start = 0xe6fc0000,
-+			.size = 0x30,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TMU2 */ {
-+			.phys_start = 0xe6fd0000,
-+			.virt_start = 0xe6fd0000,
-+			.size = 0x30,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TMU3 */ {
-+			.phys_start = 0xe6fe0000,
-+			.virt_start = 0xe6fe0000,
-+			.size = 0x30,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TMU4 */ {
-+			.phys_start = 0xffc00000,
-+			.virt_start = 0xffc00000,
-+			.size = 0x30,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C0 */ {
-+			.phys_start = 0xe6500000,
-+			.virt_start = 0xe6500000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C1 */ {
-+			.phys_start = 0xe6508000,
-+			.virt_start = 0xe6508000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C2 */ {
-+			.phys_start = 0xe6510000,
-+			.virt_start = 0xe6510000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C3 */ {
-+			.phys_start = 0xe66d0000,
-+			.virt_start = 0xe66d0000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C4 */ {
-+			.phys_start = 0xe66d8000,
-+			.virt_start = 0xe66d8000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C5 */ {
-+			.phys_start = 0xe66e0000,
-+			.virt_start = 0xe66e0000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C6 */ {
-+			.phys_start = 0xe66e8000,
-+			.virt_start = 0xe66e8000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* I2C DVFS */ {
-+			.phys_start = 0xe60b0000,
-+			.virt_start = 0xe60b0000,
-+			.size = 0x425,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSCIF0 */ {
-+			.phys_start = 0xe6540000,
-+			.virt_start = 0xe6540000,
-+			.size = 0x60,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSCIF1 */ {
-+			.phys_start = 0xe6550000,
-+			.virt_start = 0xe6550000,
-+			.size = 0x60,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSCIF2 */ {
-+			.phys_start = 0xe6560000,
-+			.virt_start = 0xe6560000,
-+			.size = 0x60,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSCIF3 */ {
-+			.phys_start = 0xe66a0000,
-+			.virt_start = 0xe66a0000,
-+			.size = 0x60,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSCIF4 */ {
-+			.phys_start = 0xe66b0000,
-+			.virt_start = 0xe66b0000,
-+			.size = 0x60,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HSUSB */ {
-+			.phys_start = 0xe6590000,
-+			.virt_start = 0xe6590000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				 JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB2 CLKSEL */ {
-+			.phys_start = 0xe6590630,
-+			.virt_start = 0xe6590630,
-+			.size = 0x2,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 |
-+				JAILHOUSE_MEM_IO_32 |JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB DMAC0 */ {
-+			.phys_start = 0xe65a0000,
-+			.virt_start = 0xe65a0000,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB DMAC1 */ {
-+			.phys_start = 0xe65b0000,
-+			.virt_start = 0xe65b0000,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB3 PHY */ {
-+			.phys_start = 0xe65ee000,
-+			.virt_start = 0xe65ee000,
-+			.size = 0x90,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* DMAC0 */ {
-+			.phys_start = 0xe6700000,
-+			.virt_start = 0xe6700000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* DMAC1 */ {
-+			.phys_start = 0xe7300000,
-+			.virt_start = 0xe7300000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* DMAC2 */ {
-+			.phys_start = 0xe7310000,
-+			.virt_start = 0xe7310000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU DS0 */ {
-+			.phys_start = 0xe6740000,
-+			.virt_start = 0xe6740000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU DS1 */ {
-+			.phys_start = 0xe7740000,
-+			.virt_start = 0xe7740000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU HC */ {
-+			.phys_start = 0xe6570000,
-+			.virt_start = 0xe6570000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU MM */ {
-+			.phys_start = 0xe67b0000,
-+			.virt_start = 0xe67b0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU MP */ {
-+			.phys_start = 0xec670000,
-+			.virt_start = 0xec670000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU PV0 */ {
-+			.phys_start = 0xfd800000,
-+			.virt_start = 0xfd800000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU PV1 */ {
-+			.phys_start = 0xfd950000,
-+			.virt_start = 0xfd950000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU VC0 */ {
-+			.phys_start = 0xfe6b0000,
-+			.virt_start = 0xfe6b0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IPMMU VI0 */ {
-+			.phys_start = 0xfebd0000,
-+			.virt_start = 0xfebd0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* AVB */ {
-+			.phys_start = 0xe6800000,
-+			.virt_start = 0xe6800000,
-+			.size = 0x800,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CAN0 */ {
-+			.phys_start = 0xe6c30000,
-+			.virt_start = 0xe6c30000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CAN1 */ {
-+			.phys_start = 0xe6c38000,
-+			.virt_start = 0xe6c38000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CANFD */ {
-+			.phys_start = 0xe66c0000,
-+			.virt_start = 0xe66c0000,
-+			.size = 0x8000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM0 */ {
-+			.phys_start = 0xe6e30000,
-+			.virt_start = 0xe6e30000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM1 */ {
-+			.phys_start = 0xe6e31000,
-+			.virt_start = 0xe6e31000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM2 */ {
-+			.phys_start = 0xe6e32000,
-+			.virt_start = 0xe6e32000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM3 */ {
-+			.phys_start = 0xe6e33000,
-+			.virt_start = 0xe6e33000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM4 */ {
-+			.phys_start = 0xe6e34000,
-+			.virt_start = 0xe6e34000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM5 */ {
-+			.phys_start = 0xe6e35000,
-+			.virt_start = 0xe6e35000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PWM6 */ {
-+			.phys_start = 0xe6e36000,
-+			.virt_start = 0xe6e36000,
-+			.size = 0x8,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* TPU */ {
-+			.phys_start = 0xe6e80000,
-+			.virt_start = 0xe6e80000,
-+			.size = 0x148,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				 JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SCIF0 */ {
-+			.phys_start = 0xe6e60000,
-+			.virt_start = 0xe6e60000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
 +		},
 +		/* SCIF1 */ {
 +			.phys_start = 0xe6e68000,
@@ -747,539 +455,41 @@ index 00000000..1d51c829
 +			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
 +				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
 +		},
-+		/* SCIF2 */ {
-+			.phys_start = 0xe6e88000,
-+			.virt_start = 0xe6e88000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SCIF3 */ {
-+			.phys_start = 0xe6c50000,
-+			.virt_start = 0xe6c50000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SCIF4 */ {
-+			.phys_start = 0xe6c40000,
-+			.virt_start = 0xe6c40000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SCIF5 */ {
-+			.phys_start = 0xe6f30000,
-+			.virt_start = 0xe6f30000,
-+			.size = 0x40,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_8 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* MSIOF0 */ {
-+			.phys_start = 0xe6e90000,
-+			.virt_start = 0xe6e90000,
-+			.size = 0x64,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* MSIOF1 */ {
-+			.phys_start = 0xe6ea0000,
-+			.virt_start = 0xe6ea0000,
-+			.size = 0x64,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* MSIOF2 */ {
-+			.phys_start = 0xe6c00000,
-+			.virt_start = 0xe6c00000,
-+			.size = 0x64,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* MSIOF3 */ {
-+			.phys_start = 0xe6c10000,
-+			.virt_start = 0xe6c10000,
-+			.size = 0x64,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN0 */ {
-+			.phys_start = 0xe6ef0000,
-+			.virt_start = 0xe6ef0000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN1 */ {
-+			.phys_start = 0xe6ef1000,
-+			.virt_start = 0xe6ef1000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN2 */ {
-+			.phys_start = 0xe6ef2000,
-+			.virt_start = 0xe6ef2000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN3 */ {
-+			.phys_start = 0xe6ef3000,
-+			.virt_start = 0xe6ef3000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN4 */ {
-+			.phys_start = 0xe6ef4000,
-+			.virt_start = 0xe6ef4000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN5 */ {
-+			.phys_start = 0xe6ef5000,
-+			.virt_start = 0xe6ef5000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN6 */ {
-+			.phys_start = 0xe6ef6000,
-+			.virt_start = 0xe6ef6000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VIN7 */ {
-+			.phys_start = 0xe6ef7000,
-+			.virt_start = 0xe6ef7000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SOUND */ {
-+			.phys_start = 0xec500000,
-+			.virt_start = 0xec500000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SOUND */ {
-+			.phys_start = 0xec5a0000,
-+			.virt_start = 0xec5a0000,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SOUND */ {
-+			.phys_start = 0xec540000,
-+			.virt_start = 0xec540000,
-+			.size = 0x1000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SOUND */ {
-+			.phys_start = 0xec541000,
-+			.virt_start = 0xec541000,
-+			.size = 0x280,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SOUND */ {
-+			.phys_start = 0xec760000,
-+			.virt_start = 0xec760000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* AUDMA0 */ {
-+			.phys_start = 0xec700000,
-+			.virt_start = 0xec700000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* AUDMA1 */ {
-+			.phys_start = 0xec720000,
-+			.virt_start = 0xec720000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_16 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* XHCI0 */ {
-+			.phys_start = 0xee000000,
-+			.virt_start = 0xee000000,
-+			.size = 0xc00,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB3 PERI */ {
-+			.phys_start = 0xee020000,
-+			.virt_start = 0xee020000,
-+			.size = 0x400,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* OHCI0 */ {
-+			.phys_start = 0xee080000,
-+			.virt_start = 0xee080000,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* OHCI1 */ {
-+			.phys_start = 0xee0a0000,
-+			.virt_start = 0xee0a0000,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* EHCI0 */ {
-+			.phys_start = 0xee080100,
-+			.virt_start = 0xee080100,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* EHCI1 */ {
-+			.phys_start = 0xee0a0100,
-+			.virt_start = 0xee0a0100,
-+			.size = 0x100,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB2 PHY0 */ {
-+			.phys_start = 0xee080200,
-+			.virt_start = 0xee080200,
-+			.size = 0x700,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* USB2 PHY1 */ {
-+			.phys_start = 0xee0a0200,
-+			.virt_start = 0xee0a0200,
-+			.size = 0x700,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SDHI0 */ {
-+			.phys_start = 0xee100000,
-+			.virt_start = 0xee100000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SDHI1 */ {
-+			.phys_start = 0xee120000,
-+			.virt_start = 0xee120000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SDHI2 */ {
-+			.phys_start = 0xee140000,
-+			.virt_start = 0xee140000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* SDHI3 */ {
-+			.phys_start = 0xee160000,
-+			.virt_start = 0xee160000,
-+			.size = 0x2000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* GSX */ {
-+			.phys_start = 0xfd000000,
-+			.virt_start = 0xfd000000,
-+			.size = 0x40000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI0 */ {
-+			.phys_start = 0xfe000000,
-+			.virt_start = 0xfe000000,
-+			.size = 0x80000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI0 */ {
-+			.phys_start = 0xfe100000,
-+			.virt_start = 0xfe100000,
-+			.size = 0x100000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI0 */ {
-+			.phys_start = 0xfe200000,
-+			.virt_start = 0xfe200000,
-+			.size = 0x200000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI0 */ {
-+			.phys_start = 0x30000000,
-+			.virt_start = 0x30000000,
-+			.size = 0x8000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI0 */ {
-+			.phys_start = 0x38000000,
-+			.virt_start = 0x38000000,
-+			.size = 0x8000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI1 */ {
-+			.phys_start = 0xee800000,
-+			.virt_start = 0xee800000,
-+			.size = 0x80000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI1 */ {
-+			.phys_start = 0xee900000,
-+			.virt_start = 0xee900000,
-+			.size = 0x100000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI1 */ {
-+			.phys_start = 0xeea00000,
-+			.virt_start = 0xeea00000,
-+			.size = 0x200000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI1 */ {
-+			.phys_start = 0xc0000000,
-+			.virt_start = 0xc0000000,
-+			.size = 0x8000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* PCI1 */ {
-+			.phys_start = 0xc8000000,
-+			.virt_start = 0xc8000000,
-+			.size = 0x8000000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FCPCI0 */ {
-+			.phys_start = 0xfe8df000,
-+			.virt_start = 0xfe8df000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FCPCS */ {
-+			.phys_start = 0xfe90f000,
-+			.virt_start = 0xfe90f000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IVDP1C */ {
-+			.phys_start = 0xfe8d0000,
-+			.virt_start = 0xfe8d0000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* IVDP1C */ {
-+			.phys_start = 0xfe8d0200,
-+			.virt_start = 0xfe8d0200,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VCPLF */ {
-+			.phys_start = 0xfe910000,
-+			.virt_start = 0xfe910000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VCPLF */ {
-+			.phys_start = 0xfe910200,
-+			.virt_start = 0xfe910200,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VDPB */ {
-+			.phys_start = 0xfe900000,
-+			.virt_start = 0xfe900000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VDPB */ {
-+			.phys_start = 0xfe900200,
-+			.virt_start = 0xfe900200,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FDP0 */ {
-+			.phys_start = 0xfe940000,
-+			.virt_start = 0xfe940000,
-+			.size = 0x2400,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FDP0 */ {
-+			.phys_start = 0xfe950000,
-+			.virt_start = 0xfe950000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FCPVD0 */ {
-+			.phys_start = 0xfea27000,
-+			.virt_start = 0xfea27000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FCPVD1 */ {
-+			.phys_start = 0xfea2f000,
-+			.virt_start = 0xfea2f000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* FCPVD2 */ {
-+			.phys_start = 0xfea37000,
-+			.virt_start = 0xfea37000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSP */ {
-+			.phys_start = 0xfe960000,
-+			.virt_start = 0xfe960000,
-+			.size = 0x8000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSP-B */ {
-+			.phys_start = 0xfe96f000,
-+			.virt_start = 0xfe96f000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSPD0 */ {
-+			.phys_start = 0xfea20000,
-+			.virt_start = 0xfea20000,
-+			.size = 0x5000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSPD1 */ {
-+			.phys_start = 0xfea28000,
-+			.virt_start = 0xfea28000,
-+			.size = 0x5000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSPD2 */ {
-+			.phys_start = 0xfea30000,
-+			.virt_start = 0xfea30000,
-+			.size = 0x5000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSP */ {
-+			.phys_start = 0xfe9a0000,
-+			.virt_start = 0xfe9a0000,
-+			.size = 0x8000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* VSPI0 */ {
-+			.phys_start = 0xfe9af000,
-+			.virt_start = 0xfe9af000,
-+			.size = 0x200,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CSI20 */ {
-+			.phys_start = 0xfea80000,
-+			.virt_start = 0xfea80000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* CSI40 */ {
-+			.phys_start = 0xfeaa0000,
-+			.virt_start = 0xfeaa0000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* HDMI0 */ {
-+			.phys_start = 0xfead0000,
-+			.virt_start = 0xfead0000,
-+			.size = 0x10000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* DU */ {
-+			.phys_start = 0xfeb00000,
-+			.virt_start = 0xfeb00000,
-+			.size = 0x70000,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
-+		/* LVDS */ {
-+			.phys_start = 0xfeb90000,
-+			.virt_start = 0xfeb90000,
-+			.size = 0x14,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-+				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
-+		},
 +		/* PRR */ {
 +			.phys_start = 0xfff00044,
 +			.virt_start = 0xfff00044,
 +			.size = 0x4,
-+			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_ROOTSHARED |
 +				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
 +		},
-+	},
-+
-+	.irqchips = {
-+		/* GIC */ {
-+			.address = 0xf1010000,
-+			.pin_base = 32,
-+			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-+			},
++		/* linux-loader space */ {
++			.phys_start = 0x89000000,
++			.virt_start = 0x0,
++			.size = 0x6400000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
 +		},
++		/* RAM */ {
++			.phys_start = 0x8f400000,
++			.virt_start = 0x8f400000,
++			.size = 0x19c00000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
++				JAILHOUSE_MEM_LOADABLE,
++		},
++		/* communication region */ {
++			.virt_start = 0x80000000,
++			.size = 0x00001000,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_COMM_REGION,
++		},
++	},
++	.irqchips = {
 +		/* GIC */ {
 +			.address = 0xf1010000,
 +			.pin_base = 160,
 +			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-+			},
-+		},
-+		/* GIC */ {
-+			.address = 0xf1010000,
-+			.pin_base = 288,
-+			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-+			},
-+		},
-+		/* GIC */ {
-+			.address = 0xf1010000,
-+			.pin_base = 416,
-+			.pin_bitmap = {
-+				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
++				0x2000000, 0x0,
 +			},
 +		},
 +	},
@@ -1290,4 +500,4 @@ index 00000000..1d51c829
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220822220202.26218-3-prabhakar.mahadev-lad.rj%40bp.renesas.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220822220202.26218-4-prabhakar.mahadev-lad.rj%40bp.renesas.com.
