@@ -1,137 +1,77 @@
-Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBK6V22MAMGQEJE3IMOA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCBJJVUE3MMRBWE526MAMGQERTUJIQA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oa1-x3a.google.com (mail-oa1-x3a.google.com [IPv6:2001:4860:4864:20::3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D3115ACD0E
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Sep 2022 09:52:19 +0200 (CEST)
-Received: by mail-oa1-x3a.google.com with SMTP id 586e51a60fabf-1273391d2cfsf1818520fac.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Sep 2022 00:52:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1662364331; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=vQ4MD/6kUgblq13wA3dvzqbgqL37hdByAjhhOnA2eeFO+NYqudd9bPZ7eehxmDM859
-         yMkrsv+bh5PXBrLJv1UjF87iONYUGTEGrh/BS1lXuHkudxCR0J/jJYI+UFDcSiNmwIyf
-         KTQY8fF+LfzRvkQF0DtdI8Fw25tXghub98iLQf5ioXLprYY+MqObbLyVwo64pFD9yfy9
-         X8q5kk1URXMVsHGAlY/d0fWbUbRG8tIHBsk7Cj/1Cetj1r8KbwT0LE2GvaoCmRT2aZkq
-         yru/SFH12F86tb8tv5Xj6ttL1poDDPrgIKC9rk1U//QgA/H4INKCbVZIPwCpPakWq4qf
-         d8MA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=yE61AQD1bzN99hLFzS7Z1pwbqjxQHeTXJ1znNxZ/8MM=;
-        b=hd8CfFfX+SB341H71JwmpsFEyMMUvdDXLjnLIcPB8vK7F6C5B4WDxxl6dzJbNoWIBi
-         lUU6KRHvf9qOXQ22Irh4tbOsHrfaBzanmsFiS8mb2PB1s5uR0AQ7kPJlkgG0/RI/NdDS
-         j0jOzzjgpl5A/WFJVp2fApTW4lBRSHRKBv0xvAmXKxn3H8z4++e+S0eA7IMx8Fzg37cp
-         oDF2NxjpfZkWMjHttVp2E0gS2jqnzyPguyjFxH8LH9/Qdk/OARSRvM9aNyWpb26E6OeC
-         /HNrn9+F1tdBeO1TpNLPSAaWDVwkgpYndjFeLmlFwTVQGcxsZJzFmm9h+9aBmdYW7tCS
-         /dyQ==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=AlA9w5ba;
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1131 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F2C5AD011
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Sep 2022 12:26:34 +0200 (CEST)
+Received: by mail-ot1-x33f.google.com with SMTP id 36-20020a9d0627000000b0063927bfccb5sf4871861otn.18
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Sep 2022 03:26:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:sender:from:to:cc:subject:date;
-        bh=yE61AQD1bzN99hLFzS7Z1pwbqjxQHeTXJ1znNxZ/8MM=;
-        b=TV5yEkeFrynFe2GFyJKdYLv7yUB94JibuioVphjsWeFUcPkNb/qvUoFEMB0hhhBuTa
-         I4MOy2dgHUKHZHI/PJwkRJkB0qDFDzs7jP1oT+/BEDo+tg34M2Vc5Tbu1KvxCQRJmTQP
-         umDwQt6SH9MzKdBuoKtD9eXZC6EYmgLHgl5uaBPNjHMee16BqX3ueF32/Fpb1fz7VqMr
-         /oMbzFvEKAk28gnnzoTp7ZIWqv0HuMxN9eSxu7NJ8SmnK2RxKbvZLtd94ScD5i3NUBjo
-         RbX//p25cA5zVc18uJ1LoXtbKDzkkKxeqEb8OGNKeQ21J7uJdMvwUVwxDbl7thDYOiQS
-         TIKw==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date;
+        bh=NBn3TOiM8vXsOOJDuZftXITFj5F7/V3eeeSPDhzi+RU=;
+        b=ZdW8/u03EFeQx326WG571zzk7ph+RvsyYgQk+xB4cQH885UXzqho0SoSa142UFi9e0
+         K6WTmixcMi5Es5lYcOPD7oTcia1qrbC9WleMJdPjdEAsHuEqunEr4LeWFOdgMOZG4+yG
+         DZA06lp1c6yCfhPVvuvOHxjake3qMS+/+9cH1skirnYBUJ+7eXQY6ox1A2HKWiLj36U0
+         0D1kRZAwLZ+RH08l6gOaLYMjc/fbv+RYJ+KyOwPKS9RekY7E8x8xfxX9GjWEs90wM2VE
+         fuRcW+RqJ6By8diO2zyqB5Jt6IPwhNfLGf2+ubFZPRgkrQy33AdQMWLCfjQDzLilUn1s
+         0d6g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date;
-        bh=yE61AQD1bzN99hLFzS7Z1pwbqjxQHeTXJ1znNxZ/8MM=;
-        b=L0LC5doFIiURBmk7g/SJD/qqsdOoU3GTfnvOZ39rW27RFIhNJFGbDtz19ScBooPASw
-         Mh0yi4hehBUv1hx0CRmbDzebCPbcXpx0WYVdvzxhGaOU1Hg6KuFqeXi4nnnVbmv/12eN
-         TNfWjlBLkjO2gF+xku+R4nZ+rPtel9bDNIeQfVRg+BFnK7GTQ/xRXMWag6Lj4oC6acrX
-         SU0Vn7erRH9L44Sr2MzAhpY4OWJInTQPjdXctHJ/5aWkwzMJlwYgDJxa1DvrQd4I30se
-         SzUYqHh9NwHorM4EGW5NP5xScb/RS45Qum/fQjX3MN4tJtNT56NeJP5uRAwedkAF8ZDC
-         vTGw==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date;
+        bh=NBn3TOiM8vXsOOJDuZftXITFj5F7/V3eeeSPDhzi+RU=;
+        b=UM/AQLTUPriUaValpHV2h1pRbSrQkFs0PQIleRtZBdX6ZK+vjsEyPEzJGztvsbki+g
+         ByCLsnZ3WLmyf0V9IM+EbNv0JDvzhyYMM1slat4AFBy5SZyrE8Sr2KPPQBJ/KN/W5b10
+         ry4ylf+BDi7Z741bMHwCcADjGfrtOtxYzl5+vMNo1m4jKduXed8h6Bt3yXxbJULCSBoD
+         KnFsZUjb4TKp1lKhv1Dy9Kd/EzFC3wBIebadYwGXXNtiZ7z3kbb2ZTWW3rp3gu8JCp4d
+         nt2laL7bnxodHHsEcJLI+vl/vSWVOyTHUXpOxPIafCNPRQKN/lTQOcz21nz5ak2XpVKY
+         NB0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:cc:to:subject
-         :message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-message-state:sender:from:to:cc:subject:date;
-        bh=yE61AQD1bzN99hLFzS7Z1pwbqjxQHeTXJ1znNxZ/8MM=;
-        b=mxDCeMXHRMOP3Vb/gkxQyvtQe9ows7KjfHmJfRvcXMcQzo3K0KVlNN+VYXl0mAoLpq
-         OT4tTErvN/7g3QkYAOA7t529H30z1jJJ+qU2bgIM4yNgUETUkpL1dIYfIl3fnjlQgMsD
-         45+MOF3AJvtInyulGpLfFk/i2N7FcLzOYqPQGmK9eTRd11hIOH1E4zapr6lVrV7rp8eX
-         lgn7ddCGNuYC79l2BvZVmyjENGu3Rd6jNcZJnPENkQcExB/LLM165ToPt30p76u/WNCi
-         muuMqrMUmGcUcaSinuyuGaW+D36YzOClNRV/m7IAm41i2p+BYgxtKhZ6T/5B2i76jf+8
-         auJg==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
+         :subject:date;
+        bh=NBn3TOiM8vXsOOJDuZftXITFj5F7/V3eeeSPDhzi+RU=;
+        b=XdP1O8g8FKuiP+rouw6L2KEwdy2hGPH+tysvYgENdj0L1StGMWd0PdTxNqHlzelQ7S
+         4PNFE/NwaDqFLTYUhzixV1jQ3TEiW5+yH5cBc5eSoDDDjJTNe8dhqLY32zhmOhgFPIAr
+         dBYXoNlSTc708EMQjGAVsmu8hSKM/xZRhAnvn+NLHavD9Us523HOr1qh0dPD3BcFUTn5
+         opJE/QcluJxTwhwJeqGoKal9fgLYW/HYlDQDfQrIiYRUPkZOfRZx5PXf3ggLAPar2ppH
+         0hc3il/Uf1Lcl0y8Xzfpyt7PzL7Nflfugr0QYfIj+8/qJnA/IY/c7b7KH4F5oBQL8mXO
+         jo4g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACgBeo0jJkL2vpSPSrx+04pvbnWLpUoIfItaJGVkZCm5eSj8K9EG5LRr
-	qa9XsUVctZvp9AjA1d7Cj0Y=
-X-Google-Smtp-Source: AA6agR6USpCYv38MVvqpTBBzLQc4CFo4mrcUXlXit62XIFBFQZOQhOPKsgHQdt0i+NqUo7BGLC9ZpQ==
-X-Received: by 2002:a05:6808:1586:b0:345:df7b:b1b2 with SMTP id t6-20020a056808158600b00345df7bb1b2mr7272195oiw.63.1662364331597;
-        Mon, 05 Sep 2022 00:52:11 -0700 (PDT)
+X-Gm-Message-State: ACgBeo1N3RAAjeFugWNayzwgui2fWMUZJj4Gd2X1jPb+vr9yh4+W7CQc
+	WT83xOW2B9aX0PP6durzF0Y=
+X-Google-Smtp-Source: AA6agR5AWuuN/BjCvmJiM5stsRNlEraqo7WIF3+jvDKMtlshIItHHpNT31B+oMsqWendaG+CJWZyBA==
+X-Received: by 2002:a05:6808:201e:b0:343:6192:1e21 with SMTP id q30-20020a056808201e00b0034361921e21mr7115043oiw.277.1662373593032;
+        Mon, 05 Sep 2022 03:26:33 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a4a:d64d:0:b0:448:a832:c34 with SMTP id y13-20020a4ad64d000000b00448a8320c34ls460145oos.6.-pod-prod-gmail;
- Mon, 05 Sep 2022 00:52:10 -0700 (PDT)
-X-Received: by 2002:a05:6820:167:b0:460:8084:db29 with SMTP id k7-20020a056820016700b004608084db29mr1863561ood.19.1662364330711;
-        Mon, 05 Sep 2022 00:52:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1662364330; cv=none;
-        d=google.com; s=arc-20160816;
-        b=FNZ6eqh5Qw6QU5oO8u/EANr9+99/kI/BC+gHNWK3btITuQXVEcpX4cdx1ulI9h1H1q
-         960/abDR8vhmt7Sep/elGND1djYzosVUPf+bqH/UfExSltHaBJns+E26I6+vXqwMarRs
-         JHplKjM8FNEcoR9CkG9fW5AGOtkdOJonwrY6UocRcdl2mjZq5NhDQ8ZvVQ43fhNrBfDv
-         7VIX6Qla+JEYAeJB4wz8W6mfO2TbB9Q4GsqoskKeQ9t/RJjLSp7n6MQb3JUAuD16YqMU
-         E1u+wqdC4DF+Bg2crancybFlCyeW2ICrSeRwg+UunlpZjdCcTH3Gd8r7JCROweN5UP0P
-         8QnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HzO7JTLgcrdqQtII+r+KV/QCv0err3sDzO+qokjyPwU=;
-        b=empvIP2gG2saJfeITDyqaX1QDYYk20XD/NmxaoFLqBu7L08J51gdU+rh6lyT56vlC6
-         z4WFp0+OVN6WN1FrXhIoGCktlqlXB3z5Cou1yOf+3hFsDWldgWPjtLb76Vct3nxEk8a4
-         F6v7vQuhSIKkVsPBkEhDwNmZ6klNhSCSU/nMJJvhMs5fNWIQYf6tZLT8iE58SFZrHrUR
-         +7+6os08lDh4ihjf2Q+9NqyHpUxY3UfkSCEKv6CGap7L3ejMXhTVjD3Xgb05es/xJJwO
-         Jjqobq+DrqZ++gwzcpxdh5MB4bWjIVjyOdYq1ETMCobVVlyLyjIMyLbK14qbkEwjvllX
-         GhgA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=AlA9w5ba;
-       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1131 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com. [2607:f8b0:4864:20::1131])
-        by gmr-mx.google.com with ESMTPS id t13-20020a4ae40d000000b0044dfb9bed1bsi386064oov.2.2022.09.05.00.52.10
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Sep 2022 00:52:10 -0700 (PDT)
-Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::1131 as permitted sender) client-ip=2607:f8b0:4864:20::1131;
-Received: by mail-yw1-x1131.google.com with SMTP id 00721157ae682-32a09b909f6so63531897b3.0
-        for <jailhouse-dev@googlegroups.com>; Mon, 05 Sep 2022 00:52:10 -0700 (PDT)
-X-Received: by 2002:a0d:f282:0:b0:329:7da1:90e8 with SMTP id
- b124-20020a0df282000000b003297da190e8mr36977932ywf.519.1662364330287; Mon, 05
- Sep 2022 00:52:10 -0700 (PDT)
+Received: by 2002:a05:6870:d8a5:b0:127:2be3:37fc with SMTP id
+ dv37-20020a056870d8a500b001272be337fcls1181282oab.10.-pod-prod-gmail; Mon, 05
+ Sep 2022 03:26:32 -0700 (PDT)
+X-Received: by 2002:a05:6870:4303:b0:125:5aaa:5f56 with SMTP id w3-20020a056870430300b001255aaa5f56mr7380107oah.126.1662373592165;
+        Mon, 05 Sep 2022 03:26:32 -0700 (PDT)
+Date: Mon, 5 Sep 2022 03:26:31 -0700 (PDT)
+From: Yelena Konyukh <ykonyukh@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <22820838-b99f-4a2e-9c87-d634c7d376e5n@googlegroups.com>
+In-Reply-To: <CA+V-a8uoYz_CUxxstk8afHMKjOjHX9c=tWPAhFpoBKjfnb=TPA@mail.gmail.com>
+References: <94bae287-eaf2-4ae2-bcdd-fc87342256e5n@googlegroups.com>
+ <CA+V-a8uE2PzOF2mh0xEQmQ=akMTWXHy7usqEaM1C754DHS1=+w@mail.gmail.com>
+ <CA+V-a8uJVDLNGjtcoZHN_FcvVMnxq5MjQRudtR1zQznPja2Kng@mail.gmail.com>
+ <CA+V-a8uoYz_CUxxstk8afHMKjOjHX9c=tWPAhFpoBKjfnb=TPA@mail.gmail.com>
+Subject: Re: Linux imate unhandled read
 MIME-Version: 1.0
-References: <20220822220202.26218-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20220822220202.26218-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 5 Sep 2022 08:51:42 +0100
-Message-ID: <CA+V-a8uCdhTYh3AzbKy7v+kAFGBwK-6ngDarzHi2Hd1LhwiZEA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Add support for Renesas RZ/G2M
-To: Jan Kiszka <jan.kiszka@siemens.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>, 
-	Chris Paterson <chris.paterson2@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Original-Sender: prabhakar.csengg@gmail.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b=AlA9w5ba;       spf=pass
- (google.com: domain of prabhakar.csengg@gmail.com designates
- 2607:f8b0:4864:20::1131 as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_3612_817085746.1662373591509"
+X-Original-Sender: ykonyukh@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -144,56 +84,365 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Mon, Aug 22, 2022 at 11:02 PM Lad Prabhakar
-<prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
->
-> Hi All,
->
-> This patch series adds support for Renesas RZ/G2M SoC [0] (root cell
-> config) and adds demo cell config for HopeRun HiHope RZ/G2M platform [1].
->
-> Changes apply on top of next branch [2] and the kernel used for testing is
-> 5.10 (-cip) based on BSP-3.0.0 [3] release from Renesas.
->
-> [0] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-ultra-high-performance-microprocessors-arm-cortex-a57-and-arm-cortex-a53-cpus-3d-graphics-and-4k
-> [1] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-hihope-rzg2m-reference-board#overview
-> [2] https://github.com/siemens/jailhouse/tree/next
-> [3] https://github.com/renesas-rz/meta-renesas/tree/BSP-3.0.0
+------=_Part_3612_817085746.1662373591509
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_3613_2057144780.1662373591509"
+
+------=_Part_3613_2057144780.1662373591509
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Prabhakar,
+
+Just wanted to say "thank you" for sharing your experience  - your messages 
+have been helping me to get non-root Linux cell configuration.
+
+Best Regards,
+
+Yelena
+
+On Monday, June 6, 2022 at 6:42:26 PM UTC+1 prabhaka...@gmail.com wrote:
+
+> On Thu, Jun 2, 2022 at 9:41 AM Lad, Prabhakar
+> <prabhaka...@gmail.com> wrote:
+> >
+> > On Tue, May 31, 2022 at 8:13 PM Lad, Prabhakar
+> > <prabhaka...@gmail.com> wrote:
+> > >
+> > > On Tue, May 31, 2022 at 1:52 PM Prabhakar Lad
+> > > <prabhaka...@gmail.com> wrote:
+> > > >
+> > > >
+> > > <snip>
+> > > > * Looking at some of the linux inmate configs there are two regions 
+> of RAM specified is this a strict requirement?
+> > > > * For the inmate RAM should the virt_start = CONFIG_INMATE_BASE?
+> > > >
+> > > After updating my memory layout, i.e. after creating one region for
+> > > loading the linux another for DDR RAM and lastly the communication
+> > > region in my inmate I no longer see the unhandled read error.
+> > >
+> > > /* linux-loader space */ {
+> > > .phys_start = 0x59000000,
+> > > .virt_start = 0x0,
+> > > .size = 0x6400000,
+> > > .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
+> > > },
+> > > /* RAM */ {
+> > > .phys_start = 0x5F400000,
+> > > .virt_start = 0x5F400000,
+> > > .size = 0x19C00000,
+> > > .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+> > > JAILHOUSE_MEM_LOADABLE,
+> > > },
+> > > /* communication region */ {
+> > > .virt_start = 0x80000000,
+> > > .size = 0x00001000,
+> > > .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> > > JAILHOUSE_MEM_COMM_REGION,
+> > > },
+> > >
+> > > I am able to load the linux on one of the CPUs but I cannot see any
+> > > console output on the serial.
+> > >
+> > > root@hihope-rzg2m:~# jailhouse cell linux
+> > > renesas-r8a774a1-linux-demo.cell Image.gz -d
+> > > inmate-r8a774a1-hihope.dtb -c "clk_ignore_unused rootwait rw"
+> > > Started cell "renesas-r8a774a1-linux-demo"
+> > > root@hihope-rzg2m:~#
+> > > root@hihope-rzg2m:~# jailhouse cell list
+> > > ID Name State Assigned CPUs
+> > > Failed CPUs
+> > > 0 Renesas HopeRun HiHope RZ/G2Mrunning 0,2-5
+> > > 1 renesas-r8a774a1-linux-demorunning 1
+> > > root@hihope-rzg2m:~#
+> > >
+> > > Any pointers on debugging this? (jailhouse cell stat 1 doesn't seem to
+> > > updating the number so I assume it's panicked somewhere)
+> > >
+> > I was able to get the console output on the root cell for debugging by
+> > setting "console=jailhouse earlycon..."
+> >
+> > I'm seeing that when trying to initialize the GIC its causing a panic:
+> >
+> > [ 0.000000] ------------[ cut here ]------------
+> > [ 0.000000] unable to map gic dist registers
+> > [ 0.000000] WARNING: CPU: 0 PID: 0 at
+> > drivers/irqchip/irq-gic.c:1393 gic_of_setup+0xa8/0xf0
+> > [ 0.000000] Modules linked in:
+> > [ 0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G W
+> > 5.10.31+ #37
+> > [ 0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/G2M
+> > R8A774A1 (DT)
+> > [ 0.000000] pstate: 60000085 (nZCv daIf -PAN -UAO -TCO BTYPE=--)
+> > [ 0.000000] pc : gic_of_setup+0xa8/0xf0
+> > [ 0.000000] lr : gic_of_setup+0xa8/0xf0
+> > [ 0.000000] sp : ffff800011203dd0
+> > [ 0.000000] x29: ffff800011203dd0 x28: ffff800010f936c0
+> > [ 0.000000] x27: ffff80001120cc18 x26: ffff80001120cc18
+> > [ 0.000000] x25: 0000000000000000 x24: ffff800011209000
+> > [ 0.000000] x23: ffff000077c36460 x22: ffff80001120c000
+> > [ 0.000000] x21: ffff800010f93000 x20: ffff000077c36460
+> > [ 0.000000] x19: ffff80001120cc18 x18: ffffffffffffffff
+> > [ 0.000000] x17: 00000000000000c0 x16: fffffdffffe00340
+> > [ 0.000000] x15: ffff800011209948 x14: 0000000000000056
+> > [ 0.000000] x13: ffff800011203a70 x12: 00000000ffffffea
+> > [ 0.000000] x11: ffff8000112914c0 x10: ffff800011279480
+> > [ 0.000000] x9 : ffff8000112794d8 x8 : 0000000000017fe8
+> > [ 0.000000] x7 : c0000000ffffefff x6 : 0000000000000001
+> > [ 0.000000] x5 : 0000000000000000 x4 : 0000000000000000
+> > [ 0.000000] x3 : 00000000ffffffff x2 : ffff800011221450
+> > [ 0.000000] x1 : 0000000000000000 x0 : 0000000000000000
+> > [ 0.000000] Call trace:
+> > [ 0.000000] gic_of_setup+0xa8/0xf0
+> > [ 0.000000] gic_of_init+0x88/0x390
+> > [ 0.000000] of_irq_init+0x194/0x33c
+> > [ 0.000000] irqchip_init+0x18/0x40
+> > [ 0.000000] init_IRQ+0xc8/0xfc
+> > [ 0.000000] start_kernel+0x2ec/0x4f8
+> > [ 0.000000] ---[ end trace f68728a0d3053b52 ]---
+> > [ 0.000000] OF: of_irq_init: children remain, but no parents
+> > [ 0.000000] Kernel panic - not syncing: No interrupt controller found.
+> > [ 0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G W
+> > 5.10.31+ #37
+> > [ 0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/G2M
+> > R8A774A1 (DT)
+> > [ 0.000000] Call trace:
+> > [ 0.000000] dump_backtrace+0x0/0x1c0
+> > [ 0.000000] show_stack+0x18/0x68
+> > [ 0.000000] dump_stack+0xd8/0x134
+> > [ 0.000000] panic+0x188/0x3a8
+> > [ 0.000000] init_IRQ+0xe0/0xfc
+> > [ 0.000000] start_kernel+0x2ec/0x4f8
+> > [ 0.000000] ---[ end Kernel panic - not syncing: No interrupt
+> > controller found. ]---
+> >
+> I was able to resolve the issue by fixing the DT.
 >
 > Cheers,
 > Prabhakar
 >
-> Lad Prabhakar (3):
->   renesas: Add SCIF support
->   configs: arm64: Add root cell config for Renesas RZ/G2M SoC
->   configs: arm64: Add demo cell config for Renesas RZ/G2M
+> > I have the below GIC node in the inmate dts:
+> >
+> > gic: interrupt-controller@f1010000 {
+> > compatible = "arm,gic-400";
+> > #interrupt-cells = <3>;
+> > #address-cells = <0>;
+> > interrupt-controller;
+> > reg = <0x0 0xf1010000 0 0x1000>,
+> > <0x0 0xf1020000 0 0x20000>,
+> > <0x0 0xf1040000 0 0x20000>,
+> > <0x0 0xf1060000 0 0x20000>;
+> > interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(6) | IRQ_TYPE_LEVEL_HIGH)>;
+> > };
+> >
+> > In the inmate cell file for GIC configuration, do we need to enable
+> > pin_bitmap mask just for the peripherals which are only enabled in DT
+> > (For now I have the pin_bitmap mask in the inmate cell same as the
+> > root cell) ?
+> >
+> > Cheers,
+> > Prabhakar
 >
->  Documentation/debug-output.md                 |    1 +
->  configs/arm64/dts/inmate-r8a774a1-hihope.dts  |  228 ++++
->  configs/arm64/renesas-r8a774a1-linux-demo.c   |  114 ++
->  configs/arm64/renesas-r8a774a1.c              | 1134 +++++++++++++++++
->  hypervisor/arch/arm-common/Kbuild             |    2 +-
->  hypervisor/arch/arm-common/dbg-write.c        |    2 +
->  hypervisor/arch/arm-common/include/asm/uart.h |    2 +-
->  hypervisor/arch/arm-common/uart-scif.c        |   44 +
->  include/jailhouse/console.h                   |    1 +
->  inmates/lib/arm-common/Makefile.lib           |    2 +-
->  inmates/lib/arm-common/uart-scif.c            |   65 +
->  inmates/lib/arm-common/uart.c                 |    2 +
->  12 files changed, 1594 insertions(+), 3 deletions(-)
->  create mode 100644 configs/arm64/dts/inmate-r8a774a1-hihope.dts
->  create mode 100644 configs/arm64/renesas-r8a774a1-linux-demo.c
->  create mode 100644 configs/arm64/renesas-r8a774a1.c
->  create mode 100644 hypervisor/arch/arm-common/uart-scif.c
->  create mode 100644 inmates/lib/arm-common/uart-scif.c
->
-Gentle ping, request for review.
-
-
-Cheers,
-Prabhakar
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8uCdhTYh3AzbKy7v%2BkAFGBwK-6ngDarzHi2Hd1LhwiZEA%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/22820838-b99f-4a2e-9c87-d634c7d376e5n%40googlegroups.com.
+
+------=_Part_3613_2057144780.1662373591509
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Prabhakar,<br><br>Just wanted to say "thank you" for sharing your experi=
+ence&nbsp; - your messages have been helping me to get non-root Linux cell =
+configuration.<br><br>Best Regards,<br><br>Yelena<br><br><div class=3D"gmai=
+l_quote"><div dir=3D"auto" class=3D"gmail_attr">On Monday, June 6, 2022 at =
+6:42:26 PM UTC+1 prabhaka...@gmail.com wrote:<br/></div><blockquote class=
+=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(2=
+04, 204, 204); padding-left: 1ex;">On Thu, Jun 2, 2022 at 9:41 AM Lad, Prab=
+hakar
+<br>&lt;<a href data-email-masked rel=3D"nofollow">prabhaka...@gmail.com</a=
+>&gt; wrote:
+<br>&gt;
+<br>&gt; On Tue, May 31, 2022 at 8:13 PM Lad, Prabhakar
+<br>&gt; &lt;<a href data-email-masked rel=3D"nofollow">prabhaka...@gmail.c=
+om</a>&gt; wrote:
+<br>&gt; &gt;
+<br>&gt; &gt; On Tue, May 31, 2022 at 1:52 PM Prabhakar Lad
+<br>&gt; &gt; &lt;<a href data-email-masked rel=3D"nofollow">prabhaka...@gm=
+ail.com</a>&gt; wrote:
+<br>&gt; &gt; &gt;
+<br>&gt; &gt; &gt;
+<br>&gt; &gt; &lt;snip&gt;
+<br>&gt; &gt; &gt; * Looking at some of the linux inmate  configs there are=
+ two regions of RAM specified is this a strict requirement?
+<br>&gt; &gt; &gt; * For the inmate RAM should the virt_start =3D CONFIG_IN=
+MATE_BASE?
+<br>&gt; &gt; &gt;
+<br>&gt; &gt; After updating my memory layout, i.e. after creating one regi=
+on for
+<br>&gt; &gt; loading the linux another for DDR RAM and lastly the communic=
+ation
+<br>&gt; &gt; region in my inmate I no longer see the unhandled read error.
+<br>&gt; &gt;
+<br>&gt; &gt;         /* linux-loader space */ {
+<br>&gt; &gt;             .phys_start =3D 0x59000000,
+<br>&gt; &gt;             .virt_start =3D 0x0,
+<br>&gt; &gt;             .size =3D 0x6400000,
+<br>&gt; &gt;             .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRI=
+TE |
+<br>&gt; &gt;                 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABL=
+E,
+<br>&gt; &gt;         },
+<br>&gt; &gt;         /* RAM */ {
+<br>&gt; &gt;             .phys_start =3D 0x5F400000,
+<br>&gt; &gt;             .virt_start =3D 0x5F400000,
+<br>&gt; &gt;             .size =3D 0x19C00000,
+<br>&gt; &gt;             .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRI=
+TE |
+<br>&gt; &gt;                 JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
+<br>&gt; &gt;                 JAILHOUSE_MEM_LOADABLE,
+<br>&gt; &gt;         },
+<br>&gt; &gt;         /* communication region */ {
+<br>&gt; &gt;             .virt_start =3D 0x80000000,
+<br>&gt; &gt;             .size =3D 0x00001000,
+<br>&gt; &gt;             .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRI=
+TE |
+<br>&gt; &gt;                 JAILHOUSE_MEM_COMM_REGION,
+<br>&gt; &gt;         },
+<br>&gt; &gt;
+<br>&gt; &gt; I am able to load the linux on one of the CPUs but I cannot s=
+ee any
+<br>&gt; &gt; console output on the serial.
+<br>&gt; &gt;
+<br>&gt; &gt; root@hihope-rzg2m:~# jailhouse cell linux
+<br>&gt; &gt; renesas-r8a774a1-linux-demo.cell Image.gz -d
+<br>&gt; &gt; inmate-r8a774a1-hihope.dtb -c &quot;clk_ignore_unused rootwai=
+t rw&quot;
+<br>&gt; &gt; Started cell &quot;renesas-r8a774a1-linux-demo&quot;
+<br>&gt; &gt; root@hihope-rzg2m:~#
+<br>&gt; &gt; root@hihope-rzg2m:~# jailhouse cell list
+<br>&gt; &gt; ID      Name                    State             Assigned CP=
+Us
+<br>&gt; &gt;    Failed CPUs
+<br>&gt; &gt; 0       Renesas HopeRun HiHope RZ/G2Mrunning           0,2-5
+<br>&gt; &gt; 1       renesas-r8a774a1-linux-demorunning           1
+<br>&gt; &gt; root@hihope-rzg2m:~#
+<br>&gt; &gt;
+<br>&gt; &gt; Any pointers on debugging this? (jailhouse cell stat 1 doesn&=
+#39;t seem to
+<br>&gt; &gt; updating the number so I assume it&#39;s panicked somewhere)
+<br>&gt; &gt;
+<br>&gt; I was able to get the console output on the root cell for debuggin=
+g by
+<br>&gt; setting &quot;console=3Djailhouse earlycon...&quot;
+<br>&gt;
+<br>&gt; I&#39;m seeing that when trying to initialize the GIC its causing =
+a panic:
+<br>&gt;
+<br>&gt; [    0.000000] ------------[ cut here ]------------
+<br>&gt; [    0.000000] unable to map gic dist registers
+<br>&gt; [    0.000000] WARNING: CPU: 0 PID: 0 at
+<br>&gt; drivers/irqchip/irq-gic.c:1393 gic_of_setup+0xa8/0xf0
+<br>&gt; [    0.000000] Modules linked in:
+<br>&gt; [    0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W
+<br>&gt;   5.10.31+ #37
+<br>&gt; [    0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/=
+G2M
+<br>&gt; R8A774A1 (DT)
+<br>&gt; [    0.000000] pstate: 60000085 (nZCv daIf -PAN -UAO -TCO BTYPE=3D=
+--)
+<br>&gt; [    0.000000] pc : gic_of_setup+0xa8/0xf0
+<br>&gt; [    0.000000] lr : gic_of_setup+0xa8/0xf0
+<br>&gt; [    0.000000] sp : ffff800011203dd0
+<br>&gt; [    0.000000] x29: ffff800011203dd0 x28: ffff800010f936c0
+<br>&gt; [    0.000000] x27: ffff80001120cc18 x26: ffff80001120cc18
+<br>&gt; [    0.000000] x25: 0000000000000000 x24: ffff800011209000
+<br>&gt; [    0.000000] x23: ffff000077c36460 x22: ffff80001120c000
+<br>&gt; [    0.000000] x21: ffff800010f93000 x20: ffff000077c36460
+<br>&gt; [    0.000000] x19: ffff80001120cc18 x18: ffffffffffffffff
+<br>&gt; [    0.000000] x17: 00000000000000c0 x16: fffffdffffe00340
+<br>&gt; [    0.000000] x15: ffff800011209948 x14: 0000000000000056
+<br>&gt; [    0.000000] x13: ffff800011203a70 x12: 00000000ffffffea
+<br>&gt; [    0.000000] x11: ffff8000112914c0 x10: ffff800011279480
+<br>&gt; [    0.000000] x9 : ffff8000112794d8 x8 : 0000000000017fe8
+<br>&gt; [    0.000000] x7 : c0000000ffffefff x6 : 0000000000000001
+<br>&gt; [    0.000000] x5 : 0000000000000000 x4 : 0000000000000000
+<br>&gt; [    0.000000] x3 : 00000000ffffffff x2 : ffff800011221450
+<br>&gt; [    0.000000] x1 : 0000000000000000 x0 : 0000000000000000
+<br>&gt; [    0.000000] Call trace:
+<br>&gt; [    0.000000]  gic_of_setup+0xa8/0xf0
+<br>&gt; [    0.000000]  gic_of_init+0x88/0x390
+<br>&gt; [    0.000000]  of_irq_init+0x194/0x33c
+<br>&gt; [    0.000000]  irqchip_init+0x18/0x40
+<br>&gt; [    0.000000]  init_IRQ+0xc8/0xfc
+<br>&gt; [    0.000000]  start_kernel+0x2ec/0x4f8
+<br>&gt; [    0.000000] ---[ end trace f68728a0d3053b52 ]---
+<br>&gt; [    0.000000] OF: of_irq_init: children remain, but no parents
+<br>&gt; [    0.000000] Kernel panic - not syncing: No interrupt controller=
+ found.
+<br>&gt; [    0.000000] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W
+<br>&gt;   5.10.31+ #37
+<br>&gt; [    0.000000] Hardware name: Jailhouse cell on HopeRun HiHope RZ/=
+G2M
+<br>&gt; R8A774A1 (DT)
+<br>&gt; [    0.000000] Call trace:
+<br>&gt; [    0.000000]  dump_backtrace+0x0/0x1c0
+<br>&gt; [    0.000000]  show_stack+0x18/0x68
+<br>&gt; [    0.000000]  dump_stack+0xd8/0x134
+<br>&gt; [    0.000000]  panic+0x188/0x3a8
+<br>&gt; [    0.000000]  init_IRQ+0xe0/0xfc
+<br>&gt; [    0.000000]  start_kernel+0x2ec/0x4f8
+<br>&gt; [    0.000000] ---[ end Kernel panic - not syncing: No interrupt
+<br>&gt; controller found. ]---
+<br>&gt;
+<br>I was able to resolve the issue by fixing the DT.
+<br>
+<br>Cheers,
+<br>Prabhakar
+<br>
+<br>&gt; I have the below GIC node in the inmate dts:
+<br>&gt;
+<br>&gt;     gic: interrupt-controller@f1010000 {
+<br>&gt;         compatible =3D &quot;arm,gic-400&quot;;
+<br>&gt;         #interrupt-cells =3D &lt;3&gt;;
+<br>&gt;         #address-cells =3D &lt;0&gt;;
+<br>&gt;         interrupt-controller;
+<br>&gt;         reg =3D &lt;0x0 0xf1010000 0 0x1000&gt;,
+<br>&gt;             &lt;0x0 0xf1020000 0 0x20000&gt;,
+<br>&gt;             &lt;0x0 0xf1040000 0 0x20000&gt;,
+<br>&gt;             &lt;0x0 0xf1060000 0 0x20000&gt;;
+<br>&gt;         interrupts =3D &lt;GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(6) | IRQ=
+_TYPE_LEVEL_HIGH)&gt;;
+<br>&gt;     };
+<br>&gt;
+<br>&gt; In the inmate cell file for GIC configuration, do we need to enabl=
+e
+<br>&gt; pin_bitmap mask just for the peripherals which are only enabled in=
+ DT
+<br>&gt; (For now I have the pin_bitmap mask in the inmate cell same as the
+<br>&gt; root cell) ?
+<br>&gt;
+<br>&gt; Cheers,
+<br>&gt; Prabhakar
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/22820838-b99f-4a2e-9c87-d634c7d376e5n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/22820838-b99f-4a2e-9c87-d634c7d376e5n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_3613_2057144780.1662373591509--
+
+------=_Part_3612_817085746.1662373591509--
