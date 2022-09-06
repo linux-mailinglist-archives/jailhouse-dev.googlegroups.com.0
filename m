@@ -1,215 +1,77 @@
-Return-Path: <jailhouse-dev+bncBAABBG7E3OMAMGQEIY4A6AI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDQKRTU7ZIKBBJXH3SMAMGQE56NPZBQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x438.google.com (mail-wr1-x438.google.com [IPv6:2a00:1450:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1F35AE08E
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Sep 2022 09:09:16 +0200 (CEST)
-Received: by mail-wr1-x438.google.com with SMTP id j12-20020adfff8c000000b002265dcdfad7sf1971044wrr.2
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 06 Sep 2022 00:09:16 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1662448156; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=bmktzpBP7ACBsBwkneLmdD7gJQ8YBINqrKl7erXH4whsaZTp4aUNKDeeQOgQz6FbNe
-         +CMrFny4/savZMh1gCwCw60qsHEZp50wxOttsQwIpm+prlBEIoccK6K3Xa9Pjy0tyCV9
-         osn1R4KbGZtg5C8voFzLUp0Z9NA/bNX9hLrSUWVifm10OfzdkprhItDFOqEQ8yxtXJ5K
-         r/RM8cOxn0I6PLNmzR3ofPQGLZ+3qxvbOTPK0mfhKBo2ruYOJ5CtGnzxnyu28RcpbuJl
-         YsMNWL7tbLkboPpAFTssItNpPU9rOD/hxTURCDlp+xaLFYB9gHksOygLOIzpS/X7wIuo
-         t2SQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version
-         :content-transfer-encoding:message-id:date:subject:cc:to:from
-         :dkim-signature;
-        bh=R6Uh58NRURIRfZ6+gADFLhEK6bvXc372UupZ87L4fiI=;
-        b=0DVuWem8a6pnUwnLiJlXaT/cfMqzPIVHMlw1su56oAbyneBuwKcE+0etZFVrO/Astj
-         Qpue2eoivlYXPbfp4l3se3XsAz+Tc5ZaHwn9KzJA1Ccm3z8YmA05fWIiTKZktDNybMbD
-         G9D2PVAvC8UCP+eoVaJd8JmvXfjNuemYAubrFfoOwRY3SHYX//OdnanfmL2XnrT4UWKH
-         OZE68jeVGvx2sPQcBx5LnWquv5BNPwavgk+vLlZ/UFacKRNkA+FoQFNu/wm2gl+O8BpS
-         42Wv51fAt5zg1qnvyo3EvJ1SJSEC8Q1yLgRPnlhGCucvOp5HkTkUvWe9oBNgNIDDW50A
-         AVyw==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@vmware.com header.s=selector2 header.b=zn+MsRJl;
-       arc=pass (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass fromdomain=vmware.com);
-       spf=pass (google.com: domain of akaher@vmware.com designates 2a01:111:f403:c112:: as permitted sender) smtp.mailfrom=akaher@vmware.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=vmware.com
+Received: from mail-oa1-x39.google.com (mail-oa1-x39.google.com [IPv6:2001:4860:4864:20::39])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2FA45AE6DE
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  6 Sep 2022 13:48:56 +0200 (CEST)
+Received: by mail-oa1-x39.google.com with SMTP id 586e51a60fabf-126cb03a64esf3889906fac.23
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 06 Sep 2022 04:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to
-         :x-original-authentication-results:x-original-sender:mime-version
-         :content-transfer-encoding:message-id:date:subject:cc:to:from:from
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date;
-        bh=R6Uh58NRURIRfZ6+gADFLhEK6bvXc372UupZ87L4fiI=;
-        b=AlMNC2lPOYY+B9ZSAAZP8Trw8MHkulHWI5sdxhsjB+vzG29Jm+PV7ML1IwBc92ugLW
-         2ezJiqpgd2hrLlnghJYgX0Uv3gSi8DT8XHDALaOSu31NnIbnp9//zafOCEQFRQM7VNM2
-         OuPCJVrUMh8YcELTLTyaT4cxZp0OSwviPSfSd7JqGoWvcFIFF2FCWYE0cnGYct/ORmBK
-         wcn91t+kqJ6g1Ets0L3ELWcKi5YoKhroV96t7DxN6JCCCWwYEkaKFBvq8BCCsZrLgNj6
-         7hok9z0DwjuUkRFd9DUJPU+lZmZPm9jw2qZc0meuiiaHhFY4Ji5rpTnSttdAZHCEyiLB
-         OcFA==
+        bh=oAUS+7GvgqwJLNhlzQjx1SAs05gCPup+ac9AKKb4E3s=;
+        b=feTyN1pwz8EuX86RXbrz2ucQAoKSUQnLMCjjw+ataVFm/xhYWayN9yPdAPVyHn8q3Z
+         FbXSyj24DBwdW4WXC3cb7WP2nMsj7sqR1Jb1oGuGlwfr+4KBNhUZSCYhCJrtkAz08TBC
+         51kflJwbaxabORO8UdCT0oCxB4h3E4fUmHmwTZay6LER5BOpMns7kQYrW1yoclYBz7Oy
+         gTDMAmAL4Rhs/zWNWLXFceWwTC+/+svZjdjZDCctCTPwTK50JeQsEyZGE4/GMkhA4zmU
+         qei8YHWJ/5t09oCB2CXuOqLwOcEzGa5zBMHaPkjvywf3FoKkJWxQwaTg6HaDVgRPePhP
+         9+6g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date;
+        bh=oAUS+7GvgqwJLNhlzQjx1SAs05gCPup+ac9AKKb4E3s=;
+        b=o9KnkVYdjS0xMO8LzmFvtVySZuGrSRPYEi0LZ0jivTl4MIg6j1M5y/SdFR0UYc2ecc
+         DkNRgwxB7Uc64XVLHB4j2oRZzGuVIkG1Tsiy/s7cy2zQAQ/498Nv6V3QGqDFu3jQpA6a
+         9iYcNNqaZNadyzF46ZoUSplk5Fys3eZL48YSDuOalGxbILIo0Ua0qCgF9BOtU9bdv5QY
+         Ozp+9ynj8lL51JR2K1tv1xrWgwIGl409Y72faB++7NhPFXJvujLdXUvEKHjkGyAupLE/
+         GD9Py9HczXuEned+di4FqkTWc3x556V52JoMRZiLOeMwRX5eQ2QoUqHnV3I3sNpnsFuz
+         uAsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
-         :x-original-authentication-results:x-original-sender:mime-version
-         :content-transfer-encoding:message-id:date:subject:cc:to:from
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=R6Uh58NRURIRfZ6+gADFLhEK6bvXc372UupZ87L4fiI=;
-        b=HG0hiRf1mewPU4zOqJ21E9Jz3noEilF0hr9u4dLbro3h82TW8Nx1wRi5VRQjsJW7lE
-         sUIUW/AgKedvX1zzOy5W5oFkUPUQqjuiI6BAdThGvwbQ8RCE39Cz+oLrTLTQu4h4rpWW
-         cDp2qUPzsqinte3MG2sB9PWDQHrYmlBN9ydU63dqY4/Z5Z2ai1NRi8xKS2wXZGZi+Bbk
-         xDa4upxzHGOiGcC51/sacPmUDXPwJ/pS1kw2/xp2puVwQYyM8WuEGQDKZxiXa07XLxiP
-         vmFnBm3pDPTX2ctHWJbpblVzfOSjIwqO1WR+5mmKd+hjHMe9t+wbLo3SLL5jSMeHymZN
-         aEkg==
-X-Gm-Message-State: ACgBeo0PnhdOt93BscOZ00DyOpy5PQDoi6P/RQJzXRhaocYTLof1UoKA
-	bGTmE+oOKK1GfjORVp8IqYw=
-X-Google-Smtp-Source: AA6agR7w5Vr+63I7LGFgX23UPjpdy4pVM8vf0qPCvaNLzKvfMSWV9DgpK0bAm6pqx4k1Z6WY6HaF/g==
-X-Received: by 2002:adf:da50:0:b0:223:a1f5:fa68 with SMTP id r16-20020adfda50000000b00223a1f5fa68mr25608079wrl.528.1662448156608;
-        Tue, 06 Sep 2022 00:09:16 -0700 (PDT)
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
+         :subject:date;
+        bh=oAUS+7GvgqwJLNhlzQjx1SAs05gCPup+ac9AKKb4E3s=;
+        b=gNmXp7fbq0DnwT57PylpbXSC4J+IIEZTxfazv80PS9GSvSievqdLL5GGudvqx0sadL
+         jXhL8UlxIXjvyG4/Kj09Kx1nb8X6YW/B7wFcUdD1nNEdeHd79aVJoju/3SAvIE+U7vRX
+         vC59axK0KWyRGU0P/crfx/cgffdbncDkgx48KXt3nDIDhynSBJpIgodYXUb5xbVdUmWk
+         +9NlTpM8WUlJQhgMFKXSkVF9R1uy2nmnnj1IXkYY5tefVD0BaMcnA206p/A85sxeTIpq
+         9FcqmWObTNAHz8XGZXCN+KpfhJ75GJcOcOfu37ObsiSSDeyQyl3cAIRtnMp1HD9XMnVb
+         KUsA==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: ACgBeo3S7VKbq47rKuUE8VZUIREs89m2L3emX3du6UbBsDAMnXe6b+2O
+	1IiqAmpcWvcs4Z5rzDCAVqw=
+X-Google-Smtp-Source: AA6agR4zuWE9muKp/LECmoiTDEwiGTvFE6kiZN1HNXRB8nTM5fFmJuacs8vCZieh22wmKBEWI1urig==
+X-Received: by 2002:a05:6830:43a8:b0:637:21f6:7d23 with SMTP id s40-20020a05683043a800b0063721f67d23mr21576044otv.146.1662464935316;
+        Tue, 06 Sep 2022 04:48:55 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6000:257:b0:228:a25b:134a with SMTP id
- m23-20020a056000025700b00228a25b134als1712112wrz.0.-pod-prod-gmail; Tue, 06
- Sep 2022 00:09:15 -0700 (PDT)
-X-Received: by 2002:a5d:4904:0:b0:228:610b:296d with SMTP id x4-20020a5d4904000000b00228610b296dmr7916782wrq.450.1662448155350;
-        Tue, 06 Sep 2022 00:09:15 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1662448155; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=f9IC4TEdAYSwJvrmbuprtas5rJihLEuW3tsIWWPFyJj6vibPZaJ3ACAqkhFFR/M5GB
-         o8lr1UoIhEooKheJOcc7xKmDTyQlxpB6gxn/jJX/hvw8vTsG0r2HjuO7Rob69xndLeGV
-         L4Xlwmidw5iRWmHBqBjiTi7vAXSctuNUB6dKIGgD8dnvctlDD0Nx42xGH5LLFJnxuvY5
-         ha7QYzCVeqtqeFIAHOXUZsiEdyrueHicWkI+5kpQJ8zp89v9WI5eVCD76lxuVlXbKr54
-         ZGK9uHCJ+CBjzBEuK2TFTezXoiwNV2Fm/8i+5fEHUDD/d2GA52KNvv8hK1CJ8grC80f6
-         gjbA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:message-id:date:subject:cc
-         :to:from:dkim-signature;
-        bh=tVqjBGkFgXrs31AA2OHw7MU01gBpvRs6t5y6CM6f2Tg=;
-        b=0YObV3uLKYLNjlp4g6Uzojo1xGjjXSDDmpN8c7H/GSLlVYhHYQfOIiTAdYIQnTdywx
-         kp2gM4KzI4qcoWmzRwqduWy1EX7API5zzJ18MvXXIJ5kjbTbO2Rx7QqIkPcHlYLHYa9z
-         tCONI0xK3MBgCUqAPnL3C+lmScGm6jdvTeKYj5MD4CTdmz+3eit82AzZxCnRXvkSHzBh
-         gAscyQ685FuQ+yRXoupIYICLfZa266+KUlu0QGLCCZRZ+Qmj6+Li0bZcVEkklwIBA6xf
-         iOEgT+aAafUTBobQECI6icdwTKQX3PO5FPW/kpyMauOZAIlVLqbiERXJen/Wi6Ujlg5T
-         rJrw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@vmware.com header.s=selector2 header.b=zn+MsRJl;
-       arc=pass (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass fromdomain=vmware.com);
-       spf=pass (google.com: domain of akaher@vmware.com designates 2a01:111:f403:c112:: as permitted sender) smtp.mailfrom=akaher@vmware.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=vmware.com
-Received: from na01-obe.outbound.protection.outlook.com (mail-westcentralusazlp170100000.outbound.protection.outlook.com. [2a01:111:f403:c112::])
-        by gmr-mx.google.com with ESMTPS id j21-20020a05600c1c1500b003a54f1563c9si793760wms.0.2022.09.06.00.09.15
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 06 Sep 2022 00:09:15 -0700 (PDT)
-Received-SPF: pass (google.com: domain of akaher@vmware.com designates 2a01:111:f403:c112:: as permitted sender) client-ip=2a01:111:f403:c112::;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dY1wPXHnrMEnxZciiGfS4XSgRUh/IXWahcmOFtN/+OdybMsqd+W9x/lxWaIUsqZoTHsH4rsItI3kf/WVJyG9N4L1/3650PE0b5ekY7q7/TkyYk1kaFTRV71pcqZg0cYrsNOH50wqJfo+3oaq1+hLEdabZ+g0ZXt8ot9tZR/4nLnlzrX7nNcByzU06t59VYkKLaeR5Ca7notRErd3djgctnEd0RhZjM82yjSahbJ+wXD8lh6GP3XvVrWWQZ0NK6ie5ynRxZ4jtoffE5znaOCBXc1E5adrXc9H20HBkP+h+M2P4AsoPbXJZVz0STnp89ZuoKucMcF56QktfLboXeanuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tVqjBGkFgXrs31AA2OHw7MU01gBpvRs6t5y6CM6f2Tg=;
- b=lOjDBVufiEWaMCHFThqVBpo69/Ca31qNmAVV5ydA1N/za1AnL70f597eaeTUBLXh7c5GOQ8Cx1iP3NgeHOT/gpLn9pkmeyCzmcVRxIDxq3GRLtBeaYyTT+bQZt4vVfZGcjnMHn5XMX5nisIerqCYxNqztaQBm686q3OA1EwFNuEh4Uo0fxQoJN1wvBrLQcVSnIaEJZLsd+aYS94sZ8qLcjGPPwAKg/8L83hf9DmRz+kTHdVJEaVbrIdJxk9/TIuA21lA8Db30Mp7jWNW0m40fbeWAT4dB4iZbyzWe270UXcfEKsTJfKpSGMP7n8rD821EzIvoB4/5Vw7pE3xM0srww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-Received: from PH0PR05MB8703.namprd05.prod.outlook.com (2603:10b6:510:bd::5)
- by DM6PR05MB4970.namprd05.prod.outlook.com (2603:10b6:5:31::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.5; Tue, 6 Sep
- 2022 07:09:11 +0000
-Received: from PH0PR05MB8703.namprd05.prod.outlook.com
- ([fe80::95af:33a4:b350:c335]) by PH0PR05MB8703.namprd05.prod.outlook.com
- ([fe80::95af:33a4:b350:c335%8]) with mapi id 15.20.5612.012; Tue, 6 Sep 2022
- 07:09:11 +0000
-From: "'Ajay Kaher' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: helgaas@kernel.org,
-	bhelgaas@google.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	hpa@zytor.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	rostedt@goodmis.org,
-	srivatsab@vmware.com,
-	srivatsa@csail.mit.edu,
-	amakhalov@vmware.com,
-	vsirnapalli@vmware.com,
-	er.ajay.kaher@gmail.com,
-	willy@infradead.org,
-	namit@vmware.com,
-	linux-hyperv@vger.kernel.org,
-	kvm@vger.kernel.org,
-	jailhouse-dev@googlegroups.com,
-	xen-devel@lists.xenproject.org,
-	acrn-dev@lists.projectacrn.org
-Subject: [PATCH v2] x86/PCI: Prefer MMIO over PIO on VMware hypervisor
-Date: Tue,  6 Sep 2022 12:38:37 +0530
-Message-Id: <1662448117-10807-1-git-send-email-akaher@vmware.com>
-X-Mailer: git-send-email 2.7.4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: BYAPR05CA0061.namprd05.prod.outlook.com
- (2603:10b6:a03:74::38) To PH0PR05MB8703.namprd05.prod.outlook.com
- (2603:10b6:510:bd::5)
+Received: by 2002:aca:5b55:0:b0:344:ef1b:a321 with SMTP id p82-20020aca5b55000000b00344ef1ba321ls4420396oib.9.-pod-prod-gmail;
+ Tue, 06 Sep 2022 04:48:54 -0700 (PDT)
+X-Received: by 2002:aca:d845:0:b0:345:4295:e957 with SMTP id p66-20020acad845000000b003454295e957mr9375364oig.199.1662464934321;
+        Tue, 06 Sep 2022 04:48:54 -0700 (PDT)
+Date: Tue, 6 Sep 2022 04:48:53 -0700 (PDT)
+From: star sun <sunxing960116@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <94711c27-9271-416b-936b-4f4eb6a96dabn@googlegroups.com>
+In-Reply-To: <CAEfxd-9GKVN9AeoZj8-c+8NYt=BpFU7987_eCHfbEpftn9oo5g@mail.gmail.com>
+References: <3fdb914d-9ec7-4a5b-93e4-d07333100ff3n@googlegroups.com>
+ <20220811133427.336a5da7@md1za8fc.ad001.siemens.net>
+ <ca47dc3f-0b85-47ad-8c9e-64713730e19dn@googlegroups.com>
+ <CAEfxd-9GKVN9AeoZj8-c+8NYt=BpFU7987_eCHfbEpftn9oo5g@mail.gmail.com>
+Subject: =?UTF-8?Q?Re:_Ask_for_help=EF=BC=8Cabout_cpu_d?=
+ =?UTF-8?Q?own_after_jailhouse_enable=E3=80=82=E3=80=82?=
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR05MB8703:EE_|DM6PR05MB4970:EE_
-X-MS-Office365-Filtering-Correlation-Id: 361688ab-6f30-4422-58aa-08da8fd6b2f1
-X-LD-Processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rpEmG/ZTZD41ci8rzga319nfcfWs6F4whtCEkJI1igtHShj/5o1VLFdArTGqtjMdJUQ3j1333o5vV/Px1O0GG2Uj3zj4cq7EBbEGguwtuYnG5WIzK014XG1a0SNRRgHxy+QGhgx78DPW/4hP/rPKdkm46Fq32f/JlnYXfu9fAgz3YWw6gWVRZ1uLE9Wk41ANTglPoqfvyd1FcExNpN3JePJe4sH7NLghX6okgRdiytGbNtziY91ftsvWi29UMKDMINRi6zUmWJZpuv5MPmedTsHEu0m1L1QttboRINoi06f0XUdZXfLYw5MTbIsktHtLW33/6Y46vb4nt2jCe269qOC9cXOy4nQHmZTBL7j4jq4mYUEtRuiKN51HVsLHxts5DVJxTmG3pK/89SJKCisLEDJ6zIC/ib/p3bZ2vvQyJKUfxzcfkErOwElh4SEXu5yJ7swQ8PiEghfIm0g2kc8nFLG3skw8+p01cV3BkoKkxArc7qtWQUDYczpG+TJEs+gZXNp2TfgFvX69zGcuhV16L05T83k9fi5MHBweme39oWZYLD1PXSJ4DBHvkTEXmMrK+OPt6NjIbuCdWOty8rltMwG+zYD4+ZaCzZobICxj/++mWLqADs7AixCOHeN9sNIplsC374NGmwCnH1vmWGSVj29LORst5AuIwRxWUKbF92Q4ee4VRAjEGZOlb+Qd5wTOhuAtFMiJrTWcvOMzkK/VbE/ocOYSloUCw7SUZd4AUcgfrKYFhnkJgpTdnwMIh3oVz6eR6dz2TT9zucNl6YOmTGKhfQFshJnL4y0VEi1NzK3XWey4TwqPevATsZhAuBHb
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR05MB8703.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(346002)(366004)(376002)(136003)(396003)(38350700002)(38100700002)(4326008)(8676002)(66946007)(66556008)(66476007)(316002)(2906002)(7416002)(26005)(5660300002)(8936002)(6512007)(52116002)(83380400001)(2616005)(186003)(6666004)(41300700001)(6486002)(6506007)(86362001)(36756003)(478600001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmthdHdLNFUwaVhQU08zS2ZzaUQwd3ppUUpKM3BFeVVnTDZYTzRjZGQ5NHcy?=
- =?utf-8?B?Y0kyRWhmVkY3dTZyd1VnWVEyNkNBM3VnU1ZvZE1ZMmFTWDM5Q2l0dGs1WWk0?=
- =?utf-8?B?UU5zWTVGMU1ianJsdldkNHk2elk0K0xHcEZEWXNrQndlZFV1cmhyeHhVcGhR?=
- =?utf-8?B?NjRjQnh2MUhkKzRFSThZT093M0U1MUR3OVZhUkFTWmdaSTg1SmUrT3EzYWpz?=
- =?utf-8?B?cE9oaUdJWjZtb2IrZ1h6SERzSDI2Ni9oaGVaNHBIS1RRNC9YNHAyamNSSjIw?=
- =?utf-8?B?cHpNaXpsU25RaFJBY0lZcGFkS2JIU2xDNFdvSHpWTjJVcVJsMmZURHBNSWJU?=
- =?utf-8?B?NjI0NVFSS0NyOGFBdWdBU1pQRTB6eDZZdG1HbzRUdjZQZWVFWExxVlBaMklB?=
- =?utf-8?B?L3gyNDc5a1ZoczAraXc5d1E4ZDNPYkJhOG1FejNXMFBieEcrVG1zQzg3RkxZ?=
- =?utf-8?B?VWYxNFM3QnN2QkZTZEg4WWJuUXRrUHJYdTZwYy9GM2JjL1pLNTdtcW5JaVZn?=
- =?utf-8?B?RkRPTnQ0a1ptKzhuTDdldUhXWk9XNFdXSVpYTWpJSW8rdHBQcno5MEg0MzVX?=
- =?utf-8?B?bzk3RTBCazl1eFpyTGl0WHFvcnFTaGVqS1pSOUFGWE1KNm9CVWY4Y1hpRVJ3?=
- =?utf-8?B?VVoxZ1ZzaHliR0VNWW4xTGk3VHRLZnV0djVjVnJTRUUvUmJXNnVUZnpBNGQv?=
- =?utf-8?B?bEY5QWZQNzRYc2JRdzhQUDNYY2xyVHhJQWsyb1o0QzQ2YlBma3JWUy8rZzdu?=
- =?utf-8?B?ZGMycC9YRjZTTGsrKzVaTGVaRmIvRlNiaVl0SGVrckRoY2R5cndpVjFoZ2k1?=
- =?utf-8?B?N3RSQmFBSEpNR2s4QnoySVNOdGFFR0VnOEFTOTB6Q01tZWF4bFRwRTZwaFdv?=
- =?utf-8?B?Zkl1ZzRNZXZiNS8rSHFESmpZMSt1bUEzUExKUUtPRFpQUzNkaWFQaDUvQnFE?=
- =?utf-8?B?WXNJa1ZGcndETUkzTmgxem1QUlJWMDhOb2k1R0xTNytwWmh4cXo5d0xvcW9k?=
- =?utf-8?B?enVhVFFPcndROGliRHlOaXMzdUZiSmFyNFZ3dVptbW82dWg1Q0N6NFNXeHFx?=
- =?utf-8?B?NHFMazJuSHR5QU8xNXUrNThURTQxV2YzcHFJMWhSN2w5TlV6RklscVVQSTBX?=
- =?utf-8?B?bUN0aytXbjV4cnpSWDkweXhNOW02UTNMdHZSSFJxN1Z4QmFyQ3FnMFo4bU1i?=
- =?utf-8?B?c2NVeEp5NlBJR2xlemJ0U2xtUUl1S3RUOG90VUgxck1OeGU4RVZHL2RXL3hJ?=
- =?utf-8?B?T2duVnJOTWE0Wmt5aUNEYlhWZ1A0Sm4yL3JXdWFiYU9VVGhTUU5iQ2hORUVG?=
- =?utf-8?B?QWNueGlEVGZsOHpwVnU1cTZQRTZET3l4Z2VaY3VKQy8vRE9Hd2gxaU1HYzIr?=
- =?utf-8?B?OGMrNHhVOTJETkFxUkpyT2hlSEZqT1ZFeHpFTGxpb0pkSG9tWXA0cHpxcEIv?=
- =?utf-8?B?NmFiZzVYaWYxM212L01YRFJVR1NiZVNaaTFrOUlUcjk1ZDgzRE00ZWRKazVm?=
- =?utf-8?B?TTBHeFBqb1ArMEMzSHNOWUlHYmxPM3Z0TlRLUGxoNDNkd3BjWjc1M1NrN2U0?=
- =?utf-8?B?VjFuK1JYQWt4ZWphSU90TWxIYmhLVGpoWTlpSlhrbWNrWjVWSWllemIzMVF0?=
- =?utf-8?B?ZnFqcVJ6alFhWVhvVE1DUlE5TmJYWndzc3l2cW1VNVJQSVNhZXNlR3FkVW9k?=
- =?utf-8?B?WnY2aTRjbWNiZmdVNWlvS3dMdXhndVZxYU13ZEQvc2hLSDFnWG9sZXpDTVB0?=
- =?utf-8?B?V1FtUHBTcy9RNHRNbzBkSWlENk9CWGFoUjVYWXRWa2hzWkdCeEtnNFhKSjJ2?=
- =?utf-8?B?VEMxT0Z3QXEySTBjZmppRTBOVlpHQjhKL2VEd3lSY2I2SmpyejRRRElOKzR4?=
- =?utf-8?B?eHRRZWwwZG1zcHRobDhOVkNIL3dEWGtUSlZ5ZDhEQXFlRG9rY05BR2NhYjVM?=
- =?utf-8?B?WWpQbUlsckhyb1NZRGxrVXlhTHBzYktvQTVzeWc0MG9JMUg3QzBFVW9qaTJ3?=
- =?utf-8?B?eTVOUVZjQnI1VmJwQjZIQ1M2YVpVTVA3MW9GWnM2eW1MZ0p0dmUzSzFmZzY1?=
- =?utf-8?B?ckdBY0FibkhWUHVydFFZVFhtTDZLZDV6emQ0SE5UZVBRVFFBSHdWRDV5ZDh0?=
- =?utf-8?Q?3d+euH4uv/iBa1JTsHAqiuoX8?=
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR05MB4970
-X-Original-Sender: akaher@vmware.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@vmware.com header.s=selector2 header.b=zn+MsRJl;       arc=pass
- (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass
- fromdomain=vmware.com);       spf=pass (google.com: domain of
- akaher@vmware.com designates 2a01:111:f403:c112:: as permitted sender)
- smtp.mailfrom=akaher@vmware.com;       dmarc=pass (p=QUARANTINE sp=NONE
- dis=NONE) header.from=vmware.com
-X-Original-From: Ajay Kaher <akaher@vmware.com>
-Reply-To: Ajay Kaher <akaher@vmware.com>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5728_1812851227.1662464933747"
+X-Original-Sender: sunxing960116@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -222,129 +84,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-During boot-time there are many PCI config reads, these could be performed
-either using Port IO instructions (PIO) or memory mapped I/O (MMIO).
+------=_Part_5728_1812851227.1662464933747
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5729_1318116613.1662464933747"
 
-PIO are less efficient than MMIO, they require twice as many PCI accesses
-and PIO instructions are serializing. As a result, MMIO should be preferred
-when possible over PIO.
+------=_Part_5729_1318116613.1662464933747
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Virtual Machine test result using VMware hypervisor
-1 hundred thousand reads using raw_pci_read() took:
-PIO: 12.809 seconds
-MMIO: 8.517 seconds (~33.5% faster then PIO)
 
-Currently, when these reads are performed by a virtual machine, they all
-cause a VM-exit, and therefore each one of them induces a considerable
-overhead.
+You are right! Thank you very much for your help!=20
+I have successfully executed the jailhouse on my device.
 
-This overhead can be further improved, by mapping MMIO region of virtual
-machine to memory area that holds the values that the =E2=80=9Cemulated har=
-dware=E2=80=9D
-is supposed to return. The memory region is mapped as "read-only=E2=80=9D i=
-n the
-NPT/EPT, so reads from these regions would be treated as regular memory
-reads. Writes would still be trapped and emulated by the hypervisor.
+But I have another question. I noticed that Jailhouse shuts down the CPU vi=
+rtually instead of physically. What's the purpose of this?=20
+I tried to power off the CPU without going through EL2, but the result was =
+that it could not be powered back on. Of course I changed some parameters s=
+tate parameters in the structure, if not ignored ones. Is it feasible?
 
-Virtual Machine test result with above changes in VMware hypervisor
-1 hundred thousand read using raw_pci_read() took:
-PIO: 12.809 seconds
-MMIO: 0.010 seconds
+Thank you again for your time~ =20
 
-This helps to reduce virtual machine PCI scan and initialization time by
-~65%. In our case it reduced to ~18 mSec from ~55 mSec.
 
-MMIO is also faster than PIO on bare-metal systems, but due to some bugs
-with legacy hardware and the smaller gains on bare-metal, it seems prudent
-not to change bare-metal behavior.
 
-Signed-off-by: Ajay Kaher <akaher@vmware.com>
----
-v1 -> v2:
-Limit changes to apply only to VMs [Matthew W.]
----
- arch/x86/pci/common.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
 
-diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
-index ddb7986..1e5a8f7 100644
---- a/arch/x86/pci/common.c
-+++ b/arch/x86/pci/common.c
-@@ -20,6 +20,7 @@
- #include <asm/pci_x86.h>
- #include <asm/setup.h>
- #include <asm/irqdomain.h>
-+#include <asm/hypervisor.h>
+=E5=9C=A82022=E5=B9=B48=E6=9C=8816=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+=
+8 21:09:43<van.f...@gmail.com> =E5=86=99=E9=81=93=EF=BC=9A
+
+> You are using Android with Trusty in inmate cell? jailhouse not support t=
+rusty SMC handler. So you need add that SMC handler in jailhouse.
+>
+>
+> Regards,
+>
+> Peng
+>
+>
+> star sun <sunxin...@gmail.com> =E4=BA=8E2022=E5=B9=B48=E6=9C=8812=E6=97=
+=A5=E5=91=A8=E4=BA=94 13:47=E5=86=99=E9=81=93=EF=BC=9A
+>
+>>
+>> Thanks for your reply!
+>>
+>> Before jailhouse enable, the CPU can be powered on and off normally.=20
+>>
+>> But after that,  offline cpu(echo 0 > /sys/devices/system/cpu/cpu3/onlin=
+e) causes panic,  even without jailhouse create. =20
+>>
+>>
+>> =E5=9C=A82022=E5=B9=B48=E6=9C=8811=E6=97=A5=E6=98=9F=E6=9C=9F=E5=9B=9B U=
+TC+8 19:34:32<Henning Schild> =E5=86=99=E9=81=93=EF=BC=9A
+>>
+>>> Am Wed, 10 Aug 2022 23:29:16 -0700 (PDT)=20
+>>> schrieb star sun <sunxin...@gmail.com>:=20
+>>>
+>>> > i want make jailhouse working in one phone with 4 cortex-a53 cpu.=20
+>>> >=20
+>>> > I feel like I've successfully executed jailhouse enbale.=20
+>>> > unfortunately, there is a kernel panic when i down one cpu for a=20
+>>> > non-root-cell during jialhouse cell create .=20
+>>> >=20
+>>> > This question has puzzled me for a long time Do you have any good=20
+>>> > methods? thank you=20
+>>>
+>>> You could try offlining one or more CPUs with your stock kernel and not=
 =20
- unsigned int pci_probe =3D PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROBE_CO=
-NF2 |
- 				PCI_PROBE_MMCONF;
-@@ -57,14 +58,58 @@ int raw_pci_write(unsigned int domain, unsigned int bus=
-, unsigned int devfn,
- 	return -EINVAL;
- }
+>>> even the jailhouse module loaded. If that also causes problems you are=
 =20
-+#ifdef CONFIG_HYPERVISOR_GUEST
-+static int vm_raw_pci_read(unsigned int domain, unsigned int bus, unsigned=
- int devfn,
-+						int reg, int len, u32 *val)
-+{
-+	if (raw_pci_ext_ops)
-+		return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
-+	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-+		return raw_pci_ops->read(domain, bus, devfn, reg, len, val);
-+	return -EINVAL;
-+}
-+
-+static int vm_raw_pci_write(unsigned int domain, unsigned int bus, unsigne=
-d int devfn,
-+						int reg, int len, u32 val)
-+{
-+	if (raw_pci_ext_ops)
-+		return raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
-+	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-+		return raw_pci_ops->write(domain, bus, devfn, reg, len, val);
-+	return -EINVAL;
-+}
-+#endif /* CONFIG_HYPERVISOR_GUEST */
-+
- static int pci_read(struct pci_bus *bus, unsigned int devfn, int where, in=
-t size, u32 *value)
- {
-+#ifdef CONFIG_HYPERVISOR_GUEST
-+	/*
-+	 * MMIO is faster than PIO, but due to some bugs with legacy
-+	 * hardware, it seems prudent to prefer MMIO for VMs and PIO
-+	 * for bare-metal.
-+	 */
-+	if (!hypervisor_is_type(X86_HYPER_NATIVE))
-+		return vm_raw_pci_read(pci_domain_nr(bus), bus->number,
-+					 devfn, where, size, value);
-+#endif /* CONFIG_HYPERVISOR_GUEST */
-+
- 	return raw_pci_read(pci_domain_nr(bus), bus->number,
- 				 devfn, where, size, value);
- }
-=20
- static int pci_write(struct pci_bus *bus, unsigned int devfn, int where, i=
-nt size, u32 value)
- {
-+#ifdef CONFIG_HYPERVISOR_GUEST
-+	/*
-+	 * MMIO is faster than PIO, but due to some bugs with legacy
-+	 * hardware, it seems prudent to prefer MMIO for VMs and PIO
-+	 * for bare-metal.
-+	 */
-+	if (!hypervisor_is_type(X86_HYPER_NATIVE))
-+		return vm_raw_pci_write(pci_domain_nr(bus), bus->number,
-+					  devfn, where, size, value);
-+#endif /* CONFIG_HYPERVISOR_GUEST */
-+
- 	return raw_pci_write(pci_domain_nr(bus), bus->number,
- 				  devfn, where, size, value);
- }
---=20
-2.7.4
+>>> likely dealing with a vendor kernel that has been patched to become=20
+>>> sort of broken.=20
+>>>
+>>> echo 0 > /sys/devices/system/cpu/cpu3/online=20
+>>>
+>>> writing a 1 will bring it back.=20
+>>>
+>>> This should work before you even start with jailhouse.=20
+>>>
+>>> Henning=20
+>>>
+>> --=20
+>> You received this message because you are subscribed to the Google Group=
+s=20
+>> "Jailhouse" group.
+>> To unsubscribe from this group and stop receiving emails from it, send a=
+n=20
+>> email to jailhouse-de...@googlegroups.com.
+>> To view this discussion on the web visit=20
+>> https://groups.google.com/d/msgid/jailhouse-dev/ca47dc3f-0b85-47ad-8c9e-=
+64713730e19dn%40googlegroups.com=20
+>> <https://groups.google.com/d/msgid/jailhouse-dev/ca47dc3f-0b85-47ad-8c9e=
+-64713730e19dn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
+>> .
+>>
+>
+>
+> --=20
+>
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -352,4 +187,124 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1662448117-10807-1-git-send-email-akaher%40vmware.com.
+jailhouse-dev/94711c27-9271-416b-936b-4f4eb6a96dabn%40googlegroups.com.
+
+------=_Part_5729_1318116613.1662464933747
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><br></div>You&nbsp;are&nbsp;right!&nbsp;Thank&nbsp;you&nbsp;very&nbsp;=
+much&nbsp;for&nbsp;your&nbsp;help!&nbsp;<br>I&nbsp;have&nbsp;successfully&n=
+bsp;executed&nbsp;the&nbsp;jailhouse&nbsp;on&nbsp;my&nbsp;device.<br><br>Bu=
+t&nbsp;I&nbsp;have&nbsp;another&nbsp;question.&nbsp;I&nbsp;noticed&nbsp;tha=
+t&nbsp;Jailhouse&nbsp;shuts&nbsp;down&nbsp;the&nbsp;CPU&nbsp;virtually&nbsp=
+;instead&nbsp;of&nbsp;physically.&nbsp;What's&nbsp;the&nbsp;purpose&nbsp;of=
+&nbsp;this?&nbsp;<br>I&nbsp;tried&nbsp;to&nbsp;power&nbsp;off&nbsp;the&nbsp=
+;CPU&nbsp;without&nbsp;going&nbsp;through&nbsp;EL2,&nbsp;but&nbsp;the&nbsp;=
+result&nbsp;was&nbsp;that&nbsp;it&nbsp;could&nbsp;not&nbsp;be&nbsp;powered&=
+nbsp;back&nbsp;on.&nbsp;Of&nbsp;course&nbsp;I&nbsp;changed&nbsp;some&nbsp;p=
+arameters&nbsp;state&nbsp;parameters&nbsp;in&nbsp;the&nbsp;structure,&nbsp;=
+if&nbsp;not&nbsp;ignored&nbsp;ones.&nbsp;Is&nbsp;it&nbsp;feasible?<br><br>T=
+hank&nbsp;you&nbsp;again&nbsp;for&nbsp;your&nbsp;time~&nbsp;&nbsp;<br><br><=
+br><br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr=
+">=E5=9C=A82022=E5=B9=B48=E6=9C=8816=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UT=
+C+8 21:09:43&lt;van.f...@gmail.com&gt; =E5=86=99=E9=81=93=EF=BC=9A<br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-lef=
+t: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div dir=3D"ltr"><pre =
+style=3D"font-family:&quot;Courier New&quot;,Courier,monospace,arial,sans-s=
+erif;margin-top:0px;margin-bottom:0px;white-space:pre-wrap;color:rgb(0,0,0)=
+;font-size:14px">You are using Android with Trusty in inmate cell? jailhous=
+e not support trusty SMC handler. So you need add that SMC handler in jailh=
+ouse.</pre><pre style=3D"font-family:&quot;Courier New&quot;,Courier,monosp=
+ace,arial,sans-serif;margin-top:0px;margin-bottom:0px;white-space:pre-wrap;=
+color:rgb(0,0,0);font-size:14px"><br></pre><pre style=3D"font-family:&quot;=
+Courier New&quot;,Courier,monospace,arial,sans-serif;margin-top:0px;margin-=
+bottom:0px;white-space:pre-wrap;color:rgb(0,0,0);font-size:14px">Regards,</=
+pre><pre style=3D"font-family:&quot;Courier New&quot;,Courier,monospace,ari=
+al,sans-serif;margin-top:0px;margin-bottom:0px;white-space:pre-wrap;color:r=
+gb(0,0,0);font-size:14px">Peng</pre></div><br><div class=3D"gmail_quote"><d=
+iv dir=3D"ltr" class=3D"gmail_attr">star sun &lt;<a href=3D"" data-email-ma=
+sked=3D"" rel=3D"nofollow">sunxin...@gmail.com</a>&gt; =E4=BA=8E2022=E5=B9=
+=B48=E6=9C=8812=E6=97=A5=E5=91=A8=E4=BA=94 13:47=E5=86=99=E9=81=93=EF=BC=9A=
+<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"></blockquote></=
+div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
+:1ex"><br>Thanks&nbsp;for&nbsp;your&nbsp;reply!<br><br>Before&nbsp;jailhous=
+e&nbsp;enable,&nbsp;the&nbsp;CPU&nbsp;can&nbsp;be&nbsp;powered&nbsp;on&nbsp=
+;and&nbsp;off&nbsp;normally.&nbsp;<br>But&nbsp;after&nbsp;that,&nbsp;&nbsp;=
+offline&nbsp;cpu(echo&nbsp;0&nbsp;&gt;&nbsp;/sys/devices/system/cpu/cpu3/on=
+line)&nbsp;causes&nbsp;panic,&nbsp;&nbsp;even&nbsp;without&nbsp;jailhouse&n=
+bsp;create.&nbsp;&nbsp;<br><br><br><div class=3D"gmail_quote"><div dir=3D"a=
+uto" class=3D"gmail_attr">=E5=9C=A82022=E5=B9=B48=E6=9C=8811=E6=97=A5=E6=98=
+=9F=E6=9C=9F=E5=9B=9B UTC+8 19:34:32&lt;Henning Schild&gt; =E5=86=99=E9=81=
+=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am =
+Wed, 10 Aug 2022 23:29:16 -0700 (PDT)
+<br>schrieb star sun &lt;<a rel=3D"nofollow">sunxin...@gmail.com</a>&gt;:
+<br>
+<br>&gt;  i want make jailhouse working in one phone with 4 cortex-a53 cpu.
+<br>&gt;=20
+<br>&gt; I feel like I've successfully executed jailhouse enbale.
+<br>&gt; unfortunately, there is a kernel panic    when i down one cpu for =
+a=20
+<br>&gt; non-root-cell during jialhouse cell create .
+<br>&gt;=20
+<br>&gt; This question has puzzled me for a long time    Do you have any go=
+od=20
+<br>&gt; methods? thank you
+<br>
+<br>You could try offlining one or more CPUs with your stock kernel and not
+<br>even the jailhouse module loaded. If that also causes problems you are
+<br>likely dealing with a vendor kernel that has been patched to become
+<br>sort of broken.
+<br>
+<br>echo 0 &gt; /sys/devices/system/cpu/cpu3/online
+<br>
+<br>writing a 1 will bring it back.
+<br>
+<br>This should work before you even start with jailhouse.
+<br>
+<br>Henning
+<br></blockquote></div>
+
+<p></p></blockquote></div><div class=3D"gmail_quote"><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+
+-- <br>
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"" data-email-masked=3D"" rel=3D"nofollow">jailhouse-de..=
+.@googlegroups.com</a>.<br>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/ca47dc3f-0b85-47ad-8c9e-64713730e19dn%40googlegrou=
+ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
+p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/ca47dc3f-0b85-47ad-8c=
+9e-64713730e19dn%2540googlegroups.com?utm_medium%3Demail%26utm_source%3Dfoo=
+ter&amp;source=3Dgmail&amp;ust=3D1662551052341000&amp;usg=3DAOvVaw0l92l5RrY=
+liiCoAisyPRLD">https://groups.google.com/d/msgid/jailhouse-dev/ca47dc3f-0b8=
+5-47ad-8c9e-64713730e19dn%40googlegroups.com</a>.<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+><div dir=3D"ltr"><br></div></div>
+</blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/94711c27-9271-416b-936b-4f4eb6a96dabn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/94711c27-9271-416b-936b-4f4eb6a96dabn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_5729_1318116613.1662464933747--
+
+------=_Part_5728_1812851227.1662464933747--
