@@ -1,133 +1,141 @@
-Return-Path: <jailhouse-dev+bncBDPYFUV7XYIBBTVRR6MQMGQEBKCSHVI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCT4VV5O2QKBBBEYSCMQMGQEUS4SQ5Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103d.google.com (mail-pj1-x103d.google.com [IPv6:2607:f8b0:4864:20::103d])
-	by mail.lfdr.de (Postfix) with ESMTPS id F18BC5BA449
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 16 Sep 2022 04:00:48 +0200 (CEST)
-Received: by mail-pj1-x103d.google.com with SMTP id m11-20020a17090a3f8b00b001fabfce6a26sf8784874pjc.4
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 15 Sep 2022 19:00:48 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1663293647; cv=pass;
+Received: from mail-io1-xd3e.google.com (mail-io1-xd3e.google.com [IPv6:2607:f8b0:4864:20::d3e])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8AC5BA667
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 16 Sep 2022 07:39:18 +0200 (CEST)
+Received: by mail-io1-xd3e.google.com with SMTP id m22-20020a5d9696000000b006a1bab26d55sf4990209ion.15
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 15 Sep 2022 22:39:18 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1663306757; cv=pass;
         d=google.com; s=arc-20160816;
-        b=YobXHSohirRJLpIrkwIwbl60domnMxjmwdVqdhBfYQiEiMt0zEMV+qUVETKTadNP+A
-         9ampyWHaZTjtPJ4R+ZKMK9V0Mabu5Nlb0xXk1bzFCDEzQDsuEcQIEdgi81BpjtlhRlfl
-         cTM7GmCa9doDzRdG3I83/S0eGhIkev/sUIawovu0FPmSQwVqVUveAUIqRAn0LlAX9sRO
-         sjIOY7+BkwrKPnJaTdzWS4ZYVia88gfSxZRsuZfpxQYKOoBhlSPu0hn530Nz5rCm04Mw
-         YwCSariOCp9+3XI8xkqfLpOsGiytY88M3KrnIUhgwsYwWQ0EEQIAk8LmQtgql1+kKKCa
-         f67g==
+        b=obv/7ynSdgtKlA7N66j09YimUcwaQkLZRWscAlHruUI22dNFB7aliS+IJ6/e90BZqM
+         +ZSgJQ9rlgTQLWW+ljF6nBJmOPKlF4yb0iNCI9SHMiOwSeo/6iKTsl2W8HxEbTbHF1IN
+         3nvshzWOgel2uQDygHlH3Sab8bZR7OD8KNspQmdVv7/d7easfNIDkUA1CMzKnz5Qt9fX
+         ODGrK4RJ/zwBkLAQUg09H7gbCdhCqbJzTiQcRPlyakXPFak/bLUbHaR0uqK6refoYUEQ
+         Www9mmpuvDvbILnpqXTcfUis6zWVg9gB42RjoZ6gFyxFtumQh8txj49w30K2CLr3QYj4
+         wBSQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:message-id:mime-version:references
-         :in-reply-to:subject:cc:to:from:date:sender:dkim-signature;
-        bh=F3lNzstzOz9JKr5DovUhPMwOYyjC0s1w2PC9FAAVJ6w=;
-        b=ndU7Wd2FFtxqYsbZ0AZmSAwRox9zrJb6LOEGLiJHP0wsY9tQ6KXcm6mOgWEWyyR0rI
-         cZX31e2EtrBhwGcW97NZnNU1HB+SeRQR/NusWLp3sAdI4LIznsKv6yFvRiy6B+O9CwKZ
-         zyQYmOV68dhuk5SmW9gJtmtfxqe6AxcxICch69EXESNyfznHjBHyTfLn2z4xeEawe1o7
-         xIBsuzuMuVDKcwg98ltGN1LSX9pkxF/9JrT+cOSb+40HsNoj0dI/ZKf8KtOrp9Q2xF1O
-         R8jruBR6kTfCSMTsH9URXV87cv34BceisXRKCW7s61MHQjmrrFUDjcO6h1Ex8zqJ2FY9
-         IcGQ==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=S4Gh3haiSzKhJG0i6tKuKOzvdQ3xksibXFjwVUIl4Vc=;
+        b=stRnQuoApCpNPOvO6aI5TLY1pvY9Ill0gR7N8waPtUXZ4iDC78sN6c4Ub+gq7Pd+GD
+         EtojklzOGYJTHWctNlEbD/d6IDz837TWfS/FnFYDT/L3PdGKHgEkFcI25RusYkQ3jWPb
+         FN/d1rAZzJ7XGe5JngYkh83GKD+MolJnhltApFRQR5bIBEiS59fVX72bG7eMiJO8zNHe
+         iRWDe87X9uLxy+rvHNtgtMju284whF6sKou+10JTlvi6nnKraoKwIa0TV/yoaj255xJ5
+         X9g0savrqJJxDRgTqUB0VTYG5EhJVvq6yDPmwNFQQtp8CxLSA/M2Z7ciCfpGiJT3YxUz
+         o0YQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=neutral (body hash did not verify) header.i=@126.com header.s=s110527 header.b=Wq9mJegF;
-       spf=pass (google.com: domain of windhl@126.com designates 220.181.15.50 as permitted sender) smtp.mailfrom=windhl@126.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=126.com
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b="C/8AA994";
+       spf=pass (google.com: domain of andy.shevchenko@gmail.com designates 2607:f8b0:4864:20::733 as permitted sender) smtp.mailfrom=andy.shevchenko@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:message-id:mime-version:references:in-reply-to
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date;
-        bh=F3lNzstzOz9JKr5DovUhPMwOYyjC0s1w2PC9FAAVJ6w=;
-        b=B+zXR6uzFVR3iNaymqCP8UuYWZLp7ebHfEqIAEl4dJoLV5D0kk7MwsUsj+AAJHlfKD
-         hvBbBwIOZ8BsJ3I2Rka3fy99EbrzWY+g1Ixd9i/TGaPw01HBDDVB4g5tt4s6+15/vYjS
-         407XgUX4zNAeMUysPnCt4MeG+6TtaZHZsxgYr2EJ6UcEVphNu+iaWGqZro9xyRsPknJ4
-         DN3cxHMjYdE0caeGdt3wHq/Zz2WMwxSuU20ZTtoK6oG9VYa1iLKdCruXfj68ccKH3jSC
-         DJflfHewO9S2wx+rri/hqu+C2AMHuaR+BC8FETyLdj9VgfvBq3qpnYibpn8T/AXAew2T
-         8XIQ==
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:sender:from:to:cc:subject:date;
+        bh=S4Gh3haiSzKhJG0i6tKuKOzvdQ3xksibXFjwVUIl4Vc=;
+        b=k67Hk/78s8y5ZIQhsaIVVOW0/OTto4W97VG28HRoN2UzU0xVzyUQEARCcZrxJPr/IY
+         YiTjn5ClQ5g1TO9tWdZZ2U7Y+XEycvvy8Yr7IMuJaXJiANdSf4Q2MCu00yJfeenOJWc5
+         phdB6O4LcTO46B+1Ai+e1mvXpa5UY4buJdgWlNDg3c/S+WhIJvxIUOrb4gwf6NFpkyqJ
+         Hz19a83nmtHAIVaY/et4QXSKOk24wVFbD4RlBDlx6i8nvhftt18NBXtEudLB0du/IJpH
+         +Ql8ENvDuE3aYskltdz+MdC4vVvBMREkIxRAmxOOu2OKVkYXpZ0EZetL1Jq1xzmOuAD5
+         EMnw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date;
+        bh=S4Gh3haiSzKhJG0i6tKuKOzvdQ3xksibXFjwVUIl4Vc=;
+        b=GY4jr73le5pQDhoScpknY0WdPnlcga5Bgdev8cnPusCViqbZSqLf/fOLoDdirF2U4C
+         yYGUZR30Y6XSjZZTsTc4At9dRdU1xwrXp9xwD4e9xb0900T/ThTMSC/LiMELxyYYCpff
+         szWqt13tvrEsEHKKQQ2v4ZOK3ZKZekINZYg3o5+plMaO7o6JLGUljuqHa8RPFRiYCzzx
+         b+RVACj1XfSD24GP0yrW5PeYWJd8KKJDsWj8VO4uScWEc4rwNVJ6oAD09ozwZCNQyUYR
+         T7fBcS80nmHdWZTQ8syOhbA8rKcUMzQJGfmeMB+BCpwdFJ1jV0+2Sjt48LVnFkS3xsxk
+         oL5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:message-id
-         :mime-version:references:in-reply-to:subject:cc:to:from:date
+         :x-original-authentication-results:x-original-sender:cc:to:subject
+         :message-id:date:from:in-reply-to:references:mime-version
          :x-gm-message-state:sender:from:to:cc:subject:date;
-        bh=F3lNzstzOz9JKr5DovUhPMwOYyjC0s1w2PC9FAAVJ6w=;
-        b=nOeLOHdsugEQTeeLGOqkPAaMNKpLphmumRL5ut4qcr9Bm7gBrlinJlJvDG03v5b2Jl
-         sn3qCfH38MSgb/e4wyXW2jHjLJzs4cWAKY9N2b3+z/qP/z2yVkw4gSANpLyGISl3vWMf
-         u+Ut84eoBJsmSt0cpmjmjTAhFZj3ksLYdtaRvEm2EUirJPClE3kU4kqj9LWS973GxkQr
-         B9tGfQH2r12bY2INh3JXCJ8VOQJ46A42+e5YggKKqZunQySCCAkECLFl3Mn8P2oEk6Le
-         TTW02isVuzlljWX6L1qRaolsYE/QjLv3FmKWdizDDHf6c0IHCvp9JQwZKMKIDXKRqDR0
-         hxTQ==
+        bh=S4Gh3haiSzKhJG0i6tKuKOzvdQ3xksibXFjwVUIl4Vc=;
+        b=wTXhJfGTYrH1WcZUZ7Zi+jwFEqWx4i+12AfNHVKTxKDMZZPIds03V/3p/OLNREoQpD
+         nsUMjerRT1xdL392Es01kZqJ0w7okLwR8VeuKiVrWfIBJUHMxbQVsfUaXKRLcvbHmDTK
+         Hkg/E/1elrdQIg5stdi/PGl0Be0B/y0dy1lMb2CtmlM6vP1C37yVPkEKtMlR3JxG2gVc
+         0WKW3QdVy4VuHXnu8KZEpofpTpB5YcDLUQ+/Wl6vjijqSEYmJ3b+BQG5ZB9rMx6HYEqR
+         YZ4oq9ZS8zAYAxY6Mqegb3q6cT5Y4m4BXGneM0Bzmn72wA6tQecbcRBYUJyusxciNbM3
+         yVRA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf0ZnZe8l5PfVpVlsAN0EFyJvmHqvkOsRaep7uxtagf1EKTJI6G2
-	XsRNwyhgfmvxBlcUec0Rvgs=
-X-Google-Smtp-Source: AMsMyM46S2KVm/Uw7RIP42fs5pR/9Mo8ti1ruFB5eVvS4EYXNTK2U6AtpC95NUWiVXByxvnQBoFjKw==
-X-Received: by 2002:a17:903:244b:b0:176:c8ee:a5dd with SMTP id l11-20020a170903244b00b00176c8eea5ddmr2506957pls.35.1663293647626;
-        Thu, 15 Sep 2022 19:00:47 -0700 (PDT)
+X-Gm-Message-State: ACrzQf15ai41WtSrMIXh+PTPKEVIrgvFDT9X9CFwEwarnXvaorFA40Ie
+	gqCiLh7afMkjxovBPyv4LtA=
+X-Google-Smtp-Source: AMsMyM4IoViEafP4XJXC8suD9G7d6/pAfR+L+Tla4AzVHLn+Vala+B3od1s8SUfELWmhXjAfXjMaiw==
+X-Received: by 2002:a02:c047:0:b0:35a:5fdc:1793 with SMTP id u7-20020a02c047000000b0035a5fdc1793mr1717059jam.155.1663306757165;
+        Thu, 15 Sep 2022 22:39:17 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a62:55c7:0:b0:53e:419b:9648 with SMTP id j190-20020a6255c7000000b0053e419b9648ls11196728pfb.3.-pod-prod-gmail;
- Thu, 15 Sep 2022 19:00:46 -0700 (PDT)
-X-Received: by 2002:a65:6944:0:b0:41b:4483:35cc with SMTP id w4-20020a656944000000b0041b448335ccmr2532730pgq.296.1663293646264;
-        Thu, 15 Sep 2022 19:00:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1663293646; cv=none;
+Received: by 2002:a05:6e02:cc8:b0:2eb:1346:cc45 with SMTP id
+ c8-20020a056e020cc800b002eb1346cc45ls4469398ilj.11.-pod-prod-gmail; Thu, 15
+ Sep 2022 22:39:16 -0700 (PDT)
+X-Received: by 2002:a05:6e02:1c83:b0:2f1:2bd7:302d with SMTP id w3-20020a056e021c8300b002f12bd7302dmr1641859ill.190.1663306756177;
+        Thu, 15 Sep 2022 22:39:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1663306756; cv=none;
         d=google.com; s=arc-20160816;
-        b=EjsvzuqdQKT6gLVzbAE1s/2txLIVdN/KvQ7iYOQKmNZm6PiKVvJkt2hvKiNG8Yu/Jm
-         9sx+Qu6mJ4F+FqC5JsZjWAMBVYObRmO7gg5bSi8fn+2aWgQajCpwAZwG241dDMHq03cR
-         cp4ftY+7IaTi2AVq9LpK26nP5KeETfODmmiu/fxs4liSAOka/zbuuTDgpW7J8HHkdfxY
-         beDilmF0WJ1vS8oOut/ZvhHArjfdMbNyDhAEAMXCPWDIw7ofqBfpiprI96UCdJXWm0DM
-         +5Qg7JNzQC3OYpb7kbA0bYd0QMWrLlW7tKSXruhfb0EYrR7xVnzaPsfXDwo9m7uqwmwn
-         60FQ==
+        b=OXpugp67ZTkyi14RnkbLNxZQMLKMTOyS+8ZN32l//Rs2KqPwwyoHDOzXyllkB2cKnZ
+         /zkGKA7iffFqdQZ/jUWQdOuHDV4mHYawFdHTx3rBBJRdMUp/ZhzfEdaB59VZt51PSqd3
+         6RfI/KBAWzMCIQDIW7+Hve3dktOQaLZ0rJH9LBLbyrYgJfVz2sdmIlyyEzvzkrTiPDGe
+         pp5HoakJjkP7dulaAD/HE1/wqa33u5ybm70QbApOAjKm3EUS9SJRs/L/Vh7ghxESrTDS
+         dwjyEWwM1tFE2vHQkyXddp38DKhPZK2RGFl18RyJWOeCfa1fwqu8bIXwBEv6omUemrtH
+         5hvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=message-id:mime-version:content-transfer-encoding:references
-         :in-reply-to:subject:cc:to:from:date:dkim-signature;
-        bh=T2kR3mgP4oYgOz1Om5LCp+84qOp/p3lbADN/6zUf40k=;
-        b=0oaCQFlFE883/e0cF3a4uBCL01kx8yeilKudKdeViWymbPmVB/KuBaqnAyAYe96mGm
-         vM2VrGqJnSSEpKLWzBnow6O92l67yifOZSJL5WYm+VOUSpwuJL+Ok/Rlgjfon8jUffIb
-         asf+95mxgUFoqWN5uzqrtoOM1XqmWO2fGrejvdTr8Mlyr+Su18S0zZkY14pDlFV4ISFo
-         YFxvxBwMeeq1UeJcx1e8MEFAWy2l3QihPVCVdM8x4qSBXEj8haMkUplAHSNWnQwNVfif
-         XbhB0i/ROexuVB5JCSZuNF5q3pDgkIOCxxGp24UJJcyJi7a1AgMF+VYKh/6K0JCmLcMp
-         fbmA==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bGui9tpfbXaXph8yxfFfUUcX4Z55523adcOMpqhHVIA=;
+        b=vRGdgyHL3DA8Wia0KA+D0lcQ+NT9V5z0dPbTdaRwu15f4q2adSJZLvr9XMQWYZw9Mw
+         Be000hTU87V3p2DZzqBUaVrAN6pDK89O39NI8DObuSaCKQAJvcbkSXxqKv5EmdxP85yV
+         8PyOXMlmnKSpVZBv6FZH1hPwPH4UMBH4x54fpFuUKtU2bViWHoPkvEeChfNcugK5F37m
+         wZvreiySTn0mVYgz6B3LFYeslseMTzs0AvBv2YY0rqqdjvZwQ6uuDU6MDAT9KhIxDOmQ
+         j8zclcjtwFCx2B+gkW6O6yhyxbywWBqmQC8mZgHXNJs0ssSDgdueGzDRCMExOMCE/ESg
+         2czQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=neutral (body hash did not verify) header.i=@126.com header.s=s110527 header.b=Wq9mJegF;
-       spf=pass (google.com: domain of windhl@126.com designates 220.181.15.50 as permitted sender) smtp.mailfrom=windhl@126.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=126.com
-Received: from m1550.mail.126.com (m1550.mail.126.com. [220.181.15.50])
-        by gmr-mx.google.com with ESMTP id q3-20020a17090a2e0300b002025f077b2csi170729pjd.1.2022.09.15.19.00.45
-        for <jailhouse-dev@googlegroups.com>;
-        Thu, 15 Sep 2022 19:00:46 -0700 (PDT)
-Received-SPF: pass (google.com: domain of windhl@126.com designates 220.181.15.50 as permitted sender) client-ip=220.181.15.50;
-Received: from windhl$126.com ( [124.16.139.61, 14.29.82.34] ) by
- ajax-webmail-wmsvr50 (Coremail) ; Fri, 16 Sep 2022 10:00:27 +0800 (CST)
-X-Originating-IP: [124.16.139.61, 14.29.82.34]
-Date: Fri, 16 Sep 2022 10:00:27 +0800 (CST)
-From: "Liang He" <windhl@126.com>
-To: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>
-Cc: jgross@suse.com, virtualization@lists.linux-foundation.org, 
-	wangkelin2023@163.com, jan.kiszka@siemens.com, 
-	"Thomas Gleixner" <tglx@linutronix.de>, 
-	jailhouse-dev@googlegroups.com, mark.rutland@arm.com, 
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
-	andy.shevchenko@gmail.com, robh+dt@kernel.org, 
-	"Bjorn Helgaas" <bhelgaas@google.com>
-Subject: Re:Re: [PATCH] jailhouse: Hold reference returned from of_find_xxx
- API
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20220113(9671e152)
- Copyright (c) 2002-2022 www.mailtech.cn 126com
-In-Reply-To: <f7316f94-433f-d191-0379-423c22bec129@csail.mit.edu>
-References: <20220915022343.4001331-1-windhl@126.com>
- <f7316f94-433f-d191-0379-423c22bec129@csail.mit.edu>
-Content-Type: text/plain; charset="UTF-8"
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b="C/8AA994";
+       spf=pass (google.com: domain of andy.shevchenko@gmail.com designates 2607:f8b0:4864:20::733 as permitted sender) smtp.mailfrom=andy.shevchenko@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com. [2607:f8b0:4864:20::733])
+        by gmr-mx.google.com with ESMTPS id y4-20020a92c984000000b002f4fe8967eesi12372iln.3.2022.09.15.22.39.16
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Sep 2022 22:39:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of andy.shevchenko@gmail.com designates 2607:f8b0:4864:20::733 as permitted sender) client-ip=2607:f8b0:4864:20::733;
+Received: by mail-qk1-x733.google.com with SMTP id u28so12032184qku.2
+        for <jailhouse-dev@googlegroups.com>; Thu, 15 Sep 2022 22:39:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:2552:b0:6ca:bf8f:4d27 with SMTP id
+ s18-20020a05620a255200b006cabf8f4d27mr2746831qko.383.1663306755654; Thu, 15
+ Sep 2022 22:39:15 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <89a1b1f.165e.18344069cab.Coremail.windhl@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: MsqowADnPPG82CNjwf1tAA--.52003W
-X-CM-SenderInfo: hzlqvxbo6rjloofrz/1tbiuAl+F2JVlaGGMgABsu
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Original-Sender: windhl@126.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral (body
- hash did not verify) header.i=@126.com header.s=s110527 header.b=Wq9mJegF;
-       spf=pass (google.com: domain of windhl@126.com designates 220.181.15.50
- as permitted sender) smtp.mailfrom=windhl@126.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=126.com
+References: <20220915022343.4001331-1-windhl@126.com> <f7316f94-433f-d191-0379-423c22bec129@csail.mit.edu>
+ <89a1b1f.165e.18344069cab.Coremail.windhl@126.com>
+In-Reply-To: <89a1b1f.165e.18344069cab.Coremail.windhl@126.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Fri, 16 Sep 2022 08:38:39 +0300
+Message-ID: <CAHp75Vd-ZdHJfjdgob7=e3X_=NQR_chWZzTiSVU64S9eTiAY0g@mail.gmail.com>
+Subject: Re: Re: [PATCH] jailhouse: Hold reference returned from of_find_xxx API
+To: Liang He <windhl@126.com>
+Cc: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>, jgross@suse.com, 
+	virtualization@lists.linux-foundation.org, wangkelin2023@163.com, 
+	jan.kiszka@siemens.com, Thomas Gleixner <tglx@linutronix.de>, jailhouse-dev@googlegroups.com, 
+	mark.rutland@arm.com, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, robh+dt@kernel.org, 
+	Bjorn Helgaas <bhelgaas@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: andy.shevchenko@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b="C/8AA994";       spf=pass
+ (google.com: domain of andy.shevchenko@gmail.com designates
+ 2607:f8b0:4864:20::733 as permitted sender) smtp.mailfrom=andy.shevchenko@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,59 +148,48 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+On Fri, Sep 16, 2022 at 5:02 AM Liang He <windhl@126.com> wrote:
+> At 2022-09-16 07:29:06, "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
+> >On 9/14/22 7:23 PM, Liang He wrote:
 
-At 2022-09-16 07:29:06, "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
->
->[ Adding author and reviewers of commit 63338a38db95 ]
->
->On 9/14/22 7:23 PM, Liang He wrote:
->> In jailhouse_paravirt(), we should hold the reference returned from
->> of_find_compatible_node() which has increased the refcount and then
->> call of_node_put() with it when done.
->> 
->> Fixes: 63338a38db95 ("jailhouse: Provide detection for non-x86 systems")
->> Signed-off-by: Liang He <windhl@126.com>
->> Signed-off-by: Kelin Wang <wangkelin2023@163.com>
->> ---
->>  include/linux/hypervisor.h | 6 +++++-
->>  1 file changed, 5 insertions(+), 1 deletion(-)
->> 
->> diff --git a/include/linux/hypervisor.h b/include/linux/hypervisor.h
->> index 9efbc54e35e5..7fe1e8c6211c 100644
->> --- a/include/linux/hypervisor.h
->> +++ b/include/linux/hypervisor.h
->> @@ -27,7 +27,11 @@ static inline void hypervisor_pin_vcpu(int cpu)
->>  
->>  static inline bool jailhouse_paravirt(void)
->>  {
->> -	return of_find_compatible_node(NULL, NULL, "jailhouse,cell");
->> +	struct device_node *np = of_find_compatible_node(NULL, NULL, "jailhouse,cell");
->> +
->> +	of_node_put(np);
->> +
->> +	return np;
->>  }
->>  
->
->Thank you for the fix, but returning a pointer from a function with a
->bool return type looks odd. Can we also fix that up please?
->
+..
 
-Thanks for your review, how about following patch:
-
--	return of_find_compatible_node(NULL, NULL, "jailhouse,cell");
-+	struct device_node *np = of_find_compatible_node(NULL, NULL, "jailhouse,cell");
-+
-+	of_node_put(np);
-+
-+	return (np==NULL);
-
+> >>  static inline bool jailhouse_paravirt(void)
+> >>  {
+> >> -    return of_find_compatible_node(NULL, NULL, "jailhouse,cell");
+> >> +    struct device_node *np = of_find_compatible_node(NULL, NULL, "jailhouse,cell");
+> >> +
+> >> +    of_node_put(np);
+> >> +
+> >> +    return np;
+> >>  }
+> >
+> >Thank you for the fix, but returning a pointer from a function with a
+> >bool return type looks odd. Can we also fix that up please?
+> >
 >
->Regards,
->Srivatsa
->VMware Photon OS
+> Thanks for your review, how about following patch:
+>
+> -       return of_find_compatible_node(NULL, NULL, "jailhouse,cell");
+> +       struct device_node *np = of_find_compatible_node(NULL, NULL, "jailhouse,cell");
+> +
+> +       of_node_put(np);
+> +
+> +       return (np==NULL);
+
+This will be opposite to the above. Perhaps you wanted
+
+  return  !!np;
+
+Also possible (but why?)
+
+  return np ? true : false;
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/89a1b1f.165e.18344069cab.Coremail.windhl%40126.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAHp75Vd-ZdHJfjdgob7%3De3X_%3DNQR_chWZzTiSVU64S9eTiAY0g%40mail.gmail.com.
