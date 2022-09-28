@@ -1,133 +1,74 @@
-Return-Path: <jailhouse-dev+bncBDXJDZXNUMORBLGRUKMQMGQEU53M2VY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCBJJVUE3MMRB4752GMQMGQERKJBFRI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-io1-xd37.google.com (mail-io1-xd37.google.com [IPv6:2607:f8b0:4864:20::d37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497AC5BD3E5
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Sep 2022 19:36:46 +0200 (CEST)
-Received: by mail-io1-xd37.google.com with SMTP id e9-20020a6b7309000000b006a27af93e45sf71011ioh.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 19 Sep 2022 10:36:46 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1663609005; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Ij4PaLm0hPe7IPP8lV+oSop1OZ0xwVZ1smUGzLTEK+3PQBhfxnclkPOrD5IPs2PXqy
-         Wrz9Nu45e7qEvXEdGUqETPchxP7eGNAT3nTKfKcPpAMjmVLId8Hz0/e/q0RCsipUZVkw
-         LX2HWveF6Mn6OaLYk4KwbHy/UFzUNecSb75Elzfaf43WoxEzMvnRT4tA+16HUNR6X8qh
-         KeWqXThIok+yfHoQh3FhEw1IaTbEHc8Ybx/bXejMysL6FHplsY31x5/EY6Zwp2TsJjhG
-         m2r67oMSF+oNvwPQ1WFZ9w9tnt4P9NYLT1E5b8z06YdE5wakJ218fLdIzBk682i/uoIl
-         TPdQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:content-disposition
-         :mime-version:message-id:subject:cc:to:from:date:sender
-         :dkim-signature;
-        bh=S4k4FKOV+0QwqiO0Ny5+TgblQKo0oDWixdSsC2LVcMA=;
-        b=x2I+JkNhr+ftcGvad7ChnaTy6jXQMLP63r3Np+KRCIxNL69YuGyLOyfMcpBC+zBlce
-         q2YKOEFgrkkB2zefJZB3WJtGf8trGXzFHaPcAgfFcz0QSJcnFw6UF5RRSWTJiFnar0lW
-         b2sHG/fGsd0zIdxWSe4hAusoYm1ArY6F5k6qd69Gf+rqq6ZjcRoyv2H+KG72a4RDZzsF
-         qRdmEWUnUqUItn0U9jkBjFcRC+cObdebVRfSKMlJ7STJ5Q7TuqJ2h/z+SJEmgunvVbr/
-         hspqprNByUeWCehP3wXfCrMpulfytX/pJcri/4NaMqa8gxBTVL8oJ2I7yrtHIRzcpu0t
-         TX9w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@kernel.org header.s=k20201202 header.b=Ewlo5IFi;
-       spf=pass (google.com: domain of helgaas@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=helgaas@kernel.org;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=kernel.org
+Received: from mail-qv1-xf3d.google.com (mail-qv1-xf3d.google.com [IPv6:2607:f8b0:4864:20::f3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AC5D5EE28A
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Sep 2022 19:05:57 +0200 (CEST)
+Received: by mail-qv1-xf3d.google.com with SMTP id g12-20020a0cfdcc000000b004ad431ceee0sf8159068qvs.7
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 28 Sep 2022 10:05:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:in-reply-to:content-disposition:mime-version
-         :message-id:subject:cc:to:from:date:sender:from:to:cc:subject:date;
-        bh=S4k4FKOV+0QwqiO0Ny5+TgblQKo0oDWixdSsC2LVcMA=;
-        b=jHR5LmoGdTFfwJORLsNcH0BApNpbTzFfbScq/FV43pIYJyVDV77cluztPa0eCFmJ+g
-         IuLvjQDrsjYNhXBfrpvMP9bJqIukiQ4qEDcwzv5wPBUkP14DcRhoYiYJi76TXNjZUyIZ
-         e77upZ7Ez21O1aBTbHb9qrpERBtycWAAyReaT8KuHuxtmKW+dQCO1NYJtWUUocLkZM9Q
-         jtSMkGmDQ6tcWuibs1nlt0s77BudBTqr35SY7GrZjBALgO/4hbWGiwC1Bu1M5t3ze7w8
-         6eE4QEejbcC7CHTK6chzPK22oAz56mcQjiMHPRrGkmZhC+l/94vkzlzkzvTzrTqQOum4
-         LFmg==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date;
+        bh=ecanM1YbZ6ARyGY99Yd/mbb0N09dMzbvn+7wheQShMQ=;
+        b=n9Ngt6rGqlpv+oZMI8uHh2VoJT8gANnLMT00O8E4bfOY1qp52u4EOTkirEftEZYekg
+         1vgak5O9LKYucqDlOxaQU74U3ubqUmk9RYIRuYQUiZxofq8cSfVXiLcBXZXcE/jS9xvm
+         vzQo8ZHwg/6hlwmAdrjlzpC2Sys1pK/IkDdX5ZJPnc3qqjqdMXXd+XeVUmDtiIr4hLYP
+         6VscMblBfHGKVlUy6eFM/lWakaOCM1UPwDkDNgrdpQFuDkHTQmH/HmGoGJRy0Umv3bto
+         SYU5Db35hUuaIq2LVS6Iic9lZU01nbEwZI6fxue+KJpmjnpUTTmYM19QkzGNmARj75+H
+         Ghyw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date;
+        bh=ecanM1YbZ6ARyGY99Yd/mbb0N09dMzbvn+7wheQShMQ=;
+        b=F8nXc5du73/9AHuLyqusZn2Cwgvb9FST7nIJYLtkPi+8E57RpEAhkrjv2m9gpDgBJ7
+         Lvj/L8LaQ4jsVZRZ7fzPY2ONoCsWCWowlsw6nomYjlP372vFfEiRXzr1kZw5Xzcy1s0i
+         pPdv+1iAV/FtJ1FQzOyOGOzjzL8+9Zt3ybC7NX1A8yu4WFOnd+bVWuidYkZYet9pVcJr
+         Q2anpxEaEcjQAyZD9ofkVRhn5pbiKwnbEZzsxbeChgleQPWB4xO48QtGfKtA2laMtjCf
+         2cO1l28zfGrUyyTj+Rswm8vxpUz5YNBQ9U/RA7Mhw6pbDztr1GiRFJ96AIISJJ5VV0oa
+         qP5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:sender:from:to:cc:subject:date;
-        bh=S4k4FKOV+0QwqiO0Ny5+TgblQKo0oDWixdSsC2LVcMA=;
-        b=rFBsyjijhxhEs3acYkVDOlr+4JAnTXu/FBoopbr7PcxNXGKL4QzJglbgXMHsvXm1hl
-         FaBo0PTklkNui5UWzSZIDqn1GEvYq/0Wa1HIKTrJ119py6rGB2OoRX++ijJYJB06a5Dk
-         xslmzdvO/eXq9rnKoDtVb+ko7AC2mkqqUNq3cgSdBrUmyZ+u6rdbEfBFpoBtBNj6ghYL
-         qaEa3lUFzHOSlSvCMEDhOfy7ya1vtWePs3fsfMOkZOagj4TRdnEBCw1iDg5wk8F9pocb
-         lKDJSx2+03blBAnlnqNuWB3zWtQUFhw+SJNUwgY+GG9HMd45DVlDiJNYPyXlFJ7y6FOm
-         hw4w==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
+         :subject:date;
+        bh=ecanM1YbZ6ARyGY99Yd/mbb0N09dMzbvn+7wheQShMQ=;
+        b=4Dv1vIgjkJHkSgNlgJfFfjtNyov2frZ+Ef8Y+UqpN0um2XJfVODUY2aYZh0IFnw9xM
+         VwfKBlFBh+AEI6iD/HKvorZ/6cW2nZELw/PNWvtgUGOVvmyKs2lcML0tzMN+Wr1SG6Rg
+         eGerMp9kf9vW3DYshfNQq0x+dHx8uPgg331Iup6kC123DcAxtRFPvoq8t3vXRz5lwDm1
+         rY0+zq3mMFoR8G3Tl0uL2JIiAuDmrKxkz3kjktvBZ4ktAxYexLG0e/s9BAf7zHmpOVi3
+         hqbiBat+3X9llcJHifgkmWja6gt6Y5ChIl5P8ynW+lrDS+4nsnpPa2JjrGRLwxPgKSfs
+         roUQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf3pmwSr61NtTG1Jbv6pksI1s4fGfiQh0XWp0V2B2eLmhwqaAk3f
-	5aMaJCrkQdGfIAXMf+J7Grw=
-X-Google-Smtp-Source: AMsMyM7Tu/sssm45HqQZNie3+Pt4lUX2oRw9xuoz/G1PEuHl91cnW5dtD3lX0zcDpYputxJQidJFJw==
-X-Received: by 2002:a05:6602:1402:b0:68a:9d38:8248 with SMTP id t2-20020a056602140200b0068a9d388248mr7274115iov.68.1663609005054;
-        Mon, 19 Sep 2022 10:36:45 -0700 (PDT)
+X-Gm-Message-State: ACrzQf0KZOz0oEg1trq1rNw9nq8vfQPtIH6TF27aXEiQBOIy+sJopuLt
+	hx4NJZGhC5eBV0rJPZ75W/U=
+X-Google-Smtp-Source: AMsMyM5JNe+8dJ8JXgFQkxadKzO7HWC8vnV0xNziAz726eIUyMzdttYVt04L1Y1xN8sRvGP0g7xzbg==
+X-Received: by 2002:a05:6214:21ee:b0:4ac:7107:4c23 with SMTP id p14-20020a05621421ee00b004ac71074c23mr27109266qvj.86.1664384756221;
+        Wed, 28 Sep 2022 10:05:56 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6e02:11a2:b0:2ea:b529:b26f with SMTP id
- 2-20020a056e0211a200b002eab529b26fls1047074ilj.7.-pod-prod-gmail; Mon, 19 Sep
- 2022 10:36:44 -0700 (PDT)
-X-Received: by 2002:a92:c812:0:b0:2f5:695b:7907 with SMTP id v18-20020a92c812000000b002f5695b7907mr3841959iln.64.1663609004148;
-        Mon, 19 Sep 2022 10:36:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1663609004; cv=none;
-        d=google.com; s=arc-20160816;
-        b=P2Q7Mg98OIiw5IhqZYjdBhuycQ7xUQMpyvcqktZQpZtTMPMnetW5hXBDuW4OZJ0J3B
-         /uMFVMVotVRbnwepE9M7d8/OOka16N94hJRs9or0eui1cXzDQJVL12/9rrEML4hdUdEW
-         g2/DTzsn0GFGi16wTLfy6psFHoyHwqMN0FPMrDybqLmXlUbu7tUY7p4G62j+GNjQ60To
-         pGyBsi6BLb0AuoI9cE9Qszq9hXaliGND3N6xH5d+xG7uA5WFKqtFehdZ7g/XH1w/V1mu
-         Nqg9lnDZR7x5jdkEH/+22XDkcCQxiEMQ3MUW03J4Fe13RmUlBBaBx0DY2Mnyf4DRYd19
-         To2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:dkim-signature;
-        bh=6PZg4XeAun2uWbfHKgxcreJ2lA7DohIzrx8HD9KwPiI=;
-        b=KkbAr7t5+OQ3W7bmkHlfQwS7wXQjKRmkplVc/1ddOMWb+IQbkzcewV0zyRH05RQnPO
-         wkpY2VIv/XFOm1k6AXuEF4VPZ2WqDBTXjeV/SeoWvcgeve7BN4+rhPc44sDXbnbHMQbU
-         x7lTjAPJJU2meULzkgHlv0EHj6xmcz9MgaV46EmEaWHum46EUN21NMtnk96XJZBxyX31
-         JXSx8XlZ7yCp5xHRoWDhutkSR9ti6GKtIiE94EM095qrYA8hGWjVXkCMAL+CLE2ww6Mq
-         9Lbfz1hGhbjn8iX3KfnUdEPqyBfpyuGE9BeUXonWEE2YK9CklY5krw0BRTIrdiiqLMjl
-         Goiw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@kernel.org header.s=k20201202 header.b=Ewlo5IFi;
-       spf=pass (google.com: domain of helgaas@kernel.org designates 139.178.84.217 as permitted sender) smtp.mailfrom=helgaas@kernel.org;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=kernel.org
-Received: from dfw.source.kernel.org (dfw.source.kernel.org. [139.178.84.217])
-        by gmr-mx.google.com with ESMTPS id g4-20020a0566380c4400b0035a25c888bcsi532655jal.2.2022.09.19.10.36.44
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 19 Sep 2022 10:36:44 -0700 (PDT)
-Received-SPF: pass (google.com: domain of helgaas@kernel.org designates 139.178.84.217 as permitted sender) client-ip=139.178.84.217;
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D966861C16;
-	Mon, 19 Sep 2022 17:36:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19C2AC433D6;
-	Mon, 19 Sep 2022 17:36:43 +0000 (UTC)
-Date: Mon, 19 Sep 2022 12:36:41 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>
-Cc: Liang He <windhl@126.com>, jgross@suse.com,
-	virtualization@lists.linux-foundation.org,
-	jailhouse-dev@googlegroups.com, mark.rutland@arm.com,
-	jan.kiszka@siemens.com, andy.shevchenko@gmail.com,
-	robh+dt@kernel.org, wangkelin2023@163.com,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH v2] jailhouse: Hold reference returned from of_find_xxx
- API
-Message-ID: <20220919173641.GA1014673@bhelgaas>
+Received: by 2002:a05:620a:8:b0:6cd:ef1b:e92a with SMTP id j8-20020a05620a000800b006cdef1be92als3870607qki.9.-pod-prod-gmail;
+ Wed, 28 Sep 2022 10:05:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:2888:b0:6cf:5798:9a2d with SMTP id j8-20020a05620a288800b006cf57989a2dmr22452908qkp.508.1664384755332;
+        Wed, 28 Sep 2022 10:05:55 -0700 (PDT)
+Date: Wed, 28 Sep 2022 10:05:54 -0700 (PDT)
+From: Yelena Konyukh <ykonyukh@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <aa2b89e1-18cf-4089-b793-1da11ae04b77n@googlegroups.com>
+In-Reply-To: <CA+V-a8vEOGdMrNyJOo=ad3JLAe4joXmNnz+n_oJboW3rPdh8qA@mail.gmail.com>
+References: <003480a3-4384-45f2-87c6-e7badb3ef40an@googlegroups.com>
+ <CA+V-a8vEOGdMrNyJOo=ad3JLAe4joXmNnz+n_oJboW3rPdh8qA@mail.gmail.com>
+Subject: Re: Linux inmate not receiving interrupts
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Disposition: inline
-In-Reply-To: <0069849b-e6c7-5c9b-4b52-5aa6e4a328e4@csail.mit.edu>
-X-Original-Sender: helgaas@kernel.org
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@kernel.org header.s=k20201202 header.b=Ewlo5IFi;       spf=pass
- (google.com: domain of helgaas@kernel.org designates 139.178.84.217 as
- permitted sender) smtp.mailfrom=helgaas@kernel.org;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=kernel.org
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1278_1573404438.1664384754454"
+X-Original-Sender: ykonyukh@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -140,31 +81,248 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Fri, Sep 16, 2022 at 10:25:31PM -0700, Srivatsa S. Bhat wrote:
-> [ Adding author and reviewers of commit 63338a38db95 again ]
-> 
-> On 9/16/22 2:00 AM, Liang He wrote:
-> > In jailhouse_paravirt(), we should hold the reference returned from
-> > of_find_compatible_node() which has increased the refcount and then
-> > call of_node_put() with it when done.
-> > 
-> > Fixes: 63338a38db95 ("jailhouse: Provide detection for non-x86 systems")
-> > Signed-off-by: Liang He <windhl@126.com>
-> > Co-developed-by: Kelin Wang <wangkelin2023@163.com>
-> > Signed-off-by: Kelin Wang <wangkelin2023@163.com>
-> 
-> Reviewed-by: Srivatsa S. Bhat (VMware) <srivatsa@csail.mit.edu>
+------=_Part_1278_1573404438.1664384754454
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1279_2093585497.1664384754454"
 
-The message to which you are responding didn't make it to the mailing
-list, so it's unlikely that anybody will pick it up.  See the archive:
-https://lore.kernel.org/all/0069849b-e6c7-5c9b-4b52-5aa6e4a328e4@csail.mit.edu/
+------=_Part_1279_2093585497.1664384754454
+Content-Type: text/plain; charset="UTF-8"
 
-Maybe it was a multipart message or was HTML, which the mailing lists
-reject: http://vger.kernel.org/majordomo-info.html
+Hi Parbhakar,
 
-Bjorn
+Just to say that your messages have helped me again - I had exactly the 
+same problem as you originally had.
+Keep doing this great job of sharing your issues and their solutions, 
+please :).
+
+Thank you
+
+Best Regards,
+Yelena  
+
+On Friday, June 10, 2022 at 2:55:51 PM UTC+1 prabhaka...@gmail.com wrote:
+
+> Hi,
+>
+> On Mon, Jun 6, 2022 at 8:29 PM Prabhakar Lad <prabhaka...@gmail.com> 
+> wrote:
+> >
+> > Hi,
+> >
+> > I have the below setup for Linux inmate:
+> > * Use initramfs
+> > * UART is enabled
+> > * eMMC is enabled
+> >
+> > In the inmate cell I have the below:
+> > .irqchips = {
+> > /* GIC */ {
+> > .address = 0xf1010000,
+> > .pin_base = 128,
+> > .pin_bitmap = {
+> > 1 << (153+32 - 160), /* SCIF1 - SPI153 */
+> > },
+> > },
+> > /* GIC */ {
+> > .address = 0xf1010000,
+> > .pin_base = 160,
+> > .pin_bitmap = {
+> > 1 << (168+32 - 192), /* SDHI3 - SPI168 */
+> > },
+> > },
+> > },
+> >
+> > And in the inmate DTS I have the below:
+> >
+> > scif1: serial@e6e68000 {
+> > compatible = "renesas,scif-r8a774a1",
+> > "renesas,rcar-gen3-scif", "renesas,scif";
+> > reg = <0 0xe6e68000 0 0x40>;
+> > interrupt-parent = <&gic>;
+> > interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
+> > clocks = <&cpg CPG_MOD 206>,
+> > <&cpg CPG_CORE R8A774A1_CLK_S3D1>,
+> > <&scif_clk>;
+> > clock-names = "fck", "brg_int", "scif_clk";
+> > power-domains = <&sysc R8A774A1_PD_ALWAYS_ON>;
+> > resets = <&cpg 206>;
+> > pinctrl-0 = <&scif1_pins>;
+> > pinctrl-names = "default";
+> > };
+> >
+> > gic: interrupt-controller@f1010000 {
+> > compatible = "arm,gic-400";
+> > #interrupt-cells = <3>;
+> > #address-cells = <0>;
+> > interrupt-controller;
+> > reg = <0x0 0xf1010000 0 0x1000>,
+> > <0x0 0xf102f000 0 0x20000>,
+> > <0x0 0xf1040000 0 0x20000>,
+> > <0x0 0xf106f000 0 0x20000>;
+> > interrupts = <GIC_PPI 9
+> > (GIC_CPU_MASK_SIMPLE(6) | IRQ_TYPE_LEVEL_HIGH)>;
+> > };
+> >
+> > When Linux is started on the inmate cell, I can see its booting through 
+> but it doesn't fall into shell.
+> >
+> > --- a/drivers/irqchip/irq-gic.c
+> > +++ b/drivers/irqchip/irq-gic.c
+> > @@ -341,6 +341,9 @@ static void __exception_irq_entry 
+> gic_handle_irq(struct pt_regs *regs)
+> > irqstat = readl_relaxed(cpu_base + GIC_CPU_INTACK);
+> > irqnr = irqstat & GICC_IAR_INT_ID_MASK;
+> >
+> > + if (irqnr < 1020)
+> > + pr_err(">>>>>>>>>>>>>>>>%s We received IRQ:%u<<<<<<<<<<<<<<\n", 
+> __func__, irqnr);
+> > +
+> > if (unlikely(irqnr >= 1020))
+> > break;
+> >
+> > I added the above and I can see the Linux inmate receives only 0/1/27 
+> interrupts.
+> >
+> > Which gives me a feeling the Linux inmate isn't receiving the required 
+> interrupts.
+> >
+> > Any pointers on where I should be looking into?
+> >
+> Ive fixed this by updating the GIC masks.
+>
+> Cheers,
+> Prabhakar
+>
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20220919173641.GA1014673%40bhelgaas.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/aa2b89e1-18cf-4089-b793-1da11ae04b77n%40googlegroups.com.
+
+------=_Part_1279_2093585497.1664384754454
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Parbhakar,<br><br>Just to say that your messages have helped me again - =
+I had exactly the same problem as you originally had.<br>Keep doing this gr=
+eat job of sharing your issues and their solutions, please :).<br><br>Thank=
+ you<br><br>Best Regards,<br>Yelena&nbsp; <br><br><div class=3D"gmail_quote=
+"><div dir=3D"auto" class=3D"gmail_attr">On Friday, June 10, 2022 at 2:55:5=
+1 PM UTC+1 prabhaka...@gmail.com wrote:<br/></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204,=
+ 204); padding-left: 1ex;">Hi,
+<br>
+<br>On Mon, Jun 6, 2022 at 8:29 PM Prabhakar Lad &lt;<a href data-email-mas=
+ked rel=3D"nofollow">prabhaka...@gmail.com</a>&gt; wrote:
+<br>&gt;
+<br>&gt; Hi,
+<br>&gt;
+<br>&gt; I have the below setup for Linux inmate:
+<br>&gt; * Use initramfs
+<br>&gt; * UART is enabled
+<br>&gt; * eMMC is enabled
+<br>&gt;
+<br>&gt; In the inmate cell I have the below:
+<br>&gt;     .irqchips =3D {
+<br>&gt;         /* GIC */ {
+<br>&gt;             .address =3D 0xf1010000,
+<br>&gt;             .pin_base =3D 128,
+<br>&gt;             .pin_bitmap =3D {
+<br>&gt;                 1 &lt;&lt; (153+32 - 160), /* SCIF1 - SPI153 */
+<br>&gt;             },
+<br>&gt;         },
+<br>&gt;         /* GIC */ {
+<br>&gt;             .address =3D 0xf1010000,
+<br>&gt;             .pin_base =3D 160,
+<br>&gt;             .pin_bitmap =3D {
+<br>&gt;                 1 &lt;&lt; (168+32 - 192), /* SDHI3 - SPI168 */
+<br>&gt;             },
+<br>&gt;         },
+<br>&gt;     },
+<br>&gt;
+<br>&gt; And in the inmate DTS I have the below:
+<br>&gt;
+<br>&gt;         scif1: serial@e6e68000 {
+<br>&gt;             compatible =3D &quot;renesas,scif-r8a774a1&quot;,
+<br>&gt;                       &quot;renesas,rcar-gen3-scif&quot;, &quot;re=
+nesas,scif&quot;;
+<br>&gt;             reg =3D &lt;0 0xe6e68000 0 0x40&gt;;
+<br>&gt;             interrupt-parent =3D &lt;&amp;gic&gt;;
+<br>&gt;             interrupts =3D &lt;GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH&gt;=
+;
+<br>&gt;             clocks =3D &lt;&amp;cpg CPG_MOD 206&gt;,
+<br>&gt;                  &lt;&amp;cpg CPG_CORE R8A774A1_CLK_S3D1&gt;,
+<br>&gt;                  &lt;&amp;scif_clk&gt;;
+<br>&gt;             clock-names =3D &quot;fck&quot;, &quot;brg_int&quot;, =
+&quot;scif_clk&quot;;
+<br>&gt;             power-domains =3D &lt;&amp;sysc R8A774A1_PD_ALWAYS_ON&=
+gt;;
+<br>&gt;             resets =3D &lt;&amp;cpg 206&gt;;
+<br>&gt;             pinctrl-0 =3D &lt;&amp;scif1_pins&gt;;
+<br>&gt;             pinctrl-names =3D &quot;default&quot;;
+<br>&gt;         };
+<br>&gt;
+<br>&gt;         gic: interrupt-controller@f1010000 {
+<br>&gt;             compatible =3D &quot;arm,gic-400&quot;;
+<br>&gt;             #interrupt-cells =3D &lt;3&gt;;
+<br>&gt;             #address-cells =3D &lt;0&gt;;
+<br>&gt;             interrupt-controller;
+<br>&gt;             reg =3D &lt;0x0 0xf1010000 0 0x1000&gt;,
+<br>&gt;                   &lt;0x0 0xf102f000 0 0x20000&gt;,
+<br>&gt;                   &lt;0x0 0xf1040000 0 0x20000&gt;,
+<br>&gt;                   &lt;0x0 0xf106f000 0 0x20000&gt;;
+<br>&gt;             interrupts =3D &lt;GIC_PPI 9
+<br>&gt;                     (GIC_CPU_MASK_SIMPLE(6) | IRQ_TYPE_LEVEL_HIGH)=
+&gt;;
+<br>&gt;         };
+<br>&gt;
+<br>&gt; When Linux is started on the inmate cell, I can see its booting th=
+rough but it doesn&#39;t  fall into shell.
+<br>&gt;
+<br>&gt; --- a/drivers/irqchip/irq-gic.c
+<br>&gt; +++ b/drivers/irqchip/irq-gic.c
+<br>&gt; @@ -341,6 +341,9 @@ static void __exception_irq_entry gic_handle_i=
+rq(struct pt_regs *regs)
+<br>&gt;                 irqstat =3D readl_relaxed(cpu_base + GIC_CPU_INTAC=
+K);
+<br>&gt;                 irqnr =3D irqstat &amp; GICC_IAR_INT_ID_MASK;
+<br>&gt;
+<br>&gt; +               if (irqnr &lt; 1020)
+<br>&gt; +                       pr_err(&quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&=
+gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;%s We received IRQ:%u&lt;&lt;&lt;&lt;&lt=
+;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;\n&quot;, __func__, irqnr);
+<br>&gt; +
+<br>&gt;                 if (unlikely(irqnr &gt;=3D 1020))
+<br>&gt;                         break;
+<br>&gt;
+<br>&gt; I added the above and I can see the Linux inmate receives only 0/1=
+/27 interrupts.
+<br>&gt;
+<br>&gt; Which gives me a feeling the Linux inmate isn&#39;t receiving the =
+required interrupts.
+<br>&gt;
+<br>&gt; Any pointers on where I should be looking into?
+<br>&gt;
+<br>Ive fixed this by updating the GIC masks.
+<br>
+<br>Cheers,
+<br>Prabhakar
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/aa2b89e1-18cf-4089-b793-1da11ae04b77n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/aa2b89e1-18cf-4089-b793-1da11ae04b77n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_1279_2093585497.1664384754454--
+
+------=_Part_1278_1573404438.1664384754454--
