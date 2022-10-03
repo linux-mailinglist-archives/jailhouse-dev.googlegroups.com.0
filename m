@@ -1,159 +1,158 @@
-Return-Path: <jailhouse-dev+bncBDZ5FWPBZIMRBA6D2WMQMGQEXPCTNOY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCZNXZV44IJBBVXT5OMQMGQEHH3E6II@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-vs1-xe40.google.com (mail-vs1-xe40.google.com [IPv6:2607:f8b0:4864:20::e40])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D57F5EF187
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Sep 2022 11:12:37 +0200 (CEST)
-Received: by mail-vs1-xe40.google.com with SMTP id m186-20020a6726c3000000b0039b2e2e040dsf143623vsm.9
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Sep 2022 02:12:37 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1664442756; cv=pass;
+Received: from mail-ua1-x939.google.com (mail-ua1-x939.google.com [IPv6:2607:f8b0:4864:20::939])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6DD35F3245
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Oct 2022 17:03:51 +0200 (CEST)
+Received: by mail-ua1-x939.google.com with SMTP id e20-20020ab031d4000000b003bef9338964sf4251065uan.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Oct 2022 08:03:51 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1664809430; cv=pass;
         d=google.com; s=arc-20160816;
-        b=kuwwRn8XJzi8+43GFkYfdS1GBYDLjog3pRcVu5M4Fbk+WmbqqBo9wTarPTY/uLHRzP
-         VA72zIAou6U88uKrQBbg6PWPF8rmwpScrst8bPO8JkOHcFi/pbsnQijivebBmQiXWzYO
-         97fr7qi6oMcWCPcApSbkpbTq2PjwhCyfTDPu5bY5Oef9N1UY8w/iJY+U5RtMCvnc8dB/
-         LcNplN+fv/mrjoZkIUIKyVc7hFJYetrLsFbk5j4Hz5IQt5HXx3V0d4khkE5Ue0gGuUaM
-         qPyzyNhGr9Mo3lwsS4E2pYgBR34yChGZrRTHpO2yHtd162ogI0IMI4Vf9rwLY4aVvgmo
-         mWPA==
+        b=v83TjKA99VVORDhQAjEJLD2HFeauMXVU3FuNxBFA6HlFZSttrGa+Z0o24BUQCnsD/N
+         mUHhkrMVvhsgmcf8f7lagNgdfr2FA6H2I+KF2Nq9XoH06mLQFu3dhx6qvn6LvcI7apCQ
+         ATogspcPjTuldTSZXlY3snzC2HrYsLJmiOuPTh7RIinTylFVYSu03kw0PIndk6bNYTJI
+         QO5MTH/pRbeBzannx5bdXgKoSHNBy/9QUwKjdD0Cc5y4kAbvLm5gZr+179ntXmVfFWCg
+         hvrugKjR/q+EfXtzj6CItWunsV/Ph+HLg0lTZCHbMHWXF3z9J8pAoKO7nKBMJUwwb+Nm
+         bfYQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:reply-to:content-transfer-encoding:precedence
-         :in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:dkim-signature;
-        bh=Vau0wFyYJrkGx05YsE6KJsv3d8oaL8HH+hJYrjOo7KY=;
-        b=hxH1ABp/bx8uj8GQ3SZpY5PdTTXX/Z1NNWqNTIaI0mx8EITTanpBraoJPspOhlKqSk
-         KpWjO5nQP2vOw+QhYbr2kddbh8+ludu7w9/HLwxi4tEpWjDn8nZG/7LTZJACWbo57Pdj
-         KNReYrwKnw/Gql32uZxbJoj76n6bsF8Yz3OGGcqcuNYbb9qf3JDPNiD3oTq99HnUaT+B
-         WJ/hXKp0LpIfOeb2+X4uN9S5FnTPkBXXLIDsg9lkudxSMRiRncG2SVciXEKBcwdIsGaW
-         DJP657HyvN9rcEvNWKWv3L2ZWHpXNwP8b6CVG5Rs2+f+fElhAL5qCyv7/1SrUhVRx0Df
-         wTlg==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:sender:dkim-signature;
+        bh=qJwMc/rh/gjsYsojH94MB5j3sQirTj5K4RWfwupNHf4=;
+        b=hMkjsU1jovfEw4mCORqhiCFwXK6qSgJGqu0sKBHpyezcXvkE6Q0VPcl6vghXeU+PxV
+         TH8pJv8bO62ZnKrxkbpnYnCZqoqBJbe89PoHQsBsdpOMUV4LBcOt2XXly3N6/Kb4RoR9
+         WoVfMu3h3yU18hXvABhByVvaiOtC+/jx8AwtfpBholcGoN6+j0nLgcIJ0M10paXcvLpb
+         0BMv7Rt+pcVjMolkS34DntZbvdvTvSDqL0yl9Wpeh0vEmb1qiaQQbvkkWI2U9UllNWgF
+         GQATMLd29DHNpnCPAOOClxypqBqiXHfkMoSCrJHWZifHQcKV3wD6gV68slUhzREaRgk2
+         K9/Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@amazon.com header.s=amazon201209 header.b=tsQ51Cjr;
-       spf=pass (google.com: domain of prvs=264dbb8b0=graf@amazon.de designates 52.95.48.154 as permitted sender) smtp.mailfrom="prvs=264dbb8b0=graf@amazon.de";
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=amazon.com
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=eWZbWw1Z;
+       spf=pass (google.com: domain of vkuznets@redhat.com designates 170.10.133.124 as permitted sender) smtp.mailfrom=vkuznets@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:reply-to:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:precedence:in-reply-to
-         :from:references:cc:to:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date;
-        bh=Vau0wFyYJrkGx05YsE6KJsv3d8oaL8HH+hJYrjOo7KY=;
-        b=U+HiayyVaCRgQ+bH3ee30C9edaE9rwlTntdqAbGP+Q9uBqGZjwvFv/C7w+oTKEul0b
-         sdUdLi9PGCveCmqVcP93uA3Y8XWKsxq9csZqzJ2bpQEeZy6SY0mMIDMAKpGBeh1xXNEy
-         bwBTHA7xLlTef5iKPZwIvFBJwccLOFWY0LylC09MsGkCD2pkc6QV/iEwFovHtYLn3yXE
-         oEs5PZrLw1Uv4Jh99bEoMi5CWAFDgQcyXc+AsputYEpHouD8/3dsDYBa+Qy44reaELFD
-         jyg0INFrniy3DZ7Zyx5YPy8THf9VKdENzTv8OWGmIMtpgY046Df5XmS2o6VK25JAWXRl
-         yz1g==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:content-transfer-encoding:mime-version:message-id
+         :date:references:in-reply-to:subject:cc:to:from:sender:from:to:cc
+         :subject:date;
+        bh=qJwMc/rh/gjsYsojH94MB5j3sQirTj5K4RWfwupNHf4=;
+        b=rvUNvZ74jjR3v8EHTMWUjCoNpG9iSZxxS3wqsnDY6mnr8Td8y/MZvI6pvPSD+rsHIv
+         SSs1ts9RKZut+XE9iq/KBtXpKIj07rDLcgBflcoOHYyVMCesPu0f70f+BzPhuIM1GnEw
+         2iVcSi75HBDRzHdlzxAGA7vDf+bvtMuZRub0Iper83HgP5ZZqIxtfhVlR8c9vDEsG23C
+         dpZlslTEtwCxfVy8ZJRvi6T2zUJKyH2aehdPJK2fkoTXrYKwzC5hHVQCZ4aFqAOEml+Z
+         aM2XZJRjBcr91Hn5oP2FhL6jeiGiJYrB21dKLA4lidLNX3/NQuEXyG/Dx1HP2j+n/xEr
+         4tFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:reply-to
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:precedence:in-reply-to:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=Vau0wFyYJrkGx05YsE6KJsv3d8oaL8HH+hJYrjOo7KY=;
-        b=nWK6/s+MLcs/zqO0NtJTW+zMr5Ewa9K58nLjihOjPYDKHuoDIsXk68mRsKKjmEW2wb
-         Do9uhGKofGypxtEdt9IWAbvc/9uZIAliZCIh2WVkDxsRz16GxedX14Xm0ApLBkwnHl0o
-         jIIomZ9Nal3o8TdeDLJxyasBSTlkaDCppXvD98+jo2yRZFHfaO1xpM0EA9IewIX2lM8d
-         9s1LkMkvagHIVRl6/uVmf6/6QEloWfzpt9t9VWhmMGjDZcF/u3oBfTOYoT/jwLL5vGu/
-         UXy4Yt/L5T/rguLKIzzNiWrlUgaCeTNP55wYD5NS7C0cy8LGytzHv1zGaF8+jqxGkdy9
-         bECg==
-X-Gm-Message-State: ACrzQf0Jt/gdSW4fEy3Lu0hT6vtRQ4JLoobr/uw5Qc2C1YgWOx1yPTbU
-	HgeFcOVIXxjAIFOaQF2jfB4=
-X-Google-Smtp-Source: AMsMyM6FChxOotbeaHNxL04SkcIk7VydSJCOApvvbzXTshLv62f4YQoj7LoutROsQDaB59gQuIZj4w==
-X-Received: by 2002:a05:6102:2333:b0:39a:c114:3841 with SMTP id b19-20020a056102233300b0039ac1143841mr780895vsa.13.1664442756311;
-        Thu, 29 Sep 2022 02:12:36 -0700 (PDT)
+         :content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-message-state:sender:from:to:cc
+         :subject:date;
+        bh=qJwMc/rh/gjsYsojH94MB5j3sQirTj5K4RWfwupNHf4=;
+        b=WeCwJ/ZJTShyeDbvspICBxFMrB8d2mw3Y03x8NkebIf91fTfhNsg0PPyv6mq/56M6+
+         LxofPfc32eU0lV2Cb1m6307XV0SGh9rDrsVFGuoHmaao0eCcTWA1+IxNaQoq1Yi7M0qj
+         cbfxREFyGg4YH/V3PH3rGfCgNJR4Lz+YeQJB00l6FtD20AmL5r6C9myPfcVhIFWPqI4z
+         HFjBJ8ioGtIBVHQkeuOnsc3ZFbNnkbbv4w9/H9C65PxphU6eYNZI1P/2j9zmE5WQy3q1
+         qZTMWu0iyKVGQdKhrrOvX0K4p+rps2Z/wNEwKmcHgaOIomIaBqK1oKnr9n9PqxbkB2eT
+         NGFA==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: ACrzQf2Ro88+PIgoLEeciz/CDGl/Mc6uhmg1RaFWPNx2Ujev/ZvlJN6w
+	6rVH3OaL8xSDkeVLg2bd2qc=
+X-Google-Smtp-Source: AMsMyM5jpXkV7zEmP3zV7wu457bUXCvgDR2J7cjUFvOzaml2G55cPlSvlLTRdpcn40Cm/Nzm70vw2Q==
+X-Received: by 2002:a1f:9116:0:b0:3a2:362b:fea9 with SMTP id t22-20020a1f9116000000b003a2362bfea9mr8969881vkd.11.1664809430695;
+        Mon, 03 Oct 2022 08:03:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a67:e0c9:0:b0:39a:d4f3:86d2 with SMTP id m9-20020a67e0c9000000b0039ad4f386d2ls224409vsl.5.-pod-prod-gmail;
- Thu, 29 Sep 2022 02:12:35 -0700 (PDT)
-X-Received: by 2002:a67:bd0f:0:b0:398:993f:fdc5 with SMTP id y15-20020a67bd0f000000b00398993ffdc5mr815281vsq.12.1664442755368;
-        Thu, 29 Sep 2022 02:12:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1664442755; cv=none;
+Received: by 2002:ab0:4926:0:b0:3b3:6d5a:e75d with SMTP id z35-20020ab04926000000b003b36d5ae75dls833116uac.10.-pod-prod-gmail;
+ Mon, 03 Oct 2022 08:03:49 -0700 (PDT)
+X-Received: by 2002:ab0:136d:0:b0:3b3:da15:c7de with SMTP id h42-20020ab0136d000000b003b3da15c7demr10128648uae.25.1664809429528;
+        Mon, 03 Oct 2022 08:03:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1664809429; cv=none;
         d=google.com; s=arc-20160816;
-        b=xz31YFQjfEj/281s1B+k46XfzWBKGx4KXMiRYw7wYWKNhaJ5icTC3aHtNN845Ic5PP
-         iboX2WXXem2iiGXuxhueZFiAl8P/ZzNGODAw8GGUfrE8n9r/DJJ4aQFtC6H5wRq+iHG1
-         UtJW5hFUw/Px/jpnMj4M81Du8CK7spjxYeXMMOW0SVlXehOZGCzecBNpfZFQvd3jOYEH
-         1O0RqAfMqXjNYA6X/UM/TUCVsecTc20saTSqqtOYE3XIT0aj6yNTOHdD7bz7MVuX+gEb
-         yN7lGW8DoM6VY5SLoZQFxvcxyxU8rKYU607ntB/thnS1zD8YaQzyLM5FqzxboKrk3sxa
-         nfcg==
+        b=c0f3CM6Rx+Pxnvy/Z4flQh+Qy1fBRkh5uFpwlD9V8J4L45YhINdzY0C4YjtqICbJrW
+         82itFazqEtmQsckknl4oASP0tGvlbImN8GiyRDYiF2dMwxPfYd0CXUOoVWQ93idzEYkN
+         1mDR6ABFtDTitYwE774JOZDRHiqrDBloTmmTJCcxByMqg68ZgHbbxoKR5DaV0MgfSWqy
+         q/mUQsenh+xioY6icKfV1brlOxkefpxj2gSQgXalEMgkHZiOAc9sFJjDF2mycmRgSk01
+         G4JC6e0A2qj2Gj7EI5ur33yjCq1KSMwsFcDvfdbWqFt8xjj0dx14WAJoHwyD0u+D9K8Q
+         iJBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:precedence:in-reply-to:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=gbX7+1PHfMiTfg5A2mAeVk2kLj1W8TIaBDtUydjsZQ8=;
-        b=TeF/HJPdaVwWG99TLoAUdEEnpn5FgALXS4xJfYKqj0LaE8lVUdrAZoLbgfJQ1ua6sd
-         9aq9loSTE4qXyAPR0GGMfbrEoeOIp9VqEzkCS4/Ub6SkIAetv5jikIj5sqVOJFkFURXP
-         L606eX5/b4svbU8o9PN2t06QLMgx/AVhYJzNOuJHInS5cZAbOTR5dRfMER9fk8qw/oev
-         y3u8te9zi9uy1xruGIAG/W2kGtKtQX5wzT1d4oGDYp6AD+SnBRyFH1Dk2ARBFm5eBUY4
-         dXLkj4SfUwEgh1rOEbn8nPTZimq6mqgQWmmH7QmlutiIDfRX3XdNiwYMxZ83geg2O9fR
-         u6tA==
+        h=content-transfer-encoding:mime-version:message-id:date:references
+         :in-reply-to:subject:cc:to:from:dkim-signature;
+        bh=Jcy8kZYpXeDbLsYPjZ2qO+Lh7p/Rgt7Xact/w0g7X3E=;
+        b=PiZ/1K5WQefZvGQG3HGJ0TX/0vNjV+pFHLm4VkQ0qYdWRNNP4EHlZfc87dOI7MgsNp
+         USWy4wtqVfTmtRkDZuU5fChn+Y4Q9h2Y02fFidieaJcDlhRKrWx0tkMxu8v9arcejaqW
+         7f/93Y+5s4zXn1cDrzwz3rnAgs4r3lWBRtJxPvFKAT9mE3wqeICln8kT2ZIUXnNWyicH
+         8/giOWwQJUU4ZaV43CeTIRK88M07n3eoiwCLuRdqzUtRIPU8mSk/xWSXBwvUiJ45dZ9J
+         6JWe6LkDdzj+GtbgoFC49E4F3U3GQH248U29+trnVDQizbjH1R0nIEaR8TnkGlxuOnh2
+         HrpQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@amazon.com header.s=amazon201209 header.b=tsQ51Cjr;
-       spf=pass (google.com: domain of prvs=264dbb8b0=graf@amazon.de designates 52.95.48.154 as permitted sender) smtp.mailfrom="prvs=264dbb8b0=graf@amazon.de";
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=amazon.com
-Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com. [52.95.48.154])
-        by gmr-mx.google.com with ESMTPS id w140-20020a1f9492000000b003760f8bf2a0si214787vkd.2.2022.09.29.02.12.35
+       dkim=pass header.i=@redhat.com header.s=mimecast20190719 header.b=eWZbWw1Z;
+       spf=pass (google.com: domain of vkuznets@redhat.com designates 170.10.133.124 as permitted sender) smtp.mailfrom=vkuznets@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com. [170.10.133.124])
+        by gmr-mx.google.com with ESMTPS id g184-20020a1f9dc1000000b003a4a4b2a98dsi419980vke.3.2022.10.03.08.03.49
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Sep 2022 02:12:35 -0700 (PDT)
-Received-SPF: pass (google.com: domain of prvs=264dbb8b0=graf@amazon.de designates 52.95.48.154 as permitted sender) client-ip=52.95.48.154;
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO email-inbound-relay-iad-1d-9a235a16.us-east-1.amazon.com) ([10.43.8.2])
-  by smtp-border-fw-6001.iad6.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2022 09:12:24 +0000
-Received: from EX13MTAUWC002.ant.amazon.com (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
-	by email-inbound-relay-iad-1d-9a235a16.us-east-1.amazon.com (Postfix) with ESMTPS id 446D78015E;
-	Thu, 29 Sep 2022 09:12:18 +0000 (UTC)
-Received: from EX19D020UWC004.ant.amazon.com (10.13.138.149) by
- EX13MTAUWC002.ant.amazon.com (10.43.162.240) with Microsoft SMTP Server (TLS)
- id 15.0.1497.38; Thu, 29 Sep 2022 09:12:17 +0000
-Received: from [10.95.64.54] (10.43.160.111) by EX19D020UWC004.ant.amazon.com
- (10.13.138.149) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1118.12; Thu, 29 Sep
- 2022 09:12:11 +0000
-Message-ID: <1f1beb97-2a36-dcc0-f09a-59af19663ae2@amazon.com>
-Date: Thu, 29 Sep 2022 10:12:08 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.0
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Oct 2022 08:03:49 -0700 (PDT)
+Received-SPF: pass (google.com: domain of vkuznets@redhat.com designates 170.10.133.124 as permitted sender) client-ip=170.10.133.124;
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-596-K2iOVc0dPImqzFcb5oTedw-1; Mon, 03 Oct 2022 11:03:48 -0400
+X-MC-Unique: K2iOVc0dPImqzFcb5oTedw-1
+Received: by mail-wm1-f70.google.com with SMTP id k21-20020a7bc415000000b003b4fac53006so2987891wmi.3
+        for <jailhouse-dev@googlegroups.com>; Mon, 03 Oct 2022 08:03:44 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8b:b0:3b4:c8ce:be87 with SMTP id f11-20020a05600c4e8b00b003b4c8cebe87mr7593507wmq.157.1664809423569;
+        Mon, 03 Oct 2022 08:03:43 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e8b:b0:3b4:c8ce:be87 with SMTP id f11-20020a05600c4e8b00b003b4c8cebe87mr7593479wmq.157.1664809423275;
+        Mon, 03 Oct 2022 08:03:43 -0700 (PDT)
+Received: from fedora (nat-2.ign.cz. [91.219.240.2])
+        by smtp.gmail.com with ESMTPSA id r18-20020a05600c35d200b003a84375d0d1sm17657403wmq.44.2022.10.03.08.03.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Oct 2022 08:03:42 -0700 (PDT)
+From: Vitaly Kuznetsov <vkuznets@redhat.com>
+To: Ajay Kaher <akaher@vmware.com>
+Cc: "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>, Srivatsa Bhat
+ <srivatsab@vmware.com>, "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
+ Alexey Makhalov <amakhalov@vmware.com>, Vasavi Sirnapalli
+ <vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
+ <er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
+ Nadav Amit <namit@vmware.com>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org"
+ <kvm@vger.kernel.org>, "jailhouse-dev@googlegroups.com"
+ <jailhouse-dev@googlegroups.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, "acrn-dev@lists.projectacrn.org"
+ <acrn-dev@lists.projectacrn.org>, "helgaas@kernel.org"
+ <helgaas@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+ <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, Alexander
+ Graf <graf@amazon.com>
 Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
-Content-Language: en-US
-To: Ajay Kaher <akaher@vmware.com>, Vitaly Kuznetsov <vkuznets@redhat.com>
-CC: "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>, Srivatsa Bhat
-	<srivatsab@vmware.com>, "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
-	Alexey Makhalov <amakhalov@vmware.com>, Vasavi Sirnapalli
-	<vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
-	<er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
-	"Nadav Amit" <namit@vmware.com>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"acrn-dev@lists.projectacrn.org" <acrn-dev@lists.projectacrn.org>,
-	"helgaas@kernel.org" <helgaas@kernel.org>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "tglx@linutronix.de" <tglx@linutronix.de>,
-	"mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "Michael S.
- Tsirkin" <mst@redhat.com>
-References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
- <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
-From: "'Alexander Graf' via Jailhouse" <jailhouse-dev@googlegroups.com>
 In-Reply-To: <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
-X-Originating-IP: [10.43.160.111]
-X-ClientProxiedBy: EX13D23UWA004.ant.amazon.com (10.43.160.72) To
- EX19D020UWC004.ant.amazon.com (10.13.138.149)
-Precedence: list
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
+ <87zgf3pfd1.fsf@redhat.com>
+ <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
+Date: Mon, 03 Oct 2022 17:03:41 +0200
+Message-ID: <87tu4l9cfm.fsf@redhat.com>
+MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: graf@amazon.com
+X-Original-Sender: vkuznets@redhat.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@amazon.com header.s=amazon201209 header.b=tsQ51Cjr;       spf=pass
- (google.com: domain of prvs=264dbb8b0=graf@amazon.de designates 52.95.48.154
- as permitted sender) smtp.mailfrom="prvs=264dbb8b0=graf@amazon.de";
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=amazon.com
-X-Original-From: Alexander Graf <graf@amazon.com>
-Reply-To: Alexander Graf <graf@amazon.com>
+ header.i=@redhat.com header.s=mimecast20190719 header.b=eWZbWw1Z;
+       spf=pass (google.com: domain of vkuznets@redhat.com designates
+ 170.10.133.124 as permitted sender) smtp.mailfrom=vkuznets@redhat.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=redhat.com
+Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
 X-Spam-Checked-In-Group: jailhouse-dev@googlegroups.com
@@ -165,10 +164,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Ajay Kaher <akaher@vmware.com> writes:
 
-On 29.09.22 07:36, Ajay Kaher wrote:
 >> =EF=BB=BFOn 13/09/22, 7:05 PM, "Vitaly Kuznetsov" <vkuznets@redhat.com> =
 wrote:
+>>>
 >>> Thanks Vitaly for your response.
 >>>
 >>> 1. we have multiple objects of struct pci_raw_ops, 2. adding 'priority'=
@@ -176,6 +176,7 @@ wrote:
 >>> doesn't seems to be appropriate as need to take decision which object o=
 f struct pci_raw_ops has
 >>> to be used, not something with-in struct pci_raw_ops.
+>>
 >> I'm not sure I follow, you have two instances of 'struct pci_raw_ops'
 >> which are called 'raw_pci_ops' and 'raw_pci_ext_ops'. What if you do
 >> something like (completely untested):
@@ -191,53 +192,54 @@ ev);
 >>
 >> struct pci_raw_ops {
 >> +       int rating;
->>           int (*read)(unsigned int domain, unsigned int bus, unsigned in=
+>>          int (*read)(unsigned int domain, unsigned int bus, unsigned int=
+ devfn,
+>>                                                int reg, int len, u32 *va=
+l);
+>>          int (*write)(unsigned int domain, unsigned int bus, unsigned in=
 t devfn,
->>                                                 int reg, int len, u32 *v=
-al);
->>           int (*write)(unsigned int domain, unsigned int bus, unsigned i=
-nt devfn,
 >> diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
 >> index ddb798603201..e9965fd11576 100644
 >> --- a/arch/x86/pci/common.c
 >> +++ b/arch/x86/pci/common.c
 >> @@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_op=
 s;
->>   int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int d=
-evfn,
->>                                                  int reg, int len, u32 *=
-val)
->> {
->> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_op=
-s->rating))
->>                  return raw_pci_ops->read(domain, bus, devfn, reg, len, =
-val);
->>          if (raw_pci_ext_ops)
->>                  return raw_pci_ext_ops->read(domain, bus, devfn, reg, l=
-en, val);
->> @@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bus=
-, unsigned int devfn,
->>   int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int =
-devfn,
->>                                                  int reg, int len, u32 v=
+>>  int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int de=
+vfn,
+>>                                                 int reg, int len, u32 *v=
 al)
 >> {
 >> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
 >> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
 >> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_op=
 s->rating))
->>                  return raw_pci_ops->write(domain, bus, devfn, reg, len,=
- val);
->>           if (raw_pci_ext_ops)
->>                  return raw_pci_ext_ops->write(domain, bus, devfn, reg, =
-len, val);
+>>                 return raw_pci_ops->read(domain, bus, devfn, reg, len, v=
+al);
+>>         if (raw_pci_ext_ops)
+>>                 return raw_pci_ext_ops->read(domain, bus, devfn, reg, le=
+n, val);
+>> @@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bus=
+, unsigned int devfn,
+>>  int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int d=
+evfn,
+>>                                                 int reg, int len, u32 va=
+l)
+>> {
+>> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_op=
+s->rating))
+>>                 return raw_pci_ops->write(domain, bus, devfn, reg, len, =
+val);
+>>          if (raw_pci_ext_ops)
+>>                 return raw_pci_ext_ops->write(domain, bus, devfn, reg, l=
+en, val);
 >>
 >> and then somewhere in Vmware hypervisor initialization code
 >> (arch/x86/kernel/cpu/vmware.c) you do
 >>
->>   raw_pci_ext_ops->rating =3D 100;
+>>  raw_pci_ext_ops->rating =3D 100;
+>
 > Thanks Vitaly, for your review and helping us to improve the code.
 >
 > I was working to make changes as you suggested, but before sending v3 wou=
@@ -250,8 +252,8 @@ as const,
 >
 > -const struct pci_raw_ops pci_mmcfg =3D {
 > +struct pci_raw_ops pci_mmcfg =3D {
->          .read =3D         pci_mmcfg_read,
->          .write =3D        pci_mmcfg_write,
+>  	.read =3D		pci_mmcfg_read,
+>  	.write =3D	pci_mmcfg_write,
 > };
 >
 > So to avoid this change, is it fine to have global bool prefer_raw_pci_ex=
@@ -259,53 +261,23 @@ t_ops?
 >
 > And raw_pci_read() will have following change:
 >
-> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
-> +            (!prefer_raw_pci_ext_ops ||  !raw_pci_ext_ops)
+> -	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+> +	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+> +	     (!prefer_raw_pci_ext_ops ||  !raw_pci_ext_ops)
 >
->> why wouldn't it work?
->>
->> (diclaimer: completely untested, raw_pci_ops/raw_pci_ext_ops
->> initialization has to be checked so 'rating' is not garbage).
->>
->>> It's a generic solution for all hypervisor (sorry for earlier wrong
->>> Subject), not specific to VMware. Further looking for feedback if it's
->>> impacting to any hypervisor.
->> That's the tricky part. We can check modern hypervisor versions, but
->> what about all other versions in existence? How can we know that there's
->> no QEMU/Hyper-V/... version out there where MMIO path is broken? I'd
->> suggest we limit the change to Vmware hypervisor, other hypervisors may
->> use the same mechanism (like the one above) later (but the person
->> suggesting the patch is always responsible for the research why it is
->> safe to do so).
-> Ok, as of now we will make this change specific to VMware hypervisor.
 
+Not my but rather PCI maintainer's call but IMHO dropping 'const' is
+better, introducing a new global var is our 'last resort' and should be
+avoided whenever possible. Alternatively, you can add a
+raw_pci_ext_ops_preferred() function checking somethin within 'struct
+hypervisor_x86' but I'm unsure if it's better.
 
-Is there a way we can make it an ACPI property in MCFG to have the=20
-environment self-describe the fact that it's safe to do ECAM access for=20
-config space access over legacy PIO? That way we don't need to patch=20
-guests every time a hypervisor decides that it's safe to prefer ECAM.
+Also, please check Alex' question/suggestion.
 
-Also, Michael (CC'ed) mentioned that according to spec, your PCIe host=20
-bridge with PCI_COMMAND.MEMORY=3D0 would stop responding to its ECAM=20
-window. Given that most ARM systems have no PIO fallback path, we want=20
-to make sure we never hit that condition.
+...
 
-
-Alex
-
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
+--=20
+Vitaly
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -313,4 +285,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1f1beb97-2a36-dcc0-f09a-59af19663ae2%40amazon.com.
+jailhouse-dev/87tu4l9cfm.fsf%40redhat.com.
