@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBCVLJ7OQWEPBBQE35WMQMGQEXARS5PI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCVLJ7OQWEPBB6455WMQMGQEUYS6YGY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pg1-x537.google.com (mail-pg1-x537.google.com [IPv6:2607:f8b0:4864:20::537])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF9AF5F3768
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Oct 2022 23:01:54 +0200 (CEST)
-Received: by mail-pg1-x537.google.com with SMTP id g66-20020a636b45000000b0043a256d3639sf7636249pgc.12
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Oct 2022 14:01:54 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1664830913; cv=pass;
+Received: from mail-io1-xd38.google.com (mail-io1-xd38.google.com [IPv6:2607:f8b0:4864:20::d38])
+	by mail.lfdr.de (Postfix) with ESMTPS id B62D85F3776
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Oct 2022 23:07:08 +0200 (CEST)
+Received: by mail-io1-xd38.google.com with SMTP id b5-20020a05660214c500b006a43c89e0bdsf7822468iow.22
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Oct 2022 14:07:08 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1664831227; cv=pass;
         d=google.com; s=arc-20160816;
-        b=MSRC98MXEndwX8etqMQZxyA6BVTcw9falb3vNuya5oHbDs4JuuzHpZiUuK3W8CCdBG
-         qYM2zSmzDdJNyN8zJeW8biuSqJd0GrJc+EraTYA8a0HSx5zPNtgnQhnHJyoR72srBsMl
-         cC7aTOuIwCBly9A1CtWUjXsDBrq6xpDG9T6lIThpfk6CcksL2/H3TTRZ200U3fWzKR4L
-         5qGUA6Rqwp+fIo7JCIBCyVD2vhkOCMdo5CVeR+XLZDoVjJKQX6v/PV0LvUCTkJv5BLZ6
-         14kvBXrocqOQqEhCLSeIcH2QTVhk0FyJr4GhwahwHmVm/n1YqMVROvH2y4IkoR8t4Q6h
-         AvDQ==
+        b=QPZ8Ii7YisDIJhur1ulynNY31QVoVUt/uYdHg9tVukao5y4pbvBPwNSUMnQNgKRamM
+         CUNuaBVOXEGza26mZYXW9w4lac0mQNyXV2UIDad2eNxshY/H7xQlBNaDpmLHHONN6Y6m
+         eqTUvkhM0dgsBfIBH5qh+r5IXTFNARz9OXOSQpalyi3cdFJHq4gl2v9TGv/irrYt3efu
+         hGLxxAzG7QQuI3b8NvpI8lQavN5tljtYweIP20XVsHYl8V1Ag+8zZzFDVkdNrewE7UFn
+         EaMSdM67+NDo/u06TPsAif/O8l3vwncmfltj0eJG3pbraS68qT3netWCz7947zWYOV77
+         CRSg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :mime-version:message-id:references:in-reply-to:user-agent:subject
          :cc:to:from:date:dkim-filter:sender:dkim-signature;
-        bh=FTOhDPU7beUvt6/tCRjJ/cwSHzvlQlgLYNwNAAdXlK8=;
-        b=NDOW/CDEER+T1BJ+S4kvY51zJPmEwfIEC2tWsokQw2+rZnjAssnTinAIBtoTcvaO2E
-         L9KrMA7Xn5xGKcYLomVYL4uA4RwH4/HM3fZVvJeLZngIVOJGkSOjxdJz1C2MOH7Izppq
-         hkdSCvjdd/sJTudqEG+GhgRgjAvv8SPMicWi3y7FImzjg17DG+b8dB6FuT+qyqPxy4/J
-         /qiSiCcxQp+fi7zxTPIdgjrEbieP3Azk5/9LyyYMyk4dtZlKVwDP+3erBRwWqyQIQfRP
-         0o2PnKuNsmzXmPZD1Il3WlPzT0lz28zpQedGkAxXtGtQP04NOCSjJgzfAXw++2bbbn3J
-         tiDg==
+        bh=2JkUYkWY+3T7Qkhushe58yk9r0qcoMolpJfEMS7jdhY=;
+        b=zdCm/iZEv8ldHjgB4o4S6vRbqF1ACFhiRUDxzUpbRMEdPiGLsb6PP6Y93KNc653oT+
+         MotnYkey6yfmRrL9vw0FIHqEdIBXJxnIrl8BZctWXfqPIpePjO4yvHtUmx9X8JAocZtg
+         r9JY0uF+IzovtX+HbmF7Xi0dYOhYH+Q9cF/bzTuT9Op+1xcYML6RDHfLB9PtUA0trfgl
+         /Ti3xD7QfqETR/MH7AarGcbqcXOKuEkxAtf9cvXVvzaat9yK+2EVZmN1ixzlh6NZLRGV
+         eiPKLpnlSwwtyKb/Ms4cJi6pf5Dh1LyCcoYcWW+JY4Sdua1D986tYabjmcUWGLSP4iT0
+         t4eQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@zytor.com header.s=2022090501 header.b=oykLJvyx;
+       dkim=pass header.i=@zytor.com header.s=2022090501 header.b=YMkSnoz2;
        spf=pass (google.com: domain of hpa@zytor.com designates 2607:7c80:54:3::138 as permitted sender) smtp.mailfrom=hpa@zytor.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=zytor.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -37,13 +37,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:content-transfer-encoding:mime-version:message-id
          :references:in-reply-to:user-agent:subject:cc:to:from:date
          :dkim-filter:sender:from:to:cc:subject:date;
-        bh=FTOhDPU7beUvt6/tCRjJ/cwSHzvlQlgLYNwNAAdXlK8=;
-        b=fYjacSgopCi8KWdlvzVsL/oOW4X7IkW4Rx34TsYQgf3ia5QYw2aMloq1abTF4rlLJn
-         /UdW/SVnX/ErtPVmsOnvtQgW8MeussqnfWL+WopfR3a+sTbenaaVpBZcY1ksFfnZIG/M
-         +xmBp9a4LF1tUp4B7K4tdaQLOmbhWMYVlEvKRU4YahDMo4OSuBfZrXzv9KMrsVP7a+LV
-         hJZNmj8yFjsSPhibxlOR2G5igyZp8F8TXkDMi/Iey/1w9h8BIA8Tn0iwnkk8X07fugqz
-         UkEdCZ1tsIjlxGvFiX83Su5DsaVXaYSMQjQhHvuX8e2/xvXBVZvMzECeGUsZuYwVo8mt
-         1e6A==
+        bh=2JkUYkWY+3T7Qkhushe58yk9r0qcoMolpJfEMS7jdhY=;
+        b=m+sARqiCfBdzjaNOgOaeBWVwcKpt+S/wXID1SLblkWfwoZYqyiE+TqSlWQ9SVxCK5C
+         j0scuAagnD2AFF4IwNaJNbXG/PTnSR7BsQCT4+4c4a4PdsR+WiRQ6uptcKfEVmuxcZjd
+         4G4hJ0SLUUUyBSjtXX6dSYma1/6kofdUdxXia56k8jKrK7XyAgi7yhdPD0ltRnyHneD0
+         QsuH/8fk5kUSkL4KRjLwGFZWLSgirFJ6sfJiqKTw8qXvEMLqPZMx2MGk7iE0t6ivqst+
+         gFhl255YvbJvHpLwQBDXyHACcS4z+PgqbxRfXCZCJEUV/Y5q8LfvAQ/xC22cPVnTmC5j
+         hD5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -52,64 +52,64 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-transfer-encoding:mime-version:message-id:references
          :in-reply-to:user-agent:subject:cc:to:from:date:dkim-filter
          :x-gm-message-state:sender:from:to:cc:subject:date;
-        bh=FTOhDPU7beUvt6/tCRjJ/cwSHzvlQlgLYNwNAAdXlK8=;
-        b=PZqILTuLh4x2hmeaSammxqWg19vRVQ6HokXoeRwbHNBpJHLTP+xAo2ErOII5DweLbK
-         kjGJSGOAJ7RVIqtNAXA/hh/IkVghnhL++RsDA6OY5mvT1NRs/n471ZzCoR8Dqi8XC+m+
-         jxmfAvuFbIShW3bPlQ1wVRFHEiAohLHqfwmv2TJ5BFqDPlZEbX38sZgEWGIBDSK7lW5W
-         ziwpzQz9v/ZnOC5flKMomLNJMdoXW8SDH5QD7iRDlpyO1E03/OKAEkhWnSpoMWG8k5Mr
-         5ioc0W0yBnXfLEsnxb7sYxPsrZgiGJJgOSwMTl82o+2FfkFSwMwJUHIJajx5zNp4alEf
-         W6kQ==
+        bh=2JkUYkWY+3T7Qkhushe58yk9r0qcoMolpJfEMS7jdhY=;
+        b=NOddMwhDqWNpJPhbD1brzGJZ+8cfhbniIFYwiozthDudf4bPeXoI3+YlejfN+bnQu0
+         iyxibuLpPhHjbwwyb1IXF9loAWAzUYltU5lJurT7Zj8nWplcSx5yoQQHQ4dSboEZh9i1
+         VWKQwQWpZ6wxVlpRlq7R2RVbrtcLOWi05l8vkp3RyCtnC2gMzM6wtRVNYYk/EbgOrW0s
+         sprVtX+bSClSLh48vW7KQ7OfrOaBSQ1h3dmbMOXkmBL0HUqMMbW7U8uiUeNjcqZF7IH4
+         Qq1QM0e+V+62srDajrSvktUT/ja8L1l5Hnl8yJ+JFqZ7gonNLHVqoTOh/QLQ+PkDTwtO
+         eZUA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf1xy3pzbQeOYnugzZ+ocayySlm8kuGxPnSWR4Vc/RaWhadgTu7H
-	ZyMxGu33MLcih36IP8GqJU0=
-X-Google-Smtp-Source: AMsMyM7KzInvUOjRmvDrDmhgMyc1bgW5487Jj4lI01vKnNBXdCIe/e17wxJwINuxzu92OrlZvXIctg==
-X-Received: by 2002:a05:6a00:1342:b0:545:4d30:eecb with SMTP id k2-20020a056a00134200b005454d30eecbmr23829520pfu.69.1664830913212;
-        Mon, 03 Oct 2022 14:01:53 -0700 (PDT)
+X-Gm-Message-State: ACrzQf2xxedIGhc9rOBUL/B+XuHV+ssmMCYOsTOZKLsu1LUfL8JgjsF3
+	4EF3dDh58QbAI+jLDGImLzo=
+X-Google-Smtp-Source: AMsMyM6lOeEPDLCPo/RUx03ZTnZtFtzgGvwQ9jX0VmZDz1O2EkKmWqQiL+WWw7aU7QPHpeD0pVAM5w==
+X-Received: by 2002:a02:8804:0:b0:35b:7425:82af with SMTP id r4-20020a028804000000b0035b742582afmr11058293jai.21.1664831227420;
+        Mon, 03 Oct 2022 14:07:07 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:903:2d1:b0:16e:ce7d:3e1e with SMTP id
- s17-20020a17090302d100b0016ece7d3e1els10392493plk.1.-pod-prod-gmail; Mon, 03
- Oct 2022 14:01:51 -0700 (PDT)
-X-Received: by 2002:a17:902:d4d2:b0:17a:a33:e334 with SMTP id o18-20020a170902d4d200b0017a0a33e334mr23881710plg.17.1664830911786;
-        Mon, 03 Oct 2022 14:01:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1664830911; cv=none;
+Received: by 2002:a92:c54a:0:b0:2f9:115c:1a57 with SMTP id a10-20020a92c54a000000b002f9115c1a57ls2580143ilj.5.-pod-prod-gmail;
+ Mon, 03 Oct 2022 14:07:06 -0700 (PDT)
+X-Received: by 2002:a92:d4d1:0:b0:2fa:f0f:944 with SMTP id o17-20020a92d4d1000000b002fa0f0f0944mr1216189ilm.125.1664831226809;
+        Mon, 03 Oct 2022 14:07:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1664831226; cv=none;
         d=google.com; s=arc-20160816;
-        b=nJZD0kv78nNAAkBVW+w60QFnAEoR59yz6rMj65APhTVYQVCPznEZ75Wlo+N/kQcm5e
-         i0qJ4Pu+lv2koIEawzy99f0uS8kdB1M5mX64M/ySsr6B+zCiJ0aquQ+CW0kH3nzOXWfZ
-         6PYOToiAiExugeEsTn2FWSk7lgvOXgoGqt55K1Na8YAYZP73Q6ysqNH//4pixXOYFsJv
-         t8ZpA9DO1UUomm5RYeI+VWG+jlNdMxjzgJJOC39ggMKNAyORQogvPftyPj6OxVfZWFKr
-         9j/EuxLh9HFbV7cb2x4eV/jgaByDxXj9itklLDoq00lsvpcGMOoQlGmLfsYAkKmD787S
-         Dh8Q==
+        b=xZULsXAO/xSXbbj+m2EkSl1sySTYaEMlTE9Bqe0RpZWwyOinSiMQjgJ1qjOr0V8IxQ
+         rUHFkKOFfSDcYLO0zw0wQd40Vq06/lfKG+3vMPX1R4Xaugzleyv64GD6XAGVTO6EMGWz
+         DmiZMWqkuH3XJRk9iUpUrBs0aP1jEgrNRygW3+4ZgBq+x4lciiY8iVgO8lPhYR8qwEyb
+         pgj8za1va7ifHejr12lSUvHUw8WotFlNhtezI+Rr9VnYq8zjFn+V3nCJOHU84xpj4O+I
+         GDSWW6MFj/4PHWvTMHyvNy+QBDcHoEllKujB+KX7/Fb1owavgB7yk5YZJEO2Uk5f/TIT
+         YJgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:message-id:references
          :in-reply-to:user-agent:subject:cc:to:from:date:dkim-signature
          :dkim-filter;
-        bh=5zHAz69mkxip2bzOLRJ4yt3No7BYKjAs2m4UMY86+jU=;
-        b=0FyXDtOTfkgc70dSyL58Wh60yEBQEtdBy5kp6klixX/9cQz7LG+3WaF7EcaeDCyyLo
-         kcTIe5pAD9BX191njNK85+ejaUimF6YLIBDj07dNogIqUdzTJAEXIplWM8nFiz9FYSQF
-         WDXNJ7FknWIlXiJbD+ptHMrgMxAt31iQ2z4sF9A1UZDBkm9RkKfqEiLmURl1dQPv4SIB
-         FC7ZAZCJBg7TaokZCtRYBN/lbB2QCG4gsmR45MW4B52ZZH5gPHPMn2z74v9gvNRycyI1
-         vo0TjDSCf6Mmewbtqog0WvkmmRTTJrosVtLmAeJRNih31LKCYgUfd9CpSItviDiRjwHh
-         z31A==
+        bh=/JSxe+u/I+83ths9qOEPL2v7hS1kkD9Op8hnO2pWF/o=;
+        b=o2T/+7RmLpakcsTR1sl6D2LXHIuARXAxPV/aejJVhF5QSGOHA5jgPwZRdqyHMIvgRf
+         0q6x89EKIHzoNAiZItkqGBubDIND5YOejSbYkjqYMQ35sfs6nzp9ZCY8fgCgCUd+m2Gc
+         ZaCXv4kN0GJ6i/q7OTY6jEqY7s4Zp9vLyIkNNAPaooYSyTc7aBLkfwnuSWuE9qu0ho9H
+         Gd91yG/hzt4hRWzqMcf1rDb/vWAQOzaEzOv0ol4BoIZBsQOuGQIwER05rRjs6CfwtKm/
+         5gCCnOBQxzXg7ZdtlWaX2dyyo5Z0Mr2h2aQb667xU9yOTDWQhVVrOsT2F4T+ZEI3uRRg
+         DWAQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@zytor.com header.s=2022090501 header.b=oykLJvyx;
+       dkim=pass header.i=@zytor.com header.s=2022090501 header.b=YMkSnoz2;
        spf=pass (google.com: domain of hpa@zytor.com designates 2607:7c80:54:3::138 as permitted sender) smtp.mailfrom=hpa@zytor.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=zytor.com
 Received: from mail.zytor.com ([2607:7c80:54:3::138])
-        by gmr-mx.google.com with ESMTPS id z1-20020a63b041000000b00423291dc756si471743pgo.5.2022.10.03.14.01.51
+        by gmr-mx.google.com with ESMTPS id p8-20020a056e02144800b002f5f5eb3583si339132ilo.5.2022.10.03.14.07.06
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Oct 2022 14:01:51 -0700 (PDT)
+        Mon, 03 Oct 2022 14:07:06 -0700 (PDT)
 Received-SPF: pass (google.com: domain of hpa@zytor.com designates 2607:7c80:54:3::138 as permitted sender) client-ip=2607:7c80:54:3::138;
 Received: from [127.0.0.1] ([73.223.250.219])
 	(authenticated bits=0)
-	by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 293L1MEs3109337
+	by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 293L6Wqg3110779
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Mon, 3 Oct 2022 14:01:22 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 293L1MEs3109337
-Date: Mon, 03 Oct 2022 14:01:20 -0700
+	Mon, 3 Oct 2022 14:06:32 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 293L6Wqg3110779
+Date: Mon, 03 Oct 2022 14:06:30 -0700
 From: "H. Peter Anvin" <hpa@zytor.com>
-To: Vitaly Kuznetsov <vkuznets@redhat.com>, Ajay Kaher <akaher@vmware.com>
-CC: "x86@kernel.org" <x86@kernel.org>,
+To: Nadav Amit <namit@vmware.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+        Alexander Graf <graf@amazon.com>
+CC: Ajay Kaher <akaher@vmware.com>, "x86@kernel.org" <x86@kernel.org>,
         "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
         "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
         "rostedt@goodmis.org" <rostedt@goodmis.org>,
@@ -119,7 +119,6 @@ CC: "x86@kernel.org" <x86@kernel.org>,
         Vasavi Sirnapalli <vsirnapalli@vmware.com>,
         "er.ajay.kaher@gmail.com" <er.ajay.kaher@gmail.com>,
         "willy@infradead.org" <willy@infradead.org>,
-        Nadav Amit <namit@vmware.com>,
         "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
         "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
         "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
@@ -127,21 +126,20 @@ CC: "x86@kernel.org" <x86@kernel.org>,
         "acrn-dev@lists.projectacrn.org" <acrn-dev@lists.projectacrn.org>,
         "helgaas@kernel.org" <helgaas@kernel.org>,
         "bhelgaas@google.com" <bhelgaas@google.com>,
-        "tglx@linutronix.de" <tglx@linutronix.de>,
+        Thomas Gleixner <tglx@linutronix.de>,
         "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
-        "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-        Alexander Graf <graf@amazon.com>
+        "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
 Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
 User-Agent: K-9 Mail for Android
-In-Reply-To: <87tu4l9cfm.fsf@redhat.com>
-References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com> <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com> <87tu4l9cfm.fsf@redhat.com>
-Message-ID: <E522EECC-D20D-4A69-8A44-9CF2B36E2A29@zytor.com>
+In-Reply-To: <04F550C5-786A-4B8E-9A88-EBFBD8872F16@vmware.com>
+References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com> <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com> <87tu4l9cfm.fsf@redhat.com> <04F550C5-786A-4B8E-9A88-EBFBD8872F16@vmware.com>
+Message-ID: <42CFC548-F8FE-4BD9-89AB-198B2B3F1091@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Original-Sender: hpa@zytor.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@zytor.com header.s=2022090501 header.b=oykLJvyx;       spf=pass
+ header.i=@zytor.com header.s=2022090501 header.b=YMkSnoz2;       spf=pass
  (google.com: domain of hpa@zytor.com designates 2607:7c80:54:3::138 as
  permitted sender) smtp.mailfrom=hpa@zytor.com;       dmarc=pass (p=NONE
  sp=NONE dis=NONE) header.from=zytor.com
@@ -157,122 +155,121 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On October 3, 2022 8:03:41 AM PDT, Vitaly Kuznetsov <vkuznets@redhat.com> w=
-rote:
->Ajay Kaher <akaher@vmware.com> writes:
+On October 3, 2022 10:34:15 AM PDT, Nadav Amit <namit@vmware.com> wrote:
+>On Oct 3, 2022, at 8:03 AM, Vitaly Kuznetsov <vkuznets@redhat.com> wrote:
 >
->>> =EF=BB=BFOn 13/09/22, 7:05 PM, "Vitaly Kuznetsov" <vkuznets@redhat.com>=
- wrote:
->>>>
->>>> Thanks Vitaly for your response.
->>>>
->>>> 1. we have multiple objects of struct pci_raw_ops, 2. adding 'priority=
-' field to struct pci_raw_ops
->>>> doesn't seems to be appropriate as need to take decision which object =
-of struct pci_raw_ops has
->>>> to be used, not something with-in struct pci_raw_ops.
->>>
->>> I'm not sure I follow, you have two instances of 'struct pci_raw_ops'
->>> which are called 'raw_pci_ops' and 'raw_pci_ext_ops'. What if you do
->>> something like (completely untested):
->>>
->>> diff --git a/arch/x86/include/asm/pci_x86.h b/arch/x86/include/asm/pci_=
-x86.h
->>> index 70533fdcbf02..fb8270fa6c78 100644
->>> --- a/arch/x86/include/asm/pci_x86.h
->>> +++ b/arch/x86/include/asm/pci_x86.h
->>> @@ -116,6 +116,7 @@ extern void (*pcibios_disable_irq)(struct pci_dev *=
-dev);
->>> extern bool mp_should_keep_irq(struct device *dev);
->>>
->>> struct pci_raw_ops {
->>> +       int rating;
->>>          int (*read)(unsigned int domain, unsigned int bus, unsigned in=
-t devfn,
->>>                                                int reg, int len, u32 *v=
-al);
->>>          int (*write)(unsigned int domain, unsigned int bus, unsigned i=
-nt devfn,
->>> diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
->>> index ddb798603201..e9965fd11576 100644
->>> --- a/arch/x86/pci/common.c
->>> +++ b/arch/x86/pci/common.c
->>> @@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_o=
-ps;
->>>  int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int d=
-evfn,
->>>                                                 int reg, int len, u32 *=
-val)
->>> {
->>> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->>> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->>> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_o=
-ps->rating))
->>>                 return raw_pci_ops->read(domain, bus, devfn, reg, len, =
-val);
->>>         if (raw_pci_ext_ops)
->>>                 return raw_pci_ext_ops->read(domain, bus, devfn, reg, l=
-en, val);
->>> @@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bu=
-s, unsigned int devfn,
->>>  int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int =
-devfn,
->>>                                                 int reg, int len, u32 v=
-al)
->>> {
->>> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->>> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->>> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_o=
-ps->rating))
->>>                 return raw_pci_ops->write(domain, bus, devfn, reg, len,=
- val);
->>>          if (raw_pci_ext_ops)
->>>                 return raw_pci_ext_ops->write(domain, bus, devfn, reg, =
-len, val);
->>>
->>> and then somewhere in Vmware hypervisor initialization code
->>> (arch/x86/kernel/cpu/vmware.c) you do
->>>
->>>  raw_pci_ext_ops->rating =3D 100;
->>
->> Thanks Vitaly, for your review and helping us to improve the code.
->>
->> I was working to make changes as you suggested, but before sending v3 wo=
-uld like to
->> discuss on following:
->>
->> If we add rating with-in struct pci_raw_ops then we can't have pci_mmcfg=
- as const,
->> and following change is must in arch/x86/pci/mmconfig_64.c:
->>
->> -const struct pci_raw_ops pci_mmcfg =3D {
->> +struct pci_raw_ops pci_mmcfg =3D {
->>  	.read =3D		pci_mmcfg_read,
->>  	.write =3D	pci_mmcfg_write,
->> };
->>
->> So to avoid this change, is it fine to have global bool prefer_raw_pci_e=
-xt_ops?
->>
->> And raw_pci_read() will have following change:
->>
->> -	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->> +	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->> +	     (!prefer_raw_pci_ext_ops ||  !raw_pci_ext_ops)
->>
+>> Not my but rather PCI maintainer's call but IMHO dropping 'const' is
+>> better, introducing a new global var is our 'last resort' and should be
+>> avoided whenever possible. Alternatively, you can add a
+>> raw_pci_ext_ops_preferred() function checking somethin within 'struct
+>> hypervisor_x86' but I'm unsure if it's better.
+>>=20
+>> Also, please check Alex' question/suggestion.
 >
->Not my but rather PCI maintainer's call but IMHO dropping 'const' is
->better, introducing a new global var is our 'last resort' and should be
->avoided whenever possible. Alternatively, you can add a
->raw_pci_ext_ops_preferred() function checking somethin within 'struct
->hypervisor_x86' but I'm unsure if it's better.
+>Here is my take (and Ajay knows probably more than me):
 >
->Also, please check Alex' question/suggestion.
+>Looking briefly on MCFG, I do not see a clean way of using the ACPI table.
+>The two options are either to use a reserved field (which who knows, might
+>be used one day) or some OEM ID. I am also not familiar with
+>PCI_COMMAND.MEMORY=3D0, so Ajay can hopefully give some answer about that.
 >
->...
+>Anyhow, I understand (although not relate) to the objection for a new glob=
+al
+>variable. How about explicitly calling this hardware bug a =E2=80=9Cbug=E2=
+=80=9D and using
+>the proper infrastructure? Calling it explicitly a bug may even push whoev=
+er
+>can to resolve it.
 >
+>IOW, how about doing something along the lines of (not tested):
+>
+>
+>-- >8 --
+>
+>Subject: [PATCH] x86/PCI: Prefer MMIO over PIO on VMware hypervisor
+>
+>---
+> arch/x86/include/asm/cpufeatures.h | 1 +
+> arch/x86/kernel/cpu/common.c       | 2 ++
+> arch/x86/kernel/cpu/vmware.c       | 2 ++
+> arch/x86/pci/common.c              | 6 ++++--
+> 4 files changed, 9 insertions(+), 2 deletions(-)
+>
+>diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpu=
+features.h
+>index ef4775c6db01..216b6f357b6d 100644
+>--- a/arch/x86/include/asm/cpufeatures.h
+>+++ b/arch/x86/include/asm/cpufeatures.h
+>@@ -460,5 +460,6 @@
+> #define X86_BUG_MMIO_UNKNOWN		X86_BUG(26) /* CPU is too old and its MMIO =
+Stale Data status is unknown */
+> #define X86_BUG_RETBLEED		X86_BUG(27) /* CPU is affected by RETBleed */
+> #define X86_BUG_EIBRS_PBRSB		X86_BUG(28) /* EIBRS is vulnerable to Post B=
+arrier RSB Predictions */
+>+#define X86_BUG_ECAM_MMIO		X86_BUG(29) /* ECAM MMIO is buggy and PIO is p=
+referable */
+>=20
+> #endif /* _ASM_X86_CPUFEATURES_H */
+>diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+>index 3e508f239098..c94175fa304b 100644
+>--- a/arch/x86/kernel/cpu/common.c
+>+++ b/arch/x86/kernel/cpu/common.c
+>@@ -1299,6 +1299,8 @@ static void __init cpu_set_bug_bits(struct cpuinfo_x=
+86 *c)
+> {
+> 	u64 ia32_cap =3D x86_read_arch_cap_msr();
+>=20
+>+	setup_force_cpu_bug(X86_BUG_ECAM_MMIO);
+>+
+> 	/* Set ITLB_MULTIHIT bug if cpu is not in the whitelist and not mitigate=
+d */
+> 	if (!cpu_matches(cpu_vuln_whitelist, NO_ITLB_MULTIHIT) &&
+> 	    !(ia32_cap & ARCH_CAP_PSCHANGE_MC_NO))
+>diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+>index 02039ec3597d..8903776284a6 100644
+>--- a/arch/x86/kernel/cpu/vmware.c
+>+++ b/arch/x86/kernel/cpu/vmware.c
+>@@ -385,6 +385,8 @@ static void __init vmware_set_capabilities(void)
+> 		setup_force_cpu_cap(X86_FEATURE_VMCALL);
+> 	else if (vmware_hypercall_mode =3D=3D CPUID_VMWARE_FEATURES_ECX_VMMCALL)
+> 		setup_force_cpu_cap(X86_FEATURE_VMW_VMMCALL);
+>+
+>+	setup_clear_cpu_cap(X86_BUG_ECAM_MMIO);
+> }
+>=20
+> static void __init vmware_platform_setup(void)
+>diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
+>index ddb798603201..bc81cf4c1014 100644
+>--- a/arch/x86/pci/common.c
+>+++ b/arch/x86/pci/common.c
+>@@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_ops;
+> int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int devf=
+n,
+> 						int reg, int len, u32 *val)
+> {
+>-	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>+	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>+	    (boot_cpu_has_bug(X86_BUG_ECAM_MMIO) || !raw_pci_ext_ops))
+> 		return raw_pci_ops->read(domain, bus, devfn, reg, len, val);
+> 	if (raw_pci_ext_ops)
+> 		return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
+>@@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bus, =
+unsigned int devfn,
+> int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int dev=
+fn,
+> 						int reg, int len, u32 val)
+> {
+>-	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>+	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>+	    (boot_cpu_has_bug(X86_BUG_ECAM_MMIO) || !raw_pci_ext_ops))
+> 		return raw_pci_ops->write(domain, bus, devfn, reg, len, val);
+> 	if (raw_pci_ext_ops)
+> 		return raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
 
-Could this be ro_after_init?
+Also... any reason we can't just set raw_pci_ops =3D=3D raw_ext_pci_ops for=
+ the case when the latter is preferred, and dispense with the conditionals =
+in the use path? Similarly, raw_ext_pci_ops could be pointed to error routi=
+nes instead of left at NULL.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -280,4 +277,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/E522EECC-D20D-4A69-8A44-9CF2B36E2A29%40zytor.com.
+jailhouse-dev/42CFC548-F8FE-4BD9-89AB-198B2B3F1091%40zytor.com.
