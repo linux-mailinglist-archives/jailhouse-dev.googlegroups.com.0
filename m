@@ -1,233 +1,69 @@
-Return-Path: <jailhouse-dev+bncBDAYHZ5XUYJBB4P76GMQMGQEWCSBI7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC56TFN47MCRBWFN6SMQMGQEP3YUT6Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4129B5F4964
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Oct 2022 20:48:19 +0200 (CEST)
-Received: by mail-wm1-x33f.google.com with SMTP id i187-20020a1c3bc4000000b003be06269377sf325472wma.6
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Oct 2022 11:48:19 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1664909299; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Oqes3k2sY5OysdP1dP/n6WLpDkccn8O6ZF/KT1fHhrFnsqIEywjIAAoUE9RwCJ9R0l
-         UTEgR5ZRIpIWxAQO9Zs73epXM8A8nbvtHO9SCAyAwYghwuuBz5t4Ll7FLQRYY4+PDVqn
-         cT+fP/jWwOj+FX64E9pDjBJwa0zj0UVFoI/aCGeVGM9iU2BWgaG8Kv/+1STzyHi2lKtO
-         +hpAXVwILt/x+f0XVsGqGyFaPB3YHhqZXudwdEAbacCIqwxTI7AmdwqwgHEOeatwJx5I
-         sEHiVLxARSRMDqjIe3l1ZNXuuxbCooy5GPMPoz1AIUm1F3SbWKHP9p7drJyc54cxE2f3
-         dyog==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:mime-version
-         :content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=VS/Gw+lpZX6ePz5OLBYI2ULDS26YbZ9m0DTnprDsZL0=;
-        b=yOIi6ll5Cjd/Qm16xBrpaKXGQDQO1Cb7f/whup64Pn3jWRcoY5kQZQgFiA0lvh/8HU
-         gjDok7LTGDodOmxTnY+v5iKrG/tZPqxOcaSjtMr3scFlv8p5fY265DKqOLEe3qpxuR1k
-         aGUHyb93lLTPdLhVHCjAyul1TUHpOQOinUfaPgIDcnlzY7oOnGLVA3wUhbHaOEvNOt/e
-         zlCyMwHBuA6hQkDodwFeu2E/1DNHICSmkG0gFEYThHYXXxzMVmyjJks/mqNAjkCrtHdc
-         vyHkcVegANaytLR+rT5IJifE2mccwC8w/ch5bk8A27vHcB2wYAVXC5Z4pBATZX3x5h/0
-         /xGg==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@vmware.com header.s=selector2 header.b=1xYA4yuE;
-       arc=pass (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass fromdomain=vmware.com);
-       spf=pass (google.com: domain of namit@vmware.com designates 2a01:111:f403:c112:: as permitted sender) smtp.mailfrom=namit@vmware.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=vmware.com
+Received: from mail-qk1-x739.google.com (mail-qk1-x739.google.com [IPv6:2607:f8b0:4864:20::739])
+	by mail.lfdr.de (Postfix) with ESMTPS id 91A7F5F4F7B
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  5 Oct 2022 07:32:10 +0200 (CEST)
+Received: by mail-qk1-x739.google.com with SMTP id j13-20020a05620a288d00b006be7b2a758fsf13357437qkp.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Oct 2022 22:32:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to
-         :x-original-authentication-results:x-original-sender:mime-version
-         :content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:from:to:cc:subject:date;
-        bh=VS/Gw+lpZX6ePz5OLBYI2ULDS26YbZ9m0DTnprDsZL0=;
-        b=HFjURs/B57E7z1QfpVy3yJiDWBIzYPPOLvKP3Kzy5fHp1ajT95mdMqwqgLDFYDmTgB
-         dV6zZW9qZlqNdLdJxOPtDMo5myrsEQcggoGmSe8bq4/IgiI8gkKFNmS0sdnI27gkTUFg
-         ZReeTsjcJDKPWTVfeT2hxJyHvcZvYFCMIGXh71mHUPBmSi/qg9GqYIGNQhYgaQeOR/kW
-         Nnvmr4KQsH1D4KQw1UHlT0FnEDQy/poCQSxbCCL+DmEk/mkyO/AwV6yeFHZ25DCxLsDR
-         Xy9bpBZhDa15zD4HWevD6HeGaAmpauGIdWnBY/JUEmLJKfhQHjCwZFdr2gwLaNlr8j15
-         DdiA==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date;
+        bh=D3TWkmi48NXCR081DxZoe2jQ9+SRj/2BDYmqEb39quA=;
+        b=Pf/5GCXzrCZQiO420kS8VkiKlUfY9PH+62fdISdVuNrovjLVFmZHbBnBDcsfLpKEJP
+         EIFJPd1z4qTaIcfyA0wjPVtIyWRi/CdhtcrOMGszqV9MzNEcLpBprMPLls+H1x3VL5T6
+         OB75xjoem5YBqnDlfk3U/9CXkJI0l/YG53cBsOh8RskE6BXX3Aq3xXXV2wN8ARLTVrF/
+         I0rjxHZiVbmAv/TkEPYNphzvmiMavJ7rOwxrfIIZsoMAWht/mbJaWLv6VUma09k//Mbj
+         XbMnXTCcxeMuKNxPPAMqzSrfts1OKyZgde4fCQlvlJ/yGHeVqLT5TKtcsY2S8mnq8wV/
+         ltXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date;
+        bh=D3TWkmi48NXCR081DxZoe2jQ9+SRj/2BDYmqEb39quA=;
+        b=na4OsKsCrxrrU7U8Yu7g3NcenhbJe4sLYQsFX4Qq57Qmxmu+AICUPN4peRPLuXjtlk
+         d2P7CjrBg6QhIZRZIZb/bkHaud6HhMbCJAiSt1ieZqIMx5d6yKX1jgR4PihXYno2MdOc
+         gq8Pw6DZAeVQ+5nt02sGEBAT6wst77RNJs2rGBS2VX/qRW0LT1qoGnfPcjoSOW0b4NMl
+         mlQkuG3cIXiZogd+VzgxyOMj1VzXexHpnd1je5ncwteMG1ptKhMocy3Qx/4f7a56SXqX
+         4pT1JAUjvSdSOi+Pc3YmkKmayLYsjOqe+k3KmtbT848a3gzQpH8t2udHoiQB+Q67WOxf
+         Sl/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
-         :x-original-authentication-results:x-original-sender:mime-version
-         :content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=VS/Gw+lpZX6ePz5OLBYI2ULDS26YbZ9m0DTnprDsZL0=;
-        b=sFFmvhMQ+8wwVWqy16JsVVgP3Qv7Ki51p5WOvsmINnqydVHK3J5s+oNtR/UCnARJS1
-         yj+tybs7Re2bodIRUOwCn7UPr33/Cy/ccgQlReGSQF3A8obLpDEmqAzQtEIdezaAF0cZ
-         HkPWzaUlPRQtz+ih+TzcvLxX5PjR6gYM+wJ+IieQsM8oC6mUqFc3S8UNwUdo9pWUROZa
-         +2p5gzsaaZ12i2M7B1r/ozeB6pxPCKeJx3PgGChIhCSjpFtWPle0S1XT81Ti/iX+sO4u
-         l1uk1f73pCh5aon3MMNZHVK0Iq129QPVNNDRIm/a7BNI9KkKb9ln5AJrp2XG7KUfSil4
-         BThw==
-X-Gm-Message-State: ACrzQf0wDPxattnrGYduGyG3ejMRAdqysNCN9iyW1UfHw/g0MFSLGrLc
-	RNWnd2f6xZJW0ghMQBw7XEM=
-X-Google-Smtp-Source: AMsMyM5jnoIR89a1VOTsOYxHpnKWAoMKIruFTP+IV7ZCrQtfDhK9cI2Q36x08Uknq2CpLLVSPqTRbA==
-X-Received: by 2002:a5d:6c62:0:b0:22a:2f59:cb7d with SMTP id r2-20020a5d6c62000000b0022a2f59cb7dmr17210700wrz.405.1664909298671;
-        Tue, 04 Oct 2022 11:48:18 -0700 (PDT)
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-gm-message-state:sender:from:to:cc:subject:date;
+        bh=D3TWkmi48NXCR081DxZoe2jQ9+SRj/2BDYmqEb39quA=;
+        b=n8k8Ra28QqwmKUG34qn1IGpOp0TzE8a6DFS4JSjTQlhqQFxHArK3AyHOqZzJbXZ70v
+         CKj+YyTqIKf3IeaS5SDkJlWmb7jMffFOuhO86GjNIw/15sNmK4U9yRIzRsxNNEZF1AoN
+         LcWW7PIbMGwOKbLUiq0sX416pDqlDBfl3cyV4Ca7mycmExvlNEj8QSX5YYzwTOWVBe5m
+         8WzADxmkyldASvPcA/FjoDA82p/shT+QPx9k4lEqV6pT9cBvcr3u7z2HlzZf/Sf1IwiS
+         /XrLNqtxN7d/mryV7VNNJUD2JNJbZ/Ry7R3okIuiabjnynATYunBxu3CFG/vo9hVJ4Sd
+         Xltw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: ACrzQf2xTJkPbBqQw7W8j7WuV+oSRmIVyaSu60pJPbvZvRtPdc+Jbfqe
+	UxWdAyRcj4uwtwoULak8/V4=
+X-Google-Smtp-Source: AMsMyM6PozYEc72jSghJUMKIirP3ev5R/u9FiO7/rJ2ZAXvmgYouqXiWI234/PVSv9ouAn28r58HSQ==
+X-Received: by 2002:a0c:e552:0:b0:4b1:86f0:89d5 with SMTP id n18-20020a0ce552000000b004b186f089d5mr11234955qvm.97.1664947929246;
+        Tue, 04 Oct 2022 22:32:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:500a:b0:3a3:13cc:215 with SMTP id
- n10-20020a05600c500a00b003a313cc0215ls8440212wmr.3.-pod-canary-gmail; Tue, 04
- Oct 2022 11:48:16 -0700 (PDT)
-X-Received: by 2002:a1c:730e:0:b0:3b4:b0c0:d616 with SMTP id d14-20020a1c730e000000b003b4b0c0d616mr810400wmb.72.1664909296891;
-        Tue, 04 Oct 2022 11:48:16 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1664909296; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=nyFi2UWuufBDcnArqe0OT8naLrj0VEFdZVyVDYguCQyCfsRGTy5SeaHWxLgcC6YVAb
-         LuIY1iTd+BFeEoTPh25oXMzrFizrfVXwTUGcB0WykFLIEZSlfmBcYFjf+V1NokQkzj32
-         HdhuKB5VzVbSArd01VvppcRoWVAjQqVzEuh1KEFHH26irfrPNNenyKAG/b7lTlIHWMSs
-         sJzjWHeawSVeOcubpUxP0ad2eaeq7tXyCdfT6LRFUvnchsg3aVGRrbcF6kAjhrsdFESy
-         AQ1OKe5m/YBmscHxVjjRmsb0IDwPLqMuB3ljhNcs+tVCan2rdeb9YBjU/tRcSPhWTbWy
-         HmVw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-id:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:cc:to:from:dkim-signature;
-        bh=5LryRDm8y+65OMvtow/u/52xXaCbdUb7ljWmYRrN11k=;
-        b=xhY1GPrW898GB+PBs1Mpp3EYRynIDTv6uQ/lz2qLnDTLuMHqcC+RaCyRUB5y41HYZO
-         8BzGN+QJXm85EugcTk8Ady/Lzl0B93vI2rWczvvR0uUmtSXk4+7bCedrA7JXkTYLQpSU
-         Tx9YS5jYN9Lb1SbJdfF0BtKS8npoiM6UU/REpQFIFabg3WSNI6q7BBgthyX8Js8ftFxB
-         c2YRKTOnD/72vYUqIke3YLfKGI3Ih2u6wt499OBq1g1zUaJSDXjVrel1m+n6/a9LF0W/
-         vzLYSIQgi5A/ToR5H0TDJn1hKAmiu4/GBNsY81HmoW0mE97cMqH8OG79V2Yy2DJAERyR
-         fQ/w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@vmware.com header.s=selector2 header.b=1xYA4yuE;
-       arc=pass (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass fromdomain=vmware.com);
-       spf=pass (google.com: domain of namit@vmware.com designates 2a01:111:f403:c112:: as permitted sender) smtp.mailfrom=namit@vmware.com;
-       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=vmware.com
-Received: from na01-obe.outbound.protection.outlook.com (mail-westcentralusazlp170100000.outbound.protection.outlook.com. [2a01:111:f403:c112::])
-        by gmr-mx.google.com with ESMTPS id 125-20020a1c1983000000b003a66dd18895si142491wmz.4.2022.10.04.11.48.16
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 04 Oct 2022 11:48:16 -0700 (PDT)
-Received-SPF: pass (google.com: domain of namit@vmware.com designates 2a01:111:f403:c112:: as permitted sender) client-ip=2a01:111:f403:c112::;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=faXLpyR817QtBcFMKI0+xw3BvO3d9Ve+n3TqY+weBJyLPNH9dd8+4UFDqqmnEL7a/59jXuNGQV67t6uucgJcs/2reRrEiY/KNuNI5i7eXQ16q2g2IMPDI1QL5+45qZSKUzu1GWfn4TX+tQCBvEG4XwwLni7dbh4Vk++DeOIgScdGjBEea9sTExGIAEXUEOaXuepqdCaQ3TDq8voo5A456BBDoQKmjtnigrZqKCsfx6DzYk4cVVt+eaYcsEzy25xeO9fSCJwK2Fex3NX6AclOVfo5TxODuRwtMmZUAVYMX1cAknqS2aDJpuJwzL2nn2OjTxlt3xCqWhJM9G017JggHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5LryRDm8y+65OMvtow/u/52xXaCbdUb7ljWmYRrN11k=;
- b=OfaIQ5nFc6q2MHkmmYyc11nktToLIW+x3EkYoXIwzsj2S6lyz8VZrqXssXhFnF5mv04nSJ+W7nXUHYiCPGlveA5E62E7GKWTCRqy93Y1G8NPgEQEoeEgf6I5SbQJQKO/S99liw48Nns5IBwvYX+rasI8wxZbbV/jTkQ4a+1ntCmC09GZVtgFXfQ0+v3d7F+aYkA0qDFZCVdtBluHI6kTXQ9J3Ujim8/jwY5eG7KLfw3XOIqwknYRclh0oF7OkwdNaCglSYehwO6TuMIaC0QK1IJ75NA3zH4Jf5pArjxcIMPfFYzJTFKE6YEFIV4jh1PE+/H/SEjCiNCVmA57PqX31Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com (2603:10b6:a03:3ce::6)
- by DM6PR05MB6506.namprd05.prod.outlook.com (2603:10b6:5:126::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.3; Tue, 4 Oct
- 2022 18:48:11 +0000
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::942c:7d1b:6b3d:85b6]) by BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::942c:7d1b:6b3d:85b6%7]) with mapi id 15.20.5709.009; Tue, 4 Oct 2022
- 18:48:11 +0000
-From: "'Nadav Amit' via Jailhouse" <jailhouse-dev@googlegroups.com>
-To: Alexander Graf <graf@amazon.com>
-CC: Vitaly Kuznetsov <vkuznets@redhat.com>, Ajay Kaher <akaher@vmware.com>,
-	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>, Srivatsa Bhat
-	<srivatsab@vmware.com>, "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
-	Alexey Makhalov <amakhalov@vmware.com>, Vasavi Sirnapalli
-	<vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
-	<er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "jailhouse-dev@googlegroups.com"
-	<jailhouse-dev@googlegroups.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "helgaas@kernel.org" <helgaas@kernel.org>,
-	"bhelgaas@google.com" <bhelgaas@google.com>, Thomas Gleixner
-	<tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
-	<bp@alien8.de>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
-Thread-Topic: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
-Thread-Index: AQHYx28G+J2WSwxm3kmFzqoOhSDYUK3dXFQAgBj77YCABouGgIAAKhGAgAD4GgCAAK7iAA==
-Date: Tue, 4 Oct 2022 18:48:11 +0000
-Message-ID: <DF8775A4-5332-412C-9359-749E96E83907@vmware.com>
-References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
- <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
- <87tu4l9cfm.fsf@redhat.com> <04F550C5-786A-4B8E-9A88-EBFBD8872F16@vmware.com>
- <f1a7e603-2e64-fd2a-1100-f2898060e3f7@amazon.com>
-In-Reply-To: <f1a7e603-2e64-fd2a-1100-f2898060e3f7@amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR05MB8531:EE_|DM6PR05MB6506:EE_
-x-ms-office365-filtering-correlation-id: d5d88cfd-0020-437b-20fb-08daa638fcb5
-x-ld-processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yUkOPRZfOWa7TMe9u6E+zE8eWAgB2mNeP+wgcJ+/Yw9ueVfZK6haCABVNj/vlWESgQ4eUqw+gBq4/D3I0ECl3/9kPwrE/R8ubaNv0JiuN2XYndjJy65g9+3VptWD9iwh3zmgwOVoJYysoYXfdOLautz23qldH4Elu7+4raxobFBGQVVk/F71luw3XS8hAlaxfLaF8sn3ZAzb3MVxk0mBQVP+ojLI9FPovukpVSnMYyggXxFDHOhof8y2t0w12dmzRkGkBzfaInec/YW3e1HqN6B7wqeH3a6/tXYxW0GUuDOmhAfCWMK3ZLeRHKS/cW7EEUsnwpQWvGzzwtA6xrS+nZNLpOKpUrEepWOLB+ldYeWfp/bv6qBiOHFAjV2JQGOoeZH1cymF+T1GaUJxvzJ/MecexlUnoXjREwnIVQR0TK/76j/Gj+E8Mq+4OdYjDURF+xf9Ho4vXi3b2j82Xohu7KOWG33WBl70ThFfLXfdDNervkygUW68CDgaSDfKpL/ku3mtSkzxuDZm7nlsK3RSbXKvExPDs6nDo0X5joFgsAgxknPuHfwWwR05pSkoEdDX3twISc9yATqLn/8KJiXRV7k8T78I4PfwWTtCt3hGXRId9dEM0hUtPI0MeSbYmFG90mrTfDvaXJxoy36YR7FoA/Zb15prxv3Rg3Vh1GgtakcgP2kuu7OSWCNOu0SyD1YHdKPMNUbNsJ3L/+9hNJVwjmRSdICwh9Mj6y54Z3jDwvrctPKIsl7s4dAA7X/AKDSodGik0IHcOQ3u0OQEuLZwuX+ONuHm5TRWKWRZNhc1uqRuQZ5+gX4wE3xLo2PfpmJfC46sZ9UHTZLpB9KHRvz6EJyh3HEWw5TGKK3K6D0xpI/MYwYbMTx3+J4UlaaFJlkoDFlIuiBS8mCQmD8mtcCv8x/uW1O3bqqbnoHXaDMk+iUqqNwa8mRCx2AfmtyYsZ78
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR05MB8531.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(451199015)(2616005)(86362001)(186003)(66476007)(76116006)(66946007)(83380400001)(66446008)(64756008)(38100700002)(66556008)(38070700005)(71200400001)(54906003)(966005)(5660300002)(122000001)(478600001)(4326008)(7416002)(8676002)(41300700001)(8936002)(6916009)(26005)(53546011)(316002)(6512007)(36756003)(2906002)(6506007)(6486002)(33656002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UkRBVzVtb2cwWFN3ZXp2dnFYaWw2Qmw0L00zaDZFZDBHbjB5T0d1MStnZ1Nj?=
- =?utf-8?B?WkZKM3VqTDNrYW9wR3VGakFKNzhqejNNYmc1TmZ0NEwvRFlGTVpoUHp2UHJj?=
- =?utf-8?B?V3k0b2MyNEV3MXFBMGpJak5INnBjZzJFaTBvZWdOb2tGS3o5SjEyRmQ4cGtk?=
- =?utf-8?B?emF0TmlJSTVxam81VkVXbzdzbnJzV1VaS1FwSWFiNmdydHYwZ1ZvR2U2UXla?=
- =?utf-8?B?eTU2S0JCRTRTNkczRE1QamdhY0VGZWQ0T0p4U0dqUFBaemJQbWN4eXh3RmVB?=
- =?utf-8?B?TWR6Wis3QWJ6KzM3a1JTVFIvTUk4WGV2L0k2bTZYQXBtc1NBcHdQM2VaRFQy?=
- =?utf-8?B?VCszcks5dlpObmNDSXdrVXdiM2RNK2dud1BQZzZhd2NXZElLc2dSN201Rjgw?=
- =?utf-8?B?YWMyTHpQQ0c2RENBWFpodVVXODZYMUhhVkJqdmhpSnBqRUJsRWdCd3JZU1hH?=
- =?utf-8?B?ZTJUN2syZG1wbGhlYnQ1cXZTS3ZDOG5yQXFkTW9VcUd6WHUxbks3bTAzNHB1?=
- =?utf-8?B?SWJ3NlFEcU81KzJMb1J4b0J1bHo4SVh0N0dNNHIveVVmdU9KYTZMUXA2dTUv?=
- =?utf-8?B?QW1MWmY2d3dxOUcvanFWNUpUcXZRbFQwZi9SUExVZ09vN1VRTGQ4S091Z0dn?=
- =?utf-8?B?SllxVmlWRXJSKzErQjRCajRJMXFIRG5TcURGaGQ2dnZ3bUdpZmMvakVZeEJS?=
- =?utf-8?B?S1dIblNyR2RsQXN4TUZpb2xVRERtS0kxaGJOanJUaXJQaVJkT3VCaDExa0xa?=
- =?utf-8?B?TDgvTW9qZ0ZGditLcUpWd3hjQlR1QXRLKy9xMGJsMWNpK3NQL1lmMU5HektW?=
- =?utf-8?B?bDJYOFRhUXNEUWhxaisreGFtZk95bmNJelpyVnpIN2JzYnVlNDg1SFJ2d2lU?=
- =?utf-8?B?dmhYaDg3M0IxQ3drSXdXTU0zbFA0cjR2Y0wzem84S0tRYmZ0anF6YmlRSzB0?=
- =?utf-8?B?RXZ0YnNsVmQySnBzMU9WMXB5RzRQenAydVpTS2ZsWEIyNmovMUpIMVZiWnZK?=
- =?utf-8?B?dVBUOVgyUk5iTi9EejRTR0I3UzQxbGZTdVUybmNGUW9kMHorTFhWMEt5YUNL?=
- =?utf-8?B?eXdvbXhITC9GbDh2QVJOOXBiUXowSi8yM1cxYmdZSjV1cDFMM0V1Slc5M0d2?=
- =?utf-8?B?ekROVDF0MlRpcm03eTdVRThMTlAweUZSczN0TU5nNEpHUjVtNmNwZllWWVhR?=
- =?utf-8?B?a3JYZ3NJQzZ4Tml6TkFuYmhCZmJBV0hrelpIMUJWcm1uRWcrNjhqUmZNNFR1?=
- =?utf-8?B?Zzhhd0ZlUUhEbHlsVEcwanNVTVBZK0h0U1UxSFErS1dpQXhabVIzcTI1Tnkw?=
- =?utf-8?B?ZWd4VW1Bc21tbi9kdjN3dTRpcjZweFB6MXdSNC9oaU8zUFBzYVlmRDNVRS9o?=
- =?utf-8?B?NEtOR1lURThDRG1pMWZpS1gvMmRoYjJ2Uk9HcUluNnl3UkFZeDE4TCtqcHlM?=
- =?utf-8?B?NFR6TVZkczl6T0FmTnY4bWJQeTdUb1dUZW9ucTIwc21PTkppcDJ5emFWa1B2?=
- =?utf-8?B?M3piZExEM2g4b0dwUnRQR2hMc2pvU0FqQ3p3TW8zSC9LeFhla0RDZE1IbGt2?=
- =?utf-8?B?OHBmZ1F2My9Yem9pNFIwc1U3SlgwT1VuUGtqY3NXbGdBUTNhNG1FQmIyYkRX?=
- =?utf-8?B?RnJjYkRJang0QjJEYzJBTzBBdVo5Ky92eDJYRitwTVhxYkhVUGI3ZnhnVlJE?=
- =?utf-8?B?em81MDN3bGRyTWVUbUIyazF2dHB0N1ZqZy9pSytLeHRDWndNOEVwTGJGZlMr?=
- =?utf-8?B?V2p1VjVTdnEzMkJsOWl6K0ZpM0xvVlJpOWtFTTJxdUVhV1FDMjJHTlZSeXlU?=
- =?utf-8?B?K0tBZ1ptREJYVURRaXIrdG1PTFBSd0pQcWcxcTVXczR4K3FqcXlteHNsZk5E?=
- =?utf-8?B?V2JYOUxCSlJjeFhlaTBoOFpENTdLMXZkTjk5UHZINy80QVFCYzIxR2NIZE1K?=
- =?utf-8?B?YmJpRVMrRlNTWE5qVTh4S3U5VzI5TXZ3VHF1Vit2eUNIUFdDTTVoZkFYRTlY?=
- =?utf-8?B?MEhDQTVvY3d2Y2h4d3BBUXRzWXh2UDl4ak1BRVdCQk93UjZYNjRERmR1Z1VS?=
- =?utf-8?B?T04vL2hseHl5NS9JQVFYN0UvRmVwaDVyL3E0UURiWDdYa0FwbVduajc5NHFz?=
- =?utf-8?Q?304/N3MbaDAjuFkXfuYs4BRy/?=
-Content-Type: text/plain; charset="UTF-8"
-Content-ID: <4170C95495E7224CB50BF35570867FBA@namprd05.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Received: by 2002:a0c:ab88:0:b0:4af:9d10:e2a6 with SMTP id j8-20020a0cab88000000b004af9d10e2a6ls7710516qvb.3.-pod-prod-gmail;
+ Tue, 04 Oct 2022 22:32:08 -0700 (PDT)
+X-Received: by 2002:a05:6214:e4c:b0:4ac:f069:da4 with SMTP id o12-20020a0562140e4c00b004acf0690da4mr22413671qvc.80.1664947928055;
+        Tue, 04 Oct 2022 22:32:08 -0700 (PDT)
+Date: Tue, 4 Oct 2022 22:32:07 -0700 (PDT)
+From: Yi Zhang <zhangyi.hust@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <dae2bca3-ec45-401a-be76-61ad2e83130an@googlegroups.com>
+Subject: create_vpic_of_overlay() fails when of_property_read_u32(root,
+ "#address-cells")
 MIME-Version: 1.0
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR05MB8531.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5d88cfd-0020-437b-20fb-08daa638fcb5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Oct 2022 18:48:11.3829
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nQd9N0EHsEM5bd9MDUlqtEYo78OtJmXmyR3tvUaz61ImDGbTaqnPAv3ScHoCX7bPjEdaH6cWyMLxtcK1MqjfJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR05MB6506
-X-Original-Sender: namit@vmware.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@vmware.com header.s=selector2 header.b=1xYA4yuE;       arc=pass
- (i=1 spf=pass spfdomain=vmware.com dkim=pass dkdomain=vmware.com dmarc=pass
- fromdomain=vmware.com);       spf=pass (google.com: domain of
- namit@vmware.com designates 2a01:111:f403:c112:: as permitted sender)
- smtp.mailfrom=namit@vmware.com;       dmarc=pass (p=QUARANTINE sp=NONE
- dis=NONE) header.from=vmware.com
-X-Original-From: Nadav Amit <namit@vmware.com>
-Reply-To: Nadav Amit <namit@vmware.com>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_7422_124367082.1664947927280"
+X-Original-Sender: zhangyi.hust@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -240,126 +76,211 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On Oct 4, 2022, at 1:22 AM, Alexander Graf <graf@amazon.com> wrote:
+------=_Part_7422_124367082.1664947927280
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_7423_969602614.1664947927280"
 
-> =E2=9A=A0 External Email
->=20
-> Hey Nadav,
->=20
-> On 03.10.22 19:34, Nadav Amit wrote:
->> On Oct 3, 2022, at 8:03 AM, Vitaly Kuznetsov <vkuznets@redhat.com> wrote=
-:
->>=20
->>> Not my but rather PCI maintainer's call but IMHO dropping 'const' is
->>> better, introducing a new global var is our 'last resort' and should be
->>> avoided whenever possible. Alternatively, you can add a
->>> raw_pci_ext_ops_preferred() function checking somethin within 'struct
->>> hypervisor_x86' but I'm unsure if it's better.
->>>=20
->>> Also, please check Alex' question/suggestion.
->> Here is my take (and Ajay knows probably more than me):
->>=20
->> Looking briefly on MCFG, I do not see a clean way of using the ACPI tabl=
-e.
->> The two options are either to use a reserved field (which who knows, mig=
-ht
->> be used one day) or some OEM ID. I am also not familiar with
->> PCI_COMMAND.MEMORY=3D0, so Ajay can hopefully give some answer about tha=
-t.
->>=20
->> Anyhow, I understand (although not relate) to the objection for a new gl=
-obal
->> variable. How about explicitly calling this hardware bug a =E2=80=9Cbug=
-=E2=80=9D and using
->> the proper infrastructure? Calling it explicitly a bug may even push who=
-ever
->> can to resolve it.
->=20
->=20
-> I am a lot more concerned with how we propagate it externally than
-> within Linux. If we hard code that all Linux kernels 6.2+ that are
-> running in VMware prefer ECAM over PIO, we lock ourselves into that
-> stance for better or worse, which means:
->=20
-> * All past and future versions of any VMware hypervisor product have to
-> always allow ECAM access for any PCIe config space write
-> * No other hypervisor benefits from any of this without upstream code cha=
-nge
-> * No real hardware platform benefits from this without upstream code chan=
-ge
->=20
-> By moving it into MCFG, we can create a path for the outside environment
-> to tell the OS whether it's safe to use ECAM always. This obviously
-> doesn't work with MCFG as it stands today, we'd have to propose an MCFG
-> spec change to the PCI SIG's "PCI Firmware Specification" to add the
-> respective field. Future VMware versions could then always expose the
-> flag - and if you find it broken, remove it again.
->=20
-> Putting all of the logic on which system potentially prefers ECAM over
-> PIO config space access into Linux is just a big hack that we should
-> avoid as much as possible.
+------=_Part_7423_969602614.1664947927280
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks Alex. You raise important points. Let me try to break down your
-concerns slightly differently:
+Hi:
 
-1. Enabling MMIO access should be selective, and potentially controlled by
-the hypervisor. The very least a "chicken-bit=E2=80=9D is needed.
+I am trying to use jailhouse-master on Ultra96 board, but met the problem=
+=20
+as the title shows it:
 
-2. PCI SIG would change its specifications to address unclear hardware bug.
+My environment is as follows:
 
-I think (1) makes sense and we can discuss different ways of addressing it.
-But (2) would not happen in a reasonable timeline and seems to me as an
-unnecessary complication.
-
-But before we discuss how to address the issue, perhaps we need to first
-understand it better. I am not sure that I understand this MMIO bug, and so
-far nobody was able to provide exact details.
-
-So I went to have a look. It might not be super helpful, but for the record=
-,
-here is what I collected.
-
-First, we have commit d6ece5491ae71d ("i386/x86-64 Correct for broken MCFG
-tables on K8 systems=E2=80=9D). It tried to "try to discover all devices on=
- bus 0
-that are unreachable using MM and fallback for them.=E2=80=9D Interestingly=
-, it
-seems similar to FreeBSD code (commit 2d10570afe2b3e) that also mentions K8
-and has similar detection logic in FreeBSD=E2=80=99s pcie_cfgregopen().
-
-Then commit a0ca9909609470 ("PCI x86: always use conf1 to access config
-space below 256 bytes=E2=80=9D). The correspondence [1] mentions some bugs:=
- ATI
-chipset, VIA chipset, Intel 3 Series Express chipset family and some report=
-s
-on Nvidia. It turned out some devices had problem probing - to figure out i=
-f
-MMIO is broken - the way the previous patch did.
-
-All of these bugs are circa 2008, of course. And note that FreeBSD did not
-take a similar path. The correspondence around Linux patch is endless. I
-admit that I did not understand whether eventually the issues were found to
-be per-bus or per-device.
+1. *The kernel is 5.15_LTS* with the patches picked from=20
+jailhouse-enabling/5.15, exporting __hyp_stub_vectors,=20
+__get_vm_area_caller..;
+2. the command line is "earlycon console=3DttyPS0,115200 clk_ignore_unused=
+=20
+*mem=3D1536M* root=3D/dev/mmcblk0p2 rw rootwait cma=3D512M rfkill.default_s=
+tate=3D0"
+and the board has 2GB RAM;
+*# cat /proc/iomem:*
 
 
-Back to the matter at hand. The benefit of using the MCFG approach that you
-propose is that it can enable native systems to use MMIO as well. However,
-since the list of bugs is unclear and the problems might be device-specific=
-,
-it is not clear what information BIOSes have that Linux doesn=E2=80=99t. In=
- other
-words, the benefit of getting it into the specifications is questionable,
-and the complexity+time is high.
 
-Can we agree that the feature would be enabled explicitly by the hypervisor
-and Linux would enable it based on the hypervisor input (through some
-channel?)
 
-Thanks,
-Nadav
 
-[1] https://lore.kernel.org/all/20080112144030.GA19279@jurassic.park.msu.ru=
-/T/#u
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*00000000-3ecfffff : System RAM  00210000-0157ffff : Kernel code =20
+01580000-0179ffff : reserved  017a0000-0193ffff : Kernel data =20
+1ec00000-3ebfffff : reserved3ed00000-3ee47fff : reserved3ee48000-5fffffff :=
+=20
+System RAM  5e100000-5fbfffff : reserved  5fc60000-5fc60fff : reserved =20
+5fc61000-5fca8fff : reserved  5fcab000-5fcadfff : reserved =20
+5fcae000-5fcbefff : reserved  5fcbf000-5fffffff : reserveda0030000-a003ffff=
+=20
+: a0030000.gpio gpio@a0030000a0040000-a004ffff : a0040000.gpio=20
+gpio@a0040000a0050000-a005ffff : a0050000.gpio=20
+gpio@a0050000a0061000-a006ffff : seriala0071000-a007ffff :=20
+serialfd0b0000-fd0bffff : fd0b0000.perf-monitor=20
+perf-monitor@fd0b0000fd3d0000-fd3d0fff : fd400000.phy sioufd400000-fd43ffff=
+=20
+: fd400000.phy serdesfd490000-fd49ffff : fd490000.perf-monitor=20
+perf-monitor@fd490000fd4a0000-fd4a0fff : fd4a0000.display=20
+dpfd4aa000-fd4aafff : fd4a0000.display blendfd4ab000-fd4abfff :=20
+fd4a0000.display av_buffd4c0000-fd4c0fff : fd4c0000.dma-controller=20
+dma-controller@fd4c0000fd4d0000-fd4d0fff : fd4d0000.watchdog=20
+watchdog@fd4d0000fd500000-fd500fff : fd500000.dma-controller=20
+dma-controller@fd500000fd510000-fd510fff : fd510000.dma-controller=20
+dma-controller@fd510000fd520000-fd520fff : fd520000.dma-controller=20
+dma-controller@fd520000fd530000-fd530fff : fd530000.dma-controller=20
+dma-controller@fd530000fd540000-fd540fff : fd540000.dma-controller=20
+dma-controller@fd540000fd550000-fd550fff : fd550000.dma-controller=20
+dma-controller@fd550000fd560000-fd560fff : fd560000.dma-controller=20
+dma-controller@fd560000fd570000-fd570fff : fd570000.dma-controller=20
+dma-controller@fd570000fd6e9000-fd6edfff : fd6e9000.pmu=20
+pmu@9000fe20c100-fe23ffff : fe200000.usb usb@fe200000fe300000-fe307fff :=20
+usb@fe300000  fe300000-fe307fff : xhci-hcd.1.auto=20
+usb@fe300000fe30c100-fe33ffff : fe300000.usb usb@fe300000ff000000-ff000fff=
+=20
+: xuartpsff010000-ff010fff : xuartpsff030000-ff030fff : ff030000.i2c=20
+i2c@ff030000ff040000-ff040fff : ff040000.spi spi@ff040000ff050000-ff050fff=
+=20
+: ff050000.spi spi@ff050000ff0a0000-ff0a0fff : ff0a0000.gpio=20
+gpio@ff0a0000ff150000-ff150fff : ff150000.watchdog=20
+watchdog@ff150000ff160000-ff160fff : ff160000.mmc=20
+mmc@ff160000ff170000-ff170fff : ff170000.mmc mmc@ff170000ff960000-ff960fff=
+=20
+: ff960000.memory-controller memory-controller@ff960000ff9d0000-ff9d00ff :=
+=20
+ff9d0000.usb0 usb0@ff9d0000ff9e0000-ff9e00ff : ff9e0000.usb1=20
+usb1@ff9e0000ffa00000-ffa0ffff : ffa00000.perf-monitor=20
+perf-monitor@ffa00000ffa10000-ffa1ffff : ffa10000.perf-monitor=20
+perf-monitor@ffa10000ffa50000-ffa507ff : ffa50000.ams=20
+ams-baseffa60000-ffa600ff : ffa60000.rtc rtc@ffa60000ffa80000-ffa80fff :=20
+ffa80000.dma-controller dma-controller@ffa80000ffa90000-ffa90fff :=20
+ffa90000.dma-controller dma-controller@ffa90000ffaa0000-ffaa0fff :=20
+ffaa0000.dma-controller dma-controller@ffaa0000ffab0000-ffab0fff :=20
+ffab0000.dma-controller dma-controller@ffab0000ffac0000-ffac0fff :=20
+ffac0000.dma-controller dma-controller@ffac0000ffad0000-ffad0fff :=20
+ffad0000.dma-controller dma-controller@ffad0000ffae0000-ffae0fff :=20
+ffae0000.dma-controller dma-controller@ffae0000ffaf0000-ffaf0fff :=20
+ffaf0000.dma-controller dma-controller@ffaf0000*
+---
+The issue:
+
+*Everything seems OK until I tried to:*
+*# jailhouse enable ultra96.cell;*
+it fails with *"jailhouse: failed to add virtual host controller*";
+
+I did some debug=EF=BC=9A
+1. it fails in* of_property_read_u32(root, =E2=80=9C=E2=80=9D#address-cells=
+=E2=80=9D...) *when=20
+create_vpic_of_overlay(); though the previouse "of_find_node_by_path("/")"=
+=20
+successes.=20
+I checked the address of this "root", it is expected;=20
+even if I tried of_property_read_u32(of_root, "#address-cells"...), it=20
+still fails;
+2. I tried to dump the properity's name with the following kernel patch:
+
+
+
+
+
+
+
+
+
+
+
+
+*diff --git a/drivers/of/base.c b/drivers/of/base.cindex=20
+54719f8156ed..6dc7eb50bb11 100644--- a/drivers/of/base.c+++=20
+b/drivers/of/base.c@@ -198,6 +198,8 @@ static struct property=20
+*__of_find_property(const struct device_node *np,                return=20
+NULL;        for (pp =3D np->properties; pp; pp =3D pp->next) {+           =
+   =20
+if ((np =3D=3D of_root) && (strcmp(name, "#address-cells") =3D=3D 0))+     =
+       =20
+          pr_info("root node: name =3D %s\n", pp->name);                if=
+=20
+(of_prop_cmp(pp->name, name) =3D=3D 0) {                        if (lenp)  =
+   =20
+                          *lenp =3D pp->length;*
+
+before executing "*on_each_cpu(enter_hypervisor, header, 0)*", it is OK;
+
+* OF: root node: name =3D compatible OF: root node: name =3D #address-cells=
+*
+but with "on_each_cpu(entery_hypervisor, header, 0)", the log is as=20
+following:
+
+
+* OF: root node: name =3D  OF: root node: name =3D *
+* OF: root node: name =3D name*
+Seems the propery name is =E2=80=9Chidden=E2=80=9D by something(?)
+
+Could you please give me some advice on this=EF=BC=9Fwhat should I check ne=
+xt?
+Thank you very much
+
+
+*---*
+Yi Zhang
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -367,4 +288,115 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/DF8775A4-5332-412C-9359-749E96E83907%40vmware.com.
+jailhouse-dev/dae2bca3-ec45-401a-be76-61ad2e83130an%40googlegroups.com.
+
+------=_Part_7423_969602614.1664947927280
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi:<div><br></div><div>I am trying to use jailhouse-master on Ultra96 board=
+, but met the problem as the title shows it:</div><div><br></div><div>My en=
+vironment is as follows:</div><div><br></div><div>1. <b>The kernel is 5.15_=
+LTS</b> with the patches picked from jailhouse-enabling/5.15, exporting __h=
+yp_stub_vectors, __get_vm_area_caller..;</div><div>2. the command line is "=
+earlycon console=3DttyPS0,115200 clk_ignore_unused <b>mem=3D1536M</b> root=
+=3D/dev/mmcblk0p2 rw rootwait cma=3D512M rfkill.default_state=3D0"</div><di=
+v>and the board has 2GB RAM;</div><div><i># cat /proc/iomem:</i></div><div>=
+<i>00000000-3ecfffff : System RAM<br>&nbsp; 00210000-0157ffff : Kernel code=
+<br>&nbsp; 01580000-0179ffff : reserved<br>&nbsp; 017a0000-0193ffff : Kerne=
+l data<br>&nbsp; 1ec00000-3ebfffff : reserved<br>3ed00000-3ee47fff : reserv=
+ed<br>3ee48000-5fffffff : System RAM<br>&nbsp; 5e100000-5fbfffff : reserved=
+<br>&nbsp; 5fc60000-5fc60fff : reserved<br>&nbsp; 5fc61000-5fca8fff : reser=
+ved<br>&nbsp; 5fcab000-5fcadfff : reserved<br>&nbsp; 5fcae000-5fcbefff : re=
+served<br>&nbsp; 5fcbf000-5fffffff : reserved<br>a0030000-a003ffff : a00300=
+00.gpio gpio@a0030000<br>a0040000-a004ffff : a0040000.gpio gpio@a0040000<br=
+>a0050000-a005ffff : a0050000.gpio gpio@a0050000<br>a0061000-a006ffff : ser=
+ial<br>a0071000-a007ffff : serial<br>fd0b0000-fd0bffff : fd0b0000.perf-moni=
+tor perf-monitor@fd0b0000<br>fd3d0000-fd3d0fff : fd400000.phy siou<br>fd400=
+000-fd43ffff : fd400000.phy serdes<br>fd490000-fd49ffff : fd490000.perf-mon=
+itor perf-monitor@fd490000<br>fd4a0000-fd4a0fff : fd4a0000.display dp<br>fd=
+4aa000-fd4aafff : fd4a0000.display blend<br>fd4ab000-fd4abfff : fd4a0000.di=
+splay av_buf<br>fd4c0000-fd4c0fff : fd4c0000.dma-controller dma-controller@=
+fd4c0000<br>fd4d0000-fd4d0fff : fd4d0000.watchdog watchdog@fd4d0000<br>fd50=
+0000-fd500fff : fd500000.dma-controller dma-controller@fd500000<br>fd510000=
+-fd510fff : fd510000.dma-controller dma-controller@fd510000<br>fd520000-fd5=
+20fff : fd520000.dma-controller dma-controller@fd520000<br>fd530000-fd530ff=
+f : fd530000.dma-controller dma-controller@fd530000<br>fd540000-fd540fff : =
+fd540000.dma-controller dma-controller@fd540000<br>fd550000-fd550fff : fd55=
+0000.dma-controller dma-controller@fd550000<br>fd560000-fd560fff : fd560000=
+.dma-controller dma-controller@fd560000<br>fd570000-fd570fff : fd570000.dma=
+-controller dma-controller@fd570000<br>fd6e9000-fd6edfff : fd6e9000.pmu pmu=
+@9000<br>fe20c100-fe23ffff : fe200000.usb usb@fe200000<br>fe300000-fe307fff=
+ : usb@fe300000<br>&nbsp; fe300000-fe307fff : xhci-hcd.1.auto usb@fe300000<=
+br>fe30c100-fe33ffff : fe300000.usb usb@fe300000<br>ff000000-ff000fff : xua=
+rtps<br>ff010000-ff010fff : xuartps<br>ff030000-ff030fff : ff030000.i2c i2c=
+@ff030000<br>ff040000-ff040fff : ff040000.spi spi@ff040000<br>ff050000-ff05=
+0fff : ff050000.spi spi@ff050000<br>ff0a0000-ff0a0fff : ff0a0000.gpio gpio@=
+ff0a0000<br>ff150000-ff150fff : ff150000.watchdog watchdog@ff150000<br>ff16=
+0000-ff160fff : ff160000.mmc mmc@ff160000<br>ff170000-ff170fff : ff170000.m=
+mc mmc@ff170000<br>ff960000-ff960fff : ff960000.memory-controller memory-co=
+ntroller@ff960000<br>ff9d0000-ff9d00ff : ff9d0000.usb0 usb0@ff9d0000<br>ff9=
+e0000-ff9e00ff : ff9e0000.usb1 usb1@ff9e0000<br>ffa00000-ffa0ffff : ffa0000=
+0.perf-monitor perf-monitor@ffa00000<br>ffa10000-ffa1ffff : ffa10000.perf-m=
+onitor perf-monitor@ffa10000<br>ffa50000-ffa507ff : ffa50000.ams ams-base<b=
+r>ffa60000-ffa600ff : ffa60000.rtc rtc@ffa60000<br>ffa80000-ffa80fff : ffa8=
+0000.dma-controller dma-controller@ffa80000<br>ffa90000-ffa90fff : ffa90000=
+.dma-controller dma-controller@ffa90000<br>ffaa0000-ffaa0fff : ffaa0000.dma=
+-controller dma-controller@ffaa0000<br>ffab0000-ffab0fff : ffab0000.dma-con=
+troller dma-controller@ffab0000<br>ffac0000-ffac0fff : ffac0000.dma-control=
+ler dma-controller@ffac0000<br>ffad0000-ffad0fff : ffad0000.dma-controller =
+dma-controller@ffad0000<br>ffae0000-ffae0fff : ffae0000.dma-controller dma-=
+controller@ffae0000<br>ffaf0000-ffaf0fff : ffaf0000.dma-controller dma-cont=
+roller@ffaf0000</i><br></div><div>---</div><div>The issue:</div><div><br></=
+div><div><b>Everything seems OK until I tried to:</b></div><div><b># jailho=
+use enable ultra96.cell;</b></div><div>it fails with <b>"jailhouse: failed =
+to add virtual host controller</b>";</div><div><br></div><div>I did some de=
+bug=EF=BC=9A</div><div>1. it fails in<b> of_property_read_u32(root, =E2=80=
+=9C=E2=80=9D#address-cells=E2=80=9D...) </b>when create_vpic_of_overlay(); =
+though the previouse "of_find_node_by_path("/")" successes.&nbsp;</div><div=
+>I checked the address of this "root", it is expected;&nbsp;</div><div>even=
+ if I tried of_property_read_u32(of_root, "#address-cells"...), it still fa=
+ils;</div><div>2. I tried to dump the properity's name with the following k=
+ernel patch:</div><div><i>diff --git a/drivers/of/base.c b/drivers/of/base.=
+c<br>index 54719f8156ed..6dc7eb50bb11 100644<br>--- a/drivers/of/base.c<br>=
++++ b/drivers/of/base.c<br>@@ -198,6 +198,8 @@ static struct property *__of=
+_find_property(const struct device_node *np,<br>&nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; return NULL;<br><br>&nbsp; &nbsp; &nbsp; &nbsp=
+; for (pp =3D np-&gt;properties; pp; pp =3D pp-&gt;next) {<br>+ &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if ((np =3D=3D of_root) &amp;&amp; (s=
+trcmp(name, "#address-cells") =3D=3D 0))<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pr_info("root node: name =
+=3D %s\n", pp-&gt;name);<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; if (of_prop_cmp(pp-&gt;name, name) =3D=3D 0) {<br>&nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (len=
+p)<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *lenp =3D pp-&gt;length;</i><br>=
+</div><div><br></div><div>before executing "<b>on_each_cpu(enter_hypervisor=
+, header, 0)</b>", it is OK;</div><div><i>&nbsp;<b>OF: root node: name =3D =
+compatible<br>&nbsp;OF: root node: name =3D #address-cells</b></i><br></div=
+><div>but with "on_each_cpu(entery_hypervisor, header, 0)", the log is as f=
+ollowing:</div><div><b><i>&nbsp;OF: root node: name =3D&nbsp;<br>&nbsp;OF: =
+root node: name =3D&nbsp;</i><br></b></div><div><i><b>&nbsp;OF: root node: =
+name =3D name</b></i></div><div>Seems the propery name is =E2=80=9Chidden=
+=E2=80=9D by something(?)</div><div><i><br></i></div><div>Could you please =
+give me some advice on this=EF=BC=9Fwhat should I check next?</div><div>Tha=
+nk you very much<br><i><br></i></div><div><i><br></i></div><div><i>---</i><=
+/div><div>Yi Zhang</div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/dae2bca3-ec45-401a-be76-61ad2e83130an%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/dae2bca3-ec45-401a-be76-61ad2e83130an%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_7423_969602614.1664947927280--
+
+------=_Part_7422_124367082.1664947927280--
