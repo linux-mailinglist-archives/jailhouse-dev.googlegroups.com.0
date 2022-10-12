@@ -1,149 +1,135 @@
-Return-Path: <jailhouse-dev+bncBDB3VRMVXIPRBFFZTONAMGQEH2RUJPY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP4ZTXNRIFBBCWGTONAMGQER5DUO3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 395965FC85E
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Oct 2022 17:26:13 +0200 (CEST)
-Received: by mail-wm1-x33a.google.com with SMTP id k38-20020a05600c1ca600b003b49a809168sf1283071wms.5
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Oct 2022 08:26:13 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1665588372; cv=pass;
+Received: from mail-lj1-x23f.google.com (mail-lj1-x23f.google.com [IPv6:2a00:1450:4864:20::23f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F45E5FC8BE
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Oct 2022 17:53:48 +0200 (CEST)
+Received: by mail-lj1-x23f.google.com with SMTP id l11-20020a2e700b000000b0026e280dcdb7sf5877312ljc.8
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Oct 2022 08:53:48 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1665590028; cv=pass;
         d=google.com; s=arc-20160816;
-        b=m3KK1cR/ddt72EtGg1t3SQzgQN7audEQ/rwiX2imvc/PXTVqgaS5jZp2g67NwXZkcK
-         CRwpMGnrSSdW0x51Vqw9V3c9Sb86/4n3U/TmFXIv8BT23CznhlDuVfHhT/w6n9Zu9IDD
-         K6PdNYN+Aguf05X7W69D5ifwc9OrtLKHxQ3r3OeWif7YaDUtYL5EnvPogP5m8yIIsaXv
-         sqFN+p8auVAatdsU37D9JIUj7HDBe9y4XePTXzCJ5Ri3s0tUuL8N7jI0sVeWGAQfS+7D
-         9JgHKbCJeYL7MotgI/8uIXfZ01mJyQduEnHWbFzic19B0/OHpyn6K2E/9HWaDpTDM7Ab
-         Fzag==
+        b=w0Sno9qhHt3A7lW55MYa3UYEZBU4gn0ZOMbF2LeIGa6JR7pJ24/eCP8PD0JdOr8Sig
+         XyUrvQu0O8Wq2YZeCWvv42BAEuagti/EOr1lcdqnjJzVQaiQD0MJUA7utjI13+u5fBNs
+         52gWuGrAk5QKs5UG5cMbOIXqka1hM8w/0/wEBQcmm5QFYVxJk0dYfrYzKp8dpg8KRRrc
+         uEW3vtHUnWI1ogYh1VnfxIbYmjCgJf0lOmyZduJn1e5S0FPrza/3rLk8dEqcqseNQJOQ
+         +g/EhBbyaj6y2nFodOhm7zzb7kazLp9etJCRoR40MniMii4JAtLYCWRpdG/UXV8Ie72b
+         AICw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:in-reply-to:from
-         :references:cc:to:content-language:subject:user-agent:mime-version
-         :date:message-id:dkim-signature;
-        bh=d8dQA7LHDGmwtSLNt1WswcvFGXc8gkLP+m7UAeniRZo=;
-        b=m//yGnzP+3hSvDji5lPEjCxPHQzH2WknTIp/eqNJSGoSGeZjSVqm9SLfstpxOjMz32
-         RHZOpy+dgsxoHkzR1F6eBXwWTvmX4LaV2GPASdlyepLK1kT3+w02+ZsA0j5b1ySDJYwn
-         4tyahwLoQ/o+MUvTB1Bxwo7c79LLptoELh2dmSvnrPx0zQTIuadi5rEQylcIXt7HGDAU
-         6LGdzF1eOCuijAyxCEKCqCIS31oEGCysxPeubTlADRq/DRS2XIFBP9n+4vsWJIKZDpOt
-         1zUPLs7lW7/xqT9SBsFKDkIZkMQleEIB/uk/IDHUmKKPNutu7dSR4g9acFHs7ritt1no
-         Igig==
+         :list-id:mailing-list:precedence:in-reply-to
+         :content-transfer-encoding:content-disposition:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:dkim-signature;
+        bh=toIp9k9Lio+q7D7zMyRs9FYm+/MOFYUhSjVccoxBsqk=;
+        b=Q8dQ2SX96SWLqhPfnUQaRjIAaLUtaQrWHQkciz2hsXT+WcN9MTq2t4J9gz1+xlY87c
+         wGUvCxdm7RNRAW/ck6BBUx3gpPi+YeVXc8nb5xmLUunT1/msxWGfXP9Uzsx5TzSrNXqb
+         aAF9cmxgVEQncPUYftij0FFAbzfmbHf0N+ckX2b4U/Fd326WcdHD3Y4F98JWDJd30aZR
+         H0jfjlVaj6LQ0OeANq95UsWTFv+ceXE3cd0BFXL5SPsZo34wdfol+aPXV5hXcoXhTvIr
+         0/Ea0LduRvaeSKJTolpr/Jqr+bB+bCBOO+R/8mic7/6Z46b1Cu6gk0srhXeuZJCA8Knu
+         h1UA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@suse.com header.s=susede1 header.b=PTiQWe3U;
-       spf=pass (google.com: domain of jgross@suse.com designates 195.135.220.28 as permitted sender) smtp.mailfrom=jgross@suse.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=suse.com
+       dkim=pass header.i=@alien8.de header.s=dkim header.b=nYK7i3Nz;
+       spf=pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) smtp.mailfrom=bp@alien8.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=alien8.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:references:cc:to:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=d8dQA7LHDGmwtSLNt1WswcvFGXc8gkLP+m7UAeniRZo=;
-        b=Awmj24peYmOXzApNNMLvfcSOUj/kZ7W/lAp852lRqmmxGsSNqxqVi5YPOhOJ38d/PM
-         ltY5o8fAmDOb1P1FB763Vi9DxS3O2HbZrXW8WoChfi6dlaCRSqSWsLUrlW3ULpsR0ljb
-         PPQsowp5VdUSvZJGRdv/lm6fowci1KWBjPe68yl5aK4rDlaCgnyb3jr3fV6+sfnD3jUF
-         ZW3sdHbAe4JwVGCfCs3OMql/K52wH3wnhz6db4PoAXhmDs21sPaxclhgyFX542k0Bvu3
-         XCFG6Q7hoMKHyc9vIqWoRHkSWMMrHzhdUXN++AsJwbS/BXA/mVrx0J/YTTBegkmjRmYm
-         TYMg==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:in-reply-to:content-transfer-encoding
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=toIp9k9Lio+q7D7zMyRs9FYm+/MOFYUhSjVccoxBsqk=;
+        b=ORsBdu6SowWRWQVOWN5ze3f2y1b20XuyOM2Yebj2BCbfjJ+iGZB8b8aIyXa53+O+Sz
+         BjaRnb+DaO/hXFT3qTkYpY+Nz65+MHAecqhQV6/Cg1YdIJP88DlmpKw3qcnRwIia/EHD
+         3BhBgF0Rm7rzMAlaO3zft2eP8/8yHLZNSVJT60kHeF/vEOwYh+pYkx0JN5IB/kwSp1/6
+         ernAJlNO1HZs7H20BUd+SRMvuGNQPhYRMFu+n1cFIfUoPi/geSw72IdewGsV+MfSJGlG
+         Ebtq0XoF7ThZlOXh0mt9lPlRwRd2TyNffyUfW/lrqvYsP4dPPPPELzuLjmqzDg7+3YOd
+         Mwuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:references:cc:to:content-language:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=d8dQA7LHDGmwtSLNt1WswcvFGXc8gkLP+m7UAeniRZo=;
-        b=NvUxkFyxnCwNtKTWIrxgQRdtC8Oxss1wh/Po6MaSntjoM07bMxDgx251eb85cCQMxK
-         SvZnhFLm2SekG7yLuA2njKZokQUwVfz+TqD89k7QZhdxGCD1W/KxkNSK9SGAn1v8MDl0
-         8QdDGAUnQfmvN+PkONQ9Ci42Z+6/8aGIXIr8Du+82FTD86ayWy687Fb0oFUf+Dl8rPPk
-         hKbX3Lu5bB7oYdSVmhUaj+z7mASTzBTWSZYCf8CvXpyfbsBfxZSrCX0z7ypeRj7Lju4J
-         av6TSaW2sK31E7FcBUFEd4wZSgUt05rvwW0tDmI09vL0WoI+hr+cEOaMAoY/N5K7IJoX
-         fB+Q==
-X-Gm-Message-State: ACrzQf1pvbePij6YhKBismYQ5ZuTj+brZo1rZAYQBowcgENAQOpYc2BW
-	J8dU00D3bsQ2J7qI/U6AgnQ=
-X-Google-Smtp-Source: AMsMyM7/b0BoDoShw6Gw1jF9qjY8ZXX+qqNQg0isYY9X7HHukh+51lUOwzxxoxsHnAjNvrZAryn8CQ==
-X-Received: by 2002:a05:600c:a46:b0:3b9:9b97:9304 with SMTP id c6-20020a05600c0a4600b003b99b979304mr3172187wmq.34.1665588372553;
-        Wed, 12 Oct 2022 08:26:12 -0700 (PDT)
+         :content-transfer-encoding:content-disposition:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-message-state
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=toIp9k9Lio+q7D7zMyRs9FYm+/MOFYUhSjVccoxBsqk=;
+        b=fC5LerrvbV9+cM/63hwzso6TOtPnMxjSLVHDihFp6ExVb4NrJyX/caFWNp2eKITvjB
+         sC4ml0tuwzaklljWJjPLA0PBP+cuGRy2atwXDXxZwsPgEaMZKTzI7EJeQWcVb6N94/OI
+         TTFTo1/xc3IgeTPtffQBmqsDDgv6w0QQFwfcMvSllFa+z9ogMOey9rZZ1NsMHpOXtU1y
+         ZSOUJJlMRsXstAE8JJV6zNV1bccHWM/9Prdu+4/kb3yoRNXgQfl3sttdvs4b8OcMn17L
+         YGt3nt90UZnS36A7hP4JcpG9rl917lWXn6mD/N718Sn5n1Rvz6Dl0q82JknDfwJWL2/R
+         Fc6Q==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: ACrzQf2A8482FsQpByB6TZJgeibkjxiPypOfFL80x87eqKxj7oDaACx9
+	AoXVxi3DxaWfG5iVDJgJc/s=
+X-Google-Smtp-Source: AMsMyM6acfpv+7SyUj6uw/ityTxOL5VhdC7bGCZMUS+/sOe3QWUZgLiAJEw6HKy80dXoaPVwTK/yYw==
+X-Received: by 2002:a2e:bc24:0:b0:26f:a6f1:e8ca with SMTP id b36-20020a2ebc24000000b0026fa6f1e8camr6639844ljf.249.1665590027764;
+        Wed, 12 Oct 2022 08:53:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a7b:c458:0:b0:3c6:c1ff:1fd with SMTP id l24-20020a7bc458000000b003c6c1ff01fdls1168582wmi.2.-pod-canary-gmail;
- Wed, 12 Oct 2022 08:26:11 -0700 (PDT)
-X-Received: by 2002:a05:600c:548a:b0:3c6:b8c5:ba49 with SMTP id iv10-20020a05600c548a00b003c6b8c5ba49mr3105237wmb.178.1665588371120;
-        Wed, 12 Oct 2022 08:26:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1665588371; cv=none;
+Received: by 2002:a2e:9444:0:b0:26b:ff81:b7cb with SMTP id o4-20020a2e9444000000b0026bff81b7cbls3382775ljh.6.-pod-prod-gmail;
+ Wed, 12 Oct 2022 08:53:46 -0700 (PDT)
+X-Received: by 2002:a2e:1606:0:b0:26e:54a:ddca with SMTP id w6-20020a2e1606000000b0026e054addcamr11801619ljd.478.1665590026069;
+        Wed, 12 Oct 2022 08:53:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1665590026; cv=none;
         d=google.com; s=arc-20160816;
-        b=MrvrCAfZmOJslsVxlsGC8KeBWPhF6EU1V1pMqg7PCws3Tr0X+lqzt+1hqVNq70y7rz
-         K/N+nawApnU3dl/udOhey8I5mFoswiP1BkF/QUTF9iexKDFzLgZalTSciYrIOkRgpTOG
-         0584nwkPEHEUxGXKGHdORli8K24IzBmWufgwenLAm6OOGTd7P50jMhLU32aJKhVCjEm0
-         ET93wZkCEHEXolmIearFY3XQmTTjOqeUcU+P91Cl+P9pSvvn+/XuVLbADYrEnJ8bQjKX
-         Mype2/sW2XUVULOXup8xTlYpXiNjcS4nPmQ8QUaKBBrrA6ZfvPmGgJdNeGGdp6vAxSDh
-         4gyA==
+        b=mk6F0CCAzaD71cKEHgYqTQweGjlAuGzPecS0XZsJeL7AoYH8KvkSYtdLq//qcE7+zy
+         BOiUXHf3c8ztzc2HMbVVU+nKFGsxXGUq0yor8IoYDvXALmKMkftV+1THiFOZ/Kkm/Nnm
+         SwvdhLHp4bfbG0MY3+l7Erm13nK6/kHeoia9eFv0scpyaMI2MKJwwx1McC8MOVsNShgg
+         gb5xMkKDcUjD9c3x35ORjEUVa1On1nEvx8zqKch7FHdsLUSf9f5nOjETaBB5w373MaDp
+         VkKPSLouNoiDjBh4Vj0aG+y3d1BxxXl4YH9b2zAV09Lamqi/0HY71H7s7uJFNHiQ687/
+         hCGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:dkim-signature;
-        bh=W22no4UHHSLq7kZ7HGvm7b6REa1W65pcxdWLEl8piKk=;
-        b=K/FatgyL0g2wOOtKAY/iUOnjDSKi7urZO2Uq0a/1dWzBdXBeoLAU3hUzPuDGKyKYJZ
-         iMlwM7UBpBW1w+ob/DxSYu92oWPbBoIzBtg5D7ojplwJ7DuoG122IRzKg7kswHfuaJjo
-         u+x6WkTR2u0WF1WDC6MT43CkY5J72JFRizRFq0ztLTofheK3tFgZw9my84m7g62DHYxB
-         LgfrB0x9qR3t8vzhGSwxSFfezOeicRWhFCOrSQ+FFTViZLYo5190aXRRKRlmAjwDHKhK
-         7PJHycANfoDLNY55hEBaySAEHmzVHwLkV57tGAvIbc/Ro07i9DaCo3cCeX4gUvCbvZtZ
-         M9lg==
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :dkim-signature;
+        bh=n37CuGT72/BdjSCMX/SbC87AZ3K1N+NFaoL8bgbkin4=;
+        b=dhPouK306cSZtqPjVa1zR587SY71Y0rZrvXrvCF/XYKndKPqCPKzhvXjrrtqRT0YMa
+         bYq342On6DQcjtpXCv4euNkjrutg1Ec09PS7/ov2EYuFWrP5JPPIAxgIzvhbtRlqh41k
+         tzDRLtjmk11OH54VSKEzXuO3FHSGfj+KhoEpwyYQSdVN+NT4Cv6tb8zb8gq/iOGPuz2E
+         jxZvGvrYJGO9MtXcF20G0JnxgDxb3VCB/4wHOjLkf0HBzRYAFHAeeLU7I3/GXxIPvrSy
+         NMspgBb7iFrvWqIPNPG7WFmueRMKDGcr+9V0kJfdd9q6Vd+HniLTips4oaFkQtTmD7Xb
+         8OHQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@suse.com header.s=susede1 header.b=PTiQWe3U;
-       spf=pass (google.com: domain of jgross@suse.com designates 195.135.220.28 as permitted sender) smtp.mailfrom=jgross@suse.com;
-       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=suse.com
-Received: from smtp-out1.suse.de (smtp-out1.suse.de. [195.135.220.28])
-        by gmr-mx.google.com with ESMTPS id d14-20020a05600c3ace00b003c46c479be1si183567wms.0.2022.10.12.08.26.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Oct 2022 08:26:11 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jgross@suse.com designates 195.135.220.28 as permitted sender) client-ip=195.135.220.28;
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+       dkim=pass header.i=@alien8.de header.s=dkim header.b=nYK7i3Nz;
+       spf=pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) smtp.mailfrom=bp@alien8.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=alien8.de
+Received: from mail.skyhub.de (mail.skyhub.de. [5.9.137.197])
+        by gmr-mx.google.com with ESMTPS id t12-20020a056512068c00b0048b38f379d7si435312lfe.0.2022.10.12.08.53.45
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 12 Oct 2022 08:53:45 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) client-ip=5.9.137.197;
+Received: from zn.tnic (p200300ea9733e705329c23fffea6a903.dip0.t-ipconnect.de [IPv6:2003:ea:9733:e705:329c:23ff:fea6:a903])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B422221C52;
-	Wed, 12 Oct 2022 15:26:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 384FE13ACD;
-	Wed, 12 Oct 2022 15:26:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id oA0CDJLcRmMMQQAAMHmgww
-	(envelope-from <jgross@suse.com>); Wed, 12 Oct 2022 15:26:10 +0000
-Message-ID: <9fcdf79b-8956-b976-704a-3018542cc557@suse.com>
-Date: Wed, 12 Oct 2022 17:26:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 1/2] x86: Check return values from early_memremap calls
-Content-Language: en-US
-To: Ross Philipson <ross.philipson@oracle.com>, Borislav Petkov <bp@alien8.de>
+	by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 124591EC0725;
+	Wed, 12 Oct 2022 17:53:41 +0200 (CEST)
+Date: Wed, 12 Oct 2022 17:53:40 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Ross Philipson <ross.philipson@oracle.com>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- dpsmith@apertussolutions.com, tglx@linutronix.de, mingo@redhat.com,
- hpa@zytor.com, luto@amacapital.net, dave.hansen@linux.intel.com,
- kanth.ghatraju@oracle.com, trenchboot-devel@googlegroups.com,
- Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+	dpsmith@apertussolutions.com, tglx@linutronix.de, mingo@redhat.com,
+	hpa@zytor.com, luto@amacapital.net, dave.hansen@linux.intel.com,
+	kanth.ghatraju@oracle.com, trenchboot-devel@googlegroups.com,
+	Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com,
+	xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/2] x86: Check return values from early_memremap calls
+Message-ID: <Y0bjBP6/Eyg8B25k@zn.tnic>
 References: <1650035401-22855-1-git-send-email-ross.philipson@oracle.com>
  <1650035401-22855-2-git-send-email-ross.philipson@oracle.com>
  <Y0GTUg1ACpKZYMHY@nazgul.tnic>
  <201850b3-5126-cd79-637f-79f198dd409d@oracle.com>
-From: "'Juergen Gross' via Jailhouse" <jailhouse-dev@googlegroups.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 In-Reply-To: <201850b3-5126-cd79-637f-79f198dd409d@oracle.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0IevKUioMcP602uAHkVuaiL3"
-X-Original-Sender: jgross@suse.com
+X-Original-Sender: bp@alien8.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@suse.com header.s=susede1 header.b=PTiQWe3U;       spf=pass
- (google.com: domain of jgross@suse.com designates 195.135.220.28 as permitted
- sender) smtp.mailfrom=jgross@suse.com;       dmarc=pass (p=QUARANTINE
- sp=QUARANTINE dis=NONE) header.from=suse.com
-X-Original-From: Juergen Gross <jgross@suse.com>
-Reply-To: Juergen Gross <jgross@suse.com>
+ header.i=@alien8.de header.s=dkim header.b=nYK7i3Nz;       spf=pass
+ (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted
+ sender) smtp.mailfrom=bp@alien8.de;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=alien8.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -156,93 +142,40 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0IevKUioMcP602uAHkVuaiL3
-Content-Type: multipart/mixed; boundary="------------oasnLHEdbuwWbRHotwxlosfR";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Ross Philipson <ross.philipson@oracle.com>, Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- dpsmith@apertussolutions.com, tglx@linutronix.de, mingo@redhat.com,
- hpa@zytor.com, luto@amacapital.net, dave.hansen@linux.intel.com,
- kanth.ghatraju@oracle.com, trenchboot-devel@googlegroups.com,
- Jan Kiszka <jan.kiszka@siemens.com>, jailhouse-dev@googlegroups.com,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9fcdf79b-8956-b976-704a-3018542cc557@suse.com>
-Subject: Re: [PATCH 1/2] x86: Check return values from early_memremap calls
-References: <1650035401-22855-1-git-send-email-ross.philipson@oracle.com>
- <1650035401-22855-2-git-send-email-ross.philipson@oracle.com>
- <Y0GTUg1ACpKZYMHY@nazgul.tnic>
- <201850b3-5126-cd79-637f-79f198dd409d@oracle.com>
-In-Reply-To: <201850b3-5126-cd79-637f-79f198dd409d@oracle.com>
-
---------------oasnLHEdbuwWbRHotwxlosfR
-Content-Type: multipart/mixed; boundary="------------3wZ5tZFbtS6PNsirNBDZ207T"
-
---------------3wZ5tZFbtS6PNsirNBDZ207T
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 12.10.22 17:13, Ross Philipson wrote:
-> On 10/8/22 11:12, Borislav Petkov wrote:
->> Adding Xen and Jailhouse people and MLs to Cc.
->>
->> Folks, thread starts here:
->>
->> https://lore.kernel.org/r/1650035401-22855-1-git-send-email-ross.philips=
-on@oracle.com
->>
->> On Fri, Apr 15, 2022 at 11:10:00AM -0400, Ross Philipson wrote:
->>> There are a number of places where early_memremap is called
->>> but the return pointer is not checked for NULL. The call
->>> can result in a NULL being returned so the checks must
->>> be added.
->>>
->>> Signed-off-by: Ross Philipson <ross.philipson@oracle.com>
->>> ---
->>> =C2=A0 arch/x86/kernel/devicetree.c | 10 ++++++++++
->>> =C2=A0 arch/x86/kernel/e820.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 5 +++++
->>> =C2=A0 arch/x86/kernel/jailhouse.c=C2=A0 |=C2=A0 6 ++++++
->>> =C2=A0 arch/x86/kernel/mpparse.c=C2=A0=C2=A0=C2=A0 | 23 +++++++++++++++=
-++++++++
->>> =C2=A0 arch/x86/kernel/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 =
-+++++
->>> =C2=A0 arch/x86/xen/enlighten_hvm.c |=C2=A0 2 ++
->>> =C2=A0 arch/x86/xen/mmu_pv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0 8 ++++++++
->>> =C2=A0 arch/x86/xen/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 2 ++
->>> =C2=A0 8 files changed, 61 insertions(+)
->>
->> Ok, a couple of notes:
->>
->> 1. the pr_*("<prefix>:" ... )
->>
->> thing is done using pr_fmt() - grep the tree for examples.
->=20
+On Wed, Oct 12, 2022 at 11:13:20AM -0400, Ross Philipson wrote:
 > I am already using the pr_* macros in the patches. Are you asking me to d=
-o=20
-> something or is this just informational?
->=20
->>
->> 2. I think you should not panic() the machine but issue a the
->> warning/error and let the machine die a painful death anyway. But Xen
->> folks will know better what would be the optimal thing to do.
->=20
-> When I was working on the patches I asked Andrew Cooper at Citrix what ac=
-tion I=20
-> should take if any of the calls in the Xen code failed. I believe he told=
- me it=20
-> was basically fatal and that panic() would be fine there.
+o
+> something
 
-panic() is the way to go. Everything else would make the error harder
-to analyze.
+Yes. You do
 
-BTW, CC-ing the maintainers of the modified code is good practice.
+pr_X("prefix_string: msg"
 
+while you should set the prefix string and do
 
-Juergen
+pr_X("msg".
+
+As said, grep the tree for examples where pr_fmt() is set.
+arch/x86/kernel/cpu/bugs.c is a good example.
+
+> When I was working on the patches I asked Andrew Cooper at Citrix what
+> action I should take if any of the calls in the Xen code failed. I
+> believe he told me it was basically fatal and that panic() would be
+> fine there.
+
+Yes, that should be confirmed by people who know the code and you should
+mention in the commit message at least that panicking is the only viable
+thing to do in the respective case. If, as J=C3=BCrgen says, it is actually
+better to panic() in those cases, especially if it otherwise would make
+debugging harder, then sure, by all means.
+
+Thx.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -250,84 +183,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/9fcdf79b-8956-b976-704a-3018542cc557%40suse.com.
-
---------------3wZ5tZFbtS6PNsirNBDZ207T
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------3wZ5tZFbtS6PNsirNBDZ207T--
-
---------------oasnLHEdbuwWbRHotwxlosfR--
-
---------------0IevKUioMcP602uAHkVuaiL3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNG3JEFAwAAAAAACgkQsN6d1ii/Ey/k
-lgf+IDHKz+H4WUZuhhBLYi/ie36DnrSYs3Q85onru8DhPm/nkXNghvChcB6XlT7+MJjrdZlkJQap
-+WEVoJXXUDDuR+ngE9Ewn2Ua+XApqTW8YfvCz64rpgP1N8sksRf7rfb66/KNlHnmtwLnmVgnNFba
-EK4PEjMXBt2k70dNlLxEY7Z03RCahwo/q60L9cHBcRE66uopoKx+COv/HWFeduP8RgZfPA8W3aFb
-Rp3/sotWNLIy/oFvPpo/ILyJifzUUnWWn9/l+GyU2oFXsIHYG7F21mbpQfiGK3YUX2LzGILc2JhT
-ax7ux5jmcS421T6ek9ozk5lML3l3+Ev38Idr4gUykQ==
-=54GQ
------END PGP SIGNATURE-----
-
---------------0IevKUioMcP602uAHkVuaiL3--
+jailhouse-dev/Y0bjBP6/Eyg8B25k%40zn.tnic.
