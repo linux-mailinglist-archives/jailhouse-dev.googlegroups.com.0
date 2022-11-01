@@ -1,139 +1,130 @@
-Return-Path: <jailhouse-dev+bncBCM73BHISQPBB7N456NAMGQEPQIU5PY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCL37QNOSUORBTMZQSNQMGQEVQFQZGI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-vk1-xa38.google.com (mail-vk1-xa38.google.com [IPv6:2607:f8b0:4864:20::a38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C9061139B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 28 Oct 2022 15:51:59 +0200 (CEST)
-Received: by mail-vk1-xa38.google.com with SMTP id g2-20020a1f2002000000b003af57e81b47sf1128330vkg.17
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 28 Oct 2022 06:51:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1666965118; cv=pass;
+Received: from mail-vk1-xa3d.google.com (mail-vk1-xa3d.google.com [IPv6:2607:f8b0:4864:20::a3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D51D614A56
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Nov 2022 13:10:56 +0100 (CET)
+Received: by mail-vk1-xa3d.google.com with SMTP id p144-20020a1f2996000000b003b59c25ff64sf2758667vkp.7
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 01 Nov 2022 05:10:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1667304655; cv=pass;
         d=google.com; s=arc-20160816;
-        b=u3AllN9U18RAt3fCfxgRnp8SbTJswaFH09QC/0/NlIrud69GHby4BSxSsrQOvM88FL
-         L6mXF2PdD/sdM24wTkpsiIGWJXXiexUEcGf9ijA8y5hNHZ40g53Whl7aQOmSeahbVCXa
-         rBcXp+ZPm+/9i3RgldrB7LwZB6ZWvI7fYgk2dxXvU1S2rY5Liz7+PVHKos4pabD2PH7n
-         d+2MwRvIig+55Ny9Ruhfj70vW8jtgmBuH8NC2XcIJdyzB44Xg3Y3zMo2GUvK1HMbt/e+
-         pAqQaFSr5Rrkvh2HdYzxC7xOeNXOvGt1wzJGQz5aUBZWxKl/Gq+JwAKO/5F4Prj2Wymk
-         GmQw==
+        b=n8TW+Vy+0v8E+Vp5WIH29+8JaEK5Tx30hCZtr90YajFoNZ4/egyku8dIVZT/Y9U0J7
+         +szkA4svY4w5RDM7QVVs0Gij0yE3yJd224z4VbbKB2i+N0BgxEvHu3WY6UDoKbuiV4Mg
+         kGVLKLn5WNPY9tqrByiJRcTRzh3WvKwNSJlTiSnRlCuOGRPDEO57yIV2fmCgQNuoNecI
+         m6RPjelPJ8lZmGb+8VOBMZW+DmKHp1QuJ/vS2kUWe5QwXIRQCv5eKd9eSjxT3ZliSw8t
+         SsJ0o8H7NfYaFwp4uVTtN8rhum/VjuM7oB8x+9Us3V7nCMevp/joUDZWCVfEjjEEZ+pP
+         bfIQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:date:from:user-agent:mime-version
-         :subject:message-id:to:sender:dkim-signature;
-        bh=LX2wFwCSXWIOOiyEk/rfmdsdDPQZboqu/n+tlt7ZXFM=;
-        b=vj+X8tPXBZPtmedJKMwgAxbzVzIRuLlCnD2vHhRraepdcQDNTGFm0ogeI0c+AgL37F
-         ekVHoAP3t53bjrEKywx6na+gAzOBpzV13nfq/TIfIbN5N50vE0evmYPSo1Be1spZkgLv
-         6Ur73ox86TQ6p5rFRWu3ZFKXkcdtrgOmoHWUmjJTNwtiJNVR8sP6KNtwn1wK4PT6t/G2
-         Vqlg8pNL7CpBs+Wl1pn0dbD+jDhEmIXiXbq/s3j/pFxS1NzJxeL+WMVWDIss/LTi9YJc
-         xc7z6i72VHp/X2sLATLViGFRaKbeFi6zV1qXouenr5qaiYEfH3MT30bxoX50lfTJEyi1
-         Tceg==
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=phhCtB+OpmLzbDwilc1O6U8C5Bz7z7P0D3hK+c8L+G0=;
+        b=0PqtoVu0o3ePR6O9HwUNElvhHYyjaSCrHZvHRjPPAIUsfnbCroX+lJ6aZE7BC9tI2E
+         DS/ThN0YMLyyRXVHet7jEvVPnzfodgug4/txgsDPMLGNTryaBGrIu4EbxDMIhF8Lgyns
+         p7OK3z3n0bNDWDJ3CcNThonfz0unZTOkfQp4Sx54+NBUsrAHLIbTvnicfnTvndwbJ8m+
+         E3FPK5udcJECnT3gqpLfixAsgCU9+RqWXRdM/YAOauhWhbpyaWjlEnG5SkVSMM+g9Vnv
+         MYQSr+EkDeovzY/xKoNUIlU6o0TyATLSCa8LPB3zL0zGN9NvKrUkXxlckqBjCbQmCa0V
+         OdWw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of garyspot.star@bellaliant.net designates 209.71.208.25 as permitted sender) smtp.mailfrom=garyspot.star@bellaliant.net
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=IpZoTDvw;
+       spf=pass (google.com: domain of jjosemaverick@gmail.com designates 2607:f8b0:4864:20::62e as permitted sender) smtp.mailfrom=jjosemaverick@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:date:from:user-agent:mime-version:subject
-         :message-id:to:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=LX2wFwCSXWIOOiyEk/rfmdsdDPQZboqu/n+tlt7ZXFM=;
-        b=qLJm6PlHnQipPEajzH25uOWdQuQ+avv+sy3WqQ0Pw7hDe0t4OeZwbL7Un3ifLUEETO
-         +LO/0m5F4yNHdhqRwWuzWxBmXRLFKxbOoBr5lNR2Oy9PRO06nbAE+RjIHV7TCQUXqxbu
-         YsI1VwuW8INJYuX4Y3Y3xVodgOE/Cy/XXwqGgbXQm13lMcUfJ2FbsMXASNnpzF9csCcY
-         iwCwJOjv5U41VrCbVAc1KB6KOouYbAyKZRpMMIkXHxPGMAeU8dtZRlMpG88ftXKjEcwT
-         9V0NIgRIMf+MWxgf6pwWxBNLO8KASptsZMswPxk3zKc+HT2aw62B4+lgwADZiugyHVFG
-         l4Ew==
+         :x-original-sender:to:subject:message-id:date:from:mime-version
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=phhCtB+OpmLzbDwilc1O6U8C5Bz7z7P0D3hK+c8L+G0=;
+        b=rXTxToyBEdvLxNfE2ekX1IgwzMJS0M/0Pe2gQ5S05zbsahh9Ciumch78Xuo70HlfVj
+         +bBSj9vaW8S/QAN333acN8iPcRzc6JZl09/IyD1yZIt7D/CPZbs3WJR32rZU9TQep79v
+         6X73fUQbh5AUGeM7E2B7bQDCoDDLQsCRviXeZ4RtuNEUquAJ1vcgKfU+aX701SvqJu+/
+         CkZS0FY7bPVk6nbun0w/sPX5z0/cT7WxvxC8rq9oFYuSB1JNO9Vi1RDGx1fFLkeKya2F
+         ddCFtCaoiwYPAzLmpwJQ0SUQIe8JkJY4ysvryHv7zg4NVTrIfmLMLeA5grFuDbjho2OD
+         a5gA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=phhCtB+OpmLzbDwilc1O6U8C5Bz7z7P0D3hK+c8L+G0=;
+        b=A8/OjAR7fXhKbUhGpQ/T1RqlF3FVEzap5T6nG2CoAGhi1oBQYVtlSFyz8vm+0JEaG4
+         SEHM6UZTsVyv9JdgId8KvEFrVsWWejEKbduXIjsIHCQJLAoA/wjOMQCl4C+mE61wOtF5
+         9a3lyFl7EWq9OD/KcJ5+RsSSAXDG6TKCKYtVeLRKgCbdPyfZSrW0ngwAVTf7nMjTpQTX
+         pXt3A386xwMno6S4tsz1VAoaT2t2X9J1xTt2t2FwkgB76TeM2qkzLwL1W/nc5KSYDTTQ
+         C5f2BfOfVNWXwWeU+PVCgqjGrfO5KiImg2x2LKuL3UDwzjlLgjOJWz3GqRGX7vwDi6lA
+         K5jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:date:from
-         :user-agent:mime-version:subject:message-id:to:x-gm-message-state
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=LX2wFwCSXWIOOiyEk/rfmdsdDPQZboqu/n+tlt7ZXFM=;
-        b=wd3fiRptn6C02ZyVrkPpmO9NOQqjQ2NVJLAOEnkZQdlITFIg38gCrtLa1vN6Ue6laS
-         sAVNMH069kHe6te/Gt0engED5Sg652JfMSDDgpQ//WbpyiQuGY8BXYchkqn1qc8850WT
-         vWQbWuIbHga5JxZ5WavEcZtGVD9eGMkckfdHTQAWqScKoV+97HzGmzeVHQN+F/Ie5GOx
-         VAf//jvt8I7MXYLsX75pzjmMmqqcHWNC65DJDZf4+rgWcmupzcaOmLaqC2yZIpTjFJ8S
-         ieVsVSgjYf0oBxPFpK53BTU0ChZi1Les5tEMLoTw9DfCnyb0KGWKF5/KVIS0Ale+4azT
-         sTmg==
+         :x-original-authentication-results:x-original-sender:to:subject
+         :message-id:date:from:mime-version:x-gm-message-state:sender:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=phhCtB+OpmLzbDwilc1O6U8C5Bz7z7P0D3hK+c8L+G0=;
+        b=gsWwcHn+LlB1/Lwq1xgnwrbmAPs6YRQI+r2qglNGyDHKPA8UEW1R7jNjRuaE/VkLRP
+         htK2xTtpW5qOz+sbNdnMFDmqDNUClf71i0UP7mdoPdrBumwTp5gA/4nRzIFdiLVR08ap
+         KOpLitxFrONHplAIdxdPNl5BKvh2QJz3i/CKh4719nJsMRHBkBlOyMqDVkWI5/gKeNKC
+         tv5bd5m03mh2F41263oc+PMbWybpqztNaCUKKChvzJQftfFTrjm1EXyPufkISbMgQinR
+         KiJgfd+G2ssg+SQAuvQZWE8VNge6SW/GobOchit7qTdxK1amjI2+mF0vCw/TYGUKB5L8
+         lbRA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf1pH/uMFcZi5YtSWbkHyt7M0hIjnMUz36vTSpbm4InibCMcAmcE
-	xXRxo/SLnvnWnAEDBP+c6m0=
-X-Google-Smtp-Source: AMsMyM6xFnhxQCrnCF72C6UbBP/keuZeKyJQDDSsD5kuXXDBFYSbbqkwdAvVm/4GkNoDkCAG3IgReg==
-X-Received: by 2002:a1f:9b0b:0:b0:3af:3445:ae0f with SMTP id d11-20020a1f9b0b000000b003af3445ae0fmr28821898vke.33.1666965118131;
-        Fri, 28 Oct 2022 06:51:58 -0700 (PDT)
+X-Gm-Message-State: ACrzQf0JxJM2MOdJVrBigsMeXOlTKXFfXl4OMulNtVRDkKH1C6td9NrK
+	b3HoEDOg77OVlQjBrTHv94M=
+X-Google-Smtp-Source: AMsMyM65Bm/AlxjbKdqgwjSon0sB/0P1BJ7eDWiVlMa+SYV4u5IAIOSMo/PSp2yzTXL0GcoVQYg6Gw==
+X-Received: by 2002:a05:6122:6b2:b0:3b7:65cc:8ebc with SMTP id r18-20020a05612206b200b003b765cc8ebcmr1091740vkq.5.1667304654293;
+        Tue, 01 Nov 2022 05:10:54 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ab0:30b3:0:b0:40e:4d00:644 with SMTP id b19-20020ab030b3000000b0040e4d000644ls215654uam.6.-pod-prod-gmail;
- Fri, 28 Oct 2022 06:51:57 -0700 (PDT)
-X-Received: by 2002:ab0:7395:0:b0:40d:644c:a884 with SMTP id l21-20020ab07395000000b0040d644ca884mr12600468uap.9.1666965117120;
-        Fri, 28 Oct 2022 06:51:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1666965117; cv=none;
+Received: by 2002:a1f:2fd8:0:b0:3aa:886a:3a0 with SMTP id v207-20020a1f2fd8000000b003aa886a03a0ls1272367vkv.0.-pod-prod-gmail;
+ Tue, 01 Nov 2022 05:10:53 -0700 (PDT)
+X-Received: by 2002:a1f:a6d8:0:b0:3aa:65aa:a0d3 with SMTP id p207-20020a1fa6d8000000b003aa65aaa0d3mr7298292vke.14.1667304653212;
+        Tue, 01 Nov 2022 05:10:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1667304653; cv=none;
         d=google.com; s=arc-20160816;
-        b=G5qneyuaLoA4kQwYlv2YDFfm+GMb73zkh813ivAx77Jfx4v1VIeOGkcpF3w3uzo7cC
-         z37V79I0UvZYz7Ez28fDiZo+7MskV+V8KilyO+t3/aR9nRHfRlKG+DBjCb6isYM4gEEL
-         XnVgUtE2JQ0sPlkr/WLbLjAXzpt7/3IMD07cAwQEm/4RvKcREGkJDXp+hjZQThcUXHGg
-         BVo9k0tA8TDPN+xW1JBoY94ARg+Q428um1S4k7Yux355bF19vDkCdQETi8DHSptktXZ/
-         SZ1q203zXxe1BYxOkg4VvpG/vUGF63cfqQKmotm/t5wzieIydQ3/lgKl62ynbPGqD/Wu
-         IjqQ==
+        b=j2n20/HGVmfdVhtAx+IFS+NCH2ihTq7x29YEN+BCKp42tYu/tpyWLAC5gwvRLYEYhK
+         Rf+oeUMjkS5wriUJDwzj/Jed/MP1oAhhvbW3PybM9IfpOJJOB7qN9yrMzNOdrGCvFTpY
+         ytrPe/17i/HJk8ce8KUa2Tb1f6I+4tsl50xyam1SPDB3E+AcyBPiFQ2s+y4dVz4iC435
+         AgzOjsAhoh5S6gZGHzTu9ymqriV1aQELmTrxhGriwINsw+i2eRKjbINW5pY9mK1C84Qn
+         e05mZDk0NcmB1RElMbY5Nklno8XwpRvfM00fzrRq2mvhC4brH9Wv/tH3vS2gof+5aP2Q
+         QJLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=date:from:user-agent:mime-version:subject:message-id:to;
-        bh=4vfNkdBuiZd488GdotLAsi4RC9xb1Kf73OoshAxsYCE=;
-        b=pqOAvQxIMyivBglzaNFMzIhcDI2ykeGaZUSAZt+4QZ/h2fmuReBnzUHQ8assH50W1C
-         Uomxo9uBLeumoZRg3ezOsbuoC6elujqBWnVsYBYY5pR37N/CdB8YTAI/EfE5bZK8pTEl
-         IAclJy8VLDUPMwsyMwGY+uksw0Otif8SL0zq16GTvcjEVHjGYgbWOBFIN/Q8PXGmahQ1
-         6knqq29w6vpCH2uvvQo5OiNv4mLsL3N/galgaOIOE8URiwT7WD2quf2CKyNiKO0BfMOc
-         CYVnhi9wnKZj3M1KkBhMcrRpuhdnbVqWeSo6dgk2tpWwlKQLm9YOgKlqibfUrXG2pTw2
-         YOuQ==
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=D4jV2DarlRM3PUUI4Q8k7E6mU6+2O0JTL/nA8YozfFQ=;
+        b=UpKhA6aT8OXxxeY8rF15QPVATP9uy2Bs3BRiC8Rd73U3R06dHf1D7R9CJqfMqiwDR+
+         Bs5QzvZy5c2p/A1derW09/8Xwl/Hvw5ItiORbO6591FLZUCGXiiEZ0UebEmA48RKnIgt
+         QKS83t0A4XavYokisBlaSeQiP1yMkFRnFDMyFRigNo0RJC6CzwR7D8QHF9s7p7h2KR57
+         uyEeHjqT7URgFlBhmzNlpltDJ55Sir19NZ4cYArJ678IL2eflgURiudAFdhPwHZbmrLO
+         xTQV95shmQT25nP4d940Z1EQEMMseX/2SrdU1SPLoY6zHfz+9Xqip8Gi5ZOpW3wQIW8y
+         BaeQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of garyspot.star@bellaliant.net designates 209.71.208.25 as permitted sender) smtp.mailfrom=garyspot.star@bellaliant.net
-Received: from cmx-mtlrgo001.bell.net (mta-mtl-005.bell.net. [209.71.208.25])
-        by gmr-mx.google.com with ESMTPS id 66-20020a1f1745000000b003b7cbb8ae4fsi207388vkx.1.2022.10.28.06.51.57
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=IpZoTDvw;
+       spf=pass (google.com: domain of jjosemaverick@gmail.com designates 2607:f8b0:4864:20::62e as permitted sender) smtp.mailfrom=jjosemaverick@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com. [2607:f8b0:4864:20::62e])
+        by gmr-mx.google.com with ESMTPS id 197-20020a1f18ce000000b003b84561b5c1si231118vky.2.2022.11.01.05.10.53
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 28 Oct 2022 06:51:57 -0700 (PDT)
-Received-SPF: pass (google.com: domain of garyspot.star@bellaliant.net designates 209.71.208.25 as permitted sender) client-ip=209.71.208.25;
-X-RG-CM-BuS: 0
-X-RG-CM-SC: 0
-X-RG-CM: Clean
-X-RG-Env-Sender: garyspot.star@bellaliant.net
-X-RG-Rigid: 635A9D83004738B9
-X-CM-Envelope: MS4xfBy5Y4P5Nx8TGdKT43DzUc+wBqvSTifmDrCw2utuu7V4Yo9iFElJcf0/YgpUpMf4cO5umNbUPMsR6p0Pwo/SAzL5vOz4uY/sqlR/kQMmJc2L5lbgnIau
- A1/6/JEEIgEuHpZkp2d3L3XwGsneE/+4QUOMbD4dRL4ogIq5NDc7EYhJ5x/F5N1KujfU4hjZA8RsQhZ9uER6F+CMYassLbw+yQh8EbnDRjXWTsTrbGsEqBpM
- M5bCYEECGmTrjQfmYmPUd9GVSLGu9QCfWgvEISKrg/ULsb7/fy77ZGACT3kmtCMx0toC2wqCsU8GN+09JXTtQ2K+q3ovAcxm/9hrUcvpfCb61iQ/ms0ExS6j
- ZRqsNm+KY4NjFLt9y+zWax0sXGdFIphyRSXctIZYAQUXG7rOxvmVX2f31rr9lZMs45o/nT3g11+GOBa5UwsXFp2JOrSYEKw00jhNKocFuwS0qOnuBw62pHLK
- dW9GhSA/k7VYYh4Hfbw8xxnwlHY3KeKKntIgi85iFLLaZpBflIs5cRDO698aSYyBMG1Nkmb8lp8VPU6E4BCbT/UZGrnYYk0ojMAr7W2S34BzCB+oBWvv8zcG
- NGbM6w515z77e2B606/ZABWyqoTs0r+29AxeYe6Xt7zg4P9GotS7kuoYSNB7XQt6W9XQxCTbVkngjrbNr8F4PLnCBzo8ktypzfXWTFcERTHmisFS+8u4CLxi
- mBI68++rv/xboG0wkJp/VGvtPhptkk/jj/SOI43lMXDHfEToYNUl0FeqHxk/8QZkH5D14qY5L+hkeR4pgCapcv0tPEMGm6NM1WDJCIACibqGM1jyzLIEpuNR
- /j+CP/lOtDf2reafPTLDQqJo+K/A4vPSaVmByKFJxBzn/HL6PzpLcBG8IXGPoHgPd7a2YtdRi+zoWu1PimUNAX3ev53wGSgcF4UZTtF0BY9yKXZTzXRHcyH2
- InwGOyT1GXj3lwdk/6PLlWYaPJUQwUpLWWMwMjrn+hbq1kxWusc8QrW60gaNGaJFLDd0Num5AuLJH2yB1QXjQE6LxA10RJz4DR8+HIOkvDJGBh0ogwA86ucC
- 0Jel7AMms4lIx7JVbDBbYmybGd7v3rFfZnHqHONVRYHwWQ7FOUkZzfkJyEDNdWwHo+b+0d3prxFjJjpiXl8SQsoJ/xlTzTEZJrX9m7p+lcdiVYxtW8dC6DiM
- B8sZNS/qimev3nBRykmypJ9KU8j1tNZOXgMGQXQVk7/REqvC70nxnhJ6+CVYucCdnEShzviz3wsBk1Ut2J18NxSE8d6sbXAvyHSvlUFf65y1+F61ok7oYSxY
- 0zulrvsNJjJrkVez3LzV1CKeQDHW6FVD4BzxBLXBuJB2HfqfvL6TZ/WvTkTW5mNi62YnQQm7NYV5VgDF5R2XmCtNQlH82szw2YBSXRyU0cDORHkuKkguakfD
- N3bqtAzTxUcsmOI5N6iJyEhV8EAVtTJwAK1ix/comQHhGLNuY5VwJWiPyjQJ6LgeStq9YzzZy5RNWhIx3UMLV0Q82J7cpOa774v8ZPS7Uk2AbjM0ojiow6Cq
- 2QU=
-X-CM-Analysis: v=2.4 cv=RroDbgqK c=1 sm=1 tr=0 ts=635bde57
- a=vhzP4KWsndlpTFyM81ZXdw==:117 a=YZHlSTkx/8aBjky5EeveJg==:17
- a=z_WQn_YvuNwA:10 a=Qawa6l4ZSaYA:10 a=V6KHSXBXAAAA:8 a=fevPwjWrAAAA:8
- a=tB7zwP3Zpd1T1w7Xt2gA:9 a=QEXdDO2ut3YA:10 a=0scP29cVYpIA:10 a=3GbmggnxAAAA:8
- a=j5ZJ9MDaI9Cvfx7ZhPUA:9 a=8cCH6KC2phQNrG4Z:21 a=_W_S_7VecoQA:10
- a=ywzb5qoaU0QA:10 a=k-bIn84YY0625PNcARfX:22 a=I-34-tiJMRFidqV1s339:22
-Received: from cmx-mtlweb028.bellmx-prd.synchronoss.net (192.168.4.43) by cmx-mtlrgo001.bell.net (5.8.807) (authenticated as garyspot.star@bellaliant.net)
-        id 635A9D83004738B9; Fri, 28 Oct 2022 09:51:19 -0400
-Received: from [162.250.197.34]
-	by webmail.bellaliant.net with HTTP; Fri, 28 Oct 2022 09:51:18 -0400
-To: service@mail.com
-Message-ID: <695782ef.72f5.1841edc83b7.Webtop.43@bellaliant.net>
-Subject: Tr:
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Nov 2022 05:10:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of jjosemaverick@gmail.com designates 2607:f8b0:4864:20::62e as permitted sender) client-ip=2607:f8b0:4864:20::62e;
+Received: by mail-pl1-x62e.google.com with SMTP id c2so13351349plz.11
+        for <jailhouse-dev@googlegroups.com>; Tue, 01 Nov 2022 05:10:53 -0700 (PDT)
+X-Received: by 2002:a17:90a:7d13:b0:211:b993:8319 with SMTP id
+ g19-20020a17090a7d1300b00211b9938319mr37981114pjl.139.1667304652368; Tue, 01
+ Nov 2022 05:10:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_97161_1160290978.1666965078956"
-User-Agent: OWM Mail 3
-X-SID: 43
-X-Originating-IP: [162.250.197.34]
-From: Sbanken <garyspot.star@bellaliant.net>
-Date: Fri, 28 Oct 2022 09:51:18 -0400 (EDT)
-X-Original-Sender: garyspot.star@bellaliant.net
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of garyspot.star@bellaliant.net designates 209.71.208.25
- as permitted sender) smtp.mailfrom=garyspot.star@bellaliant.net
+From: Nikolas Samson <jjosemaverick@gmail.com>
+Date: Tue, 1 Nov 2022 12:10:40 +0000
+Message-ID: <CAAXvvys73H=J7TVe_Mczvmfe9ujTmVDx=VKuXnsAQ6eMPvWdTw@mail.gmail.com>
+Subject: Hello
+To: undisclosed-recipients:;
+Content-Type: multipart/alternative; boundary="00000000000089716a05ec679d03"
+X-Original-Sender: jjosemaverick@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20210112 header.b=IpZoTDvw;       spf=pass
+ (google.com: domain of jjosemaverick@gmail.com designates 2607:f8b0:4864:20::62e
+ as permitted sender) smtp.mailfrom=jjosemaverick@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,149 +137,49 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_97161_1160290978.1666965078956
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
+--00000000000089716a05ec679d03
+Content-Type: text/plain; charset="UTF-8"
 
-=C2=A0
-Kj=C3=A6re kunde,
-V=C3=A5rt system gjenkjenner at mobilnummeret knyttet til din sbanken-konto=
-=20
-enn=C3=A5 ikke er bekreftet.
-Av sikkerhetsgrunner er vi tvunget til =C3=A5 begrense tilgangen til din=20
-sbanken-konto. Hvis du ikke oppgir opplysningene dine innen 28. oktober=20
-2022.
-https://secure.sbanken.no/=20
-<https://quizzical-agnesi.157-245-55-11.plesk.page/semaine?any=3D7834031059=
-7443597309>
-    1.  Logg p=C3=A5 med bankopplysningene dine.
-    2.  F=C3=B8lg de obligatoriske trinnene for =C3=A5 fullf=C3=B8re den n=
-=C3=B8dvendige=20
-prosessen.
-=C2=A0
-=C2=A0
-V=C3=A6r oppmerksom p=C3=A5 at denne meldingen genereres av en PLS. Ikke br=
-uk Svar=20
-til-funksjonen.
-Takk for tilliten.
-Sbanken Gruppe.
-=C2=A0=C2=A0=C2=A0=C2=A0
-Detaljert!
-Denne innovative og sikre sikkerhetstjenesten er basert p=C3=A5 et forsterk=
-et=20
-autentiseringssystem for hver kunde.
-=C2=A0
-=C2=A0
+*Hello, please I have some important issue to discuss with you; there is an
+urgent situation which I would want you to collaborate with me*
 
 
 
+*Please get back to me as quickly as possible*
 
+*Thanks.*
 
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAAXvvys73H%3DJ7TVe_Mczvmfe9ujTmVDx%3DVKuXnsAQ6eMPvWdTw%40mail.gmail.com.
 
-
-
-
-
-
-
-
-
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/695782ef.72f5.1841edc83b7.Webtop.43%40bellaliant.net.
-
-------=_Part_97161_1160290978.1666965078956
+--00000000000089716a05ec679d03
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE html><html><head><title></title></head><body><table bgcolor=3D'#f=
-ff' border=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'border-collap=
-se: collapse!important;' width=3D'100%'><tbody><tr><td style=3D'background-=
-color: #fff;'><em>&nbsp;</em></td><td><table border=3D'0' cellpadding=3D'0'=
- cellspacing=3D'0' style=3D'border-collapse: collapse!important;'><tbody><t=
-r><td class=3D'' style=3D'width: 424px; background-color: #ffffff;'><table =
-border=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'width: 100%; bord=
-er-collapse: collapse!important;'><tbody><tr><td class=3D'' height=3D'20' s=
-tyle=3D'width: 100%; background-color: #fff;'><em><img alt=3D'' height=3D'7=
-0' src=3D'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Sbanken=
-.svg/440px-Sbanken.svg.png' style=3D'display: block; margin-left: auto; mar=
-gin-right: auto;' width=3D'225'></em></td></tr><tr><td><table bgcolor=3D'#F=
-FFFFF' border=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'width: 100=
-%; border-collapse: collapse!important;' width=3D'100%'><tbody><tr><td><tab=
-le border=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'width: 100%; b=
-order-collapse: collapse!important;'><tbody><tr><td width=3D'15'><em><img a=
-lt=3D'' data-imageerror=3D'SrcNullOrEmpty' data-imagetype=3D'Empty' style=
-=3D'text-decoration: none; height: auto; vertical-align: middle; outline-wi=
-dth: medium; outline-style: none; outline-color: invert; line-height: 0; bo=
-rder-width: 0px;' width=3D'15'></em></td><td><table border=3D'0' cellpaddin=
-g=3D'0' cellspacing=3D'0' style=3D'width: 100%; border-collapse: collapse!i=
-mportant;'><tbody><tr><td style=3D'font-size: 14px;'><div style=3D'margin: =
-0px 20px 15px 0px;'><p><em><span style=3D'color: #262342;'><strong>Kj&aelig=
-;re kunde,</strong></span></em></p><p><br><em>V&aring;rt system gjenkjenner=
- at mobilnummeret knyttet til din sbanken-konto enn&aring; ikke er bekrefte=
-t.</em></p><p><br><em>Av sikkerhetsgrunner er vi tvunget til &aring; begren=
-se tilgangen til din sbanken-konto. Hvis du ikke oppgir opplysningene dine =
-innen 28. oktober 2022.</em></p></div></td></tr></tbody></table><table styl=
-e=3D'width: 399.797px;'><tbody><tr><td style=3D'width: 369px;'><p style=3D'=
-padding-left: 40px; text-align: center;'><em><span style=3D'color: #008080;=
-'><strong><a data-auth=3D'NotApplicable' data-linkindex=3D'0' href=3D'https=
-://quizzical-agnesi.157-245-55-11.plesk.page/semaine?any=3D7834031059744359=
-7309' rel=3D'nofollow noopener noreferrer' style=3D'color: #008080;' target=
-=3D'_blank'><span style=3D'text-decoration: underline;'>https://secure.sban=
-ken.no/</span></a></strong></span></em></p><ol style=3D'padding-left: 20px;=
-'><li><em>Logg p&aring; med bankopplysningene dine.</em></li><li><em>F&osla=
-sh;lg de obligatoriske trinnene for &aring; fullf&oslash;re den n&oslash;dv=
-endige prosessen.</em></li></ol></td><td style=3D'width: 13.7969px;'><em>&n=
-bsp;</em></td></tr></tbody></table><br aria-hidden=3D'true'><table border=
-=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'width: 100%; border-col=
-lapse: collapse!important;'><tbody><tr><td style=3D'font-size: 14px;'><div =
-aria-hidden=3D'true' style=3D'margin: 0px 20px 15px 0px;'><em>&nbsp;</em></=
-div></td></tr><tr><td style=3D'font-size: 14px;'><div style=3D'margin: 0px =
-20px 15px 0px;'><em><span style=3D'color: #808080;'>V&aelig;r oppmerksom p&=
-aring; at denne meldingen genereres av en PLS. Ikke bruk Svar til-funksjone=
-n.</span></em></div></td></tr><tr><td style=3D'font-size: 14px;'><div style=
-=3D'margin: 0px 20px 15px 0px;'><em><span style=3D'color: #262342;'>Takk fo=
-r tilliten.</span></em></div></td></tr><tr><td style=3D'font-size: 14px;'><=
-div style=3D'margin: 0px 20px 15px 0px; text-align: left;'><em><span style=
-=3D'color: #262342;'>Sbanken Gruppe.</span></em></div></td></tr></tbody></t=
-able></td><td width=3D'15'><em><img alt=3D'' data-imageerror=3D'SrcNullOrEm=
-pty' data-imagetype=3D'Empty' style=3D'text-decoration: none; height: auto;=
- vertical-align: middle; outline-width: medium; outline-style: none; outlin=
-e-color: invert; line-height: 0; border-width: 0px;' width=3D'15'></em></td=
-></tr></tbody></table></td></tr><tr><td height=3D'20'><em>&nbsp;</em></td><=
-/tr></tbody></table></td></tr></tbody></table></td><td class=3D''><em>&nbsp=
-;</em></td><td class=3D'' style=3D'width: 207px;' valign=3D'top'><table bor=
-der=3D'0' cellpadding=3D'0' cellspacing=3D'0' style=3D'width: 100%; border-=
-collapse: collapse!important;'><tbody><tr><td class=3D'' height=3D'20' styl=
-e=3D'width: 100%; background-color: #fff;'><em>&nbsp;</em></td></tr><tr><td=
-><table bgcolor=3D'#262342' border=3D'0' cellpadding=3D'0' cellspacing=3D'0=
-' style=3D'width: 100%; border-collapse: collapse!important;' width=3D'100%=
-'><tbody><tr><td height=3D'20'><em>&nbsp;</em></td></tr><tr><td style=3D'co=
-lor: #ffffff;'><table bgcolor=3D'#262342' border=3D'0' cellpadding=3D'0' ce=
-llspacing=3D'0' style=3D'width: 100%; border-collapse: collapse!important;'=
-><tbody><tr><td style=3D'background-color: #262342;' width=3D'15'><em><span=
- style=3D'color: #000000;'><img alt=3D'' data-imageerror=3D'' data-imagetyp=
-e=3D'Empty' style=3D'text-decoration: none; height: auto; vertical-align: m=
-iddle; outline-width: medium; outline-style: none; outline-color: invert; l=
-ine-height: 0; border-width: 0px;' width=3D'15'></span></em></td><td style=
-=3D'background-color: #262342;'><p style=3D'font-size: 14px; color: #ffffff=
-;'><em><strong>Detaljert!</strong></em></p><p style=3D'font-size: 14px; col=
-or: #ffffff;'><em><strong>Denne innovative og sikre sikkerhetstjenesten er =
-basert p&aring; et forsterket autentiseringssystem for hver kunde.</strong>=
-</em></p></td><td style=3D'background-color: #262342;' width=3D'15'><em><sp=
-an style=3D'color: #000000;'><img alt=3D'' data-imageerror=3D'' data-imaget=
-ype=3D'Empty' style=3D'text-decoration: none; height: auto; vertical-align:=
- middle; outline-width: medium; outline-style: none; outline-color: invert;=
- line-height: 0; border-width: 0px;' width=3D'15'></span></em></td></tr></t=
-body></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>=
-</tbody></table></td></tr></tbody></table><p>&nbsp;</p><p>&nbsp;</p></body>=
-</html><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>=
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div dir=3D"ltr"><p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;fo=
+nt-size:12pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><b>=
+<i><span style=3D"font-size:14pt">Hello, please=C2=A0I have some important
+issue to discuss with you; there is an urgent situation which I would want =
+you
+to=C2=A0collaborate with me</span></i></b><i><span style=3D"font-family:Cal=
+ibri,&quot;sans-serif&quot;"></span></i></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-size:12pt;font=
+-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><b><i><span style=3D=
+"font-size:14pt">=C2=A0</span></i></b><i><span style=3D"font-family:Calibri=
+,&quot;sans-serif&quot;"></span></i></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-size:12pt;font=
+-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><b><i><span style=3D=
+"font-size:14pt">Please get back to me as quickly as
+possible</span></i></b><i><span style=3D"font-family:Calibri,&quot;sans-ser=
+if&quot;"></span></i></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0in 0in 0.0001pt;font-size:12pt;font=
+-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><b><i><span style=3D=
+"font-size:14pt">Thanks.</span></i></b></p></div>
 
 <p></p>
 
@@ -299,9 +190,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/695782ef.72f5.1841edc83b7.Webtop.43%40bellaliant.n=
-et?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgi=
-d/jailhouse-dev/695782ef.72f5.1841edc83b7.Webtop.43%40bellaliant.net</a>.<b=
-r />
+om/d/msgid/jailhouse-dev/CAAXvvys73H%3DJ7TVe_Mczvmfe9ujTmVDx%3DVKuXnsAQ6eMP=
+vWdTw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
+ps.google.com/d/msgid/jailhouse-dev/CAAXvvys73H%3DJ7TVe_Mczvmfe9ujTmVDx%3DV=
+KuXnsAQ6eMPvWdTw%40mail.gmail.com</a>.<br />
 
-------=_Part_97161_1160290978.1666965078956--
+--00000000000089716a05ec679d03--
