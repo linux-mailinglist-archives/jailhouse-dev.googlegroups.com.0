@@ -1,119 +1,123 @@
-Return-Path: <jailhouse-dev+bncBCFKT2ENXMKRBPX3UCNQMGQE4UORDPA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCFKT2ENXMKRBQH3UCNQMGQE2HWVGPI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x338.google.com (mail-ot1-x338.google.com [IPv6:2607:f8b0:4864:20::338])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E52161E76F
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Nov 2022 00:05:36 +0100 (CET)
-Received: by mail-ot1-x338.google.com with SMTP id 33-20020a9d0124000000b0066adf5218b2sf4852386otu.10
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Nov 2022 15:05:36 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1667775935; cv=pass;
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5ED461E770
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  7 Nov 2022 00:05:37 +0100 (CET)
+Received: by mail-ot1-x337.google.com with SMTP id e19-20020a9d0193000000b0066754f1a8efsf4817860ote.7
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 06 Nov 2022 15:05:37 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1667775936; cv=pass;
         d=google.com; s=arc-20160816;
-        b=UQbM0prWmb7Pcd//h+ZgLyzZRGWIwGzWZAiUCUl6F2wT6emkhIqBT0bgGwPwj31EJJ
-         s1xOQkn7waENstDbwULs13c1mgLzz+9NGJvqsSWSPs5l8bg9wCNcAvZ/35e9yOqWlbDD
-         qd7WrsEwYJt6yjry2FPdA9as/pQx5yFipZooFKlWsGxNLCNX9PVbdB5gnULx/WNrKmEB
-         vPAZOet1FxY2aLXlNKJLnBAYL48w/19v8w0Vu6+K8hcCEyJVyCiNXGefurx3GhBzyGax
-         8tPGknhrSpgTivHWGdfvCIdX4rhMqMfm0ID5h5M4Gvzc7+0/ya4dXjYEpZlcl3IvLUJA
-         2L0w==
+        b=C5qb+pOzBJgnZIZQhuvYaH6hQaVLXO7w5UbsBf8IDm1i7u1KGg4CBwlFYvWxe5rc/I
+         md2bfCIgbDiDRyP08uX3SzJaYPy6U6s0SEEYnz0V9qmHCY7+Jc2Ekvv3cP3hvzkhYCDC
+         /yFEeYpq3nOjjQYqHbFIQsLjS/BXtAx+lM9phHlwVSdubkUKudDGWfLCVJsiQkZXJtIZ
+         l/oEAO9IcUoygnWmUeeUlIxLbXrRbcxshDcgyAYq20Q9QZbMI9YKxQZ54EHuAdNf352h
+         5QhR/CvVXVk6Wgmp1PW7xcJyx3ZrMIKNAXfSdO3ssdoc8MUD9E8JGwrfrKpAwKb59yRG
+         WelA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:message-id:date:subject:cc:to:from
-         :mime-version:sender:dkim-signature;
-        bh=Fw+KXiaDqwDG/wgzklewso10lH6U4PLAJsSnCg/4yRg=;
-        b=ZXcUAj+GWpOAGq9pMECLLK857CqgiUGYmPTonSDL90XmDgmKpKZchfe7xQ7M1XbieH
-         V6n3SxESqXJPLUKItg5vLBne9lCEkmWlrhNQURKuaFQujm+IeMu/Y/Un7XrhDg3FI+V6
-         CK287UMCIqqa68FSBtwprsXf2zuzzIafzdZ+SKM/c2KkW0P5xOyqToNmj0CD5aH941mp
-         UizU8eKzagEjkZRkhiS1kZLdXaNq1v5+Jfj32M5Qxt0nF5ELttNllKWXQSKBcvOr9Wi0
-         hbsYX4+th3lMLNW8fSx34C2mQMEipiZdQz5epGPZrzQ4RvDsnYz2wqQln3uGJYnk5fVW
-         OzvA==
+         :list-id:mailing-list:precedence:references:in-reply-to:message-id
+         :date:subject:cc:to:from:mime-version:sender:dkim-signature;
+        bh=dec3eFFbh2Wr+8yTk/xZTdTK+YwioIF50VOrTKBqi1U=;
+        b=WrMU1ORFkQAJOTbEI4QblJVukeIR67IO0fSn4htfvkkGUCZJMrSDpRKIU2kh9blIBW
+         H6kGnDqyphZcDwr5QdHdYiGwJBJyTG5Pu5WgcF4ChWe0c6ApMi2Kq2VKxWBpMBVH1s6x
+         j3m9EEErPczB/AC0xscvARaDK3b7ZYn6q3xFjStjsJ+MfSZDmjcwzKY5xD7PNVrlVjn2
+         jEOzw+bMQC6Q9qHzswiLk2YJdh8Nh+BQs8wbWrR0PPABqzqIIcV7Bzx2KrYAngLVIWD0
+         1o3AdFwhKN8TTAuBoKkNh/15f4z5B202flzK9ebmE6f/yuB85vZS6QhrgR7BbIe/Uwik
+         Anqw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:message-id:date:subject:cc:to:from:mime-version
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=Fw+KXiaDqwDG/wgzklewso10lH6U4PLAJsSnCg/4yRg=;
-        b=ayV+xKguOIN8meBG7I9QeeIAeZTkt1r8HaS1ZvsYRuPFiK+SOKRUEjtUyERYxVjGza
-         r2ZvM+fVTlrP3eYHXXfF8mUn1ZCGBpVQLsIWFLne3SDeAkwe9NntLuWAIDA6sWS4AOkJ
-         OtkW0Sd4otlp8NQbd4euT4GDasLMYs/1gcXP5dhANSlIsRAgswZk4yfwDa0ooo1MA6+o
-         RZPqs72OQD3bRrqOUe7YPge77cRnBC1fkkp9mFRoFReM2yxn2i9aDfbOLgOwJJ4Dl6n4
-         0kAmCXK+phCK02So23XyEqD8YKx51xYAnaxqBUnHfd4yOOvxez4798cdegMY8FlUtX/E
-         12iw==
+         :x-original-sender:references:in-reply-to:message-id:date:subject:cc
+         :to:from:mime-version:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dec3eFFbh2Wr+8yTk/xZTdTK+YwioIF50VOrTKBqi1U=;
+        b=e5QeE6uBOnhog/SU85RLk0UnGWaMMCBx35mfWWoEEUAppZkzuNxqE48ksNdZWA3zcq
+         GaVGmaSEeTEqNH1jaOl0ArfJ04y+UXESatkK4jEZ7K2aJf4FsE86PGowto57ezfclugb
+         HWgjdEu7cLjVzxOspdXP5T5wykiuZrmequyAsxZYMq0fBzzzbTfcorurkQBZyePbgX6l
+         ihCJWHE+jwiXvln2f+kiZjSkqRlS3Qb8FxjV2m6ArKtTwxzo/bxEbX07fxt05yQFQ8pE
+         nRHWR2lqRmYza6hpFBix1+FMYEVki2EOmrh30jmkNWpRZ3rp860VgZmuhVD09eDn+TLx
+         BH3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:message-id:date
-         :subject:cc:to:from:mime-version:x-gm-message-state:sender:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Fw+KXiaDqwDG/wgzklewso10lH6U4PLAJsSnCg/4yRg=;
-        b=7Hrtc4eEMXNGGpmOoIAVJbYehwuhY3S0rJNJ1yEOwk02u4OuartUQJQxIH6JNdUi3M
-         GSWEXMld/Okb7r+0HoGvWZw/gIUKzFgnvIPm85R3BcFeGRFA3rzTrThMz8QS866+9sfD
-         AQlkozeg4T/l/Q9rvBo9DBeOzdPGJup63gkiOMlWDgY+ED8eDojEmxBk//KHBvkBODks
-         4N10JaX1YOPlvR0FLshb39SAQaFBq3Ecv4ZJ8tHBLXfvnHSPSkd7nrAcHoPAit61IR4W
-         2LhGuNlfCg7edYyQIiSlgpGB1CHqV0JmMb/WNU7Xq+br0Er57ReF8G6F030fIhJhg4KT
-         Xasg==
+         :x-original-authentication-results:x-original-sender:references
+         :in-reply-to:message-id:date:subject:cc:to:from:mime-version
+         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dec3eFFbh2Wr+8yTk/xZTdTK+YwioIF50VOrTKBqi1U=;
+        b=UDieCaR6GAj+uJd29n5EFKxDfG8n9aifgoD72EpV6191MwygXnFUhSI3+3k/tzXci8
+         XWTn46X7dd0O+Ty9jpYzX8uHARkq5FVBpaYjeWQ9bUfxgRTPWmDvKWE9U61QmJ/hEcrc
+         6f3sHvmkfvy3C7wtwVTti27CgtTpsP6nSdpVSY3Z0YryVrJazrDB/eDVUNU24pXJ3lam
+         jziikDn56DA1NCt0V69YGvSTdQIxFcOsUaXdY4UtX3WPl4jPE5lSGYH9j/P/4NM2PU2S
+         zW9+O8Kt3/+mEDy6GipJQPkNiQLGwCA1UVpzUzFmAstVxvYAXWoGemdnSzwSSjh5j/tS
+         ftrQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf16MOHTv11HXdEDoQHn4KKpkOak/3aElZI0thOqPRPcs8ugAQlL
-	tfIc/ZNUGksxnghSsJ4qeSI=
-X-Google-Smtp-Source: AMsMyM5+XrCziL5E3W5kRzGEtaPrbKIldrwnoeFO+Ppmpqc9v7B6hzEhwpdzhz9nnWE6hm3VXsMPTg==
-X-Received: by 2002:a05:6808:11c1:b0:353:f1a5:207a with SMTP id p1-20020a05680811c100b00353f1a5207amr33397970oiv.183.1667775934939;
-        Sun, 06 Nov 2022 15:05:34 -0800 (PST)
+X-Gm-Message-State: ACrzQf0WIAlZ/kA3tGb91aUEcSeNQE8BeyHZ8CSuZbWRb6BqDMIMqJoR
+	hN7DruIEEZJzaiJfv9mh89A=
+X-Google-Smtp-Source: AMsMyM7wxssi8Yp786GuuOx44+CUEFcHxt+wL2uOJoosVGIk3myNN9cbHUjGaOHzqsYAPR8+X7ogEw==
+X-Received: by 2002:a05:6870:3516:b0:13b:8bc3:1140 with SMTP id k22-20020a056870351600b0013b8bc31140mr37255349oah.293.1667775936720;
+        Sun, 06 Nov 2022 15:05:36 -0800 (PST)
 MIME-Version: 1.0
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6870:e6d6:b0:13a:e471:20c5 with SMTP id
- s22-20020a056870e6d600b0013ae47120c5ls3303144oak.1.-pod-prod-gmail; Sun, 06
- Nov 2022 15:05:34 -0800 (PST)
-X-Received: by 2002:a05:6871:448f:b0:13b:1c89:9930 with SMTP id ne15-20020a056871448f00b0013b1c899930mr509268oab.247.1667775934261;
-        Sun, 06 Nov 2022 15:05:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1667775934; cv=none;
+Received: by 2002:a05:6870:5305:b0:132:4cb:dd6 with SMTP id
+ j5-20020a056870530500b0013204cb0dd6ls3297216oan.2.-pod-prod-gmail; Sun, 06
+ Nov 2022 15:05:36 -0800 (PST)
+X-Received: by 2002:a05:6870:b14f:b0:127:d4f1:6a90 with SMTP id a15-20020a056870b14f00b00127d4f16a90mr27724700oal.116.1667775936160;
+        Sun, 06 Nov 2022 15:05:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1667775936; cv=none;
         d=google.com; s=arc-20160816;
-        b=zELf4hB0ulOPVEdP5i37syNO0uUPV1d0xEKTR+GQz8qJckXk7bF1CkeVIR2morX/Bu
-         hXA8S4rN08ar2QxSvwQmNGOiP2y2h6kbSTAHNqgInmVqhSyZSJ3AnNgZ5aDHYvHumLZb
-         NFNmBNxkJSGZGSPtxVJXW8dXHhRpEwwdWU2Rg8WKROaeZb9x6gRFqKk65oQoCTg08tsx
-         9zzPE0j6kBvxMFiy83rQC/KGacF5vGs5xrDCG+ep8n25OTGkPOu7H2J+3EZNSkwbVHab
-         JUWzpkz9CjsIVt3AFHs50BKYGq/DV/VdZItV1/4YlwF0APhtdEkche8zsBtjq2HMaWjf
-         s8yg==
+        b=QfK/zjmv4pPAABbkW77Mr+wN6z+kg64gam8iY0LgUXd/mEtuO6CFo8kONa23+85Z06
+         TdCCK91Z+/qXZqvYLnMU8CowEcL7r5YNCMrJ1+hYnAkADZ18txMZd+1Ke0xQD6PTThps
+         /EP/ohW+z3pYrMGVArDZoTS++YYPWdciJRYaeAzKZ9KkhiPASeZwcOhhMDI5PaP+JoHF
+         kEFXPdEQCNm8dnzeM9qQ5Vo8KJXqTWSomsERo23q6CYhKJAYz8ftNZfYckqcq9R7ZoVC
+         xvNQaobWdmWsFh46qYK+NQKZEOwJpb7czVoMWywkU+BQjhPaEg5rw4nXQfRGOhC+AIqq
+         vysg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=message-id:date:subject:cc:to:from;
-        bh=xUNnVrC+VRUx3JhN5LacxxFS19uiT91ulOlshZvK9p0=;
-        b=VriS+XiAcxbtq4mrGPZXyb6xTbNHUj84baa28wHynSoKIpags4X5ycSt90jWdCpdHv
-         APyv1De/DHnZ7W8dQL91tc09DMM30MSaEiRx9WLRGOd/SOVrZYmDr/u8TbUNA8KIDvxf
-         tqzb2e6mPevbYnQbYOOwtGvE8Y8Nl/hRwEXU6hXs/142ah3HtPUncAsDvjDTYYOe9lyZ
-         Z8C11+9q2WSat3kaeMAbkdIskO1e/gyuPYW0OQ16HuhLhHXg/M4Ae245XuNqfCbgtYex
-         pX1ebsEczzl8tTYD2SjMEb6hu4KFvAa/EpOaD3NkDTN7iega22wWLUUJ4sND636fwIJY
-         fLMA==
+        h=references:in-reply-to:message-id:date:subject:cc:to:from;
+        bh=FOnQ0zUkr1N7uMmStTVrrpNJUoYFEzY6GMebVUD29G4=;
+        b=HCOaGFnLdWD/Tcr27ZuP/RO/Uw4rJ2fjByvdvBG/pprKqfWO74SMZ+HN4/G//paHhu
+         l49zBuRyz4jCBfz7yLB3A0W7QYnd/+iqmbbSmVxlWFeNI1XMuukFQdB4mq/AiwuvnQDu
+         vMMsykkghuP25qgDvyH0MuML00mRRd6bwsQLLvHHscw9vLD5FHiBDm77OMXnWSCbMK7m
+         Hylg569kdB/VGjal4NcbU4CTfWSPDTsXL7IlqEGoZIg65qENE2vyBRUvCFSr3WWmwgwO
+         MvfO2F/vhUiGgkoj1pf7yxuZXqUlQwcxsBPTr2vl6HggM/GgeAzMjCqO9uypyJF3FAOr
+         bMWA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+       spf=pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com. [210.160.252.172])
-        by gmr-mx.google.com with ESMTP id r15-20020a056870414f00b00101c9597c72si262719oad.1.2022.11.06.15.05.33
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com. [210.160.252.171])
+        by gmr-mx.google.com with ESMTP id v3-20020aca6103000000b00359a21e3ffesi223291oib.2.2022.11.06.15.05.35
         for <jailhouse-dev@googlegroups.com>;
-        Sun, 06 Nov 2022 15:05:33 -0800 (PST)
-Received-SPF: pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.172 as permitted sender) client-ip=210.160.252.172;
-X-IronPort-AV: E=Sophos;i="5.96,143,1665414000"; 
-   d="scan'208";a="141674348"
+        Sun, 06 Nov 2022 15:05:36 -0800 (PST)
+Received-SPF: pass (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates 210.160.252.171 as permitted sender) client-ip=210.160.252.171;
+X-IronPort-AV: E=Sophos;i="5.96,142,1665414000"; 
+   d="scan'208";a="139133144"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
-  by relmlie6.idc.renesas.com with ESMTP; 07 Nov 2022 08:05:31 +0900
+  by relmlie5.idc.renesas.com with ESMTP; 07 Nov 2022 08:05:33 +0900
 Received: from localhost.localdomain (unknown [10.226.36.204])
-	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9AD784005B2A;
-	Mon,  7 Nov 2022 08:05:29 +0900 (JST)
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id C24184005B2A;
+	Mon,  7 Nov 2022 08:05:31 +0900 (JST)
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: jailhouse-dev@googlegroups.com,
 	Jan Kiszka <jan.kiszka@siemens.com>
 Cc: Chris Paterson <chris.paterson2@renesas.com>,
 	Prabhakar <prabhakar.csengg@gmail.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH RESEND 0/3] Add support for Renesas RZ/G2M
-Date: Sun,  6 Nov 2022 23:05:20 +0000
-Message-Id: <20221106230523.22567-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH RESEND 1/3] renesas: Add SCIF support
+Date: Sun,  6 Nov 2022 23:05:21 +0000
+Message-Id: <20221106230523.22567-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20221106230523.22567-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20221106230523.22567-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Original-Sender: prabhakar.mahadev-lad.rj@bp.renesas.com
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of prabhakar.mahadev-lad.rj@bp.renesas.com designates
- 210.160.252.172 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
+ 210.160.252.171 as permitted sender) smtp.mailfrom=prabhakar.mahadev-lad.rj@bp.renesas.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -128,52 +132,242 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi All,
+The Renesas R-Car and RZ/G2 families have SCIF for serial communication.
+So introduce SCIF support.
 
-This patch series adds support for Renesas RZ/G2M SoC [0] (root cell
-config) and adds demo cell config for HopeRun HiHope RZ/G2M platform [1].
-
-Changes apply on top of next branch [2] and the kernel used for testing is
-5.10 (-cip) based on BSP-3.0.0 [3] release from Renesas.
-
-No changes from previous version sent to ML, just rebased on the next branch.
-
-[0] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-ultra-high-performance-microprocessors-arm-cortex-a57-and-arm-cortex-a53-cpus-3d-graphics-and-4k
-[1] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-hihope-rzg2m-reference-board#overview
-[2] https://github.com/siemens/jailhouse/tree/next (9391d30a)
-[3] https://github.com/renesas-rz/meta-renesas/tree/BSP-3.0.0
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (3):
-  renesas: Add SCIF support
-  configs: arm64: Add root cell config for Renesas RZ/G2M SoC
-  configs: arm64: Add demo cell config for Renesas RZ/G2M
-
- Documentation/debug-output.md                 |    1 +
- configs/arm64/dts/inmate-r8a774a1-hihope.dts  |  228 ++++
- configs/arm64/renesas-r8a774a1-linux-demo.c   |  114 ++
- configs/arm64/renesas-r8a774a1.c              | 1134 +++++++++++++++++
- hypervisor/arch/arm-common/Kbuild             |    2 +-
- hypervisor/arch/arm-common/dbg-write.c        |    2 +
- hypervisor/arch/arm-common/include/asm/uart.h |    2 +-
- hypervisor/arch/arm-common/uart-scif.c        |   44 +
- include/jailhouse/console.h                   |    1 +
- inmates/lib/arm-common/Makefile.lib           |    2 +-
- inmates/lib/arm-common/uart-scif.c            |   65 +
- inmates/lib/arm-common/uart.c                 |    2 +
- 12 files changed, 1594 insertions(+), 3 deletions(-)
- create mode 100644 configs/arm64/dts/inmate-r8a774a1-hihope.dts
- create mode 100644 configs/arm64/renesas-r8a774a1-linux-demo.c
- create mode 100644 configs/arm64/renesas-r8a774a1.c
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ Documentation/debug-output.md                 |  1 +
+ hypervisor/arch/arm-common/Kbuild             |  2 +-
+ hypervisor/arch/arm-common/dbg-write.c        |  2 +
+ hypervisor/arch/arm-common/include/asm/uart.h |  2 +-
+ hypervisor/arch/arm-common/uart-scif.c        | 44 +++++++++++++
+ include/jailhouse/console.h                   |  1 +
+ inmates/lib/arm-common/Makefile.lib           |  2 +-
+ inmates/lib/arm-common/uart-scif.c            | 65 +++++++++++++++++++
+ inmates/lib/arm-common/uart.c                 |  2 +
+ 9 files changed, 118 insertions(+), 3 deletions(-)
  create mode 100644 hypervisor/arch/arm-common/uart-scif.c
  create mode 100644 inmates/lib/arm-common/uart-scif.c
 
+diff --git a/Documentation/debug-output.md b/Documentation/debug-output.md
+index 50d91e29..b364bf08 100644
+--- a/Documentation/debug-output.md
++++ b/Documentation/debug-output.md
+@@ -28,6 +28,7 @@ Possible debug outputs for arm and arm64:
+     - JAILHOUSE_CON_TYPE_MVEBU     /* Marvell UART */
+     - JAILHOUSE_CON_TYPE_HSCIF     /* Renesas HSCIF UART */
+     - JAILHOUSE_CON_TYPE_SCIFA     /* Renesas SCIFA UART */
++    - JAILHOUSE_CON_TYPE_SCIF      /* Renesas SCIF UART */
+     - JAILHOUSE_CON_TYPE_IMX       /* NXP i.MX UART */
+     - JAILHOUSE_CON_TYPE_IMX_LPUART/* NXP i.MX LPUART */
+ 
+diff --git a/hypervisor/arch/arm-common/Kbuild b/hypervisor/arch/arm-common/Kbuild
+index 9ddbc950..885eecd4 100644
+--- a/hypervisor/arch/arm-common/Kbuild
++++ b/hypervisor/arch/arm-common/Kbuild
+@@ -18,7 +18,7 @@ ccflags-$(CONFIG_JAILHOUSE_GCOV) += -fprofile-arcs -ftest-coverage
+ 
+ objs-y += dbg-write.o lib.o psci.o control.o paging.o mmu_cell.o setup.o
+ objs-y += irqchip.o pci.o ivshmem.o uart-pl011.o uart-xuartps.o uart-mvebu.o
+-objs-y += uart-hscif.o uart-scifa.o uart-imx.o uart-imx-lpuart.o
++objs-y += uart-hscif.o uart-scifa.o uart-imx.o uart-imx-lpuart.o uart-scif.o
+ objs-y += gic-v2.o gic-v3.o smccc.o
+ 
+ common-objs-y = $(addprefix ../arm-common/,$(objs-y))
+diff --git a/hypervisor/arch/arm-common/dbg-write.c b/hypervisor/arch/arm-common/dbg-write.c
+index d4cd4399..0a758b09 100644
+--- a/hypervisor/arch/arm-common/dbg-write.c
++++ b/hypervisor/arch/arm-common/dbg-write.c
+@@ -34,6 +34,8 @@ void arch_dbg_write_init(void)
+ 		uart = &uart_mvebu_ops;
+ 	else if (con_type == JAILHOUSE_CON_TYPE_HSCIF)
+ 		uart = &uart_hscif_ops;
++	else if (con_type == JAILHOUSE_CON_TYPE_SCIF)
++		uart = &uart_scif_ops;
+ 	else if (con_type == JAILHOUSE_CON_TYPE_SCIFA)
+ 		uart = &uart_scifa_ops;
+ 	else if (con_type == JAILHOUSE_CON_TYPE_IMX)
+diff --git a/hypervisor/arch/arm-common/include/asm/uart.h b/hypervisor/arch/arm-common/include/asm/uart.h
+index f620501d..8a505aa3 100644
+--- a/hypervisor/arch/arm-common/include/asm/uart.h
++++ b/hypervisor/arch/arm-common/include/asm/uart.h
+@@ -12,4 +12,4 @@
+ 
+ extern struct uart_chip uart_pl011_ops, uart_xuartps_ops, uart_mvebu_ops,
+ 			uart_hscif_ops, uart_scifa_ops, uart_imx_ops,
+-			uart_imx_lpuart_ops;
++			uart_imx_lpuart_ops, uart_scif_ops;
+diff --git a/hypervisor/arch/arm-common/uart-scif.c b/hypervisor/arch/arm-common/uart-scif.c
+new file mode 100644
+index 00000000..e3e3372d
+--- /dev/null
++++ b/hypervisor/arch/arm-common/uart-scif.c
+@@ -0,0 +1,44 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (C) 2022 Renesas Electronics Corp.
++ *
++ * Authors:
++ *  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <jailhouse/mmio.h>
++#include <jailhouse/processor.h>
++#include <jailhouse/uart.h>
++
++#define SCIF_SCFTDR		0x0c	/* Transmit FIFO data register */
++#define SCIF_SCFSR		0x10	/* Serial status register */
++#define SCIF_SCFSR_TDFE		0x20
++#define SCIF_SCFSR_TEND		0x40
++
++static void uart_init(struct uart_chip *chip)
++{
++}
++
++static bool uart_is_busy(struct uart_chip *chip)
++{
++	return (!((SCIF_SCFSR_TDFE | SCIF_SCFSR_TEND) &
++		mmio_read16(chip->virt_base + SCIF_SCFSR)));
++}
++
++static void uart_write_char(struct uart_chip *chip, char c)
++{
++	mmio_write8(chip->virt_base + SCIF_SCFTDR, c);
++	mmio_write16(chip->virt_base + SCIF_SCFSR,
++		     mmio_read16(chip->virt_base + SCIF_SCFSR) &
++		     ~(SCIF_SCFSR_TDFE | SCIF_SCFSR_TEND));
++}
++
++struct uart_chip uart_scif_ops = {
++	.init = uart_init,
++	.is_busy = uart_is_busy,
++	.write_char = uart_write_char,
++};
+diff --git a/include/jailhouse/console.h b/include/jailhouse/console.h
+index 34dd7209..e7c934a5 100644
+--- a/include/jailhouse/console.h
++++ b/include/jailhouse/console.h
+@@ -50,6 +50,7 @@
+ #define JAILHOUSE_CON_TYPE_SCIFA	0x0007
+ #define JAILHOUSE_CON_TYPE_IMX		0x0008
+ #define JAILHOUSE_CON_TYPE_IMX_LPUART	0x0009
++#define JAILHOUSE_CON_TYPE_SCIF		0x000a
+ 
+ /* Flags: bit 0 is used to select PIO (cleared) or MMIO (set) access */
+ #define JAILHOUSE_CON_ACCESS_PIO	0x0000
+diff --git a/inmates/lib/arm-common/Makefile.lib b/inmates/lib/arm-common/Makefile.lib
+index c13696f3..b50533e4 100644
+--- a/inmates/lib/arm-common/Makefile.lib
++++ b/inmates/lib/arm-common/Makefile.lib
+@@ -40,7 +40,7 @@ objs-y := ../string.o ../cmdline.o ../setup.o ../alloc.o ../uart-8250.o
+ objs-y += ../printk.o ../pci.o
+ objs-y += printk.o gic.o mem.o pci.o timing.o setup.o uart.o
+ objs-y += uart-xuartps.o uart-mvebu.o uart-hscif.o uart-scifa.o uart-imx.o
+-objs-y += uart-pl011.o uart-imx-lpuart.o
++objs-y += uart-pl011.o uart-imx-lpuart.o uart-scif.o
+ objs-y += gic-v2.o gic-v3.o
+ 
+ common-objs-y = $(addprefix ../arm-common/,$(objs-y))
+diff --git a/inmates/lib/arm-common/uart-scif.c b/inmates/lib/arm-common/uart-scif.c
+new file mode 100644
+index 00000000..aa15c6f9
+--- /dev/null
++++ b/inmates/lib/arm-common/uart-scif.c
+@@ -0,0 +1,65 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (C) 2022 Renesas Electronics Corp.
++ *
++ * Authors:
++ *  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <inmate.h>
++#include <uart.h>
++
++#define SCIF_SCFTDR		0x0c	/* Transmit FIFO data register */
++#define SCIF_SCFSR		0x10	/* Serial status register */
++#define SCIF_SCFSR_TDFE		0x20
++#define SCIF_SCFSR_TEND		0x40
++
++static void uart_scif_init(struct uart_chip *chip)
++{
++}
++
++static bool uart_scif_is_busy(struct uart_chip *chip)
++{
++	return (!((SCIF_SCFSR_TDFE | SCIF_SCFSR_TEND) &
++		mmio_read16(chip->base + SCIF_SCFSR)));
++}
++
++static void uart_scif_write(struct uart_chip *chip, char c)
++{
++	mmio_write8(chip->base + SCIF_SCFTDR, c);
++	mmio_write16(chip->base + SCIF_SCFSR,
++		     mmio_read16(chip->base + SCIF_SCFSR) &
++		     ~(SCIF_SCFSR_TDFE | SCIF_SCFSR_TEND));
++}
++
++DEFINE_UART(scif, "SCIF", JAILHOUSE_CON_TYPE_SCIF);
+diff --git a/inmates/lib/arm-common/uart.c b/inmates/lib/arm-common/uart.c
+index 90a322b5..c03909a8 100644
+--- a/inmates/lib/arm-common/uart.c
++++ b/inmates/lib/arm-common/uart.c
+@@ -45,6 +45,7 @@ DECLARE_UART(imx);
+ DECLARE_UART(imx_lpuart);
+ DECLARE_UART(mvebu);
+ DECLARE_UART(pl011);
++DECLARE_UART(scif);
+ DECLARE_UART(scifa);
+ DECLARE_UART(xuartps);
+ 
+@@ -55,6 +56,7 @@ struct uart_chip *uart_array[] = {
+ 	&UART_OPS_NAME(imx_lpuart),
+ 	&UART_OPS_NAME(mvebu),
+ 	&UART_OPS_NAME(pl011),
++	&UART_OPS_NAME(scif),
+ 	&UART_OPS_NAME(scifa),
+ 	&UART_OPS_NAME(xuartps),
+ 	NULL
 -- 
 2.17.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20221106230523.22567-1-prabhakar.mahadev-lad.rj%40bp.renesas.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20221106230523.22567-2-prabhakar.mahadev-lad.rj%40bp.renesas.com.
