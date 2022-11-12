@@ -1,240 +1,211 @@
-Return-Path: <jailhouse-dev+bncBD52BTEZ4YLBBLVDWWNQMGQELVKX5LY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBQFJX6NQMGQEY6BMWUY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-il1-x137.google.com (mail-il1-x137.google.com [IPv6:2607:f8b0:4864:20::137])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D68624AB4
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Nov 2022 20:32:00 +0100 (CET)
-Received: by mail-il1-x137.google.com with SMTP id z19-20020a056e02089300b002fffe186ac4sf2286223ils.8
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 10 Nov 2022 11:32:00 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1668108719; cv=pass;
+Received: from mail-ed1-x53e.google.com (mail-ed1-x53e.google.com [IPv6:2a00:1450:4864:20::53e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24861626ABF
+	for <lists+jailhouse-dev@lfdr.de>; Sat, 12 Nov 2022 18:15:46 +0100 (CET)
+Received: by mail-ed1-x53e.google.com with SMTP id e15-20020a056402190f00b00461b0576620sf5410270edz.2
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 12 Nov 2022 09:15:46 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1668273345; cv=pass;
         d=google.com; s=arc-20160816;
-        b=kBoq/5PpgaYylYk3JVkdQ4sGCxrCwDzsCSirE4GZYc4Yp6VJIK5N/vpr2yfNJOU9V6
-         bEnWY4wuWTHK1pqVGfZgIT0WYH0rFoGBMJk5mRjgtJBf/UcMQhqyQQwLFHZiHNOJwK3Z
-         KVOiO+g+uC5JrgRNSJHXtEFMIpO0t8zES4tJOgmq7QtGtBPOk8oMFaOKIKhQJbMwk2AQ
-         ZxVbqm1nLtYg9XrZmy5PeZwpBmy4VzGg8347Dss7+p9k2Hl5lXI/xN2paJtnXbH444aR
-         1Hjy2UbMIRh7JBCS7K9nxIeIqZ/YFdGLU0DHm9Xc1dYPKL8HoY75xj7O7mPrkIiPZSXS
-         sabQ==
+        b=dEIh2/0ErS5bzOSI9p8LJmvLBQCvJUf5HpZBMoz4AIzfzW69vfol2bRHIIKRGxFatI
+         PjKCZMzlkLMLhY5PyQx5B1vmc9h9x4fZgSW5XIGiFTRCHM0RuPzgJ52ncMII5shjWl8D
+         UcEdJk/76HVflsyIWhR4ItJ3z6iSm3DNF3ZC3V7/u2UuKBPAqfQKioZjHv88a/da5T/g
+         593HuLsYaab+IU9wlfW2mRc+10/txgbSVUkWzBJQRJhBhqzIs2C3evVhw+4+JpEqqsKj
+         UEBB2haG4rxlNWokvHthnhqGg9r5kKbQ1BSuqkAl2u9c+leqgZcw/MrmGEPMZsijYL5O
+         zL3Q==
 ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:in-reply-to:from
-         :references:cc:to:content-language:subject:user-agent:date
-         :message-id:sender:dkim-signature;
-        bh=FoJson2vjTBrORq96TZMCbLrd+0QnmPm4l6fu8NeHNE=;
-        b=NruU1QSxoNaXZzQoQkxmtmOxVrhsHd3+8G5tReunoTf0C3uWnJ4idfKQ11EdqKOKFs
-         1CkijWYNqWZurYfjxecA43x4aKSUTqGD8wLlQt2IwmOWf4MP34WyeefgkHrGGsAh/MOm
-         OL6IptDUkwyE5YK0ZwWVMOOw5airdpKRFMqQGegkDPPitTnv6q5fEdhv+tFStpC9ENk+
-         XIaNlkIMGQnALZ9/uuHlXc8vtELYtX/v+YSyhQ0OvdbsqH2A+Un6VlHyjDGCg8Zmlym2
-         cn0JEXjkvfe8raMDDGefohXaEsLyMNcCNwoRDGwIvyIw6clRGcHrf4JnWygU9FeplndD
-         Bmrg==
+         :list-id:mailing-list:precedence:mime-version:msip_labels
+         :content-language:accept-language:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:sender:dkim-signature;
+        bh=cOU4u/xeKUIYHtmj185RaALgNulQOx0G2o6LVz12xq8=;
+        b=Bl8satyrFE0kv3DyLDLimXZpobc9vQFLuA9C6OhlH0PFrNCI5x65XnTTQJC8sHGrxH
+         vcPIcHmoWIHeYzI9K7Uixp55pv84Tsx4bXwC/VvVPyVgwjdHUeQaRGPSGzGtTRYJj3u0
+         LRHdwKaWoJg0VE1rBpartaIO7OzpOkUjRgcfunERr6LIy3AOBOxYN64rtEVBOmoL0w4s
+         XnCNQ7s1sAMRXRY4DY226OkGbS51lKVFerA615/UaSg8R+ER7jisycU17wbfut91VKBD
+         nKYw07m3w9WjbhdVthMlhXDeB6EvQ1/tjat95HU+EFT8+ymU26sSleoh5d4hY6qQ6kPd
+         GYwQ==
 ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@oracle.com header.s=corp-2022-7-12 header.b=T0Lw7Kb8;
-       dkim=pass header.i=@oracle.onmicrosoft.com header.s=selector2-oracle-onmicrosoft-com header.b=qJfO5IdO;
-       arc=pass (i=1 spf=pass spfdomain=oracle.com dkim=pass dkdomain=oracle.com dmarc=pass fromdomain=oracle.com);
-       spf=pass (google.com: domain of ross.philipson@oracle.com designates 205.220.177.32 as permitted sender) smtp.mailfrom=ross.philipson@oracle.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oracle.com
+       dkim=pass header.i=@ed.ac.uk header.s=selector1 header.b=eBIGadHD;
+       arc=pass (i=1 spf=pass spfdomain=ed.ac.uk dkim=pass dkdomain=ed.ac.uk dmarc=pass fromdomain=ed.ac.uk);
+       spf=pass (google.com: domain of karim.manaouil@ed.ac.uk designates 129.215.16.10 as permitted sender) smtp.mailfrom=Karim.Manaouil@ed.ac.uk;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ed.ac.uk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:date:message-id:sender:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=FoJson2vjTBrORq96TZMCbLrd+0QnmPm4l6fu8NeHNE=;
-        b=GJqvA4aGim6kDartYO3F+oEe/SbORXAw+pHLSk5uP3XGBIozthainVkapE2CjZjqPZ
-         xNS3oM+y8IvNjMxtjoX98VL7hCbwgoECOQwXVp2QL72ECDmgZEyC6XHAzTWcmrExnjk7
-         RUjCdH2CJ4LrnFtYTc7IbkKlaBHJ5wX+75QXfGGQFO+sGmKWmXdbmBEHt8gxtTq9+pWc
-         JkypFdjErC1KOr5k+NTczVhC/AAGUUpAzgKARFs6BW/uUsofsJacztoE4rh4be+Xsg+k
-         4nYlOGKo6LTprEVa1QDRJpmPx6c2MTsVPJ2IqPEvxX568pehOhkK1aL9F3C9cNUT0GEp
-         rsYg==
+         :x-original-sender:mime-version:msip_labels:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=cOU4u/xeKUIYHtmj185RaALgNulQOx0G2o6LVz12xq8=;
+        b=stZXKVhlAtM220MiDrbecuCJjnJc/3V++SA3wh1thAok1DnhOiEy4+wi5ltUDNexBs
+         ufzcIlGGxDT7ZdFcyKcQw8iXLDXR5zGtmjBZO0TBHPajMiShVg23yCvoCMZJdcS7+O+1
+         /ZdgPgjoGkh/2nduoUKujosiit2c1wcrt9v0bHmpMZmA6mtdEJOhn9xRgzrmYr+BTCES
+         jHbdjQF6HLAagvuYH5/1dlTAeBLBH6UdCGuSrxUr1kwgqFICX0w9UFo9cqKTxZMMXVCe
+         6QJplKMqENM98OYOq7S6tVOeeOiUV3l610GRS1qaul5bwvdkZWL3kdJPdJa38eh1VXE7
+         4X8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
-         :in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:date:message-id:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FoJson2vjTBrORq96TZMCbLrd+0QnmPm4l6fu8NeHNE=;
-        b=ytcqK25s1s0ApdiTDrDMUHcVunoaByu5i6JcEy4k9IazahiTcslu++t0z6t5W+veec
-         IxuqbfX7KLahdzxpJ9Z69vAwrqcy7SE98lTy87TTHzBreYKTr08s93KiZuQ8REvWkPQV
-         uvHniDwPoTD52QcuRKQxvr09FUXxHP9rsayXMdgfUxVThbAgvGxdAOuRRqAF87IqaXiq
-         MUAaOBPvlKrGnLWHfbJmdbChTyEevm/XMpFGim9YKCNbGjAnzTz516MN0kX3D74Ji/tJ
-         GYyUDJp99lsjUd7icIewnlB15D612h8Mxw+AA/dWNGP+MbJkJDwdjOIJrzmS606q1iqz
-         bdqw==
+         :msip_labels:content-language:accept-language:message-id:date
+         :thread-index:thread-topic:subject:cc:to:from:x-gm-message-state
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=cOU4u/xeKUIYHtmj185RaALgNulQOx0G2o6LVz12xq8=;
+        b=gqzTMNH0XWYtY1LEYr/eK9hmj/M9z5ys2RPR6PS5dJ9v9QaiFpCjAUGvBJQV/4l5Py
+         XVf+IOiqUm7WjZLViCAndUByPSg3lexnsyR32+ok6CKov4vgWhF7vHGj6xiQ8mgezNHh
+         mNiGprGGA/FV7eEj3ClenOrDlhD+WuCJ/qbDxmjxNkdynS3RNqimSmCtRPojDevWNZ3F
+         Nfnepf3jOMIa4kgSObhu0H06eFKN8aWEiHJxVTFaN2ZNLbXBAaccgTzcJTB9CRkJoYKN
+         oiVubmhhDUjbKffJVB08mNO5g12N1W2TI0GgxCAVALDJxPoEUgEgENWAhR3Wts8KRXoj
+         FCWA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ACrzQf2Lzwyz3UWyDh+h4iaWVe/p6b9X6rkvulxHFoyo4KdyTTAJz5jX
-	fBDBEvqPyFG4otHZWezTnSE=
-X-Google-Smtp-Source: AMsMyM5jDs5AHGiiUkpe/AwT/riG2mS4pMqx9lHPCzfgCqRLsMQtb1wgvF7BZnrMVL5u07Wpy/3aCg==
-X-Received: by 2002:a5e:d80e:0:b0:6bd:2e10:82b9 with SMTP id l14-20020a5ed80e000000b006bd2e1082b9mr3307575iok.135.1668108719134;
-        Thu, 10 Nov 2022 11:31:59 -0800 (PST)
+X-Gm-Message-State: ANoB5pkloH1td8WHCNJFrZElm2W732c1tTfpKl3FD38G8qV2h3sCR04M
+	9kfuMUjbcVRlH1x3WhdFgSk=
+X-Google-Smtp-Source: AA0mqf4CWyXtfoyqVDRNemDJ2G73eB2yvkGpdkN0JHJ9jXcIsQiQHgMYgjVZmcK2rIDXU+dEQxayJQ==
+X-Received: by 2002:a05:6402:28b0:b0:458:c66a:3664 with SMTP id eg48-20020a05640228b000b00458c66a3664mr5816154edb.79.1668273345632;
+        Sat, 12 Nov 2022 09:15:45 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6e02:1091:b0:300:ea3b:734a with SMTP id
- r17-20020a056e02109100b00300ea3b734als595135ilj.11.-pod-prod-gmail; Thu, 10
- Nov 2022 11:31:58 -0800 (PST)
-X-Received: by 2002:a05:6e02:1c88:b0:300:2109:2bec with SMTP id w8-20020a056e021c8800b0030021092becmr3565817ill.35.1668108718286;
-        Thu, 10 Nov 2022 11:31:58 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1668108718; cv=pass;
+Received: by 2002:a05:6402:35d0:b0:45c:bfd9:fb45 with SMTP id
+ z16-20020a05640235d000b0045cbfd9fb45ls1213707edc.3.-pod-prod-gmail; Sat, 12
+ Nov 2022 09:15:44 -0800 (PST)
+X-Received: by 2002:aa7:c90c:0:b0:461:bacd:c85d with SMTP id b12-20020aa7c90c000000b00461bacdc85dmr5724322edt.278.1668273344306;
+        Sat, 12 Nov 2022 09:15:44 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1668273344; cv=pass;
         d=google.com; s=arc-20160816;
-        b=fsVRoGaguzyxj3MZQCatokThoIroLWr3P85Tg4uO29y310DtlB0EXCVeZ+VNH0gbTF
-         xDCZOLTAKjoDRia+YuV+9QfYZ1VSd5Y+M6yPk6JZXdClKy3t+bwPAATn7iZso+F9SSlu
-         Bp2fd72e287JYv5N4EIWmnUntUO7fV7oT7n5SN1TNLvQmXTrRlbDggJPS2gy42jFj/SX
-         odGkU+QAeuk6Ngw0pzAKo6ulM9X6qsiwfZ21t5SY4u1GK7Ihifh8NQ1qPXbI/h37q4GB
-         g2u5Y+IzlANUT9WTgg5YgedD8JEhuhkBQlqRiWoiYgQ8Xp1kwOKkClDq0nKZJZpFGiJ1
-         hx1A==
+        b=xe5elbZQacQx5RniVOxC4/rOab4XYVv/I6IAYW0hv1Pa+QY4LA1EhrKGwhQJ0O54t4
+         h2767AHyR5sgyFa7gYV+banXTcjU5hVNITEDZ/7mmwksFSt+FfeSwWjuHbjDyVHz5DCw
+         4mzv8Ey/aQEASNhSHPutcrFrI3vtJ3mnVFbUTftBgMGnoyW+y7lfnht7e3UFHmKnligi
+         K9fulmkmeWYrtIKyaWMj5aC08AMPl10GJceZGmHLMPA1oFE0irVC8EfTmsKQ47FBJK2E
+         +ghFNHabZ6PjmgEDR3A+0FT/9AsKCX3mC5RKfl5AzyBMQ7+VKzs4ug/VWA62rzWjW4Gx
+         QQlg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:date:message-id
-         :dkim-signature:dkim-signature;
-        bh=/sM/RPyc7Kd7E67aKBnYNlDIEac+lgJDXcu0AB5D5GA=;
-        b=Txec3upTmlaVO/n2i0vF2qxJkal7pytpfgv6hu4zI89G4IsmP/YFniDUyzWj3oxpB9
-         sgsUDTdipqAhBZwkJ1yHLbmDpTN5M5aNXQY2elpAGv3SkEVKsxRROfzr66Gt4aCyOC6k
-         rzjyi70i2d+39uyOmHdU622cnPtmY7XM767Ac/FlSqfRgMi/fbO65CsbsJ8lFO2FfQY9
-         JjYw+N3ySo2NrRQicBe2NKs9ELqyNj2uMOJpBNhgFnXQZS89koDDNC5/tHUG0OJl0oSi
-         3PXA1UWcMweb51uFpbthOHp0OrvWi1Dcud8HIVEjm4cip9C1IRH0w6XTEJ8rHj9N70yR
-         eZKg==
+        h=mime-version:msip_labels:content-language:accept-language
+         :message-id:date:thread-index:thread-topic:subject:cc:to:from
+         :dkim-signature;
+        bh=uUPsaE5aMrT3jKoOL7TiVykURYj6YHXIh5vcaAh+r1U=;
+        b=yEifJrdqAZnENB4oChtrPP24bTsmS6ewEdEbPFkoMj6TGMobk0/DNcKden5JsU5SXW
+         tm2skkMCdImEIZtG94MdIRixScz4qtLqJdo+kCQxePm9idj4liSw1upLEB0i9FrdKaas
+         znaeZQKAQpwm7U/XcI8T2I7fUnN2kP2/JjDUHoyTVmrzOxi4kkJevh6dYkomq73rAu7I
+         now6gI9pCkSt2P0jJK7r/EKPTbhPDPQTJhM+88r0IfUTrwwyfgqcVarotZtctbxVJRfu
+         Coue7mDMTm+2QCqBIGZOm9zSJlC91kOwmsLMKY0lLwgGHAUUwbLqlX6Hs00nS0zVHLaX
+         ym4w==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oracle.com header.s=corp-2022-7-12 header.b=T0Lw7Kb8;
-       dkim=pass header.i=@oracle.onmicrosoft.com header.s=selector2-oracle-onmicrosoft-com header.b=qJfO5IdO;
-       arc=pass (i=1 spf=pass spfdomain=oracle.com dkim=pass dkdomain=oracle.com dmarc=pass fromdomain=oracle.com);
-       spf=pass (google.com: domain of ross.philipson@oracle.com designates 205.220.177.32 as permitted sender) smtp.mailfrom=ross.philipson@oracle.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oracle.com
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com. [205.220.177.32])
-        by gmr-mx.google.com with ESMTPS id h15-20020a02c4cf000000b003636f49184dsi18836jaj.7.2022.11.10.11.31.58
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Nov 2022 11:31:58 -0800 (PST)
-Received-SPF: pass (google.com: domain of ross.philipson@oracle.com designates 205.220.177.32 as permitted sender) client-ip=205.220.177.32;
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2AAJSNOj005810;
-	Thu, 10 Nov 2022 19:31:53 GMT
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ks7g5g0hn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Nov 2022 19:31:53 +0000
-Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5) with ESMTP id 2AAJBg9q023083;
-	Thu, 10 Nov 2022 19:31:52 GMT
-Received: from nam04-bn8-obe.outbound.protection.outlook.com (mail-bn8nam04lp2049.outbound.protection.outlook.com [104.47.74.49])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 3kpcysaqgr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Nov 2022 19:31:52 +0000
+       dkim=pass header.i=@ed.ac.uk header.s=selector1 header.b=eBIGadHD;
+       arc=pass (i=1 spf=pass spfdomain=ed.ac.uk dkim=pass dkdomain=ed.ac.uk dmarc=pass fromdomain=ed.ac.uk);
+       spf=pass (google.com: domain of karim.manaouil@ed.ac.uk designates 129.215.16.10 as permitted sender) smtp.mailfrom=Karim.Manaouil@ed.ac.uk;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=ed.ac.uk
+Received: from loire.is.ed.ac.uk (loire.is.ed.ac.uk. [129.215.16.10])
+        by gmr-mx.google.com with ESMTPS id bf28-20020a0564021a5c00b004621a13c733si195678edb.1.2022.11.12.09.15.44
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 12 Nov 2022 09:15:44 -0800 (PST)
+Received-SPF: pass (google.com: domain of karim.manaouil@ed.ac.uk designates 129.215.16.10 as permitted sender) client-ip=129.215.16.10;
+Received: from exseed.ed.ac.uk (hbdkb3.is.ed.ac.uk [129.215.235.37])
+	by loire.is.ed.ac.uk (8.14.7/8.14.7) with ESMTP id 2ACHFhg0013946
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sat, 12 Nov 2022 17:15:43 GMT
+Received: from hbdat3.is.ed.ac.uk (129.215.235.38) by hbdkb3.is.ed.ac.uk
+ (129.215.235.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.13; Sat, 12 Nov
+ 2022 17:15:43 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (104.47.12.50) by
+ hbdat3.is.ed.ac.uk (129.215.235.38) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.13 via Frontend Transport; Sat, 12 Nov 2022 17:15:43 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QTWqO1T0XTQ1DiTZ4DytNiqkkRwlYZw9rbw6IeQpUfuQ+6J8L3/NqUkd9CTDbfx4TnZePYh2jfmIbba+O9w9cCldlJRIFNZAcXqyleOnlqINzdelZBW/gqaMSN/rDRt5CYdH1MvsTPyvd31vu3JM6VFU6uQyViwO9/waQ+6rOJvI0tSkNCRpzBj7LNb1q4Ht3irEOJ5klqW6CrJEyfPxwwLV76b6g4GhkYlt0AotQm00CRFf3de5eN6BrdpH9V6u5OIbO6svsFISeU7IU7mDFcMsmsdYxldw25aoZAIm2O/mvTGMWmLHjhzs4ebbz9G8R7GyZzSTnEB53kb4tRXI/A==
+ b=OgO8Qjh442SuXSudV7F/8/fXEubXzsHR9yXXWbMK7FvVVFrGTEUMvNcbRz7oTo8tsF0mytyoYTX2SXwM7Nb1s8Mtruu4PdxSlBc/CM7Ao8TMKw9qlkEnmnv3FLSJElE45d/U1ALHobOKUnjXFiiVIYacSNDmdIsBQI0ifZfNSAEjVOYhTj6iFiAbgWILBU0OfXCDQtGSpJKzcXFIp4Bm3aG2g40jRjN9ErlrVgOZzfdO+bz6fajdSZeyUKl68UrNFc0z0+LLQZKdaFtX3bGg3wr4VbSehC2v5Z9ABMZ3+FkjdRRarEfZE+zc7ZiT+gYJFoPSLD9F4hkZxtiHRc7P4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/sM/RPyc7Kd7E67aKBnYNlDIEac+lgJDXcu0AB5D5GA=;
- b=WAN3PBHBzpFlRLkNzQZUiRyisBB/X0tf2DD80KNTJRdKSHwBI7BqKpocBOm2SEXOFJEspleVQDizLHPbv/Chv/Deo51vJOoFI8QvY4lAfMaLoiHmujIKFHb1atbcOtf1rHfVVQd5jq61zEI5h3u2pUH4ZeGqqXZXsS6bloAGWX/K4Gw+nM/9EIsT4yFw1npf3PDwQhgVdPqH6jj9maHhszQgy36M0T0wBAysONjOqD/03qWIc2EJIsIQYDkeCkYMs+w4lucfHXOiqvc3IjfLJUfRP64yScEH87RYud4yM7DJ7TIuD8wzTBdUdpg5i+oJfQWIc+JRMKFAOcgdmqZKHQ==
+ bh=uUPsaE5aMrT3jKoOL7TiVykURYj6YHXIh5vcaAh+r1U=;
+ b=GAU4Aodc1ykeSEyxVE8f2peOX36LTG6ZtDCwjxry51m4k3BiidyYvX18h+2SAEFU4n6kFhfo6HsePlVwJlBBcP+MXmVK468CfkVYViJZtMWZDYPqhHZhh/TTI2MQNIatGK/H24gfnzeISb1Z1UTRqA5Vv+LqjDx02Vq4aFpWhHAuu+XZl9GPBE0FtbjdiudvX+h7mi2e3Cr4ygMmtHmZ/H7MyZItG6AaArDX8RGDzgHAoEmwJMUPYZhW5ORbcRgLGOEZg4vNhI0pFGs7NM/FjEUllCUtphtIlb0bdtiVU9MU/e7l4f1vwei6SLfVxQoy3SmhwKARudGjBxoCkstC6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-Received: from BY5PR10MB3793.namprd10.prod.outlook.com (2603:10b6:a03:1f6::14)
- by PH0PR10MB4472.namprd10.prod.outlook.com (2603:10b6:510:30::13) with
+ smtp.mailfrom=ed.ac.uk; dmarc=pass action=none header.from=ed.ac.uk;
+ dkim=pass header.d=ed.ac.uk; arc=none
+Received: from AM0PR05MB6018.eurprd05.prod.outlook.com (2603:10a6:208:12b::26)
+ by PAXPR05MB8560.eurprd05.prod.outlook.com (2603:10a6:102:1a7::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Thu, 10 Nov
- 2022 19:31:50 +0000
-Received: from BY5PR10MB3793.namprd10.prod.outlook.com
- ([fe80::72b3:f74a:9e7c:680a]) by BY5PR10MB3793.namprd10.prod.outlook.com
- ([fe80::72b3:f74a:9e7c:680a%4]) with mapi id 15.20.5813.012; Thu, 10 Nov 2022
- 19:31:50 +0000
-Message-ID: <cd5aabe0-94a6-3832-9e3e-b308b134d7e8@oracle.com>
-Date: Thu, 10 Nov 2022 14:31:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v2 2/2] x86: Check return values from early_ioremap calls
-Content-Language: en-US
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, dpsmith@apertussolutions.com,
-        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
-        luto@amacapital.net, dave.hansen@linux.intel.com,
-        kanth.ghatraju@oracle.com, trenchboot-devel@googlegroups.com,
-        jailhouse-dev@googlegroups.com, jan.kiszka@siemens.com,
-        xen-devel@lists.xenproject.org, jgross@suse.com,
-        boris.ostrovsky@oracle.com, andrew.cooper3@citrix.com
-References: <20221110154521.613472-1-ross.philipson@oracle.com>
- <20221110154521.613472-3-ross.philipson@oracle.com>
- <Y2090DOT3q5CX9kV@hirez.programming.kicks-ass.net>
-From: Ross Philipson <ross.philipson@oracle.com>
-In-Reply-To: <Y2090DOT3q5CX9kV@hirez.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-ClientProxiedBy: BN9PR03CA0138.namprd03.prod.outlook.com
- (2603:10b6:408:fe::23) To BY5PR10MB3793.namprd10.prod.outlook.com
- (2603:10b6:a03:1f6::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Sat, 12 Nov
+ 2022 17:15:28 +0000
+Received: from AM0PR05MB6018.eurprd05.prod.outlook.com
+ ([fe80::6971:6f6d:49f7:1d5e]) by AM0PR05MB6018.eurprd05.prod.outlook.com
+ ([fe80::6971:6f6d:49f7:1d5e%5]) with mapi id 15.20.5813.013; Sat, 12 Nov 2022
+ 17:15:10 +0000
+From: Karim Manaouil <Karim.Manaouil@ed.ac.uk>
+To: "jan.kiszka@siemens.com" <jan.kiszka@siemens.com>
+CC: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+Subject: Jailhouse: enter_hypervisor returns -ENOMEM
+Thread-Topic: Jailhouse: enter_hypervisor returns -ENOMEM
+Thread-Index: AQHY9rkzsgTc3CVeRkSVzYW63qokCA==
+Date: Sat, 12 Nov 2022 17:15:10 +0000
+Message-ID: <AM0PR05MB6018F1663ABE61DA3C697CA4A9039@AM0PR05MB6018.eurprd05.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM0PR05MB6018:EE_|PAXPR05MB8560:EE_
+x-ms-office365-filtering-correlation-id: 77962729-88e9-4695-4e75-08dac4d1746f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +jib/5YXHTYKsHmDM48mhhfRyvkE5SM3AKjJYwDZanyKB+sVZA1iioM2Ht+9HrYplaAOArwWCiaAmxGgLQ82S+aqaukyQ8OSUc9F0OZvB5idadyP5PvMppETm48JBGpQCrzVT39vqFcBXU+NlTC2aIKlFHMxXq94PF40IqzP9vmLM3LGuy7qqR4L3DO3Sk/5teFsq5zVcO/i+eHywzR+AkAa3HXathFCd+NVY7lqoFL5o8jVA4pdcpLB+fyrKWo0TG31Ut7LTNBRQsFKLEjX9D8L+L6xt/E7/E/fW73rLpRlOdlig83G8RKOepsrrDiTi7ZtJFdGxhZ2pnx+5gBWvBs1TV7NJejIydHcVvjp6aiHrp4T1VCioJjH16/pwZx6wdiczsQJ4cmWy2jY28Dcd26w2pNvt6PvXTTDMT+B8dJhI/GQxTF2BpnufhMe8paI5USSOcpJVSNhaOpmNGXedFoLh3/eMt9BR+JURrpxLPn1dyuuLb6XVTrRBbbjZAPrV/6GJFVWO/LFukMM35psykVVQfDFd6MR6zkr9PYhuSl/awYWLaG/AmiWlXqu5C1V+iFmGzcwCgeDySqK8MnruJDGW6trTLTpUYttXoiiVZAf5ujQnYF/AGdALiu9oHF+etlFQ4RWyXiXcGVLuVQDN3BnhFEhlI/rig6KHRYRGY2jHGAbQgJcU5n9HKs54gec4YJVjEUZRkeKddKsw9oeaLsmsS9LeXis63ARiBJm0Cn3H6VRJAN+PJNj3KgFaOjonIyLZaRaiTwa2X/VHkC0+TDMGLKa261Jgl9gBthqms4=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR05MB6018.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199015)(6506007)(7696005)(26005)(9686003)(122000001)(186003)(38100700002)(2906002)(4744005)(5660300002)(41320700001)(55016003)(76116006)(71200400001)(966005)(6916009)(478600001)(4326008)(66556008)(8676002)(66476007)(316002)(41300700001)(52536014)(786003)(8936002)(66446008)(64756008)(66946007)(166002)(91956017)(33656002)(86362001)(38070700005)(19627405001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?AnWVkhXQLSVN/QD916jQgopgczbraqAkvjbQKFR2nWRqwhB+JpDQ2DDYva?=
+ =?iso-8859-1?Q?g/vIDPbL1tomykllxetSyuxEOsVkNI8Jbz7XasQ74EBV4QMMq12AcpBMcV?=
+ =?iso-8859-1?Q?h6aCPI5eqvzze9IfgzEq0SKSk1cEkb1tESlyVsXUDyp5/GVPodaNqqsm5X?=
+ =?iso-8859-1?Q?lcU8wPOWctxmBLLtLJuY2A1ZCMJEe/g7tM46p1naVeV+ef0DgLlZiTBknG?=
+ =?iso-8859-1?Q?Y/yHo3sGWX9ecfpCzPa4u7LdD5gKMWMAKmTEN4z6ZMHUlOig9W2/xkvl2g?=
+ =?iso-8859-1?Q?Di2EwurFbiVq8RgpOI1PA9D/eO/ReR84IKSm8wYa7FtZvKQRhZzmUsKa8b?=
+ =?iso-8859-1?Q?Dy1HGtS3A4y6uDk0wIOUe3S61qT5aYsK/jSZ7/Myke0dqZIX3ff+MVE9Hu?=
+ =?iso-8859-1?Q?OZbzEA2Mlaq2/zhXAsJG3es+zFTpYld+wXk+WaNqnIezqXfXwWa8h83pUu?=
+ =?iso-8859-1?Q?oahhfYBG7eXaYnTXMHFyazaUDgeXpexQcz1s0Yy1B5/BWdvRgpMsnoutKl?=
+ =?iso-8859-1?Q?NO0JA7iiXvTwAL/fWBJyy4/xk+WXvo1cMsycWZiUTTrMu9CNV5GGYKifch?=
+ =?iso-8859-1?Q?8S1L+kTnLD15HC+KG93mhwsSA1vf3ko6zJgyDn7+Gk/+/M7rj7XVA/HAuf?=
+ =?iso-8859-1?Q?W3qyXCw018EapravVmIqPDaA5XkfxXLgeXC3VPkGEqxdskSIVmFCokmGI+?=
+ =?iso-8859-1?Q?dQAyJj5jY91O2yZ9/t9WUK3XRYp9IX4n6XZFqq/WXWt+Wt5hw0WIoXSIHU?=
+ =?iso-8859-1?Q?DkU1aH2NydUgtDZKaAd1EWR9ZUde/c4K1FjDuO30taD1kd7tuzypas6OEN?=
+ =?iso-8859-1?Q?f1WrIwlO6EEX4yo4cp/Z1KigC9ubj6WC80alh7v+EIPncq+CexpsaJdOk/?=
+ =?iso-8859-1?Q?58a0oOJV9ap3zVYvAmTdkvFqyPWJUXrjSg/m8wgBbRHpuq9lhskSHCJJYH?=
+ =?iso-8859-1?Q?j2E9HXS6lbBabiimwDw6If6Oq8saSDAs/jCD7PuFAHVPsh6Su3FyZDTw9F?=
+ =?iso-8859-1?Q?aYYv+RoQ0MMWUa/BuTQ377KcrV2C6u9dxVQutwwvJnCd4BCA6YJQcvR0Eh?=
+ =?iso-8859-1?Q?xnhno3jn/YNusHk52CEHF/DS7b+97WDV01E011aCvpxMwn8oOD70pSAewm?=
+ =?iso-8859-1?Q?G+/9Y1AZcG0n1QDtb/u80Dntn+yGzy79ciiENLjUMn7qtg8IpgAJrcZF9s?=
+ =?iso-8859-1?Q?h0bjzAuwqIFr+qJG3HJFqLLWBfhf/kuy9DXslCy8UG7Be6jOsQ54U+Ha63?=
+ =?iso-8859-1?Q?HPANJR9tjhreGuXIhKTvrqLkXvg/MDQg+S8yWT+azyEYMo5WtsFVTSYl4E?=
+ =?iso-8859-1?Q?BOOBBr15QnqBQiekTvqQD35Bi6w6VHu5vThkSZXFZpwL6cOa/Lrv2Z/qvv?=
+ =?iso-8859-1?Q?Gn4a5DOLyURDkBFft1OOuaBkUupzlPylaQ6qBiKHGsXWqonmVFwV1a0ug+?=
+ =?iso-8859-1?Q?7gB86sxR/Ez3I2FJ4omVWjkZ8XEqqvWwBXGB3kw/uPVeAVyN3nYRig+aKo?=
+ =?iso-8859-1?Q?l4Schm62IdFUZIZXyXsmroeTAvnmF/9mdVS3fsS6ITHGWyyz80oR7Gu71+?=
+ =?iso-8859-1?Q?rm9OvftLVtZXmvArTrevyJx//gHzlvoiCKM5crh692Quv2pSlfI+WX8Ovl?=
+ =?iso-8859-1?Q?rS1ZZpP4W1PL4=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_AM0PR05MB6018F1663ABE61DA3C697CA4A9039AM0PR05MB6018eurp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY5PR10MB3793:EE_|PH0PR10MB4472:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d6d970b-9383-4304-e85e-08dac35236fb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v5xeQVpHd6ABx8NRdxFVoeMFSxcG7T9+az6eteS4tXQktYBZd0TwgHUsZS8tUtPoPouNHzUIdgcAbGvrIK31SFKXcEAgOuQXSvNoSU5IyDMgIfkvhVr9+dABTN6oBJLFolFHLMJZh4BHlNSptzMrDKjws3YFFREObZNEkCz6/XjTPR635vZCha5DaFmZKZGYEEVLuTQA7Z34v7AlbUho/jzJKXViUw5xKiQ/noEwfU/JqXImRr2oS7tWEQwl+/r5x0tBjZJ195a/Q5UcvyF0/IK0x3ubbUuYwSXF/IFhI7NGMqSoKpi5EjDZNzv/XTfOrcFs5Fu2OO3b9/fuGmlEyATUoOK0Z0EAQvA8VmauTCOsIWL3FOIpdh2oookV+sOb8C5iWUKgVQrZAPyhPfBKx9+uwaNss1S0G76j/s2zbxiUSO0ONsBlfVP5wM1v61D0v9fA4WFDw27hQxFpn/fr+KaU1j1d/F6P9D45TwH7dUtcrp00w7eBhrRt58Do7QnXVR7mtG6tBEH9f3YPuoE90iw83oYrKnqLs14CFO0COyvg/jMcm1nT1PnRleuot/WGiPQ3RwEecmIRUPXDTH1QdY+1O/iF23PCbuMQFIo8VpmD+wUqCbk7vH6jpZCEENMuRMkdlplgaw5YvWZlrChSttt6CdC+IJaadeJ1zJ33etAyUTdi3YBUSRwfYm/JRH9axeMnkU+PWzYv/TPbbekAOQRQ+rAf4Aqe9ZBen8e+ybFe596pirB9ovm8VrUm55en7pq5zIf/LXpAGjkrDM6LVTaL81wk0U6kJmjc1CECtIM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR10MB3793.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(136003)(396003)(366004)(376002)(39860400002)(451199015)(316002)(6916009)(2616005)(41300700001)(44832011)(4744005)(5660300002)(7416002)(186003)(2906002)(6506007)(8936002)(36756003)(53546011)(66556008)(4326008)(6512007)(66946007)(8676002)(66476007)(31696002)(86362001)(31686004)(478600001)(6666004)(6486002)(83380400001)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjlCeE5SaGZNMjRTVjIwTi9WNTR3REdnZjN3UXdTWVdMWWh5SmkrSWN6Sndv?=
- =?utf-8?B?Q1k5ajc5MWdkd0lMR1BpdDBQZUdCZ1NPOWlPVkNUSEhiaFpZbG96NnQ4MEFa?=
- =?utf-8?B?TnlxTzUvMGptbFZUaEY1YWR0amxKK2dpQ2ZHSXR1QVNBV3ZXakh3ZGsrVnZs?=
- =?utf-8?B?SzBTcTh1YmxKU0RiZFZIUE5IRkczYWIyT010SW1SV2tMb1BzWDVkcG14MW9n?=
- =?utf-8?B?cXFqNnJqd1JNbGVCM0d6Q1VOM1U5UHZkNW9La1FsNGJkd2dFeDcvTHl0WERx?=
- =?utf-8?B?V202Yk96aXh2RlIrSmNRWGdIckNvZzA2bTcrRFRmRHE1YUZ0WWxiWERiOWcx?=
- =?utf-8?B?MHQ2WHViNm5CQm9TclRyekxvRDhXcEpZa2RYY2dTUllvSlJhR0szNzNtblBV?=
- =?utf-8?B?N0dUenkxZE5vMVdoR1R4OUFJWC9iN1FNQ1dKeFphTzFic1J5bDViM1dLWTg0?=
- =?utf-8?B?TUlvRTFpMEl4ZERXeXZNSENFNWxNZHk0UGZPektUWFpqdHcyWU5INUR6WmNR?=
- =?utf-8?B?d2Z2cm5xUlpkVks0QVlwd0xibnM3TnBRMmtKUU1NZmdxZ3plUVYzV0QvcFFH?=
- =?utf-8?B?azlnTHZKZEFHT0lKZEd2M3JEU3N2emVtWWxLSkJTL3NyaVh2OGlyNFgrWWpr?=
- =?utf-8?B?ZzJKVDVxWnJCZFBxeWZ0ZWNnUHNQOE1VRXNRQVNEbitiUkVEVCtLeERUSlll?=
- =?utf-8?B?c3kxaW1YZlRYaytCZ1hFTVp6M0NQeEZCYmhXU1ZUYmpzMXZRck1OSWloWThy?=
- =?utf-8?B?UmtVeHBySldBMVBGaU5vcFhYSUpRcEhoWlJtNGNnWnA4Q0pKdWx0TGxlODVl?=
- =?utf-8?B?OThVQk1HbUtmZkxkUko5blVINUpUTWdJOUo2TngwRks0MFJZVkhBVzIraHdX?=
- =?utf-8?B?Ung5MllselJWSloyWDZoNXRIVEtMcExIN0RqeDNJT2NTREVNc0Zhbit1aDlw?=
- =?utf-8?B?Nlh2SU1RekNpcThuaUdISEQ0ZnNJS21jeHpZY3ZBbVBneGhuZDFaNjRtdzJq?=
- =?utf-8?B?T05WTTZod2FzaXpJaXQ4RUNDeCtCUXpJQTk4WklOWjNaWWlpUnM1MUVPeGFh?=
- =?utf-8?B?WHVhMmZPU2lKcVNMNE9kU0hoMWpDZUFMcHV3cUpOazF2aDZ2VWVkSkNjYmVJ?=
- =?utf-8?B?aU52VjBTV01wMDZiVFl4K1RCWmMwaXhKRkgwSDJoTFNNcFpwRGtQYm5odmVr?=
- =?utf-8?B?cEE0UFR2UnV1cExUZXB2UXEvanQwQjd4b1VYZW02czVJTmg4V3VuaUtPOVBu?=
- =?utf-8?B?NkZHN0t2ajZqeUFvRmVrcHE1SnNuSnNBUjZhMWl5UCt5eGoybVpXbzZSaURV?=
- =?utf-8?B?RjV4eWJnR1ljcGxjQkRTZlR0OUZER0ljTlY4cVdJYU5KdFJ6TStNd1duS1Av?=
- =?utf-8?B?b2lZNndCWGxXTG84YXIvQXZXUVh1dTNuaUlvTmQvVTdyRHZIMUJwUXJFMk1C?=
- =?utf-8?B?djI3c3I3Q0dOekw0QlUzMHFRdzhsZmZBUzBuSFErN1lvT1RtbTJGcExIdUVJ?=
- =?utf-8?B?WUhNSkJtZ3lFMWFLZndYWTloWHYzM2JhOVFsUzZiUGlmNWc5ZThNU2NFWGU0?=
- =?utf-8?B?OEo0aFZaN3ZMS1A3L0NZaGpyMVNiVVROYm9xNkUwRmRJRnF4WHhiT20wdHZp?=
- =?utf-8?B?RzhkbTJMU29QYVoreDBJeVR6SG4rVzVzT283RkQ0T1lEaDdJeUsxTnpzRzkx?=
- =?utf-8?B?dDZCZ1AzbUNFU1Q2UEU1Z085YW1ZdlBjeFpmakxkYkl3d1pGdXFVQUxHbGl5?=
- =?utf-8?B?T1MvanJMamxTK3BaNTJFNjBCR0Q0U2hSN1hvaHoyU1NzTnp2MnYwQlFHNS9n?=
- =?utf-8?B?eTRWMFlwZzhUUTc0VzdyTG84TnVPRnF2STdQSnZZOU0wMHNoSnVBMUJyYk40?=
- =?utf-8?B?RXI3OHgvRk5mWFVlQnJLdFRJaGhuNDJyV0hRK0pEUUwxbi8yejBRWVIrR3lR?=
- =?utf-8?B?TUcxaUJOS00rTzFCZ1R4dklkRUljSW95TWNndkc2bHQ0ZytidEVxS2dCWnlL?=
- =?utf-8?B?aDNNNHQzMmsvZnZjTFp2eW01OHRmbjNOVWE1ZlVNNkc5WWRxTncrYUFRZ3JZ?=
- =?utf-8?B?NHluMkJHRkd0b3hnYlBnWWppZkNRMlEvemYvdHVPTVg1UGw3ZzkzblF5ZkFx?=
- =?utf-8?B?Z1IrbTdEWWZuT3lrS01WZTN3M2d0alppT0QyN3FtbDBTdTQ4d25uOWNSbkJ0?=
- =?utf-8?Q?sGc8SnPV9ZLQKnsyvSCZ28c=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6d970b-9383-4304-e85e-08dac35236fb
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR10MB3793.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2022 19:31:50.5590
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR05MB6018.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77962729-88e9-4695-4e75-08dac4d1746f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Nov 2022 17:15:10.6850
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5x7oUzUPXZDE31Mh13cpEQhRs1g8s/RRpns2BgkacxnbhFb2S6X3xvgBt756NwgIOn1WIG70lGkqVL76a00Z9tJV9iiFNryA4/ruHTje9cE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4472
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-10_12,2022-11-09_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 spamscore=0 malwarescore=0
- adultscore=0 mlxscore=0 mlxlogscore=999 phishscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
- definitions=main-2211100136
-X-Proofpoint-ORIG-GUID: eRrxUR0XbnRdPgqB_luf7_7bo16mrCLW
-X-Proofpoint-GUID: eRrxUR0XbnRdPgqB_luf7_7bo16mrCLW
-X-Original-Sender: ross.philipson@oracle.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2e9f06b0-1669-4589-8789-10a06934dc61
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: B5NPq8gFidF1ErsOxewY6rsjrhjiACLYyQBYZe++un7rdQ+qTmgJF5/S1QSYTcVi0bcW7cplm3GfmWdxwyCeDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR05MB8560
+X-OriginatorOrg: ed.ac.uk
+X-Edinburgh-Scanned: at loire.is.ed.ac.uk
+X-Original-Sender: karim.manaouil@ed.ac.uk
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oracle.com header.s=corp-2022-7-12 header.b=T0Lw7Kb8;
-       dkim=pass header.i=@oracle.onmicrosoft.com header.s=selector2-oracle-onmicrosoft-com
- header.b=qJfO5IdO;       arc=pass (i=1 spf=pass spfdomain=oracle.com
- dkim=pass dkdomain=oracle.com dmarc=pass fromdomain=oracle.com);
-       spf=pass (google.com: domain of ross.philipson@oracle.com designates
- 205.220.177.32 as permitted sender) smtp.mailfrom=ross.philipson@oracle.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oracle.com
+ header.i=@ed.ac.uk header.s=selector1 header.b=eBIGadHD;       arc=pass (i=1
+ spf=pass spfdomain=ed.ac.uk dkim=pass dkdomain=ed.ac.uk dmarc=pass
+ fromdomain=ed.ac.uk);       spf=pass (google.com: domain of
+ karim.manaouil@ed.ac.uk designates 129.215.16.10 as permitted sender)
+ smtp.mailfrom=Karim.Manaouil@ed.ac.uk;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=ed.ac.uk
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -247,24 +218,135 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 11/10/22 13:07, Peter Zijlstra wrote:
-> On Thu, Nov 10, 2022 at 03:45:21PM +0000, Ross Philipson wrote:
->> On allocation failures, panic() was used since this seemed
->> to be the action taken on other failures in the modules
->> touched by this patch.
-> 
-> How is the panic() more useful than the obvious NULL deref that also
-> splats?
-> 
+--_000_AM0PR05MB6018F1663ABE61DA3C697CA4A9039AM0PR05MB6018eurp_
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-My answer here is basically the same as the answer in the reply to Dave 
-Hansen I sent a moment ago. I think one of the primary motivation was to 
-make things consistent.
+Hi Jan,
 
-Thanks
-Ross
+I am trying to deploy Jailhouse on an AMD EPYC with 128 CPUs (8 NUMA nodes)=
+, running Linux kernel v5.10 (same version used by jailhouse CI with same p=
+atches applied).
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/cd5aabe0-94a6-3832-9e3e-b308b134d7e8%40oracle.com.
+`jailhouse hardware check` return that everything is ok and that "Check pas=
+sed!".
+
+Memory was reserved via `memmap=3D0x5200000$0x3a000000`
+
+However, enter_hypervisor() [1] fails when entry() is called on every cpu a=
+nd return -ENOMEM as error_code.
+
+Do you possibly know where could the issue come from?
+
+Best
+Karim
+
+[1] https://github.com/siemens/jailhouse/blob/c7a1b6971ac15e4be8a0918b9bef6=
+e2cbd99f9fc/driver/main.c#L251
+
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th' ann an O=
+ilthigh Dh=C3=B9n =C3=88ideann, cl=C3=A0raichte an Alba, =C3=A0ireamh cl=C3=
+=A0raidh SC005336.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/AM0PR05MB6018F1663ABE61DA3C697CA4A9039%40AM0PR05MB6018.eurprd=
+05.prod.outlook.com.
+
+--_000_AM0PR05MB6018F1663ABE61DA3C697CA4A9039AM0PR05MB6018eurp_
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">H=
+i Jan,</span><br>
+<br>
+<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-siz=
+e: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">I am t=
+rying to deploy Jailhouse on an AMD EPYC with 128 CPUs (8 NUMA nodes), runn=
+ing Linux kernel v5.10 (same version
+ used by jailhouse CI with same patches applied).</span></div>
+<div><br>
+</div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">`=
+jailhouse hardware check` return that everything is ok and that &quot;Check=
+ passed!&quot;.</span></div>
+<div><br>
+</div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">M=
+emory was reserved via `</span><span style=3D"font-family: Calibri, Arial, =
+Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0); background-col=
+or: rgb(255, 255, 255);">memmap=3D0x5200000$0x3a000000`</span><br>
+</div>
+<div><br>
+</div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">H=
+owever, enter_hypervisor() [1] fails when entry() is called on every cpu an=
+d return -ENOMEM as error_code.</span></div>
+<div><br>
+</div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">D=
+o you possibly know where could the issue come from?</span></div>
+<div><br>
+</div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">B=
+est</span></div>
+<div><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; fon=
+t-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">K=
+arim</span></div>
+<div style=3D"font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(2=
+55, 255, 255);" class=3D"elementToProof">
+<font face=3D"monospace"><br>
+</font></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted1">
+[1]&nbsp;<a href=3D"https://github.com/siemens/jailhouse/blob/c7a1b6971ac15=
+e4be8a0918b9bef6e2cbd99f9fc/driver/main.c#L251" id=3D"LPlnk965293">https://=
+github.com/siemens/jailhouse/blob/c7a1b6971ac15e4be8a0918b9bef6e2cbd99f9fc/=
+driver/main.c#L251</a></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof">
+<br>
+</div>
+The University of Edinburgh is a charitable body, registered in Scotland, w=
+ith registration number SC005336. Is e buidheann carthannais a th&#8217; an=
+n an Oilthigh Dh=C3=B9n =C3=88ideann, cl=C3=A0raichte an Alba, =C3=A0ireamh=
+ cl=C3=A0raidh SC005336.
+</body>
+</html>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/AM0PR05MB6018F1663ABE61DA3C697CA4A9039%40AM0PR05MB=
+6018.eurprd05.prod.outlook.com?utm_medium=3Demail&utm_source=3Dfooter">http=
+s://groups.google.com/d/msgid/jailhouse-dev/AM0PR05MB6018F1663ABE61DA3C697C=
+A4A9039%40AM0PR05MB6018.eurprd05.prod.outlook.com</a>.<br />
+
+--_000_AM0PR05MB6018F1663ABE61DA3C697CA4A9039AM0PR05MB6018eurp_--
