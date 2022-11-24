@@ -1,126 +1,74 @@
-Return-Path: <jailhouse-dev+bncBAABBTP256NQMGQEM7WA47Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCBJJVUE3MMRBSMH76NQMGQEF3A2KWA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id D81DC632FE8
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Nov 2022 23:35:58 +0100 (CET)
-Received: by mail-lf1-x138.google.com with SMTP id y26-20020a0565123f1a00b004b4b8aabd0csf4456691lfa.16
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 21 Nov 2022 14:35:58 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1669070158; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=vZp1bowhy4tY4SobMYLp7Bc86wAX/Vpt0NhLBs+1t3f/h4icvfYO9aIjuYSAIi9UKg
-         BI6b6G4SwK32iUnbxL6sy9b5+kR5MYwaphB6FwSMV2hgIwivt5lzwHoLmIbPyqS0rJUP
-         QI39qrlhsbtVeuNnCPyHNACI80yS25TSd2Fl5DhbOdpE1Kd/eRJO532ivQcroXbYJBfY
-         j3kAFOlD8YZJuc+p/tFNVlcpAYhhIEPHnOnRyDkg7+OgySxwFgUAR4WlzRpHG5trHb1I
-         U7QErP9salPHwW9ylFibcSRMqwYjKgoBpVOBQhQOxgAC8xCg3lgLh2lEBFb/qTFllN8m
-         wSRA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding:subject
-         :from:content-language:to:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=JtWS1GUwXYZcjGWtYVlBgtbfiSwARHKyfDzTOImOWh8=;
-        b=gm34e4bK/lWZ/KmyKytMR49bD+ySbiFgbM3ttgqu6JlJVegCpSFcfJjA6t28it9nYA
-         nkLMafGFP5EzWFb1rtdupywLrBRdKtPoKNUZpo3sKxQSRF16+JsSgBly5q+Xzm0PqiWO
-         UetBsydbw/DgBwQ9X94YuXHUjwkarzpRUFfknMreg8y+sb7Bhelaiek8JasuqGXuN6Bt
-         58SjAk97Ws9MVg6oC2bumi+zH65IDTOkTVCaImU3TH7yRu7qfT7uySIFWu6s3YKII8xR
-         zAXMsnrflQ2VSsVwj2l/Ly5GcrblHNNIyUzeR1/e+dwVaSbKH5GyC7d7hV2E7jkavRVT
-         apIg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of marco.barletta@unina.it designates 192.132.34.7 as permitted sender) smtp.mailfrom=marco.barletta@unina.it
+Received: from mail-qt1-x839.google.com (mail-qt1-x839.google.com [IPv6:2607:f8b0:4864:20::839])
+	by mail.lfdr.de (Postfix) with ESMTPS id E69FB637F9B
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Nov 2022 20:19:38 +0100 (CET)
+Received: by mail-qt1-x839.google.com with SMTP id hg24-20020a05622a611800b003a66175d924sf2368578qtb.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 24 Nov 2022 11:19:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:subject:from
-         :content-language:to:user-agent:mime-version:date:message-id:sender
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JtWS1GUwXYZcjGWtYVlBgtbfiSwARHKyfDzTOImOWh8=;
-        b=mbsuBjYRWOTwjghxp0AkO/3Q8ikZ2OF/AyUufzelK+y2XRdzF4fvnMKPed3iXhWLVb
-         9mTtlIZR+UL5YiLY+Sqgl0tAhFMLNYQmz97FYpfalTmn6LgQVklDz2QwnqdFyCIWrJZs
-         ac1iJ04smeDZJ0Sps2FSWiykSgq9+4VRyLsnHamJMgr08Ptavc43PX76JoWlkGzVduDF
-         3BeXm1u2nXaqsEOyrQwLosDZZPEuzqY0GODSqO+wGtitn2ypqKDy8Vqn5KBDb+k8TYEs
-         EnCR5asiW5e+HFPbzj0wDwPPhkW37+2U2ZVyaHs1bBZME8j8Soxm53hiP9Q9DF9UprHZ
-         nSpQ==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=3E4zv4XZbMTknWSq+oKbMg3J+5hInaPRsc8XQASwofo=;
+        b=C4X20E6GdAn5WkFA9sEc/ikOG0t+4vpnLpoQT9HslmZZl/X4FGPALEmOJVdp9wbtPT
+         Wuf3JgvwzpZT1WjQAn48E5AQNYrOwWjMSQS3G9tBp4A11SVA795FB5X0k+8yZjeDJfuy
+         Vty7EOIgm4jHG2zZHvD3InUn18bjdxez+iv40PpWj6ql2y3sgfSex7sAoqvSJHXMe0W+
+         S1goqIh/Q7DYAWYlHjJkjDLrqQIS4Xw4Niz3RkESOWYuSpH7nIExZsPvkrcY3Imm+mJV
+         RwsoeDXkReWOLWloGyyQ6EsnQtZ4InVzLhGfokKyDZyaBUny90oZsqp9ozpBZlRlJkGG
+         nCHg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3E4zv4XZbMTknWSq+oKbMg3J+5hInaPRsc8XQASwofo=;
+        b=CO2T4FfnIXb16eE14kOdXOUosovuz+jmBaSoRGVPDug8HqtCCPCfsH1NfgZiSDwaVz
+         1JzFcf/6JdCLkhyP3IoWOdjVy5P5rfXbD/CZWS6Jo0tKDiQoo6RbgPA0MEAooIsz41mQ
+         hmK/bdMyKMeFnLQvpNJrFhGqjWc6s30uDDQ3MTjdLPN3v465vFIUuTeltGy0DCfA37Ut
+         TWGyDc9apTHLYxXgNXFsQ9e+fuW2lk2ALuTl+r7hhWaIYeZXU0U11Bx7ackcY6ZyGgd6
+         oene19adCm3H+iFLhI9EoohZXk1iOOply9TO+IWDClt0dgAvOus4vRc1TPnC6k42et5R
+         Iqyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:subject:from:content-language:to
-         :user-agent:mime-version:date:message-id:x-gm-message-state:sender
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JtWS1GUwXYZcjGWtYVlBgtbfiSwARHKyfDzTOImOWh8=;
-        b=P2yz/0hUC9KLj8MRLyFqZohmSXXdxI+0ijzukQhpJlYc87npJjYGhxS6oC6hD4Dk5b
-         HhxJDRFcmClEi7DSn13fdl9VnGGLWFQshMj8uQUsKUCDOcicbKo6IGhgPRvCMCazkt23
-         6BcTvqrSf0/v7X1HXLwTolLyVjXe16OohNJ+I9oQrnWo+rezRkdmjI9TX6r0BY3oGhXn
-         UCn3HrtDwnRZ5nMeZSSXrLpOgyiAgDs+Tv2IA6LkLaRrUP1yFi4J+PWzeV7desLKrEFS
-         F1WXYoGh09Xd3e+3ruOIerD7d5AN9eMZyjiZyMW2HVDqEI5RGi8DUF51XLCsMCitzfCw
-         CLIQ==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3E4zv4XZbMTknWSq+oKbMg3J+5hInaPRsc8XQASwofo=;
+        b=JAq95koIaKyX2By5R9zOVy3xGLaNmKeAw6cIP73Jm4SWfJet4GFSMpKShdjI3lxCqx
+         OLVQnRcrlYvIG3Bsbnz9Ujo/Pm5QleLNzDpFj9h1NRRBBoztXg2OWMvV0ok7gwr2m1Lv
+         MhHlx2rMDC/KaITrAFlfEEGSQwWMeVVbkTKKigKw+Noa2ER368YZwoIU+nC3EK9zCNvN
+         KdCYqrJo+IG6NHenmJp+6ghPxZ2L4Rmsy0x51fChO0URSE7NlToKnyOKb5o4RpDOTfMd
+         lK5IDynR7zE2V6iipnAl1lOvcPZi90KrLvqoAahcS09Mt/KDTa42Si6Ufp4IFvUvxum4
+         j6zA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANoB5pk+xFyYxfKlt+pb7IBhkVcwRQJ8YO9QumoqOWABWuicgfwuFoG7
-	E6YT8wGKgT+NqZIGVEWjqXU=
-X-Google-Smtp-Source: AA0mqf43mIB9B5o5USBpKpo9ef/bexk49UHGqiucsLDYtqZInVionh+F5bU3BrYYIzx2XgHy+BsNrg==
-X-Received: by 2002:a05:6512:3c9c:b0:4a2:2f2f:449b with SMTP id h28-20020a0565123c9c00b004a22f2f449bmr589206lfv.235.1669070158168;
-        Mon, 21 Nov 2022 14:35:58 -0800 (PST)
+X-Gm-Message-State: ANoB5pl/psnpQvchniTCAmx/XKqeQRb9KhGG2W3m/VfXYGrpYfUYUBzQ
+	WgVrHkQDORsN67bIMS8D2RA=
+X-Google-Smtp-Source: AA0mqf7NzRyJlZnjpENCsKF4QYbsn2VFf3TW+usj3JFUlvIbk4O3saIUTW9iK+nYS1WUffGDmYST6Q==
+X-Received: by 2002:a05:622a:8cb:b0:3a4:fdc8:ba9a with SMTP id i11-20020a05622a08cb00b003a4fdc8ba9amr15182810qte.377.1669317577754;
+        Thu, 24 Nov 2022 11:19:37 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3147:b0:48b:2227:7787 with SMTP id
- s7-20020a056512314700b0048b22277787ls1031842lfi.3.-pod-prod-gmail; Mon, 21
- Nov 2022 14:35:56 -0800 (PST)
-X-Received: by 2002:ac2:430e:0:b0:4b4:9c0b:f4d3 with SMTP id l14-20020ac2430e000000b004b49c0bf4d3mr6594376lfh.349.1669070156511;
-        Mon, 21 Nov 2022 14:35:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1669070156; cv=none;
-        d=google.com; s=arc-20160816;
-        b=XkloM4D88vXG/9eVPTnWQIARJBgktYOhH5qXxoWi0ulFQkIav6luFKZxv7bwuEFjvS
-         V+Sj2S7zRC4gITVisnrb9R1Eb/gW01WnxzkmDKjD+b8RQEWo/ezrBqnddtz2sMvotHwn
-         xSgYlVXaL8FC+LCzQiTJP8J3x8jPI93s8t3DH1Z5nsXqaodrBJNnGJJ61QPjw1x/avg5
-         DuC5C6kxmk1xBVAI1uirGsz1g2sereSdlIOJUojo6T1Cmhof/cwiJd2NgVARLn6A317t
-         pKu5PDJB1Q9303i/nzS6emsHNnbOfp4LZaH3YHEH0QWHc+kk/Xir1vmUFo4CSqTZ5jVO
-         Kuow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:subject:from:content-language:to
-         :user-agent:mime-version:date:message-id;
-        bh=gBGB3D+qqpQGPTnLCXV1miOJ9kGkQtyZyw/huqZ3zuw=;
-        b=NjK9bahVFUeRAtTMa4BqzlANYOidqVIGQ8G7Qc/SDLoyN7zdbZIm02p5a0nGmR4wIb
-         eiJdtj6O0nhVPdwkVWk5eASTsNTHMSJ1txC+wWJaEyc8cidV/zAl866NGsGkhV+zjq7F
-         KbXUnSeJ6PQB0b0f2ifPX6KLIHFVMaZE8SVe8di9WYmP7AoNXyFS7r0wacsBXCsj8PEx
-         3VRZAe862kdq8rCAga6uTcSeckxXCfbMAb/l/W42VVuThn+U34nd5eLv5d0ZeSOSWBrc
-         y1IEcOeYJNytydTQzWZVoJaKo8i5XgQYLeJ5K/uzzpmYkRffYwAG/CdQe155DxZErmyc
-         P/DA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of marco.barletta@unina.it designates 192.132.34.7 as permitted sender) smtp.mailfrom=marco.barletta@unina.it
-Received: from leas1.unina.it (fmvip.unina.it. [192.132.34.7])
-        by gmr-mx.google.com with ESMTPS id k8-20020a2ea268000000b0027737e93a12si532300ljm.0.2022.11.21.14.35.56
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Nov 2022 14:35:56 -0800 (PST)
-Received-SPF: pass (google.com: domain of marco.barletta@unina.it designates 192.132.34.7 as permitted sender) client-ip=192.132.34.7;
-Received: from smtp2.unina.it (smtp2.unina.it [192.132.34.62])
-	by leas1.unina.it  with ESMTP id 2ALMZtVf017639-2ALMZtVh017639
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=CAFAIL)
-	for <jailhouse-dev@googlegroups.com>; Mon, 21 Nov 2022 23:35:55 +0100
-Received: from [192.168.1.83] (host-87-11-139-35.retail.telecomitalia.it [87.11.139.35])
-	(authenticated bits=0)
-	by smtp2.unina.it (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTPSA id 2ALMa8lD489017
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <jailhouse-dev@googlegroups.com>; Mon, 21 Nov 2022 23:36:09 +0100
-Message-ID: <48fefc80-2ba7-a1b0-e4ff-2d3d5113db80@unina.it>
-Date: Mon, 21 Nov 2022 23:35:54 +0100
+Received: by 2002:a05:620a:1644:b0:6ee:d08f:aa7 with SMTP id
+ c4-20020a05620a164400b006eed08f0aa7ls1637397qko.0.-pod-prod-gmail; Thu, 24
+ Nov 2022 11:19:37 -0800 (PST)
+X-Received: by 2002:a37:aad6:0:b0:6fa:e0bb:cb6d with SMTP id t205-20020a37aad6000000b006fae0bbcb6dmr31384752qke.707.1669317576799;
+        Thu, 24 Nov 2022 11:19:36 -0800 (PST)
+Date: Thu, 24 Nov 2022 11:19:35 -0800 (PST)
+From: Yelena Konyukh <ykonyukh@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <06ab8036-e7b6-458b-990e-2f685b5fc857n@googlegroups.com>
+In-Reply-To: <436612cf-fed1-4b6b-97a4-29683433c8e3n@googlegroups.com>
+References: <436612cf-fed1-4b6b-97a4-29683433c8e3n@googlegroups.com>
+Subject: Re: the use of 2nd stage MMU translation
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-To: jailhouse-dev@googlegroups.com
-Content-Language: en-US
-From: Marco Barletta <marco.barletta@unina.it>
-Subject: Request to Fix JH images for QEMU
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Virus-Scanned: clamav-milter 0.103.6 at smtp2.unina.it
-X-Virus-Status: Clean
-X-Original-Sender: marco.barletta@unina.it
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of marco.barletta@unina.it designates 192.132.34.7 as
- permitted sender) smtp.mailfrom=marco.barletta@unina.it
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_5336_815689083.1669317575926"
+X-Original-Sender: ykonyukh@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -133,72 +81,117 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Dear all;
-I tried to use the repo Jailhouse of demo images for building a QEMU=20
-target (x86), as I did a few months ago. But something has broken. First=20
-of all the SRC_URI in jailhouse.inc is a git:// URI, deprecated by=20
-github (afaik). I replaced the URI with https and fixed it.
-However the build fails with the following log erorr (with the flag last=20
-version of jailhouse either enabled or not):
+------=_Part_5336_815689083.1669317575926
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_5337_163645818.1669317575926"
 
-ERROR: mc:qemu-amd64-jailhouse-demo:jailhouse-jailhouse-0.9999-next-r0=20
-do_prepare_build: Execution of=20
-'/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/te=
-mp/run.do_prepare_build.72'=20
-failed with exit code 1:
-cp: cannot create regular file=20
-'/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/gi=
-t/configs/x86/':=20
-No such file or directory
-WARNING: exit code 1 from a shell command.
+------=_Part_5337_163645818.1669317575926
+Content-Type: text/plain; charset="UTF-8"
 
-ERROR: Logfile of failure stored in:=20
-/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/tem=
-p/log.do_prepare_build.72
-Log data follows:
-| DEBUG: Executing shell function do_prepare_build
-| cp: cannot create regular file=20
-'/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/gi=
-t/configs/x86/':=20
-No such file or directory
-| WARNING: exit code 1 from a shell command.
-| ERROR: Execution of=20
-'/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/te=
-mp/run.do_prepare_build.72'=20
-failed with exit code 1:
-| cp: cannot create regular file=20
-'/build/tmp/work/jailhouse-demo-amd64/jailhouse-jailhouse/0.9999-next-r0/gi=
-t/configs/x86/':=20
-No such file or directory
-| WARNING: exit code 1 from a shell command.
-|
-ERROR: Task=20
-(mc:qemu-amd64-jailhouse-demo:/repo/recipes-jailhouse/jailhouse/jailhouse_l=
-atest.bb:do_prepare_build)=20
-failed with exit code '1'
+Hi All,
 
-I am running kas-container on a manjaro system,=C2=A0 kernel v5.10.151,=20
-x86-64 arch. The ARM64 image is broken as well.
+Answering my own question :) :
 
-Do you have any clue on how to fix this? We have plenty of students=20
-relying on the repo for projects at our course, it would be great having=20
-a quickstart for JH.
+I have run the demo from https://github.com/siemens/jailhouse-images for 
+Raspberry Pie and simply collected the output of "cat /proc/iomem" before 
+running Jailhouse, then after enabling Jailhouse in the root cell and in a 
+Linux non-root cell. From that output it looks like Jialhouse does 1:1 
+mapping between IPAs and PAs.
 
-Thank you for the help, all good things;
+On a platform with Zynq UltraScale+ MPSoC, onto which Jailhouse has been 
+ported, I have experimented with memory accesses, trying to access from the 
+root cell the memory allocated to a non-root Linux cell and the other way 
+round - trying to access from the non-root Linux cell the memory allocated 
+to the root cell only. As expected, in both cases I have got "Unhandled 
+data write...FATAL: unhandled trap (exception class 0x24)", while the cells 
+can happily read from/write into physical addresses belonging to their own 
+memory regions specified in the respective cells configuration. This 
+appears to confirm the use of the 2nd stage translations for restricting 
+cells access to physical memory.    
 
-Marco
+Best Regards,
 
---=20
-Marco Barletta, PhD student at Universit=C3=A0 degli studi di Napoli Federi=
-co II, Naples, Italy.
-Member of DESSERTlab, Department of Information Technology and Electrical E=
-ngineering, Via Claudio 21, Naples
-Homepage: http://wpage.unina.it/marco.barletta/
+Yelena
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+
+On Monday, November 14, 2022 at 2:19:55 PM UTC Yelena Konyukh wrote:
+
+> Hi All,
+>
+> I would be very grateful, if anyone could explain how Jailhouse on ARM64 
+> architectures uses the 2nd stage MMU translation.
+>
+> It does look like Jailhouse uses the 2nd stage MMU translations  - for 
+> example, t is easy to find in the code where such registers as VTCR_EL2 
+> and VTTBR_EL2 are set. I am guessing that Jailhouse, as one would expect 
+> from a hypervisor, uses 2nd stage translation to protect VMs (cells) from 
+> accessing each others memory (unless a memory region is explicitly shared 
+> with a root cell by specifying JAILHOUSE_MEM_ROOTSHARED). Is that so? 
+> Could anyone confirm? How is IPA<->PA mapping is done for VMs? Is it 1-to-1 
+> mapping (so that, in fact, PA equals IPA)?
+>
+> Thank you very much in advance
+>
+> Best Regards,
+>
+> Yelena
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/06ab8036-e7b6-458b-990e-2f685b5fc857n%40googlegroups.com.
+
+------=_Part_5337_163645818.1669317575926
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi All,<br><br>Answering my own question :) :<br><br>I have run the demo fr=
+om https://github.com/siemens/jailhouse-images for Raspberry Pie and simply=
+ collected the output of "cat /proc/iomem" before running Jailhouse, then a=
+fter enabling Jailhouse in the root cell and in a Linux non-root cell. From=
+ that output it looks like Jialhouse does 1:1 mapping between IPAs and PAs.=
+<br><br>On a platform with Zynq UltraScale+ MPSoC, onto which Jailhouse has=
+ been ported, I have experimented with memory accesses, trying to access fr=
+om the root cell the memory allocated to a non-root Linux cell and the othe=
+r way round - trying to access from the non-root Linux cell the memory allo=
+cated to the root cell only. As expected, in both cases I have got "Unhandl=
+ed data write...FATAL: unhandled trap (exception class 0x24)", while the ce=
+lls can happily read from/write into physical addresses belonging to their =
+own memory regions specified in the respective cells configuration. This ap=
+pears to confirm the use of the 2nd stage translations for restricting cell=
+s access to physical memory. &nbsp; &nbsp;<br><br>Best Regards,<br><br>Yele=
+na<br><br><br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_a=
+ttr">On Monday, November 14, 2022 at 2:19:55 PM UTC Yelena Konyukh wrote:<b=
+r/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; bo=
+rder-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi All,<br><br=
+>I would be very grateful, if anyone could explain how Jailhouse on ARM64 a=
+rchitectures uses the 2nd stage MMU translation.<br><br>It does look like J=
+ailhouse uses the 2nd stage MMU translations=C2=A0 - for example, t is easy=
+ to find in the code where such registers as <span><span>VTCR_EL2 and VTTBR=
+_EL2 are set. I am guessing that Jailhouse, as one would expect from a hype=
+rvisor, uses 2nd stage translation to protect VMs (cells) from accessing ea=
+ch others memory (unless a memory region is explicitly shared with a root c=
+ell by <span><span>specifying JAILHOUSE_MEM_ROOTSHARED). Is that so? Could =
+anyone confirm? How is IPA&lt;-&gt;PA mapping is done for VMs? Is it 1-to-1=
+ mapping (so that, in fact, PA equals IPA)?<br><br>Thank you very much in a=
+dvance<br><br>Best Regards,<br><br>Yelena<br></span></span></span></span></=
+blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/48fefc80-2ba7-a1b0-e4ff-2d3d5113db80%40unina.it.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/06ab8036-e7b6-458b-990e-2f685b5fc857n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/06ab8036-e7b6-458b-990e-2f685b5fc857n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_5337_163645818.1669317575926--
+
+------=_Part_5336_815689083.1669317575926--
