@@ -1,139 +1,74 @@
-Return-Path: <jailhouse-dev+bncBDD5VM7LUMHBBKNYXCOAMGQE65QNOKQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDKIHPWY7EBBBENZXCOAMGQE35N6VYI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0D33642CC7
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Dec 2022 17:28:26 +0100 (CET)
-Received: by mail-lj1-x240.google.com with SMTP id y19-20020a05651c221300b00279958f353fsf2987652ljq.1
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Dec 2022 08:28:26 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1670257706; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=GwXE3eWfcbTshM0D7p7oYwLg7vjaQFwF9FgRC0BhiSrDJQ9hBILQX2Bg3+uYqjlDfi
-         gVC+8P8g5SbFU/Qm97vnMgErj+JIb/t2ADOXjwmCFQJ3QI4XbhIfgqvVTeZM3feJQC/7
-         Mr1+Kl0bArgu/G6W9jJmjCQCTg2GNDUdcab7/wm0Zb2YtJT32FB6p+mt/dbUyb1NROlg
-         x1O3pr4vyB9GdXRAhPNPbaaAYtGftuW54jWUaSoiyuj3+tFq7E3FUa5ohy1wPEKkyoTG
-         6YyLaJ1bej8M/MNOIen8t0Ni8RUvRiyjiEAr5zV2eZpWhq3VsaXyq8lwsS9PhdLNpR+8
-         9AVA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=u5y3rVivWeravYQPK1Trd6z/NjDmzOUri4/wDplcgo4=;
-        b=nWd8iESqj05HZlgp9w20B5w76v0qyFhya7rTTZt69SQkboTR4t7RguwOhN3cEZW0ux
-         nVN0DdeZNH5BY7/Q3JwL/gCVVWmRGPI+q8oMw7nGH8iU3Gk9uF7l1sN5cPDuS/E7tjSx
-         1DA0GGT3DwKYbq0+4tyaEO3ak9QRzeViVgvQFYnBXwr+T33NhtvM/QCvT+jXn2AXvKdL
-         YhVnJyFcVNfye/slCZm/DiNBZG4YBVfMdz0K61HFLykESDaUdh9/BYZ11NLkzEA6SHdK
-         ZwHpiPb5hATammmn5YmmMLaHho/RmIUCwbfS51kdq6ORUeSDJ6Ik/YRQaBa4jR49OJCV
-         r0NA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta02-20211122 header.b=0zjLZVQA;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-qt1-x83d.google.com (mail-qt1-x83d.google.com [IPv6:2607:f8b0:4864:20::83d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F555642CCF
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  5 Dec 2022 17:30:17 +0100 (CET)
+Received: by mail-qt1-x83d.google.com with SMTP id u31-20020a05622a199f00b003a51fa90654sf32550525qtc.19
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 05 Dec 2022 08:30:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:in-reply-to:from:content-language:references:cc
-         :to:subject:user-agent:mime-version:date:message-id:sender:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=u5y3rVivWeravYQPK1Trd6z/NjDmzOUri4/wDplcgo4=;
-        b=QhTLI1Bq9pUuWtx0M/vQgi8X0Lj/MD7BPYsnKX8M855SJsJLZdSzyqpyUgjZepRciH
-         wnNQC/kbV6GnJQUCVAPAhXlhg2BUT4yN0s8GMgNAVa9RbNYjfasbV0R11sZ0TGE8EImk
-         l7dmHYnzAytsLSrXjvccZV3rRbPXoT4WhH8jxoehzXAlweMm1QP4E/N1rt/RjWCXlBSf
-         D0I5snC0zLn7UYU2b+15kAwDlQFOhNhzVtNGUhXn15UANQkT4snkNPFmBm6Knxjt/KDO
-         3h17dE/eczfilcOX8vn0GMJQpE+0xJTtWtEk/hUwgvRs6I5g0EZQyPAxO66wqUKkKNzo
-         pHJA==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=USCYZEerQcmAEKwZnpVqLEWQYt530Tzi0Fjf00FJ8F0=;
+        b=TwicxBXxdTn/gRWfsMFlQIH8lbC8J093H7LyCaoqbso+eZd6Wa8bvOyDQ4zPl84QP4
+         tI36ppJV6w7APaZqr1+QBub/gcdS9WvN/rdmDCm5pO23CqT6YhtsJ/QMeyCm77EXTFyo
+         CgzHemAHG1rMhvfzd/Vs69hIdK1ACWbBIrO2c0UJMwBxOuYCk1+rsxfvz4ySXZ0Q1ei0
+         r7VWv4Z9BMxGkGcAnRMz5MOnHQkHrBxKP8QRUusUOgV6objrhTpO7aHQn7osoM+ZjcF2
+         q1hjfDe4/BD93UBmO1Z2V2kAw2Rl0jLggtmuzTV3XMuy/xklYZttmxWU5TGfeUY+rvEd
+         T0Rw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=USCYZEerQcmAEKwZnpVqLEWQYt530Tzi0Fjf00FJ8F0=;
+        b=ok1Pn7I52HGIq7Bd9T6gvibGHcuJsu3wwetGH2G23iawUX8ozl1m+VD9/rnCRc2CPC
+         Y1FAGYLcMWQDB7P4L46dHAuAxojdTmMWdYnvASoVqduO2QBBUcKpZLkYYAsg5Ta0vL/Y
+         N+N+rmmwXGX7fsEwiu9g/DjFzITjeqH2BY3POpmCDazbqHsTk3cCoDXI+9ekrVlZliRm
+         ou0XvEt0ZoBTslr/zPnJK+n7pzSd++Ir/bE206CjnHp3bH0OfftQ9iMNPHZRF7eIH83l
+         cLGIJYaiaJUWULp37RfxoRqaWpbbFvEQF4FUOKl914ugioVVq46Ux0mGrGZ7fHMcsqL5
+         HpPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:sender:from:to:cc
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=u5y3rVivWeravYQPK1Trd6z/NjDmzOUri4/wDplcgo4=;
-        b=tpFuihMxPeT9Hc5k7U1KNsXLH7/e6/HuGo7tOdewiTRsewcOpb4IaF8lbAHBWN7hmx
-         zwGut63KOxrpv1stDVgttWcKefIbGOx+cADAifeBF4CgNmavUuF97A4oPqvWS6TDM892
-         R50Nee/rqCzyCYCjVh/OdFEx0KvpX98b0QCIqysoPukmXVgBzbFnJMz3vPOy2f8m0Ttj
-         rAnw3fNYsTt0skVdxnAEb1dvMK7ZF9/5IVIM2XlA70PLQ+mTB3j68SvyE4ad5bHjcn2e
-         A4WzEVo/EGatgfAyuAGKuP73AODbR4rbj3116Gb7wq5zwyNMw1Q0ICPWcdPKkFD2Chvu
-         +Osw==
+        bh=USCYZEerQcmAEKwZnpVqLEWQYt530Tzi0Fjf00FJ8F0=;
+        b=ac11AO5Kp320K+oxlzJqLChIRtPgx0EdWWezcybQ9yJZJLsTWPxasRfHT7xvGQz4ab
+         BTyf/iLPeTuqDeDEWZacsfW4IuPjalMqNpkE7PpkQmjad/uWV+jg4DqMVMxaTrJcPUZJ
+         P91Pm4dWbac23SGRUuY4QKAENyA/52RKjc/Ep6+K4SCcvrlqzL3W9b1btDvrfzTuLv2d
+         AF7Fi0PBzTteUOJ2dN8I4KFBbhWcSFHUj4yF73CCiZ6pKqmu12/jkznIRRo7bT7D3kv9
+         ulyjkDJUF5Hp2pOCOyLmBIjfu+/6q7PgK+LB2KEJE1QLHO9mkZCudy18Yo/QSypSIw0g
+         YZnQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ANoB5pkFvi6qaHBjbLaq0wz7YUjLGkfEcWllqCmZD73HQ415MMv3QsHb
-	Mndq7HynvhVxzUbWnLJPGio=
-X-Google-Smtp-Source: AA0mqf5LPeQ6cqGVBKy+gjC+Xph/MnMV5eEEU35PvHxvrVUt2EwXapBanIL5LL7zFyl+kG0IIZtzdQ==
-X-Received: by 2002:a19:3853:0:b0:4a2:3955:109a with SMTP id d19-20020a193853000000b004a23955109amr31977246lfj.73.1670257706374;
-        Mon, 05 Dec 2022 08:28:26 -0800 (PST)
+X-Gm-Message-State: ANoB5pllqb7qT5idIl6XYm+70C/bZpO3q6SUzIZcenEOiK/8jOv6viqP
+	vamUNcKkJnaYi+Ur8ldHWJY=
+X-Google-Smtp-Source: AA0mqf44WZLa8ElZEyHVMnDWlY49+DE2FEGg9i2D5iZ3aFhD0RiTKGPwjI8WWpg43ez5AEYAJJpFbg==
+X-Received: by 2002:a05:622a:1aa9:b0:3a5:32c8:7825 with SMTP id s41-20020a05622a1aa900b003a532c87825mr76882583qtc.486.1670257809342;
+        Mon, 05 Dec 2022 08:30:09 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:1144:b0:48b:2227:7787 with SMTP id
- m4-20020a056512114400b0048b22277787ls908471lfg.3.-pod-prod-gmail; Mon, 05 Dec
- 2022 08:28:24 -0800 (PST)
-X-Received: by 2002:a05:6512:13a7:b0:4ad:5f5c:2b26 with SMTP id p39-20020a05651213a700b004ad5f5c2b26mr26487426lfa.626.1670257704342;
-        Mon, 05 Dec 2022 08:28:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1670257704; cv=none;
-        d=google.com; s=arc-20160816;
-        b=li3MzgRUWSBTh7WrNRBalVK4mHMKBgnWUjhSRt49X0L7jh2BIJ/vD97ciUWku1GG93
-         dgC0rK169JBgIpxihtz3NtA2qO0+2aIiXvIgyuHLt+sztRx5w6wXTGzfl5SH/M31bqat
-         wt5J3ZpJ2IrFua+A9BwqXGlQe0lWGcOwxnnJ3XtHIMSaINPZ2ZZf7wkBfif71TmzQ5+q
-         360Bu5gKKHPzUWD4rcuOM9nD1YoCyAS0KetvJ0easDxQ2fctXwQ4O2E7OeCmdCyKTdY1
-         zoUHUqfi2S6+WoC/TKwznwHul4ptoBt+8Z6N8P5LnRiRom+hR4ycy0JtTMiVpo7APNqu
-         p46w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:dkim-signature;
-        bh=a/m8txOtkRx8jivf6k5n89st2KTOIyNhSgOmZJXOMxA=;
-        b=aQ1FwjnttXphPPxpmsZJTEPt/gSP0AXJr8CSUj38LEkYb7oXagf2Up3yb+GNhaRvPh
-         uKPMmVHcBdBF0DPCpvyTdHjrDAkdfyH7gjXbe/Agl+0dBfsHspEuZvprVIjsuh1ipDiv
-         QNUs5oHlVmplGuTXvhbqXx5IZDjjZoqh0Fc1ZWGvrwoOUxBSwo8wWrH/2Uhs76FbDYVf
-         HZj0vdG1z6lJ9MgA96GZjchz8zuD7G7UW4DZjrdpTaD97to5WQWP6Dt/bguQUu1oUG3Y
-         7UXe5H16P8raejUoNGm/ldaQVyijZXizfhvN1rnMWyd0j/qwqNQIRxCNkwZOC4Llau1/
-         6OhA==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@st.oth-regensburg.de header.s=mta02-20211122 header.b=0zjLZVQA;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [2001:638:a01:1096::12])
-        by gmr-mx.google.com with ESMTPS id u11-20020a05651220cb00b004a222ff195esi677331lfr.11.2022.12.05.08.28.24
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Dec 2022 08:28:24 -0800 (PST)
-Received-SPF: pass (google.com: domain of andrej.utz@st.oth-regensburg.de designates 2001:638:a01:1096::12 as permitted sender) client-ip=2001:638:a01:1096::12;
-Received: from E16S02.hs-regensburg.de (e16s02.hs-regensburg.de [IPv6:2001:638:a01:8013::92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S02", Issuer "E16S02" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4NQprR2dWzzxsh;
-	Mon,  5 Dec 2022 17:28:23 +0100 (CET)
-Received: from [10.24.0.104] (194.95.106.226) by E16S02.hs-regensburg.de
- (2001:638:a01:8013::92) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Mon, 5 Dec
- 2022 17:28:23 +0100
-Content-Type: multipart/mixed;
-	boundary="------------jg0DefHyPjVZmYbBvxavdkmq"
-Message-ID: <b48f1252-a6b7-a183-7f37-080b95043ad6@st.oth-regensburg.de>
-Date: Mon, 5 Dec 2022 17:28:19 +0100
+Received: by 2002:ac8:714b:0:b0:3a6:881f:5223 with SMTP id h11-20020ac8714b000000b003a6881f5223ls3435305qtp.9.-pod-prod-gmail;
+ Mon, 05 Dec 2022 08:30:08 -0800 (PST)
+X-Received: by 2002:ac8:548f:0:b0:3a6:94c0:805a with SMTP id h15-20020ac8548f000000b003a694c0805amr16951188qtq.298.1670257808324;
+        Mon, 05 Dec 2022 08:30:08 -0800 (PST)
+Date: Mon, 5 Dec 2022 08:30:07 -0800 (PST)
+From: Rasty Slutsker <rslutsker@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <9f1616c7-ac5f-49de-bc24-8bd8520f4c07n@googlegroups.com>
+In-Reply-To: <34d2d078-1282-c240-9a65-301469b0bbe2@oth-regensburg.de>
+References: <fde55f66-2e83-4df2-8f5e-44b0fb831acbn@googlegroups.com>
+ <34d2d078-1282-c240-9a65-301469b0bbe2@oth-regensburg.de>
+Subject: Re: RTOS inmate misses interrupts
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [EXT] Jailhouse: unhandled APIC access when booting a Linux guest
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>, Karim Manaouil
-	<Karim.Manaouil@ed.ac.uk>
-CC: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>, Henning
- Schild <henning.schild@siemens.com>
-References: <AM0PR05MB601814D935B73250E59EA696A9189@AM0PR05MB6018.eurprd05.prod.outlook.com>
- <06f03e95-7ff4-3822-aeba-be48e5006b15@oth-regensburg.de>
-Content-Language: de-CH
-From: Andrej Utz <andrej.utz@st.oth-regensburg.de>
-In-Reply-To: <06f03e95-7ff4-3822-aeba-be48e5006b15@oth-regensburg.de>
-X-Originating-IP: [194.95.106.226]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
- E16S02.hs-regensburg.de (2001:638:a01:8013::92)
-X-Original-Sender: andrej.utz@st.oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@st.oth-regensburg.de header.s=mta02-20211122 header.b=0zjLZVQA;
-       spf=pass (google.com: domain of andrej.utz@st.oth-regensburg.de
- designates 2001:638:a01:1096::12 as permitted sender) smtp.mailfrom=andrej.utz@st.oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_7724_1931138211.1670257807780"
+X-Original-Sender: rslutsker@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -146,152 +81,241 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---------------jg0DefHyPjVZmYbBvxavdkmq
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+------=_Part_7724_1931138211.1670257807780
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_7725_297212300.1670257807780"
+
+------=_Part_7725_297212300.1670257807780
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Ralf,
+Thank you for the answer.
+We have periodic interrupt each 30 u(!)Sec. Linux cannot deal with such 
+rate, so we need hypervisor/RTOS.
+We managed to read a code of hypervisor. It appears that all interrupts to 
+all cores are intercepted by hypervisor and then forwarded to guests (per 
+core).
+If we reduce interrupt priority of mentioned interrupt (as you suggest) we 
+lose even more interrupts, even without stress.
+Interrupt is defined as edge triggered, I assumed that it is memorized by 
+gic until serviced.
+Is it possible that Hypervisor acknowledges pending interrupt while 
+servicing interrupt from another source ? Kind of race - 2 interrupts for 2 
+cores arrive nearly simultaneously. One is lost.
+
+Best regards
+Rasty
+
+On Monday, December 5, 2022 at 5:14:37 PM UTC+2 Ralf Ramsauer wrote:
+
+> Hi Nir,
+>
+> On 29/11/2022 14:21, nirge...@gmail.com wrote:
+> > Hi there,
+> > 
+> > Our target is Sitara AM5726 , CortexA15 dual core on which we are 
+> > running Linux on A15 core0 and RTOS on core1.
+> > 
+> > __
+> > 
+> > RTOS gets periodic interrupt from external hardware via nirq1 pin 
+> > (dedicated input into ARM gic).____
+> > 
+> > Under heavy load in Linux (core 0!), RTOS, which runs on core1 misses 
+> > interrupts.____
+>
+> Uhm. Can you reconstruct that issue w/o Jailhouse under Linux?
+>
+> I mean, can you set the SMP affinity of that IRQ to core 1 under Linux, 
+> and then write some test application running on core 1 that just 
+> receives the IRQ. If that issue happens under Linux as well, then you 
+> know that the issue has probably nothing to do with Jailhouse.
+>
+>
+> What also might happen: If there's enough pressure on the shared system 
+> bus when Linux is under load, then you simply loose those IRQs as the 
+> RTOS doesn't have enough time to handle it. You can test this hypothesis 
+> if you lower the frequency of the the periodic interrupt. If you still 
+> loose IRQs, then this should not be the case.
+>
+> > 
+> > Questions____
+> > 
+> > 1. Does linux/hypervisor participate in interrupt scheduling/forwarding
+> > to cell on Core1____
+>
+> Linux: No, Linux does not participate in anything that is going on on 
+> CPU 1. That's the idea behind Jailhouse.
+>
+> Jailhouse: Maybe. On ARM platforms, Jailhouse needs to reinject the 
+> Interrupt from the hypervisor to the guest, if SDEI is not available. 
+> Does the Sitara come with support for SDEI support?
+>
+> (You can btw monitor the exits of the hypervisor with 'jailhouse cell 
+> stats')
+>
+> Ralf
+>
+> > 2. Is there a description of interrupt forwarding/virtualization scheme
+> > to cores (if exists)? Any pointer to document/source code would be
+> > appreciated.
+> > 
+> > Thanks a lot,
+> > 
+> > Nir.
+> > 
+> > -- 
+> > You received this message because you are subscribed to the Google 
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send 
+> > an email to jailhouse-de...@googlegroups.com 
+> > <mailto:jailhouse-de...@googlegroups.com>.
+> > To view this discussion on the web visit 
+> > 
+> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com 
+> <
+> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=email&utm_source=footer
+> >.
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com.
+
+------=_Part_7725_297212300.1670257807780
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
-
-On 05.12.22 15:41, Ralf Ramsauer wrote:
-> [Adding Andrej]
->=20
-> Hi Karim,
->=20
-> On 05/12/2022 13:30, Karim Manaouil wrote:
->> Hi Ralf,
->>
->> I am trying to boot a Linux guest (based on=20
->> configs/x86/linux-x86-demo.c).
->> I tried to debug and solve this issue for a while but no success so far.
->>
->> The cell is created, and the guest starts booting, but then fails when
->> initialising the APIC. A write to an APIC register is intercepted by
->> Jailhouse and it decides that the guest is trying to set an invalid LVT
->> delivery mode. I checked the x86 documentation, it seems that it
->> should not be invalid, but I am not knowledgeable enough.
->=20
-> Sound familiar=E2=80=A6 I remember that Andrej and I have hit this one on=
- an AMD=20
-> machine some years ago:
->=20
-> https://groups.google.com/g/jailhouse-dev/c/1wRKIiGN0GA/m/_p_NSIBpDwAJ
->=20
-> Andrej, do you know how we finally (quick?)-fixed that issue back then?=
+Hi Ralf,<div>Thank you for the answer.</div><div>We have periodic interrupt=
+ each 30 u(!)Sec. Linux cannot deal with such rate, so we need hypervisor/R=
+TOS.</div><div>We managed to read a code of hypervisor. It appears that all=
+ interrupts to all cores are intercepted by hypervisor and then forwarded t=
+o guests (per core).</div><div>If we reduce interrupt priority of mentioned=
+ interrupt (as you suggest) we lose even more interrupts, even without stre=
+ss.</div><div>Interrupt is defined as edge triggered, I assumed that it is =
+memorized by gic until serviced.</div><div>Is it possible that Hypervisor a=
+cknowledges pending interrupt while servicing interrupt from another source=
+ ? Kind of race - 2 interrupts for 2 cores arrive nearly simultaneously. On=
+e is lost.</div><div><br></div><div>Best regards</div><div>Rasty<br><br></d=
+iv><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Mon=
+day, December 5, 2022 at 5:14:37 PM UTC+2 Ralf Ramsauer wrote:<br/></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: =
+1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi Nir,
+<br>
+<br>On 29/11/2022 14:21, <a href data-email-masked rel=3D"nofollow">nirge..=
+.@gmail.com</a> wrote:
+<br>&gt; Hi there,
+<br>&gt;=20
+<br>&gt; Our target is Sitara AM5726 , CortexA15 dual core on which we are=
 =20
-> Did we really have hardware misbehavior? It's been a while, but as far=20
-> as I remember that was the case.
+<br>&gt; running Linux on A15 core0 and RTOS on core1.
+<br>&gt;=20
+<br>&gt; __
+<br>&gt;=20
+<br>&gt; RTOS gets periodic interrupt from external hardware via nirq1 pin=
+=20
+<br>&gt; (dedicated input into ARM gic).____
+<br>&gt;=20
+<br>&gt; Under heavy load in Linux (core 0!), RTOS, which runs on core1 mis=
+ses=20
+<br>&gt; interrupts.____
+<br>
+<br>Uhm. Can you reconstruct that issue w/o Jailhouse under Linux?
+<br>
+<br>I mean, can you set the SMP affinity of that IRQ to core 1 under Linux,=
+=20
+<br>and then write some test application running on core 1 that just=20
+<br>receives the IRQ. If that issue happens under Linux as well, then you=
+=20
+<br>know that the issue has probably nothing to do with Jailhouse.
+<br>
+<br>
+<br>What also might happen: If there&#39;s enough pressure on the shared sy=
+stem=20
+<br>bus when Linux is under load, then you simply loose those IRQs as the=
+=20
+<br>RTOS doesn&#39;t have enough time to handle it. You can test this hypot=
+hesis=20
+<br>if you lower the frequency of the the periodic interrupt. If you still=
+=20
+<br>loose IRQs, then this should not be the case.
+<br>
+<br>&gt;=20
+<br>&gt; Questions____
+<br>&gt;=20
+<br>&gt;  1. Does linux/hypervisor participate in interrupt scheduling/forw=
+arding
+<br>&gt;     to cell on Core1____
+<br>
+<br>Linux: No, Linux does not participate in anything that is going on on=
+=20
+<br>CPU 1. That&#39;s the idea behind Jailhouse.
+<br>
+<br>Jailhouse: Maybe. On ARM platforms, Jailhouse needs to reinject the=20
+<br>Interrupt from the hypervisor to the guest, if SDEI is not available.=
+=20
+<br>Does the Sitara come with support for SDEI support?
+<br>
+<br>(You can btw monitor the exits of the hypervisor with &#39;jailhouse ce=
+ll=20
+<br>stats&#39;)
+<br>
+<br>   Ralf
+<br>
+<br>&gt;  2. Is there a description of interrupt forwarding/virtualization =
+scheme
+<br>&gt;     to cores (if exists)? Any pointer to document/source code woul=
+d be
+<br>&gt;     appreciated.
+<br>&gt;=20
+<br>&gt; Thanks a lot,
+<br>&gt;=20
+<br>&gt; Nir.
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google=
+=20
+<br>&gt; Groups &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send=20
+<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
+e...@googlegroups.com</a>=20
+<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
+...@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit=20
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f6=
+6-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
+44b0fb831acbn%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16703436666=
+58000&amp;usg=3DAOvVaw1SEbBxjNH6E51lMw_S6RGY">https://groups.google.com/d/m=
+sgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com=
+</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f6=
+6-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&amp;ut=
+m_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://groups.google.com/d/=
+msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%2540googlegroups.=
+com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1=
+670343666658000&amp;usg=3DAOvVaw07WIxn5NWOxnn-N8ltMSP6">https://groups.goog=
+le.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40google=
+groups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
+<br></blockquote></div>
 
-Afaik it was a CPU bug.
-We had to apply the attached patch to the kernel to make it boot as guest.
+<p></p>
 
-Thanks,
-Andrej
-
-> Thanks,
->  =C2=A0 Ralf
->=20
->>
->> Here is, pasted below, the log output from Jailhouse and the booting=20
->> guest kernel.
->>
->> PS: I am following the steps in Documentation/non-root-linux.txt and
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 using the patched kernel in q=
-ueues/jailhouse branch.
->>
->> Cheers
->> Karim
->>
->> ---
->> Jailhouse:
->>
->> Cell "linux-x86-demo" can be loaded
->> Started cell "linux-x86-demo"
->> CPU 2 received SIPI, vector 100
->> CPU 3 received SIPI, vector 100
->> FATAL: Setting invalid LVT delivery mode (reg 35, value 00000700)
->> FATAL: Unhandled APIC access, offset 848, is_write: 1
->> RIP: 0xffffffffaf84fb92 RSP: 0xffffffffb1003e80 FLAGS: 246
->> RAX: 0xffffffffaf84fb90 RBX: 0x0000000000000180 RCX: 0x0000000000000000
->> RDX: 0x0000000000000000 RSI: 0x0000000000000700 RDI: 0x0000000000000350
->> CS: 10 BASE: 0x0000000000000000 AR-BYTES: 29b EFER.LMA 1
->> CR0: 0x0000000080050033 CR3: 0x000000003ae0c000 CR4: 0x00000000000406b0
->> EFER: 0x0000000000001d01
->> Parking CPU 2 (Cell: "linux-x86-demo")
->> Cell "linux-x86-demo" can be loaded
->> Closing cell "linux-x86-demo"
->> Page pool usage after cell destruction: mem 2972/32211, remap=20
->> 65703/131072
->> CPU 2 received SIPI, vector 96
->> CPU 3 received SIPI, vector 96
->>
->> Linux demo guest (last few lines from kernel boot log on the serial=20
->> console):
->>
->> init, 1176K bss, 73676K reserved, 0K cma-reserved)
->> [ =C2=A0 =C2=A02.960440] SLUB: HWalign=3D64, Order=3D0-3, MinObjects=3D0=
-, CPUs=3D2, Nodes=3D1
->> [ =C2=A0 =C2=A03.040332] Dynamic Preempt: voluntary
->> [ =C2=A0 =C2=A03.083151] rcu: Preemptible hierarchical RCU implementatio=
-n.
->> [ =C2=A0 =C2=A03.151749] rcu: =C2=A0 =C2=A0 RCU event tracing is enabled=
-.
->> [ =C2=A0 =C2=A03.205830] rcu: =C2=A0 =C2=A0 RCU restricting CPUs from NR=
-_CPUS=3D64 to=20
->> nr_cpu_ids=3D2.
->> [ =C2=A0 =C2=A03.284872] =C2=A0Trampoline variant of Tasks RCU enabled.
->> [ =C2=A0 =C2=A03.345191] rcu: RCU calculated value of scheduler-enlistme=
-nt delay=20
->> is 100 jiffies.
->> [ =C2=A0 =C2=A03.436710] rcu: Adjusting geometry for rcu_fanout_leaf=3D1=
-6,=20
->> nr_cpu_ids=3D2
->> [ =C2=A0 =C2=A03.518471] NR_IRQS: 4352, nr_irqs: 424, preallocated irqs:=
- 0
->> [ =C2=A0 =C2=A03.585483] rcu: srcu_init: Setting srcu_struct sizes based=
- on=20
->> contention.
->> [ =C2=A0 =C2=A03.667665] Console: colour dummy device 80x25
->> [ =C2=A0 =C2=A03.720639] Enabling UART0 (port 0x3f8)
->> [ =C2=A0 =C2=A03.766423] printk: console [ttyS0] enabled
->> [ =C2=A0 =C2=A03.766423] printk: console [ttyS0] enabled
->> [ =C2=A0 =C2=A03.866333] printk: bootconsole [earlyser0] disabled
->> [ =C2=A0 =C2=A03.866333] printk: bootconsole [earlyser0] disabled
->> [ =C2=A0 =C2=A03.985019] APIC: Switch to symmetric I/O mode setup
->> [ =C2=A0 =C2=A04.046377] Switched APIC routing to physical flat.
->>
->>
->> The University of Edinburgh is a charitable body, registered in=20
->> Scotland, with registration number SC005336. Is e buidheann=20
->> carthannais a th=E2=80=99 ann an Oilthigh Dh=C3=B9n =C3=88ideann, cl=C3=
-=A0raichte an Alba,=20
->> =C3=A0ireamh cl=C3=A0raidh SC005336.
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/b48f1252-a6b7-a183-7f37-080b95043ad6%40st.oth-regensburg.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.co=
+m</a>.<br />
 
---------------jg0DefHyPjVZmYbBvxavdkmq
-Content-Type: text/x-patch; charset="UTF-8"; name="amd-apic-lvt-bug.patch"
-Content-Disposition: attachment; filename="amd-apic-lvt-bug.patch"
-Content-Transfer-Encoding: base64
+------=_Part_7725_297212300.1670257807780--
 
-ZGlmZiAtLWdpdCBhL2FyY2gveDg2L2tlcm5lbC9hcGljL2FwaWMuYyBiL2FyY2gveDg2L2tl
-cm5lbC9hcGljL2FwaWMuYwppbmRleCAwNDI4YWQyODk4OTkuLjgzNjQzNmNlMDViYSAxMDA2
-NDQKLS0tIGEvYXJjaC94ODYva2VybmVsL2FwaWMvYXBpYy5jCisrKyBiL2FyY2gveDg2L2tl
-cm5lbC9hcGljL2FwaWMuYwpAQCAtMTY5OSw2ICsxNjk5LDE0IEBAIHN0YXRpYyB2b2lkIHNl
-dHVwX2xvY2FsX0FQSUModm9pZCkKIAl2YWx1ZSB8PSBTUFVSSU9VU19BUElDX1ZFQ1RPUjsK
-IAlhcGljX3dyaXRlKEFQSUNfU1BJViwgdmFsdWUpOwogCisJLy8gSEFDSzogc29tZSBDUFVz
-IChlLmcuIHRoZSBBTUQgUnl6ZW4gZmFtaWx5KSBmYWlsIHRvIHJlc2V0IExWVF9MSU5UCisJ
-Ly8gcmVnaXN0ZXJzIGFjY29yZGluZyB0byBzcGVjaWZpY2F0aW9uLCBzbyB3ZSBoZWxwIHRo
-ZW0gZG8gdGhhdAorCWlmICgoKHZhbHVlID0gYXBpY19yZWFkKEFQSUNfTFZUMCkpICYgQVBJ
-Q19MVlRfTUFTS0VEKSA9PSAwKQorCQlhcGljX3dyaXRlKEFQSUNfTFZUMCwgdmFsdWUgfCBB
-UElDX0xWVF9NQVNLRUQpOworCisJaWYgKCgodmFsdWUgPSBhcGljX3JlYWQoQVBJQ19MVlQx
-KSkgJiBBUElDX0xWVF9NQVNLRUQpID09IDApCisJCWFwaWNfd3JpdGUoQVBJQ19MVlQxLCB2
-YWx1ZSB8IEFQSUNfTFZUX01BU0tFRCk7CisKIAlwZXJmX2V2ZW50c19sYXBpY19pbml0KCk7
-CiAKIAkvKgo=
-
---------------jg0DefHyPjVZmYbBvxavdkmq--
+------=_Part_7724_1931138211.1670257807780--
