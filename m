@@ -1,33 +1,33 @@
 Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBCUHZKOQMGQEALWZAVA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2447565AD97
+Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B22F65AD96
 	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Jan 2023 08:11:07 +0100 (CET)
-Received: by mail-ed1-x540.google.com with SMTP id t17-20020a056402525100b00478b85eecedsf17568203edd.18
+Received: by mail-ed1-x53f.google.com with SMTP id q10-20020a056402518a00b0048e5bc8cb74sf913338edd.5
         for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Jan 2023 23:11:07 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1672643466; cv=pass;
         d=google.com; s=arc-20160816;
-        b=HjtP8Z3N8quJcgPTEHH9SNvs/u02sdNOjonMqGVV48hEcQsgnXctWMOg84b7d6rrMb
-         FsaVE4zGbj7f89JKvt30oafvvDFr3avy9M/a61sp4fzLS8SFftBKmT81NamsjtRTa/4p
-         YCAGaK9ebWntM6PfVcFtTlaJE9pqRDeX36tp8ZIbLVfYUAsGRvtIsdp5ZXzTw/2pZebL
-         SSeZQxoTgCvPnhOXoW2WTGDfBCqnNRU85P1YKpbYGQp2pQfBdlfy0GgrZ0lbJbXvYzl6
-         4soUAi5bS/T30148v8NhhON8J9Jb33fnYF7/TM5F5LSIskLhpUc2u7JeOnwy180UNCvk
-         Bx4Q==
+        b=fQTNLtnNff602cx8A4jkr0QZfkgHPpT/hWa0ReWdfb6xZPK99DfaxpvNCU9MW7yfpP
+         V86227QwbFZiqKiZFHSVXXNmsy65gUf5CMgSEPqlbAbhdZz/ZGug78CJYEeuvkhSSlhr
+         q7cfxJPauFF5UUHyX875LH0lEM3jAvczc97j4C0bO2wn8qRLD1DGZ4bfSMPavq81C19o
+         o+b68Ilks+fYmofeFNW0sXHadRQaHQh/trYNsY5256X1WMQHZwVukexxXqAu9waiCuxS
+         I92gDIAa1prNgHi08Ohqf9AmI/15B3LWBa7eliZkLPqANpYcnvnqhPb8sQMHgQ4F+7LV
+         tmqQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:feedback-id:mime-version:references
          :in-reply-to:message-id:date:subject:to:from:sender:dkim-signature;
-        bh=PKEWHRM82LVt80gsd3WNuoQhy8KiQNTZqcxfs6ihtUU=;
-        b=B3Ms+9Gj72fmFplubLVAn885SZ+K2eHnWgDBr57XGY2zXipFucAxTBKn5UDKirtG/f
-         MbwkSH12caiwZqS7wdstaw3jnZR1Ky1Hh+FXL6RDQPllEk2OxPalJJ1rnVsybcnPzjN/
-         zZ0GaexNlgfnIWCPvhGbUIAKn4VLo+N+3QsvRspmdCX3hRQeiosL4amajxqWSMv0/AGT
-         X3uKlbB94vFIsARPxfP+p3cCtgnQVcP/XE2gUR/c4jkYjLUO1AzFOrzfGgNGuKCRrrjg
-         PAvaiLEG7H8x4htmSX2L5FvwZ/uy9EDB/2z+ThgQ5TqNxFAJV48TnjoBYwvNRCb0zRzn
-         QvTQ==
+        bh=bWwgNTh3dg8D7VlXoFqXh0UEA8iztSVfEVEw90pB4hg=;
+        b=yMvTxLPbthgSsiEmfrFSdbSLdmaDmLzAS2iQux+PpowghsSEh9oZLIt5kT/4/b+exx
+         v44L689fGfoHDhoZvHyTspOOwnJm0PXZszsqlugWAVl9wCLyrQiPTfr29n82jMjkTsF+
+         DAcQON87MhRxqPr/95Z8SikLYLWjVicREF5pfl4Qh2egH+ezPX2rUkRE+7HAY8rcD8or
+         Wdxh7iJOVrye9igrSm+dRhKLHKQxDmSTM0PUH7WpkQf1jzomSQiOYTK8OSreLDA8itOr
+         S8/ywUZdXZscnWoYwnt5aAVtyfNn2wppZ7sUO4p5IKqeYbbODr/vC+rwhfsYleIm70Zp
+         b5zg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=fm1 header.b=mRLVZe9T;
-       spf=pass (google.com: domain of fm-294854-2023010207110465a854063913cecbb6-_qgvq0@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-2023010207110465a854063913cecbb6-_qGVq0@rts-flowmailer.siemens.com;
+       dkim=pass header.i=@siemens.com header.s=fm1 header.b=kpj8C3n1;
+       spf=pass (google.com: domain of fm-294854-202301020711045eec9ddd1003c6c38b-1ykf4l@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-202301020711045eec9ddd1003c6c38b-1YKF4l@rts-flowmailer.siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -36,13 +36,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:feedback-id:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PKEWHRM82LVt80gsd3WNuoQhy8KiQNTZqcxfs6ihtUU=;
-        b=rD4OLc2R8VB96XUdsM++c59Na6erJGw7qYgwpHPAnzDs+VkpIauL+1/a+pa7IO53J/
-         Hg9bilKMuFUL9ba+xEigUpHn7JQ0sVtQGHFDJpqHE9VQ2YZ+Dok3gxZaNfs1AVruNGSq
-         2Qx3JYnXiCn5K5RL5Em7ixI34TgHDfp7MQ9G8VR7antwvqJA/kFGfVRhw7f4fxWysR+z
-         FYgn+je5lfj9T7Dfc2YqIw0zFdgntIn89fMppDpFu2hEVWvX9BV0ECq/ifzFA7LPw3xH
-         7JYtr6RSrIFMydzjhuKYIPt6todTOLoScinxYVgbM5sotUS2cD+DxzwfJGDmBQaIc+Pf
-         W+eQ==
+        bh=bWwgNTh3dg8D7VlXoFqXh0UEA8iztSVfEVEw90pB4hg=;
+        b=rrKyjhrHTF7uWmCCYqxP5j+FFV5jHmgxI7GRCuyZk+jAJkFLVjk9UhZdXunPxWuc69
+         e/2NXiwtSpYc9b/I09bAcsKL1RSpNMYbNKMngO8/7wnm//nABu2XetMdQjFxCnk6oB3c
+         jXGb9NM/pYEg7MR76R7Q+zxrH5nUHQostkuAl4ED++pu5jxxAHqSHuM1fVDLCnYwP4j9
+         M0M7UfYKLQBT/c2ES68Qrfbr3cfEpApZwkIwbyCClDGg1tYg0Lr6m3u5q1kmT9vCbKzK
+         O3/NZouG2o4IL3/HtlFn9vzYh1g4Q+qp1Bsp5zkPS7qRay9rZTF+NM+JH2ijH0uHwv9H
+         Zjkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -51,61 +51,61 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :mime-version:references:in-reply-to:message-id:date:subject:to:from
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PKEWHRM82LVt80gsd3WNuoQhy8KiQNTZqcxfs6ihtUU=;
-        b=h0qkYP+tDXyi2CsVCYFaHyRCfZjw/rSHt0Jjlhrxb4nDrxevlKKVaeF2uLHS/KbVvx
-         J260jBJq/Vi4JpaNwLRTrBWFnUjQceJKZ1aOpC3qcR0Pe5zMQYKzi7+mQ+slWogCa5nD
-         zqEFKebO+2pTOMjOE7rsvL4klCTNOAyMY6SDqwJa8C0mcQx5Oyffq7fMRJBFB1csq4t0
-         ozEkyfKVWz2pCzv757gDbMn6lTdHnEHpXg7wqaHcX5xBUYKQ58Zu3QhJLAEI1sLyZKgF
-         39XA/AY1bTCPiJ+xaUCaT6kLD7hjVk3XfGRlbyPOfxh5yx9eQmsTCCztqvlzxUYwr0l9
-         OuLQ==
+        bh=bWwgNTh3dg8D7VlXoFqXh0UEA8iztSVfEVEw90pB4hg=;
+        b=YghQ4BXcN8ts9wPxr55p8uaAsJh1B4xXCQ01A6xmePw8AP6BD4Ig9xVq5lLlNqt4hL
+         POCVV4E227A1fRKUIjAYfTo/mdhE0/VwsF2/BR0394jI5Ox6womEvwNZ+R5F/Lw/41A/
+         q0caX1yCpxjA9979K6ERduBWK4sLoayctarA7TVaFAvnfKIyDKpW+imFaerKP6L53Dmk
+         E1UD7wM3nHLY2PP4m6UW14bDgQHq5XTYfVFhDHiuDd4v1+3NEGYX3ruKRr/zxm+33fBt
+         DtAvuoi7opysY6dRu3ODSk3Yk4F+bKdMSigXFUZUDOib47trc9UYNoYdFY5JIb/bizpJ
+         6N4g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AFqh2krxwZAcfsfz5+YZWEAvfyIkqSRvr8OvSr80Ok034m9gLQqHpOYc
-	tFhw05cvztnX1PPgz9YYPI0=
-X-Google-Smtp-Source: AMrXdXsgnAp7y6jA40jweZRJDBNdx4xz218f6IRP95ESvAi/AqyX4cCIQ9xyq27qhvdJ/71+ADlozA==
-X-Received: by 2002:aa7:c58b:0:b0:487:21e1:b63b with SMTP id g11-20020aa7c58b000000b0048721e1b63bmr1783361edq.125.1672643466566;
+X-Gm-Message-State: AFqh2koiNAeQ1l5LagMsk22Nbt5k8DK4c7j0sWZZQYmE/3tr3Vu+lgRE
+	g2SI2cqFFRU+B3MknNRSpeQ=
+X-Google-Smtp-Source: AMrXdXtJRrDhS0+YLsUyzJo+ElvnUXJ/QvTUKuLeCVyxI7hA0JjBkNXHZ+sdj4f4xWaTsT1pA63AlA==
+X-Received: by 2002:a17:906:f6d7:b0:7c4:efa5:b1ea with SMTP id jo23-20020a170906f6d700b007c4efa5b1eamr4323015ejb.335.1672643466692;
         Sun, 01 Jan 2023 23:11:06 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:b24d:b0:7c1:6e9c:4a2c with SMTP id
- ce13-20020a170906b24d00b007c16e9c4a2cls2576729ejb.1.-pod-prod-gmail; Sun, 01
+Received: by 2002:a05:6402:4413:b0:43d:b3c4:cd21 with SMTP id
+ y19-20020a056402441300b0043db3c4cd21ls3787743eda.2.-pod-prod-gmail; Sun, 01
  Jan 2023 23:11:05 -0800 (PST)
-X-Received: by 2002:a17:906:684b:b0:7c1:2fc2:6740 with SMTP id a11-20020a170906684b00b007c12fc26740mr34856160ejs.46.1672643465029;
+X-Received: by 2002:a05:6402:450c:b0:47c:445b:b4f with SMTP id ez12-20020a056402450c00b0047c445b0b4fmr35118021edb.32.1672643465260;
         Sun, 01 Jan 2023 23:11:05 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1672643465; cv=none;
         d=google.com; s=arc-20160816;
-        b=bWqJTvkaG7alkCTPd1OHV1zAwDuQ6hN1KGmOj5RXPKH/bdiP2M5dFmNQcCPSr9RTIU
-         oG4Za8Wp3GzlNIiOCnHNrVGmlfB11SNCrocLaw3NHiydHPDoVV7N6dALNyl8ViIdFS3L
-         BWkX42GQVjsP83FIvGIQ053WwjGXLqAfIOWmNXlxtcgGt9tg31KSw5VM03l3GaivpwGo
-         SGzwB38aPrkKgcjmctwM4DOtTlguldAyh5xg+/oUXVKfBc18W02flgWkCR+uj9UoiJjQ
-         2vENqYL5TZ6oGLqlcLebb7BpBT35lmO4ocfroOuMwDwC+BCkpZyEwpOGqyyhwZPlWSv4
-         l2BQ==
+        b=EUzC+o1Hhuw+mbAsGxaLtsYznFbfbquRciU2IlXfL06LAUNUiP/X1E5Zd+5DkmnFEU
+         YvqSzjx3e3wTD1jG/ZJ1F8Tyt63usgiuv/is68LWhOZ1f+u0kvFdsoq8d3xn9BHApEQw
+         Mc+TWdhO6y0vC0J5C5sDUBZTnY9LpFlqAC1mIeQ1mz1YK1iL8JzHw/dsbj+zz8wc5XeG
+         +q8ZxhIoMi7LuZsiG0EtAzVJksmTRL1ueaD7Z572LvHOrAkwrJEjCvDaaQjL3GDJ19OJ
+         8OWeDyIMWXkAR8JsPFLs4ewFDIWODe7Zh9+Q784NonXmbySeTl1KPYlbXNdsu9f4+dDJ
+         1omA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=feedback-id:content-transfer-encoding:mime-version:references
          :in-reply-to:message-id:date:subject:to:from:dkim-signature;
-        bh=93HzXnPrHvKmFAMvVKupJMOpDzq/YYCr8Z2GyzWUVK8=;
-        b=kjzGGINlzRWNfUSUiO9+BMcbTobGUnlY5YXpZwQKaxy/i5kB/30HsvtMrccqE/tWT+
-         sd5ikXWM6BB5jVAfWGbFOwHDiqjri5facI0HHp+gAgCGVmpn1zoL6NoN0bUCi5fGsLVq
-         OyYZYnCqU/Tnhbl7rMqDpmUZxs/LgJxDE8vX1wJnKC+W0f2KEz2ClfA2Vvv0bkUVxWE5
-         ymh5Q8vOnQhBxTI+k/rMNYp07zEkNFcLYAazMoX2t81LlKtXS2MMoDu51RVceOAecnZ0
-         orjSD3xWSyFuFn65k40iR4NUQB+SKEDXibvtiAmjz4qdJ+yrKpP8XHP0ZzXKsGDWzL2a
-         nktA==
+        bh=GZs8/1NDkzCrahkXQVyNyCaB4KTOzx6PwUvS3e+hR6A=;
+        b=PS+ZTuvZRONbu+LEfkzlt6N0ZS8W7MfRBQNzgCwGJsaijEXo3LFN0F84iaoOrn/kf+
+         KXokIcXazSBfdFHiIGDvvQiHnGUXZ1gAQcPTu31AZyFqRmFcXKLu99RRIhqBpDsTyZG3
+         OpQGqTSlh/v71p43KCLpDkHmznZphAsv5AG5p6eZcu6TF6Hy8N3hLIkhmK7BdKDe/1XB
+         M6xeQQQ8vdmws/vAfOb/DmEyZBl/UUiA8aJNXE1/Tkr9DawyF7hIu1XRgvEsBaOsh8gC
+         W0DwOeGc2PHIA5BOCGZqM1qicqbBCZbxZ4mlpssh91wI+kS6Q0XNcg94IUHmU5o0ircX
+         o2Yg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=fm1 header.b=mRLVZe9T;
-       spf=pass (google.com: domain of fm-294854-2023010207110465a854063913cecbb6-_qgvq0@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-2023010207110465a854063913cecbb6-_qGVq0@rts-flowmailer.siemens.com;
+       dkim=pass header.i=@siemens.com header.s=fm1 header.b=kpj8C3n1;
+       spf=pass (google.com: domain of fm-294854-202301020711045eec9ddd1003c6c38b-1ykf4l@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-202301020711045eec9ddd1003c6c38b-1YKF4l@rts-flowmailer.siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net. [185.136.64.228])
         by gmr-mx.google.com with ESMTPS id x15-20020aa7dacf000000b0046920d68fe2si995826eds.4.2023.01.01.23.11.05
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Sun, 01 Jan 2023 23:11:05 -0800 (PST)
-Received-SPF: pass (google.com: domain of fm-294854-2023010207110465a854063913cecbb6-_qgvq0@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) client-ip=185.136.64.228;
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 2023010207110465a854063913cecbb6
+Received-SPF: pass (google.com: domain of fm-294854-202301020711045eec9ddd1003c6c38b-1ykf4l@rts-flowmailer.siemens.com designates 185.136.64.228 as permitted sender) client-ip=185.136.64.228;
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 202301020711045eec9ddd1003c6c38b
         for <jailhouse-dev@googlegroups.com>;
-        Mon, 02 Jan 2023 08:11:04 +0100
+        Mon, 02 Jan 2023 08:11:05 +0100
 From: Jan Kiszka <jan.kiszka@siemens.com>
 To: jailhouse-dev@googlegroups.com
-Subject: [PATCH 2/4] x86: vtd: Drop source-id validation while parsing root cell IRTE
-Date: Mon,  2 Jan 2023 08:11:01 +0100
-Message-Id: <f70e366bb77de3ceb59464a943cc5430e69ed7f4.1672643463.git.jan.kiszka@siemens.com>
+Subject: [PATCH 3/4] configs: x86: qemu: Move ivshmem devices behind hotplug-capable bridge
+Date: Mon,  2 Jan 2023 08:11:02 +0100
+Message-Id: <11d89ccbe98ae77baaa18dbb68faaef04278ef83.1672643463.git.jan.kiszka@siemens.com>
 In-Reply-To: <cover.1672643463.git.jan.kiszka@siemens.com>
 References: <cover.1672643463.git.jan.kiszka@siemens.com>
 MIME-Version: 1.0
@@ -113,9 +113,9 @@ X-Flowmailer-Platform: Siemens
 Feedback-ID: 519:519-294854:519-21489:flowmailer
 X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=fm1 header.b=mRLVZe9T;       spf=pass
- (google.com: domain of fm-294854-2023010207110465a854063913cecbb6-_qgvq0@rts-flowmailer.siemens.com
- designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-2023010207110465a854063913cecbb6-_qGVq0@rts-flowmailer.siemens.com;
+ header.i=@siemens.com header.s=fm1 header.b=kpj8C3n1;       spf=pass
+ (google.com: domain of fm-294854-202301020711045eec9ddd1003c6c38b-1ykf4l@rts-flowmailer.siemens.com
+ designates 185.136.64.228 as permitted sender) smtp.mailfrom=fm-294854-202301020711045eec9ddd1003c6c38b-1YKF4l@rts-flowmailer.siemens.com;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -132,38 +132,350 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This was not complete, rather assumed SVT to be 01b and completely
-ignored SQ. The SID test failed when the root cell chose SVT to be 10b
-to describe a source behind a PCIe-PCI bridge, thus switching SID to
-startbus/endbus encoding (now needed for QEMU).
+Recent QEMU disabled hotplugging support for the root bus. Linux will
+still find the ivshmem devices we inject there so far, but it will fail
+to allocate IRQs for it because the related irq domain was frozen in
+size, given that hotplug is not possible.
 
-Let's make it simple and assume that the root cell programmed a valid
-source. Skipping the test will have no negative impact on isolation
-between cells.
+Work around this issue by moving the virtual devices behind a PCIe-PCI
+bridge that is hotplug-capable. Adding that bridge shuffles some memory
+regions around, so adjust the configs accordingly.
 
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- hypervisor/arch/x86/vtd.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ configs/x86/ivshmem-demo.c   |   2 +-
+ configs/x86/linux-x86-demo.c |  34 +++++-----
+ configs/x86/qemu-x86.c       | 118 +++++++++++++++++++++++++----------
+ 3 files changed, 102 insertions(+), 52 deletions(-)
 
-diff --git a/hypervisor/arch/x86/vtd.c b/hypervisor/arch/x86/vtd.c
-index acc97919..ccd0bdde 100644
---- a/hypervisor/arch/x86/vtd.c
-+++ b/hypervisor/arch/x86/vtd.c
-@@ -805,8 +805,7 @@ iommu_get_remapped_root_int(unsigned int iommu, u16 device_id,
- 	root_irte = *(union vtd_irte *)(irte_page +
- 					(irte_addr & PAGE_OFFS_MASK));
+diff --git a/configs/x86/ivshmem-demo.c b/configs/x86/ivshmem-demo.c
+index ce05b6b5..4c24193f 100644
+--- a/configs/x86/ivshmem-demo.c
++++ b/configs/x86/ivshmem-demo.c
+@@ -107,7 +107,7 @@ struct {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0000,
+-			.bdf = 0x0e << 3,
++			.bdf = 0x100 | (0x0e << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 16,
+ 			.shmem_regions_start = 0,
+diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
+index 47cb6517..0703c5b9 100644
+--- a/configs/x86/linux-x86-demo.c
++++ b/configs/x86/linux-x86-demo.c
+@@ -144,31 +144,31 @@ struct {
+ 				JAILHOUSE_MEM_LOADABLE,
+ 		},
+ #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+-		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
++		/* MemRegion: fea00000-fea3ffff : 0000:00:02.0 */
+ 		{
+-			.phys_start = 0xfeb40000,
+-			.virt_start = 0xfeb40000,
++			.phys_start = 0xfea00000,
++			.virt_start = 0xfea00000,
+ 			.size = 0x40000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: feb80000-feb9ffff : e1000e */
++		/* MemRegion: fea40000-fea5ffff : e1000e */
+ 		{
+-			.phys_start = 0xfeb80000,
+-			.virt_start = 0xfeb80000,
++			.phys_start = 0xfea40000,
++			.virt_start = 0xfea40000,
+ 			.size = 0x20000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: feba0000-febbffff : e1000e */
++		/* MemRegion: fea60000-fea7ffff : e1000e */
+ 		{
+-			.phys_start = 0xfeba0000,
+-			.virt_start = 0xfeba0000,
++			.phys_start = 0xfea60000,
++			.virt_start = 0xfea60000,
+ 			.size = 0x20000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: febd1000-febd3fff : e1000e */
++		/* MemRegion: fea91000-fea93fff : e1000e */
+ 		{
+-			.phys_start = 0xfebd1000,
+-			.virt_start = 0xfebd1000,
++			.phys_start = 0xfea91000,
++			.virt_start = 0xfea91000,
+ 			.size = 0x3000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+@@ -203,7 +203,7 @@ struct {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0c << 3,
++			.bdf = 0x100 | (0x0c << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 2,
+ 			.shmem_regions_start = 0,
+@@ -215,7 +215,7 @@ struct {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0d << 3,
++			.bdf = 0x100 | (0x0d << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 3,
+ 			.shmem_regions_start = 4,
+@@ -227,7 +227,7 @@ struct {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0e << 3,
++			.bdf = 0x100 | (0x0e << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 16,
+ 			.shmem_regions_start = 8,
+@@ -238,7 +238,7 @@ struct {
+ 		{
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0f << 3,
++			.bdf = 0x100 | (0x0f << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 2,
+ 			.shmem_regions_start = 13,
+@@ -261,7 +261,7 @@ struct {
+ 			.msi_64bits = 1,
+ 			.num_msix_vectors = 5,
+ 			.msix_region_size = 0x1000,
+-			.msix_address = 0xfebd0000,
++			.msix_address = 0xfea90000,
+ 		},
+ #endif
+ 	},
+diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+index 9ca5c528..c4d7ecfc 100644
+--- a/configs/x86/qemu-x86.c
++++ b/configs/x86/qemu-x86.c
+@@ -24,9 +24,9 @@ struct {
+ 	__u64 cpus[1];
+ 	struct jailhouse_memory mem_regions[31];
+ 	struct jailhouse_irqchip irqchips[1];
+-	struct jailhouse_pio pio_regions[12];
+-	struct jailhouse_pci_device pci_devices[11];
+-	struct jailhouse_pci_capability pci_caps[11];
++	struct jailhouse_pio pio_regions[13];
++	struct jailhouse_pci_device pci_devices[12];
++	struct jailhouse_pci_capability pci_caps[16];
+ } __attribute__((packed)) config = {
+ 	.header = {
+ 		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
+@@ -171,59 +171,59 @@ struct {
+ 			.size = 0x1000000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: fe000000-fe003fff : 0000:00:1f.7 (virtio-9p) */
++		/* MemRegion: fe200000-fe203fff : 0000:00:1f.7 (virtio-9p) */
+ 		{
+-			.phys_start = 0xfe000000,
+-			.virt_start = 0xfe000000,
++			.phys_start = 0xfe200000,
++			.virt_start = 0xfe200000,
+ 			.size = 0x4000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: feb40000-feb7ffff : 0000:00:02.0 */
++		/* MemRegion: fea00000-fea3ffff : 0000:00:02.0 */
+ 		{
+-			.phys_start = 0xfeb40000,
+-			.virt_start = 0xfeb40000,
++			.phys_start = 0xfea00000,
++			.virt_start = 0xfea00000,
+ 			.size = 0x40000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: feb80000-feb9ffff : e1000e */
++		/* MemRegion: fea40000-fea5ffff : e1000e */
+ 		{
+-			.phys_start = 0xfeb80000,
+-			.virt_start = 0xfeb80000,
++			.phys_start = 0xfea40000,
++			.virt_start = 0xfea40000,
+ 			.size = 0x20000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: feba0000-febbffff : e1000e */
++		/* MemRegion: fea60000-fea7ffff : e1000e */
+ 		{
+-			.phys_start = 0xfeba0000,
+-			.virt_start = 0xfeba0000,
++			.phys_start = 0xfea60000,
++			.virt_start = 0xfea60000,
+ 			.size = 0x20000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: febd1000-febd3fff : e1000e */
++		/* MemRegion: fea91000-fea93fff : e1000e */
+ 		{
+-			.phys_start = 0xfebd1000,
+-			.virt_start = 0xfebd1000,
++			.phys_start = 0xfea91000,
++			.virt_start = 0xfea91000,
+ 			.size = 0x3000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: febd4000-febd7fff : 0000:00:1b.0 (ICH HD audio) */
++		/* MemRegion: fea94000-fea97fff : 0000:00:1b.0 (ICH HD audio) */
+ 		{
+-			.phys_start = 0xfebd4000,
+-			.virt_start = 0xfebd4000,
++			.phys_start = 0xfea94000,
++			.virt_start = 0xfea94000,
+ 			.size = 0x4000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: febd8000-febd8fff : 0000:00:01.0 (vesafd) */
++		/* MemRegion: fea98000-fea98fff : 0000:00:01.0 (vesafd) */
+ 		{
+-			.phys_start = 0xfebd8000,
+-			.virt_start = 0xfebd8000,
++			.phys_start = 0xfea98000,
++			.virt_start = 0xfea98000,
+ 			.size = 0x1000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+-		/* MemRegion: febd9000-febd9fff : 0000:00:1f.2 (ahci) */
++		/* MemRegion: fea9a000-fea9afff : 0000:00:1f.2 (ahci) */
+ 		{
+-			.phys_start = 0xfebd9000,
+-			.virt_start = 0xfebd9000,
++			.phys_start = 0xfea9a000,
++			.virt_start = 0xfea9a000,
+ 			.size = 0x1000,
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+ 		},
+@@ -257,8 +257,9 @@ struct {
+ 		PIO_RANGE(0x3b0, 0x30), /* VGA */
+ 		PIO_RANGE(0x3f0, 0x8), /* floppy */
+ 		PIO_RANGE(0x402, 0x1), /* invalid but accessed by X */
++		PIO_RANGE(0xcd0, 0x8), /* QEMU ACPI hotplug */
+ 		PIO_RANGE(0x5658, 0x4), /* vmport */
+-		PIO_RANGE(0xc000, 0xff), /* PCI devices */
++		PIO_RANGE(0xd000, 0xff), /* PCI devices */
+ 	},
  
--	irq_msg.valid =
--		(root_irte.field.p && root_irte.field.sid == device_id);
-+	irq_msg.valid = root_irte.field.p;
- 	irq_msg.vector = root_irte.field.vector;
- 	irq_msg.delivery_mode = root_irte.field.delivery_mode;
- 	irq_msg.dest_logical = root_irte.field.dest_logical;
+ 	.pci_devices = {
+@@ -281,7 +282,25 @@ struct {
+ 			.msi_64bits = 1,
+ 			.num_msix_vectors = 5,
+ 			.msix_region_size = 0x1000,
+-			.msix_address = 0xfebd0000,
++			.msix_address = 0xfea90000,
++		},
++		/* PCI bridge */
++		{
++			.type = JAILHOUSE_PCI_TYPE_BRIDGE,
++			.domain = 0x0000,
++			.bdf = 0x0018,
++			.bar_mask = {
++				0xffffff00, 0x00000000, 0x00000000,
++				0x00000000, 0x00000000, 0x00000000,
++			},
++			.caps_start = 11,
++			.num_caps = 5,
++			.num_msi_vectors = 1,
++			.msi_64bits = 1,
++			.msi_maskable = 1,
++			.num_msix_vectors = 0,
++			.msix_region_size = 0x0,
++			.msix_address = 0x0,
+ 		},
+ 		{ /* ICH HD audio */
+ 			.type = JAILHOUSE_PCI_TYPE_DEVICE,
+@@ -323,12 +342,12 @@ struct {
+ 			.num_caps = 1,
+ 			.num_msix_vectors = 2,
+ 			.msix_region_size = 0x1000,
+-			.msix_address = 0xfebda000,
++			.msix_address = 0xfea9b000,
+ 		},
+ 		{ /* IVSHMEM (virtio-blk back-end) */
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0c << 3,
++			.bdf = 0x100 | (0x0c << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 2,
+ 			.shmem_regions_start = 0,
+@@ -340,7 +359,7 @@ struct {
+ 		{ /* IVSHMEM (virtio-con back-end) */
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0,
+-			.bdf = 0x0d << 3,
++			.bdf = 0x100 | (0x0d << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 3,
+ 			.shmem_regions_start = 4,
+@@ -352,7 +371,7 @@ struct {
+ 		{ /* IVSHMEM (demo) */
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0000,
+-			.bdf = 0x0e << 3,
++			.bdf = 0x100 | (0x0e << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 16,
+ 			.shmem_regions_start = 8,
+@@ -363,7 +382,7 @@ struct {
+ 		{ /* IVSHMEM (networking) */
+ 			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
+ 			.domain = 0x0000,
+-			.bdf = 0x0f << 3,
++			.bdf = 0x100 | (0x0f << 3),
+ 			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_MSIX,
+ 			.num_msix_vectors = 2,
+ 			.shmem_regions_start = 13,
+@@ -439,5 +458,36 @@ struct {
+ 			.len = 4,
+ 			.flags = 0,
+ 		},
++		/* PCI bridge */
++		{
++			.id = PCI_CAP_ID_MSI,
++			.start = 0x8c,
++			.len = 0x18,
++			.flags = JAILHOUSE_PCICAPS_WRITE,
++		},
++		{
++			.id = PCI_CAP_ID_PM,
++			.start = 0x84,
++			.len = 0x8,
++			.flags = JAILHOUSE_PCICAPS_WRITE,
++		},
++		{
++			.id = PCI_CAP_ID_EXP,
++			.start = 0x48,
++			.len = 0x3c,
++			.flags = 0,
++		},
++		{
++			.id = 0xc,
++			.start = 0x40,
++			.len = 0x02,
++			.flags = 0,
++		},
++		{
++			.id = PCI_EXT_CAP_ID_ERR | JAILHOUSE_PCI_EXT_CAP,
++			.start = 0x100,
++			.len = 0x40,
++			.flags = 0,
++		},
+ 	},
+ };
 -- 
 2.35.3
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/f70e366bb77de3ceb59464a943cc5430e69ed7f4.1672643463.git.jan.kiszka%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/11d89ccbe98ae77baaa18dbb68faaef04278ef83.1672643463.git.jan.kiszka%40siemens.com.
