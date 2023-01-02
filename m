@@ -1,141 +1,210 @@
-Return-Path: <jailhouse-dev+bncBC5J3D7HTQNBBHHBWWOQMGQEI4UT7HQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBVH5ZGOQMGQEDZQ5LQI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F25658BEE
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Dec 2022 11:49:02 +0100 (CET)
-Received: by mail-yb1-xb3c.google.com with SMTP id h67-20020a25d046000000b00729876d3b2bsf19518859ybg.17
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Dec 2022 02:49:01 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1672310941; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6FFE65AD8A
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  2 Jan 2023 07:51:03 +0100 (CET)
+Received: by mail-lf1-x13b.google.com with SMTP id y26-20020a0565123f1a00b004b4b8aabd0csf9780973lfa.16
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 01 Jan 2023 22:51:03 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1672642262; cv=pass;
         d=google.com; s=arc-20160816;
-        b=eZLqOAQed6gxFFI39qfQf0tU+jqL2GG/Dr5HBXLvT4jFCJDtmIxoosLAl4zguMTupw
-         6/CEG3kJGjGwJA/2JroyqLVKXIUc3Rn8PLTsqVzi8rM9/MutGIucbFs5DvV5bp1WUtBX
-         mVEJ5v2OjA8X2Q0XICvY51ZmIGnygbpeon2G4mzDey/pYxw7VdI50qW4++s4ieHmefjo
-         WIPhHX+wjRSgGrXebChAU0vT9C4HaQKRrYMYqTTG4u6b9mF+qA4mnn8hkv6bJhGtxMgQ
-         QuHbmqjn1P7Ugz0VmVzT7fe1zpzKzxvfsjax/1nqcNUO+MABH9vpoPH0bJ1QqvBSVxV+
-         UX+g==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=O8SucbBVVL/PMj0XGgx029gek4FxHqK/prMR4/J4QbSKCKgjXWeEgSFWnHo+Mf+vnl
+         cOguUxJWLXAjcbJD1QiiSzfBE3mMf4xJhkrHvrAYRXFG35D1XGOd3st+Ap51ch96aIoJ
+         6gHLNtI4hTuhIdOOCBKiedx1vn1i1IgPgr6g4pYkigUdP4jjdbAVwhH2lMWmT1UYD8vl
+         oWsT3Wr05mxDcmyJzmvIV1c5vrMqcallpbBVbkPZq5eNrojY9/tzgNKUdPRaonMY11ze
+         UrRNbdYeoHcrMQ3jaRiggX7qMh/YB1yD58NWV/mImwVZfHf+0VGxYtgfpjeR/z4FDSi9
+         KbEg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:sender:dkim-signature
-         :dkim-signature;
-        bh=qyx9DPKkOoD1gg7saH23r13SpcWoHJz/eCRdzxf9BCE=;
-        b=js50P3AHC1pl50JC7oNuhr+26fyRLv6eLrsLBaN2+mlBf5e/g+4PHHS6EgTHvdJhDT
-         g8fKzqUw1o1XvYAaiHtIXYcqkqQgQBHqEJPHMFMPKQraC85VoSsvVsc0TlqM3mW7TKlH
-         Vvc52PWLCi9d+7nGJ2pmJlyeoP2U1zPY/UzYGEtrDxOD/Mn0NIRYxLD+8imljhNvXicG
-         ZX9U1ulDzq7uT6vKwL4bn3FvWzoV4VZNJG12ntObLraZQ4LhziX2OG+iWDQnFkET2lgc
-         k954OYHw8y+MaHOeU3aFVojhazxGRyoRSpakdotxMElJLsDdzAHfKMyM7puklWeYT8Td
-         08mg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=ccCYOeI1;
-       spf=pass (google.com: domain of nirgeller18@gmail.com designates 2607:f8b0:4864:20::e2b as permitted sender) smtp.mailfrom=nirgeller18@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+         :list-id:mailing-list:precedence:mime-version:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:date
+         :message-id:sender:dkim-signature;
+        bh=qGFCKCljR4eVRs0TTjNn0Q0m1P7sVElKjQmGUbiicCA=;
+        b=pCxMoUe2PkInUEkbdzJv1vb0/m057zNWq2WGOxvun/aDoRV4V2G4i8WwB0dWlwzfkN
+         mtYIAk4VHHvKl0CdzLw/AHXPTPoN3xSYCbxPaMUhTGDOdTtWMG4y4cNwGR4W6ZsWQ4BE
+         A5dTSKP42C0os+lFayPdi6MRHdyEKNs64yj1isBgZMmZi7cei8bUD3pO2f7Ebuq2TJEM
+         mjwtE96k/5PQd4CDTVGAPBlv+rnG1iO6dh16+rz8aD2DMx/Yv0jso4usEC9jr0CZbc7V
+         JcxyqMaes9EKWDA3qNC0dCm/tdL5y5cJSLgtmmDl+dpAfEdBtSrtnDTzEil8W2rDeXOX
+         ngsQ==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=tiQIRZvG;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.7.52 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qyx9DPKkOoD1gg7saH23r13SpcWoHJz/eCRdzxf9BCE=;
-        b=YE+13RJxK8qhGbkWlHsZ7gIA8a96+bp6W95Sx9UZq+Fg7DOeV8rWBPM7ileSYZvVJa
-         AvzTuMs7jlN2+zJUBVi8/q9tDUpiHuQhH1JjK40yVuxwdi89TnTtmBgDPYiZPRzh07QL
-         sUr10AOkcMmJx64H3vdwecbb9R3F5CJoJrcNmYNVMNd1p2wUScK3DhNXG+41dURmOLPk
-         MZRwBtrOkt24czjtd4vmzWupNUpIEppvpsnH7LwWODlqNSV50c2n4Y9VIRFA9PXseYv4
-         kjcNjc1b4A5vbfuHE1D8bjFLT382RWgD2Xo2BwcdKpd+BSXymcKEjpVpsurXt6ydklb8
-         1Y5Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=qyx9DPKkOoD1gg7saH23r13SpcWoHJz/eCRdzxf9BCE=;
-        b=ptMwmqCLPIy1qKay11M3qOE/ST8hLc5o626bPaa9QmXKk8cdxrl+Bt4/VRWw/10b2A
-         tUiaxT3n0DwIAlX2QbnB/aWMF12u3Uv8SEurP2ACfGvVesLe93tWI54hnWboo1XqHBKe
-         CySye3GdxYB5KK7ydxU+/kdgy4EHsjURFNn7X/GxCJGFb7kbvy0yJ7p9ChpuLT0ZdjmL
-         USHGQ5hNDvd/DhCC7SP75RLhCAeZGx3GQI4kYygOZbUQSY9jPQHDsfivDm4rH0ws3nad
-         cxPl82wiqyujoM22Bt+s9gHWbHH4sUsH/gc4ruQgmDtIsWbDbi/CTMg7SMw891REg24K
-         V23w==
+         :x-original-sender:mime-version:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:date:message-id:sender:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=qGFCKCljR4eVRs0TTjNn0Q0m1P7sVElKjQmGUbiicCA=;
+        b=J8PGxWcutCA8dOXfvOlcEnHrLK+JIWBINGfnAbpBruwYHb2H4vr19RA1WvGGKBSO8v
+         N4trkeil/0wbvEJc5hOhVF3blGMIdwO75m3ZReOrb0BetFJUUSlWSPFe6+roK/u6yj7M
+         CKifb46M0taL4v4Pvn4tw0qJjC6AwovYy/z9H25PXPeS7nO507k2jAM8SA1vC28dRpft
+         qSOSf43PQLJxRUGLLcj3TIuVi+o302WOTYzO84VPzFD9/KAPC5OKzyCrH9PjChsmmobl
+         IwN411CYRXBSQ79l1d3Py8ggG75BefBpG6JhvVICqIDVCIxbr9JOVUnwMDshy1emghog
+         b+8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:cc:to:subject
-         :message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qyx9DPKkOoD1gg7saH23r13SpcWoHJz/eCRdzxf9BCE=;
-        b=2WSG6+bc07qtjlrncRiMMp/3icHXB73Qp6sIMaTGfrGfHYorvWQB/Dyr+4qlEK0Ptm
-         MtzMCBOCRbvceyxoH0skAkX6lt8giSuHcpNar32Zgn3zwxrTt1Wg8O9MMiGEl+qyMIFZ
-         dgEg3XwYAAIWZXyhCTobnPHQN65gKJyU9KDmuOiSAxyQ1u67m+eztX3GjXB/bhfw70NF
-         u9XpHV41/+Q5TSb+Cn5VY3JlHwX6/Ryu/FvY/HzyKgVglO/gjWewU/gwqk/7RuVmiWc6
-         MJJCiwhR5VnSxIbzBRy0qwyeHTe3IBxsWel1fr3bNwlq2n1eIovHY/tiJw3Rc7O9nnoD
-         GQXg==
+         :x-original-authentication-results:x-original-sender:mime-version
+         :in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:date:message-id:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=qGFCKCljR4eVRs0TTjNn0Q0m1P7sVElKjQmGUbiicCA=;
+        b=aKW4d1jZ1A0argXZaoNkEMWuzrZYR9fiw3lawEKEoS78j5uWAnxDRXFqlpB4Gw2UFU
+         P+0/BjsfXQtPTxxlQeEEXlWb7H4a60nYXmeHB/0ueU6lcZbaRzLe0mO5XxR3bjCNDMvB
+         WkoHyaN7AOzINivT5lXALg+ZYcb7dqrGEzqqXUkL20+e0f6JEg6TfHQg70fVtus6Pdhh
+         lOxfvJp96u6vOrY3AkPq2nLBollYTDQ2cLdqcg9I0nD0sEwUbt6U/nttvZ259fyGYsET
+         7QihBslhRUOpOM4HQhRNAgKfVqf+LNx8EdWwSuSihoApfxFzLs/9RsQHH+d3zqA7+B4l
+         2Prg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AFqh2kq9hKtRL1rMw7ctmzXzGkBwb0uXz9vCJSfmXu57vqUIODn/C3d6
-	noNaQfR2eZJTT0k1ukgY0tk=
-X-Google-Smtp-Source: AMrXdXtKmtCsTRXOONKMDQyrkjCKj8hm4k0g1J6FMq2rv6xUqlDZB01VDgBkCXyZ2wgPM/Kw/GFvsQ==
-X-Received: by 2002:a25:c1c5:0:b0:78f:96c8:ebe0 with SMTP id r188-20020a25c1c5000000b0078f96c8ebe0mr283872ybf.437.1672310940747;
-        Thu, 29 Dec 2022 02:49:00 -0800 (PST)
+X-Gm-Message-State: AFqh2kqvjioomf+RAR5tfxBkYhx+6zH+r8u9C1Au/PJQPs6unttyzN7H
+	vq8gUAAFrhMreT5W2DPZ4YU=
+X-Google-Smtp-Source: AMrXdXvC9cwX0t53PM0BLmn54DUO6VnQsiL4te+0m2dLil3/pcvnsGU6InoSfsd3aiqxh2IvDrvA6Q==
+X-Received: by 2002:a05:651c:1a0a:b0:279:fef6:2284 with SMTP id by10-20020a05651c1a0a00b00279fef62284mr3692378ljb.88.1672642261731;
+        Sun, 01 Jan 2023 22:51:01 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:690a:0:b0:6ca:10dd:4459 with SMTP id e10-20020a25690a000000b006ca10dd4459ls9856263ybc.2.-pod-prod-gmail;
- Thu, 29 Dec 2022 02:48:59 -0800 (PST)
-X-Received: by 2002:a25:ba05:0:b0:6fe:77a1:46cf with SMTP id t5-20020a25ba05000000b006fe77a146cfmr30227962ybg.32.1672310939669;
-        Thu, 29 Dec 2022 02:48:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1672310939; cv=none;
+Received: by 2002:a05:6512:1182:b0:4b5:3cdf:5a65 with SMTP id
+ g2-20020a056512118200b004b53cdf5a65ls8643839lfr.2.-pod-prod-gmail; Sun, 01
+ Jan 2023 22:50:59 -0800 (PST)
+X-Received: by 2002:a05:6512:4015:b0:4b7:31c:7779 with SMTP id br21-20020a056512401500b004b7031c7779mr12591339lfb.4.1672642259667;
+        Sun, 01 Jan 2023 22:50:59 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1672642259; cv=pass;
         d=google.com; s=arc-20160816;
-        b=yJi3Oaj9xFL+0tu96FC64z0TSiqnOCJLM9gpCq5ivhFCq+ptTbXZbOrv91aIwJlyV7
-         O6bFjtLraTg81cyOb2HTo8OIMBpe0ve5AqDT2A0WTGiFFvfOu6S5rHasN3naKt5O64aa
-         8dLG/5jFATuJNfnQbQAiuqgih7g44bVIAEIx1wnuBsd7WPIDXuDGr/EKui5iNFFeS+pX
-         faR5DJ0CKOaAZ05Fmn0BhxVa0WP5IiQ3DszxsBnMCdHk/KJpP4LULvXQujloPV3LHu0T
-         e98R5AeVcJcD2rB2hJVYfKa+Pf1UwWPB6DsT9F/lZorm4JzaumWsS2d6KXlBLxqdtQyD
-         jK7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LMmQTDfYgtQPLaLoYsDv4XmtwT8a1wZIbZHsYQ0I/kk=;
-        b=uVcNvYydUdY6OQo5R7q0QuTFFU5hOky56dRgHjWkg/f5/Kf9k0YACIMGIg73Ga8ROv
-         YDsEWI1S/OfsqvVjYxq73jIEFO0BFpS3YbRw/uW4zqwtRAzhcCHYHTBaP405jrTX9sPd
-         tMplsrNcZhZeiEq1cQEg7y4tGXrb8QBVdK93gcPHk94dKXoARW61751jca0dKTi2z2qz
-         FVAMHiBrQYJPYmJ62uxb+9s7DAJO4MAXsHN57wq0Abc/QOS8oIJ2GeEcueAmSSHTTixi
-         xWKPsdGbgdnqNK9XEEGur7jUDxChZPz8aFKoz3UtSu2kYyVh0UEmcMBA/gBU4iwETs2i
-         hdAw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=ccCYOeI1;
-       spf=pass (google.com: domain of nirgeller18@gmail.com designates 2607:f8b0:4864:20::e2b as permitted sender) smtp.mailfrom=nirgeller18@gmail.com;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-vs1-xe2b.google.com (mail-vs1-xe2b.google.com. [2607:f8b0:4864:20::e2b])
-        by gmr-mx.google.com with ESMTPS id r15-20020a25760f000000b0075bc695d66bsi1622109ybc.3.2022.12.29.02.48.59
+        b=YsZRt4Hcv6AZF9gjcTNpG6pdPrjI8S1afracLMOgogtZLenDQ/iPDXbP5VjoaacF8z
+         ZugE3rlWqg6iWVmS464GnZn++KuYU2RKMkJ4S/Ysx+JVj+mBVkRovUPVAfByNy0fZoJ2
+         i8sViKKo2YWnMGnHonK+8rVAiBSSZDKFjnewbtBdG1tBion+Xcyjg5At6sdlsOpTHsjH
+         dKj1tZQtg0CSaoRE53ZE3fOcx5JpnnQpeYAbMJbeSz3j6Iy2E+Yk5Fa09i9aVApYW4Sy
+         cS2YmFuVenCSzSBwjAj760UsS2cnPbjM0zK39uzwjTW+0p25v1oUUuFhC93Xi591zPGD
+         97uQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:date
+         :message-id:dkim-signature;
+        bh=kZn/9yJKPg6rwZLFGxBWSayXf+UkTkXMAjZl35yz49Q=;
+        b=b7qcSy4d5yMWCA1R5plxDC57xyXyI4tyEG4E/PEAE41bIEy+ok3To1FzOWqItIWn4X
+         Pu7lFFMQDq6hF/698rI5kQzqgSAIxCBesqSWyJfEZih1ILffj0ENWEquRZYa2UYJDUec
+         G4XNO0qWnXWWGALakpI+cRB9UcequrkTVq0jAMqlqrKPnDmtunBFkW3y1iigG74M9bHt
+         R0vnsET2co1CWPbnMQZcZl8Czaf3uTLjXXQPsV2Boxrijw7572rJBFyaOYCUXMGQ9LbL
+         1GDmvbTmXaUwR6GT6l5fkd1GcIQfDeytgpT1Rg1+KXMgrjnKn/91gPpO9C75Bz1YGX20
+         ocrQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=tiQIRZvG;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.7.52 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (mail-he1eur04on2052.outbound.protection.outlook.com. [40.107.7.52])
+        by gmr-mx.google.com with ESMTPS id p24-20020a2ea4d8000000b0027fe115019esi271880ljm.6.2023.01.01.22.50.59
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Dec 2022 02:48:59 -0800 (PST)
-Received-SPF: pass (google.com: domain of nirgeller18@gmail.com designates 2607:f8b0:4864:20::e2b as permitted sender) client-ip=2607:f8b0:4864:20::e2b;
-Received: by mail-vs1-xe2b.google.com with SMTP id h27so4353385vsq.3
-        for <jailhouse-dev@googlegroups.com>; Thu, 29 Dec 2022 02:48:59 -0800 (PST)
-X-Received: by 2002:a67:bb19:0:b0:3c6:3c75:54b1 with SMTP id
- m25-20020a67bb19000000b003c63c7554b1mr2333725vsn.13.1672310939239; Thu, 29
- Dec 2022 02:48:59 -0800 (PST)
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 01 Jan 2023 22:50:59 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.7.52 as permitted sender) client-ip=40.107.7.52;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fyoAQVeCVeiKAk7Bw8Ctru+VQc6u2OaolDA/zZkjCA6bgkU7J2edxaStkba4NsgNdXwK8NI6VKPN+pclG0ZbeV4mxjKTQjGapWpDEGXldjXkK27114+xccHmvzdzwHgvLhNQucns9IRw15B6fLNOKZcGxCtuacChxhozsnSzUV2+ZqF+CWeLADIwZYdCbHF/eqaVIoYO4iAg6pRgeqVuZxk/WiagSfuQhIWy4/Z5XL8BSALsmEdw5M98yGFXasZmOPhiuO2jLhW6FbnI8ktnZej8JGHAxCK6MHRmoN90fc8RArztQj1AFOvMNTgVd/lQ/7ZXXYgUlLNYlqah81dryg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kZn/9yJKPg6rwZLFGxBWSayXf+UkTkXMAjZl35yz49Q=;
+ b=PijsfWgQ9WzVJ1K7kfI5OjVEn4Ghib9dVXgR0DzOB3GmDu9zal3TKLoBpel9bbosYFqZdyznFVluYEofvAIVBHgHXq8dpkGLJH8UWgsh9+z4hGv1qGB7gWlJZdijfBXZH/VlgbUaMwzBrv7DGiTEjuXYtw3QoRv1JPaQqRaqdNnnrINbM16u4hEx6E/xrAB0Gq9ulxoBnr9rPZme4GqDy4X+CgTxufgZm0QYYMGq2QcB/DuvJpcJjdVovKjt6V3g3S0T6q5hNb54c8EVI71zRWvblSxHBSDAVWVmOOepNWLLVCdASd1TWK9G+ZWgAV2qAnKQ97czgVVUKIj9NDmx9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:588::19)
+ by DB8PR10MB3499.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:137::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Mon, 2 Jan
+ 2023 06:50:58 +0000
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::2957:50e8:8ce6:124a]) by AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::2957:50e8:8ce6:124a%9]) with mapi id 15.20.5944.019; Mon, 2 Jan 2023
+ 06:50:57 +0000
+Message-ID: <a9e1e756-978a-f2de-c4cd-838f1417a8fc@siemens.com>
+Date: Mon, 2 Jan 2023 07:50:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH RESEND 0/3] Add support for Renesas RZ/G2M
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: jailhouse-dev@googlegroups.com,
+ Chris Paterson <chris.paterson2@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20221106230523.22567-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CA+V-a8uMPfCWMPxJ90AE=dzLSiEEk61Pn4Oxicpv_Sxd9hVhHg@mail.gmail.com>
+Content-Language: en-US
+From: Jan Kiszka <jan.kiszka@siemens.com>
+In-Reply-To: <CA+V-a8uMPfCWMPxJ90AE=dzLSiEEk61Pn4Oxicpv_Sxd9hVhHg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-ClientProxiedBy: FR2P281CA0161.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::20) To AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:588::19)
 MIME-Version: 1.0
-References: <fde55f66-2e83-4df2-8f5e-44b0fb831acbn@googlegroups.com>
- <34d2d078-1282-c240-9a65-301469b0bbe2@oth-regensburg.de> <9f1616c7-ac5f-49de-bc24-8bd8520f4c07n@googlegroups.com>
- <b538dfcd-0431-58d7-dd05-60205acc2c06@oth-regensburg.de> <01dfb141-0e4f-4adc-939f-c7a0c145c055n@googlegroups.com>
- <8bf22a0b-ec26-5974-e942-c5a0ebc9a028@oth-regensburg.de> <ed14da45-f14b-48d3-a38d-071c55354ef0n@googlegroups.com>
- <918e2011-a51d-d1d6-9028-13e64bd7466c@oth-regensburg.de> <7da1588b-2a97-4b23-924b-6d1ebb75e42cn@googlegroups.com>
-In-Reply-To: <7da1588b-2a97-4b23-924b-6d1ebb75e42cn@googlegroups.com>
-From: Nir Geller <nirgeller18@gmail.com>
-Date: Thu, 29 Dec 2022 12:48:48 +0200
-Message-ID: <CAKBX2QLbjz0kYBZbfQhE6yH8BhEgL9C8K79=T51GQVRW2-2YRw@mail.gmail.com>
-Subject: Re: RTOS inmate misses interrupts
-To: Rasty Slutsker <rslutsker@gmail.com>
-Cc: Jailhouse <jailhouse-dev@googlegroups.com>
-Content-Type: multipart/alternative; boundary="0000000000007cc8d405f0f53b26"
-X-Original-Sender: nirgeller18@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR10MB6181:EE_|DB8PR10MB3499:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17eb2289-83a5-4791-54b0-08daec8db3cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rqK1bj2yiPmrsnOPxJBzfMWTn6FiVb5tBOS3mNh+sds2GNpggmzKKvHgpH516FDcUd7pt7PRMll53H6vpzDxyO0K96ICu6obGSGGi4pbpeQUYb33uvznPt2kpv2eGU/KTwhgM8RgxshkDoTEiAYrm/X9AF/Usn72caWw95pi3RJFICp27L4pIMyRKszWoL1W8Ujj2MBFcO7lhrQ2wy5U3CHkK951wK61SLT/s/TAIQVENSu4ypttwl+fHwdMst6gubYHYjk36KMbOrwfoOeH00AJZ0BxE34mfHLUB4ZKyopIfQmdR6g6f933QSxOph+A7gWGJJc/Z7TM7CE4Kz676R1i+pUKRG5YI7NORZ+V2d5pM4Lix0G4GHTjlLYavV8nHKyOSjq8OnElun7f0scrcVnKbRieFE1xcn9BLkSklq71JEI/pgbft1+S78CdQ73TFczrJkHNA8GkPEjkJ8QKGpM2aGRkW2RNMySnc8N3YlVJPg/L9+xsx8HQNOWWCPlmLQ6KON/xBe8JD9UFkw++buGrGAx63TNqRk/um+gCmCXIfJwC9+7oRiPNQ3q/FGBL1Zzq5tVZW+KMXtuP/Xt9NLq6yWi+UnaR57Oth1WQu9zc4mtjJy5RW9Gg0u7wXHiPnXJ/kq/cNNUpCAFIfl7vQZQ1sN8LXCdXnWyL16ZjHVM8PZveqUQgB8PqA1bi4jkUy3qooFK//WLNeZyJHA4F6H/XQXrZijOcu1XcfBohi8q8HXQpCWMKki8W3R2flI1QfGjEaMZk7VWmh+ld5Tc2ro/PsIxHvU+/vQjMoWmWafmq8TCw8ERFyfIliOSAQpuBmmfeybrJnw8qUyUG3tsTJA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(376002)(136003)(396003)(39860400002)(366004)(451199015)(36756003)(82960400001)(2906002)(38100700002)(5660300002)(8936002)(41300700001)(44832011)(31696002)(86362001)(83380400001)(966005)(6486002)(66946007)(66556008)(6916009)(54906003)(31686004)(6506007)(478600001)(6512007)(316002)(4326008)(8676002)(66476007)(53546011)(186003)(26005)(2616005)(22166006)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2Vra1EweUxxTDJYUUIzQ3crQUtMVXF0M2xmNnFOTWg3bUNmWDdEd3hiZWhr?=
+ =?utf-8?B?bHFZWmFpeUZoWHpuNUUwUWtkbjBrYzY3MU5oSVVFMko4UzRidkhxU2JIeVVB?=
+ =?utf-8?B?VTVXWG9pSnJOMklyZGl6TGN5OUZZUWtZU2ZLdThYM01MQ010Q3FiM2V4L3Bl?=
+ =?utf-8?B?NTFYdm4vYVBtcUUwWlB0d3g2VDRuTXJxaWp1VUdwSWd1ekJEV0dFcVFhTTFD?=
+ =?utf-8?B?WVN5cHhPZW9hd1ZaSVJYOUlTR0FHWG9HeENoclF1bDl6MmdyY3dXamV6TWpD?=
+ =?utf-8?B?dDhtWjNBc1RNQVI5SmpUaVpPb2FCK2ZPcDJ4MEUzVnd6bldhMGFUMUJ2SzJJ?=
+ =?utf-8?B?MHh6bjlDWVhndUZqamJ1b3JwbFlSNjdYK3haR2JHYzg3MG1KTXNtR2xoRmtV?=
+ =?utf-8?B?dlIybGxpOXU4NDNpa084T2VONzBQWDdkWmFFdmthUHVxN2hKS25Kd3FXRkNj?=
+ =?utf-8?B?dGVWclY1WDRzVjA3ZWdqM1dMakZBckl1Wk82Zzc0ZktaY1AvRHV2QmNheEJM?=
+ =?utf-8?B?S050TlFFVkhTZGN0REloeG01Q3pxUzd1NGFMSENxZzlVZ1NCNjRSUzU1RTg4?=
+ =?utf-8?B?eVprZjdHemlHb1JXTkJ5eHZZR3NtanRiazUwVzBkT0Y1dklWYzBaY1RGQTdE?=
+ =?utf-8?B?ZTB6Tm5ZZ21jWElpT3lMUGc4ZXBRbUhxeWQ0SXh5eHVZdUs3dmlFN3ZiK3ds?=
+ =?utf-8?B?dlY0RFB2M2l0WnEvRk9TRUdIaU9vWHlDcUFJYXFMUk9rSk0xekJjdE5OcnZE?=
+ =?utf-8?B?aldzMzJJVWNkMURydjRHMUdpQVVYaU9wQ05RUUViaG5NYXVRd3JXcmxSaTBJ?=
+ =?utf-8?B?RkdnT1ZpSnU0Y2t6MkFhUlJ4YjFKUVhuSTVCbDNvWWwwU0c1bmxZZGF2K0JR?=
+ =?utf-8?B?elpBRmpXdkxSZFpNSUsvYU93QXU2RmJsMTBPOVkvUERsWDNiaDVuNjZwcnU0?=
+ =?utf-8?B?TGQ0RjRWMUFjSDRrMmJTblBuNWkrSlQ0eUQxTG42TGYrbTZUQ3A0dW1PeC95?=
+ =?utf-8?B?RkRSSjhrYkdYaDRLVEUzbDM5Rms3Q2swYUc1QlNpdzBNYy9UM2VTZlAydjEy?=
+ =?utf-8?B?VkdKNHNFTEVPVjhxcWJJUUt1OC8xOUtvUlZnSEtscmFJYjM3dUpGZWhVLys4?=
+ =?utf-8?B?VDh2M0Q4VUswREtBbGFucXU4RVI0dmxjNGlndzFETWhFY1k1MUNKVlcrSDFM?=
+ =?utf-8?B?SmgzMldWY1BDNDJSSE5ibkp4d1JBMG9xUW83dk5jWHlXTU1NbVNJa1dGT1ZM?=
+ =?utf-8?B?T0NaaDluQWdnMVJ3MUNNenpjRVZKYU5rVjFVTEh6UlpDT2xVWE5xWDRrVmZi?=
+ =?utf-8?B?RExJZExMZmRzdXhxQ2ZvWWxzYmhKWHE5cTZsby9ncUpFMWFEZElrWDNQaXA4?=
+ =?utf-8?B?bzVEQldnbUtCV0czcUpUbXMyNkFZY2tCRGRXa0hQbHl6T01NNTZZK2JYaFVE?=
+ =?utf-8?B?cmNKQ2lBZWo0dXZDdk1NYnRlVmY1WW40d2ozMUFiMWJIc3NWRWp0WTdoM2d1?=
+ =?utf-8?B?VXpYQ1VlVTNrYW9TeGJyZXRNd3lNN2lzOTdDN3BPWXUxWkQ0S3JwSXRxa0d5?=
+ =?utf-8?B?VW03L3ArQlNWcEVtTXEzMTh5QnprVWtwZ0VXeGNxOTY0d0ZveDM2eXBzQmtw?=
+ =?utf-8?B?LzZXSWZ1OWQrK1Z1RmhUOUZ6TVpFdW9leHQvaGEzZXQydm9HT3J6alNudVZt?=
+ =?utf-8?B?dUVFTGVNckpDREs1WWIvTWt0R3h6cDI0R1JzV2NKYlRjakZ4c2pQaDM3SGIz?=
+ =?utf-8?B?ZGJuM3pOQU1sbGw0NlFwNTV0OFdDQzMyZ1BVYlg2cnhYcjA2WWl3dE9zc1Ru?=
+ =?utf-8?B?OEtXaUx4OG9aTURTMjJpaUNFQVlMRkFIbHllOTllTjN6WHlVWjZGRzAwY2NR?=
+ =?utf-8?B?Z1RuYkhMNGFqeE03bG9PaHgvbkFwQS9DWE9BckMyMVAwTUdpN0tSakFITi96?=
+ =?utf-8?B?am8vZVpWczN5UHFkV0E4Zk1UeEs2UkRReU9vbDFRcnlBOHIrZUR5emFTK2Ry?=
+ =?utf-8?B?NXZ2RDl4akkzZHRDQ1NDS1VGRTZTMGZwWkYxeXlVZHdwc1pMN2lXa1FwV0hh?=
+ =?utf-8?B?aVN4eG9TajMxeWhnN2Q3MnZvbVZvSTdRSzY5cmNRbmVoMWo1OGdhbnAwQ0hl?=
+ =?utf-8?B?eTluakdSL2NnaFoyTEFkSUJ4cy9VWUlWNWJxRlJmeWNEdUFqYjJpNWFCclE5?=
+ =?utf-8?B?bHc9PQ==?=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17eb2289-83a5-4791-54b0-08daec8db3cb
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2023 06:50:57.9212
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ApwOxKO9NXd5i4Mkc0p60HAJ4HsjbhferolYNtMMVKZ9IY3sVVUlV3rWSwTau3D0+NrHvSmhJrFyQ+TT+RCJFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3499
+X-Original-Sender: jan.kiszka@siemens.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b=ccCYOeI1;       spf=pass
- (google.com: domain of nirgeller18@gmail.com designates 2607:f8b0:4864:20::e2b
- as permitted sender) smtp.mailfrom=nirgeller18@gmail.com;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+ header.i=@siemens.com header.s=selector2 header.b=tiQIRZvG;       arc=pass
+ (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass
+ fromdomain=siemens.com);       spf=pass (google.com: domain of
+ jan.kiszka@siemens.com designates 40.107.7.52 as permitted sender)
+ smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -148,1084 +217,75 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---0000000000007cc8d405f0f53b26
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Prabhakar,
 
-Hi Ralf,
+On 29.11.22 15:29, Lad, Prabhakar wrote:
+> Hi Jan,
+> 
+> On Sun, Nov 6, 2022 at 11:05 PM Lad Prabhakar
+> <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
+>>
+>> Hi All,
+>>
+>> This patch series adds support for Renesas RZ/G2M SoC [0] (root cell
+>> config) and adds demo cell config for HopeRun HiHope RZ/G2M platform [1].
+>>
+>> Changes apply on top of next branch [2] and the kernel used for testing is
+>> 5.10 (-cip) based on BSP-3.0.0 [3] release from Renesas.
+>>
+>> No changes from previous version sent to ML, just rebased on the next branch.
+>>
+>> [0] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-ultra-high-performance-microprocessors-arm-cortex-a57-and-arm-cortex-a53-cpus-3d-graphics-and-4k
+>> [1] https://www.renesas.com/us/en/products/microcontrollers-microprocessors/rz-mpus/rzg2m-hihope-rzg2m-reference-board#overview
+>> [2] https://github.com/siemens/jailhouse/tree/next (9391d30a)
+>> [3] https://github.com/renesas-rz/meta-renesas/tree/BSP-3.0.0
+>>
+>> Cheers,
+>> Prabhakar
+>>
+>> Lad Prabhakar (3):
+>>   renesas: Add SCIF support
+>>   configs: arm64: Add root cell config for Renesas RZ/G2M SoC
+>>   configs: arm64: Add demo cell config for Renesas RZ/G2M
+>>
+>>  Documentation/debug-output.md                 |    1 +
+>>  configs/arm64/dts/inmate-r8a774a1-hihope.dts  |  228 ++++
+>>  configs/arm64/renesas-r8a774a1-linux-demo.c   |  114 ++
+>>  configs/arm64/renesas-r8a774a1.c              | 1134 +++++++++++++++++
+>>  hypervisor/arch/arm-common/Kbuild             |    2 +-
+>>  hypervisor/arch/arm-common/dbg-write.c        |    2 +
+>>  hypervisor/arch/arm-common/include/asm/uart.h |    2 +-
+>>  hypervisor/arch/arm-common/uart-scif.c        |   44 +
+>>  include/jailhouse/console.h                   |    1 +
+>>  inmates/lib/arm-common/Makefile.lib           |    2 +-
+>>  inmates/lib/arm-common/uart-scif.c            |   65 +
+>>  inmates/lib/arm-common/uart.c                 |    2 +
+>>  12 files changed, 1594 insertions(+), 3 deletions(-)
+>>  create mode 100644 configs/arm64/dts/inmate-r8a774a1-hihope.dts
+>>  create mode 100644 configs/arm64/renesas-r8a774a1-linux-demo.c
+>>  create mode 100644 configs/arm64/renesas-r8a774a1.c
+>>  create mode 100644 hypervisor/arch/arm-common/uart-scif.c
+>>  create mode 100644 inmates/lib/arm-common/uart-scif.c
+>>
+> Gentle ping.
+> 
 
-Do you know of a difference in the way SPI and PPI are treated by the
-hypervisor?
-A timer that is specific for a certain core is wired to GIC by PPI. Would
-its processing be influenced by heavy load running on another core?
+Sorry for letting you wait /that/ long:
 
-The GIC is facing the same load, but handles PPI instead of SPI. What would
-be the implications on performance?
+Patches look good except that they are missing ivshmem support and an
+inmate-demo cell. You should have a demo and a networking ivshmem device
+in the root and the linux cell, the inmate demo needs just the demo
+device. Check out other boards for the required pattern, e.g. the rpi4.
 
-Thanks a lot,
+I'm merging patch 1 already as this is independent.
 
-Nir.
+Jan
 
-On Wed, Dec 14, 2022 at 11:09 AM Rasty Slutsker <rslutsker@gmail.com> wrote=
-:
+-- 
+Siemens AG, Technology
+Competence Center Embedded Linux
 
-> Hi,
-> Exactly I reference to  'jailhouse cell stats'
-> We enabled TSC in Hypervisor init, and printed value to dmsg.
-> But *after* start of Linux it gets disabled again.
-> *** Is there a place in hypervisor that runs at kernel space after start
-> of linux where we can put re-enabling of TSC?
->
-> We would like to measure duration of Hypervisor ISR  with TSC and look fo=
-r
-> anomalies.
-> Anomalies like unusual duration of ISR processing and Irregularities in
-> ISR entry for particular request number.
->
-> Other suggestions would be highly appreciated.
->
-> Thanks
-> Rasty
->
-> On Tuesday, December 13, 2022 at 11:27:50 PM UTC+2 Ralf Ramsauer wrote:
->
->> Hi Rasty,
->>
->> (reply-to-all :) )
->>
->> On 13/12/2022 19:31, Rasty Slutsker wrote:
->> > We learned how you export some statistics from Jailhouse as you guys d=
-o
->> > and added 3 variables
->>
->> You reference to 'jailhouse cell stats'?
->>
->> > 1. At the entry  Jailhouse IRQ (if irq=3D=3Dxxx counter ++)
->> > 2. At injection point of the same IRQ to inmate, still in Jailhouse
->> > 3. At the beginning of ISR in inmate (RTOS).
->>
->> Ok, but that just counts the interrupts, and not the occuring delays,
->> right?
->>
->> >
->> > We let system run, introduce some load to linux. We see physical
->> effects
->> > that suggest that we lose interrupts.
->> > We confirm it with difference in performance counters (gaps in quanta
->> of
->> > 30 uSecs) that we sample in inmate ISR.
->> > Than we kill interrupt.
->> > All 3 counters are the same. Amount matches interrupt rate.
->> > My conclusion that Interrupt request is lost.
->>
->> Could be the case. I don't know what happens if the jitter gets too long
->> between interrupts.
->>
->> >
->> > Another question.
->> > We try to read CPU time stamp counter from Jailhouse ISR . We get 0.
->> > mrc     p15, #0, r0, c9, c13, #0
->>
->> That's the PMCNTR, right?
->>
->> >
->> > Any idea why? Do you have some code for that?
->>
->> Uhm, I would have to read the reference manual as well. Does reading the
->> TSC work in Linux? Maybe it has to be activated or enabled for the
->> hypervisor?
->>
->>
->> https://developer.arm.com/documentation/ddi0406/b/Debug-Architecture/Deb=
-ug-Registers-Reference/Performance-monitor-registers/c9--Count-Enable-Set-R=
-egister--PMCNTENSET-?lang=3Den
->>
->> Thanks,
->> Ralf
->>
->> >
->> > Best regards
->> > Rasty
->> >
->> >
->> >
->> > On Tuesday, December 13, 2022 at 3:47:25 PM UTC+2 Ralf Ramsauer wrote:
->> >
->> > Hi Rasty,
->> >
->> > Please reply-to-all, then your reply will also pop up in my Inbox.
->> >
->> > On 10/12/2022 08:52, Rasty Slutsker wrote:
->> > > Hi,
->> > > We did some performance measurements.
->> > > Added counters in 3 places (per Irq source)
->> > > 1. entry to jailhouse ISR
->> > > 2. dispatch of interrupt to particular vector to particular core
->> > > 3. in RTOS isr.
->> >
->> > Okay. How do you read and dump them? I hope after everything is done.
->> >
->> > Take care that if you dump them immediately to the uart, this will
->> > consume a lot of time and cause significant delay. ('heavy' printk
->> > logic
->> > + busy waiting for the uart)
->> >
->> > >
->> > > *We see that all 3 counters have the same value*, but we measure
->> > time
->> >
->> > huh? What counters do you access? There's something odd if they hold
->> > the
->> > same value at different places.
->> >
->> > > gaps in RTOS in ISR invocation times, sometimes upto 60 uSec.
->> > >
->> > > It means that either
->> > > a) interrupt request is lost. But, according to setup it is
->> > > edge-triggered, it cannot be lost, just delayed.
->> > > b) there is a delay of more than 60 usec in jailhouse ISR.
->> > >
->> > > questions:
->> > > 1. Is it possible that jailhouse interrupt dispatching routine
->> > enters
->> > > some loop that takes considerable amount of time?
->> >
->> > If you use printk during dispatching for debugging - yes. Otherwise, I
->> > guess no. Not 60=C2=B5s.
->> >
->> > > 2. What would be explanation of interrupt latency of 60 Secs?
->> > Even if we
->> > > take into account cache line refill we get much lower number,
->> > which do
->> > > not reach tens uSecs.
->> >
->> > Ack, I would definitely not expect 60=C2=B5s delay for IRQ reinjection=
-.
->> >
->> > Thanks
->> > Ralf
->> >
->> > >
->> > > Best regards
->> > > Rasty
->> > >
->> > >
->> > >
->> > >
->> > >
->> > > On Tuesday, December 6, 2022 at 6:01:20 PM UTC+2 Ralf Ramsauer
->> > wrote:
->> > >
->> > > Hi,
->> > >
->> > > On 05/12/2022 17:30, Rasty Slutsker wrote:
->> > > > Hi Ralf,
->> > > > Thank you for the answer.
->> > > > We have periodic interrupt each 30 u(!)Sec. Linux cannot deal
->> > > with such
->> > > > rate, so we need hypervisor/RTOS.
->> > >
->> > > I understand.
->> > >
->> > > > We managed to read a code of hypervisor. It appears that all
->> > > interrupts
->> > > > to all cores are intercepted by hypervisor and then forwarded to
->> > > guests
->> > > > (per core).
->> > >
->> > > Yes, exactly, that's the case if you don't have SDEI. If you have a
->> > > platform that would come with SDEI, then you have of course less
->> > > overhead.
->> > >
->> > > > If we reduce interrupt priority of mentioned interrupt (as you
->> > > suggest)
->> > > > we lose even more interrupts, even without stress.
->> > > > Interrupt is defined as edge triggered, I assumed that it is
->> > > memorized
->> > > > by gic until serviced.
->> > > > Is it possible that Hypervisor acknowledges pending interrupt
->> > while
->> > > > servicing interrupt from another source ? Kind of race - 2
->> > > interrupts
->> > > > for 2 cores arrive nearly simultaneously. One is lost.
->> > >
->> > > The EOIR and IAR registers of the GIC are core-local registers of
->> > the
->> > > GIC CPU interface (GICC), so I wonder how this should cause a race,
->> > > unless there isn't a hard logical mistake in the code, which I
->> > doubt.
->> > >
->> > >
->> > > What you could try to do for debugging purposes:
->> > >
->> > > 1. Slow down from 30=C2=B5s to something sloooower, which you can ha=
-ndle
->> > > even under load. Say 100=C2=B5s, 500=C2=B5s, something like that.
->> > >
->> > > 2. Measure the jitter x between arrival of the interrupt, and final
->> > > acknowledgement in your RTOS. You can use performance monitoring
->> > > registers, or watch CPU cycle counters, whatever. Repeat the
->> > > measurement, w/ load and w/o load on Linux-side.
->> > >
->> > > 3. If max(x) >=3D 30=C2=B5s, then you know where your IRQs go in cas=
-e of a
->> > > periodic cycle of 30=C2=B5s.
->> > >
->> > >
->> > > Reason: What I did some while ago, is measuring the Jitter of
->> > > Linux+Jailhouse on ARM systems with cyclictest. On a Jetson TX1
->> > > platform, for example, we saw Jitter up 50=C2=B5s. So there's IRQ
->> > > reinjection, a full Linux stack and some userspace application
->> > > involved,
->> > > so three context switches and lots of code. You have probably two
->> > > context switches and less code, as you use a RTOS, but I think
->> > > there's a
->> > > certain chance to exceed 30=C2=B5s.
->> > >
->> > > What my gut feeling tells me is that you manage to hold those
->> > 30=C2=B5s if
->> > > Linux is quiet. As soon as there's some stress on the system bus,
->> > and
->> > > even on shared caches, you exceed you deadline.
->> > >
->> > > Thanks
->> > > Ralf
->> > >
->> > > >
->> > > > Best regards
->> > > > Rasty
->> > > >
->> > > > On Monday, December 5, 2022 at 5:14:37 PM UTC+2 Ralf Ramsauer
->> > wrote:
->> > > >
->> > > > Hi Nir,
->> > > >
->> > > > On 29/11/2022 14:21, nirge...@gmail.com wrote:
->> > > > > Hi there,
->> > > > >
->> > > > > Our target is Sitara AM5726 , CortexA15 dual core on which we
->> > are
->> > > > > running Linux on A15 core0 and RTOS on core1.
->> > > > >
->> > > > > __
->> > > > >
->> > > > > RTOS gets periodic interrupt from external hardware via nirq1
->> > pin
->> > > > > (dedicated input into ARM gic).____
->> > > > >
->> > > > > Under heavy load in Linux (core 0!), RTOS, which runs on core1
->> > > > misses
->> > > > > interrupts.____
->> > > >
->> > > > Uhm. Can you reconstruct that issue w/o Jailhouse under Linux?
->> > > >
->> > > > I mean, can you set the SMP affinity of that IRQ to core 1 under
->> > > Linux,
->> > > > and then write some test application running on core 1 that just
->> > > > receives the IRQ. If that issue happens under Linux as well, then
->> > > you
->> > > > know that the issue has probably nothing to do with Jailhouse.
->> > > >
->> > > >
->> > > > What also might happen: If there's enough pressure on the shared
->> > > system
->> > > > bus when Linux is under load, then you simply loose those IRQs as
->> > > the
->> > > > RTOS doesn't have enough time to handle it. You can test this
->> > > > hypothesis
->> > > > if you lower the frequency of the the periodic interrupt. If you
->> > > still
->> > > > loose IRQs, then this should not be the case.
->> > > >
->> > > > >
->> > > > > Questions____
->> > > > >
->> > > > > 1. Does linux/hypervisor participate in interrupt
->> > > > scheduling/forwarding
->> > > > > to cell on Core1____
->> > > >
->> > > > Linux: No, Linux does not participate in anything that is going
->> > > on on
->> > > > CPU 1. That's the idea behind Jailhouse.
->> > > >
->> > > > Jailhouse: Maybe. On ARM platforms, Jailhouse needs to reinject
->> > the
->> > > > Interrupt from the hypervisor to the guest, if SDEI is not
->> > > available.
->> > > > Does the Sitara come with support for SDEI support?
->> > > >
->> > > > (You can btw monitor the exits of the hypervisor with 'jailhouse
->> > > cell
->> > > > stats')
->> > > >
->> > > > Ralf
->> > > >
->> > > > > 2. Is there a description of interrupt forwarding/virtualization
->> > > > scheme
->> > > > > to cores (if exists)? Any pointer to document/source code
->> > would be
->> > > > > appreciated.
->> > > > >
->> > > > > Thanks a lot,
->> > > > >
->> > > > > Nir.
->> > > > >
->> > > > > --
->> > > > > You received this message because you are subscribed to the
->> > Google
->> > > > > Groups "Jailhouse" group.
->> > > > > To unsubscribe from this group and stop receiving emails from
->> > it,
->> > > > send
->> > > > > an email to jailhouse-de...@googlegroups.com
->> > > > > <mailto:jailhouse-de...@googlegroups.com>.
->> > > > > To view this discussion on the web visit
->> > > > >
->> > > >
->> > >
->> >
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com>>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com>>>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-=
-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>>>=
-.
->>
->> > > >
->> > > > --
->> > > > You received this message because you are subscribed to the Google
->> > > > Groups "Jailhouse" group.
->> > > > To unsubscribe from this group and stop receiving emails from it,
->> > > send
->> > > > an email to jailhouse-de...@googlegroups.com
->> > > > <mailto:jailhouse-de...@googlegroups.com>.
->> > > > To view this discussion on the web visit
->> > > >
->> > >
->> >
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com>>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-=
-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>>.
->>
->> > >
->> > > --
->> > > You received this message because you are subscribed to the Google
->> > > Groups "Jailhouse" group.
->> > > To unsubscribe from this group and stop receiving emails from it,
->> > send
->> > > an email to jailhouse-de...@googlegroups.com
->> > > <mailto:jailhouse-de...@googlegroups.com>.
->> > > To view this discussion on the web visit
->> > >
->> >
->> https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-=
-c7a0c145c055n%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-=
-c7a0c145c055n%40googlegroups.com>
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-=
-c7a0c145c055n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-=
-c7a0c145c055n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>.
->>
->> >
->> > --
->> > You received this message because you are subscribed to the Google
->> > Groups "Jailhouse" group.
->> > To unsubscribe from this group and stop receiving emails from it, send
->> > an email to jailhouse-de...@googlegroups.com
->> > <mailto:jailhouse-de...@googlegroups.com>.
->> > To view this discussion on the web visit
->> >
->> https://groups.google.com/d/msgid/jailhouse-dev/ed14da45-f14b-48d3-a38d-=
-071c55354ef0n%40googlegroups.com
->> <
->> https://groups.google.com/d/msgid/jailhouse-dev/ed14da45-f14b-48d3-a38d-=
-071c55354ef0n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.
->>
->>
-> --
-> You received this message because you are subscribed to a topic in the
-> Google Groups "Jailhouse" group.
-> To unsubscribe from this topic, visit
-> https://groups.google.com/d/topic/jailhouse-dev/xrHHVosH75k/unsubscribe.
-> To unsubscribe from this group and all its topics, send an email to
-> jailhouse-dev+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit
-> https://groups.google.com/d/msgid/jailhouse-dev/7da1588b-2a97-4b23-924b-6=
-d1ebb75e42cn%40googlegroups.com
-> <https://groups.google.com/d/msgid/jailhouse-dev/7da1588b-2a97-4b23-924b-=
-6d1ebb75e42cn%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
-> .
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/CAKBX2QLbjz0kYBZbfQhE6yH8BhEgL9C8K79%3DT51GQVRW2-2YRw%40mail.=
-gmail.com.
-
---0000000000007cc8d405f0f53b26
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Ralf,<div><br></div><div>Do you=C2=A0know of a differen=
-ce in the way SPI and PPI are treated by the hypervisor?</div><div>A timer =
-that is specific for a certain core is wired to GIC by PPI. Would its proce=
-ssing be influenced by heavy load running on another core?</div><div><br></=
-div><div>The GIC is facing the same load, but handles PPI instead of SPI. W=
-hat would be the implications on performance?</div><div><br></div><div>Than=
-ks a lot,</div><div><br></div><div>Nir.</div></div><br><div class=3D"gmail_=
-quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Dec 14, 2022 at 11:09 =
-AM Rasty Slutsker &lt;<a href=3D"mailto:rslutsker@gmail.com">rslutsker@gmai=
-l.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">Hi,<div>Exactly I reference to=C2=A0
-&#39;jailhouse cell stats&#39;<br><div>We enabled TSC in Hypervisor init, a=
-nd printed value to dmsg.</div><div>But *after* start of Linux it gets disa=
-bled again.</div><div>*** Is there a place in hypervisor that runs at kerne=
-l space after start of linux where we can put re-enabling of TSC?</div><div=
-><br></div><div>We would like to measure duration of Hypervisor ISR=C2=A0 w=
-ith TSC and look for anomalies.</div><div>Anomalies like unusual duration o=
-f ISR processing and Irregularities in ISR entry for particular request num=
-ber.</div><div><br></div><div>Other suggestions would be highly appreciated=
-.</div><div><br></div><div>Thanks</div><div>Rasty<br><br></div></div><div c=
-lass=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Tuesday, Dec=
-ember 13, 2022 at 11:27:50 PM UTC+2 Ralf Ramsauer wrote:<br></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
-solid rgb(204,204,204);padding-left:1ex">Hi Rasty,
-<br>
-<br>(reply-to-all :) )
-<br>
-<br>On 13/12/2022 19:31, Rasty Slutsker wrote:
-<br>&gt; We learned how you export some statistics from Jailhouse as you gu=
-ys do=20
-<br>&gt; and added 3 variables
-<br>
-<br>You reference to &#39;jailhouse cell stats&#39;?
-<br>
-<br>&gt; 1. At the entry=C2=A0 Jailhouse IRQ (if irq=3D=3Dxxx counter ++)
-<br>&gt; 2. At injection point of the same IRQ to inmate, still in Jailhous=
-e
-<br>&gt; 3. At the beginning of ISR in inmate (RTOS).
-<br>
-<br>Ok, but that just counts the interrupts, and not the occuring delays, r=
-ight?
-<br>
-<br>&gt;=20
-<br>&gt; We let system run, introduce some load to linux. We see physical e=
-ffects=20
-<br>&gt; that suggest that we lose interrupts.
-<br>&gt; We confirm it with difference in performance counters (gaps in qua=
-nta of=20
-<br>&gt; 30 uSecs) that we sample in inmate ISR.
-<br>&gt; Than we kill interrupt.
-<br>&gt; All 3 counters are the same. Amount matches interrupt rate.
-<br>&gt; My conclusion that Interrupt request is lost.
-<br>
-<br>Could be the case. I don&#39;t know what happens if the jitter gets too=
- long=20
-<br>between interrupts.
-<br>
-<br>&gt;=20
-<br>&gt; Another question.
-<br>&gt; We try to read CPU time stamp counter from Jailhouse ISR . We get =
-0.
-<br>&gt; mrc =C2=A0 =C2=A0 p15, #0, r0, c9, c13, #0
-<br>
-<br>That&#39;s the PMCNTR, right?
-<br>
-<br>&gt;=20
-<br>&gt; Any idea why? Do you have some code for that?
-<br>
-<br>Uhm, I would have to read the reference manual as well. Does reading th=
-e=20
-<br>TSC work in Linux? Maybe it has to be activated or enabled for the=20
-<br>hypervisor?
-<br>
-<br><a href=3D"https://developer.arm.com/documentation/ddi0406/b/Debug-Arch=
-itecture/Debug-Registers-Reference/Performance-monitor-registers/c9--Count-=
-Enable-Set-Register--PMCNTENSET-?lang=3Den" rel=3D"nofollow" target=3D"_bla=
-nk">https://developer.arm.com/documentation/ddi0406/b/Debug-Architecture/De=
-bug-Registers-Reference/Performance-monitor-registers/c9--Count-Enable-Set-=
-Register--PMCNTENSET-?lang=3Den</a>
-<br>
-<br>Thanks,
-<br>   Ralf
-<br>
-<br>&gt;=20
-<br>&gt; Best regards
-<br>&gt; Rasty
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; On Tuesday, December 13, 2022 at 3:47:25 PM UTC+2 Ralf Ramsauer wr=
-ote:
-<br>&gt;=20
-<br>&gt;     Hi Rasty,
-<br>&gt;=20
-<br>&gt;     Please reply-to-all, then your reply will also pop up in my In=
-box.
-<br>&gt;=20
-<br>&gt;     On 10/12/2022 08:52, Rasty Slutsker wrote:
-<br>&gt;      &gt; Hi,
-<br>&gt;      &gt; We did some performance measurements.
-<br>&gt;      &gt; Added counters in 3 places (per Irq source)
-<br>&gt;      &gt; 1. entry to jailhouse ISR
-<br>&gt;      &gt; 2. dispatch of interrupt to particular vector to particu=
-lar core
-<br>&gt;      &gt; 3. in RTOS isr.
-<br>&gt;=20
-<br>&gt;     Okay. How do you read and dump them? I hope after everything i=
-s done.
-<br>&gt;=20
-<br>&gt;     Take care that if you dump them immediately to the uart, this =
-will
-<br>&gt;     consume a lot of time and cause significant delay. (&#39;heavy=
-&#39; printk
-<br>&gt;     logic
-<br>&gt;     + busy waiting for the uart)
-<br>&gt;=20
-<br>&gt;      &gt;
-<br>&gt;      &gt; *We see that all 3 counters have the same value*, but we=
- measure
-<br>&gt;     time
-<br>&gt;=20
-<br>&gt;     huh? What counters do you access? There&#39;s something odd if=
- they hold
-<br>&gt;     the
-<br>&gt;     same value at different places.
-<br>&gt;=20
-<br>&gt;      &gt; gaps in RTOS in ISR invocation times, sometimes upto 60 =
-uSec.
-<br>&gt;      &gt;
-<br>&gt;      &gt; It means that either
-<br>&gt;      &gt; a) interrupt request is lost. But, according to setup it=
- is
-<br>&gt;      &gt; edge-triggered, it cannot be lost, just delayed.
-<br>&gt;      &gt; b) there is a delay of more than 60 usec in jailhouse IS=
-R.
-<br>&gt;      &gt;
-<br>&gt;      &gt; questions:
-<br>&gt;      &gt; 1. Is it possible that jailhouse interrupt dispatching r=
-outine
-<br>&gt;     enters
-<br>&gt;      &gt; some loop that takes considerable amount of time?
-<br>&gt;=20
-<br>&gt;     If you use printk during dispatching for debugging - yes. Othe=
-rwise, I
-<br>&gt;     guess no. Not 60=C2=B5s.
-<br>&gt;=20
-<br>&gt;      &gt; 2. What would be explanation of interrupt latency of 60 =
-Secs?
-<br>&gt;     Even if we
-<br>&gt;      &gt; take into account cache line refill we get much lower nu=
-mber,
-<br>&gt;     which do
-<br>&gt;      &gt; not reach tens uSecs.
-<br>&gt;=20
-<br>&gt;     Ack, I would definitely not expect 60=C2=B5s delay for IRQ rei=
-njection.
-<br>&gt;=20
-<br>&gt;     Thanks
-<br>&gt;     Ralf
-<br>&gt;=20
-<br>&gt;      &gt;
-<br>&gt;      &gt; Best regards
-<br>&gt;      &gt; Rasty
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt; On Tuesday, December 6, 2022 at 6:01:20 PM UTC+2 Ralf Ra=
-msauer
-<br>&gt;     wrote:
-<br>&gt;      &gt;
-<br>&gt;      &gt; Hi,
-<br>&gt;      &gt;
-<br>&gt;      &gt; On 05/12/2022 17:30, Rasty Slutsker wrote:
-<br>&gt;      &gt; &gt; Hi Ralf,
-<br>&gt;      &gt; &gt; Thank you for the answer.
-<br>&gt;      &gt; &gt; We have periodic interrupt each 30 u(!)Sec. Linux c=
-annot deal
-<br>&gt;      &gt; with such
-<br>&gt;      &gt; &gt; rate, so we need hypervisor/RTOS.
-<br>&gt;      &gt;
-<br>&gt;      &gt; I understand.
-<br>&gt;      &gt;
-<br>&gt;      &gt; &gt; We managed to read a code of hypervisor. It appears=
- that all
-<br>&gt;      &gt; interrupts
-<br>&gt;      &gt; &gt; to all cores are intercepted by hypervisor and then=
- forwarded to
-<br>&gt;      &gt; guests
-<br>&gt;      &gt; &gt; (per core).
-<br>&gt;      &gt;
-<br>&gt;      &gt; Yes, exactly, that&#39;s the case if you don&#39;t have =
-SDEI. If you have a
-<br>&gt;      &gt; platform that would come with SDEI, then you have of cou=
-rse less
-<br>&gt;      &gt; overhead.
-<br>&gt;      &gt;
-<br>&gt;      &gt; &gt; If we reduce interrupt priority of mentioned interr=
-upt (as you
-<br>&gt;      &gt; suggest)
-<br>&gt;      &gt; &gt; we lose even more interrupts, even without stress.
-<br>&gt;      &gt; &gt; Interrupt is defined as edge triggered, I assumed t=
-hat it is
-<br>&gt;      &gt; memorized
-<br>&gt;      &gt; &gt; by gic until serviced.
-<br>&gt;      &gt; &gt; Is it possible that Hypervisor acknowledges pending=
- interrupt
-<br>&gt;     while
-<br>&gt;      &gt; &gt; servicing interrupt from another source ? Kind of r=
-ace - 2
-<br>&gt;      &gt; interrupts
-<br>&gt;      &gt; &gt; for 2 cores arrive nearly simultaneously. One is lo=
-st.
-<br>&gt;      &gt;
-<br>&gt;      &gt; The EOIR and IAR registers of the GIC are core-local reg=
-isters of
-<br>&gt;     the
-<br>&gt;      &gt; GIC CPU interface (GICC), so I wonder how this should ca=
-use a race,
-<br>&gt;      &gt; unless there isn&#39;t a hard logical mistake in the cod=
-e, which I
-<br>&gt;     doubt.
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt; What you could try to do for debugging purposes:
-<br>&gt;      &gt;
-<br>&gt;      &gt; 1. Slow down from 30=C2=B5s to something sloooower, whic=
-h you can handle
-<br>&gt;      &gt; even under load. Say 100=C2=B5s, 500=C2=B5s, something l=
-ike that.
-<br>&gt;      &gt;
-<br>&gt;      &gt; 2. Measure the jitter x between arrival of the interrupt=
-, and final
-<br>&gt;      &gt; acknowledgement in your RTOS. You can use performance mo=
-nitoring
-<br>&gt;      &gt; registers, or watch CPU cycle counters, whatever. Repeat=
- the
-<br>&gt;      &gt; measurement, w/ load and w/o load on Linux-side.
-<br>&gt;      &gt;
-<br>&gt;      &gt; 3. If max(x) &gt;=3D 30=C2=B5s, then you know where your=
- IRQs go in case of a
-<br>&gt;      &gt; periodic cycle of 30=C2=B5s.
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt; Reason: What I did some while ago, is measuring the Jitt=
-er of
-<br>&gt;      &gt; Linux+Jailhouse on ARM systems with cyclictest. On a Jet=
-son TX1
-<br>&gt;      &gt; platform, for example, we saw Jitter up 50=C2=B5s. So th=
-ere&#39;s IRQ
-<br>&gt;      &gt; reinjection, a full Linux stack and some userspace appli=
-cation
-<br>&gt;      &gt; involved,
-<br>&gt;      &gt; so three context switches and lots of code. You have pro=
-bably two
-<br>&gt;      &gt; context switches and less code, as you use a RTOS, but I=
- think
-<br>&gt;      &gt; there&#39;s a
-<br>&gt;      &gt; certain chance to exceed 30=C2=B5s.
-<br>&gt;      &gt;
-<br>&gt;      &gt; What my gut feeling tells me is that you manage to hold =
-those
-<br>&gt;     30=C2=B5s if
-<br>&gt;      &gt; Linux is quiet. As soon as there&#39;s some stress on th=
-e system bus,
-<br>&gt;     and
-<br>&gt;      &gt; even on shared caches, you exceed you deadline.
-<br>&gt;      &gt;
-<br>&gt;      &gt; Thanks
-<br>&gt;      &gt; Ralf
-<br>&gt;      &gt;
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Best regards
-<br>&gt;      &gt; &gt; Rasty
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; On Monday, December 5, 2022 at 5:14:37 PM UTC+2 Ral=
-f Ramsauer
-<br>&gt;     wrote:
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Hi Nir,
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; On 29/11/2022 14:21, <a rel=3D"nofollow">nirge...@g=
-mail.com</a> wrote:
-<br>&gt;      &gt; &gt; &gt; Hi there,
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; Our target is Sitara AM5726 , CortexA15 dual c=
-ore on which we
-<br>&gt;     are
-<br>&gt;      &gt; &gt; &gt; running Linux on A15 core0 and RTOS on core1.
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; __
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; RTOS gets periodic interrupt from external har=
-dware via nirq1
-<br>&gt;     pin
-<br>&gt;      &gt; &gt; &gt; (dedicated input into ARM gic).____
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; Under heavy load in Linux (core 0!), RTOS, whi=
-ch runs on core1
-<br>&gt;      &gt; &gt; misses
-<br>&gt;      &gt; &gt; &gt; interrupts.____
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Uhm. Can you reconstruct that issue w/o Jailhouse u=
-nder Linux?
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; I mean, can you set the SMP affinity of that IRQ to=
- core 1 under
-<br>&gt;      &gt; Linux,
-<br>&gt;      &gt; &gt; and then write some test application running on cor=
-e 1 that just
-<br>&gt;      &gt; &gt; receives the IRQ. If that issue happens under Linux=
- as well, then
-<br>&gt;      &gt; you
-<br>&gt;      &gt; &gt; know that the issue has probably nothing to do with=
- Jailhouse.
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; What also might happen: If there&#39;s enough press=
-ure on the shared
-<br>&gt;      &gt; system
-<br>&gt;      &gt; &gt; bus when Linux is under load, then you simply loose=
- those IRQs as
-<br>&gt;      &gt; the
-<br>&gt;      &gt; &gt; RTOS doesn&#39;t have enough time to handle it. You=
- can test this
-<br>&gt;      &gt; &gt; hypothesis
-<br>&gt;      &gt; &gt; if you lower the frequency of the the periodic inte=
-rrupt. If you
-<br>&gt;      &gt; still
-<br>&gt;      &gt; &gt; loose IRQs, then this should not be the case.
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; Questions____
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; 1. Does linux/hypervisor participate in interr=
-upt
-<br>&gt;      &gt; &gt; scheduling/forwarding
-<br>&gt;      &gt; &gt; &gt; to cell on Core1____
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Linux: No, Linux does not participate in anything t=
-hat is going
-<br>&gt;      &gt; on on
-<br>&gt;      &gt; &gt; CPU 1. That&#39;s the idea behind Jailhouse.
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Jailhouse: Maybe. On ARM platforms, Jailhouse needs=
- to reinject
-<br>&gt;     the
-<br>&gt;      &gt; &gt; Interrupt from the hypervisor to the guest, if SDEI=
- is not
-<br>&gt;      &gt; available.
-<br>&gt;      &gt; &gt; Does the Sitara come with support for SDEI support?
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; (You can btw monitor the exits of the hypervisor wi=
-th &#39;jailhouse
-<br>&gt;      &gt; cell
-<br>&gt;      &gt; &gt; stats&#39;)
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; Ralf
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; 2. Is there a description of interrupt forward=
-ing/virtualization
-<br>&gt;      &gt; &gt; scheme
-<br>&gt;      &gt; &gt; &gt; to cores (if exists)? Any pointer to document/=
-source code
-<br>&gt;     would be
-<br>&gt;      &gt; &gt; &gt; appreciated.
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; Thanks a lot,
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; Nir.
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt; &gt; --
-<br>&gt;      &gt; &gt; &gt; You received this message because you are subs=
-cribed to the
-<br>&gt;     Google
-<br>&gt;      &gt; &gt; &gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt;      &gt; &gt; &gt; To unsubscribe from this group and stop receiv=
-ing emails from
-<br>&gt;     it,
-<br>&gt;      &gt; &gt; send
-<br>&gt;      &gt; &gt; &gt; an email to <a rel=3D"nofollow">jailhouse-de..=
-.@googlegroups.com</a>
-<br>&gt;      &gt; &gt; &gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...=
-@googlegroups.com</a>&gt;.
-<br>&gt;      &gt; &gt; &gt; To view this discussion on the web visit
-<br>&gt;      &gt; &gt; &gt;
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt;
-<br>&gt;     <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde=
-55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com" rel=3D"nofollow" tar=
-get=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e8=
-3-4df2-8f5e-44b0fb831acbn%40googlegroups.com</a> &lt;<a href=3D"https://gro=
-ups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%=
-40googlegroups.com" rel=3D"nofollow" target=3D"_blank">https://groups.googl=
-e.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googleg=
-roups.com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhous=
-e-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com" rel=3D"nofo=
-llow" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/fde=
-55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com</a> &lt;<a href=3D"ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0f=
-b831acbn%40googlegroups.com" rel=3D"nofollow" target=3D"_blank">https://gro=
-ups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%=
-40googlegroups.com</a>&gt;&gt; &lt;<a href=3D"https://groups.google.com/d/m=
-sgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com=
-" rel=3D"nofollow" target=3D"_blank">https://groups.google.com/d/msgid/jail=
-house-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com</a> &lt;=
-<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4d=
-f2-8f5e-44b0fb831acbn%40googlegroups.com" rel=3D"nofollow" target=3D"_blank=
-">https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-4=
-4b0fb831acbn%40googlegroups.com</a>&gt; &lt;<a href=3D"https://groups.googl=
-e.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googleg=
-roups.com" rel=3D"nofollow" target=3D"_blank">https://groups.google.com/d/m=
-sgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com=
-</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f6=
-6-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com" rel=3D"nofollow" target=
-=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4=
-df2-8f5e-44b0fb831acbn%40googlegroups.com</a>&gt;&gt;&gt; &lt;<a href=3D"ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0f=
-b831acbn%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=
-=3D"nofollow" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse=
--dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3D=
-email&amp;utm_source=3Dfooter</a> &lt;<a href=3D"https://groups.google.com/=
-d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.=
-com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"=
-_blank">https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-=
-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Df=
-ooter</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-de=
-v/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3Dema=
-il&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%4=
-0googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> &lt;<a hre=
-f=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5=
-e-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfoot=
-er" rel=3D"nofollow" target=3D"_blank">https://groups.google.com/d/msgid/ja=
-ilhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_me=
-dium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt; &lt;<a href=3D"https://gro=
-ups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%=
-40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofol=
-low" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/fde5=
-5f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&amp=
-;utm_source=3Dfooter</a> &lt;<a href=3D"https://groups.google.com/d/msgid/j=
-ailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_m=
-edium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank">h=
-ttps://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0=
-fb831acbn%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>=
-&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/fde55f6=
-6-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3Demail&amp;ut=
-m_source=3Dfooter" rel=3D"nofollow" target=3D"_blank">https://groups.google=
-.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegr=
-oups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> &lt;<a href=3D"http=
-s://groups.google.com/d/msgid/jailhouse-dev/fde55f66-2e83-4df2-8f5e-44b0fb8=
-31acbn%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=
-=3D"nofollow" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse=
--dev/fde55f66-2e83-4df2-8f5e-44b0fb831acbn%40googlegroups.com?utm_medium=3D=
-email&amp;utm_source=3Dfooter</a>&gt;&gt;&gt;&gt;.
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt; &gt; --
-<br>&gt;      &gt; &gt; You received this message because you are subscribe=
-d to the Google
-<br>&gt;      &gt; &gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt;      &gt; &gt; To unsubscribe from this group and stop receiving e=
-mails from it,
-<br>&gt;      &gt; send
-<br>&gt;      &gt; &gt; an email to <a rel=3D"nofollow">jailhouse-de...@goo=
-glegroups.com</a>
-<br>&gt;      &gt; &gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...@goog=
-legroups.com</a>&gt;.
-<br>&gt;      &gt; &gt; To view this discussion on the web visit
-<br>&gt;      &gt; &gt;
-<br>&gt;      &gt;
-<br>&gt;     <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/9f1=
-616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com" rel=3D"nofollow" tar=
-get=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5=
-f-49de-bc24-8bd8520f4c07n%40googlegroups.com</a> &lt;<a href=3D"https://gro=
-ups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%=
-40googlegroups.com" rel=3D"nofollow" target=3D"_blank">https://groups.googl=
-e.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googleg=
-roups.com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhous=
-e-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com" rel=3D"nofo=
-llow" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/9f1=
-616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com</a> &lt;<a href=3D"ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd85=
-20f4c07n%40googlegroups.com" rel=3D"nofollow" target=3D"_blank">https://gro=
-ups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%=
-40googlegroups.com</a>&gt;&gt; &lt;<a href=3D"https://groups.google.com/d/m=
-sgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com=
-?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"_bl=
-ank">https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc2=
-4-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfoot=
-er</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/9f161=
-6c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&amp;=
-utm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank">https://groups.goog=
-le.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40google=
-groups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt; &lt;<a href=
-=3D"https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24=
--8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfoote=
-r" rel=3D"nofollow" target=3D"_blank">https://groups.google.com/d/msgid/jai=
-lhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googlegroups.com?utm_med=
-ium=3Demail&amp;utm_source=3Dfooter</a> &lt;<a href=3D"https://groups.googl=
-e.com/d/msgid/jailhouse-dev/9f1616c7-ac5f-49de-bc24-8bd8520f4c07n%40googleg=
-roups.com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow" targ=
-et=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/9f1616c7-ac5f=
--49de-bc24-8bd8520f4c07n%40googlegroups.com?utm_medium=3Demail&amp;utm_sour=
-ce=3Dfooter</a>&gt;&gt;&gt;.
-<br>&gt;      &gt;
-<br>&gt;      &gt; --
-<br>&gt;      &gt; You received this message because you are subscribed to =
-the Google
-<br>&gt;      &gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt;      &gt; To unsubscribe from this group and stop receiving emails=
- from it,
-<br>&gt;     send
-<br>&gt;      &gt; an email to <a rel=3D"nofollow">jailhouse-de...@googlegr=
-oups.com</a>
-<br>&gt;      &gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...@googlegro=
-ups.com</a>&gt;.
-<br>&gt;      &gt; To view this discussion on the web visit
-<br>&gt;      &gt;
-<br>&gt;     <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/01d=
-fb141-0e4f-4adc-939f-c7a0c145c055n%40googlegroups.com" rel=3D"nofollow" tar=
-get=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4=
-f-4adc-939f-c7a0c145c055n%40googlegroups.com</a> &lt;<a href=3D"https://gro=
-ups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-c7a0c145c055n%=
-40googlegroups.com" rel=3D"nofollow" target=3D"_blank">https://groups.googl=
-e.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-c7a0c145c055n%40googleg=
-roups.com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhous=
-e-dev/01dfb141-0e4f-4adc-939f-c7a0c145c055n%40googlegroups.com?utm_medium=
-=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank">https:=
-//groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-c7a0c145c=
-055n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> &lt;=
-<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/01dfb141-0e4f-4a=
-dc-939f-c7a0c145c055n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=
-=3Dfooter" rel=3D"nofollow" target=3D"_blank">https://groups.google.com/d/m=
-sgid/jailhouse-dev/01dfb141-0e4f-4adc-939f-c7a0c145c055n%40googlegroups.com=
-?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt;.
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google=
-=20
-<br>&gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send=20
-<br>&gt; an email to <a rel=3D"nofollow">jailhouse-de...@googlegroups.com</=
-a>=20
-<br>&gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...@googlegroups.com</a=
->&gt;.
-<br>&gt; To view this discussion on the web visit=20
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/ed14da4=
-5-f14b-48d3-a38d-071c55354ef0n%40googlegroups.com" rel=3D"nofollow" target=
-=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/ed14da45-f14b-4=
-8d3-a38d-071c55354ef0n%40googlegroups.com</a> &lt;<a href=3D"https://groups=
-.google.com/d/msgid/jailhouse-dev/ed14da45-f14b-48d3-a38d-071c55354ef0n%40g=
-ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter" rel=3D"nofollow=
-" target=3D"_blank">https://groups.google.com/d/msgid/jailhouse-dev/ed14da4=
-5-f14b-48d3-a38d-071c55354ef0n%40googlegroups.com?utm_medium=3Demail&amp;ut=
-m_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
-
-<p></p>
-
--- <br>
-You received this message because you are subscribed to a topic in the Goog=
-le Groups &quot;Jailhouse&quot; group.<br>
-To unsubscribe from this topic, visit <a href=3D"https://groups.google.com/=
-d/topic/jailhouse-dev/xrHHVosH75k/unsubscribe" target=3D"_blank">https://gr=
-oups.google.com/d/topic/jailhouse-dev/xrHHVosH75k/unsubscribe</a>.<br>
-To unsubscribe from this group and all its topics, send an email to <a href=
-=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com" target=3D"_blank">ja=
-ilhouse-dev+unsubscribe@googlegroups.com</a>.<br>
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/7da1588b-2a97-4b23-924b-6d1ebb75e42cn%40googlegrou=
-ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank">https:=
-//groups.google.com/d/msgid/jailhouse-dev/7da1588b-2a97-4b23-924b-6d1ebb75e=
-42cn%40googlegroups.com</a>.<br>
-</blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAKBX2QLbjz0kYBZbfQhE6yH8BhEgL9C8K79%3DT51GQVRW2-2=
-YRw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
-.google.com/d/msgid/jailhouse-dev/CAKBX2QLbjz0kYBZbfQhE6yH8BhEgL9C8K79%3DT5=
-1GQVRW2-2YRw%40mail.gmail.com</a>.<br />
-
---0000000000007cc8d405f0f53b26--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a9e1e756-978a-f2de-c4cd-838f1417a8fc%40siemens.com.
