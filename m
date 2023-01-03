@@ -1,71 +1,201 @@
-Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBGPA2COQMGQE5E7AAQY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBFG52GOQMGQEBBNQZLA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x1138.google.com (mail-yw1-x1138.google.com [IPv6:2607:f8b0:4864:20::1138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1278265C0F9
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Jan 2023 14:39:39 +0100 (CET)
-Received: by mail-yw1-x1138.google.com with SMTP id 00721157ae682-45dd4fb5580sf318323807b3.22
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Jan 2023 05:39:39 -0800 (PST)
+Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6606365C5AA
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  3 Jan 2023 19:06:14 +0100 (CET)
+Received: by mail-lj1-x238.google.com with SMTP id w13-20020a05651c102d00b0027ff6c66a5esf1136969ljm.19
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Jan 2023 10:06:14 -0800 (PST)
+ARC-Seal: i=3; a=rsa-sha256; t=1672769173; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=N2/5mEqE928pb3bFXDMu9jJzg405PFYIF67/HnV76CyGR6sZilv/rK4xwYDdIztKv5
+         szuJqXq+5eCcs3ZqzcjpOSVQH+xeuShRbW8YuWDe54lm244cBcIflSDkYHY7fqu43nt4
+         KaR+4lKBxnAn+OKkCbowFwZo2Lx+qYq+QI46E+PSjwwq3tIjTz+tWkuDpx0uFCH7oEQB
+         8NL42XgrtM3uqMLOzPjwHOAqhl/0k4hRM3Dnulo7XCRVj691gBS9NEmOlYAtPjHoMds8
+         7X1+kmElmukdYO/IfBh2dzLs1Oy0s79l/WkxJaZ7rP33Ikt3nK72m+eI6T6sAw+bvyUo
+         6bWg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:to:content-language
+         :subject:from:user-agent:date:message-id:sender:dkim-signature;
+        bh=3t9prIp0P4wpAFGDQcYbTYg2b9muBV+e5KWBM60/tWY=;
+        b=XriRXZ+i1PM7sJzuUWKFkhN0GVKgRejL2lLCfcPCYV72dsmScVy3CTFmUi5vOeFq7l
+         napOPDi6Nv7zljyLKW9SaeWPw6gw3naKm2jCjzI6pDEkap52DUWZg7hTXQNxtKhEB8Ch
+         f4WSnho5dwwT5HrAW3xjRgig8ZKz2c4GqafuV/m5BVAz72DbDH6UMBGL9mDHEYmMf4e5
+         N7CqUwlNuPwElBTsJKXrpgJ78mPs0RWsFI6BzZu7I/lW6Pl0MD/v7PLUiIG3wjPfeLex
+         qJDkClhzGLA+vFGEqPIDJdOLPgmOTZKASUQuVpVVPSZbQS5b45oK/9Phk1JsF1j+MeSM
+         9bbw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=cer9a6sg;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.8.84 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:mime-version:to:content-language:subject:from
+         :user-agent:date:message-id:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ckhmsQT/tJCNPr6zpBsiKnd8JE2ilNYQHiw9Wz/KGLY=;
-        b=W7dsvLU56I66gqLlRn0znNOwH2b+ADGtWZNS8zKP0DgE3cGXLwA71x5rf3og7uDmSH
-         7r/kz/ZUSPp+uRwi13I5ViiyKC1sshlfV26v+7JF129nMazCbV2MC5P0N8nRtWv7XM9R
-         JhsaDZcpSBfrkd7ivFkmvez7iFptRbJ9SXBSSYEXx2pBrQycF/J/qtlzoMfl9Aqtljrl
-         kca2LB2DuDaEUtakAEMVP2FhMMxVWDnbcUO0/GpR0MJfztxUkbi77RTfV7XKkZM8eiBu
-         QgFkdBH+57UOX/oHz/XPor+f6+4gqgNMqiKZhXGHzTBIk6mNU3bcHoRcIC8QofyGH3So
-         KnTA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ckhmsQT/tJCNPr6zpBsiKnd8JE2ilNYQHiw9Wz/KGLY=;
-        b=e8O3lhrfe4IyUJxLzHll1kN+OnbvPONhyAthmd5deWxErRGnBp8+WuLvZfvmWWMU5v
-         nC9t3vE31sP9PZeg8ITIbgetqteeWi+fZrkokZZwGol91u+zAGZXRps2U08bI9WF1lz5
-         rwvSXP80YRIFsQXk3KhqytuVT5RDiBNyi4dFKpB9lww6CyIloAb5fDnufEzdKyDtosoI
-         7/Et9LHQLl6dc8w9+irP59R4P6jLM4hMTa30COoe0DqBhNGZABAiTonGGa5sp3hf039O
-         WpRSudHiT1d/UvfRXMeGq/i4abh1W5iu+VKLR1auoUbDgGau/JmRYi708MulhWgqCnNB
-         A62g==
+        bh=3t9prIp0P4wpAFGDQcYbTYg2b9muBV+e5KWBM60/tWY=;
+        b=dHWY/eJp/5XJ4oSJMXuHvfr+BOW31B7npga1arusZYuR9x5pL2toP2bdsgRQp/UOIl
+         tT0sfHJ3F9X94DcFRS5QAeltkyfI79NfcV/3ch7eJ+L//cs2ejdX8ZFcbaLcVUnJz87k
+         itVEpqGu9njHsda5r3zj+O4ins8I5fOW6jV4tb3JbowsQrBtsT7Rq/akcINpzkPQQ644
+         r5ik2sVul81JZabF/sB4Ysd+4wl9ZLSi5uCPllaPzvLd50zcgIjKvqBxNaojjEMfM1dn
+         Z7OGZfcQEcSOQoR8oQfNpF9f7g4Ty8iZhdnJk9HUkW8QLZjVx+OQkXg7/1g7aTAVidhj
+         MRUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-original-authentication-results:x-original-sender:mime-version:to
+         :content-language:subject:from:user-agent:date:message-id
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ckhmsQT/tJCNPr6zpBsiKnd8JE2ilNYQHiw9Wz/KGLY=;
-        b=BORgsIzHwoE1yKJOcFHJjXPnpcoJiuSTPoIpRMcRIMxvl0F6ts/Z1IEbyFZglY/Nxj
-         eAAaq28p+uSTJ40QA7sgT1JD5Ym29l44nJ1w1hpVvhVWulAkql90v2UKXvqKE+t/8AGP
-         oTHlGsbM2LrNQAuZ3bR4wfZeqvjuvauEWXQlNZUVfSl279zCn7NKnoBBxSmu6ekX52ca
-         YaU4cAFMz9Q+TadjwpMMsSqC4BBUgXfNXUrg5GdzNxIq+E8iWcRoiI5wdjU1cpMNWqYd
-         mipCtTbaqJuG666+B9egRHs84XIQ/G307isFYHd1IMvscEQjia0VKjEPUcbCPBo9W1xt
-         GHbw==
+        bh=3t9prIp0P4wpAFGDQcYbTYg2b9muBV+e5KWBM60/tWY=;
+        b=k/ZPNEzx33U+TFE2fMncB6WtH5Y7eV12Q755mk+XNjdMZTJcY/3II/Tjxyx0wLsjLS
+         ab2h7kG6XNptrllr/eCqhqTniL9CUXp85JQBRZ5xyHvvchEWKSHeFHvmA4/98KTfevOR
+         ZP2eoh+dUXWA/iDTOJLLBFTj38SJp1GOziaYvFZgxb9KHgOQui2FXOeE90MwpoIWup6W
+         muRX22Q8Pr3DEL4jppC66rb4HmDeVGUrEGne6P6Ywlg/d8Z4Lx1AfoqB5L18CteA/ucn
+         FRScaRukohR+pRIw90CAdgf3PMglPCTsQNq2RQoPnPb7FjA6a3scs4uVmVHmX4H6uq/h
+         /QIQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AFqh2kpp2TUoepyTrxbL23MKkU1sKjxzzyKxL2YWivxch3+GJddXn3w3
-	4S6O7DhsqbR5Y+oIDf15DM8=
-X-Google-Smtp-Source: AMrXdXtGb6X34mOGmk1VrDy/obTfgEnZLbIFCnB6Elm8kuwGlWJm/4Bmy7qTAgGg1v9s8j1D3Fn1vQ==
-X-Received: by 2002:a05:6902:b06:b0:745:aced:ec3d with SMTP id ch6-20020a0569020b0600b00745acedec3dmr4633798ybb.599.1672753177777;
-        Tue, 03 Jan 2023 05:39:37 -0800 (PST)
+X-Gm-Message-State: AFqh2koSGfTewxoDRBgLG+C18npwbsa1BxIlf7I+TuBZa0Ngih2mazho
+	4JMMradbzschvXE1ZC7hCw4=
+X-Google-Smtp-Source: AMrXdXtlQ4P6JUGqW1Fa9zXIqio3fIsom/HnLB+1b5XuEPL4KFa1GAVYrsh3IDU6fkWMOrHNHKjtDw==
+X-Received: by 2002:a05:6512:280e:b0:4cb:3b24:8395 with SMTP id cf14-20020a056512280e00b004cb3b248395mr467883lfb.399.1672769173691;
+        Tue, 03 Jan 2023 10:06:13 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:adc4:0:b0:703:f07:5c7c with SMTP id d4-20020a25adc4000000b007030f075c7cls15575965ybe.9.-pod-prod-gmail;
- Tue, 03 Jan 2023 05:39:36 -0800 (PST)
-X-Received: by 2002:a25:7752:0:b0:741:7d19:89e4 with SMTP id s79-20020a257752000000b007417d1989e4mr5002574ybc.638.1672753176606;
-        Tue, 03 Jan 2023 05:39:36 -0800 (PST)
-Date: Tue, 3 Jan 2023 05:39:35 -0800 (PST)
-From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
+Received: by 2002:a2e:9002:0:b0:280:210:b2fc with SMTP id h2-20020a2e9002000000b002800210b2fcls162761ljg.4.-pod-prod-gmail;
+ Tue, 03 Jan 2023 10:06:11 -0800 (PST)
+X-Received: by 2002:a05:651c:3c9:b0:27f:c4d7:7ea7 with SMTP id f9-20020a05651c03c900b0027fc4d77ea7mr6994937ljp.51.1672769171698;
+        Tue, 03 Jan 2023 10:06:11 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1672769171; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=OYjXugHJWRb328FPCS8VNWNdXm2qPs024yI9ozWw0YRY7TULl2h7o3Fh4SorL/Nxw4
+         StJy/ZStqXIEawj24CeOHXfp9zLGYkdWIfvpS1iz7USP6dVFRXzQUn4oeeZfqqvn/oPb
+         tzD7HmO4qBY+tEU548MQSSP1CD8gRR5CfEhMfHQf6lcNxSM16WKyC6SKlw5PEser807H
+         Ght4i2aLEiLX7xSeQBxls2yHhcXhJo91UU2x9+w7wnCwAcdXIsBhYut8PaTCfUIxyiDJ
+         oESGagJdBmGFhBHF27MgR8q/Ze7AaeBmcCmJUG+xKClUib/R0LYhx/vR3bKTfzqW/DWP
+         BbWg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:to:content-language:subject
+         :from:user-agent:date:message-id:dkim-signature;
+        bh=YXOTD1Nwwwjw2vpsxNva9YtqIyKhCozWnzH4/ijZXEQ=;
+        b=JeHknmobCUwSU2mMhUnzbkBLEEuSPB+kRVxuNh5mOiCVP1tYuy2wgW1sL35lqyPFl1
+         oMKysJAX+Bj/jMB8I0gbylv1E1Gi/Rfx6a/kClvFaLZFupcGjIc24e5VaTiuVEanycub
+         u76vZoaJEIp97FpTiKqCDrZ5wlmRuUDo8t6Rs9gP2khNBnoSAIqBfxktjasN8n8763Qx
+         RINXuQqtik/6S5I1u+LjWotrafLYO4oBvZww+QVSojjTZzqJ/TWiujP4XNucVfDJiDXw
+         9Be4itzRyhswPHIK1IWXy5g2aoKZYibWCOwJM7AHotzekywm+mMjCuYpbyXtF9F1Mova
+         OmbQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@siemens.com header.s=selector2 header.b=cer9a6sg;
+       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
+       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.8.84 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (mail-vi1eur04on2084.outbound.protection.outlook.com. [40.107.8.84])
+        by gmr-mx.google.com with ESMTPS id q26-20020a2eb4ba000000b00279a2f014e6si1279234ljm.0.2023.01.03.10.06.11
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 03 Jan 2023 10:06:11 -0800 (PST)
+Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.8.84 as permitted sender) client-ip=40.107.8.84;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lQCx23PEmtWoC6Uw+51nrDcqL3wcWafYj2IPbyXtfAXBMj5G7Oaxqk+KbTXNKr3+jEyCAiEjioBHEvpC2Ztylw2YBhDqQvQwmrVTwjA1kYWOafPUcLuKokvn3wZqpt8vvLbY2bzH+55LxgHqUx9UpVP5MEdQUSfCIXrfQnyHKoYC4H8dK8eVXuJJJIFHVYTe0VnA2aRmB+mxfWLDVVEPNzHYp+Mw69//RdCjzlatF/VnYIwg+bAAoWTDn/8p0AcMA9UAg5+Bdzj5EFOIjjB2Mw1r/4iSJcL13o0l67eTKDe8z43J2JANzeWJJuM9aDfYh1F730vrbLewjZGYzdzGyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YXOTD1Nwwwjw2vpsxNva9YtqIyKhCozWnzH4/ijZXEQ=;
+ b=SbFDVTUldIiz/IQeeLBTzxE696bNrYmwpGEZjqebsSJsZ8kHYMH5uPS+KovZQU81kbbA4tVuDKnf7aMCmfyTNKCvgx9SL2apRiy1QXsVw/wUaUswzkRmFSN8qTTsdULkkkwPV50ub1YLswb9+d3t7HDQ+lMAn7wSXg4CQebpEHTEB9ZdEjq76L2qCIGkXTrG8r1IxDqkAH5G9sJkZ0riHrsKpXD4/HFRJvcQW954+wumuHaOtR5O/tSoB7rPXfRpWrhmrAwPUHMNnfDRVBo3/ezCkYKInCMNTnrxqtSFX8zfqp9ynD+GI/e3lJqkJBy5Io/d+TqVCM5mQE/zdrW8QA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
+ dkim=pass header.d=siemens.com; arc=none
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:588::19)
+ by DU2PR10MB7767.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:49d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Tue, 3 Jan
+ 2023 18:06:10 +0000
+Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::2957:50e8:8ce6:124a]) by AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::2957:50e8:8ce6:124a%9]) with mapi id 15.20.5944.019; Tue, 3 Jan 2023
+ 18:06:10 +0000
+Message-ID: <778388b9-9ac4-e5b2-0077-78d78501d587@siemens.com>
+Date: Tue, 3 Jan 2023 19:06:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Subject: [PATCH] x86: vmx: Avoid double-accounting of MSR read exits
+Content-Language: en-US
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <9dd4fcde-efe8-41f1-9c71-b50e6d3c0dafn@googlegroups.com>
-Subject: Sensitivity of hypervisor configurations to HW changes (x86 target)
+Content-Type: text/plain; charset="UTF-8"
+X-ClientProxiedBy: FR0P281CA0084.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::23) To AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:588::19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_26480_412744137.1672753175994"
-X-Original-Sender: stranzjanmarc@gmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR10MB6181:EE_|DU2PR10MB7767:EE_
+X-MS-Office365-Filtering-Correlation-Id: 089513a8-e260-4ec6-87c6-08daedb53144
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NpuAepK0ARj2yWVJ4tjNqoMlEDyO0YgXAf9cnPYdcvdXzg0PaKpXp9N4u12kiF30/R1Uz87jbii1IutwZmYjiCceOyP9RvC+g80hNbR2e3du0qehptHPx8LoPLrRYj2HJfe6bwMLQKl8cmuCjs0zhz+Bw2AwGWVvTXa6d4Z+S6jWX55KxEsCaXIBWvPAlNcK0vkChBwo3mUSqtFmaPUZF8iFkbJRg7TUdFqU7UezCkyN7BjuDbiyY9D1/HHw6FiocsrSNGINc1rzySp9mTyWjKUy5FSmoKSXZONhsSahiNTtdQGXjqRQgBDM82UiQU+VYWqDvE1v5ZtZBpRnjMnWHow2bs43riUJ/HrN6cDj36NiLgb+RdvY5LS6fCLJsOls24MSCqHJgAezQ7JzRr0h4AEUGY4QOXNnaPlUGkDeb32zdmuuFNv2SGyjn0rg4SIQ1M9lw+4Aey1oeFfSLiuDgrqWe20LVl/0c47jQPs77MGFGbtDF0t0UkOD+y2RzciM59xqSVHpRiWio665zQj7wyeeeaHnZw+MQUTSrE2WO7FDs+CoR4zJH2hpOMX4/vLy6VDKUC/LVpL6UBdpvmSuE4+BuPYbWUMBW67DhIYdZqzRef14bqHIPbwHUYtL/UK/o53wJiCijm4dmeDNqsRgpAWpqhShJGcD+Wq7uKg54xYlaw4ZN8r6TpwcA1LKgXlcRXx5ceeYRuoKwVbxigcZu0xRakGrdJ3d1ESX4zczJUOumrNIqq5e053RFyDHU3BSPy1RFjwZDhCJ44KfLF7Lyg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(396003)(366004)(376002)(39860400002)(451199015)(6506007)(15650500001)(44832011)(316002)(83380400001)(2616005)(26005)(31696002)(478600001)(6512007)(6666004)(36756003)(186003)(6916009)(2906002)(6486002)(5660300002)(31686004)(82960400001)(38100700002)(41300700001)(66476007)(66556008)(86362001)(4744005)(66946007)(8676002)(8936002)(22166006)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjluYmJiZVI5V2RzL2tYS0hpZWZLVTUxeC9wTU5tQ2NUVWRwWVEweDhtRTRL?=
+ =?utf-8?B?RlltNmJrMnFhOHl3NlZJMWw0eFdqNW8rYWJzdEFxYVA0a21RanI0RVliU095?=
+ =?utf-8?B?YVBqT1ZmNHN2VnNGaXdTTFg3ak9yMUp0dmF2ck4yMjI4UWNvY20vTnN3bmFN?=
+ =?utf-8?B?NCtXcGV1blVxNnVWTXMvNktROHpJQkRxYWxSVkRDanpSNlpEOXd1MEsyZzJG?=
+ =?utf-8?B?RU9UUFlBRnNmUWNlRlpoVE10ajJDZkttU1dPU3UrcmQyNVY5Vi9tdStndUJt?=
+ =?utf-8?B?MmcyZEhUQkxDNlgwMmhkNm5hMnBVT2ZUcFlkMGp6TjZoQjBNUC9DbDV0Mjk1?=
+ =?utf-8?B?NVdrOUVLRVVwcXdJSWtFRnlkWFdEMG1WWnRkSGNvQ3B2eS9EcHV5LzZCQlhK?=
+ =?utf-8?B?NDhQSGpXNXkrc3NoQVdBQkFZenlQWFVXZkE1VTUxS2J5aTNPUGRSQjRIOEUy?=
+ =?utf-8?B?cTRHcHl6cjU4UVA0cTV4dGtXMUVaUGRzS2RoL25xdTNzaWpFb0lGTHZ5VU5N?=
+ =?utf-8?B?ekdxNXhuSEJUZFZockd5MWQwTEw4a0NPNjF2eFpCN3Vsekg4UnZrZFQyRmpX?=
+ =?utf-8?B?a0dsMHNnUFdMeVRONHJiaUdGUGpETGFtNWZTMGZmYkd4a1pKcXgyRThIdDYv?=
+ =?utf-8?B?S3ErNGpBbEtJTUpHMTJiNXB6UDdaN2lQSmFqVTlLcS9MT3U3bVZiVlh4Q0N2?=
+ =?utf-8?B?a2hGZzRZMFBZNmpndVNQRFc1TjhybVBaQTFKZk1lUjIwRDBLbnFLSWJPbWtk?=
+ =?utf-8?B?YjNsRE5ua0F2cHFWTkFqdVVBSG05Q0p5cjIzZ2Z4TXgwU2J5WHg1eEVoOU14?=
+ =?utf-8?B?SWN0b1hUN0JPUVNxVmxuY0R5VHNERWxFN1FGTUZYQ3JxNzFIOVhpSnF0TUdQ?=
+ =?utf-8?B?VTdxaG1WSm40SnZXSGdQN1R6aGxGTHczeUFBTXhYck16ZzUxQzVKVms1S1Zh?=
+ =?utf-8?B?azEvS2tlZXRsVEhDNGlQRjhiV3IxYUs4bE91c2V5V0tPTk8vcnE2TklXYm9l?=
+ =?utf-8?B?a25jTGRENE15c0ZKaFJTSWI1Z0pyM2NmbGZ3VjY1c3ZOMkF3WEIxUVlXNnhj?=
+ =?utf-8?B?TnM1Smg4TFJMQkdrWWdydmN0MDFVdmxrQ3dvTEorTlhnL0g4YldudWZiNHgr?=
+ =?utf-8?B?L3VmY1JwZ2d4d3o2Tk1nVEdtSnpyTVdrRUEzanJFbDBrT1BhUk1xcmJHdUMy?=
+ =?utf-8?B?NlRkZW5teTF4NWRHYVZXeFQxOTNSRjQyQWdSblhOL3Vqd1hRWE1RVEVnZmVT?=
+ =?utf-8?B?WlpJQ0RzZlUvNWd4cnhuN0xNNEFxNldEdk1kc0QxaTNqWnhmVnhJdWIvaHEy?=
+ =?utf-8?B?dUlEb0dCa3h1NytSd085QzljRTdWeWJQVTlNdTRCZE9mUWJ1Tm1jcW1GSS83?=
+ =?utf-8?B?WjFjbmNxRUlKallCNFp5M0ZwRzVvNm9GTlNHdDcwVjhGSklLMjRhN3gxaG1z?=
+ =?utf-8?B?bWFzQkpPYmlqZGhhOGdPejU4SWVhV080WGlDSVZlZnBUL3p4M1ZzZnUyaUxL?=
+ =?utf-8?B?TVlvQkltTy9ZZThSRVhhQk0zdHV0WG9GZ3dZQjBreGhzOWlzYTlSL2hPci84?=
+ =?utf-8?B?dndrakJFV2NaOUZMRWduU2Y1YUV5ZldZM2QySnVQd2E1eU9xaXdvS2J1Q1hP?=
+ =?utf-8?B?SFpaM2owQWNJR3JtTzFVTU1tTUdWTXMwMm9QR0s0M1RKZ2ROWDdOaGF3Mng3?=
+ =?utf-8?B?TTBCTVd6Zms0SC8yY3Qvd0FBdU9IWllhVSsyUldaeTkyeGJyTnpSeGphWlRE?=
+ =?utf-8?B?T1c1K0VRRkVnN1RDVWxoWEtMbS9qWlZEa1M5V0VXOGU1dFJxaGZPWXZGdzlz?=
+ =?utf-8?B?aDZOUlJrblJFb1Rra3h4cEVlN1VIUHlzMDNuUnZGQVNmNGxVeVV1OXlMN0o0?=
+ =?utf-8?B?czRqVC9EZ09vZzJ6SDhIcWNCSTJ0aVpSeDZ6Y1dDQVBHWEw1dmttN3RqQXpR?=
+ =?utf-8?B?TVBhaUJuemljSytsbXpwaXl2VFMyOVI1REp6M1hKL0doQ0ZHbDFlTk14cTMw?=
+ =?utf-8?B?RDlkRnhoQUh0a2VFNnZTaHdrRVQ3UUxKNFY5N2thL3RNdEpkUURGbkRqWkFV?=
+ =?utf-8?B?N05RV0c5SnNhTFFxVHY4VVByclMrRXBXekVIZ2pSUHRPY2srR3FSMFU3YzZ5?=
+ =?utf-8?B?SnZ3ZUlYa1FDNjFlUENoNDhkZE1XM0pQK1g5TG5CV05hbGE4KzMzbTZhSmlP?=
+ =?utf-8?B?K0E9PQ==?=
+X-OriginatorOrg: siemens.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 089513a8-e260-4ec6-87c6-08daedb53144
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2023 18:06:09.9359
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lotArO402MWchCns3XXkcjRs7V64XC+32dJciR6J+3YZZWyBxunf4kqM6F9GWaDVO18nK81WRwc2T8dUBf4/JA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR10MB7767
+X-Original-Sender: jan.kiszka@siemens.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@siemens.com header.s=selector2 header.b=cer9a6sg;       arc=pass
+ (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass
+ fromdomain=siemens.com);       spf=pass (google.com: domain of
+ jan.kiszka@siemens.com designates 40.107.8.84 as permitted sender)
+ smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=siemens.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,97 +208,32 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_26480_412744137.1672753175994
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_26481_927490337.1672753175994"
+From: Jan Kiszka <jan.kiszka@siemens.com>
 
-------=_Part_26481_927490337.1672753175994
-Content-Type: text/plain; charset="UTF-8"
+vcpu_handle_msr_read already takes care of accounting.
 
-For the productive use of the hypervisor "Jailhouse" I am concerned about 
-another topic: "Sensitivity of the hypervisor configurations to HW changes".
- 
-I have already created the hypervisor configurations for 8 different x86 HW 
-targets (evaluation boards, industrial PC's, single board computers, ...) 
-for the root cell and for up to 2 guest cells.
- 
-I also "cloned" some HW targets; however, I was scrupulously careful that 
-the HW (RAM, PCI devices, BIOS version, ...) was identical.
- 
-To duplicate an x86 HW target, in my experience, the following components 
-must remain the same so that the hypervisor configurations already created 
-can still be used:
+Fixes: 3e9c91302ee5 ("x86: Push MSR statistic down to the dispatching points")
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+---
+ hypervisor/arch/x86/vmx.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-1. CPU model and architecture
-2. RAM memory size
-3. PCI devices (including M.2 NVME SSD!)
-4. BIOS version
- 
-For mass production based on a Single Board Computer (SBC) some points can 
-easily be kept (e.g. CPU model and architecture, PCI devices (except M.2 
-NVME SSD), BIOS version).
- 
-On the other hand, you can't guarantee that you can always use the same 
-type for the M.2 NVME SSD, for example.
-However, the change of the type of the M.2 NVME SSD, which is actually 
-imperceptible for the user, will possibly be noticeable in the hypervisor 
-configuration (e.g. different PCI capabilities).
- 
-Another problem is the deviations that creep into memory and I/O layouts. 
-
-Are there any experiences and practical solutions regarding this topic?
-I would appreciate any advice on this!
-
-Jan-Marc.
+diff --git a/hypervisor/arch/x86/vmx.c b/hypervisor/arch/x86/vmx.c
+index 5a69710d..f610e507 100644
+--- a/hypervisor/arch/x86/vmx.c
++++ b/hypervisor/arch/x86/vmx.c
+@@ -1173,7 +1173,6 @@ void vcpu_handle_exit(struct per_cpu *cpu_data)
+ 			return;
+ 		break;
+ 	case EXIT_REASON_MSR_READ:
+-		stats[JAILHOUSE_CPU_STAT_VMEXITS_MSR_OTHER]++;
+ 		if (vcpu_handle_msr_read())
+ 			return;
+ 		break;
+-- 
+2.35.3
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9dd4fcde-efe8-41f1-9c71-b50e6d3c0dafn%40googlegroups.com.
-
-------=_Part_26481_927490337.1672753175994
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-For the productive use of the hypervisor "Jailhouse" I am concerned about a=
-nother topic: "Sensitivity of the hypervisor configurations to HW changes".=
-<br>&nbsp;<br>I have already created the hypervisor configurations for 8 di=
-fferent x86 HW targets (evaluation boards, industrial PC's, single board co=
-mputers, ...) for the root cell and for up to 2 guest cells.<br>&nbsp;<br>I=
- also "cloned" some HW targets; however, I was scrupulously careful that th=
-e HW (RAM, PCI devices, BIOS version, ...) was identical.<br>&nbsp;<br>To d=
-uplicate an x86 HW target, in my experience, the following components must =
-remain the same so that the hypervisor configurations already created can s=
-till be used:<br><div><br></div><div>1. CPU model and architecture</div>2. =
-RAM memory size<br>3. PCI devices (including M.2 NVME SSD!)<br>4. BIOS vers=
-ion<br>&nbsp;<br>For mass production based on a Single Board Computer (SBC)=
- some points can easily be kept (e.g. CPU model and architecture, PCI devic=
-es (except M.2 NVME SSD), BIOS version).<br>&nbsp;<br>On the other hand, yo=
-u can't guarantee that you can always use the same type for the M.2 NVME SS=
-D, for example.<br>However, the change of the type of the M.2 NVME SSD, whi=
-ch is actually imperceptible for the user, will possibly be noticeable in t=
-he hypervisor configuration (e.g. different PCI capabilities).<br><div>&nbs=
-p;</div><div>Another problem is the deviations that creep into memory and I=
-/O layouts. <br></div><div><br></div><div><span style=3D"background-color: =
-yellow;">Are there any experiences and practical solutions regarding this t=
-opic?</span></div><div><span style=3D"background-color: yellow;">I would ap=
-preciate any advice on this!</span></div><div><br></div><div>Jan-Marc.<br><=
-/div><div><br></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/9dd4fcde-efe8-41f1-9c71-b50e6d3c0dafn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/9dd4fcde-efe8-41f1-9c71-b50e6d3c0dafn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_26481_927490337.1672753175994--
-
-------=_Part_26480_412744137.1672753175994--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/778388b9-9ac4-e5b2-0077-78d78501d587%40siemens.com.
