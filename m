@@ -1,76 +1,134 @@
-Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBDVG2WOQMGQEH24SVRI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP4ZTXNRIFBB7OT2WOQMGQEQ3NSKSI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113f.google.com (mail-yw1-x113f.google.com [IPv6:2607:f8b0:4864:20::113f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 340A565D089
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  4 Jan 2023 11:21:04 +0100 (CET)
-Received: by mail-yw1-x113f.google.com with SMTP id 00721157ae682-473b193ada5sf260718207b3.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 04 Jan 2023 02:21:04 -0800 (PST)
+Received: from mail-lj1-x239.google.com (mail-lj1-x239.google.com [IPv6:2a00:1450:4864:20::239])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2764265D1F0
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  4 Jan 2023 12:58:55 +0100 (CET)
+Received: by mail-lj1-x239.google.com with SMTP id y19-20020a05651c221300b00279958f353fsf7753487ljq.1
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 04 Jan 2023 03:58:55 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1672833534; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=IpU/+O3/L4WsCdRoUj2xAx8JB812XsD05tb1TeR5IszT+3fteVO7hHbA86I1A4H/Iz
+         j4kOpIBzlp310PmVGHs8wof0SVtGoN+KatKDpPqXIb3WkJpMLax5kzt48TLa9//C2y+B
+         Z+dFVcThdBUtFVomyhtvrU65y5zpmwxCObXmc5OwdittkkBCrNPEZtUWiZNWvjpQPCur
+         UgFoMMPGK9gJ7G3uu0keQ2awK9zEuyU3wUVx8pdmT0Aj+uABEHwCm+xEUIP7G/h9iRCl
+         pI+E/cfj2wwaZbGi2PDgdO6kK7wJoNpa3XkN95v74Bf38zZ0xGLfVs1s7JAeyDsQjBy5
+         TKWg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:in-reply-to:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:sender
+         :dkim-signature;
+        bh=J7cLw2Abje17Pc0HHKGlNMXotbYxYUiAeZPmtQLj2Is=;
+        b=f7+uhP6S46gcG4JTw2/nsY2CYWGqYASh9OqBb6N61g1XVvs9nkqZA9/cP4eLVb6q86
+         gvAQWak4phLN5Cf6SRaNgZMZvivBuPIsFH1Bj1ueWir60RyiGRkHezMt7Jyhlz3zaecS
+         nBGFkM2esvVnIjU5qvpL9SUQVGUTCEhf6ru/V/qFNc0+fA1Be2R5wvFMW/ebAfBto2Zy
+         JtRjoxOzYnhMug+bt0C1m06o/CPune2jCnIxsOxqanN3id6Q1J3B88Cn8S6yIbPNqD2E
+         68XfDuliRIhAvwrMuzNjUNrxzgZSPmFRDdgcoa516mT9WMEEKRAe8rSrbYA28MZlV+HB
+         YLqQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@alien8.de header.s=dkim header.b=VcttLkPN;
+       spf=pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) smtp.mailfrom=bp@alien8.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=alien8.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0POHmeb+eXvJz3LN0vc2xj1f3+3Y2WR46lMi04En16U=;
-        b=rJ5Mpue1YIdF5IwiJ9oqdtO1zFTC/VPYnan+LOUKdJ0+johqz7Z/eSwDNcQTCqklYw
-         BZaMeejST1ECHurE+HOGOWT3L+N4tmiZNkUhek5UVmSFjQV83CmDWK3W9Nxot4jMWm0b
-         ya1UJ8cLky/jrZWANGlkj7NG2VMMRi0ZUQEBU8F/jlwt2a6W4tEnBxogzVmoACDiF8GO
-         rfGep+8JTGPqHvRQrq6QLLhiuVKbIa83qKOqF0JPddqFJTQWj0t+TILlFgs0J75LsgWH
-         JWsRaP/mVn7njcbPIGhE4SZIkExbmsr++OLSgHfYLeiMYildaLiBdZHnnjvG9bMn/NwP
-         JAMQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:in-reply-to:content-disposition:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0POHmeb+eXvJz3LN0vc2xj1f3+3Y2WR46lMi04En16U=;
-        b=HwbJeRVLcYLs70BMxgwVa4LJIp4vjBJUK+VH/L6OG13590b//JT7HDnzeXytIyV/fi
-         qZo69KjaxFFPO7YMhspjTJgyafFdWwvBlrqGbj1iflXzwLSjPgZwpbsu1SAvKM5Gdcgc
-         IIzwAG8RTHh2b+D/6IDUvp0YmvKaBhUTHjdLo9CG87GIAxiP4FLaIEUmqLLkLj2TATEN
-         hH+b7v/ZlAVdyraYH2S3vc2dfwOD9CCoDsESdaV7s1/Dc9N/cL5NHcYn8PlRk9LagjKu
-         xYvu5OkDgBzapbXo5JKyZVKMys5KPW+qSRNFMq7sqLoxsH23lZvJSts3nzBvUd/lFLnJ
-         F7CQ==
+        bh=J7cLw2Abje17Pc0HHKGlNMXotbYxYUiAeZPmtQLj2Is=;
+        b=eI7B11Im1M5w758Ywx6aUhcyUAUg6sS2bQHBjyqQ4hMLDGGQfzytEAM9EtCI+riS1G
+         dyOwAd3rFnuKAoSZzUpW3k5g9CUQ/Ug9mI+pwKUp5gdJjdTEJ7ru+4DjGqXEEj+TgYRv
+         Iglx10z4cszgcGBgky6zcRZmrLxRi1tSukul6xoLHSC1g3r9+hQqzaGRHfguP611eFsA
+         NKEjjXjBqyTTIOTMq6Q+o9g7q4Vs5qq+wSqIPr/QIX+Qs9GchfLRRTvTMqRM3epGaay/
+         3detgUUKhd11b/UGfux+PQp1w0gwn5L8XPPz6ucaF9jX5uP2olRSSdbOpBewLTNss1UK
+         5xNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0POHmeb+eXvJz3LN0vc2xj1f3+3Y2WR46lMi04En16U=;
-        b=t8fTpndN2e0OFTYBtursEbjPrujYpPq6tr6KYiCOibVIjWIuPnFKhB8Wc/oJHh8v0E
-         irRlii/zQrUP3XDjzd04ei8G8dJ7jRb25FwWMoG9dToiCK58qmEhcJmMrBfUZFeNNdTD
-         COtmWwQ4ZrHCUQETUFh8ysXcMgHYbfy7PN4YUitVld6aNsOAQqo1J/r3nhPz+xdnpz++
-         RWh25aih/lfUlxLUJ2ziqgIUk978Xe5hwMTpvhG3SOigbVl+plT1t2xQy2EaCWikTjKb
-         tpf3WHBE30iSjh0GnRO71CWMvb4jbfcwPjuANt0VJDQ0Jy+mFqh2pk/b+XR8xqVp2ay2
-         4zvw==
+         :x-original-authentication-results:x-original-sender:in-reply-to
+         :content-disposition:mime-version:references:message-id:subject:cc
+         :to:from:date:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=J7cLw2Abje17Pc0HHKGlNMXotbYxYUiAeZPmtQLj2Is=;
+        b=XqnHywTeZerJJsoC4KrAmTRA3TdiJtJHiBqaWskeuZqKt/aPkdVADkZR8ipqoD9hng
+         l+K3ct7dbZ7tRe1ALO9mUITQG8xy32brKHLt/zBFblchMVoBu7jWYJSfPRUwnQVSc6qJ
+         XK7yGJNKModcmxHw7GdIW6rUXXlJBT/yeOhk3S+SemtR+jIZ/JgScrRyxjv/P55cMW06
+         uNTywt5+RkRF8BtEb8w8p9OpukO0DZnE58+FZotMhka8WbQWna5j9I3vxJGAY1eRin8r
+         tOljOoM0hKb96WotybXH50mlZFYtK/IdRqgIP0iuvsFQN3ffdZu8xHv+u0bXi0ZJ8GRh
+         IUjQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AFqh2kqCXdYf2F5jycxwW9ZOHberZkiW5DbFJJQYIh8elEPuq21B8iwT
-	7jsLBR82imoDAGZ4ZPvU0ho=
-X-Google-Smtp-Source: AMrXdXtrNRWn13xpIdmjiWHBfSf/ThOsejzcrc9k7EmvhAVdJ12Njl0JWA5YC6Taa/VWTo4T2f2OVw==
-X-Received: by 2002:a25:d941:0:b0:725:a880:3f8e with SMTP id q62-20020a25d941000000b00725a8803f8emr4280967ybg.187.1672827662673;
-        Wed, 04 Jan 2023 02:21:02 -0800 (PST)
+X-Gm-Message-State: AFqh2kq9J3AI6NLNPPUgaEjlSgOO+xFdq6xVt9RG+nFN4dAYmBrufAjo
+	A2onDVQ6hlXxE8UjtYvm+48=
+X-Google-Smtp-Source: AMrXdXvBPZQyPvvt7HLE3+qMKk6OF+Q8YJonuWOh3HERutiC1XVsWv3cHrDrhWu4v90NvH0lRjgU1g==
+X-Received: by 2002:a2e:be9b:0:b0:27f:af16:f094 with SMTP id a27-20020a2ebe9b000000b0027faf16f094mr2021334ljr.522.1672833534535;
+        Wed, 04 Jan 2023 03:58:54 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:690c:607:b0:462:6db8:ed52 with SMTP id
- bq7-20020a05690c060700b004626db8ed52ls16774840ywb.1.-pod-prod-gmail; Wed, 04
- Jan 2023 02:21:01 -0800 (PST)
-X-Received: by 2002:a81:1948:0:b0:46c:6733:1360 with SMTP id 69-20020a811948000000b0046c67331360mr4798284ywz.310.1672827661668;
-        Wed, 04 Jan 2023 02:21:01 -0800 (PST)
-Date: Wed, 4 Jan 2023 02:21:01 -0800 (PST)
-From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <6d20589e-d410-40e4-b964-24f8f2911c70n@googlegroups.com>
-In-Reply-To: <fecd57a3-ce2d-f2ff-d2a0-a1d70fdfb43c@siemens.com>
-References: <9dd4fcde-efe8-41f1-9c71-b50e6d3c0dafn@googlegroups.com>
- <fecd57a3-ce2d-f2ff-d2a0-a1d70fdfb43c@siemens.com>
-Subject: Re: Sensitivity of hypervisor configurations to HW changes (x86
- target)
+Received: by 2002:a05:6512:1182:b0:4b5:3cdf:5a65 with SMTP id
+ g2-20020a056512118200b004b53cdf5a65ls26927lfr.2.-pod-prod-gmail; Wed, 04 Jan
+ 2023 03:58:53 -0800 (PST)
+X-Received: by 2002:ac2:4f0c:0:b0:4b5:5f2e:3cc6 with SMTP id k12-20020ac24f0c000000b004b55f2e3cc6mr13371757lfr.47.1672833532957;
+        Wed, 04 Jan 2023 03:58:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1672833532; cv=none;
+        d=google.com; s=arc-20160816;
+        b=NIruKQlqc55puRiYR7mu7a4XWmBfsMvfRZ9k6z7ESwIxV99STIRPsdsdg8T2nnxZYv
+         l/iOyV+xZerGE0CSsQ9Bo0czB62OOk+dipwX+47n6V3fJRhLlCZDRu1z90HrLu26evOm
+         FKgY0wsoKE+24pFWQ6zwlvJp15mHegbvgGkwVeTzslZ/UyKgesR7tzRarsaDxpsAGQWK
+         aSFjpLgTitSDCOK7Asw+fEsqoaVkfQJ8w8WPonx5lMOherV3ibbONBKmfZqv++ioHSkN
+         eU5eOknr+2kAOlzgZQ/RuTT7D/DT3otechj9SrdHgADaQ0daYAsqAQ3yWXmEABLP2z8X
+         Qjtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:dkim-signature;
+        bh=UKl/CVF+4GJS0LDdyX728sU1J1aGkocy2OklfcAdRtI=;
+        b=YaYnHKWcV35E4bsGyYboWmgFzHESIT9fEN2mBw2H5d4R+q9/Q7crOZ50Wd8+G1QbGX
+         O0xVDCrY3Awm9eQUK1CF5PUTzqW1FqEgT5F9aOnyVVO0F/M2FfvxNJKnRXfu81LtZWx4
+         WjOlXCwHLPdM4Hi1VjtfN9z2irlsWNGe1e7g9E6XI+OD/JnuLcb0A7aYcL+kF394yZuH
+         LdujqHT35fKh1CJ65gt9AkW+h0fOf29y8dLv/Cg5Mm4EbEKFX0JtzXcUdWIFNoJ3O+cI
+         eBDc87PWLVc8kfREhkNYdwF/kyF5cE1JrJn/jRybvgdwlNRKOHKmrzvE3ZB9EiqirTwH
+         vhJw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@alien8.de header.s=dkim header.b=VcttLkPN;
+       spf=pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) smtp.mailfrom=bp@alien8.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=alien8.de
+Received: from mail.skyhub.de (mail.skyhub.de. [5.9.137.197])
+        by gmr-mx.google.com with ESMTPS id v27-20020a05651203bb00b004b571cef682si1177756lfp.5.2023.01.04.03.58.52
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 04 Jan 2023 03:58:52 -0800 (PST)
+Received-SPF: pass (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted sender) client-ip=5.9.137.197;
+Received: from zn.tnic (p5de8e9fe.dip0.t-ipconnect.de [93.232.233.254])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 18EC91EC008F;
+	Wed,  4 Jan 2023 12:58:52 +0100 (CET)
+Date: Wed, 4 Jan 2023 12:58:48 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Ross Philipson <ross.philipson@oracle.com>,
+	linux-kernel@vger.kernel.org, x86@kernel.org,
+	dpsmith@apertussolutions.com, tglx@linutronix.de, mingo@redhat.com,
+	hpa@zytor.com, luto@amacapital.net, dave.hansen@linux.intel.com,
+	kanth.ghatraju@oracle.com, trenchboot-devel@googlegroups.com,
+	jailhouse-dev@googlegroups.com, jan.kiszka@siemens.com,
+	xen-devel@lists.xenproject.org, jgross@suse.com,
+	boris.ostrovsky@oracle.com, andrew.cooper3@citrix.com
+Subject: Re: [PATCH v2 1/2] x86: Check return values from early_memremap calls
+Message-ID: <Y7Vp+EPq5wkGr5mi@zn.tnic>
+References: <20221110154521.613472-1-ross.philipson@oracle.com>
+ <20221110154521.613472-2-ross.philipson@oracle.com>
+ <8e62a029-f2fa-0627-1f71-4850a68ec6b6@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_7734_1364785558.1672827661016"
-X-Original-Sender: stranzjanmarc@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Disposition: inline
+In-Reply-To: <8e62a029-f2fa-0627-1f71-4850a68ec6b6@intel.com>
+X-Original-Sender: bp@alien8.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@alien8.de header.s=dkim header.b=VcttLkPN;       spf=pass
+ (google.com: domain of bp@alien8.de designates 5.9.137.197 as permitted
+ sender) smtp.mailfrom=bp@alien8.de;       dmarc=pass (p=NONE sp=NONE
+ dis=NONE) header.from=alien8.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -83,211 +141,43 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7734_1364785558.1672827661016
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7735_1643194164.1672827661016"
+On Thu, Nov 10, 2022 at 08:07:53AM -0800, Dave Hansen wrote:
+> On 11/10/22 07:45, Ross Philipson wrote:
+> >  	dt = early_memremap(initial_dtb, map_len);
+> > +	if (!dt) {
+> > +		pr_warn("failed to memremap initial dtb\n");
+> > +		return;
+> > +	}
+> 
+> Are all of these new pr_warn/err()'s really adding much value?  They all
+> look pretty generic.  It makes me wonder if we should just spit out a
+> generic message in early_memremap() and save all the callers the trouble.
 
-------=_Part_7735_1643194164.1672827661016
-Content-Type: text/plain; charset="UTF-8"
+Well, let's see.
 
-Thanks for the tip!
+early_memremap() calls __early_ioremap() and that one already warns befofe each
+NULL return. So I guess we don't need the error messages as we will know where
+it starts failing.
 
-I also had a quite similar idea:
-Hash values are calculated over the outputs of "lspci" and further files 
-(e.g. /proc/iomem, /proc/ioports, ...) (e.g. with "sha1sum").
-These hash values are linked to the hypervisor configuration.
-Before the hypervisor or a guest cell is started, the hash values are 
-calculated again and compared with the hash values stored for this 
-configuration.
+I guess we still need the error handling though.
 
-In practical use, however, it is sometimes necessary to adjust the 
-hypervisor configuration on site (in the field).
-The tools required for this (build essentials) and a make file could 
-already be installed in the root file system of the target, so that the 
-compilation of the configuration could be performed on the target.
+I.e., this above should be:
 
-However, the current situation is that to effectively control whether the 
-hypervisor or the guest system starts, a "real" serial port is needed; 
-otherwise, you don't really see where a successful startup fails.
+    dt = early_memremap(initial_dtb, map_len);
++   if (!dt)
++           return;
 
-Unfortunately, redirecting /dev/jailhouse to a file only works if the 
-system does not crash.
+so that we don't go off into the weeds with a NULL ptr.
 
-It would be better if the hypervisor directly creates a file with these 
-outputs and completes it before the system crashed.
-Then, on a subsequent reboot, the contents of this file could be analyzed 
-and the hypervisor configuration corrected.
+Or?
 
-Jan-Marc
-j.kiszka...@gmail.com schrieb am Mittwoch, 4. Januar 2023 um 10:42:02 UTC+1:
+-- 
+Regards/Gruss,
+    Boris.
 
-> On 03.01.23 14:39, Jan-Marc Stranz wrote:
-> > For the productive use of the hypervisor "Jailhouse" I am concerned
-> > about another topic: "Sensitivity of the hypervisor configurations to HW
-> > changes".
-> >  
-> > I have already created the hypervisor configurations for 8 different x86
-> > HW targets (evaluation boards, industrial PC's, single board computers,
-> > ...) for the root cell and for up to 2 guest cells.
-> >  
-> > I also "cloned" some HW targets; however, I was scrupulously careful
-> > that the HW (RAM, PCI devices, BIOS version, ...) was identical.
-> >  
-> > To duplicate an x86 HW target, in my experience, the following
-> > components must remain the same so that the hypervisor configurations
-> > already created can still be used:
-> > 
-> > 1. CPU model and architecture
-> > 2. RAM memory size
-> > 3. PCI devices (including M.2 NVME SSD!)
-> > 4. BIOS version
-> >  
-> > For mass production based on a Single Board Computer (SBC) some points
-> > can easily be kept (e.g. CPU model and architecture, PCI devices (except
-> > M.2 NVME SSD), BIOS version).
-> >  
-> > On the other hand, you can't guarantee that you can always use the same
-> > type for the M.2 NVME SSD, for example.
-> > However, the change of the type of the M.2 NVME SSD, which is actually
-> > imperceptible for the user, will possibly be noticeable in the
-> > hypervisor configuration (e.g. different PCI capabilities).
-> >  
-> > Another problem is the deviations that creep into memory and I/O layouts.
-> > 
-> > Are there any experiences and practical solutions regarding this topic?
-> > I would appreciate any advice on this!
-> > 
->
-> As I suggested offline already:
->
-> If you don't have control over checking new hardware combinations
-> /before/ they go into production, I would consider adding a
-> post-production check that runs 'jailhouse config create' on the device
-> (or outside, against what 'jailhouse config collect' provided) and
-> compares the generated reference config against an earlier version. On
-> deviations, an engineer would have to look at the details.
->
-> Jan
->
-> -- 
-> Siemens AG, Technology
-> Competence Center Embedded Linux
->
->
+https://people.kernel.org/tglx/notes-about-netiquette
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/6d20589e-d410-40e4-b964-24f8f2911c70n%40googlegroups.com.
-
-------=_Part_7735_1643194164.1672827661016
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks for the tip!<br><br>I also had a quite similar idea:<br>Hash values =
-are calculated over the outputs of "lspci" and further files (e.g. /proc/io=
-mem, /proc/ioports, ...) (e.g. with "sha1sum").<br>These hash values are li=
-nked to the hypervisor configuration.<br>Before the hypervisor or a guest c=
-ell is started, the hash values are calculated again and compared with the =
-hash values stored for this configuration.<br><br>In practical use, however=
-, it is sometimes necessary to adjust the hypervisor configuration on site =
-(in the field).<br>The tools required for this (build essentials) and a mak=
-e file could already be installed in the root file system of the target, so=
- that the compilation of the configuration could be performed on the target=
-.<br><br>However, the current situation is that to effectively control whet=
-her the hypervisor or the guest system starts, a "real" serial port is need=
-ed; otherwise, you don't really see where a successful startup fails.<br><b=
-r>Unfortunately, redirecting /dev/jailhouse to a file only works if the sys=
-tem does not crash.<br><br>It would be better if the hypervisor directly cr=
-eates a file with these outputs and completes it before the system crashed.=
-<br>Then, on a subsequent reboot, the contents of this file could be analyz=
-ed and the hypervisor configuration corrected.<br><br>Jan-Marc<div class=3D=
-"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">j.kiszka...@gmail.com =
-schrieb am Mittwoch, 4. Januar 2023 um 10:42:02 UTC+1:<br/></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px soli=
-d rgb(204, 204, 204); padding-left: 1ex;">On 03.01.23 14:39, Jan-Marc Stran=
-z wrote:
-<br>&gt; For the productive use of the hypervisor &quot;Jailhouse&quot; I a=
-m concerned
-<br>&gt; about another topic: &quot;Sensitivity of the hypervisor configura=
-tions to HW
-<br>&gt; changes&quot;.
-<br>&gt; =C2=A0
-<br>&gt; I have already created the hypervisor configurations for 8 differe=
-nt x86
-<br>&gt; HW targets (evaluation boards, industrial PC&#39;s, single board c=
-omputers,
-<br>&gt; ...) for the root cell and for up to 2 guest cells.
-<br>&gt; =C2=A0
-<br>&gt; I also &quot;cloned&quot; some HW targets; however, I was scrupulo=
-usly careful
-<br>&gt; that the HW (RAM, PCI devices, BIOS version, ...) was identical.
-<br>&gt; =C2=A0
-<br>&gt; To duplicate an x86 HW target, in my experience, the following
-<br>&gt; components must remain the same so that the hypervisor configurati=
-ons
-<br>&gt; already created can still be used:
-<br>&gt;=20
-<br>&gt; 1. CPU model and architecture
-<br>&gt; 2. RAM memory size
-<br>&gt; 3. PCI devices (including M.2 NVME SSD!)
-<br>&gt; 4. BIOS version
-<br>&gt; =C2=A0
-<br>&gt; For mass production based on a Single Board Computer (SBC) some po=
-ints
-<br>&gt; can easily be kept (e.g. CPU model and architecture, PCI devices (=
-except
-<br>&gt; M.2 NVME SSD), BIOS version).
-<br>&gt; =C2=A0
-<br>&gt; On the other hand, you can&#39;t guarantee that you can always use=
- the same
-<br>&gt; type for the M.2 NVME SSD, for example.
-<br>&gt; However, the change of the type of the M.2 NVME SSD, which is actu=
-ally
-<br>&gt; imperceptible for the user, will possibly be noticeable in the
-<br>&gt; hypervisor configuration (e.g. different PCI capabilities).
-<br>&gt; =C2=A0
-<br>&gt; Another problem is the deviations that creep into memory and I/O l=
-ayouts.
-<br>&gt;=20
-<br>&gt; Are there any experiences and practical solutions regarding this t=
-opic?
-<br>&gt; I would appreciate any advice on this!
-<br>&gt;=20
-<br>
-<br>As I suggested offline already:
-<br>
-<br>If you don&#39;t have control over checking new hardware combinations
-<br>/before/ they go into production, I would consider adding a
-<br>post-production check that runs &#39;jailhouse config create&#39; on th=
-e device
-<br>(or outside, against what &#39;jailhouse config collect&#39; provided) =
-and
-<br>compares the generated reference config against an earlier version. On
-<br>deviations, an engineer would have to look at the details.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, Technology
-<br>Competence Center Embedded Linux
-<br>
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/6d20589e-d410-40e4-b964-24f8f2911c70n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/6d20589e-d410-40e4-b964-24f8f2911c70n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_7735_1643194164.1672827661016--
-
-------=_Part_7734_1364785558.1672827661016--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/Y7Vp%2BEPq5wkGr5mi%40zn.tnic.
