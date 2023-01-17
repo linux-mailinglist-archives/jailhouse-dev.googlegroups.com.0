@@ -1,212 +1,144 @@
-Return-Path: <jailhouse-dev+bncBCJI7SMNV4NBBPNUSWPAMGQELONSVKQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP5TCG4SYBBBL7HTOPAMGQE4OO5KFY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ej1-x63c.google.com (mail-ej1-x63c.google.com [IPv6:2a00:1450:4864:20::63c])
-	by mail.lfdr.de (Postfix) with ESMTPS id C804466C11C
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 16 Jan 2023 15:07:58 +0100 (CET)
-Received: by mail-ej1-x63c.google.com with SMTP id hs18-20020a1709073e9200b007c0f9ac75f9sf19581608ejc.9
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 16 Jan 2023 06:07:58 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1673878078; cv=pass;
+Received: from mail-il1-x13e.google.com (mail-il1-x13e.google.com [IPv6:2607:f8b0:4864:20::13e])
+	by mail.lfdr.de (Postfix) with ESMTPS id D312866E6B8
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Jan 2023 20:14:56 +0100 (CET)
+Received: by mail-il1-x13e.google.com with SMTP id y11-20020a056e02178b00b0030c048d64a7sf23493936ilu.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Jan 2023 11:14:56 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1673982895; cv=pass;
         d=google.com; s=arc-20160816;
-        b=OO3v4GKS5dk4m+7lM1CNkdRqKbJpLaN2KDnZgLKSQXgzLpoQgfIYlmJYPRFqKI9smo
-         M8D1fi9+dq3uqiTWw74ag2/8HOqhR6O+dK0aXL8feJylv0520OLx1nlpeVde+le0Ov6a
-         CLVuJIuxgFaPvXMHHdx8eR9tnTTwijXBktfVtOpNkyiYvimu7kqKgc9hmooJsvLKlpRL
-         iz0yBuNARx8GmHgcYdxku7I5FxEFrIzDcAJijkDUnCugEDlcMJUCqH6+kAGwud/tx3Hq
-         /XIAnKt+8bwf3ZPiHr3fuxGqtpIdwUsdg+B+x8Lu0vYdvsU1lGFanRps7v3Gf7RfyZlC
-         1dhQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=g7AoWoKEQ4Ml5qWf+SF8tbBKSqAGOOQxBxd1Bx4Q3cKTIURG+DNmK1X4k4oldBP/2u
+         9715FnShaMwh6QwOdb/2WTQnUdk2wxoCjcLmnrW/rnKaE0q6+n3q2t1w7H9lQFSbCGDA
+         8Ur2kYh6trPdGdEaPDpWwSeyLSfg8U7VCjllOgxs7nBpphGSayxsvXk1qBVl6gB7z9ju
+         zYyZoSvVU1sWelBbjjxBVsEI6X08bpcn4D2i2cYnF4Pe2WM2/fiiRiHMmA8BpyphMAiA
+         alwCsWLgLmTIafxHvDK8bJVjGtdwpYADt4Ka0N6FWOD8YyhG0a122hf2MGICPYAPZEUc
+         SuWg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:in-reply-to:from
-         :references:cc:to:content-language:subject:user-agent:date
-         :message-id:sender:dkim-signature;
-        bh=utt8J8+JQtIweDgxb9W7J127Z6vWKPmUhCWurfMErSs=;
-        b=K4bT5ywcNOzoDIPpO+PKMr1zvyexQ/n+rHlXEU72J4s0oWlkFsMiHM0Y3rasu4qmqa
-         Ea728JPB6q0ZxYpr9+JGKPBgSGjrx+W55S/hiy/JT5AGXN8Zja69MtZkND6MwczzJb6z
-         8nYxH0xKeMw8HQkwfBt/Uk0//zl52fsY9Z/kcgf9ad4xY0FfSBD40YA98ThzRIgjO5W0
-         8XcU6kPE0ztPtyh6TiUy+FGn6eQy+NKrx97ZOSKOxgxp7Ah1VFwmv2OV8fY3+eJo7Smn
-         Oy754Jn1L+1Cybln4yghLnZK/rB9L1H+TgzRabz448NNPF60HFJV7+crcwltozp1cjiE
-         HSig==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=IIb51DCO;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.13.81 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=sK4P13xIx8AQMhWzq2fKQqGSurLjs+tkUeBxDpv18CQ=;
+        b=AUObo/sceqMKeYsaX0nZiNYu+qBImTYR2jTCGsWQGax1Hl6N50lY7FQr3eqb2kB4j4
+         XI9JHyIA/Y6daok+37MnPkj7rCREzBfz/qRpRnrc+SVpqMESbBrgAP44/ksZLMdimCci
+         +CVW17waFsj6Zy86GRstVBx4SUghAsQ53oEoMOj/9MQhJhIysYAKuc3sG6NJbs/LTcX7
+         /dXFffjXGlsgcgH5peEOK4Kb2sFJg9rNwhaElGLAm1eZr5/ZWJmt2jHXGSa+BWWYjx5b
+         FkznmMPCbpYh853brS5Xi98MJTXYqG4nKWD669Nz3dgTPyl32QRGXr44zBum3tSecmt2
+         B9NQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=nl83aVmx;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b2e as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:date:message-id:sender:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=utt8J8+JQtIweDgxb9W7J127Z6vWKPmUhCWurfMErSs=;
-        b=VyP0+pRSOxeuypHiobwhbd/NIGoEP3h4N+uB5DIOQHy+NHP6yGbDh/qh4rhity3e0U
-         KpsXtcVyzGAFrFDXjtxAZEkMrHPPqw1keEILu9QGCFx9C0n4GnKp1sHHYpL6CZh6BJiK
-         Q6FL68WHZ5vk6J/5zflgvu/VhLqKnoJTkhaMoZK2DbFESHkYkv6ZoTc9aCswv/mMdkqi
-         xwuTRUazGLfNkGwC7sRCV0uKQAOQIp79tpIlNVJ/086GpjQZ5p+ifuqrVu1kmvk1/LYs
-         pqI9bnBF6IVc/bB2HAnXu0eqEJTVNoohcuyrkrxHecDAdYOgD3Di7SJ0Y2KX/FutJiiK
-         mrbA==
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sK4P13xIx8AQMhWzq2fKQqGSurLjs+tkUeBxDpv18CQ=;
+        b=tdTIpvl0u458yNPmn7PICFqnoIFqcV3g3Ud/fYvd5za9Pfy/978+MXFBQyklEsnO+C
+         qhkJ9QwJdIInsb4ljQz2izwB6ycXwE6ZZnHqThqHSohBJzKGhiv5AZUOoiAe8eNj+zb9
+         UltoLJosDMi2ulBIgh6suHrGiHwsoK4GnovaNXs4k2O9e2Q1KGbEfVPtXN98YgKzQ3cz
+         UXalPsEQia9YQzyV5pcXKutPMcZy7GiQJKoYFE0VnM1fRE4TAIEpNIlMCoJjeJv3V+XX
+         wRYeozqfd247g3O9tbdoAf0JHzWvoKWlHKDY6rtlGjYzz4Lr6LCfJuyJHZWMQh5EF8vB
+         EYGA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=sK4P13xIx8AQMhWzq2fKQqGSurLjs+tkUeBxDpv18CQ=;
+        b=YL6oo5m9GSgTFbb4lOZPK8QhaUiV+Mz0TwIb2to9hGhOrSudTHCeebl5rg7UXZvCjE
+         FIjJjLz99dby3JNhUDj5NgB+YDif/lfBBKIf+JAHv4JmECloreA3NDDnOModGV3h7ykX
+         2hqs2udqoGT2vK6Ec2BvdYDdt727NZeMWdFUSiBuXpg33vbE9mIDDlwqjy+gUuV+GxmW
+         FOF7vPjncqQNStkPie7+SaS2HY+aQOigTi8sef/5fpYKNGSTxdBaHiSpbShc95KMvQll
+         kaxa0qS1MXgKvRrjlLondBf1Q2EruhHL+el7oK+q7vPgEsCAsQIfKaSPWXllkMhEaQu4
+         csEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:mime-version
-         :in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:date:message-id:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=utt8J8+JQtIweDgxb9W7J127Z6vWKPmUhCWurfMErSs=;
-        b=oyB75zgGiUOV4yFaKewEcxvuFYvtE3N8FiTFYrJDmEvSOASBy9EY5Yw47LuJQyIVPS
-         lOcWVkpVpvkQkZFw/l8W/dvFSKFCQXa2kznNcu2QHqvCfIOuekDbv2Xw2QIwx7/Bn4j9
-         5U/+BZaknYrh277B4SKD7Jx4s0pbg9gjSo1M1epuT1V3GGCxV+eivXTfb04ztcyqHYgU
-         1FieAwXylyPC+o8BhqsXPdO3llE87yLRNxp38rjKIV8pb7q1TICGdShq4eP6WHm/QgOL
-         uERdY153A8jKzVu47wcjzTEW5CAF+GlGLVU2tceh0R+jBMBlzgtpAAGGunE4U6e9yE6n
-         YYZA==
+         :x-original-authentication-results:x-original-sender:cc:to:subject
+         :message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sK4P13xIx8AQMhWzq2fKQqGSurLjs+tkUeBxDpv18CQ=;
+        b=jWNk+qJhsqao7/XY6l838cqtDUKIRpC9/z7A/zgHLdhC8gSeTY0/NOZHHuKMNG+XTm
+         pBbiITyWZkVhU2folrli/YMpfK1CllXbtbkin2nBUVbxBywQD11RgSScEdNEcAEshyzK
+         ssG7MjOD4BY6qaAeVyzAEtjQ9WwabWGKqxs0H6vRUJ/KLTMxZedtT9un2JjbvANdcBcK
+         restS+uuCSj37nKr/bC9LG4ZHMUBJV976OJXKDwzev05THgNmsdvUghYe5kRDPDLUC14
+         ukoeWBQ8MNMBhI8URivJq3KWyjGlRD4ihZn4HseGtYcdtMZc5yDxaVZBCOzQUhnOlHfU
+         Nqxw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AFqh2krxL7jzQ3p8WJQv6NZ1U3BMUUIUtqWRNNkgdcAEgeKp6VzLY1EH
-	fEFP6LMguOyCsBooAmV1r0Y=
-X-Google-Smtp-Source: AMrXdXsU7pROqQM5x9rw4uYsTPmvNrrPBkgLxjB8GV4Xwk9JboYZ2zBe1e9UYT3xXlGZaxJ6BYbb0g==
-X-Received: by 2002:a05:6402:3714:b0:484:af15:bd39 with SMTP id ek20-20020a056402371400b00484af15bd39mr7467684edb.339.1673878078348;
-        Mon, 16 Jan 2023 06:07:58 -0800 (PST)
+X-Gm-Message-State: AFqh2kpeiwBilXv/zSzy1BYEp2YkOTFgHwMgHjSUeQx/VGsk7qDdCr/p
+	uHlMr/sCrMeboCGpszyh5cM=
+X-Google-Smtp-Source: AMrXdXulw5v1Hm+XSnY0W9Gqtpck/IMFTz0hDWRtFtXb9rB0oOSdQ/haLQmB2Ph7yEf5DzVUPMUpAA==
+X-Received: by 2002:a92:dc0a:0:b0:300:f5ab:3ff2 with SMTP id t10-20020a92dc0a000000b00300f5ab3ff2mr382039iln.13.1673982895475;
+        Tue, 17 Jan 2023 11:14:55 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:906:94ce:b0:7ae:83f4:3bed with SMTP id
- d14-20020a17090694ce00b007ae83f43bedls7221312ejy.2.-pod-prod-gmail; Mon, 16
- Jan 2023 06:07:56 -0800 (PST)
-X-Received: by 2002:a17:907:cc1d:b0:871:d59d:4f54 with SMTP id uo29-20020a170907cc1d00b00871d59d4f54mr1019328ejc.27.1673878076611;
-        Mon, 16 Jan 2023 06:07:56 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1673878076; cv=pass;
+Received: by 2002:a05:6e02:dee:b0:30b:f63e:3073 with SMTP id
+ m14-20020a056e020dee00b0030bf63e3073ls4686086ilj.5.-pod-prod-gmail; Tue, 17
+ Jan 2023 11:14:54 -0800 (PST)
+X-Received: by 2002:a92:c011:0:b0:30d:859b:156a with SMTP id q17-20020a92c011000000b0030d859b156amr3537611ild.16.1673982894747;
+        Tue, 17 Jan 2023 11:14:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1673982894; cv=none;
         d=google.com; s=arc-20160816;
-        b=ha8WWnAObvC2WtJVBqQ6xXrjujmLlZ5JI0HQqJtvJ7UxZOwQ5SXPCGlffe3On13OB6
-         rVQNnUzfhgI3Ka+07vYZOYJQbWEqdUloHdPEJCmxqeFpu0Z8ief11CnUljwxx3uvtthD
-         8qqhT1XPgEWX0sh6U3WjkNzDhEr/rEevZu3kzougwbrvnqhbZP6qTqnHQvyLNIy4nEcQ
-         oz2Ouo2k4EEPBdjSVP7vT94QtVoSdkZ1n5h0wWhdmy8KKG4XqLZ8k25DpixW+5LtRTT7
-         xhZzJjaXW6WQPdsHkzMj/VeIRigZIFHCIiT1wDKJdVxwlxBOHXbE4gvy5IdnjOd67hU3
-         XnDA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:date:message-id
-         :dkim-signature;
-        bh=tffPhnHqjXSn7jq2F5r4Ff3PLV0oHGbQ8JzMe1lSbS4=;
-        b=VWkx5th5OCpwtAV2Qd/NzvWS1mA8SURIL7BpjqmBxYxEEIqVQTARFDj+WRt9g+ZHlg
-         G5kZEhqZxaBhDYSwRo1H6KoWgYB+slMa//8auuNe3zUlFAhyu8GUkuXTbO1ZLrXBnFif
-         N9VmfmSWzW1TMs4/a7YtkVb4tCw3YU5L+oJlc4i/42AoYye/0jJw5YGKhUTc1mWem8gi
-         IkmcXh5O0Nk70HyGCouTe7VaYogD50vBrM8nORw+nrYb5bvMBZ3BV37LVcC7cyRTv4iF
-         Wjji1Se0JT68PmQlPWN8a/63rbbysSZL3kTNoNc3TrfXxKbr5EagCtIjN/jCZUFGJvrX
-         706Q==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@siemens.com header.s=selector2 header.b=IIb51DCO;
-       arc=pass (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass fromdomain=siemens.com);
-       spf=pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.13.81 as permitted sender) smtp.mailfrom=jan.kiszka@siemens.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=siemens.com
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com (mail-he1eur01on2081.outbound.protection.outlook.com. [40.107.13.81])
-        by gmr-mx.google.com with ESMTPS id gv11-20020a1709072bcb00b0086728259fb3si410359ejc.1.2023.01.16.06.07.56
+        b=K4HeDelGiVcO0qKT5qIW2bjlzjKCU1LtBdF3+q121aphw5ogCdwPguXDIXYrhYifVz
+         OdoUMG3ZjvE3AOEdtN2NNnFzblwRID/qZBnqPnve2QEZYhbNemhLi0iNoaYmrKVMGCbg
+         q/2OQGeSAgPjN4a17tZ/LiKs+scbWG5yQiI3vS5llxKaUe5qF7F3gXUSy96MeAahSkFp
+         auc8cVMsS+fp6c/7UxcOj3P7chtWOJZ1/Gcxv6z9B5dsBOT55C9KmaWOolNmo8alf2RN
+         RRwTL5zgBt8DJkGG4IntGiXkTaZwArATYK393Q9aJ9hDT1QSRz/oW0AQ+lonoJooK10b
+         PeMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1ZXUOzgnGIHus9BaLfS8Qh2xDNS2DUKXwhiOcmF+H0k=;
+        b=YAwvsob3dwccIgbmZxoWnAOi4jgdrNlFeM43QcIDQkBiHHMr853Vsiy6Md4zsS/8/X
+         IvnrYQacrrGMuqR0SO0lyC3AQL0bk023aFANeYwE/lnZCT3Ncq+WAelkECy0/YXv66JR
+         in/rEw3/uGTR5umPdNnTyVquwPOTTm1NNB5TkMe96ZMkpRjiRvex3Q3yb15wpEovgAFQ
+         A7ALtapPbGi6wb+WLT2HmMitBDOV3cttklRkEDwctSYM0kr5PCTgtDPdh4SieswuPXjI
+         v4zoCa8vT88tYh3z+LY9MocF1J18xdfs4aW1UkSKwODGYqtwa5DKfvhunHnSwWBuMACf
+         FdCg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b=nl83aVmx;
+       spf=pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b2e as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com. [2607:f8b0:4864:20::b2e])
+        by gmr-mx.google.com with ESMTPS id r5-20020a922a05000000b0030eeee2e081si1089746ile.5.2023.01.17.11.14.54
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Jan 2023 06:07:56 -0800 (PST)
-Received-SPF: pass (google.com: domain of jan.kiszka@siemens.com designates 40.107.13.81 as permitted sender) client-ip=40.107.13.81;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hoWimT+8WGiwoek1UwmOziPbDOG7wGvW61j2F+9jepTN90+TCevS5WIXk8EY5At+pfSTIzKPtfruUX6Lfb9I+4tFLJeve0cDYJusKktZIHfIXcfWd9XmRKTxh6UkHe7zcVE3hP5WJ/ONUP3ZaYWRaJFyhyAvLBECVcFCO0G1ip4DF1YqMpMDbgB/AKPXiIBNfy/EunQD7rg/+7I1D+cjj3vXCLdoXXX55xiB6n9MX4G7/ppA4UbZVdqehwVt1UwSmGQ+/KZ6Mjq5bZINiisVOqlf5gVhAKqLiKerfkmV4wg8YgI2WYykKY+mwTb7nvODvm8EORfFNALmgY8m2u7y4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tffPhnHqjXSn7jq2F5r4Ff3PLV0oHGbQ8JzMe1lSbS4=;
- b=bPi3rDj8D8n5yypjc7hcb+bVAbL3fGMVhxvppPkqJWwjcKfLxwerDKZUMKvbzzxkC+ZnuZBiseXEh6mnqx/AmbHIf0g0g9qpmHrBss57fop3gVWMewUhQb08VgzSrmkeo0YDIgPaPSkpwSZgSUrWAdKuKa4/A1Q0+SzhclFouU0b/S8iFZM/ScPV5h8/z1+rzM7SCgjG4RTEGeJ/ffNho0vRYMxoFrd3EWLTmvVTRXfVch6dOupl7zScZQihNKqS9BTsu0Ezy8b35Dyocww+67O9ETRo+1ZbAgxhqrJFU92lSdRP8Sw09QDZioCaqdASFmbc7ehnmx71IzV8OkMWbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siemens.com; dmarc=pass action=none header.from=siemens.com;
- dkim=pass header.d=siemens.com; arc=none
-Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:588::19)
- by AS2PR10MB7083.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5e9::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Mon, 16 Jan
- 2023 14:07:55 +0000
-Received: from AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::784b:e95b:b855:dcc5]) by AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::784b:e95b:b855:dcc5%7]) with mapi id 15.20.5986.019; Mon, 16 Jan 2023
- 14:07:54 +0000
-Message-ID: <a3144999-eb39-c18d-dc67-e38a5c2078af@siemens.com>
-Date: Mon, 16 Jan 2023 15:07:46 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 3/3] pyjailhouse: support automatic architecture
- detection
-Content-Language: en-US
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
- jailhouse-dev@googlegroups.com
-Cc: Stefan Huber <stefan.huber@oth-regensburg.de>,
- Andrej Utz <andrej.utz@st.oth-regensburg.de>
-References: <20230110211444.9897-1-ralf.ramsauer@oth-regensburg.de>
- <20230110211444.9897-3-ralf.ramsauer@oth-regensburg.de>
-From: Jan Kiszka <jan.kiszka@siemens.com>
-In-Reply-To: <20230110211444.9897-3-ralf.ramsauer@oth-regensburg.de>
-Content-Type: text/plain; charset="UTF-8"
-X-ClientProxiedBy: CH0P221CA0031.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:610:11d::13) To AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:588::19)
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Jan 2023 11:14:54 -0800 (PST)
+Received-SPF: pass (google.com: domain of prabhakar.csengg@gmail.com designates 2607:f8b0:4864:20::b2e as permitted sender) client-ip=2607:f8b0:4864:20::b2e;
+Received: by mail-yb1-xb2e.google.com with SMTP id 188so35295756ybi.9
+        for <jailhouse-dev@googlegroups.com>; Tue, 17 Jan 2023 11:14:54 -0800 (PST)
+X-Received: by 2002:a25:f305:0:b0:7b8:6d00:ef23 with SMTP id
+ c5-20020a25f305000000b007b86d00ef23mr571610ybs.119.1673982894244; Tue, 17 Jan
+ 2023 11:14:54 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS4PR10MB6181:EE_|AS2PR10MB7083:EE_
-X-MS-Office365-Filtering-Correlation-Id: a154ff36-f95f-4e0a-ec50-08daf7cb0fdc
-X-LD-Processed: 38ae3bcd-9579-4fd4-adda-b42e1495d55a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zgHFKHHPozkiMc/O9004rb/5vC4I9Vs916WPuYhVFg7r6RNaHwelYSIZiaMQrPKUkgCMivpRBP3RFSlSvnNLQKPlwg4cDokJ/UJeZglI2KVGKyDl1UQ0XNoXQgHXCQpmiGYtZVa43oLe9pHOeap6XCpNmyuXeufIEcoHttTUm8a8W1KxKW9lhxz5SvwKld05ZWCjeXvEV38Bpx5B0oAuW17q3h9X/wFvYeQhH59o4Du+kGZlaF0UonPIVqqZC37MkHeNz/HLInN/e74e5aAuAqtHMNiH4nMXeU6nhICRD18xkDa0J48u4xBI7zTeZpy1MXmI1t16IOGdnLzs7aXu4N7q6nHUHo8VHpXUBNYrBR36o8Kh+ezHlOMUdrlyaeNMFXbXGfnEDSLs1Jkl+R/9UmR34C4Y0RDe9hnW9LCf1yvd/FCOHz6+ixZs0Q1b5ixAIw1fmcgwtljxLQb8iuQFiONWsz4j7A0iPrVQ2si9wqtuBdYCr0h6vQCem/UidB0WTvxNsUuC70AAN0JhrhjZIP2gMCGUZ2uRq1ty/WhRVxQ/a2aitX2YFAZ0Q0+0LrzL9JQ5UUlfYSEPl+bGHo+QhXOMB9b9ir0uM0a3Gb/pVmK8XGZGwRC6S7VEWcrHoX0vEP85gNA0nBpCDHqE4ecNXI9oHprdNRDssX8MfN9dELKIMZek3P0McKHBK06khwVXnq5bPhzb44NlCFoWFXP/8vp/4GPAbZp42d6r+lB8sV8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(451199015)(6506007)(36756003)(6666004)(6512007)(26005)(53546011)(6486002)(82960400001)(186003)(31696002)(86362001)(83380400001)(2616005)(478600001)(38100700002)(5660300002)(8936002)(31686004)(4326008)(2906002)(316002)(66946007)(66476007)(8676002)(66556008)(44832011)(54906003)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnNDMGxXNWpua1gvTE04Wmg4M3V2dGlOakN1NWZvRFgyMGtLaExFNlpJdXdy?=
- =?utf-8?B?dDIrRjA1SU1vNU11ay96blpzOVEwdUtLTnBTQlNBcjYzNmtIVnVUcEV0TWQ5?=
- =?utf-8?B?WnNZL0JiYUpwb0lMdnpvR3BUWXEvSUUreGF2b00vSWIzanB3RjB5MU1CSDBF?=
- =?utf-8?B?QWtMb25Ja1hzN3ozWVc4OE5sTkxsQmZ0aTRkYUhzY05RQys4aWVuekVHeURF?=
- =?utf-8?B?R25ybG9hM1hXdUVYc1RaNGR4bGFXaEZBSzNKUTJFVlBhT3dubjZGU0JBdkVN?=
- =?utf-8?B?dWZ2Vk14VmtLejc4TkVWZGpjM0VUOGxTTVRpN1Rnc0E1M3VhNXdaWmxaOFZ6?=
- =?utf-8?B?cW9KNmNqbzZkUnhSanlKWmU4VHNXcXlFbEtCRjZhOTNEUW5FTFlPL0lrYjg5?=
- =?utf-8?B?U1M3ZGdTUm9WVXgvdEpGNFJiR3dKWjZZbWVVaXdCV2c1VXVtdE0rakNSWFRz?=
- =?utf-8?B?Zndid1E2aTFRcHZFeUYzbU81NzlBa2lVazhvZ3hjNXZsTUk5elpZTSt0QlZm?=
- =?utf-8?B?Y0JKVEVuS0RlUk92eWpCSE5vQXM4YVJyOStwZ0VheXpLWHRTazBvd05YVkEz?=
- =?utf-8?B?Ym9PY21SeGgzZEJOWjF0L1pyTGIxWEJhbTdhVW9NODZEWlRaRGhNU0o0M285?=
- =?utf-8?B?YXRCN1JNWW4xZHBpdEdEUmxOc1F0d0FvcElFRUoyRHJkOEl2VUdSOUdtZ2ZH?=
- =?utf-8?B?WnhvdnV5d0ZudjlOeFI0UmphaUVTL2pIVmdISVZHU09lYUJPS1h3WVAyNWJV?=
- =?utf-8?B?bUloOCt2cnk5OFBsRUdIWFhUNkVDVE5NczRyL28vc0ZQZVZJSWg2NUdZS0pF?=
- =?utf-8?B?R1VjYU8wT3hKN2F4bjVVSnI3SDA1YWM2UTViaVhUSVR1Mk5LVzhhOWx5YWFJ?=
- =?utf-8?B?T3F2alpyM1dka3ZTWlNYNHZRczFqU0JSbHp2eFRnVS9MVnNxMFVkZHcvajVD?=
- =?utf-8?B?aUxMKzAxVi9BM3ZvaUhnOWhYVWtCcVVqY2F3YnJpaWZzZHVoMVJJMDlrczRl?=
- =?utf-8?B?aHV3R25YYklOR005bkZ2RXJuY3I5TXM4K2V2SDhJS2E1YmdBYTlIa3h5dzhW?=
- =?utf-8?B?d1lvc21BbHlFd0tiUVlrSHB6UkFWYWxCYU5jOGdYcVpyc1JqNHF5L2NGaWhI?=
- =?utf-8?B?RmNzR0xrMjEwRldDRlppT09HcTFwQVl5SS91akM1UzdUdGZiaE16aThVREc0?=
- =?utf-8?B?biszSlIrMFRVajRCZ3UwVG9rRlViaEt6czJ0a3NadW80dUdNTUtvNmdHM1BK?=
- =?utf-8?B?TkFzMEk1N2FlQU00VFE0a28zZ2NrNWRiNUpmVktCUGM0K1JPVE8wbHR6aUdm?=
- =?utf-8?B?cU9tZWR0ZTVyOGNVeWc5TlYrNllyeHExa2JGbmdmKytSa1NhdVdrV2p0SU5h?=
- =?utf-8?B?TjJ4WDNtUmpXRXVBbmpqR0VUaFpKUnI3WCtqVzFaaS92Y0wybDVwcGxieGZj?=
- =?utf-8?B?R29kSmNYcnF5S2xKZndDcWo2cWU0c3NhZzRQWTh1azdUNDJZUFNFcnNueWl2?=
- =?utf-8?B?L0Vxc0R5eUN3aEw5eURJOCtpYi9JY0ZpMVJpdng1OUREd212RVRodEh0ZGh5?=
- =?utf-8?B?U3BKUEQ5L2E1MUlDd0tJNjZzREUzeGZPT3hrK1k2aXF5ZHBuM3ArMWdwYXl6?=
- =?utf-8?B?R3ZGUm1OVE8zWXFLd2JNUk9KeTNDZlZtMXRKZXhqMzBZTFd3UU1rR0dldWts?=
- =?utf-8?B?YmJlWGp5Q3B1MHpuK0RSY2l5REFYbElHdEM5TXNNNG8wTklMVHlOdjBKalp4?=
- =?utf-8?B?MGxwM2g1TTg1MkFOekdHQUpsOS9XNEVLUTNDOW1Va0hNU0ZyT0NMMzZISjhP?=
- =?utf-8?B?RE0rcktiY2c4cEZRcW1LRndZWUlQckRMajE3alFaNUNDN0MzZ2MydlNhTG5v?=
- =?utf-8?B?V3lEQkthamo4ZjJrR3g4YnZZM293NDMrMlIzRnVQMzgxQnVWZ2R4blAwYWhx?=
- =?utf-8?B?cElldHJNRU13Q05ua3FLdHNkUG1KaFRZbHlleDc1SkgxM29rRVJnUDRVbGdX?=
- =?utf-8?B?WjlOZllZMFJIbnVqWERtWUE4cHhTczJTOHcrOXZxdElPSVRDTFdrTzlJYVp0?=
- =?utf-8?B?eFRWMHkvdE5Ma1NmWGYzWkI0elpkNk41R1ErT1pmL0owTUc0MjZYb0tNVkcz?=
- =?utf-8?B?MnpNelExa0l6RE5ValV0Y3J2ODZRS01ZK3p3MUVMcmF5TVZ1SjNBa0oxL1V5?=
- =?utf-8?B?bnc9PQ==?=
-X-OriginatorOrg: siemens.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a154ff36-f95f-4e0a-ec50-08daf7cb0fdc
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR10MB6181.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 14:07:54.7122
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 38ae3bcd-9579-4fd4-adda-b42e1495d55a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AaPS+5/W/W+kidEN6YsCt2Bsj5SmMfCR8xfSgoUHKPiagCFLXwHwYSU+xvJ2UsYsyo+8WTUKO2U0yPAgglMTkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7083
-X-Original-Sender: jan.kiszka@siemens.com
+References: <20221106230523.22567-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CA+V-a8uMPfCWMPxJ90AE=dzLSiEEk61Pn4Oxicpv_Sxd9hVhHg@mail.gmail.com>
+ <a9e1e756-978a-f2de-c4cd-838f1417a8fc@siemens.com> <CA+V-a8u7x=JW1XE8xAcj_uH4EBw81mS8Lk3t6ZKf+ScgeiyO5w@mail.gmail.com>
+ <c81bdfb1-055a-071f-8838-66b35173241b@siemens.com> <CA+V-a8vGTk42JrrN6_5N21i_mcUgsuzVc+v0wT1VQUaqmjcrEA@mail.gmail.com>
+ <e26f0792-ec58-9edd-1bce-dcc8a6df0382@siemens.com>
+In-Reply-To: <e26f0792-ec58-9edd-1bce-dcc8a6df0382@siemens.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 17 Jan 2023 19:14:28 +0000
+Message-ID: <CA+V-a8t3nrEiDV9b--ktgAKy3UVVUrg32N6O9gT=J6NRFdQyDA@mail.gmail.com>
+Subject: Re: [PATCH RESEND 0/3] Add support for Renesas RZ/G2M
+To: Jan Kiszka <jan.kiszka@siemens.com>
+Cc: jailhouse-dev@googlegroups.com, 
+	Chris Paterson <chris.paterson2@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: prabhakar.csengg@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@siemens.com header.s=selector2 header.b=IIb51DCO;       arc=pass
- (i=1 spf=pass spfdomain=siemens.com dkim=pass dkdomain=siemens.com dmarc=pass
- fromdomain=siemens.com);       spf=pass (google.com: domain of
- jan.kiszka@siemens.com designates 40.107.13.81 as permitted sender)
- smtp.mailfrom=jan.kiszka@siemens.com;       dmarc=pass (p=NONE sp=NONE
- dis=NONE) header.from=siemens.com
+ header.i=@gmail.com header.s=20210112 header.b=nl83aVmx;       spf=pass
+ (google.com: domain of prabhakar.csengg@gmail.com designates
+ 2607:f8b0:4864:20::b2e as permitted sender) smtp.mailfrom=prabhakar.csengg@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -219,168 +151,63 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-On 10.01.23 22:14, Ralf Ramsauer wrote:
-> Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-> ---
->  pyjailhouse/config_parser.py | 23 ++++++++++++++++++++---
->  tools/jailhouse-config-check | 30 ++++++++----------------------
->  2 files changed, 28 insertions(+), 25 deletions(-)
-> 
-> diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
-> index e60b2ce9..2a59b651 100644
-> --- a/pyjailhouse/config_parser.py
-> +++ b/pyjailhouse/config_parser.py
-> @@ -20,6 +20,21 @@ from .extendedenum import ExtendedEnum
->  
->  # Keep the whole file in sync with include/jailhouse/cell-config.h.
->  _CONFIG_REVISION = 14
-> +JAILHOUSE_X86 = 0
-> +JAILHOUSE_ARM = 1
-> +JAILHOUSE_ARM64 = 2
-> +
-> +JAILHOUSE_ARCH_MAX = 2
-> +
-> +
-> +def convert_arch(arch):
-> +    if arch > JAILHOUSE_ARCH_MAX:
-> +        raise RuntimeError('Configuration has unsupported architecture')
-> +    return {
-> +        JAILHOUSE_X86: 'x86',
-> +        JAILHOUSE_ARM: 'arm',
-> +        JAILHOUSE_ARM64: 'arm64',
-> +    }[arch]
->  
->  
->  def flag_str(enum_class, value, separator=' | '):
-> @@ -163,6 +178,7 @@ class CellConfig:
->                  if revision != _CONFIG_REVISION:
->                      raise RuntimeError('Configuration file revision mismatch')
->              self.name = str(name.decode().strip('\0'))
-> +            self.arch = convert_arch(self.arch)
->  
->              mem_region_offs = struct.calcsize(CellConfig._HEADER_FORMAT) + \
->                  self.cpu_set_size
-> @@ -242,7 +258,7 @@ class SystemConfig:
->      _ARCH_ARM_FORMAT = '=BB2xQQQQQ'
->      _ARCH_X86_FORMAT = '=HBxIII28x'
->  
-> -    def __init__(self, data, arch):
-> +    def __init__(self, data):
->          self.data = data
->  
->          try:
-> @@ -253,6 +269,7 @@ class SystemConfig:
->                  raise RuntimeError('Not a root cell configuration')
->              if revision != _CONFIG_REVISION:
->                  raise RuntimeError('Configuration file revision mismatch')
-> +            self.arch = convert_arch(self.arch)
->  
->              offs = struct.calcsize(self._HEADER_FORMAT)
->              self.hypervisor_memory = MemRegion(self.data[offs:])
-> @@ -273,7 +290,7 @@ class SystemConfig:
->                      self.iommus.append(iommu)
->                  offs += IOMMU.SIZE
->  
-> -            if arch in ('arm', 'arm64'):
-> +            if self.arch in ('arm', 'arm64'):
->                  (self.arm_maintenance_irq,
->                   self.arm_gic_version,
->                   self.arm_gicd_base,
-> @@ -282,7 +299,7 @@ class SystemConfig:
->                   self.arm_gicv_base,
->                   self.arm_gicr_base) = \
->                       struct.unpack_from(self._ARCH_ARM_FORMAT, self.data[offs:])
-> -            elif arch == 'x86':
-> +            elif self.arch == 'x86':
->                  (self.x86_pm_timer_address,
->                   self.x86_apic_mode,
->                   self.x86_vtd_interrupt_limit,
-> diff --git a/tools/jailhouse-config-check b/tools/jailhouse-config-check
-> index d6ea7079..95de6fd4 100755
-> --- a/tools/jailhouse-config-check
-> +++ b/tools/jailhouse-config-check
-> @@ -37,8 +37,6 @@ class ResourceRegion(config_parser.MemRegion):
->  sys.argv[0] = sys.argv[0].replace('-', ' ')
->  
->  parser = argparse.ArgumentParser(description='Check system and cell configurations.')
-> -parser.add_argument('-a', '--arch', metavar='ARCH',
-> -                    help='target architecture')
->  parser.add_argument('syscfg', metavar='SYSCONFIG',
->                      type=argparse.FileType('rb'),
->                      help='system configuration file')
-> @@ -52,36 +50,23 @@ except IOError as e:
->      print(e.strerror, file=sys.stderr)
->      exit(1)
->  
-> -arch = args.arch
-> -if not arch:
-> -    arch_str = os.uname()[4]
-> -    if arch_str in ('i686', 'x86_64'):
-> -        arch = 'x86'
-> -    elif arch_str == 'armv7l':
-> -        arch = 'arm'
-> -    elif arch_str == 'aarch64':
-> -        arch = 'arm64'
-> -    else:
-> -        arch = None
-> -if not arch in ('x86', 'arm', 'arm64'):
-> -    print('Unsupported architecture', file=sys.stderr)
-> -    exit(1)
-> -
->  print("Reading configuration set:")
-> -
->  try:
-> -    sysconfig = config_parser.SystemConfig(args.syscfg.read(), arch)
-> +    sysconfig = config_parser.SystemConfig(args.syscfg.read())
->      root_cell = sysconfig.root_cell
->  except RuntimeError as e:
->      print(str(e) + ": " + args.syscfg.name, file=sys.stderr)
->      exit(1)
->  cells = [root_cell]
-> +print("  Architecture:  %s" % sysconfig.arch)
->  print("  Root cell:     %s (%s)" % (root_cell.name, args.syscfg.name))
->  
->  non_root_cells = []
->  for cfg in args.cellcfgs:
->      try:
->          cell = config_parser.CellConfig(cfg.read())
-> +        if cell.arch != sysconfig.arch:
-> +            raise RuntimeError('Cell architecture mismatch: %s' % cell.arch)
->      except RuntimeError as e:
->          print(str(e) + ": " + cfg.name, file=sys.stderr)
->          exit(1)
-> @@ -162,9 +147,10 @@ if len(iommu_resources) > 0:
->                      ret=1
->      print("\n" if found else " None")
->  
-> -print("Missing resource interceptions for architecture %s:" % arch, end='')
-> +print("Missing resource interceptions for architecture %s:" % sysconfig.arch,
-> +      end='')
->  found=False
-> -if arch in ('arm', 'arm64'):
-> +if sysconfig.arch in ('arm', 'arm64'):
->      arch_resources = []
->      if sysconfig.arm_gic_version == 2:
->          arch_resources.append(ResourceRegion(sysconfig.arm_gicd_base, 0x1000,
-> @@ -183,7 +169,7 @@ if arch in ('arm', 'arm64'):
->      else:
->          raise RuntimeError("Unknown GIC version: %d" %
->                             sysconfig.arm_gic_version)
-> -elif arch == 'x86':
-> +elif sysconfig.arch == 'x86':
->      arch_resources = [ResourceRegion(0xfee00000, 0x1000, "xAPIC")]
->      for irqchip in root_cell.irqchips:
->          arch_resources.append(ResourceRegion(irqchip.address, 0x1000,
+Hi Jan,
 
-Thanks, all 3 applied to next.
+On Mon, Jan 16, 2023 at 5:26 AM Jan Kiszka <jan.kiszka@siemens.com> wrote:
+>
+<snip>
+> > I had couple of question,
+> > 1: For the pci_mmconfig_base should this PA? (If PA what range should
+> > be ideally selected and should this be reserved in the root cell?)
+>
+> If you have a emulated PCI host controller (which is the common case on
+> non-x86), this address should be free in the physical range of the target.
+>
+> > 2: How do we calculate vpci_irq_base?
+>
+> There have to be up to 4 unused (but GIC-wise supported) interrupts at
+> that base.
+>
+> > 3: When do we need to configure the stream_ids?
+>
+> Only if you configure an SMMU. Do you have one and plan to use is?
+>
+> > 4: For the IVSHMEM 00:00.0 (demo) the PA range should this be reserved
+> > in the root cell?
+>
+> The PA should be physical RAM that is otherwise not used by any cell or
+> the hypervisor itself.
+>
+> > 5: And similarly for IVSHMEM (networking) the PA range should this be
+> > reserved in the root cell?
+>
+Thanks for the pointer that did the trick. I am now able to ping from
+root/inmate and vice versa.
 
-Jan
+* For the Linux (root/inmate) IVSHMEM what is the test case that needs
+to be run? (Ive done devmem read/write on root & inamte cell)
+* I updated to the latest tip of next and now I am seeing below issue:
+  ** Previously "jailhouse config check -a arm64
+renesas-r8a774a1.cell" worked, now when I run "jailhouse config check
+renesas-r8a774a1.cell" I get the below output:
+        root@hihope-rzg2m:~# jailhouse config check renesas-r8a774a1.cell
+        Reading configuration set:
+         Architecture:  x86
+         Root cell:     Renesas HopeRun HiHope RZ/G2M (renesas-r8a774a1.cell)
+        Overlapping memory regions inside cell: None
+        Overlapping memory regions with hypervisor: None
+        Missing PCI MMCONFIG interceptions: None
+        Missing resource interceptions for architecture x86: None
+        ^^ Architecture detected here is x86 which isnt correct.
+* Previously  "jailhouse enable renesas-r8a774a1.cell" worked but
+after update I am getting below error:
+        jailhouse: Configuration architecture mismatch
+        JAILHOUSE_ENABLE: Invalid argumen
 
--- 
-Siemens AG, Technology
-Competence Center Embedded Linux
+Cheers,
+Prabhakar
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a3144999-eb39-c18d-dc67-e38a5c2078af%40siemens.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CA%2BV-a8t3nrEiDV9b--ktgAKy3UVVUrg32N6O9gT%3DJ6NRFdQyDA%40mail.gmail.com.
