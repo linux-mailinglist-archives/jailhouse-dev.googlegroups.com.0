@@ -1,71 +1,123 @@
-Return-Path: <jailhouse-dev+bncBD2OND5J24FBB4OW6WPAMGQEXMV6Z2Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC4ILIEFEIINDYPVTYDBUBDGGHKC6@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D4168A371
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Feb 2023 21:15:47 +0100 (CET)
-Received: by mail-yb1-xb37.google.com with SMTP id k15-20020a5b0a0f000000b007eba3f8e3basf5778461ybq.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Feb 2023 12:15:47 -0800 (PST)
+Received: from mail-pl1-x639.google.com (mail-pl1-x639.google.com [IPv6:2607:f8b0:4864:20::639])
+	by mail.lfdr.de (Postfix) with ESMTPS id D57DF68A3A6
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Feb 2023 21:38:43 +0100 (CET)
+Received: by mail-pl1-x639.google.com with SMTP id jb3-20020a170903258300b0019656c8cf8dsf3059963plb.17
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Feb 2023 12:38:43 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1675456722; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=FKOYVRV747x8PWjgzjq8oe/L+f2LTqBCLNK+ASg4PUSk1mOdMaT6GdbcZ2iK/35bxZ
+         A/+4RcDi8reYbhPCpB+iyC2jlnDOSY858UbAB4/4WgI78UwOLcAUsB2MKWkYiq0JNg43
+         N8iUdG4win7mvljGDywkPP45/xl3W2+Xz+jqqyjw1Rz2OEmHV0DxkP7iSUpDenUOqRUj
+         jJhHhVK5OGtm07nna7qcYaNviArKQv3Z1R79OcXxtKux4YpvExBvxMGuRxTNSSOviAj7
+         lFRg1a3yhNmCuvHyxEIFtE+xPhlf0AWUn4ttRyiVs16MhN4v+8XHH+ZFIjrjt9Pkm5n1
+         qn5w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=XARQrS5Y5R7VJlpAKPRMLo7YnJBga9Pe8vsfHpiPgg4=;
+        b=yiA/qF1QEo4T1Tti3BebzdXZF1SdH3urQUyCEFJ2eST6N/0AdBPe7eNeVYYi9cjGgc
+         +1TUwOf5SxsqfpcIzCbyu80PcNU+Foj88fTICVkn7fY1zH9OFwjw88aB9uimjOWpiL94
+         wf75055fFpj4i/h4yVwK94+WsWCk2LrpIEsHjPDNhlOO2vwPOCe+/IjTNcrmkC+p0EsP
+         5CGvH8VZe64OyGEKauhSu+2Df3+ussjt/QK6eJzz6Fn9OjrWa2qzp+Ac+9skT0eEYv7x
+         b6/eehfYovZPGEB5mJlh7NZ6BRaj5+CPlGse+CiL+ji+NCwid6UrBUIdSNI8f8TqX1YU
+         yJdQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@foundries.io header.s=google header.b=FcsUogDk;
+       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::31 as permitted sender) smtp.mailfrom=ricardo@foundries.io
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UatJRlK6o9qDoxfRevCfRiXl72sP0YMHEd56DVtYSSM=;
-        b=asXhJ33oUBjI79nvbCCE23BFJGzlSIIJZ9Qm3AG8izAMEC/8jhMaQXkXxfrW60VsGv
-         CdFyEauQYKsjzlwesr+A6pcV58no2b8Sp1OR0/Ci76wpLtxPIibSrPPEuEYXuSnGURh+
-         R/YoZK9NMO0LW6CFyTLIyCtAP8v+syuKNfKnFmyZZ3xXprbm5p7NHgzPrAF/AzncIZJf
-         dsavNJyb+nzsW2n5rw0Xp0fTPNjg88VHkKIC+YQGfTKx36vk198ZBOnogeEB4H2e5GXh
-         DDElZv1IquhKvNaMIG38wizWLHX3jzQbFR7yJ709IX8/vWomZPmuUGB/9DJ0owTjm/eZ
-         13PA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UatJRlK6o9qDoxfRevCfRiXl72sP0YMHEd56DVtYSSM=;
-        b=gVmhYqvLIjAdwZGkQv+G0o3Evqc28Z2xR/WLyzYMxeNnl5a1mFvfkZYjOK5Ufu1ctt
-         atek0Pae7JrtQgmXGZktAAkd/zf5B73WLunx95svXdG75zc3eKspDH1YEuKwOTrICE4H
-         T7MiXX3ZprM3vVDHj2qz83102kwhlAn/OAdz777yfSKsl6PhM+x5Yz4Um8htc13gIxgO
-         baB1zdqefFNthfUvsufoTWvKnoarG/PhLkqV7T8Zf5SYaUp8qPb8B3rW1vcTvHGpowuq
-         mggnO7XqIqlyezdoadnc5Jqa3G4Q8XSBNo3mc0jYzpPFvg3wtddyXDhEljhjebRUyljm
-         T7MQ==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:mime-version:message-id:date:subject:cc:to:from
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=XARQrS5Y5R7VJlpAKPRMLo7YnJBga9Pe8vsfHpiPgg4=;
+        b=l8o61HOto8DVkyKxGk7gjCwPI36/tCtxgtpMvGXrOvgwZudEiu5aQ2RvI+DB6dFpL1
+         t83/zcaJ099Bbd67Iyb40YA1z9HXOF9Xhkx7hkEZXISH1vfnVl0iHyUGtjdfA5HAjKP+
+         dRScCZvODOKn3wCp2IQex54RdbwsYwSUcYKRGswQf+0MkORZQntE0afJ1MLD/kXXiJTn
+         36nu6wViWM3RLhV8sNYe6PhG0Tutw24p2qHo0RXCF4/i9R17maeG7F4FjnrggIQetjEG
+         qMJh6uTJmlryoAMhakxuvbHiNBq1hyhURuN3KjTjROBhdKq9f0Wk5Nei++J7SpL3qI4e
+         GtxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UatJRlK6o9qDoxfRevCfRiXl72sP0YMHEd56DVtYSSM=;
-        b=dS+NuconnBzYxx+k9IVAs0x8MilOA0Q0taCseoaTA3yDomFOeqoNq/h7msAr7pRaJ9
-         AZcyulTL7Z4aiSkuUoEBhFbRkM/X/Vr8049xG73zEFMXRn+5NoUIAMJYZ/9Hxs9vTXcS
-         57R02D/UEU6IYhvolHMFDodjtxZybuZjP8fNLgWXkovl3ReqkvE1tt5wzH1dS7zTON3e
-         fH/rIrPb4ZI+ZuELbDK4Qg/Sz2tMSUQsDRsFKsoZwOgSWvMgszozdereU7rnkdBcJQ2Y
-         GZizLAeg/dP1Fb/Zc7JUFMphRNJiz/J7ximkxEWXjYp5JNHLioT/09ZkkG9CswKn6fSg
-         IDJA==
+         :x-original-authentication-results:x-original-sender:mime-version
+         :message-id:date:subject:cc:to:from:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XARQrS5Y5R7VJlpAKPRMLo7YnJBga9Pe8vsfHpiPgg4=;
+        b=3jmPRXIzcNQUIihV471XBVuATgNWw+BOVOLjhbdVJi3VJD0rAHAwsu+Otb+f63wN1u
+         px4RjQM85lZQBiw5g+WYB70jW9r7w0GLcBpeWkZmEWCyQlnHuLyUR5GHmcJ7Ydpf4210
+         wX6XnpkfTA965is9jb5KTugbK7WnL2ANwxbPnfoaw0JZ3SfFhFx/GEgJT7Hi06CiRHca
+         6GzO1VfXZJIgBOzuaku3BqN7nSLB8SNpZgwgolTSYVz83Q17x9Z21l65QG2AhBSX7NNz
+         4FeM0EZVrFdNPX35KkCVGM0Jns9AeSvZPkTzFvInd0xNwzTyV9rk4QJ0JQC87hw2tHB8
+         +VQQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKWhj+R5ljRKWeJY3msmcIxuzNx8w4i0KR+DQc1M3jdpdpBENlI/
-	cqo7/6JuUX22EVuuTvnyn18=
-X-Google-Smtp-Source: AK7set9QBWr65XTGy4bOPRo3NC2qKaP97LqH1BWtSogAZAh/X8WY/Dwz1XYNTUrvgScDoRXUUQQ3Tw==
-X-Received: by 2002:a25:ada1:0:b0:80b:5fb5:2d99 with SMTP id z33-20020a25ada1000000b0080b5fb52d99mr1227764ybi.221.1675455346161;
-        Fri, 03 Feb 2023 12:15:46 -0800 (PST)
+X-Gm-Message-State: AO0yUKUaOwy5SabJLAGnBFFHnfUoiscrhNXSBdmEcCSsf0WLgw9Hu5im
+	SqLNbxpsNvw06qjI6/6Eo9U=
+X-Google-Smtp-Source: AK7set94tnSWcPgcoczMtV+VAf12kE35Ez/TdbDEaVtqYkFgtuYPEcgbSUvTus8O/yvtlY0l+Uzp2g==
+X-Received: by 2002:a17:90a:15:b0:230:6ba2:614b with SMTP id 21-20020a17090a001500b002306ba2614bmr920759pja.100.1675456722000;
+        Fri, 03 Feb 2023 12:38:42 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:2303:0:b0:831:6ec8:688f with SMTP id j3-20020a252303000000b008316ec8688fls3560626ybj.11.-pod-prod-gmail;
- Fri, 03 Feb 2023 12:15:44 -0800 (PST)
-X-Received: by 2002:a25:b70d:0:b0:801:e42b:29da with SMTP id t13-20020a25b70d000000b00801e42b29damr1088225ybj.369.1675455344516;
-        Fri, 03 Feb 2023 12:15:44 -0800 (PST)
-Date: Fri, 3 Feb 2023 12:15:43 -0800 (PST)
-From: Michele Spina <michelespina99@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a7f72f6c-3bc0-40d4-99e5-3aa00c166671n@googlegroups.com>
-Subject: Linux to FreeRTOS IVSHMEMv2
+Received: by 2002:a17:90b:3910:b0:22b:eeb8:fd6a with SMTP id
+ ob16-20020a17090b391000b0022beeb8fd6als6560864pjb.1.-pod-control-gmail; Fri,
+ 03 Feb 2023 12:38:41 -0800 (PST)
+X-Received: by 2002:a17:902:d293:b0:196:6215:8856 with SMTP id t19-20020a170902d29300b0019662158856mr8856456plc.64.1675456720912;
+        Fri, 03 Feb 2023 12:38:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1675456720; cv=none;
+        d=google.com; s=arc-20160816;
+        b=H2PUnv7YcGdgowJW5jSx7lNC9qwlC1xTCtPkJ3n7qCnzNpYX2uzn0GprkT8TSdW5hc
+         PPrQTICLcfXCprS2+DXx6+VbJ7KDuriLtap0txEKJLRW0RImyiEMoAyxAAPyfLn/8fCD
+         ehbEpvdZ0/vqPh5GbVIlMvyPV5qlVcNM4JO8vcPqv8KjR3gJ7y8kMlSMZWZ7YYkeAwT/
+         BO0e4u+FOFLKH1Lwdk9GkUu++CSX7XcPPytDQbgwuEm6jXuRoMMuwPhek9dED66bhQTd
+         UCV+TQM+H83/lo0DPr5xy21/n1evnQOP5VDk1FC1aXnfH0jT1xypUwGhrom+R+XQG3vt
+         nG2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature;
+        bh=l8LKoqbFZ7OtFVNNPrtbQ61HVN+TD/O0ePav8Fc3uwU=;
+        b=DKs2EdFT04+Ei0ivlsrScxjB6BmKbe8QEtCPyWoHlfASuZybnb4T3kR2bQAehtUdSp
+         WZ7/iPKexevLj21uLU8ADDZj6Ybw60ipw2LtMCkzSNLOto4gRq8q+GSZrt7VHX0XWdsx
+         sA7hHiKN18aXV4T8FiFY9MHv/dc/iWkz9DLSO4ucyZT7HizA86pzZOpc7tblMxLARipQ
+         iqyG2YDuz4W7bb2OpUru8iuqQAAG620Mc6nowptyUX3z6sYj+W/0pcrltfM3uElo5i0/
+         ieLt0whKx4sH4LfIEwQte/s4bI81jn4dfpz5RuR4n9s1yxPQdoF+8HAvoKMgs7YIIeLd
+         uELQ==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@foundries.io header.s=google header.b=FcsUogDk;
+       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::31 as permitted sender) smtp.mailfrom=ricardo@foundries.io
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com. [2001:4860:4864:20::31])
+        by gmr-mx.google.com with ESMTPS id iy6-20020a170903130600b00189ad838080si264071plb.8.2023.02.03.12.38.40
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 03 Feb 2023 12:38:40 -0800 (PST)
+Received-SPF: pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::31 as permitted sender) client-ip=2001:4860:4864:20::31;
+Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-169ba826189so8086650fac.2
+        for <jailhouse-dev@googlegroups.com>; Fri, 03 Feb 2023 12:38:40 -0800 (PST)
+X-Received: by 2002:a05:6870:9107:b0:163:92dd:a164 with SMTP id o7-20020a056870910700b0016392dda164mr6890403oae.44.1675456719552;
+        Fri, 03 Feb 2023 12:38:39 -0800 (PST)
+Received: from localhost.localdomain ([2804:14d:badc:845d:dfac:d1f8:a7d2:47ed])
+        by smtp.gmail.com with ESMTPSA id k7-20020a056870350700b001631914e41asm1197748oah.33.2023.02.03.12.38.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Feb 2023 12:38:38 -0800 (PST)
+From: Ricardo Salveti <ricardo@foundries.io>
+To: jailhouse-dev@googlegroups.com
+Cc: jan.kiszka@siemens.com,
+	dannenberg@ti.com,
+	mranostay@ti.com
+Subject: [PATCH 0/4] Config updates for k3-am625-sk
+Date: Fri,  3 Feb 2023 17:38:27 -0300
+Message-Id: <20230203203831.46311-1-ricardo@foundries.io>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_2994_61634087.1675455343640"
-X-Original-Sender: michelespina99@gmail.com
+X-Original-Sender: ricardo@foundries.io
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@foundries.io header.s=google header.b=FcsUogDk;       spf=pass
+ (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::31
+ as permitted sender) smtp.mailfrom=ricardo@foundries.io
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,323 +130,28 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_2994_61634087.1675455343640
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_2995_891660382.1675455343640"
+Config updates for making it compatible with the latest TI BPS kernel.
 
-------=_Part_2995_891660382.1675455343640
-Content-Type: text/plain; charset="UTF-8"
+Tested with ti-linux-kernel cicd.dunfell.202301120721 (5.10 based) on
+am62xx-sk.
 
-Hi to everyone!
-I'm trying to implement an IVSHMEM example (for an university project) 
-between the Linux root cell and a FreeRTOS non-root cell on Zynq ZCU104.
-First of all, Jailhouse and cells have been successfully loaded on the 
-board by modifying the zcu102 configuration files on the repository.
-Now, I'm trying to add a IVSHMEM between the two cell but I don't 
-understand how to do that.
-In particular, I've not completely understood the interrupting mechanism.
-Once I define the IVSHMEM regions and the PCI device in the conf files, 
-when a guest program writes in the R/W region it automatically sends an 
-interrupt to the other peer or I have to use a known library that I haven't 
-find yet? The Doorbell register is automatically setted at configuration 
-time or I have to define it in the guest program?
-I tried to have a look on the demos for ivshmem but everytime I've seen a 
-lot of differences even in the basic libraries to include.
+Andreas Dannenberg (3):
+  configs: arm64: k3-am625-sk: Add crypto memory region
+  configs: arm64: k3-am625-sk: Switch inmate boot console alias to
+    serial3
+  configs: arm64: k3-am625-sk: Add GPMC memory region
 
-Thank you in advance,
-MS
+Ricardo Salveti (1):
+  configs: arm64: k3-am625-sk: add vtm memory node
+
+ configs/arm64/dts/inmate-k3-am625-sk.dts | 11 +++++----
+ configs/arm64/k3-am625-sk.c              | 30 +++++++++++++++++++++++-
+ 2 files changed, 35 insertions(+), 6 deletions(-)
+
+-- 
+2.34.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a7f72f6c-3bc0-40d4-99e5-3aa00c166671n%40googlegroups.com.
-
-------=_Part_2995_891660382.1675455343640
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi to everyone!<br />I'm trying to implement an IVSHMEM example (for an uni=
-versity project) between the Linux root cell and a FreeRTOS non-root cell o=
-n Zynq ZCU104.<div>First of all, Jailhouse and cells have been successfully=
- loaded on the board by modifying the zcu102 configuration files on the rep=
-ository.</div><div>Now, I'm trying to add a IVSHMEM between the two cell bu=
-t I don't understand how to do that.</div><div>In particular, I've not comp=
-letely understood the interrupting mechanism.</div><div>Once I define the I=
-VSHMEM regions and the PCI device in the conf files, when a guest program w=
-rites in the R/W region it automatically sends an interrupt to the other pe=
-er or I have to use a known library that I haven't find yet? The Doorbell r=
-egister is automatically setted at configuration time or I have to define i=
-t in the guest program?</div><div>I tried to have a look on the demos for i=
-vshmem but everytime I've seen a lot of differences even in the basic libra=
-ries to include.</div><div><br /></div><div>Thank you in advance,</div><div=
->MS</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a7f72f6c-3bc0-40d4-99e5-3aa00c166671n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/a7f72f6c-3bc0-40d4-99e5-3aa00c166671n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_2995_891660382.1675455343640--
-
-------=_Part_2994_61634087.1675455343640
-Content-Type: text/x-csrc; charset=US-ASCII; name=zynqmp-zcu104-root.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=zynqmp-zcu104-root.c
-X-Attachment-Id: a8e3b30a-ec8e-4bf1-aa80-88b90a87aa56
-Content-ID: <a8e3b30a-ec8e-4bf1-aa80-88b90a87aa56>
-
-/*
- * Configuration for the ZCU104 root cell. Copied from ultra96.c
- * and changed where necessary.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-	struct jailhouse_system header;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[6];
-	struct jailhouse_irqchip irqchips[1];
-	struct jailhouse_pci_device pci_devices[1];
-} __attribute__((packed)) config = {
-	.header = {
-		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-		.hypervisor_memory = {
-			.phys_start = 0x7fc00000,
-			.size =       0x00400000,
-		},
-		.debug_console = {
-			.address = 0xff000000,
-			.size = 0x1000,
-			.type = JAILHOUSE_CON_TYPE_XUARTPS,
-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-				 JAILHOUSE_CON_REGDIST_4,
-		},
-		.platform_info = {
-			.pci_mmconfig_base = 0xfc000000,
-			.pci_mmconfig_end_bus = 0,
-			.pci_is_virtual = 1,
-			.arm = {
-				.gic_version = 2,
-				.gicd_base = 0xf9010000, /*GIC (Generic Interrupt Controller) distributor register base*/
-				.gicc_base = 0xf902f000, /*GIC cpu interface register base*/
-				.gich_base = 0xf9040000, /*GIC virtual interface control register base*/
-				.gicv_base = 0xf906f000, /*GIC virtual cpu interface register base*/
-				.maintenance_irq = 25,
-			},
-		},
-		.root_cell = {
-			.name = "ZCU104-root",
-
-			.cpu_set_size = sizeof(config.cpus),
-			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-			.num_irqchips = ARRAY_SIZE(config.irqchips),
-			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-
-			.vpci_irq_base = 136-32,
-		},
-	},
-
-	.cpus = {
-		0xf,
-	},
-	
-	.mem_regions = {
-		/* IVSHMEM shared memory regions (demo) */
-		// state region
-		{
-			.phys_start = 0x7bf00000,
-			.virt_start = 0x7bf00000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ,
-		},
-		// R/W region
-		{
-			.phys_start = 0x7bf00000 + 0x1000,
-			.virt_start = 0x7bf00000 + 0x1000,
-			.size = 0x1000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		{ 0 },
-		{ 0 },
-
-		/* MMIO (permissive) */ {
-			.phys_start = 0xfd000000,
-			.virt_start = 0xfd000000,
-			.size =	      0x03000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* RAM */ {
-			.phys_start = 0x00000000,
-			.virt_start = 0x00000000,
-			.size =       0x7fb00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-	},
-
-	.irqchips = {
-		/* GIC */ {
-			.address = 0xf9010000,
-			.pin_base = 32,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-	},
-
-	.pci_devices = {
-		/* 0001:00:01.0 */ {
-			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-			.domain = 1,
-			.bdf = 1 << 3,
-			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-			.shmem_regions_start = 0,
-			.shmem_dev_id = 0,
-			.shmem_peers = 2,
-			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-		},
-	}, 
-};
-
-
-------=_Part_2994_61634087.1675455343640
-Content-Type: text/x-csrc; charset=UTF-8; name=zynqmp-zcu104-inmate-demo.c
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment; filename=zynqmp-zcu104-inmate-demo.c
-X-Attachment-Id: f9bd7b51-b553-48b3-9f14-097ff8c0f84e
-Content-ID: <f9bd7b51-b553-48b3-9f14-097ff8c0f84e>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Configuration for demo inmate on Avnet Ultra96 board:
- * 1 CPU, 64K RAM, 1 serial port
- *
- * Copyright (c) Siemens AG, 2016-2019
- *
- * Authors:
- *  Jan Kiszka <jan.kiszka@siemens.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-=09struct jailhouse_cell_desc cell;
-=09__u64 cpus[1];
-=09struct jailhouse_memory mem_regions[7];
-=09struct jailhouse_irqchip irqchips[1];
-=09struct jailhouse_pci_device pci_devices[1];
-} __attribute__((packed)) config =3D {
-=09.cell =3D {
-=09=09.signature =3D JAILHOUSE_CELL_DESC_SIGNATURE,
-=09=09.revision =3D JAILHOUSE_CONFIG_REVISION,
-=09=09.name =3D "inmate-demo",
-=09=09.flags =3D JAILHOUSE_CELL_PASSIVE_COMMREG,
-
-=09=09.cpu_set_size =3D sizeof(config.cpus),
-=09=09.num_memory_regions =3D ARRAY_SIZE(config.mem_regions),
-=09=09.num_irqchips =3D 0,
-=09=09.num_pci_devices =3D 0,
-
-=09=09.console =3D {
-=09=09=09.address =3D 0xff000000,
-=09=09=09.type =3D JAILHOUSE_CON_TYPE_XUARTPS,
-=09=09=09.flags =3D JAILHOUSE_CON_ACCESS_MMIO |
-=09=09=09=09 JAILHOUSE_CON_REGDIST_4,
-=09=09},
-=09},
-
-=09.cpus =3D {
-=09=090x8,
-=09},
-
-=09.mem_regions =3D {
-=09=09/* IVSHMEM shared memory regions (demo) */
-=09=09// state region
-=09=09{
-=09=09=09.phys_start =3D 0x7bf00000,
-=09=09=09.virt_start =3D 0x7bf00000,
-=09=09=09.size =3D 0x1000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_ROOTSHARED,
-=09=09},
-=09=09// R/W region
-=09=09{
-=09=09=09.phys_start =3D 0x7bf00000 + 0x1000,
-=09=09=09.virt_start =3D 0x7bf00000 + 0x1000,
-=09=09=09.size =3D 0x1000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_ME=
-M_ROOTSHARED,
-=09=09},
-=09=09{ 0 },
-=09=09{ 0 },
-=09=09/* UART */ {
-=09=09=09.phys_start =3D 0xff000000,
-=09=09=09.virt_start =3D 0xff000000,
-=09=09=09.size =3D 0x1000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED, //la demo prevedev=
-a la stampa delle celle, l'UART =C3=A8 1 e quindi condivisa
-=09=09},
-=09=09/* RAM */ {
-=09=09=09.phys_start =3D 0x7bfe0000,=20
-=09=09=09.virt_start =3D 0,
-=09=09=09.size =3D 0x00010000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_LOADABLE,
-=09=09},
-=09=09/* communication region */ {
-=09=09=09.virt_start =3D 0x80000000,
-=09=09=09.size =3D 0x00001000,
-=09=09=09.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-=09=09=09=09JAILHOUSE_MEM_COMM_REGION,
-=09=09},
-=09}
-
-=09//preso da zynqmp-zcu102-linux-demo.c, probabile bisogno di modifica al =
-bitmap
-=09.irqchips =3D {
-=09=09/* GIC */ {
-=09=09=09.address =3D 0xf9010000,
-=09=09=09.pin_base =3D 32,
-=09=09=09.pin_bitmap =3D {
-=09=09=09=091 << (54 - 32),
-=09=09=09=090,
-=09=09=09=090,
-=09=09=09=09(1 << (140 - 128)) | (1 << (142 - 128))
-=09=09=09},
-=09=09},
-=09},
-
-=09.pci_devices =3D {
-=09=09{
-=09=09=09.type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
-=09=09=09.domain =3D 1,
-=09=09=09.bdf =3D 1 << 3,
-=09=09=09.bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
-=09=09=09.shmem_regions_start =3D 0,
-=09=09=09.shmem_dev_id =3D 1,
-=09=09=09.shmem_peers =3D 2,
-=09=09=09.shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_VETH,
-=09=09},
-=09},
-};
-
-------=_Part_2994_61634087.1675455343640--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230203203831.46311-1-ricardo%40foundries.io.
