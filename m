@@ -1,33 +1,33 @@
-Return-Path: <jailhouse-dev+bncBC4ILIEFEIINNYPVTYDBUBEJCX6V2@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC4ILIEFEIINVYPVTYDBUBDPRKCBK@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oi1-x239.google.com (mail-oi1-x239.google.com [IPv6:2607:f8b0:4864:20::239])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C42468A3A8
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Feb 2023 21:38:48 +0100 (CET)
-Received: by mail-oi1-x239.google.com with SMTP id o206-20020acad7d7000000b00375c9d6b919sf980007oig.4
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Feb 2023 12:38:48 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1675456727; cv=pass;
+Received: from mail-oo1-xc3b.google.com (mail-oo1-xc3b.google.com [IPv6:2607:f8b0:4864:20::c3b])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C7E68A3AA
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Feb 2023 21:38:51 +0100 (CET)
+Received: by mail-oo1-xc3b.google.com with SMTP id z14-20020a4ad58e000000b005137826d392sf2297040oos.21
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Feb 2023 12:38:51 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1675456730; cv=pass;
         d=google.com; s=arc-20160816;
-        b=xSDRwnSd3ixA16C3P4YXL5BJI1JTh55HjHi8L+rEebaLX7Bt+IsyfcZKqLVYwH9UdS
-         aoGN9FWK9YOHpRZV4iyXOnn0qlVtAbDFQW7LJwbePBjJ4VRUoQC1El7YfYI8j17Z7FzR
-         nRsPlWpm8IEJrCHvRhDYLDwAaYTG0td0DqLv13GZ0AApvKIMUa+MrUyTQljWUO76Le3P
-         NZEQKVC6YACVCAqnGhCzpk1nv6GPmdr7ivM5J6rLU1TgY8E2997VlXTMJOPm8EChFily
-         98viztEdPB8t0YaRvb5629bIHyrcvz3Ql5tq93CrBLBw562wV+cmXv0nbVg5JgNePzqv
-         04AQ==
+        b=WsWl/7b2WeBMpyrJ7d5z+G0PoWdNYd0rVrwrijeQBcGTrbQA3eqVs+BRPnu+Li6xsu
+         5x0dFATsOB1rZhE0iDXjuU0dOieb7mfTs5wivH35qxB+fBg0eGaCCJn5KLvrcwZrEom2
+         CuCMil+bM81zdu3bNmX88xAdQve6wdLQUjq/Oifbto6Oankhzm8BUQ1pHH3qsbVdRv2W
+         JJxjo5zzAQZwuDiofaJhuofqpq2q5UTr58oVL+VLK9osGKPusW5tFv2zl5B3DUReRfpA
+         vNf3GoQPIzTMTWPZN/k37QWiqeZuJyW7k787uKLzzabp/ifHRt/o2I0y7g18a3DtV3Vd
+         J94Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=PhNKsyHZCQeh2ITW2o5A98K6TeE+/IkzyFW+hd822PY=;
-        b=ylFg4ncByo51oxHTxH0fEEL/001DJrPzN0CnPcOWR/SGfIbMPEbx64cPW00PNktEAA
-         dk9WdjWIc/5VZHkkkyZzCr42c5+hZSWXnmD98RRIBJZiw8NqqtIccAMPA45KkQmo2sOx
-         pNNBP1CI1A3ArHgTX2FuXhpADg5wxT1O09qAOi/+sTHSKx4PLekHqbePGsCf9nWIYs0t
-         k2T+bnHyhasIITvMFfN2NsO32+C9KrYmmOzzqpQe9uY6Jjf9H80LlQ4Z1be8QRWgABI7
-         u2jEq4LZ7xc3dJUXo2tmACrAzsixNsBgE/eJ0vPYyUnTmgWs7b2pOoKPnPN7XBYuu+U7
-         fYAQ==
+        bh=g+ifxhvvFRhhWFJtohp/RhedGjBJn8HWnn5a1/Z3AbU=;
+        b=Rl13a8RVCdsXefQ5AEo4UBITjrbA5+H8IolPkfwIWm+j6DE4mqDiR90yJuqFpNlAKt
+         U22AWFqeSHgYLse2EhSZnMnbVbwkYgK227PP7oIck0XAEpkdQKIfmM8hBhYUv0jKb51O
+         3pHyn5eHvwuPYH+DPBk/gWVVAEtfDF7dLMWIsN6HMgbstl+bZldBGixbWXDTSetGVlE+
+         7SvQ2a+zxCRtYhfUeVXD/FG8S913zvyTPMeCg9w5Vloars3XDqyOC8fdB0fhR+YWCRF+
+         Rb0w2BrhXCXXZFTqzs4kxA4DGiLzoij8BK8j4UHseNgPioejndTam8v9ZAhKk3MpXD2M
+         vAsw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@foundries.io header.s=google header.b=YOOZv6G4;
-       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::33 as permitted sender) smtp.mailfrom=ricardo@foundries.io
+       dkim=pass header.i=@foundries.io header.s=google header.b=J2ZZpf2v;
+       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::2a as permitted sender) smtp.mailfrom=ricardo@foundries.io
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PhNKsyHZCQeh2ITW2o5A98K6TeE+/IkzyFW+hd822PY=;
-        b=qMANrAsX860oAPfEsY3R+x/wYtgUBTMZ64DJoZyyv1bH6qgLOQ5ox8lkV6znEfEuk4
-         GciVCEEfp7wNH95v09LmdAkTzleI+kcPndHdwfeudH81a39U9g1bLr135ydqSK//yHh0
-         ONpAuK2nNBIoGRKu5YwxkmzuCBEaofL8peesma05ROagYUxZ3jaeX078X/sPnZSJV6B9
-         UX6Qom0a0tz2a7iUK40YwlDuHohn2/PpzrJvAkEIRANxbsz2tuKQpfd3T5bJqjgTdN/U
-         P+gMUpWZLYSK4SybwtqaaXVbyZ1nrOPWxWBlqTu3tjIMMb0w1s4qPYK6rHmDYJP72xpw
-         ms8A==
+        bh=g+ifxhvvFRhhWFJtohp/RhedGjBJn8HWnn5a1/Z3AbU=;
+        b=liaEJ52V/jJmLMGwikbj0S0rn0/Pi5SCoEr/w5MrJcG/NsfyuCS/TTBDtaCN0EFSKm
+         t5lj5jabzCUZA57w06+HKn/b0yoSLXEhTTCZm9hWwvBYRcMHmP738cxcGY1EQocigZn7
+         LFZHaQ98CGEOs3r5w/BqTwZA05W7ZLcR0EoC437WOQbJanBpgXroUvNOsSct3PtwAtd5
+         z2cYsRahirJXa9gKnzde6idjfDbPBD9/18DKOXHV85hSodchCAES5l4kPRVaO5IsOgHp
+         OBUaATXMJ6vA3cC1aZ7cDk2N3JBVzPn5oOMCwAf6j4xJl0PlScUMX5ycgZMxhz0cZi9h
+         hCRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -50,75 +50,76 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=PhNKsyHZCQeh2ITW2o5A98K6TeE+/IkzyFW+hd822PY=;
-        b=wYo7mVdt2TnQBI17VyfQcMil3oR27RkE+TCd3nta0/uQNIwF+22/BTAP92VXd0QLKl
-         r0bPcBdUo389FSv7Chk8+VtCwnNMFjxXErRUTFFq4dlRJV3xSCAP8fAySpklZ0D8t2x2
-         m13ALPn/4wg97N80vFGQlQdvKnmuWOKtE47ZQWS2XSFQQgaiX5yBrWk+9TaYB5UkT5Kt
-         odTnYHGPnCAMs1WSOCP1uPtsQqVlFjOuZWqJIaiYna3SwrjxZEqFZrott1I1+SWWNBem
-         He0biCFTZHvpMTaNWC/mdC9VNxZN45g/j6tq12z/gXklQR8FP54bZfPFWjyqf/w3QE3C
-         RdQA==
+        bh=g+ifxhvvFRhhWFJtohp/RhedGjBJn8HWnn5a1/Z3AbU=;
+        b=Jju6rHcQubLZ/uzBO4QAG/zTGCQEk/W7X/Af/8jjNyNGIFJab5uXTyvVJndbTiJssG
+         iUg7f/1bzNVG6UnBkSLPzApIw0DtgyocvI9vyV3fKpu+jfuddBEcGm0jEJyrO8tLaaYV
+         So21HDmuTtrU2mDAJkFfl6tju/kjw9DLQrYZIRhzo2ImwWFxuDBRhn2bBIck6IR5pbJo
+         j46dH8/WQ5WVVd9w2EUpAdosmuU9kwHF0TCOU6p+yhoFU4zaxlwbkaQv2SKJ+pycNn7L
+         1UabYGmaNwmycYXp4oBS9bKcEBlIOEAfJffs/YoSpzVZW1wjywd6QW7hCOucYem1Wm9j
+         AsqQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKXsPFl9teM0ne3hzlOFqT5ioLw1MyJggv4vvG9vi2GxJvLVM7Ly
-	0i0DpxQZXWARtSc0ohVlGCU=
-X-Google-Smtp-Source: AK7set846xPxjPOp6b9otGa6KW6kWVRmmj05BpzUdJ5JsGjcOfcA5VWVRKTu7HMjUvfAa4KD0IB4QQ==
-X-Received: by 2002:a05:6870:f284:b0:15f:cec7:932b with SMTP id u4-20020a056870f28400b0015fcec7932bmr736557oap.29.1675456727183;
-        Fri, 03 Feb 2023 12:38:47 -0800 (PST)
+X-Gm-Message-State: AO0yUKUJZs3hhGbs102sq9mjYT9Pc038JZ0PKMSPBOgx3vnx2dpWp1fm
+	cLffqKUsKDlIULX6/U+8MeU=
+X-Google-Smtp-Source: AK7set84faDZOenNJSPHhItfDo2Ku+6Oxf5RbwYoFwoFqEe0RmtlwskKGF51q6LGShTPDhyQCwTBhg==
+X-Received: by 2002:a05:6870:1681:b0:163:ce19:4435 with SMTP id j1-20020a056870168100b00163ce194435mr985386oae.229.1675456730429;
+        Fri, 03 Feb 2023 12:38:50 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a54:4389:0:b0:37a:fb5a:bdce with SMTP id u9-20020a544389000000b0037afb5abdcels7102oiv.3.-pod-prod-gmail;
- Fri, 03 Feb 2023 12:38:46 -0800 (PST)
-X-Received: by 2002:a05:6808:15a0:b0:359:c6f0:5086 with SMTP id t32-20020a05680815a000b00359c6f05086mr2948124oiw.56.1675456726522;
-        Fri, 03 Feb 2023 12:38:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1675456726; cv=none;
+Received: by 2002:a05:6830:6289:b0:66d:a9f3:4e75 with SMTP id
+ ce9-20020a056830628900b0066da9f34e75ls844677otb.9.-pod-prod-gmail; Fri, 03
+ Feb 2023 12:38:49 -0800 (PST)
+X-Received: by 2002:a9d:6498:0:b0:68d:422d:eca6 with SMTP id g24-20020a9d6498000000b0068d422deca6mr4546027otl.2.1675456729747;
+        Fri, 03 Feb 2023 12:38:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1675456729; cv=none;
         d=google.com; s=arc-20160816;
-        b=RQ6JJlhgkL4OZelf1weczRl8GiOChyIjJr7X5qYuIGM1YpyhjzbM0heF/IOl3nxJjk
-         hpYHjhyxenX6/kHp25UAD52W3QyZbbZgu8/tQFrQSioWhHsn7VRk3VqFLENXnXEAiFp3
-         Mez2zw0+JYYlOkxzChNuUNoRpAuo7Znlojs+9nVSla1QuVkUv5AD7fKn2cV96zkG5KmP
-         0K34w7q2dd/D3QOMuBQmVcMgtVhqNnCbN3FfVeIEVAsoIuokxJ/0ZusP1qU+Gv8h90BA
-         Agb5RxXZB7X0SqZUklriI8EpFeSy4gsLImaCfO7hL8fuPlpzTGchWetgVoB7LeijOfut
-         U8zw==
+        b=ydziGaM5oP7n5F2JyDPpnwIhcxygYYzMEinf5UzFLOBzb/1sER4L66jDROAdfDMS8f
+         5OGQlANbYrgd5q6J1a1EEITnBT9vOqFEwxnLmLBypav++k/vV1EZxa/cM/i7UHdojCS6
+         tIigBdFGU4vPBm1mAbhtH96LUyVvF2s1aGWkEFw3j4UXJz3W3Z4ako+vq1Um/OYPkQ/0
+         J+QwLzrb2809N9V9dtY8vYX9eqsCu6VMYgT/xcm2cFX7EKlHOgFeAY1/vTDBAWV2IwqZ
+         umsXPL9Erth67cRD5fA4Hv2NLfruY4T3Xw3iaUCRw0H2fKzf60+AVKaFhaxD5UXvPUOS
+         MAUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature;
-        bh=E8+sc5/JFfNUj7MohlXrbhWA3ZX7q0RAWK8GYiXFBWQ=;
-        b=K2AJv8e4jbj1Kxr0PoDv5XsHVBoXZ501OYZe48VCGqWSOiZgemS+pKk5cd6mfnyTXo
-         61Bq/S+AfyU1Jn7YSMJVi1FnReF4ijuHg2uWWc0M3v0k2WweutDphCDh9OtAeKXNkmAP
-         L4OcGnJJo0F0oRmj+NjMnLugTVw6SeIdXQ2f9sDSMAxF0fn3w2vaDX91labfRJg21KlU
-         L424/HLz6WVLMkiP98/vGe9ReNNajLnwRLil/8peUCdHRRONGWrvt243HkcObKQbtXFX
-         czPO3e1//wdocVlz7FOCu3I5yGYRZSd5ez9bDixS82QBMgFgMAalEqivY5ZdNV/Py2JN
-         WOZA==
+        bh=zc8PX91zPxtYgplxU4iCS/iz/jUE0k3DwrFPHpSIwpY=;
+        b=UbgBsBvuZrco2lNN731dNhwADwhJ3bJdcKrFJKjNrjdmtZd4IM5kfyCbINerfUvUH1
+         o2yZModTMq40pDpkb/7sy0NO+WrkzwnrO8dKCqBSUUYvtFdkkD9VFDLLJoPZxRAGmA9t
+         tyyllYIyBRSgz9AX9vWj4SBTWc0rWF0q+7Oj1Istc4LRP/nFpk9DkMn7fbHHDyLc7BNP
+         F25cybXrdpW47CBmT/QoTPTRk0wMkd91VauHp27XuurVJwXzaJF67xg3x8Ve8X7PJ23/
+         XVED9yIY7Wn6759ZxPRMQQGrr6rtcPrnCi5qraME+RxOKF58/ONBC0k0TDtZCixVBlaV
+         7Nsw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@foundries.io header.s=google header.b=YOOZv6G4;
-       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::33 as permitted sender) smtp.mailfrom=ricardo@foundries.io
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com. [2001:4860:4864:20::33])
-        by gmr-mx.google.com with ESMTPS id bd25-20020a056808221900b00378599bee7dsi466724oib.2.2023.02.03.12.38.46
+       dkim=pass header.i=@foundries.io header.s=google header.b=J2ZZpf2v;
+       spf=pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::2a as permitted sender) smtp.mailfrom=ricardo@foundries.io
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com. [2001:4860:4864:20::2a])
+        by gmr-mx.google.com with ESMTPS id m13-20020a056830328d00b00686e40e1e0esi301465ott.1.2023.02.03.12.38.49
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Feb 2023 12:38:46 -0800 (PST)
-Received-SPF: pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::33 as permitted sender) client-ip=2001:4860:4864:20::33;
-Received: by mail-oa1-x33.google.com with SMTP id 586e51a60fabf-1636eae256cso8135990fac.0
-        for <jailhouse-dev@googlegroups.com>; Fri, 03 Feb 2023 12:38:46 -0800 (PST)
-X-Received: by 2002:a05:6870:c69d:b0:163:48b1:c16c with SMTP id cv29-20020a056870c69d00b0016348b1c16cmr3114191oab.18.1675456725241;
-        Fri, 03 Feb 2023 12:38:45 -0800 (PST)
+        Fri, 03 Feb 2023 12:38:49 -0800 (PST)
+Received-SPF: pass (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::2a as permitted sender) client-ip=2001:4860:4864:20::2a;
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-163bd802238so8097898fac.1
+        for <jailhouse-dev@googlegroups.com>; Fri, 03 Feb 2023 12:38:49 -0800 (PST)
+X-Received: by 2002:a05:6870:b3a8:b0:163:2f2e:1235 with SMTP id w40-20020a056870b3a800b001632f2e1235mr6030512oap.47.1675456728206;
+        Fri, 03 Feb 2023 12:38:48 -0800 (PST)
 Received: from localhost.localdomain ([2804:14d:badc:845d:dfac:d1f8:a7d2:47ed])
-        by smtp.gmail.com with ESMTPSA id k7-20020a056870350700b001631914e41asm1197748oah.33.2023.02.03.12.38.42
+        by smtp.gmail.com with ESMTPSA id k7-20020a056870350700b001631914e41asm1197748oah.33.2023.02.03.12.38.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Feb 2023 12:38:44 -0800 (PST)
+        Fri, 03 Feb 2023 12:38:47 -0800 (PST)
 From: Ricardo Salveti <ricardo@foundries.io>
 To: jailhouse-dev@googlegroups.com
 Cc: jan.kiszka@siemens.com,
 	dannenberg@ti.com,
 	mranostay@ti.com
-Subject: [PATCH 2/4] configs: arm64: k3-am625-sk: Switch inmate boot console alias to serial3
-Date: Fri,  3 Feb 2023 17:38:29 -0300
-Message-Id: <20230203203831.46311-3-ricardo@foundries.io>
+Subject: [PATCH 3/4] configs: arm64: k3-am625-sk: Add VTM memory node
+Date: Fri,  3 Feb 2023 17:38:30 -0300
+Message-Id: <20230203203831.46311-4-ricardo@foundries.io>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230203203831.46311-1-ricardo@foundries.io>
 References: <20230203203831.46311-1-ricardo@foundries.io>
 MIME-Version: 1.0
 X-Original-Sender: ricardo@foundries.io
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@foundries.io header.s=google header.b=YOOZv6G4;       spf=pass
- (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::33
+ header.i=@foundries.io header.s=google header.b=J2ZZpf2v;       spf=pass
+ (google.com: domain of ricardo@foundries.io designates 2001:4860:4864:20::2a
  as permitted sender) smtp.mailfrom=ricardo@foundries.io
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -133,64 +134,52 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Andreas Dannenberg <dannenberg@ti.com>
+Add the memory region for VTM to the device-specific config
+file. This fixes a runtime exception when the kernel accesses
+that memory region:
 
-Traditionally the serial3 DTS alias is used for the 2nd main-domain UART
-on K3 devices so go ahead and update the alias and its usage accordingly
-for better consistency.
+<snip>
+Unhandled data read at 0xb00308(4)
 
-While at it also do a minor cleanup of the UART's DTS node to use the
-TISCI standard definitions as used in the corresponding Kernel DTS files.
+FATAL: unhandled trap (exception class 0x24)
+<snip>
 
-Signed-off-by: Andreas Dannenberg <dannenberg@ti.com>
 Signed-off-by: Ricardo Salveti <ricardo@foundries.io>
 ---
- configs/arm64/dts/inmate-k3-am625-sk.dts | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ configs/arm64/k3-am625-sk.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/configs/arm64/dts/inmate-k3-am625-sk.dts b/configs/arm64/dts/inmate-k3-am625-sk.dts
-index c1455073..8e1bebb8 100644
---- a/configs/arm64/dts/inmate-k3-am625-sk.dts
-+++ b/configs/arm64/dts/inmate-k3-am625-sk.dts
-@@ -1,6 +1,7 @@
- /dts-v1/;
- 
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/soc/ti,sci_pm_domain.h>
- 
- / {
- 	model = "Texas Instruments AM625 Inmate Model";
-@@ -10,11 +11,11 @@
- 	#size-cells = <2>;
- 
- 	aliases {
--		serial1 = &main_uart1;
-+		serial3 = &main_uart1;
- 	};
- 
- 	chosen {
--		stdout-path = "serial1:115200n8";
-+		stdout-path = "serial3:115200n8";
- 	};
- 
- 	memory@e0000000 {
-@@ -91,9 +92,9 @@
- 			compatible = "ti,am64-uart", "ti,am654-uart";
- 			reg = <0x00 0x02810000 0x00 0x100>;
- 			interrupts = <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH>;
--			power-domains = <&k3_pds 152 1>;
--			current-speed = <115200>;
--			clock-frequency = <48000000>;
-+			power-domains = <&k3_pds 152 TI_SCI_PD_EXCLUSIVE>;
-+			clocks = <&k3_clks 152 0>;
-+			clock-names = "fclk";
- 		};
- 
- 		pci@76000000 {
+diff --git a/configs/arm64/k3-am625-sk.c b/configs/arm64/k3-am625-sk.c
+index cfc8dc8d..d6096e8f 100644
+--- a/configs/arm64/k3-am625-sk.c
++++ b/configs/arm64/k3-am625-sk.c
+@@ -18,7 +18,7 @@
+ struct {
+ 	struct jailhouse_system header;
+ 	__u64 cpus[1];
+-	struct jailhouse_memory mem_regions[32];
++	struct jailhouse_memory mem_regions[33];
+ 	struct jailhouse_irqchip irqchips[5];
+ 	struct jailhouse_pci_device pci_devices[2];
+ } __attribute__((packed)) config = {
+@@ -232,6 +232,13 @@ struct {
+ 			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+ 				JAILHOUSE_MEM_IO,
+ 		},
++		/* VTM */ {
++			.phys_start = 0x00b00000,
++			.virt_start = 0x00b00000,
++			.size = 0x00002400,
++			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
++				JAILHOUSE_MEM_IO_32 | JAILHOUSE_MEM_IO_UNALIGNED,
++		},
+ 		/* CRYPTO */ {
+ 			.phys_start = 0x40900000,
+ 			.virt_start = 0x40900000,
 -- 
 2.34.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230203203831.46311-3-ricardo%40foundries.io.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230203203831.46311-4-ricardo%40foundries.io.
