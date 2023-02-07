@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBZUGRGPQMGQEOQXEN6A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBZ4GRGPQMGQEUNNDQ5Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ED2568D68B
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:15 +0100 (CET)
-Received: by mail-wm1-x339.google.com with SMTP id n7-20020a05600c3b8700b003dc55dcb298sf8070069wms.8
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:15 -0800 (PST)
+Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 295F968D68D
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:16 +0100 (CET)
+Received: by mail-lj1-x23d.google.com with SMTP id f3-20020a2ea0c3000000b00292fe8261ccsf1526350ljm.21
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:16 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1675772775; cv=pass;
         d=google.com; s=arc-20160816;
-        b=RId29F2+eyFp1Erqr8boAjNZ7y8dZogHXilFYgZNK8W+EfTYmjBvvMPxIzkSQDMczo
-         cRs6JRpWmwtXafzEUm1W+aLrQaKbLVvw8x9AXTVKZ0kCCI1BryyhBXPiaZ+YlG4eDD7w
-         RmWKnQhgMZRfzNFbAT03ZB5FKt2zwy0echcIYP8YuZiOIxMvq5kKC82I2FHTGoCXWgXh
-         RSunXLLdMawCmeLXAGgRuT83Ha2chDtN7wn4bv+EmUrp3ZihFVChHy7Qiow9W84IT5Ec
-         OoYRK5GH4HAMG7i4eXxUdwchA25KsiMHr90oaXuTHUfGaSKf0LVPwqaQR6xEBoBsin3D
-         DYdg==
+        b=l/GA6ZY8eLoyneqDL+S9oZWGv5jsRTUcN3kbNBqZmgmexYwuastpFBPhqja7aD4BFY
+         MFHVD5haA4GCoHNsbQ7jZ8PMp02p/yTvoeUlRFnPqQb/uoxdPQRQeTnDP0FInBV9n71w
+         owKbfxp2pFWQhPhagCkdZNb6/EwJy3jU+MjIgx/uLyTOphO0Ia/q06OGV+Wvig2gpX3A
+         k6EmYjZebiwr/eXfoVAqo9/N9GrelY7+0wFmjS43jIvnVAbiMKEnvVZT5KzIvPcH/nOc
+         Oogiw68UWJpgwHh5elbqLsFRLAt2jo6XW/fbCRLg3HRhePTAD7QdOXZuejDqQozr14FV
+         L5WA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=DNhOTF6Dtnh0V81sn7g1KeMs5LSZXfTBWBroolqBmCg=;
-        b=fCe5ZalXMGYTdFnwc2wwmNXKRZq3Dd7bNJv8N+oowEcMQYNGx1xodwfTrOqs4ZkGjQ
-         C+il6Dz0FCXekLl4g365AH2B5wcnaFHuNpfZqUZ889Q2Zk+DgCQGrfCX3GdEoZgJpjsy
-         LmzHAp7bmEAI6ckrkKpB7IyLmqWRSUh7Eh2yY+Yx9dUljBdsCjlb5TvGL7GAeROu0vOl
-         DWDKhsHDdWWlXPskvO1eCyyyvsdozf8EGsqLswmGWQSnXgMTYjfjzp2hciu/DsPeuOLz
-         ek37a66o4/LYGjAuCZzKgd75aIUOivdOfyEQasK1s7SXXP7Z1Gt4JkQhzpgV/diD1Q4P
-         +w4Q==
+        bh=MhgJqTz/INN9Mxjht8Ma2KNuypqjibJB/TUPjG6BAEE=;
+        b=rhsLMZyoRseFZf258DbS729xlWfRShC7qxF/570e8YmIf75h8lVuD7ZJeVQ5NAn+WH
+         7Qv3eo/8FSWJ9XyOX9ShTUSy4Cw+2DO/yhMjPTFfEtvcpkgxO7wP/c64TeoGbHHdb3fD
+         38ScwOiTByTgzw2d/cKUoPD9YWI+3brRtWYSl8YUnzE7rbUnE5tUAYGaPfoCkQDhpObF
+         CGREAuACjREMLIjodYI4HarUwJD0u79mv/eAEER+c2whv3gKUAS8GGvAkdO70psvUjH9
+         ZTU+Xap0rlZ3ftPiJ6R9o+UtcEPYzxwX3Io2fmGIVrP3fLoEM8IIpb+hVU7NRNRRvCJu
+         mnRA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DNhOTF6Dtnh0V81sn7g1KeMs5LSZXfTBWBroolqBmCg=;
-        b=CP1iswHxfsNrr2ft4jFODbWOtCpuKXruTueoI+i/nlyhLV6HxwzIEQCfHX8lGr2kjX
-         LVY4dDZc7ZWDdMqybhfRmYHdixUTjhLmWFr0NyfC3LffUyHzK8x2W8ZNRRTckccKcSeL
-         0kQsSTB2GD4ftMbKjY+ZVzZc/ToMVoDcB7dIxLDe0mPRFJADdIoakjZDPfmI0X3cMWoZ
-         u1i2mOrsCoCZS66TAoCMjvY1UBP5JuC4T4DPtZQbkBSY0Djjnxs9sS/hf8IFt3VKEOCm
-         tuTLYacp/nk3MoIlAI8GA45ctrXchTbW9dGGSyG0uNnOGrkyE39VKB8p2IcleLtxf4d1
-         TmCA==
+        bh=MhgJqTz/INN9Mxjht8Ma2KNuypqjibJB/TUPjG6BAEE=;
+        b=FWJ9SmHs6pNYrfD76j80Cqi8hBusqcjskg9NNeysxBC+W3Z6F4JWVplCfrVD6WXAKd
+         s8hbhu6ivhkwfLy0N1lmiQQ2ILszSyNXV0gvijWNiJ4vXAbnVYCLf311X4Wr2mBJ8LD4
+         EfCAOtxI0gxGQHc+/k/LDkzpWpIm7Z1iMQH9aGVp5uvUL55XUT1zwRuu66oVGNCnLLlr
+         H4GWzsQJGIgsekzZz5pa1BBUTvKfeoG/lqEOeDwaOeI9s0hjXm+U+kBUCxs5chdUTYfQ
+         5VSGz0Xgs8PdGcKALGogWwXaBGLHwqlkQUUGLalKu9VJ9nr6scxGV5t64rBURG9wXiPD
+         8lTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -50,78 +50,78 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DNhOTF6Dtnh0V81sn7g1KeMs5LSZXfTBWBroolqBmCg=;
-        b=bBb+Nf15Goqgn+2woClJtJJlrb/dZUygUtosMKWztlkwME3o1PnsT68tquTstLHLJM
-         GAbN92Jq3gr8lwU5GNDs21XOCMr/PblHnGGUFWKyr7ozc7zHFJhZBadolUd3GQN48bCy
-         ZJrzBN/10rdRSetE4GNswdI2lKDIaia5XV+mUwHxwOuAojoWnnrf+cCWmC+bTY/kt4Dd
-         cTYYAfh+rk2Q6DCOZuWiT1UN30NLSnkWp/66GP9bjyK9MjwCB6enMKw3V1RTqE6zNwa9
-         RJN+EeF1FeF0DWlsxLnLjgP6a1TGCSzq4XauwfzkdwVuOrkxD4nCLRLDiN2rHqcMBYdi
-         MmtA==
+        bh=MhgJqTz/INN9Mxjht8Ma2KNuypqjibJB/TUPjG6BAEE=;
+        b=B89WsvvQD4/6+snbyLf8WWRZ59pSlO24oyVv1vPlqRiypW0zF4Yo9lBejLM5ZPINAs
+         og1POFdSkAhqfmpaK7UseXuuTjHAL3AxpuYR+3lYzRJoVzCzjW8bC3esI4hp+8o2xBhY
+         aNyECX73WCHQiVAb6u3nISHaiIczqDAIUKd6rUPgkYvCgML7LI77ld1hrnHW7ahNs4I3
+         Af07oOrFTgXO/RpC/ji2Vyh8cxgBlc6S0dwA0dNd3obgI+24FkU56sVBvY8QJ3dmVLs+
+         2dGwFi13MGpTrm/yIaXxFD9bEtOMoHUiEkuRLQLeJ0qZrVbZP4CJqFMYVNwPu5TrH3P7
+         otJA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKX/ewEP4j/CtE6dt7ebwGsj21N62d0ZcNKyx5DBZles0i2qvRT1
-	+xSBRu2wlSfTUCqxA92HkBQ=
-X-Google-Smtp-Source: AK7set8m6IMJJyXZ0Dl4Ma6BIP5VsI3OeBzUajSLs6HDxWtlcJc/pTG1KwcjGFJWjaGOBpjSOuPQMg==
-X-Received: by 2002:a05:600c:21ca:b0:3df:d86d:7968 with SMTP id x10-20020a05600c21ca00b003dfd86d7968mr1216105wmj.117.1675772774997;
-        Tue, 07 Feb 2023 04:26:14 -0800 (PST)
+X-Gm-Message-State: AO0yUKVGn6YFqYZ7qcOcW5kyQj6ajkzSDZjsxfj974D0eLGBMx/Eb1o8
+	5MYdKwf8w6i/FlOheziF6zY=
+X-Google-Smtp-Source: AK7set8EJY44ZvCp2pb3ipB9YoATK6epvP7gLC5uwrn+gUzqDJ+gbqTewwujucrW4esH418M6Z08Qg==
+X-Received: by 2002:a19:a40a:0:b0:4d8:6262:c982 with SMTP id q10-20020a19a40a000000b004d86262c982mr501910lfc.106.1675772775674;
+        Tue, 07 Feb 2023 04:26:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:600c:35cc:b0:3cf:9be3:73dd with SMTP id
- r12-20020a05600c35cc00b003cf9be373ddls10050559wmq.3.-pod-canary-gmail; Tue,
- 07 Feb 2023 04:26:13 -0800 (PST)
-X-Received: by 2002:a05:600c:3093:b0:3dd:37a5:dc90 with SMTP id g19-20020a05600c309300b003dd37a5dc90mr2968188wmn.32.1675772773272;
+Received: by 2002:a2e:bc0a:0:b0:290:6183:37b4 with SMTP id b10-20020a2ebc0a000000b00290618337b4ls2099569ljf.0.-pod-prod-gmail;
+ Tue, 07 Feb 2023 04:26:13 -0800 (PST)
+X-Received: by 2002:a05:651c:548:b0:28d:86a0:3bf3 with SMTP id q8-20020a05651c054800b0028d86a03bf3mr1060396ljp.30.1675772773911;
         Tue, 07 Feb 2023 04:26:13 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1675772773; cv=none;
         d=google.com; s=arc-20160816;
-        b=JDd2v59BYY2C28/6awRVfvUGZL55/xNMa3gJk/uVtbL9iTyk2VvHQvAhYurpYdP4LL
-         Mz0llsR3ly5V220iow6Nti3Fdbagmb0EmRpQxC2YSoh4uaY5jiJN0E3W62naUTWvxx/N
-         69jEWXhis3ogC2Oyvd5u6Zh8DWJMHErlu+6kq4WLrT6Ep36CuwFM0/Yl3/F23XigzAMb
-         ovCeCI8O0BHdyc0BJhVUbgzpRyip4mWejgN1cV0pRBPyJAPdZiT74n+VWcWXmTYVsncU
-         VV5okXFGTfiuexoYJpNOpknkgT447HAbj8un3VCSdFTH4aYFqnlxFFXL88U5+moI/vRt
-         XKIw==
+        b=jkfP2og/i2NY0k+dId20ekPBatLbvXhV0k3au8xlU57JcsSzsUN+4NiFcswfyb/2PI
+         FVWIfPdfFYBannG792nwA1oLl2cmkjK6bFn0CBpLDaxSoLzRPGJqAbVkmUBPwzyuh010
+         3xz5+v1ge6bgBB91Q8KIfeYl6qyUtdxk0SAq3JncTu3VBRmyXGb/gPsyjZO2QFWsSMYp
+         +nirH8s8bzGrvK/3Dao1i8AuWDuP5eG2qlhy7JDYQiounU0G0dscgVnB7VdRe1yV5Uue
+         Mol/RoRRDnKahcAvqkibEcKsVBJ6eJCxVFsrHAvl7+kG+9JdeskygH359yIGDz+leCNa
+         Mi6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=YcfQkoiXNOo49S4vZI9VRgCH42DLl/1LWdUmqXfyu6E=;
-        b=PLsJG+gNp+GFT9hR1nwuIHRxZ2Wag1HhwSnXyIuKiZTMd09loGAgX8U9gkQR4Pq8zK
-         S7CJyjKL6r7lg7ULNltNyziIjawKunCW6aHYR2Sy9rf1pv4kjwlN9nlIbAjM3b/xc6O1
-         m+/+KKerW5wkZy+2HC00vHcqG9cr+12YiHY7FvveXNjjrJrdcxXh0ceelRAAUWfPWatp
-         DT5iEp9QFPXvha4EmSsdlm7VXNg7GKzN+c0n7+nsTPsRZev5gRux+UwiTRQnQPwHxycw
-         9AQWh7aD/TmqyKgWLoObMDwbqB/4gFIG9atyQCxByj66V8hIDr11cJ0aGagtYUu+djee
-         ayUw==
+        bh=YjR++/HmRsrHSOszCCc2PXZSRSmLvfJ5bzuZrRt3/aU=;
+        b=UeNySHEMl4wF38XATXPuCsKib/zM8WNcPRTsyUaEWHv6r0x1e+2NgEeRg54Djuv8Li
+         v6lsjoqtzLrqIfh9K6XOsFGagt5Mzs8GzsZamth4qbc6JZNxqXHSMVAys8EG38O09/dr
+         8s0Dpo9g0tbQ4awr4Ympp1DOkxPuqqLGh0jZH6ARc9/uJ0R5exLZ/OYIQWQWxrJF4Tmh
+         kAQSeZncWkPlKU4TAP5WO1Zz/zRMf/418Ttj8z4L3YbOSg65DUIFDWjz84+672PwYWIG
+         FtYob+njcx3IWzY3XqhddA9IGPJnSc6B9dVpm9iOhlEIp4e3RhTHVEDl3IiuNBCtM1f8
+         C5LA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id ay7-20020a05600c1e0700b003dfd8e47092si759545wmb.0.2023.02.07.04.26.13
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
+        by gmr-mx.google.com with ESMTPS id p22-20020a2ea416000000b002905672e241si464966ljn.5.2023.02.07.04.26.13
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 07 Feb 2023 04:26:13 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
 Received: from atlantis.buero (unknown [IPv6:2001:638:a01:8068:e089:ee05:7189:d907])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
-	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RS5zHtz1075;
-	Tue,  7 Feb 2023 13:26:12 +0100 (CET)
+	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RT0kNBzy8J;
+	Tue,  7 Feb 2023 13:26:13 +0100 (CET)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com
 Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
 	Konrad Schwarz <konrad.schwarz@siemens.com>,
 	Jan Kiszka <jan.kiszka@siemens.com>,
 	Stefan Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v2 29/47] core: riscv: introduce irqchip.h
-Date: Tue,  7 Feb 2023 13:25:25 +0100
-Message-Id: <20230207122543.1128638-30-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v2 30/47] core: riscv: Add irqchip abstraction layer
+Date: Tue,  7 Feb 2023 13:25:26 +0100
+Message-Id: <20230207122543.1128638-31-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 References: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2023.2.7.121517, AntiVirus-Engine: 5.97.0, AntiVirus-Data: 2023.2.7.5970000
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_3000_3999 0, BODY_SIZE_5000_LESS 0, BODY_SIZE_7000_LESS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FILESHARE_PHRASE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_5000_5999 0, BODY_SIZE_7000_LESS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FILESHARE_PHRASE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __LINES_OF_YELLING 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_7 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0,
+ __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -136,26 +136,42 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Which will contained shared definitions that are used by both, PLIC and
-APLIC. The irqchip abstraction layer provides abstraction for both irq
-controller variants.
+Later, we will add support for PLIC and APLIC. This irqchip layer adds a
+level of abstraction for both irqchips, and will hold code that is
+shared between both.
+
+With this commit, fill irqchip.c with life, and and the common code for
+both.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/arch/riscv/include/asm/irqchip.h | 107 ++++++++++++++++++++
- 1 file changed, 107 insertions(+)
- create mode 100644 hypervisor/arch/riscv/include/asm/irqchip.h
+ hypervisor/arch/riscv/Kbuild    |   4 +-
+ hypervisor/arch/riscv/irqchip.c | 182 ++++++++++++++++++++++++++++++++
+ 2 files changed, 184 insertions(+), 2 deletions(-)
+ create mode 100644 hypervisor/arch/riscv/irqchip.c
 
-diff --git a/hypervisor/arch/riscv/include/asm/irqchip.h b/hypervisor/arch/riscv/include/asm/irqchip.h
+diff --git a/hypervisor/arch/riscv/Kbuild b/hypervisor/arch/riscv/Kbuild
+index 7809007c..57c52854 100644
+--- a/hypervisor/arch/riscv/Kbuild
++++ b/hypervisor/arch/riscv/Kbuild
+@@ -14,5 +14,5 @@
+ 
+ always-y := lib.a
+ 
+-lib-y := entry.o exception.o setup.o dbg-write.o control.o ivshmem.o paging.o
+-lib-y += pci.o traps.o lib.o
++lib-y := entry.o exception.o setup.o dbg-write.o control.o ivshmem.o irqchip.o
++lib-y += paging.o pci.o traps.o lib.o
+diff --git a/hypervisor/arch/riscv/irqchip.c b/hypervisor/arch/riscv/irqchip.c
 new file mode 100644
-index 00000000..24e8fdaf
+index 00000000..880f1fab
 --- /dev/null
-+++ b/hypervisor/arch/riscv/include/asm/irqchip.h
-@@ -0,0 +1,107 @@
++++ b/hypervisor/arch/riscv/irqchip.c
+@@ -0,0 +1,182 @@
 +/*
 + * Jailhouse, a Linux-based partitioning hypervisor
 + *
-+ * Copyright (c) OTH Regensburg, 2022-2023
++ * Copyright (c) OTH Regensburg, 2023
 + *
 + * Authors:
 + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
@@ -164,105 +180,180 @@ index 00000000..24e8fdaf
 + * the COPYING file in the top-level directory.
 + */
 +
-+/* Shared definitions for (A)PLIC */
-+#define IRQCHIP_REG_SZ		4
-+#define IRQCHIP_BITS_PER_REG	(IRQCHIP_REG_SZ * 8)
++#include <jailhouse/control.h>
++#include <jailhouse/unit.h>
++#include <jailhouse/printk.h>
++#include <jailhouse/processor.h>
++#include <asm/irqchip.h>
 +
-+#define IRQ_BIT(irq)		((irq) % IRQCHIP_BITS_PER_REG)
-+#define IRQ_MASK(irq)		(1 << IRQ_BIT(irq))
++/* Could also be used for arm-common/irqchip.c */
++#define IRQCHIP_PINS \
++	(sizeof(((struct jailhouse_irqchip *)0)->pin_bitmap) * 8)
 +
-+#ifndef __ASSEMBLY__
++#define IRQ_BITMAP_PINS \
++	(sizeof(((struct cell *)0)->arch.irq_bitmap) * 8)
 +
-+#define REG_RANGE(A, B)		(A)...((B) - IRQCHIP_REG_SZ)
++struct irqchip irqchip;
 +
-+#define SYSCONFIG_IRQCHIP	system_config->platform_info.riscv.irqchip
-+
-+struct irqchip {
-+	int (*init)(void);
-+	enum mmio_result (*mmio_handler)(void *arg, struct mmio_access *access);
-+	int (*claim_irq)(void);
-+	void (*adjust_irq_target)(struct cell *cell, unsigned int irq);
-+
-+	void *base;
-+	unsigned long pending[MAX_CPUS];
-+};
-+
-+extern struct irqchip irqchip;
-+
-+static inline unsigned long irqchip_type(void)
++static unsigned int irqchip_mmio_count_regions(struct cell *cell)
 +{
-+	return SYSCONFIG_IRQCHIP.type;
++	return 1;
 +}
 +
-+static inline unsigned long irqchip_phys(void)
++/* Borrowed from ARM */
++static void irqchip_config_commit(struct cell *cell)
 +{
-+	return SYSCONFIG_IRQCHIP.base_address;
++	unsigned int n;
++
++	if (!cell)
++		return;
++
++	for (n = 1; n < MAX_IRQS; n++) {
++		if (irqchip_irq_in_cell(cell, n) && cell != &root_cell)
++			irqchip.adjust_irq_target(cell, n);
++
++		if (irqchip_irq_in_cell(&root_cell, n))
++			irqchip.adjust_irq_target(&root_cell, n);
++	}
 +}
 +
-+static inline unsigned long irqchip_size(void)
++static enum mmio_result irqchip_mmio(void *arg, struct mmio_access *access)
 +{
-+	return SYSCONFIG_IRQCHIP.size;
++	/* only allow 32bit access */
++	if (access->size != IRQCHIP_REG_SZ)
++		return MMIO_ERROR;
++
++	return irqchip.mmio_handler(arg, access);
 +}
 +
-+static inline u16 irqchip_max_irq(void)
++static int irqchip_cell_init(struct cell *cell)
 +{
-+	return SYSCONFIG_IRQCHIP.max_irq;
++	const struct jailhouse_irqchip *chip;
++	unsigned int n, pos;
++
++	mmio_region_register(cell, irqchip_phys(), irqchip_size(),
++			     irqchip_mmio, cell);
++
++	memset(cell->arch.irq_bitmap, 0, sizeof(cell->arch.irq_bitmap));
++
++	for_each_irqchip(chip, cell->config, n) {
++		/* Only support one single PLIC at the moment */
++		if (chip->address !=
++		    system_config->platform_info.riscv.irqchip.base_address)
++			return trace_error(-EINVAL);
++
++		if (chip->pin_base % 32 != 0 ||
++		    chip->pin_base + IRQCHIP_PINS > IRQ_BITMAP_PINS)
++			return trace_error(-EINVAL);
++
++		for (pos = 0; pos < ARRAY_SIZE(chip->pin_bitmap); pos++)
++			cell->arch.irq_bitmap[chip->pin_base / 32 + pos] |=
++				chip->pin_bitmap[pos];
++	}
++
++	/* This logic is shared with arm-common */
++	if (cell == &root_cell)
++		return 0;
++
++	for_each_irqchip(chip, cell->config, n)
++		for (pos = 0; pos < ARRAY_SIZE(chip->pin_bitmap); pos++)
++			root_cell.arch.irq_bitmap[chip->pin_base / 32 + pos] &=
++				~chip->pin_bitmap[pos];
++
++	return 0;
 +}
 +
-+static inline void irq_bitmap_set(u32 *bitmap, unsigned int irq)
++static inline bool guest_ext_pending(void)
 +{
-+	bitmap[irq / IRQCHIP_BITS_PER_REG] |= IRQ_MASK(irq);
++	return !!(csr_read(CSR_HVIP) &
++			((1 << IRQ_S_EXT) << VSIP_TO_HVIP_SHIFT));
 +}
 +
-+static inline void irq_bitmap_clear(u32 *bitmap, unsigned int irq)
++int irqchip_set_pending(void)
 +{
-+	bitmap[irq / IRQCHIP_BITS_PER_REG] &= ~IRQ_MASK(irq);
++	int err;
++
++	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_VIRQ]++;
++
++	err = irqchip.claim_irq();
++	if (err)
++		return err;
++
++	/*
++	 * We can directly inject the IRQ into the guest if the IRQ is not
++	 * pending, because we know that the IRQ is enabled, otherwise we
++	 * wouldn't have received it
++	 */
++	guest_inject_ext();
++
++	/*
++	 * Don't claim complete! This must be done by the guest. We will handle
++	 * that in plic_handler(). In the meanwhile we simply deactivate S-Mode
++	 * External IRQs, and reenable them when the guest claims it. In this
++	 * way, we only need to store one pending IRQ per hart.
++	 */
++	ext_disable();
++
++	return 0;
 +}
 +
-+static inline bool irq_bitmap_test(u32 *bitmap, unsigned int irq)
++static int irqchip_init(void)
 +{
-+	u32 val;
++	int err;
 +
-+	if (irq >= irqchip_max_irq())
-+		return false;
++	/* We don't have a working irqchip yet */
++	switch (irqchip_type()) {
++		default:
++			return trace_error(-ENOSYS);
++	}
 +
-+	val = bitmap[irq / IRQCHIP_BITS_PER_REG];
++	irqchip.base = paging_map_device(irqchip_phys(), irqchip_size());
++	if (!irqchip.base)
++		return -ENOMEM;
 +
-+	return !!(val & IRQ_MASK(irq));
++
++	err = irqchip_cell_init(&root_cell);
++	if (err)
++		return err;
++
++	err = irqchip.init();
++
++	return err;
 +}
 +
-+static inline bool irqchip_irq_in_cell(struct cell *cell, unsigned int irq)
++static void irqchip_shutdown(void)
 +{
-+	return irq_bitmap_test(cell->arch.irq_bitmap, irq);
++	if (!irqchip.base)
++		return;
++
++	paging_unmap_device(irqchip_phys(), irqchip.base, irqchip_size());
 +}
 +
-+static inline void guest_inject_ext(void)
++static void irqchip_cell_exit(struct cell *cell)
 +{
-+	csr_set(CSR_HVIP, (1 << IRQ_S_EXT) << VSIP_TO_HVIP_SHIFT);
++	const struct jailhouse_irqchip *chip;
++	unsigned int n, pos;
++
++	mmio_region_unregister(cell, irqchip_phys());
++
++	/* set all pins of the old cell in the root cell */
++	for_each_irqchip(chip, cell->config, n)
++		for (pos = 0; pos < ARRAY_SIZE(chip->pin_bitmap); pos++)
++			root_cell.arch.irq_bitmap[chip->pin_base / 32 + pos] |=
++				chip->pin_bitmap[pos];
++
++	/* mask out pins again that actually didn't belong to the root cell */
++	for_each_irqchip(chip, root_cell.config, n)
++	        for (pos = 0; pos < ARRAY_SIZE(chip->pin_bitmap); pos++)
++			root_cell.arch.irq_bitmap[chip->pin_base / 32 + pos] &=
++				chip->pin_bitmap[pos];
 +}
 +
-+static inline void guest_clear_ext(void)
-+{
-+	csr_clear(CSR_HVIP, (1 << IRQ_S_EXT) << VSIP_TO_HVIP_SHIFT);
-+}
-+
-+static inline void ext_disable(void)
-+{
-+	csr_clear(sie, IE_EIE);
-+}
-+
-+static inline void ext_enable(void)
-+{
-+	csr_set(sie, IE_EIE);
-+}
-+
-+int irqchip_set_pending(void);
-+
-+#endif /* __ASSEMBLY__ */
++DEFINE_UNIT(irqchip, "RISC-V irqchip");
 -- 
 2.39.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-30-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-31-ralf.ramsauer%40oth-regensburg.de.
