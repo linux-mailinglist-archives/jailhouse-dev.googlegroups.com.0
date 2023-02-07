@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBZ4GRGPQMGQEUNNDQ5Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB2EGRGPQMGQE4IQAOJA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3352D68D68E
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:16 +0100 (CET)
-Received: by mail-wm1-x33e.google.com with SMTP id l38-20020a05600c1d2600b003ddff4b9a40sf8067217wms.9
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:16 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1675772776; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74CFD68D691
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:17 +0100 (CET)
+Received: by mail-lf1-x13b.google.com with SMTP id l15-20020a056512110f00b004b6fe4513b7sf6304907lfg.23
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1675772777; cv=pass;
         d=google.com; s=arc-20160816;
-        b=te7Qa+xpUZjEJNtQXHntQZ9Vs5D4+BeVwPscyEkRqKvzQJouX8YX5zJPaVwOZLHZjm
-         auEo/yHapfKxzkUpn2dbJ8fCcGh0fbEdseFhz6tCIVcUChX7tENwLFa6Wt+bNSSursCc
-         wR55Aqz8s53SOvCmDrKx0jQAuHR8V+JasKhS+pgxD7tzKESlIkh7d583mVDJs480UWux
-         MEQECUK6pfuuOSU6AuJIeEGsNTliLe0cPhkbNQlYWoVh5oIezPb0YG4JWTMTIVLXCN0E
-         DPC/d7QseyS7Fwv7WAnTUsLNf+xDKa72x76krSo8r4GxBYslcQaq26F5uhViuYRF8jr0
-         j27w==
+        b=xWZTHGrsBfwvaK+COZRLvFKxvXQzu9lKLRmBqGgmK5p8+A3qMCwXarJuXuux5U1wXk
+         G6YFfz5pCTRvcJy1SxSnZc9as9oCG/KKSDOHtcOOAR0l84/2hgoNuGqfeOXVZvQeE9LN
+         o2heqBqZNQO2GgHQShDAv+K0s1HBsZAHnsPzRyktvZwouqm1YdGob5Axq0CWrinU2lJI
+         5Vt0GSQmUnlw88ozFcDJKFVr1OdVMQCvGQHqgePauofWB5lIhrBtxlhKNfyMohCtqHoQ
+         xJxYk7AUxBiBp9Kk3vLS8faBoJ9WOjBdtQuW9z6FE9ehHmyeQXazSW2o00mFEGeLBVWj
+         IELw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=g8b31BImqvtYy8TU2iRUw7+5j5L1X2UM/ZOH6vrgpbA=;
-        b=uGtcFyKtqfvXCvRzQFIWft3dpQXOrdF8LUTf+6mpgPbkea6huoZ5auAyhAJgMTi1B2
-         DXgnH6yGQg9MBAp7EBoYNW9fKkbRfdeSAHwrVxxdhe8fJOovH2Lp3IIQrICLbeKJ5HFI
-         Lqd4rCsM41QQRCVDYIg5bPWYD4V1z8omBncBRfPTtNCAXVPmL5vz8LC/iEsrYgAqfU9v
-         7ZTi1ARZUFolI5MnmNdFjEKeaj5GFXK9xxk+nZvbcjfN3MxyeuURU9pMEpnaZ4EUQcPh
-         h+Krz7cm1ndcbvp42PERl0bV2TmnkIvJOPWocO1DPGeitK9NNLmprDlCdwf3DhO79t4M
-         sJEQ==
+        bh=LH+tLLQe+pUP3rU7Cn2Pq6J5+QBjRgt+olA/CBoFG+o=;
+        b=EMU3/hRv2Lgg5CsRYsx3JQfXvCf+jA18SHzaZH6CXi+gJ2/SgTbZDRi3L5m1j+FIQK
+         fSEgJn71Bu7aQRmM1N75xk7zXlo60ajHq/PHoMIhtWSIZFai0rQQ+utDQyh3W/MNPrCh
+         X2z2i5Zf+tZQ65ENcW5uE3xmkNosbxD47MBCI6sIK7jANugSvYmZ7NzDmwbN31380ZQ3
+         X8zNqjNMbXSkzrAx/Yt9V0zptMGLAPDzrC/2kEvD7RMOHRvr74icMvKwy/9H8XP1jQfO
+         m0YoS+7RKmH0+Mm3Kh+sidR1zIrWFgyJfs55MGLBlrXoax15m4c4extVP4xcjC/XlyJt
+         dC3A==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=g8b31BImqvtYy8TU2iRUw7+5j5L1X2UM/ZOH6vrgpbA=;
-        b=B5VWiyT9Q5bHx2xWQoGLh2tXcXiYxQ7GaK9xj02urjJeM36bm03nkwKazS3xJ6Hh6B
-         SwMvPVt8QSpnW36AUcklWB8kjRPWP75K+dCtKANsgL9xtu2wkr2Q4F1SE6ApV/KZRtI6
-         Y6zpISCirwBASwf6b4qcoDPEtkjTPtZmcOpXh/arCzFoHv2gkqwpKYU93t6hy0khNaH1
-         Sp1v9U0E9mCVKl66T5Cac951SMahmod3J9Cah7MibtpOungfv84W0lMgvI+7ooAUdQnT
-         q0jlP72xfCteBdob0UjmcQGmeXSdijTpJ42MAvx/HvRMKrEV+mR9HTTHT5vnICHMHhqg
-         951g==
+        bh=LH+tLLQe+pUP3rU7Cn2Pq6J5+QBjRgt+olA/CBoFG+o=;
+        b=H6Hh5IhaZm8haKXUiiZTa4WKO4Uz0rZQhB051ztPAmss1SpYmWPtjyMcXCZGUBDCAx
+         G/L17eDlwtBOXstu/K3/d2y2uePBb4f6cBsHx2AySai5/6ObNPK++yQHhPfKpfpa8q57
+         NPKiv4YhvJiVZCPFuIe8fpjXjZd+enIbb6xziNsAFxqL0twjFBt+tsO4FecW2pmm2nDX
+         SR+f+bGL9jDr5jNO/OXhlZNuThQh18Ek7tPFidFQ9A9NwU+BwYJY+W1dJjGxv+GO2wqS
+         xnRG7xGRxKewdDHe5y2+KqsvGkpk4ATHaHVGj4lolHyHtH0W8LC3PN3JcCcdA0c/eeJv
+         VUqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -50,77 +50,78 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=g8b31BImqvtYy8TU2iRUw7+5j5L1X2UM/ZOH6vrgpbA=;
-        b=ECOg4iBT8Akg7s133Vn2mfIHKhQLEHR8nD2dPXuU6KaAWOwho3U0V1oQd8lnmSGu0m
-         flzU/kc9cxBWMWwc9L/dyHy1nyWVk077djBc5VMWyKFSzDhnRKheousPeHkqQQyHgLS8
-         bG08T6Eou9r8ZairnkO/scsFksFL33Efcum2Sz2NJWkubLfmUJV5BaqVTofzKDa+EayO
-         LKbvhuA0kAQ+jjOxIwouaHLrjnU/RF3O3FA0pKTGdb7oyYLg1oVMx+7xVKPc/Iom6Jtm
-         H4ZXMsxZtvociTH9CwZ8vcbzg/yKWzArvM+k6OQg8nSF9MUPWzx6cPn++VYorqqBdJSh
-         J+OQ==
+        bh=LH+tLLQe+pUP3rU7Cn2Pq6J5+QBjRgt+olA/CBoFG+o=;
+        b=xLhez6NylYauyMox/rSA/iZ2PWcY/G71GyLO+0SdvuO2qFF34t/hn4ExHu28T2CBG3
+         blSVsgWCQMga9V6tYMFgHD2ZRMFBN5KVmIH0120IpWjfZcqq/FrDsGSCO69sFTBSWBEF
+         885+MoTjIx0TFN3REjrihn5qnqeNp+SgwNzUjOBu7fVQscla3NAwdIlP3JnEPGZa7KIt
+         XibIzC4b2EFYYIZU40sfJErBx0cpQEuFf0b9c+hSBaQE0FvwgCb9Cb2NyiRNNwtAuFC0
+         Dl7yRsMDfSkp4gHfx0yZ2/767xsMBbTFZlAjJBFLqQj5NmkB5xD85exgTbiLSRisC+43
+         ko4g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKXDANU05GV7SrbmcXmLiTP8fyBWlJXLFIySWshRRpyXzzW/+UFc
-	m7ki5IZWIiStcnZAFBPypuU=
-X-Google-Smtp-Source: AK7set/wZFex2w4qJJItA422RFHAkYL5g0JKuZMAPHqWzGXyA5W/cKalnw8NDZtwl8hxqviti8P+7Q==
-X-Received: by 2002:adf:d090:0:b0:2bf:bf7a:57bf with SMTP id y16-20020adfd090000000b002bfbf7a57bfmr110876wrh.285.1675772775949;
-        Tue, 07 Feb 2023 04:26:15 -0800 (PST)
+X-Gm-Message-State: AO0yUKWzsHB5tZS4+0gpxRFdX2ws2Ymfa9Ft9yYYPcpFfjXvPJEuUJXL
+	6kCJ2Z/0P1VxKT8HXNrzvic=
+X-Google-Smtp-Source: AK7set/xlY4UBS1zLeDCGtgYPXVigxOIKPpktMvA7P9ujVPOyePQGNCPXNnZpgBsqstnHRPxEGHr9Q==
+X-Received: by 2002:ac2:5102:0:b0:4d5:835c:d9d2 with SMTP id q2-20020ac25102000000b004d5835cd9d2mr404576lfb.263.1675772776848;
+        Tue, 07 Feb 2023 04:26:16 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:5b19:0:b0:2bf:ae0c:669b with SMTP id bx25-20020a5d5b19000000b002bfae0c669bls21047566wrb.2.-pod-prod-gmail;
- Tue, 07 Feb 2023 04:26:14 -0800 (PST)
-X-Received: by 2002:a5d:4a4e:0:b0:2c3:dbb0:7260 with SMTP id v14-20020a5d4a4e000000b002c3dbb07260mr2894576wrs.71.1675772774436;
-        Tue, 07 Feb 2023 04:26:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1675772774; cv=none;
+Received: by 2002:ac2:4bcf:0:b0:4c8:8384:83f3 with SMTP id o15-20020ac24bcf000000b004c8838483f3ls72286lfq.3.-pod-prod-gmail;
+ Tue, 07 Feb 2023 04:26:15 -0800 (PST)
+X-Received: by 2002:ac2:528a:0:b0:4bb:8d56:d859 with SMTP id q10-20020ac2528a000000b004bb8d56d859mr695277lfm.6.1675772775049;
+        Tue, 07 Feb 2023 04:26:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1675772775; cv=none;
         d=google.com; s=arc-20160816;
-        b=niFsxtmNNo/0N2+ViMVh/2jOaAx9znOA5Dwv85NlCyeElYiooesegM/UcWb5HTAVBk
-         UxJUD7tmE6gG/fr3h7dPNi5cK5Db8gS+W+VcYf+LjBnH6vwLCjeuFFHwgfUutRpk5GoJ
-         s+iA+IgbUux8PTw2QFxPJ3+Ae283IXpge6UKe+IVP9GYlVnivYqXS+YnB/L0IZ19XU/l
-         D34zc+HMI9/KdGVfsW04cLlbzEmVbdJd6k7XrC3JgWd6qWLkFHW1zENqz2YJb8PjVXEr
-         u3npdpu6ZZOMXmEjtvzgQ5Xs3ETKM/WmBdEJ+ZbJokYSs3WxLJIxj67+IL6ma2jNcW6O
-         n5jQ==
+        b=qUieq2uwqXTNeKAgCTFs6cOou/fhu6rrokFu0vm4J4PIW2Jow0VxpcibkKnhHXLZiw
+         QSQpOcCwWfRuRJRrBR0YBh+k0DJ1U3nySWq1/malzuzauwVXDHVvUJtqJN2bb2n4E/a3
+         zNaDgBuf+090uCFv0jvP0tEoJhQe0fG4b/uIgPC/nlRhSU6nyx/+9ccDYhOh/ViXxHKE
+         yMFU9S2BSRNJrrCsZsO8e5yNLdly//i/2i6hp8rXPQ3WkCYDtUQ9u9uYAsWkfUG49Uv/
+         8aOGJCyi/DK4eHcLOq0RT/0Rjy6+sT/JulpoZRUUS35chNCoVyaUNLbhuA1wkLqvrGZT
+         lmOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=g3gKEOHHj9nD0sV4OAOj6SX/p6/GA5MK3/bceibRkRE=;
-        b=lItvbQZJI0Hq9KBVpt3NHToIzERp9FpQL6Mza2PWe050njf75iHbvgU3KdSePo6bkq
-         q97YMT5HqGjDm3kim0ruKFy4qNLzE6W38trOMZS3E38BVVnMxTfmJqReiD9zuOUqrM4T
-         C9NLhM6KvHx9dv5MpK9m5hGRvXeQw4yagZ3gZRIpw/KMVtB42KQ9/Gcff3Xsx4Ow097T
-         5842dA9zgw/yrlc34bIKS6RMCRFFpKU/4n2duG7UQO5DkUJQQvKuuSAOaYC92vvzcxyB
-         7bQVbKIBudJRSqQcfV/RE1A3iB+K4ccnKoLV3dXFy9jHJ8dn2nr1rsGFzjKzPlzpkhRh
-         8RlQ==
+        bh=cS+4s0ei79ZvvrhXpGMrDZJnB2HnkDDKqqN1M2Zfyh8=;
+        b=yGrzmXzFtffJm2KMIEiei7GTphL5PHutEsDHVV1E//tT/t+ge65RWx+HZ7fMibwKWh
+         M0QvfKQlLmcYNO/FWdxpIHMkvXcZ0/h208ho3z7ysqJltJeOBDwJJ3D5OOruavqrpCqq
+         a2sKqgosNSBjOExRHLVoDdBOmyiWZacgzWXYeVpWHdDlG2KpK/PnmAP8tWKYAPK88vHx
+         0TDraJbx/BFOcoiGb7ht1DcGaNHhLOM6XE51YIFSbJ8hRuZNb7tYaNWzUuss/Y87AghF
+         9aSRXBTHvVYdR6au11ndBff+mQzvQ8JwoVWJ3VS9XxEcPm+irWgRL2lvDxKo8uLIAIC5
+         lnLg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id n15-20020a05600c500f00b003d9c774d43fsi109830wmr.2.2023.02.07.04.26.14
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
+        by gmr-mx.google.com with ESMTPS id k31-20020a0565123d9f00b004cb0f0982f3si639212lfv.4.2023.02.07.04.26.14
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Feb 2023 04:26:14 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+        Tue, 07 Feb 2023 04:26:15 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
 Received: from atlantis.buero (unknown [IPv6:2001:638:a01:8068:e089:ee05:7189:d907])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
-	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RT5vzRz1081;
-	Tue,  7 Feb 2023 13:26:13 +0100 (CET)
+	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RV1qqNzxvr;
+	Tue,  7 Feb 2023 13:26:14 +0100 (CET)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com
-Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
+Cc: Stefan Huber <stefan.huber@oth-regensburg.de>,
 	Konrad Schwarz <konrad.schwarz@siemens.com>,
 	Jan Kiszka <jan.kiszka@siemens.com>,
-	Stefan Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v2 32/47] core: riscv: implement trap handlers
-Date: Tue,  7 Feb 2023 13:25:28 +0100
-Message-Id: <20230207122543.1128638-33-ralf.ramsauer@oth-regensburg.de>
+	Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v2 33/47] inmates: riscv: implement tiny-demo RISC-V
+Date: Tue,  7 Feb 2023 13:25:29 +0100
+Message-Id: <20230207122543.1128638-34-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 References: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2023.2.7.121517, AntiVirus-Engine: 5.97.0, AntiVirus-Data: 2023.2.7.5970000
-X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __INVOICE_MULTILINGUAL 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_7 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
+X-PMX-Spam: Gauge=IIIIIIIII, Probability=9%, Report='
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, LINES_OF_YELLING_3 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FILESHARE_PHRASE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __LINES_OF_YELLING 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __PHISH_SPEAR_CONSEQUENCES_A 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_STARTS_S_BRACKETS 0,
+ __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -135,809 +136,696 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-[RFC v2: Add more fine granular SBI accounting, simplify usage of hlvx]
----
- hypervisor/arch/riscv/traps.c | 774 +++++++++++++++++++++++++++++++++-
- 1 file changed, 769 insertions(+), 5 deletions(-)
+From: Stefan Huber <stefan.huber@oth-regensburg.de>
 
-diff --git a/hypervisor/arch/riscv/traps.c b/hypervisor/arch/riscv/traps.c
-index f61dfc1a..de29288a 100644
---- a/hypervisor/arch/riscv/traps.c
-+++ b/hypervisor/arch/riscv/traps.c
-@@ -10,19 +10,783 @@
-  * the COPYING file in the top-level directory.
-  */
+add necessary files for developing tiny-demo inmate. Consists of
+modified copies from x86/arm.
+
+Signed-off-by: Stefan Huber <stefan.huber@oth-regensburg.de>
+Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+---
+ .gitignore                          |   1 +
+ inmates/demos/riscv/Makefile        |  19 ++++
+ inmates/demos/riscv/tiny-demo.c     |  19 ++++
+ inmates/lib/include/inmate_common.h |   1 +
+ inmates/lib/riscv/Makefile          |  46 ++++++++
+ inmates/lib/riscv/Makefile.lib      |  64 ++++++++++++
+ inmates/lib/riscv/header.S          |  44 ++++++++
+ inmates/lib/riscv/include/inmate.h  | 157 ++++++++++++++++++++++++++++
+ inmates/lib/riscv/inmate.lds.S      |  74 +++++++++++++
+ inmates/lib/riscv/printk.c          |  61 +++++++++++
+ inmates/lib/riscv/setup.c           |  43 ++++++++
+ inmates/lib/riscv/uart.c            |  47 +++++++++
+ 12 files changed, 576 insertions(+)
+ create mode 100644 inmates/demos/riscv/tiny-demo.c
+ create mode 100644 inmates/lib/riscv/Makefile.lib
+ create mode 100644 inmates/lib/riscv/header.S
+ create mode 100644 inmates/lib/riscv/include/inmate.h
+ create mode 100644 inmates/lib/riscv/inmate.lds.S
+ create mode 100644 inmates/lib/riscv/printk.c
+ create mode 100644 inmates/lib/riscv/setup.c
+ create mode 100644 inmates/lib/riscv/uart.c
+
+diff --git a/.gitignore b/.gitignore
+index 245733cb..80224289 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -20,6 +20,7 @@ include/jailhouse/config.h
+ hypervisor/hypervisor.lds
+ inmates/lib/arm/inmate.lds
+ inmates/lib/arm64/inmate.lds
++inmates/lib/riscv/inmate.lds
+ pyjailhouse/pci_defs.py
+ tools/demos/cache-timings
+ tools/demos/ivshmem-demo
+diff --git a/inmates/demos/riscv/Makefile b/inmates/demos/riscv/Makefile
+index e69de29b..2f0bac84 100644
+--- a/inmates/demos/riscv/Makefile
++++ b/inmates/demos/riscv/Makefile
+@@ -0,0 +1,19 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2013, 2014
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# This work is licensed under the terms of the GNU GPL, version 2.  See
++# the COPYING file in the top-level directory.
++#
++
++include $(INMATES_LIB)/Makefile.lib
++
++INMATES := tiny-demo.bin
++
++tiny-demo-y	:= tiny-demo.o
++
++$(eval $(call DECLARE_TARGETS,$(INMATES)))
+diff --git a/inmates/demos/riscv/tiny-demo.c b/inmates/demos/riscv/tiny-demo.c
+new file mode 100644
+index 00000000..e4af2642
+--- /dev/null
++++ b/inmates/demos/riscv/tiny-demo.c
+@@ -0,0 +1,19 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2022
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *  Stefan Huber <stefan.huber@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ */
++
++#include <inmate.h>
++
++void inmate_main(void)
++{
++	printk("Hello from this tiny cell!\n");
++}
+diff --git a/inmates/lib/include/inmate_common.h b/inmates/lib/include/inmate_common.h
+index 1c20a0af..8f474264 100644
+--- a/inmates/lib/include/inmate_common.h
++++ b/inmates/lib/include/inmate_common.h
+@@ -72,6 +72,7 @@
+ #define MSIX_CTRL_FMASK		0x4000
  
-+#include <jailhouse/control.h>
-+#include <jailhouse/printk.h>
-+#include <jailhouse/entry.h>
-+#include <jailhouse/percpu.h>
-+#include <jailhouse/processor.h>
-+#include <jailhouse/utils.h>
-+#include <asm/control.h>
-+#include <asm/irqchip.h>
- #include <asm/processor.h>
-+#include <asm/csr64.h>
-+#include <asm/sbi.h>
-+#include <asm/setup.h>
+ #ifndef __ASSEMBLY__
++
+ typedef s8 __s8;
+ typedef u8 __u8;
  
- void arch_handle_trap(union registers *regs);
- void arch_handle_fault(union registers *regs);
- 
--void arch_handle_trap(union registers *regs)
-+static const char *causes[] = {
-+	[EXC_INST_MISALIGNED]		= "Instruction Address Misaligned",
-+	[EXC_INST_ACCESS]		= "Instruction Address Fault",
-+	[EXC_INST_ILLEGAL]		= "Illegal Instruction",
-+	[EXC_BREAKPOINT]		= "Breakpoint",
-+	[EXC_LOAD_ACCESS_MISALIGNED]	= "Load Accesss Misaligned",
-+	[EXC_LOAD_ACCESS]		= "Load Access Fault",
-+	[EXC_AMO_ADDRESS_MISALIGNED]	= "AMO Address Misaligned",
-+	[EXC_STORE_ACCESS]		= "Store Access Fault",
-+	[EXC_SYSCALL]			= "Env Call From U-Mode",
-+	[EXC_HYPERVISOR_SYSCALL]	= "Env Call From S-Mode",
-+	[EXC_SUPERVISOR_SYSCALL]	= "Env Call From VS-Mode",
-+	[11]				= "Env Call From M-Mode",
-+	[EXC_INST_PAGE_FAULT]		= "Instruction Pagefault",
-+	[EXC_LOAD_PAGE_FAULT]		= "Load Pagefault",
-+	[14]				= "Reserved",
-+	[EXC_STORE_PAGE_FAULT]		= "Store Pagefault",
-+	[16 ... 19]			= "Reserved",
-+	[EXC_INST_GUEST_PAGE_FAULT]	= "Inst Guest Pagefault",
-+	[EXC_LOAD_GUEST_PAGE_FAULT]	= "Load Guest Pagefault",
-+	[EXC_VIRTUAL_INST_FAULT]	= "Virtual Instruction Fault",
-+	[EXC_STORE_GUEST_PAGE_FAULT]	= "Store Guest Pagefault",
+diff --git a/inmates/lib/riscv/Makefile b/inmates/lib/riscv/Makefile
+index e69de29b..9ff57721 100644
+--- a/inmates/lib/riscv/Makefile
++++ b/inmates/lib/riscv/Makefile
+@@ -0,0 +1,46 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2015, 2016
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# This work is licensed under the terms of the GNU GPL, version 2.  See
++# the COPYING file in the top-level directory.
++#
++# Alternatively, you can use or redistribute this file under the following
++# BSD license:
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++#
++# 1. Redistributions of source code must retain the above copyright
++#    notice, this list of conditions and the following disclaimer.
++#
++# 2. Redistributions in binary form must reproduce the above copyright
++#    notice, this list of conditions and the following disclaimer in the
++#    documentation and/or other materials provided with the distribution.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++# THE POSSIBILITY OF SUCH DAMAGE.
++#
++
++include $(INMATES_LIB)/Makefile.lib
++
++always-y := lib.a inmate.lds
++
++lib-y := $(common-objs-y)
++lib-y += header.o printk.o setup.o uart.o
++
++lib-y += ../cmdline.o ../printk.o ../setup.o ../string.o ../uart-8250.o
+diff --git a/inmates/lib/riscv/Makefile.lib b/inmates/lib/riscv/Makefile.lib
+new file mode 100644
+index 00000000..9a87d8ff
+--- /dev/null
++++ b/inmates/lib/riscv/Makefile.lib
+@@ -0,0 +1,64 @@
++#
++# Jailhouse, a Linux-based partitioning hypervisor
++#
++# Copyright (c) Siemens AG, 2013, 2014
++#
++# Authors:
++#  Jan Kiszka <jan.kiszka@siemens.com>
++#
++# This work is licensed under the terms of the GNU GPL, version 2.  See
++# the COPYING file in the top-level directory.
++#
++# Alternatively, you can use or redistribute this file under the following
++# BSD license:
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++#
++# 1. Redistributions of source code must retain the above copyright
++#    notice, this list of conditions and the following disclaimer.
++#
++# 2. Redistributions in binary form must reproduce the above copyright
++#    notice, this list of conditions and the following disclaimer in the
++#    documentation and/or other materials provided with the distribution.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++# THE POSSIBILITY OF SUCH DAMAGE.
++#
++
++include $(ALWAYS_COMPAT_MK)
++
++-include $(GEN_CONFIG_MK)
++
++#KBUILD_CFLAGS += -m64 -mno-red-zone
++LINUXINCLUDE += -I$(INMATES_LIB)/include
++
++define DECLARE_TARGETS =
++ _TARGETS = $(1)
++ always-y := $$(_TARGETS)
++ # $(NAME-y) NAME-linked.o NAME.bin
++ targets += $$(foreach t,$$(_TARGETS:.bin=-y),$$($$t)) \
++            $$(_TARGETS:.bin=-linked.o) $$(_TARGETS)
++endef
++
++# prevent deleting intermediate files which would cause rebuilds
++.SECONDARY: $(addprefix $(obj)/,$(targets))
++
++# obj/NAME-linked.o: ... obj/$(NAME-y) lib/lib[32].a
++.SECONDEXPANSION:
++$(obj)/%-linked.o: $(INMATES_LIB)/inmate.lds $$(addprefix $$(obj)/,$$($$*-y)) \
++		   $(INMATES_LIB)/$$(if $$($$*_32),lib32.a,lib.a) FORCE
++	$(call if_changed,ld)
++
++$(obj)/%.bin: $(obj)/%-linked.o FORCE
++	$(call if_changed,objcopy)
+diff --git a/inmates/lib/riscv/header.S b/inmates/lib/riscv/header.S
+new file mode 100644
+index 00000000..3a12f51f
+--- /dev/null
++++ b/inmates/lib/riscv/header.S
+@@ -0,0 +1,44 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2022
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++.section ".boot", "ax"
++
++	.globl __reset_entry
++__reset_entry:
++	la	sp, __stack_top
++	j	c_entry
+diff --git a/inmates/lib/riscv/include/inmate.h b/inmates/lib/riscv/include/inmate.h
+new file mode 100644
+index 00000000..dac9f146
+--- /dev/null
++++ b/inmates/lib/riscv/include/inmate.h
+@@ -0,0 +1,157 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef _JAILHOUSE_INMATE_H
++#define _JAILHOUSE_INMATE_H
++
++#define __stringify_1(x...)	#x
++#define __stringify(x...)	__stringify_1(x)
++
++#define COMM_REGION_BASE	0x100000
++
++#define PAGE_SIZE		(4 * 1024ULL)
++
++typedef signed char s8;
++typedef unsigned char u8;
++
++typedef signed short s16;
++typedef unsigned short u16;
++
++typedef signed int s32;
++typedef unsigned int u32;
++
++typedef signed long long s64;
++typedef unsigned long long u64;
++
++#define SR_SIE	0x00000002UL
++
++#define csr_read(csr)                                           \
++({                                                              \
++	register unsigned long __v;                             \
++	__asm__ __volatile__ ("csrr %0, " __stringify(csr)      \
++			      : "=r" (__v) :                    \
++			      : "memory");                      \
++	__v;                                                    \
++})
++
++#define csr_write(csr, val)                                     \
++({                                                              \
++	unsigned long __v = (unsigned long)(val);               \
++	__asm__ __volatile__ ("csrw " __stringify(csr) ", %0"   \
++			      : : "rK" (__v)                    \
++			      : "memory");                      \
++})
++
++#define csr_clear(csr, val)                                     \
++({                                                              \
++	unsigned long __v = (unsigned long)(val);               \
++	__asm__ __volatile__ ("csrc " __stringify(csr) ", %0"   \
++			      : : "rK" (__v)                    \
++			      : "memory");                      \
++})
++
++#define csr_set(csr, val)                                       \
++({                                                              \
++	unsigned long __v = (unsigned long)(val);               \
++	__asm__ __volatile__ ("csrs " __stringify(csr) ", %0"   \
++			      : : "rK" (__v)                    \
++			      : "memory");                      \
++})
++
++static inline void disable_irqs(void)
++{
++	csr_clear(sstatus, SR_SIE);
++}
++
++static inline void cpu_relax(void)
++{
++	int dummy;
++
++	asm volatile ("div %0, %0, zero" : "=r"(dummy));
++	asm volatile ("" ::: "memory");
++}
++
++static inline void __attribute__((noreturn)) halt(void)
++{
++	while (1)
++		asm volatile ("wfi" : : : "memory");
++}
++
++static inline u8 mmio_read8(void *address)
++{
++	return *(volatile u8 *)address;
++}
++
++static inline u16 mmio_read16(void *address)
++{
++	return *(volatile u16 *)address;
++}
++
++static inline u32 mmio_read32(void *address)
++{
++	return *(volatile u32 *)address;
++}
++
++static inline u64 mmio_read64(void *address)
++{
++	return *(volatile u64 *)address;
++}
++
++static inline void mmio_write8(void *address, u8 value)
++{
++	*(volatile u8 *)address = value;
++}
++
++static inline void mmio_write16(void *address, u16 value)
++{
++	*(volatile u16 *)address = value;
++}
++
++static inline void mmio_write32(void *address, u32 value)
++{
++	*(volatile u32 *)address = value;
++}
++
++static inline void mmio_write64(void *address, u64 value)
++{
++	*(volatile u64 *)address = value;
++}
++
++#include <inmate_common.h>
++
++#endif /* !_JAILHOUSE_INMATE_H */
+diff --git a/inmates/lib/riscv/inmate.lds.S b/inmates/lib/riscv/inmate.lds.S
+new file mode 100644
+index 00000000..cb6e7a76
+--- /dev/null
++++ b/inmates/lib/riscv/inmate.lds.S
+@@ -0,0 +1,74 @@
++/*
++ * Jailhouse RISC-V support
++ *
++ * Copyright (C) 2022 OTH Regensburg
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <inmate_common.h>
++
++SECTIONS {
++	. = CONFIG_INMATE_BASE;
++	.boot		: { *(.boot) }
++
++	. = CONFIG_INMATE_BASE + 0x100;
++	.cmdline	: {
++		*(.cmdline)
++		BYTE(0); /* empty string in case no buffer is provided */
++	}
++
++	bss_start = .;
++	.bss		: {
++		*(.bss)
++	}
++
++	. = ALIGN(4);
++	.text		: {
++		*(.text)
++	}
++
++	.rodata		: {
++		*(.rodata)
++	}
++
++	.data		: {
++		*(.data)
++	}
++
++	. = ALIGN(4096);
++	. = . + 0x1000;
++	__stack_top = .;
++}
++
++ENTRY(__reset_entry)
+diff --git a/inmates/lib/riscv/printk.c b/inmates/lib/riscv/printk.c
+new file mode 100644
+index 00000000..5eb31537
+--- /dev/null
++++ b/inmates/lib/riscv/printk.c
+@@ -0,0 +1,61 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) Siemens AG, 2013
++ *
++ * Authors:
++ *  Jan Kiszka <jan.kiszka@siemens.com>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <inmate.h>
++#include <uart.h>
++
++static void reg_out_mmio8(struct uart_chip *chip, unsigned int reg, u32 value)
++{
++	mmio_write8(chip->base + reg, value);
++}
++
++static u32 reg_in_mmio8(struct uart_chip *chip, unsigned int reg)
++{
++	return mmio_read8(chip->base + reg);
++}
++
++void arch_console_init(struct uart_chip *chip)
++{
++	struct jailhouse_console *console = &comm_region->console;
++
++	if (cmdline_parse_bool("con-regdist-1",
++	    CON_USES_REGDIST_1(console->flags))) {
++		chip->reg_out = reg_out_mmio8;
++		chip->reg_in = reg_in_mmio8;
++	}
++}
+diff --git a/inmates/lib/riscv/setup.c b/inmates/lib/riscv/setup.c
+new file mode 100644
+index 00000000..705c5630
+--- /dev/null
++++ b/inmates/lib/riscv/setup.c
+@@ -0,0 +1,43 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2012
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <inmate.h>
++
++void arch_init_early(void)
++{
++}
+diff --git a/inmates/lib/riscv/uart.c b/inmates/lib/riscv/uart.c
+new file mode 100644
+index 00000000..4c394dee
+--- /dev/null
++++ b/inmates/lib/riscv/uart.c
+@@ -0,0 +1,47 @@
++/*
++ * Jailhouse, a Linux-based partitioning hypervisor
++ *
++ * Copyright (c) OTH Regensburg, 2018-2022
++ *
++ * Authors:
++ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
++ *
++ * This work is licensed under the terms of the GNU GPL, version 2.  See
++ * the COPYING file in the top-level directory.
++ *
++ * Alternatively, you can use or redistribute this file under the following
++ * BSD license:
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
++ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
++ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++ * THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <inmate.h>
++#include <uart.h>
++
++DECLARE_UART(8250);
++
++struct uart_chip *uart_array[] = {
++	&UART_OPS_NAME(8250),
++	NULL
 +};
-+
-+static inline bool is_irq(u64 cause)
-+{
-+	return !!(cause & CAUSE_IRQ_FLAG);
-+}
-+
-+static inline unsigned long to_irq(unsigned long cause)
-+{
-+	return cause & ~CAUSE_IRQ_FLAG;
-+}
-+
-+static void dump_regs(union registers *r)
-+{
-+	struct public_per_cpu *pc = this_cpu_public();
-+	unsigned long scause = csr_read(scause);
-+	const char *cause_str = "UNKNOWN";
-+
-+	/* We might want to later exchange it with panic_printk, but for the
-+	 * moment of development, printk is more helpful. */
-+	void (*printer)(const char *, ...) = panic_printk;
-+
-+	if (scause <= 23)
-+		cause_str = causes[scause];
-+	else if (is_irq(scause))
-+		cause_str = "IRQ";
-+
-+	printer("Fatal: Exception on CPU %u (HART %u). Cause: %lu (%s)\n",
-+		pc->cpu_id, pc->phys_id, to_irq(scause), cause_str);
-+	printer("scause: 0x%016lx, stval: 0x%016lx, htval<<2: 0x%016lx\n",
-+		scause, csr_read(stval), csr_read(CSR_HTVAL) << 2);
-+	printer(" PC: 0x%016llx RA: 0x%016llx  SP: 0x%016llx\n", r->pc, r->ra, r->sp);
-+	printer(" GP: 0x%016llx TP: 0x%016llx  T0: 0x%016llx\n", r->gp, r->tp, r->t0);
-+	printer(" T1: 0x%016llx T2: 0x%016llx  S0: 0x%016llx\n", r->t1, r->t2, r->s0);
-+	printer(" S1: 0x%016llx A0: 0x%016llx  A1: 0x%016llx\n", r->s1, r->a0, r->a1);
-+	printer(" A2: 0x%016llx A3: 0x%016llx  A4: 0x%016llx\n", r->a2, r->a3, r->a4);
-+	printer(" A5: 0x%016llx A6: 0x%016llx  A7: 0x%016llx\n", r->a5, r->a6, r->a7);
-+	printer(" S2: 0x%016llx S3: 0x%016llx  S4: 0x%016llx\n", r->s2, r->s3, r->s4);
-+	printer(" S5: 0x%016llx S6: 0x%016llx  S7: 0x%016llx\n", r->s5, r->s6, r->s7);
-+	printer(" S8: 0x%016llx S9: 0x%016llx S10: 0x%016llx\n", r->s8, r->s9, r->s10);
-+	printer("S11: 0x%016llx T3: 0x%016llx  T4: 0x%016llx\n", r->s11, r->t3, r->t4);
-+	printer(" T5: 0x%016llx T6: 0x%016llx\n", r->t5, r->t6);
-+}
-+
-+static int handle_timer(void)
-+{
-+	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_TIMER]++;
-+	sbi_set_timer(-1);
-+
-+	/* inject timer to VS */
-+	csr_set(CSR_HVIP, VIE_TIE);
-+
-+	return 0;
-+}
-+
-+static inline void riscv_guest_inject_ipi(void)
-+{
-+	/* inject IPI to VS */
-+	csr_set(CSR_HVIP, VIE_SIE);
-+}
-+
-+static int handle_ipi(void)
-+{
-+	struct public_per_cpu *pcpu = this_cpu_public();
-+	bool check_events = false;
-+	u32 *stats = pcpu->stats;
-+	int err = 0;
-+
-+	/* Take the control lock */
-+	spin_lock(&pcpu->control_lock);
-+
-+	/*
-+	 * Next, we have to check who's the recipient of the IPI. Is it the
-+	 * hypervisor, or is it the guest?
-+	 */
-+	switch (pcpu->ipi_cause) {
-+		case IPI_CAUSE_GUEST:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_IPI]++;
-+			riscv_guest_inject_ipi();
-+			break;
-+
-+		case IPI_CAUSE_MGMT:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_MANAGEMENT]++;
-+			check_events = true;
-+			break;
-+
-+		case IPI_CAUSE_NONE:
-+		default:
-+			printk("Fatal: Invalid IPI cause on CPU %u\n", this_cpu_id());
-+			err = -EINVAL;
-+			break;
-+	}
-+
-+	this_cpu_public()->ipi_cause = IPI_CAUSE_NONE;
-+	/*
-+	 * IPI must be acknowledged. Clear the IPI by clearing sip.SSIP.
-+	 * Alternatively, IPI could be cleared via SBI. This is deprecated and
-+	 * unperformant.
-+	 */
-+	csr_clear(sip, (1 << IRQ_S_SOFT));
-+
-+	/*
-+	 * Unlock the control lock. Another CPU may us now send some further
-+	 * events, until we enter arch_check_events. It is important that the
-+	 * IPI is acknowledged here, as from now on, further IPIs might already
-+	 * be sent by remote CPUs.
-+	 */
-+	spin_unlock(&pcpu->control_lock);
-+
-+	if (check_events)
-+		arch_check_events();
-+
-+	return err;
-+}
-+
-+static int handle_irq(u64 irq)
-+{
-+	int err;
-+
-+	switch (irq) {
-+		case IRQ_S_TIMER:
-+			err = handle_timer();
-+			break;
-+
-+		case IRQ_S_SOFT:
-+			err = handle_ipi();
-+			break;
-+
-+		case IRQ_S_EXT:
-+			err = irqchip_set_pending();
-+			break;
-+
-+		default:
-+			err = -ENOSYS;
-+			break;
-+	}
-+
-+	return err;
-+}
-+
-+static int sbi_ext_time(struct sbiret *ret, unsigned int fid, u64 stime)
-+{
-+	if (fid != SBI_EXT_TIME_SET_TIMER)
-+		return -ENOSYS;
-+
-+	/* Clear pending IRQs */
-+	csr_clear(CSR_HVIP, VIE_TIE);
-+
-+	*ret = sbi_set_timer(stime);
-+
-+	return 0;
-+}
-+
-+static inline void skip_emulated_instruction(union registers *regs, unsigned int b)
-+{
-+	regs->pc += b;
-+	csr_write(sepc, regs->pc);
-+}
-+
-+static bool sbi_permitted_target_mask(unsigned long mask, unsigned long base)
-+{
-+	unsigned int cpu;
-+	unsigned long phys;
-+
-+	for_each_cpu(cpu, &this_cell()->cpu_set) {
-+		phys = public_per_cpu(cpu)->phys_id;
-+		if (phys < base)
-+			continue;
-+
-+		mask &= ~(1UL << (phys - base));
-+		if (!mask)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static bool sbi_permitted_hart(unsigned long hartid)
-+{
-+	unsigned int cpu;
-+
-+	for_each_cpu(cpu, &this_cell()->cpu_set)
-+		if (public_per_cpu(cpu)->phys_id == hartid)
-+			return true;
-+	return false;
-+}
-+
-+static void guest_queue_ipi(unsigned int cpu)
-+{
-+	struct public_per_cpu *pcpu = public_per_cpu(cpu);
-+
-+retry:
-+	spin_lock(&pcpu->control_lock);
-+	if (pcpu->ipi_cause == IPI_CAUSE_NONE)
-+		pcpu->ipi_cause = IPI_CAUSE_GUEST;
-+	else {
-+		spin_unlock(&pcpu->control_lock);
-+		goto retry;
-+	}
-+	spin_unlock(&pcpu->control_lock);
-+}
-+
-+static int handle_sbi_send_ipi(struct sbiret *ret, unsigned long mask,
-+			       unsigned	long base)
-+{
-+	unsigned long phys, mask_fwd;
-+	unsigned int cpu;
-+
-+	mask_fwd = 0;
-+	while (mask) {
-+		phys = ffsl(mask);
-+		mask &= ~(1UL << phys);
-+
-+		cpu = cpu_by_phys_processor_id(base + phys);
-+		if (cpu == this_cpu_id())
-+			riscv_guest_inject_ipi();
-+		else if (public_per_cpu(cpu)->cell != this_cell())
-+			return -EPERM;
-+		else {
-+			guest_queue_ipi(cpu);
-+			mask_fwd |= (1UL << phys);
-+		}
-+	}
-+
-+	/* Only forward the IPI, if in mask is anything left */
-+	if (mask_fwd)
-+		*ret = sbi_send_ipi(mask_fwd, base);
-+	else /* Just a single self-IPI */
-+		ret->value = ret->error = 0;
-+
-+	return 0;
-+}
-+
-+
-+static inline int handle_sbi_rfence(struct sbiret *ret, unsigned int fid,
-+				    unsigned long mask, unsigned long base,
-+				    unsigned long a2, unsigned long a3,
-+				    unsigned long a4)
-+{
-+	if (!sbi_permitted_target_mask(mask, base))
-+			return -EPERM;
-+
-+	*ret = sbi_ecall(SBI_EXT_RFENCE, fid, mask, base, a2, a3, a4, 0);
-+	return 0;
-+}
-+
-+static int riscv_unpark(struct sbiret *ret, unsigned long hartid,
-+			unsigned long start_addr, unsigned long opaque)
-+{
-+	struct public_per_cpu *pcpu;
-+	unsigned int cpu;
-+	int err = 0;
-+
-+	cpu = cpu_by_phys_processor_id(hartid);
-+	pcpu = public_per_cpu(cpu);
-+	ret->value = 0;
-+
-+	spin_lock(&pcpu->control_lock);
-+	if (pcpu->hsm.state == STARTED || pcpu->hsm.state == START_PENDING) {
-+		ret->error = SBI_ERR_ALREADY_AVAILABLE;
-+		goto unlock_out;
-+	}
-+
-+	pcpu->hsm.start_addr = start_addr;
-+	pcpu->hsm.opaque = opaque;
-+	pcpu->hsm.state = START_PENDING;
-+	spin_unlock(&pcpu->control_lock);
-+
-+	arch_send_event(pcpu);
-+
-+	ret->error = SBI_SUCCESS;
-+
-+unlock_out:
-+	spin_unlock(&pcpu->control_lock);
-+	return err;
-+}
-+
-+static int handle_sbi_hsm(struct sbiret *ret, unsigned int fid, unsigned long a0,
-+			  unsigned long a1, unsigned long a2)
-+{
-+	int err = 0;
-+
-+	switch (fid) {
-+		case SBI_EXT_HSM_HART_STOP:
-+			riscv_park_cpu();
-+			break;
-+
-+		case SBI_EXT_HSM_HART_START:
-+			ret->value = 0;
-+			if (!sbi_permitted_hart(a0) ||
-+			    a0 == this_cpu_public()->phys_id) {
-+				ret->error = SBI_ERR_INVALID_PARAM;
-+				break;
-+			}
-+
-+			err = riscv_unpark(ret, a0, a1, a2);
-+			break;
-+
-+		case SBI_EXT_HSM_HART_STATUS:
-+			if (sbi_permitted_hart(a0)) {
-+				ret->error = SBI_SUCCESS;
-+				ret->value = public_per_cpu(cpu_by_phys_processor_id(a0))->hsm.state;
-+			} else {
-+				ret->error = SBI_ERR_INVALID_PARAM;
-+				ret->value = 0;
-+			}
-+			break;
-+
-+		default:
-+			printk("Unknown HSM Fid: %u\n", fid);
-+			err = -EINVAL;
-+			break;
-+	}
-+
-+	return err;
-+}
-+
-+static struct sbiret sbi_probe_ext(unsigned long ext)
-+{
-+	struct sbiret ret;
-+
-+	/* Allow access to all extensions but system reset (SRST) */
-+	switch (ext) {
-+	case SBI_EXT_TIME:
-+	case SBI_EXT_SPI:
-+	case SBI_EXT_RFENCE:
-+	case SBI_EXT_HSM:
-+		ret = sbi_ecall(SBI_EXT_BASE, SBI_EXT_BASE_PROBE_EXT, ext,
-+				0, 0, 0, 0, 0);
-+		break;
-+
-+	case SBI_EXT_SRST:
-+	default:
-+		ret.error = SBI_ERR_DENIED;
-+		ret.value = 0;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int sbi_ext_base(struct sbiret *ret, unsigned long fid, unsigned long a0)
-+{
-+	int err = 0;
-+
-+	switch (fid) {
-+		case SBI_EXT_BASE_GET_SPEC_VERSION:
-+		case SBI_EXT_BASE_GET_IMP_ID:
-+		case SBI_EXT_BASE_GET_IMP_VERSION:
-+		case SBI_EXT_BASE_GET_MVENDORID:
-+		case SBI_EXT_BASE_GET_MARCHID:
-+		case SBI_EXT_BASE_GET_MIMPID:
-+			*ret = sbi_ecall(SBI_EXT_BASE, fid, a0, 0, 0, 0, 0, 0);
-+			break;
-+
-+		case SBI_EXT_BASE_PROBE_EXT:
-+			*ret = sbi_probe_ext(a0);
-+			break;
-+
-+		default:
-+			err = -ENOSYS;
-+			break;
-+	}
-+
-+	return err;
-+}
-+
-+static int handle_ecall(union registers *regs)
-+{
-+	/*
-+	 * Spec: In the name of compatibility, SBI extension IDs (EIDs) and SBI
-+	 * function IDs (FIDs) are encoded as signed 32-bit integers. When
-+	 * passed in registers these follow the standard above calling
-+	 * convention rules.
-+	 */
-+	u32 *stats = this_cpu_public()->stats;
-+	unsigned int eid, fid;
-+	struct sbiret ret;
-+	int err = -ENOSYS;
-+
-+	eid = regs->a7;
-+	fid = regs->a6;
-+	ret.value = 0;
-+
-+	switch (eid) {
-+		/* Treat putchar like a hypercall. Accounts for a hypercall. */
-+		case SBI_EXT_0_1_CONSOLE_PUTCHAR:
-+			ret.error = hypercall(JAILHOUSE_HC_DEBUG_CONSOLE_PUTC,
-+					      regs->a0, 0);
-+			err = 0;
-+			break;
-+
-+		case SBI_EXT_0_1_CONSOLE_GETCHAR:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
-+			/*
-+			 * I have never seen this one being used in real-world.
-+			 * As we would need to think if we allow access (what
-+			 * about non-root?), let's simply deny it for the
-+			 * moment.
-+			 */
-+			if (0)
-+				ret = sbi_console_getchar_legacy_0_1();
-+			else {
-+				ret.error = SBI_ERR_DENIED;
-+				ret.value = 0;
-+			}
-+			err = 0;
-+			break;
-+
-+		case SBI_EXT_BASE:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
-+			err = sbi_ext_base(&ret, fid, regs->a0);
-+			break;
-+
-+		case SBI_EXT_TIME: /* since SBI v0.2 */
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_TIME]++;
-+			err = sbi_ext_time(&ret, fid, regs->a0);
-+			break;
-+
-+		case SBI_EXT_SPI:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_IPI]++;
-+			err = handle_sbi_send_ipi(&ret, regs->a0, regs->a1);
-+			break;
-+
-+		case SBI_EXT_RFENCE:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_RFENCE]++;
-+			err = handle_sbi_rfence(&ret, fid, regs->a0, regs->a1, regs->a2,
-+						regs->a3, regs->a4);
-+			break;
-+
-+		case SBI_EXT_HSM:
-+			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
-+			err = handle_sbi_hsm(&ret, fid, regs->a0, regs->a1, regs->a2);
-+			break;
-+
-+		case JAILHOUSE_EID:
-+			ret.error = hypercall(fid, regs->a0, regs->a1);
-+			if (fid == JAILHOUSE_HC_DISABLE && !ret.error)
-+				riscv_deactivate_vmm(regs, 0, true);
-+			err = 0;
-+			break;
-+
-+		default:
-+			printk("Unknown SBI call EID: 0x%x FID: 0x%x\n", eid, fid);
-+			return -EINVAL;
-+			break;
-+	}
-+
-+	if (err)
-+		return err;
-+
-+	/* If we came from stop, don't propagate error codes */
-+	if (eid == SBI_EXT_HSM && fid == SBI_EXT_HSM_HART_STOP)
-+		return 0;
-+
-+	regs->a0 = ret.error;
-+	regs->a1 = ret.value;
-+	skip_emulated_instruction(regs, 4);
-+
-+	return 0;
-+}
-+
-+static inline u16 gmem_read16(unsigned long addr)
- {
--	for (;;)
--		cpu_relax();
-+	u64 mem;
-+
-+	/*
-+	 * hlvx.hu can potentially fault and throw an exception. But if we end
-+	 * up here, we're decoding an instruction that the guest was possible
-+	 * to execute. Hence, it must be backed by existing memory, and no
-+	 * exception can occur.
-+	 */
-+	asm volatile(".insn r 0x73, 0x4, 0x32, %0, %1, x3\n" /* hlvx.hu */
-+		     : "=r"(mem) : "r"(addr) : "memory");
-+
-+	return mem;
-+}
-+
-+static inline u64 sext(u32 w)
-+{
-+	u64 ret;
-+	asm volatile("sext.w %0, %0" : "=r"(ret) : "r"(w) :);
-+	return ret;
-+}
-+
-+#define COMP_RX_OFF	8
-+
-+union instruction {
-+	struct {
-+		u32 type:2;
-+		u32 opcode:5;
-+		u32 dest:5;
-+		u32 width:3;
-+		u32 base:5;
-+		u32 offset:12;
-+	} load __attribute__((packed));
-+	struct {
-+		u32 type:2;
-+		u32 opcode:5;
-+		u32 offset40:5;
-+		u32 width:3;
-+		u32 base:5;
-+		u32 src:5;
-+		u32 offset115:7;
-+	} store __attribute__((packed));
-+	struct {
-+		u32 type:2;
-+		u32 opcode:5;
-+		u32 rsvd:25;
-+	} generic __attribute__((packed));
-+	u32 raw;
-+} __attribute__((packed));
-+
-+union cinstruction {
-+	struct {
-+		u16 opcode:2;
-+		u16 src_dst:3;
-+		u16 off1:2;
-+		u16 base:3;
-+		u16 off2:3;
-+		u16 funct3:3;
-+	} load_store __attribute__((packed));
-+	struct {
-+		u16 opcode:2;
-+		u16 rsvd:14;
-+	} generic __attribute__((packed));
-+	u16 raw;
-+} __attribute__((packed));
-+
-+struct riscv_mmio_inst {
-+	unsigned char reg;
-+	unsigned char width;
-+	bool sign_extended;
-+};
-+
-+static int riscv_decode_compressed_instruction(struct riscv_mmio_inst *mmio_inst, u16 inst)
-+{
-+	union cinstruction i;
-+	int err = -ENOSYS;
-+
-+	i.raw = inst;
-+	/* SW */
-+	if (i.generic.opcode == 0 && i.load_store.funct3 == 6) {
-+		mmio_inst->width = 4;
-+		mmio_inst->sign_extended = true;
-+		mmio_inst->reg = i.load_store.src_dst + COMP_RX_OFF;
-+		err = 0;
-+	/* LW */
-+	} else if (i.generic.opcode == 0 && i.load_store.funct3 == 2) {
-+		mmio_inst->width = 4;
-+		mmio_inst->sign_extended = true;
-+		mmio_inst->reg = i.load_store.src_dst + COMP_RX_OFF;
-+		err = 0;
-+	}
-+
-+	return err;
-+}
-+
-+static int riscv_decode_instruction(struct riscv_mmio_inst *mmio_inst, u32 inst,
-+				    bool is_compressed)
-+{
-+	union instruction i;
-+	int err = -ENOSYS;
-+
-+	if (is_compressed)
-+		return riscv_decode_compressed_instruction(mmio_inst, inst);
-+
-+	i.raw = inst;
-+	if (i.generic.type != 0x3)
-+		return err;
-+
-+	/* LB, LH, LW */
-+	if (i.generic.opcode == 0x0) {
-+		if (i.load.width > 2)
-+			return err;
-+		mmio_inst->width = 1 << i.load.width;
-+		mmio_inst->sign_extended = true;
-+		mmio_inst->reg = i.load.dest;
-+		err = 0;
-+	/* SB, SW, SH */
-+	} else if (i.generic.opcode == 0x8) {
-+		if (i.store.width > 2)
-+			return err;
-+		mmio_inst->width = 1 << i.store.width;
-+		mmio_inst->sign_extended = true;
-+		mmio_inst->reg = i.store.src;
-+		err = 0;
-+	}
-+
-+	return err;
-+}
-+
-+static int handle_fault(union registers *regs, bool is_write)
-+{
-+	struct riscv_mmio_inst mmio_inst;
-+	struct mmio_access mmio;
-+	enum mmio_result result;
-+	bool is_compressed;
-+	u32 instruction;
-+	size_t *reg;
-+	int err;
-+
-+	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_MMIO]++;
-+
-+	mmio.is_write = is_write;
-+	mmio.address = csr_read(CSR_HTVAL) << 2;
-+
-+	/*
-+	 * Potentially, htval might point to address NULL, while pointing to a
-+	 * valid trap value. However, 0 might also indicate that htval is not
-+	 * supported by the micro-architecture. Hence, by design, let's say
-+	 * that address NULL should (a) not be used or (b) must not cause
-+	 * access faults when being used.
-+	 *
-+	 * Here, we assume that the micro-architecture doesn't support htval,
-+	 * if we read back zero on a fault exception.
-+	 */
-+	if (!mmio.address)
-+		return -ENOSYS;
-+
-+	/* Just ensure that the instruction is 16-bit aligned */
-+	if (regs->pc & 0x1)
-+		return -EINVAL;
-+
-+	/* Load remaining lsb two bits from stval */
-+	mmio.address |= csr_read(stval) & 0x3;
-+
-+	/* Load faulting instruction */
-+
-+	/* check if htinst is available */
-+#if 0 /* htinst can hold pseudo-decoded instrs which we don't support yet. */
-+	instruction = csr_read(CSR_HTINST);
-+#else
-+	instruction = 0;
-+#endif
-+	if (instruction != 0) {
-+		is_compressed = (instruction & 0x3) != 0x3;
-+	} else { /* if not, load from guest mem */
-+		instruction = gmem_read16(regs->pc);
-+		if ((instruction & 0x3) == 0x3) {
-+			is_compressed = false;
-+			instruction |= (u32)gmem_read16(regs->pc + 2) << 16;
-+		} else
-+			is_compressed = true;
-+	}
-+
-+	err = riscv_decode_instruction(&mmio_inst, instruction, is_compressed);
-+	if (err)
-+		goto unsup;
-+
-+	if (mmio.is_write)
-+		mmio.value = regs->raw.x[mmio_inst.reg];
-+	mmio.size = mmio_inst.width;
-+
-+	result = mmio_handle_access(&mmio);
-+	if (result == MMIO_HANDLED) {
-+		if (!mmio.is_write) {
-+			reg = &regs->raw.x[mmio_inst.reg];
-+			*reg = mmio.value;
-+			if (mmio_inst.width < 8) {
-+				*reg &= ((1UL << mmio_inst.width * 8) - 1);
-+				if (mmio_inst.sign_extended)
-+					*reg = sext(*reg);
-+			}
-+		}
-+		skip_emulated_instruction(regs, is_compressed ? 2 : 4);
-+		return 0;
-+	}
-+
-+	return -ENOSYS;
-+
-+unsup:
-+	printk("Unsupported instruction: 0x%x\n", instruction);
-+	return -ENOSYS;
- }
- 
- void arch_handle_fault(union registers *regs)
- {
--	for (;;)
--		cpu_relax();
-+	panic_printk("FATAL: Unhandled S-Mode exception.\n");
-+	panic_printk("Hypervisor registers:\n");
-+	dump_regs(regs);
-+	panic_stop();
-+}
-+
-+void arch_handle_trap(union registers *regs)
-+{
-+	unsigned long cause;
-+	int err = -1;
-+
-+	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_TOTAL]++;
-+
-+	regs->pc = csr_read(sepc);
-+	cause = csr_read(scause);
-+
-+	if (is_irq(cause)) {
-+		err = handle_irq(cause & ~CAUSE_IRQ_FLAG);
-+		goto out;
-+	}
-+
-+	switch (cause) {
-+		case EXC_INST_ACCESS:
-+		case EXC_LOAD_ACCESS:
-+		case EXC_STORE_ACCESS:
-+		case EXC_INST_PAGE_FAULT:
-+		case EXC_LOAD_PAGE_FAULT:
-+		case EXC_STORE_PAGE_FAULT:
-+		case EXC_INST_MISALIGNED:
-+		case EXC_LOAD_ACCESS_MISALIGNED:
-+		case EXC_AMO_ADDRESS_MISALIGNED:
-+			printk("\nFaulting Address: %016lx\n", csr_read(stval));
-+			err = -ENOSYS;
-+			break;
-+
-+		case EXC_SUPERVISOR_SYSCALL:
-+			err = handle_ecall(regs);
-+			break;
-+
-+		case EXC_BREAKPOINT:
-+			printk("BP occured @ PC: %016lx\n", regs->pc);
-+			err = -1;
-+			break;
-+
-+		case EXC_LOAD_GUEST_PAGE_FAULT:
-+			err = handle_fault(regs, false);
-+			break;
-+
-+		case EXC_STORE_GUEST_PAGE_FAULT:
-+			err = handle_fault(regs, true);
-+			break;
-+
-+		case EXC_INST_ILLEGAL:
-+		default:
-+			err = -1;
-+			break;
-+	}
-+
-+out:
-+	if (err) {
-+		dump_regs(regs);
-+		panic_park();
-+	}
- }
 -- 
 2.39.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-33-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-34-ralf.ramsauer%40oth-regensburg.de.
