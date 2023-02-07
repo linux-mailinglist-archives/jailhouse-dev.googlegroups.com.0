@@ -1,32 +1,32 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB24GRGPQMGQEO2WT3ZQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB3EGRGPQMGQE4HZBHYQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07BE68D69C
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:20 +0100 (CET)
-Received: by mail-lj1-x23d.google.com with SMTP id f3-20020a2ea0c3000000b00292fe8261ccsf1526435ljm.21
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:20 -0800 (PST)
+Received: from mail-lj1-x23b.google.com (mail-lj1-x23b.google.com [IPv6:2a00:1450:4864:20::23b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A45C68D69F
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  7 Feb 2023 13:26:21 +0100 (CET)
+Received: by mail-lj1-x23b.google.com with SMTP id m3-20020a2ea583000000b0029099954a31sf3517305ljp.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Feb 2023 04:26:21 -0800 (PST)
 ARC-Seal: i=2; a=rsa-sha256; t=1675772780; cv=pass;
         d=google.com; s=arc-20160816;
-        b=af2sB4tZ+Ckn8lPI61sdIkG+27LSqD+IYg2PfbNlCgF3e9K5EaFF7MVa1J8qzD3qiY
-         4snoVl3ABq/daww/8O7ThstAMvme3EQSa15P9l8NwXmZJk3Lki4lY44Wh89yiPAt5AqK
-         Cdc7sMJErvQeLpwBNCGdVEamuri5N67JTbX2RAyvzdYEXnvK5KG0tnX8JaEBV1/3gFur
-         dOjRO8aGV3C4p2bzGYn4Z2Lg5laGTMqXvMOvk5ovjJe/EHILSTSfcFtK1MoTeczLuv6v
-         ZuansimtSj9Pdytcse4WDjxH3dWyaKjq3qIhhfxC6tQFJakdK7EUWPbi+N7L3Yk+iePb
-         7qvg==
+        b=gslaVtHyqO5LXZZxEX04YbVQ+FidTjVQUBjoClFS6SrXn7rEVY5tJyDYGY0G7htqma
+         rmsfPTb+BsM0Vf7YdYsoplznAIhH7tWTXGTVOSvntyT39FphC1Udnf98cELV2xLXR48k
+         ZtZ+Gj1EIqCiD6KiKYvIayxynShOVLlkDmOr008NnKfEIv5VmuCm6S/+uobj06djvJEE
+         wdDgxXg2SuqVfIpWtWL3L481ogJjpcXw+Vb+mEgKE117WOpAv1BCct5tYOupvgie94Ni
+         eDmEOsZKUhUHF5PaxnhPyCaPTi3EusOdnNVYdY97mK+ZipPaEshzbBWJO4HM5yN2cKvo
+         R8pw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=C2mD8TtdnmDDjsNL8+4MbWDFq/jCDuogfnaOqwAtJyg=;
-        b=Pf4LoCO2y+kT+Jtg2meRUep2jEDlhIhOjupx4iIILT4VARpqjaVdKipjr35ctWaqN7
-         evSpi6XKMxS0/OnknFwL2bKvIdp2ztQONa/WF0oAU1isj/JnzVK8pS/UdvcAyW8sqO4X
-         Q619gHFIdBN4BmcAphjvZOhVQxstbH6baTeKGNrJMzcMCxY64Rf6JTpITU5h/m35A3ws
-         hPyTvY/5UB4GPhbKGQuFSa+RDa6zB36PdjfxubPX6scnZlfehMU1il76lzWMyYlX8ZUz
-         kXZ9mL8aeLAIGBexEH7Lf9h07flOQhx2DJl6I0I5U3FRJtL5tJJXxEGsmrSMDtWWeFPo
-         ZcZA==
+        bh=eApVOi1nLKWHBJ0FEJ8dAcS5kJH8LLq2wJJ/Ma/tzOY=;
+        b=T4s+gT/OiC7XYPaR/6g4SI25Rn1Jw2SadXhj4AKz+5eMuj2JabNMwixUKQwEeRT3nn
+         M4UNf7BciExE1DrYm18u/1rpy4uX1YJzJPFbw+PJ6Xj5nqDvAHBL0u6m80raO8VWVGFg
+         1ILPnbAzBpQJasPVvU+NK+7eji95U7SnVD1EvCpG/ENIRBosCztlPIneCqPyAhbHoWgF
+         e93C4gCibPLVqYoF+hLt12ggOKaexeC6dX8i3B3kULkpFv7rk+AVwiEdNm13hrKAizsO
+         Tuc11kz/EQi1/iaEgH7MnhUf5uhOIReAl3NTCNELzjxGzBjIyhciOS1svHXZWn8zbz8b
+         0qYA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=C2mD8TtdnmDDjsNL8+4MbWDFq/jCDuogfnaOqwAtJyg=;
-        b=JrKe/n1Cc1rQkM2inR/qjOJQjE9H8V8ljlPxTaY6DL3H4TW/LnTmyvsSE7/kt3/2ya
-         Fl+OQBPbtBi35FlvY0AOozXU7WpakTwEAfZbrj8Z/ZXRBnuwDJz5PIJucbsUPrbykMyt
-         4p/YVIhj4Ev2yXa7fKT1vSbJu1bLYFwhjgO/A3065JA1KHXIeB55kmNY1mxysx1/TYm3
-         HDX0Kfzm38bZLtU4pWZb3eNiyFulKmJSZ3BJKyzjKjb9quzgw+TvVF8Tmcp+ZK7s4lt5
-         FDgKRDJAisLe7xSri+D4KdeH3iPT2OoPV9vRTlXTJXOgRxwI7QyxVgF9xK96zJPzNScv
-         ttFw==
+        bh=eApVOi1nLKWHBJ0FEJ8dAcS5kJH8LLq2wJJ/Ma/tzOY=;
+        b=oaBO0ivdYt4wN1ABoV02RkP4CBY33a7X2yWotJZJ6Y9cfw0CS46VwJwMsz64sgVpf3
+         KXeQknPMwfbGlVAw2FDpQL/dUBDTRLoFLHvXwSUc4TW21gKDtW0vw8Gluyds2zyc3thy
+         NzBytUgaKZtr/GnCEh2it/mxpp8dqamESUfRn0vd54oek4eN6xSWmlCTlgL1OJQEVVrY
+         1zFcFKWeI8W+sb+HRdW3/SO+eFC3PxaWXKjdEeNqZzqpN6YhmokPbS3bDf/iS0OQPC3d
+         ysdoJiwgOnUXExQ9K4b4BQj1wRJ7IaRtCDRbKSoWXrzKaGsROQELLjcvY03TqkLKINpM
+         b7hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -50,78 +50,78 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=C2mD8TtdnmDDjsNL8+4MbWDFq/jCDuogfnaOqwAtJyg=;
-        b=VjdtNUurEZP8xWr5recTaMTWloBM6WANp3qsxkPcIIhAJxue1KiwFUQGoYrk0JcoiH
-         UPVNJ5JiE2iDGsnhSLxLPPYQB7H3SxRchzYHAu0a0LQcABd7hf+63tzE6DWCTtFkIf1S
-         4C3SqJP/GnFpR3MA+y7AnyLI6bNuprPXZTO9f69fruoPTAwhpJJ9CsJCGGxkrFIKPsf4
-         836lluVg8rsPD9iELuCAUjM3cT/o3DXQHj7aefBIg1B7ak0KHQcBPDt6pGUxF5z/OoxX
-         +EjQySKjngKmW613eXT/d0hnLGTgtJHK3a91UsRxgnKowtoLpghX934G1nW/h0+CqXCD
-         +vOw==
+        bh=eApVOi1nLKWHBJ0FEJ8dAcS5kJH8LLq2wJJ/Ma/tzOY=;
+        b=2XQ4Sa0QuP18GKpiI0DCvGao1MJ1yR3ZCAoNctyVBL4g071i2JBwU8r4g8fUYZwgCX
+         q2PbwmRSiUIq9w5/Q54x9dqEMel7ZdIxNMJK/wlnGK/ZN8cSe4jOMsHQCiUj6cWSVwoC
+         KZ3SEzEh89oG/aMfoF7ha6sOj3PvUEwoSB/DnPcRjud1GMwHk8UYTAEZkyYKeYskh0RX
+         EnsToQ5RtfkjkSWmUNJeoaAWg+6w1eGm3kzG60GX7/4aCE6Qhj8vKZXx6qxmhORzjt38
+         CcY+Fxtl4J92Kk1KAYO5Y/RHSeh3ji3ADIUlw/OKrTahH9ayZXZqDJeD5+VUsGuG8SvX
+         VhDw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKWjO9VIfZZ8gYPRhgVpGQXYU3G3mO9ftGyWbNLkCsiJxAysZQT5
-	eGC7x0oC9D4BMFfWcERkxFM=
-X-Google-Smtp-Source: AK7set99VL1a3eFYaZzzxr4DfevuGh5VPhEp8W5k6V6QhC9Ov74ToGtHHoyuafCuYinGFkoUm3Wjug==
-X-Received: by 2002:a2e:9106:0:b0:28f:55c6:8664 with SMTP id m6-20020a2e9106000000b0028f55c68664mr536070ljg.31.1675772780388;
+X-Gm-Message-State: AO0yUKVMiydLoWFj4hdhqQyYkhVsmF7dTXfMiFw8DRSRHM82Lrm1kt9c
+	rVdjU1UYKVK3V7HkIDXjiYk=
+X-Google-Smtp-Source: AK7set8IVs7UDIgQVYwAxGankJ1SYjLm5g/4gHfO8+otz86HwBF7Kwh7xu+NRocSqkUCv5JA0zZ7OA==
+X-Received: by 2002:ac2:5924:0:b0:4ca:fa1a:3956 with SMTP id v4-20020ac25924000000b004cafa1a3956mr403789lfi.230.1675772780792;
         Tue, 07 Feb 2023 04:26:20 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:9048:0:b0:28b:86c7:a456 with SMTP id n8-20020a2e9048000000b0028b86c7a456ls2087302ljg.11.-pod-prod-gmail;
- Tue, 07 Feb 2023 04:26:18 -0800 (PST)
-X-Received: by 2002:a2e:879a:0:b0:28b:5621:7ba with SMTP id n26-20020a2e879a000000b0028b562107bamr791439lji.0.1675772778531;
+Received: by 2002:a05:6512:3d1f:b0:4d1:8575:2d31 with SMTP id
+ d31-20020a0565123d1f00b004d185752d31ls72306lfv.0.-pod-prod-gmail; Tue, 07 Feb
+ 2023 04:26:19 -0800 (PST)
+X-Received: by 2002:ac2:4282:0:b0:4cc:7a44:f05f with SMTP id m2-20020ac24282000000b004cc7a44f05fmr738836lfh.31.1675772778925;
         Tue, 07 Feb 2023 04:26:18 -0800 (PST)
 ARC-Seal: i=1; a=rsa-sha256; t=1675772778; cv=none;
         d=google.com; s=arc-20160816;
-        b=eG9Zb5HHkHGwEIPtExiZqdBFZJ2+1yfnpnGfpmAUgp1VUHL7OCIKsHsvWst134VVh6
-         aYQ6+WWYJ9ZB1iMhgsLzoEY2fxnTcBtIRSbMTbFxZTYAiO5sGLtYFMusZ8BQGpCvhk58
-         jqbPTxb5/A2IHUie2IsL78WCISrjbjny39fOhWm0GRm58K1OG33+FxX+7qW5zrGfSnE5
-         wUr24uBX+rkttE91DBLHZLRvmCJFF5d9u0UJcZylP7eW5zQj/7mKBwkqR44GyrhfyvAi
-         NsTR7NugK2oJKLHu9zLo2miSxPQ7L5Wq6H9PrW0hb40YIwiR8inVPT8ChZqq7576RPAd
-         U95A==
+        b=vUmu4gB3ltGJdAS+b6OimQAgGw16D3TBjVeRK2N8qIGXjanHMOlZh32T7Cnna/kORP
+         Q0kWigMaM0wl4KnGb8xamGkXZK1NgjJ//k6f6XZSSirYs6uyKHr2pegzxminGukeKPjQ
+         aRYLXV+FvSYZi+sAYkn/uGbh1FtJ8verdxyLC7QYd7UzscicecLgFuR44qLczWyl14k8
+         4Xl1UOGditVSFuMvXJcACNvARx6DAb1Rj9HjohliarqFgcIaxTStmw3NOhib/blovsdX
+         iHksnTFiuvpjYZ0LJeuWu/IMgGGHbO/psy/VDHgeViJlpfkIfZwvOwzkMj2sQGFavwuc
+         R9wQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=T9tqB64TlCeRaYlJ/xKR7m0H8jMyVtyR0jmPiq2L3/Q=;
-        b=luAgfrplwELfCtyujgxcOdNUBZvt2JxJOsxtdpQp4mltc5TcQt9dfKzbCTPqaergGQ
-         CpLu0xMrD2E3+LJsu+nT1JEQUFNkTtzA3LHTlNGSejTSDxsC6WVkSLmT+npEgeblhCiI
-         BnC0h9PCg6WOQOeE8gIAgCEoP6vxPeLgMe5YrgvZgyJ4TIbwh+67Mh6yxTxwMiHaEcyO
-         z3Oljgikd8amW2mmEfiydymgBhrJjkeCUlHJgQEClm+PHbxhx5j5JYEfuMe3iwMNIpiy
-         NV5C8HHyqSDrjjs1ecL6tmgd29jXLlYHN+NDWu4IouIh+tUTPCcU2nb/X9OGwDq8SB2V
-         QXsQ==
+        bh=36GBmOSLYOt1HF2i06kYBC1k+EZSVfmL+4d6a0AAJQg=;
+        b=08+o8khZ9jvXGMp5yyZWRyvxnQy9vvhkmSomcISvgE8EbNbTrwCaqAKHjWDzZbpkLq
+         hFdn4m8gQMly8dYlMqaRelSFEyjtad7YtnGB/eBQeDeREyyRK6AiAxaIgJusV8IVwH1W
+         SpbuXN5DUc5W1VB8z7S1uI47SO73xRZdBIlKqrOMJuLxlKN4JWmWib8GblaMipjrr42K
+         TusCsU4gA6Y7sEASku1ULD5TOAJUY0p7JkTLgWXGM08GQlurGXVaVjaedfuGYIvSAKk7
+         cSyAzeBx1CxrfZ7dLmqtpXBhgt88IDV3KUsXunM0ruUGaf0rInGHW9or9OnPbylyYGFq
+         vcJg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
-        by gmr-mx.google.com with ESMTPS id bi39-20020a0565120ea700b004d57ca1c967si606773lfb.0.2023.02.07.04.26.18
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
+        by gmr-mx.google.com with ESMTPS id f16-20020a05651232d000b004d09f629f63si647751lfg.8.2023.02.07.04.26.18
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 07 Feb 2023 04:26:18 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
 Received: from atlantis.buero (unknown [IPv6:2001:638:a01:8068:e089:ee05:7189:d907])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
-	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RY4L6Vzy6b;
-	Tue,  7 Feb 2023 13:26:17 +0100 (CET)
+	by mtaout.hs-regensburg.de (Postfix) with ESMTPS id 4PB2RZ0BFJz106g;
+	Tue,  7 Feb 2023 13:26:18 +0100 (CET)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com
 Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
 	Konrad Schwarz <konrad.schwarz@siemens.com>,
 	Jan Kiszka <jan.kiszka@siemens.com>,
 	Stefan Huber <stefan.huber@oth-regensburg.de>
-Subject: [RFC v2 44/47] core: riscv: implement APLIC support
-Date: Tue,  7 Feb 2023 13:25:40 +0100
-Message-Id: <20230207122543.1128638-45-ralf.ramsauer@oth-regensburg.de>
+Subject: [RFC v2 45/47] core: riscv: plic: introduce vIRQ support
+Date: Tue,  7 Feb 2023 13:25:41 +0100
+Message-Id: <20230207122543.1128638-46-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 References: <20230207122543.1128638-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2023.2.7.121517, AntiVirus-Engine: 5.97.0, AntiVirus-Data: 2023.2.7.5970000
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __COURIER_PHRASE 0, __CTE 0, __FILESHARE_PHRASE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __INVOICE_MULTILINGUAL 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __PASSWORD_IN_BODY 0, __PHISH_SPEAR_SUBJ_TEAM 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_25 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0,
- __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, RDNS_NXDOMAIN 0, RDNS_SUSP 0, RDNS_SUSP_GENERIC 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __INVOICE_MULTILINGUAL 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __PHISH_SPEAR_SUBJ_TEAM 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -136,523 +136,416 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-This adds APLIC support for wired IRQs. For wired IRQs, the situation is
-basically the same as with the APLIC: We have to fully moderate access,
-due to the memory layout.
-
-Major differences to the PLIC:
-  - An IRQ can only be routed to a single HART (PLIC supported HART
-    target masks)
-  - IRQs are only claimed and NOT acknowledged
-  - Global IRQ disabling is not supported (via DOMAINCFG). But we don't
-    really need it.
-
-So let's do the same as with the PLIC and softemulate it.
-
-The situation will get better, once we add support for MSIs: The with
-IMSIC-support, the APLIC can present all wired IRQs as MSIs, and also
-supports 'virtual MSIs' that can for example be used to model IPIs.
-
-With the IMSIC, situation will get better for us.
+For demonstration purposes only.
 
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 ---
- hypervisor/arch/riscv/Kbuild    |   4 +-
- hypervisor/arch/riscv/aplic.c   | 444 ++++++++++++++++++++++++++++++++
- hypervisor/arch/riscv/irqchip.c |   6 +-
- 3 files changed, 451 insertions(+), 3 deletions(-)
- create mode 100644 hypervisor/arch/riscv/aplic.c
+ hypervisor/arch/riscv/include/asm/cell.h    |   1 +
+ hypervisor/arch/riscv/include/asm/irqchip.h |  16 +++
+ hypervisor/arch/riscv/include/asm/ivshmem.h |   1 +
+ hypervisor/arch/riscv/include/asm/percpu.h  |   6 +-
+ hypervisor/arch/riscv/irqchip.c             |  48 +++++++++
+ hypervisor/arch/riscv/ivshmem.c             |  38 +++++++-
+ hypervisor/arch/riscv/plic.c                | 103 +++++++++++++++++++-
+ hypervisor/arch/riscv/traps.c               |   1 +
+ 8 files changed, 207 insertions(+), 7 deletions(-)
 
-diff --git a/hypervisor/arch/riscv/Kbuild b/hypervisor/arch/riscv/Kbuild
-index 0e7d3719..e8f0eb9f 100644
---- a/hypervisor/arch/riscv/Kbuild
-+++ b/hypervisor/arch/riscv/Kbuild
-@@ -14,5 +14,5 @@
+diff --git a/hypervisor/arch/riscv/include/asm/cell.h b/hypervisor/arch/riscv/include/asm/cell.h
+index 9da228d4..8bfbef8a 100644
+--- a/hypervisor/arch/riscv/include/asm/cell.h
++++ b/hypervisor/arch/riscv/include/asm/cell.h
+@@ -22,6 +22,7 @@ struct arch_cell {
+ 	struct paging_structures mm;
  
- always-y := lib.a
+ 	u32 irq_bitmap[MAX_IRQS / (sizeof(u32) * 8)];
++	u32 virq_present_bitmap[MAX_IRQS / (sizeof(u32) * 8)];
+ };
  
--lib-y := entry.o exception.o setup.o dbg-write.o control.o ivshmem.o irqchip.o
--lib-y += paging.o pci.o plic.o traps.o lib.o
-+lib-y := aplic.o entry.o exception.o setup.o dbg-write.o control.o ivshmem.o
-+lib-y += irqchip.o paging.o pci.o plic.o traps.o lib.o
-diff --git a/hypervisor/arch/riscv/aplic.c b/hypervisor/arch/riscv/aplic.c
-new file mode 100644
-index 00000000..94111885
---- /dev/null
-+++ b/hypervisor/arch/riscv/aplic.c
-@@ -0,0 +1,444 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2022-2023
-+ *
-+ * Authors:
+ #endif /* !_JAILHOUSE_ASM_CELL_H */
+diff --git a/hypervisor/arch/riscv/include/asm/irqchip.h b/hypervisor/arch/riscv/include/asm/irqchip.h
+index 24e8fdaf..297bd483 100644
+--- a/hypervisor/arch/riscv/include/asm/irqchip.h
++++ b/hypervisor/arch/riscv/include/asm/irqchip.h
+@@ -29,6 +29,11 @@ struct irqchip {
+ 	int (*claim_irq)(void);
+ 	void (*adjust_irq_target)(struct cell *cell, unsigned int irq);
+ 
++	void (*send_virq)(struct cell *cell, unsigned int irq);
++	void (*register_virq)(struct cell *cell, unsigned int irq);
++	void (*unregister_virq)(struct cell *cell, unsigned int irq);
++	bool (*inject_pending_virqs)(void);
++
+ 	void *base;
+ 	unsigned long pending[MAX_CPUS];
+ };
+@@ -82,6 +87,11 @@ static inline bool irqchip_irq_in_cell(struct cell *cell, unsigned int irq)
+ 	return irq_bitmap_test(cell->arch.irq_bitmap, irq);
+ }
+ 
++static inline bool irqchip_virq_in_cell(struct cell *cell, unsigned int irq)
++{
++	return irq_bitmap_test(cell->arch.virq_present_bitmap, irq);
++}
++
+ static inline void guest_inject_ext(void)
+ {
+ 	csr_set(CSR_HVIP, (1 << IRQ_S_EXT) << VSIP_TO_HVIP_SHIFT);
+@@ -104,4 +114,10 @@ static inline void ext_enable(void)
+ 
+ int irqchip_set_pending(void);
+ 
++void irqchip_register_virq(unsigned int irq);
++void irqchip_unregister_virq(unsigned int irq);
++void irqchip_send_virq(struct cell *cell, unsigned int irq);
++void irqchip_process_pending_virqs(void);
++bool irqchip_inject_pending_virqs(void);
++
+ #endif /* __ASSEMBLY__ */
+diff --git a/hypervisor/arch/riscv/include/asm/ivshmem.h b/hypervisor/arch/riscv/include/asm/ivshmem.h
+index 03251590..8b193947 100644
+--- a/hypervisor/arch/riscv/include/asm/ivshmem.h
++++ b/hypervisor/arch/riscv/include/asm/ivshmem.h
+@@ -11,4 +11,5 @@
+  */
+ 
+ struct arch_ivshmem_irq_cache {
++	u16 id[IVSHMEM_MSIX_VECTORS];
+ };
+diff --git a/hypervisor/arch/riscv/include/asm/percpu.h b/hypervisor/arch/riscv/include/asm/percpu.h
+index f57e6d57..c6dd8cb2 100644
+--- a/hypervisor/arch/riscv/include/asm/percpu.h
++++ b/hypervisor/arch/riscv/include/asm/percpu.h
+@@ -42,6 +42,10 @@ enum sbi_hart_state {
+ 	} hsm;								\
+ 	bool wait_for_power_on;						\
+ 	bool reset;							\
+-	bool park;
++	bool park;							\
++	struct {							\
++		u32 enabled_bitmap[MAX_IRQS / (sizeof(u32) * 8)];	\
++		u32 pending_bitmap[MAX_IRQS / (sizeof(u32) * 8)];	\
++	} virq;
+ 
+ #define ARCH_PERCPU_FIELDS
+diff --git a/hypervisor/arch/riscv/irqchip.c b/hypervisor/arch/riscv/irqchip.c
+index 693c37bf..0e965bdf 100644
+--- a/hypervisor/arch/riscv/irqchip.c
++++ b/hypervisor/arch/riscv/irqchip.c
+@@ -67,6 +67,8 @@ static int irqchip_cell_init(struct cell *cell)
+ 			     irqchip_mmio, cell);
+ 
+ 	memset(cell->arch.irq_bitmap, 0, sizeof(cell->arch.irq_bitmap));
++	memset(cell->arch.virq_present_bitmap, 0,
++	       sizeof(cell->arch.virq_present_bitmap));
+ 
+ 	for_each_irqchip(chip, cell->config, n) {
+ 		/* Only support one single PLIC at the moment */
+@@ -188,4 +190,50 @@ static void irqchip_cell_exit(struct cell *cell)
+ 				chip->pin_bitmap[pos];
+ }
+ 
++void irqchip_send_virq(struct cell *cell, unsigned int irq)
++{
++	//printk("sending vIRQ %u from %s to %s\n", irq, this_cell()->config->name, cell->config->name);
++	irqchip.send_virq(cell, irq);
++}
++
++void irqchip_register_virq(unsigned int irq)
++{
++	struct cell *cell = this_cell();
++
++	if (irqchip_irq_in_cell(cell, irq)) {
++		printk("FATAL: irqchip: Unable to register vIRQ %u\n", irq);
++		panic_stop();
++	}
++
++	irqchip.register_virq(cell, irq);
++}
++
++void irqchip_unregister_virq(unsigned int irq)
++{
++	irqchip.unregister_virq(this_cell(), irq);
++}
++
++bool irqchip_inject_pending_virqs(void)
++{
++	return irqchip.inject_pending_virqs();
++}
++
++void irqchip_process_pending_virqs(void)
++{
++	/*
++	 * We can only inject IRQs if there's no other IRQ waiting. No problem:
++	 * If other IRQs are currently being handled, the cell must somewhen
++	 * acknowledge the interrupt. On acknowledgement, this routine is
++	 * called again, so we won't miss the IRQ.
++	 */
++	if (guest_ext_pending())
++		return;
++
++	if (!irqchip_inject_pending_virqs())
++		return;
++
++	ext_disable();
++	guest_inject_ext();
++}
++
+ DEFINE_UNIT(irqchip, "RISC-V irqchip");
+diff --git a/hypervisor/arch/riscv/ivshmem.c b/hypervisor/arch/riscv/ivshmem.c
+index e5dd7973..e459a45b 100644
+--- a/hypervisor/arch/riscv/ivshmem.c
++++ b/hypervisor/arch/riscv/ivshmem.c
+@@ -1,21 +1,37 @@
+ /*
+  * Jailhouse, a Linux-based partitioning hypervisor
+  *
+- * Copyright (c) Siemens AG, 2020
++ * Copyright (c) Siemens AG, 2016-2019
++ * Copyright (c) OTH Regensburg, 2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
 + *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/paging.h>
-+#include <jailhouse/cell.h>
-+#include <jailhouse/string.h>
-+#include <jailhouse/unit.h>
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+  * the COPYING file in the top-level directory.
+  */
+ 
+-#include <jailhouse/entry.h>
 +#include <jailhouse/control.h>
-+#include <jailhouse/processor.h>
-+#include <jailhouse/printk.h>
-+#include <asm/csr64.h>
+ #include <jailhouse/ivshmem.h>
++#include <jailhouse/cell.h>
++#include <asm/processor.h>
 +#include <asm/irqchip.h>
+ 
+ void arch_ivshmem_trigger_interrupt(struct ivshmem_endpoint *ive,
+ 				    unsigned int vector)
+ {
++	unsigned int irq_id = ive->irq_cache.id[vector];
 +
-+#define REGISTER(X) REG_RANGE((X), (X) + IRQCHIP_REG_SZ)
++	if (irq_id) {
++		/*
++		 * Ensure that all data written by the sending guest is visible
++		 * to the target before triggering the interrupt.
++		 */
++		memory_barrier();
 +
-+#define DOMAINCFG		0x0
-+#define  DOMAINCFG_DM		2
-+#define  DOMAINCFG_BE		0
-+#define  DOMAINCFG_IE		8
-+#define  DOMAINCFG_DEFAULT	((1 << 31) | (1 << DOMAINCFG_IE))
++		irqchip_send_virq(ive->device->cell, irq_id);
++	}
+ }
+ 
+ int arch_ivshmem_update_msix(struct ivshmem_endpoint *ive, unsigned int vector,
+@@ -26,4 +42,22 @@ int arch_ivshmem_update_msix(struct ivshmem_endpoint *ive, unsigned int vector,
+ 
+ void arch_ivshmem_update_intx(struct ivshmem_endpoint *ive, bool enabled)
+ {
++	u8 pin = ive->cspace[PCI_CFG_INT/4] >> 8;
++	struct pci_device *device = ive->device;
++	unsigned int virq;
 +
-+#define SOURCECFG_BASE 		0x4
-+#define  SOURCECFG_D		10
-+#define SOURCECFG_END 		0x1000
++	/*
++	 * Lock used as barrier, ensuring all interrupts triggered after return
++	 * use the new setting.
++	 */
++	virq = device->cell->config->vpci_irq_base + pin - 1;
++	spin_lock(&ive->irq_lock);
++	if (enabled) {
++		ive->irq_cache.id[0] = virq;
++		irqchip_register_virq(virq);
++	} else {
++		ive->irq_cache.id[0] = 0;
++		irqchip_unregister_virq(virq);
++	}
++	spin_unlock(&ive->irq_lock);
+ }
+diff --git a/hypervisor/arch/riscv/plic.c b/hypervisor/arch/riscv/plic.c
+index 2c820c96..8422111a 100644
+--- a/hypervisor/arch/riscv/plic.c
++++ b/hypervisor/arch/riscv/plic.c
+@@ -146,6 +146,7 @@ static inline void plic_passthru(const struct mmio_access *access)
+ static inline enum mmio_result
+ plic_handle_context_claim(struct mmio_access *access, unsigned long hart)
+ {
++	/* clear pending bit */
+ 	if (!access->is_write) {
+ 		access->value = irqchip.pending[hart];
+ 		return MMIO_HANDLED;
+@@ -158,7 +159,9 @@ plic_handle_context_claim(struct mmio_access *access, unsigned long hart)
+ 		return MMIO_ERROR;
+ 	}
+ 
+-	plic_write(access->address, access->value);
++	/* TODO: vIRQ could have been disabled before acknowledgement */
++	if (!irq_bitmap_test(this_cell()->arch.virq_present_bitmap, access->value))
++		plic_write(access->address, access->value);
+ 
+ 	/* Check if there's another physical IRQ pending */
+ 	/* TODO: This is where we would need to prioritise vIRQs */
+@@ -166,6 +169,11 @@ plic_handle_context_claim(struct mmio_access *access, unsigned long hart)
+ 	if (irqchip.pending[hart])
+ 		return MMIO_HANDLED;
+ 
++	/* TODO: vIRQ has the lowest prio at the moment */
++	irqchip_inject_pending_virqs();
++	if (irqchip.pending[hart])
++		return MMIO_HANDLED;
 +
-+#define TARGET_BASE		0x3004
-+#define TARGET_DM_HART_SHIFT	18
+ 	guest_clear_ext();
+ 	ext_enable();
+ 
+@@ -226,6 +234,12 @@ static enum mmio_result plic_handle_prio(struct mmio_access *access)
+ 
+ 	irq = access->address / IRQCHIP_REG_SZ;
+ 
++	if (irqchip_virq_in_cell(this_cell(), irq)) {
++		// TODO: Allow priorities
++		printk("PLIC: virq priorities not supported!\n");
++		return MMIO_HANDLED;
++	}
 +
-+#define SETIE_BASE		0x1e00
-+#define SETIENUM		0x1edc
+ 	/*
+ 	 * When booting non-root Linux, it will set priorities of all IRQs.
+ 	 * Hence, simply ignore non-allowed writes instead of crashing the
+@@ -247,8 +261,8 @@ static enum mmio_result plic_handle_prio(struct mmio_access *access)
+ 
+ static enum mmio_result plic_handle_enable(struct mmio_access *access)
+ {
++	u32 *virq_enabled, irq_allowed_bitmap, virq_allowed_bitmap;
+ 	struct public_per_cpu *pc;
+-	u32 irq_allowed_bitmap;
+ 	unsigned int idx, cpu;
+ 	short int ctx;
+ 
+@@ -273,20 +287,28 @@ allowed:
+ 	 */
+ 	idx = ((access->address - PLIC_ENABLE_BASE) % PLIC_ENABLE_OFF)
+ 		* 8 / IRQCHIP_BITS_PER_REG;
++	// TODO: Should this be locked? virq_allowed_bitmap could be changed
++	// during execution
++	virq_enabled = &pc->virq.enabled_bitmap[idx];
+ 
+ 	if (!access->is_write) {
+-		access->value = plic_read(access->address);
++		access->value = plic_read(access->address) | *virq_enabled;
+ 		return MMIO_HANDLED;
+ 	}
+ 
+ 	/* write case */
+ 	irq_allowed_bitmap = this_cell()->arch.irq_bitmap[idx];
++	virq_allowed_bitmap = this_cell()->arch.virq_present_bitmap[idx];
+ 
+-	if (access->value & ~irq_allowed_bitmap) {
++	if (access->value & ~(irq_allowed_bitmap | virq_allowed_bitmap)) {
+ 		printk("FATAL: Cell enabled non-assigned IRQ\n");
+ 		return MMIO_ERROR;
+ 	}
+ 
++	*virq_enabled = access->value & virq_allowed_bitmap;
 +
-+#define CLRIE_START		0x1f00
-+#define CLRIE_END		(0x1f7c + IRQCHIP_REG_SZ)
-+#define CLRIENUM		0x1fdc
-+
-+/* Per-Hart Interrupt Delivery Control (IDC) */
-+#define IDC_BASE		0x4000
-+#define IDC_SIZE		0x20
-+#define  IDC_CLAIMI		0x1c
-+
-+static inline u32 aplic_read(u32 reg)
++	/* Only forward physical IRQs to the PLIC */
++	access->value &= irq_allowed_bitmap;
+ 	plic_passthru(access);
+ 
+ 	return MMIO_HANDLED;
+@@ -365,9 +387,82 @@ cont:
+ 	}
+ }
+ 
++static void plic_send_virq(struct cell *cell, unsigned int irq)
 +{
-+	return mmio_read32(irqchip.base + reg);
-+}
-+
-+static inline void aplic_write(u32 reg, u32 value)
-+{
-+	mmio_write32(irqchip.base + reg, value);
-+}
-+
-+static inline u32 aplic_read_setie(unsigned short no)
-+{
-+	return aplic_read(SETIE_BASE + no * IRQCHIP_REG_SZ);
-+}
-+
-+static inline bool aplic_irq_is_enabled(unsigned int irq)
-+{
-+	u32 en = aplic_read_setie(irq / IRQCHIP_BITS_PER_REG);
-+
-+	return !!(en & IRQ_MASK(irq));
-+}
-+
-+static inline void aplic_write_target(unsigned int target, u32 val)
-+{
-+	aplic_write(TARGET_BASE + target * IRQCHIP_REG_SZ, val);
-+}
-+
-+static inline void aplic_write_sourcecfg(unsigned int source, u32 val)
-+{
-+	aplic_write(SOURCECFG_BASE + source * IRQCHIP_REG_SZ, val);
-+}
-+
-+static inline u32 aplic_read_target(unsigned int target)
-+{
-+	return aplic_read(TARGET_BASE + target * IRQCHIP_REG_SZ);
-+}
-+
-+static inline void aplic_write_clrienum(unsigned int irq)
-+{
-+	aplic_write(CLRIENUM, irq);
-+}
-+
-+static void aplic_adjust_irq_target(struct cell *cell, unsigned int irq)
-+{
-+	u32 target, hart_index;
++	struct public_per_cpu *pcpu;
 +	unsigned int cpu;
 +
-+	/* Assumption: We're in direct delivery mode */
-+	target = aplic_read_target(irq - 1);
-+	hart_index =  target >> 18;
++	if (!irq_bitmap_test(cell->arch.virq_present_bitmap, irq)) {
++		printk("vIRQ not present in destination\n");
++		return;
++	}
++
++	// Do we need to lock this section? A vIRQ could be disabled during injection
 +	for_each_cpu(cpu, &cell->cpu_set) {
-+		if (public_per_cpu(cpu)->phys_id == hart_index)
-+			return;
++		pcpu = public_per_cpu(cpu);
++		if (irq_bitmap_test(pcpu->virq.enabled_bitmap, irq)) {
++			irq_bitmap_set(pcpu->virq.pending_bitmap, irq);
++			memory_barrier();
++			arch_send_event(pcpu);
++			break;
++		}
 +	}
-+
-+	/*
-+	 * Disable the IRQ. As IRQs must globally stay enabled in DOMAINCFG, we
-+	 * need to selecively disable it here to prevent spurious IRQs in the
-+	 * new cell.
-+	 */
-+	aplic_write_sourcecfg(irq - 1, 0);
-+
-+	/* We have to adjust the IRQ. Locate it on the first CPU of the cell */
-+	hart_index = public_per_cpu(first_cpu(&cell->cpu_set))->phys_id;
-+	target = (hart_index << 18) | (target & 0xff);
-+
-+	aplic_write_target(irq - 1, target);
 +}
 +
-+static inline u32 aplic_read_idc(unsigned long hart, unsigned long reg)
++static void plic_register_virq(struct cell *cell, unsigned int irq)
 +{
-+	return aplic_read(IDC_BASE + IDC_SIZE * hart + reg);
++	irq_bitmap_set(cell->arch.virq_present_bitmap, irq);
 +}
 +
-+static inline u32 aplic_read_claimi(unsigned long hart)
-+{
-+	return aplic_read_idc(hart, IDC_CLAIMI);
-+}
-+
-+static int aplic_claim_irq(void)
-+{
-+	u32 claimi, source;
-+	unsigned int hart;
-+
-+	hart = phys_processor_id();
-+
-+	claimi = aplic_read_claimi(hart);
-+
-+	source = (claimi >> 16) & 0x7ff;
-+	if (source == 0) /* spurious IRQ, should not happen */
-+		return -EINVAL;
-+
-+	if (source > irqchip_max_irq())
-+		return -EINVAL;
-+
-+	irqchip.pending[hart] = claimi;
-+
-+	return 0;
-+}
-+
-+static inline void aplic_passthru(const struct mmio_access *access)
-+{
-+	aplic_write(access->address, access->value);
-+}
-+
-+static inline unsigned int idc_to_hart(unsigned int idc)
-+{
-+	/*
-+	 * For the moment, assume that we only have one APLIC and #IDC = #HART
-+	 */
-+	return idc;
-+}
-+
-+static inline enum mmio_result
-+aplic_handle_claimi(struct mmio_access *access, unsigned int idc)
-+{
-+	unsigned long hart = idc_to_hart(idc);
-+
-+	if (access->is_write)
-+		return MMIO_ERROR;
-+
-+	access->value = irqchip.pending[hart];
-+
-+	irqchip.pending[hart] = aplic_read(access->address);
-+
-+	guest_clear_ext();
-+	ext_enable();
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handle_idc(struct mmio_access *access)
-+{
-+	unsigned long hart;
-+	unsigned int cpu, idc, reg;
-+
-+	idc = (access->address - IDC_BASE) / IDC_SIZE;
-+	reg = access->address % IDC_SIZE;
-+
-+	/*
-+	 * It is clear that a hart is allowed to access its own IDC.
-+	 * But we also need to allow accesses to IDCs of neighboured
-+	 * harts within the cell.
-+	 *
-+	 * In (probably) 99% of all cases, the current active CPU will access
-+	 * its own context. So do this simple check first, and check other
-+	 * contexts of the cell (for loop) later. This results in a bit more
-+	 * complex code, but results in better performance.
-+	 */
-+	hart = phys_processor_id();
-+	if (idc_to_hart(idc) == hart)
-+		goto allowed;
-+
-+	/*
-+	 * If we land here, then a HART accesses the IDC register of a
-+	 * neighboured HART. In this case, we forbid the access if a HART tries
-+	 * to cross-claim the interrupt. The reason is simple: If we would
-+	 * allow cross-core claiming of IRQs, then we would need to grab a lock
-+	 * inside aplic_handle_claimi() to prevent race conditions, which is
-+	 * too costful. I never saw any cross-HART irq claims.
-+	 */
-+	 if (reg == IDC_CLAIMI)
-+		return trace_error(MMIO_ERROR);
-+
-+	for_each_cpu_except(cpu, &this_cell()->cpu_set, this_cpu_id())
-+		if (idc_to_hart(public_per_cpu(cpu)->phys_id) == idc)
-+			goto passthru;
-+
-+	return trace_error(MMIO_ERROR);
-+
-+allowed:
-+	if (reg == IDC_CLAIMI)
-+		return aplic_handle_claimi(access, hart);
-+
-+passthru:
-+	aplic_passthru(access);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handle_ienum(struct mmio_access *access)
-+{
-+	/* Spec: A read always returns zero */
-+	if (!access->is_write) {
-+		access->value = 0;
-+		return MMIO_HANDLED;
-+	}
-+
-+	if (!irqchip_irq_in_cell(this_cell(), access->value))
-+		return MMIO_ERROR;
-+
-+	aplic_passthru(access);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handle_sourcecfg(struct mmio_access *access)
-+{
-+	unsigned int source;
-+
-+	/* Check if the source IRQ belongs to the cell */
-+	source = (access->address - SOURCECFG_BASE) / IRQCHIP_REG_SZ + 1;
-+
-+	/* If not, simply ignore the access. */
-+	if (!irqchip_irq_in_cell(this_cell(), source)) {
-+		if (!access->is_write)
-+			access->value = 0;
-+		return MMIO_HANDLED;
-+	}
-+
-+	/* If read, then pass through */
-+	if (!access->is_write) {
-+		access->value = aplic_read(access->address);
-+		return MMIO_HANDLED;
-+	}
-+
-+	/* Don't support delegations at the moment */
-+	if (access->value & (1 << 10)) /* Delegation */
-+		return MMIO_ERROR;
-+
-+	/* If no delegations, simply pass through */
-+	aplic_passthru(access);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static bool hart_in_cell(struct cell *cell, unsigned long hart)
++static void plic_unregister_virq(struct cell *cell, unsigned int irq)
 +{
 +	unsigned int cpu;
 +
++	if (!irq_bitmap_test(cell->arch.virq_present_bitmap, irq))
++		return;
++
++	irq_bitmap_clear(cell->arch.virq_present_bitmap, irq);
 +	for_each_cpu(cpu, &cell->cpu_set)
-+		if (public_per_cpu(cpu)->phys_id == hart)
-+			return true;
++		irq_bitmap_clear(public_per_cpu(cpu)->virq.enabled_bitmap, irq);
++}
++
++static bool plic_inject_pending_virqs(void)
++{
++	struct public_per_cpu *pcpu = this_cpu_public();
++	u32 idx, irq = 0;
++
++	for (idx = 0; idx < ARRAY_SIZE(pcpu->virq.pending_bitmap); idx++) {
++		irq = pcpu->virq.pending_bitmap[idx];
++		if (!irq)
++			continue;
++
++		/*
++		 * FIXME: For the moment, simply inject the first pending IRQ.
++		 * Later, we need to prioritise those IRQs. Haha. Per call of
++		 * this routine, we can only inject ONE single IRQ. That's not
++		 * an issue, as the guest will trap again after acknowledging
++		 * the last irq. So there will be no misses of pending IRQs.
++		 */
++
++		irq = ffsl(irq) + idx * 32;
++
++		irqchip.pending[pcpu->phys_id] = irq;
++
++		irq_bitmap_clear(pcpu->virq.pending_bitmap, irq);
++		return true;
++	}
 +
 +	return false;
 +}
 +
-+/* Assumption: We're in direct delivery mode */
-+static enum mmio_result aplic_handle_target(struct mmio_access *access)
-+{
-+	unsigned int source;
-+	struct cell *cell = this_cell();
-+	u32 target;
+ const struct irqchip irqchip_plic = {
+ 	.init = plic_init,
+ 	.claim_irq = plic_claim_irq,
+ 	.adjust_irq_target = plic_adjust_irq_target,
+ 	.mmio_handler = plic_handler,
 +
-+	/* Check if the source IRQ belongs to the cell */
-+	source = (access->address - TARGET_BASE) / IRQCHIP_REG_SZ + 1;
-+
-+	/* If not, simply ignore the access. */
-+	if (!irqchip_irq_in_cell(cell, source)) {
-+		if (!access->is_write)
-+			access->value = 0;
-+		return MMIO_HANDLED;
-+	}
-+
-+	/* If read, then pass through */
-+	if (!access->is_write) {
-+		access->value = aplic_read(access->address);
-+		return MMIO_HANDLED;
-+	}
-+
-+	/* Here we are in the write case */
-+	target = access->value >> TARGET_DM_HART_SHIFT;
-+
-+	/*
-+	 * Linux initialises all targets with default priorities, even if the
-+	 * IRQ doesn't belong to it. Just return success.
-+	 */
-+	if (hart_in_cell(cell, target))
-+		aplic_passthru(access);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handle_clrie(struct mmio_access *access)
-+{
-+	unsigned int idx;
-+	u32 allowed;
-+
-+	idx = (access->address - CLRIE_START) / IRQCHIP_REG_SZ;
-+
-+	/* Only allow clearing of IRQs that are in the cell */
-+	allowed = this_cell()->arch.irq_bitmap[idx];
-+
-+	aplic_write(access->address, access->value & allowed);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handle_domaincfg(struct mmio_access *access)
-+{
-+	/*
-+	 * Domaincfg is handled as follows: We can not allow guests to globally
-+	 * disable IRQs (i.e., modify the IE bit of the APLIC) as this would
-+	 * affect other cells. The easy strategy for the moment is, to simple
-+	 * ignore disabling of the IE bit. This avoids complex softemulation,
-+	 * and works for most situations, as IRQs that are assigned to a cell
-+	 * are disabled up on cell creation.
-+	 *
-+	 * So if Domaincfg is read, deliver that IE is enabled, and that's it.
-+	 * Ignore any modification of the IE bit, and don't allow to touch
-+	 * other bits, such as DM and BE.
-+	 */
-+	 if (!access->is_write) {
-+		access->value = DOMAINCFG_DEFAULT;
-+		return MMIO_HANDLED;
-+	}
-+
-+	if (access->value & ((1 << DOMAINCFG_DM) | (1 << DOMAINCFG_BE)))
-+		return MMIO_ERROR;
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result aplic_handler(void *arg, struct mmio_access *access)
-+{
-+	enum mmio_result res = MMIO_ERROR;
-+
-+	switch (access->address) {
-+	case REGISTER(DOMAINCFG):
-+		res = aplic_handle_domaincfg(access);
-+		break;
-+
-+	case REGISTER(SETIENUM):
-+	case REGISTER(CLRIENUM):
-+		res = aplic_handle_ienum(access);
-+		break;
-+
-+	case REG_RANGE(CLRIE_START, CLRIE_END):
-+		res = aplic_handle_clrie(access);
-+		break;
-+
-+	case REG_RANGE(SOURCECFG_BASE, SOURCECFG_END):
-+		res = aplic_handle_sourcecfg(access);
-+		break;
-+
-+	case REG_RANGE(TARGET_BASE, IDC_BASE):
-+		res = aplic_handle_target(access);
-+		break;
-+
-+	case REG_RANGE(IDC_BASE, IDC_BASE + IDC_SIZE * MAX_CPUS):
-+		res = aplic_handle_idc(access);
-+		break;
-+
-+	default:
-+		printk("Unknown APLIC access: 0x%lx - 0x%lx - %s\n",
-+		       access->address, access->value,
-+		       access->is_write ? "Write" : "Read");
-+		break;
-+	}
-+
-+	return res;
-+}
-+
-+static int aplic_init(void)
-+{
-+	unsigned int irq;
-+	u32 tmp;
-+
-+	/* Some sanity checks. Disallow MSI & Delegations for the moment */
-+	tmp = aplic_read(DOMAINCFG);
-+	if (tmp & (1 << DOMAINCFG_DM)) {
-+		printk("MSI Delivery mode not supported!\n");
-+		return -ENOSYS;
-+	}
-+
-+	for (irq = 1; irq < MAX_IRQS; irq++) {
-+		tmp = aplic_read(SOURCECFG_BASE + irq * IRQCHIP_REG_SZ);
-+		if (tmp & (1 << SOURCECFG_D)) {
-+			printk("IRQ delegation not supported: %d\n", irq);
-+			return -ENOSYS;
-+		}
-+	}
-+
-+	/*
-+	 * If we check during early initialisation if all enabled IRQs belong
-+	 * to the root cell, then we don't need to check if an IRQ belongs to a
-+	 * cell on arrival.
-+	 */
-+	for (irq = 0; irq < MAX_IRQS; irq++)
-+		if (aplic_irq_is_enabled(irq) &&
-+		    !irqchip_irq_in_cell(&root_cell, irq)) {
-+			printk("Error: IRQ %u active in root cell\n",
-+			       irq);
-+			return trace_error(-EINVAL);
-+		}
-+
-+	return 0;
-+}
-+
-+const struct irqchip irqchip_aplic = {
-+	.init = aplic_init,
-+	.claim_irq = aplic_claim_irq,
-+	.adjust_irq_target = aplic_adjust_irq_target,
-+	.mmio_handler = aplic_handler,
-+};
-diff --git a/hypervisor/arch/riscv/irqchip.c b/hypervisor/arch/riscv/irqchip.c
-index 4d8ade0b..693c37bf 100644
---- a/hypervisor/arch/riscv/irqchip.c
-+++ b/hypervisor/arch/riscv/irqchip.c
-@@ -23,7 +23,7 @@
- #define IRQ_BITMAP_PINS \
- 	(sizeof(((struct cell *)0)->arch.irq_bitmap) * 8)
++	.send_virq = plic_send_virq,
++	.register_virq = plic_register_virq,
++	.unregister_virq = plic_unregister_virq,
++	.inject_pending_virqs = plic_inject_pending_virqs,
+ };
+diff --git a/hypervisor/arch/riscv/traps.c b/hypervisor/arch/riscv/traps.c
+index de29288a..77a6cd23 100644
+--- a/hypervisor/arch/riscv/traps.c
++++ b/hypervisor/arch/riscv/traps.c
+@@ -155,6 +155,7 @@ static int handle_ipi(void)
+ 	 * IPI is acknowledged here, as from now on, further IPIs might already
+ 	 * be sent by remote CPUs.
+ 	 */
++	irqchip_process_pending_virqs();
+ 	spin_unlock(&pcpu->control_lock);
  
--extern const struct irqchip irqchip_plic;
-+extern const struct irqchip irqchip_aplic, irqchip_plic;
- 
- struct irqchip irqchip;
- 
-@@ -138,6 +138,10 @@ static int irqchip_init(void)
- 			irqchip = irqchip_plic;
- 			break;
- 
-+		case JAILHOUSE_RISCV_APLIC:
-+			irqchip = irqchip_aplic;
-+			break;
-+
- 		default:
- 			return trace_error(-ENOSYS);
- 	}
+ 	if (check_events)
 -- 
 2.39.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-45-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230207122543.1128638-46-ralf.ramsauer%40oth-regensburg.de.
