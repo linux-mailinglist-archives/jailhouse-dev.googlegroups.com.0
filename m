@@ -1,71 +1,139 @@
-Return-Path: <jailhouse-dev+bncBCBJJVUE3MMRBMP42OPQMGQEEHVKW4A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBTXI3CPQMGQEKPZRZLI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3e.google.com (mail-yb1-xb3e.google.com [IPv6:2607:f8b0:4864:20::b3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDC1069E5E1
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Feb 2023 18:24:02 +0100 (CET)
-Received: by mail-yb1-xb3e.google.com with SMTP id x35-20020a25a026000000b009433a21be0dsf3731506ybh.19
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Feb 2023 09:24:02 -0800 (PST)
+Received: from mail-ed1-x540.google.com (mail-ed1-x540.google.com [IPv6:2a00:1450:4864:20::540])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5AE69F7B5
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Feb 2023 16:27:11 +0100 (CET)
+Received: by mail-ed1-x540.google.com with SMTP id en10-20020a056402528a00b004acbf564d75sf10478969edb.5
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Feb 2023 07:27:11 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1677079631; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=Pl4bUOLDtDrpFYTt39DklNIPemgfmVOkbhDp8Fgz/rPRNX2oKLirx9U1XEFrKwtw2X
+         /Z+EHDvxXyIrekhSNyEIA+HSASM9hC69C6qwGDydW9TJs1HQnGmOMYdUXySyYz6tUDnf
+         X0m93p2SN8RpoNeCtQ/g2z88m24sAJMAqpFkes7o1Nr9XEJlw7KJLDjNno9Hgp7na1mQ
+         evzpZO2EpU3+ylReX7LhOIBNyqLSzXe77FrjNB47teZ3SCVBgeJVRtGy8/pW2YKUtc5X
+         v3hUVabn0uBlX5JZpEQFihax0wirxnDVQ/8X9lSg+lzdE+TJpao6yjJd6yuuyYUWGyJa
+         WquA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:sender:dkim-signature;
+        bh=zRVb9zhj/dAAaCq5mF7n4vJvzOYkBHmcH5Y9ryWCr9c=;
+        b=qklvko/hgDSN3exFhWeEVSvK60GcgoBHOX2v7kyTxxWzToUEHYGjLnPfO0OZfGlPAz
+         uPEWJj9t476GvvO9ZtkTIWd/zrixAMI5T9NqgHWMyQR5EYx7IRUyMk5wWVs2Of2xXP8E
+         Cr/x6FXVKHagp/JIoeOX/8jD6IAhbVPlqsqdmj03/QidY0Bth2HK7lKL/+uhFfw197UB
+         Naw+3LZx7pTaYYKw955u97MbHEJVHaOG49Z0Exgg9ZMqqmZARgPhal4G1Yn/MT1wYOEJ
+         0u8CjL73orPQhznOuzenHa3iRZ+Xhmtf6lKOhTduy5DXqdILQy39WNcpnRDTw92zP2xF
+         VgFA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZXKmKiQf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=googlegroups.com; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DdeUG3/rlPA5oIF5u6AUBJ65M00x/QVzXRHtjA/dza8=;
-        b=Ez53DjxXhQbv/ZnHJscNknCxSXeATFB/hP2cayO+AB2/7eWgkiQ0EoQR8M91pHhsm6
-         +Pai742ru27nqXJTzHnYVw8hmkvwGwZCr1FB59QazYHZc8Ake+B65R0QzAxZ+uebrNqp
-         J4jGe0tsAjyAOrSYK3F08KZwLOoSffAJYcMEXVID5WDWLq6hUJz2hh/blf1KuGioKCpT
-         LUv2ejsT9SbDF/uE4g4n/hOivrRpqwJ7fwCQOt+AGkWXlac+zFuM9VgCSr7LattcX43f
-         /w0Js91SURdKWvMrEGqe/7GImfqBIHgQ1pgKp7pXFPgIeh+a2UsCo+grIEAnnDMUDAGh
-         vzqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DdeUG3/rlPA5oIF5u6AUBJ65M00x/QVzXRHtjA/dza8=;
-        b=HjUmjQ//3FrC3z+MlH7qbN6O2PEiVaa+yE6cD09dzuSOo7B1XY1booROeISBITKkTu
-         pGQLxz3cHBOH5O5LWKRwwuR1s4yNMcqHdGomM3LyYAnGFOFUsMU86q2YqfclzIqv60bi
-         PF/ZAKhNJoMX+29jMn/gh1FJ6ShIjB8Fvnz/apH1cNHNqdxZzZn9nGNLQLTh45YxrYr6
-         5o5cI6vKnu9VuHtPiEyW22Rdqm6t37ZW7wTUIbgLe384NFgFvWGSmvJpLVUb1hU12pXt
-         qF29GN6mSWB51Woo1XAHkZR6fZi9tsRk5RuSMfDkFUxfoKdZl6xsKg+ntSjm7/6AX118
-         Xgxw==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:content-transfer-encoding:in-reply-to:from
+         :references:to:content-language:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=zRVb9zhj/dAAaCq5mF7n4vJvzOYkBHmcH5Y9ryWCr9c=;
+        b=emzpd6xDcWlm833e5MCmyetbfTSX6tT+WlYQJeGXJmxBw0jMGPHm2w3KyWDYz+bTPg
+         jx2RaT7wY+zFbSivILFdw4375nbZSfFGxQzI9EVVQKccT9sPu6YxvtvXfK9Xz+MNH5dd
+         R2iURkbA5OPo5rZdkQT2dbtR2hgOOvU1ioAOD7SS7zh/NS/quhd7sCmz3RfWpLDmJDsa
+         JhyNT3atumcZaAF5+QNMHmEvzDnuazjOxdn7x3JDvOM5vnW6hBdV7z3hSfY4R10nzEt0
+         hjpB6AIrA0xzoKjU/N6O1bTs1Lw0XDppxbWb/6HWReFx3GF5g3s/Ceiit+osr9IF1rkt
+         QUZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-original-authentication-results:x-original-sender
+         :content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DdeUG3/rlPA5oIF5u6AUBJ65M00x/QVzXRHtjA/dza8=;
-        b=EZ3ItANFvz6+qni0S9VUOsaA64jdIWIdukGpFN36IZ6kCe6j6yUdLLAGzrDfzcMyLY
-         koTB+5Ut9oflOibJPGFCeK1NbcbnkpvY5nUV/PhY8geDB99vV5bvxqi7KyE1HBQ1Hjdq
-         QrwNDaLYfveikzCvQRtvjneD1vj/BW7QcpkkICdGXRzx/wu1Jip+JFwdRZm/MZN5YLXX
-         vqZWNuUcaPON20n6VxkNGT3k91AAxX+hUVTaxWuLMedMTyqFvLGJ9NaOBaJ1pYqUUK92
-         hyc5r7BlrK2EuDilQHH6fbM1TK4XQaMntLlkiyYle+gH1KCnUNGLrD/2TRyanGC/CPX/
-         D7ZA==
+        bh=zRVb9zhj/dAAaCq5mF7n4vJvzOYkBHmcH5Y9ryWCr9c=;
+        b=cEfr0NzbP7FXHd03z20XZew4evBEdMVvqAcnlixuv0fwW4EtJfvhpipS0dHU96AItm
+         nhykf3e02gGAOTgl31nJPXiuSCxJxoMn8ceP2UglkKZ66gy3NZeLljI50rxucsjrluE5
+         TBQGmyoC0o+pqVIJZ+D18v+h5GoXnzTDMLWpH3MyuCaydzhKTJQCOld1pLZBrvBB127r
+         o8T7EpDn7HYqo5tnoczihoajcReSd92uedEaljjfEkgaV3W616swKkuVZrwUDUnzf/xV
+         DgBYA02cPartfQlrwh4GJfblMM5OJkqYwLbUeRz8K6pyXEfUX9QyGH1DPaGfcJZc83fy
+         uC9w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKUs4e6NLj5FLuIn1FizIXhb5d22J/ctQcRxr9gPwI6YFiLVWFMw
-	Cyo5NBior0wyz5xZnhKjti0=
-X-Google-Smtp-Source: AK7set9Uh+SIUeSw0rYdDP86VEDsCQTl/x38ana6NjU0PHtShti0s7Hmy00r5fIICBsJk17NIkED1Q==
-X-Received: by 2002:a81:7b84:0:b0:524:8c7a:51d4 with SMTP id w126-20020a817b84000000b005248c7a51d4mr2575656ywc.51.1677000241611;
-        Tue, 21 Feb 2023 09:24:01 -0800 (PST)
+X-Gm-Message-State: AO0yUKXKsFzKHtbfcm4xTDSGdAxGx2ezjhGOhHGKOqxSklg8UbqRvRn/
+	osGPSudNZAe5d82PljJCE5g=
+X-Google-Smtp-Source: AK7set/BpI2kGutwvgiQxRiMW0kq+mflb64wCWlnIuhXCSHrL5XzIQwqjm663mfHCtYBukf9ykieEA==
+X-Received: by 2002:a17:907:3a44:b0:8cb:56f3:95b2 with SMTP id fc4-20020a1709073a4400b008cb56f395b2mr5405532ejc.9.1677079630581;
+        Wed, 22 Feb 2023 07:27:10 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:ad28:0:b0:9a0:d4d:5471 with SMTP id y40-20020a25ad28000000b009a00d4d5471ls2723309ybi.0.-pod-prod-gmail;
- Tue, 21 Feb 2023 09:24:00 -0800 (PST)
-X-Received: by 2002:a05:6902:143:b0:9a0:3e15:d45b with SMTP id p3-20020a056902014300b009a03e15d45bmr653905ybh.27.1677000240469;
-        Tue, 21 Feb 2023 09:24:00 -0800 (PST)
-Date: Tue, 21 Feb 2023 09:23:59 -0800 (PST)
-From: Yelena Konyukh <ykonyukh@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e647559a-49c2-4c8e-95bf-692b8495f9ban@googlegroups.com>
-Subject: Root cell "loses" the IP on the virtual network interface
+Received: by 2002:a05:6402:4305:b0:4ad:73cb:b525 with SMTP id
+ m5-20020a056402430500b004ad73cbb525ls7926124edc.3.-pod-prod-gmail; Wed, 22
+ Feb 2023 07:27:08 -0800 (PST)
+X-Received: by 2002:a05:6402:2055:b0:4ad:7c7c:a70d with SMTP id bc21-20020a056402205500b004ad7c7ca70dmr8995168edb.19.1677079628656;
+        Wed, 22 Feb 2023 07:27:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1677079628; cv=none;
+        d=google.com; s=arc-20160816;
+        b=yWV04LA8DVijWnlX+9h0okty0tEhLxJO+j3PKUIn9+cNVLImGhRvCSm2yZxmDYPXPO
+         VNvqxBcdMExH7cupsaVYcIN6NQwzFOZQzVzKbS2cYdGvZVCX692Zvb8xvYPcPxK0sxrl
+         0+XTIvGivdKeXNLBcfeyQfa7Wdn4D60nqJcACo2ZUbo2xdlTuToPo84ESq6wgJii16ve
+         yccqAkkIDpwa7q9RbJpg+WPnO7ThO7tlImB8BNP/WHP5eHDK49KIiPNtTTphQ1OBpYTF
+         +HtS8VNJGdg7Ix/Gohx0H7BBDshIGAOsFqBRl3LUhf3NsHkomqGXkJqjiEPbhXoC+v+f
+         ljvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=rZvX+iMsS8mqSfIVFwivhtSoRmmcBKr/i7gJyWgDk/E=;
+        b=IdcRYddZfs51hWg3amyD9v0XYngOaNTGMnGXwktl8Y/jVCW5+2gCVWDFKMjAk9qUAQ
+         aByJ7c8kRz988giMLqW/Hu7eP3Vy0yQUBEcrNs1bpYiEZmTollSJpfZf9F2Lqiheg/3b
+         59FTas9UOtpP93/Ph2hKF8e9TrdEnMN18vt8odnd2sigAYZjyXxFl+x1ehnBpUwmagNg
+         KHAmKLWpivzSua6pRG/Qa2riLr5f8QS98H3yYlVN5QuyxZp5GB5VAI0rvfRozANoZRRa
+         g/+2dwR3fZzgvYaxf+9a8HrGzoYAcmNP3H9Ue6mixXCY9Bz9UEuXDgYleDr3eVUqpSBU
+         kkNg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZXKmKiQf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de. [2001:638:a01:1096::11])
+        by gmr-mx.google.com with ESMTPS id j10-20020a05640211ca00b004aee5c48387si195494edw.3.2023.02.22.07.27.08
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Feb 2023 07:27:08 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::11 as permitted sender) client-ip=2001:638:a01:1096::11;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4PMKlJ1QTQzxsj;
+	Wed, 22 Feb 2023 16:27:08 +0100 (CET)
+Received: from [IPV6:2001:638:a01:8068:f8d9:f11a:f164:a35a]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 22 Feb
+ 2023 16:27:07 +0100
+Message-ID: <c7248484-26a9-b284-ad20-3ed41eacdc7e@oth-regensburg.de>
+Date: Wed, 22 Feb 2023 16:27:07 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4192_401128679.1677000239917"
-X-Original-Sender: ykonyukh@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: Root cell "loses" the IP on the virtual network interface
+Content-Language: en-US
+To: Yelena Konyukh <ykonyukh@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <e647559a-49c2-4c8e-95bf-692b8495f9ban@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <e647559a-49c2-4c8e-95bf-692b8495f9ban@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=ZXKmKiQf;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:a01:1096::11 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,90 +146,75 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4192_401128679.1677000239917
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4193_617294062.1677000239917"
+Hi Yelena,
 
-------=_Part_4193_617294062.1677000239917
-Content-Type: text/plain; charset="UTF-8"
+On 21/02/2023 18:23, Yelena Konyukh wrote:
+>=20
+> Hi All,
+>=20
+> I would be very grateful for any comments on the following issue:
+>=20
+> I run Jailhouse on an arm64 platform with Xilinx kernel. I use=20
+> ivshmem-net driver and the relevant cells and .DTBs configurations to=20
+> support a virtual network interface in my root cell and my non-root=20
+> Linux cell.
+>=20
+> Generally speaking, everything works quite well - the virtual network=20
+> interfaces communicate with each other and, once I have setup my root=20
+> cell, which also has a physical network interface, to act as a router=20
+> for my non-root Linux, my non-root cell has access to the external networ=
+k.
+>=20
+> However, I noticed that sometimes the IP which I setup on the root=20
+> cell's virtual interface gets "lost". That is=C2=A0 - I assign an IP with=
+=20
+> ifconfig to the virtual NIC and after a period of time (sometimes it=20
+> takes > 1 minute) the IP is no longer there. I keep re-setting the IP=20
+> and eventually it "sticks"...
+> At some point I thought it is setting the IP on the root's NIC after
+> netif_carrier_on() is invoked for the root's NIC that makes the IP=20
+> "stick", but it now looks like it is not the case and I no longer have=20
+> any clue as to what causes the IP "stick".
 
+Uhm, what distribution do you use for your root-cell?
 
-Hi All,
+Unless the NIC state doesn't change over time (which could explain the=20
+loss of the IP) it sounds to me like there is some Network Configuration=20
+Application that grabs the interface as soon as it exists and tries to=20
+reconfigure it. Then it maybe tries to DHCP on the interface and the IP=20
+is lost. Something like NetworkManager, systemd-networkd, =E2=80=A6 Is ther=
+e any=20
+of those applications running in your root cell?
 
-I would be very grateful for any comments on the following issue:
+   Ralf
 
-I run Jailhouse on an arm64 platform with Xilinx kernel. I use ivshmem-net 
-driver and the relevant cells and .DTBs configurations to support a virtual 
-network interface in my root cell and my non-root Linux cell.
+>=20
+> Has anyone seen anything similar?
+> Any comments would be very much appreciated.
+>=20
+> Thank you
+>=20
+> Best Regards,
+>=20
+> Yelena
+>=20
+>=20
+> --=20
+> You received this message because you are subscribed to the Google=20
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send=20
+> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit=20
+> https://groups.google.com/d/msgid/jailhouse-dev/e647559a-49c2-4c8e-95bf-6=
+92b8495f9ban%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
+e-dev/e647559a-49c2-4c8e-95bf-692b8495f9ban%40googlegroups.com?utm_medium=
+=3Demail&utm_source=3Dfooter>.
 
-Generally speaking, everything works quite well - the virtual network 
-interfaces communicate with each other and, once I have setup my root cell, 
-which also has a physical network interface, to act as a router for my 
-non-root Linux, my non-root cell has access to the external network.
-
-However, I noticed that sometimes the IP which I setup on the root cell's 
-virtual interface gets "lost". That is  - I assign an IP with ifconfig to 
-the virtual NIC and after a period of time (sometimes it takes > 1 minute) 
-the IP is no longer there. I keep re-setting the IP and eventually it 
-"sticks"...
-At some point I thought it is setting the IP on the root's NIC after 
-netif_carrier_on() is invoked for the root's NIC that makes the IP "stick", 
-but it now looks like it is not the case and I no longer have any clue as 
-to what causes the IP "stick".
-
-Has anyone seen anything similar?
-Any comments would be very much appreciated.
-
-Thank you
-
-Best Regards,
-
-Yelena
-
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e647559a-49c2-4c8e-95bf-692b8495f9ban%40googlegroups.com.
-
-------=_Part_4193_617294062.1677000239917
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br />Hi All,<br /><br />I would be very grateful for any comments on the f=
-ollowing issue:<br /><br />I run Jailhouse on an arm64 platform with Xilinx=
- kernel. I use ivshmem-net driver and the relevant cells and .DTBs configur=
-ations to support a virtual network interface in my root cell and my non-ro=
-ot Linux cell.<br /><br />Generally speaking, everything works quite well -=
- the virtual network interfaces communicate with each other and, once I hav=
-e setup my root cell, which also has a physical network interface, to act a=
-s a router for my non-root Linux, my non-root cell has access to the extern=
-al network.<br /><br />However, I noticed that sometimes the IP which I set=
-up on the root cell's virtual interface gets "lost". That is=C2=A0 - I assi=
-gn an IP with ifconfig to the virtual NIC and after a period of time (somet=
-imes it takes &gt; 1 minute) the IP is no longer there. I keep re-setting t=
-he IP and eventually it "sticks"...<br /><div>At some point I thought it is=
- setting the IP on the root's NIC after <br /></div><div>netif_carrier_on()=
- is invoked for the root's NIC that makes the IP "stick", but it now looks =
-like it is not the case and I no longer have any clue as to what causes the=
- IP "stick".<br /><br />Has anyone seen anything similar?<br />Any comments=
- would be very much appreciated.<br /><br />Thank you<br /><br />Best Regar=
-ds,<br /><br />Yelena<br /></div><div><br /></div><br />
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e647559a-49c2-4c8e-95bf-692b8495f9ban%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/e647559a-49c2-4c8e-95bf-692b8495f9ban%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_4193_617294062.1677000239917--
-
-------=_Part_4192_401128679.1677000239917--
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/c7248484-26a9-b284-ad20-3ed41eacdc7e%40oth-regensburg.de.
