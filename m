@@ -1,129 +1,129 @@
-Return-Path: <jailhouse-dev+bncBC2OZUPG4MCRBRO6RCQAMGQEWBAMBIY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC64NUHI74MBB4HKXSQAMGQET3DCVIY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qv1-xf3d.google.com (mail-qv1-xf3d.google.com [IPv6:2607:f8b0:4864:20::f3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152EA6A9DC0
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 Mar 2023 18:32:55 +0100 (CET)
-Received: by mail-qv1-xf3d.google.com with SMTP id e9-20020a0cf749000000b00571f1377451sf1804875qvo.2
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 Mar 2023 09:32:55 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1677864773; cv=pass;
+Received: from mail-oo1-xc3e.google.com (mail-oo1-xc3e.google.com [IPv6:2607:f8b0:4864:20::c3e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48AD76B7A84
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Mar 2023 15:38:42 +0100 (CET)
+Received: by mail-oo1-xc3e.google.com with SMTP id y140-20020a4a4592000000b0052540059057sf3356330ooa.6
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Mar 2023 07:38:42 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1678718320; cv=pass;
         d=google.com; s=arc-20160816;
-        b=aMdiW2A6ON6m6GhVhH0kvyQgcOXDZaKMj9Jk68dfSfM5YXUlsiMqtTj5sPr1hsaBBd
-         rqWOUZrYY1uKeh16UnVqyfGCu7HC4LP5eV+3h4d8DYO75XxZ3jCfb9Rg50IMfbOITHw8
-         mFaqp4o9Kw8IADMRcjo+T9VNQLcL+HnEKxF7TJPuBaX4bN5zAmaJNaCpHBrJbJid2vgr
-         bM6EEBQxU/cIZXP+Xj38X9RJ1aINmnYZkuXv1c7k1pql89tg2lnRhUrXkuK5O8gVaBXA
-         ZLgaEzEE8gjZSHI7PIN6LEoIEgDqd76JTGP/HkKfquGv52b5rsM7j3z5e3rCLGtZZL48
-         m+qA==
+        b=oKQko87lbrzlltE26ZUEw0Q2g28MfbMH1nSNUdTgCaXPqsUxfjdcmfdklHkrYjqvQh
+         aIk/PYSUwPt0fQmgPO+zQkqq4Afacd49vvXkmbKw5p5/S5DLAjE6R14qO9JEwaV/bfWY
+         c50rYBc+wglVhMxRwhBkyqkglXW4qiSOpL+fS1z/nqjOHAV9PNb//W2qDZm36acxDKkM
+         4f9U6Ybl1js20YpaiE5TYU/z0NqXciXY7GYA/g/XwPLdKUe9JnYJUzgHkRIxu2KpP4cG
+         yAktzWUoFEueGZoD2Q16wjfMIlIEOIkuGSzN9CpVSX1V4O9SgAIA3e0LBTgtzt4tzEbJ
+         kPTw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:to:subject:message-id:date:from
          :mime-version:sender:dkim-signature:dkim-signature;
-        bh=BnxKtEBEVGPMAD+rF0jGUdUPNYYlklqpV5/1H+wG2gE=;
-        b=SYw+IFQ/4QsOok1FoRsl6X80I/iV7w+Fgq6gAs7DOtrcZ72dq04CrIdXLF6rDkt7Qn
-         rl6HiRmpVjyhg4RJWdCkGDKDy3a/M4bhUYjFqLcxN5l6IWCakQA8SQuahRMaRDMN1GUX
-         VuindHPNaIFafuAdGf1V00S4NhIsLh2dSAVFLuHGXgJmxvEZLWXawFdtFpUYFIvAQMCV
-         pSZfRIXiLxR5E6PyeArnJWT16XqA7mgDiYRWyeqLiYg5sCkZy25PydQWwhtlO9o79zCm
-         CrfRyV/B2Za7GmzJce27dh4M8d/zQYccKgGWlM1UV9Sys6RHR5vVdqQ3gtxdjR/LAFt9
-         Rktw==
+        bh=siEUkM7jU3F8eZV3cYNB4CXsb71YWXgxzHRBDEp0xMQ=;
+        b=CyvZ6gxayO9NoO3nOe29aB3gY9LDJ0udDu4HNEzy1jy3LcpTgdmrMbjB7iKaN1h/Q8
+         0rD+1E1ce6xO3Mv8s8DAZEqzMMTSrWChYD4HeKGErcT16xL6vDIa0MiGJh8klOKVKVbh
+         2W1oTYDm5xuFE/kNNG+kwmylM4EfIsb/TGONXdblcYFqHHy0D1iX+OWS8LbDSldH1/vK
+         MaAcesDLOHvZEcOSCAt/B5UtTqOMJN0F297ZTnNBxrLFQ0CViOXYTTZbttnp+neK8UBo
+         gGbhQuSXX2Yy3rHyG5y8W0AbPB2T7jvzjFmA8tfsukuP5fUZppJmYNFCFNRvMmyJTaU0
+         ZD6Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=S78fm74y;
-       spf=pass (google.com: domain of raffaelebtt@gmail.com designates 2607:f8b0:4864:20::42b as permitted sender) smtp.mailfrom=raffaelebtt@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b="DK/kxcZT";
+       spf=pass (google.com: domain of tiantong411@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) smtp.mailfrom=tiantong411@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20210112; t=1677864773;
+        d=googlegroups.com; s=20210112; t=1678718320;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:to:subject:message-id:date:from:mime-version
          :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=BnxKtEBEVGPMAD+rF0jGUdUPNYYlklqpV5/1H+wG2gE=;
-        b=rIThd5Ek2KbAih7LO3duLwOBiCTuNfbhozl6HvaNQUKPistQk59NkCqMovMBYJJApT
-         2vgKZolB3p0a1Y6yZ7Quag50k/KPnWu2oM1I1ZPbzf/CbgM4fy6NysivB1+qPLHB1vba
-         n5jIImaJF7r/MZQriE6w3gdChXBdLYaBve1XvKvMSMrJOp8fw+ixnVTNB5p2aWxu6ZgK
-         unKMoilaMLg/5ecswPyXfheyGxwiZ7oEKUqtItEjoPds1oQ5Yf6cgdG8Feo19TUUMJYz
-         IzRo4+R5AWDgBSZqnKnw1jDYxqdfCuLwrBI4NKxuMyvvaaWpwdnw7c8I2zvRYQq/qhTO
-         4sbw==
+        bh=siEUkM7jU3F8eZV3cYNB4CXsb71YWXgxzHRBDEp0xMQ=;
+        b=WiXuLvHQgJGUoq/d1E4i9sCUKvsxE/gWMxy9iPAfbdBwi9CBc9QwBYf8IQQ7uYufXi
+         CCoZ3QL/RV7OM5+tPSRf9QRZiQV4ukaiKSckzRbUAmrMXuEaBVLefZTPaCyHhoQFhQDb
+         W96QGwoN4uN1SYKjakhi4OP1+6u9GR+jlZujQlwcJJQ4a3Xptetf4MVfEk615pAhQGD4
+         m0kpmHpGRD8Yft3JbKW50AYllFq4RmVPv5hstXl0x2VFiEp/sSkcTZIBXhKFJoiFlpW4
+         WabBVrAnMV9q1PIJH+noJTcDAuJsK/y3ZcIi2LsVaKHEkNNEUBhnsngdCtIXlzxiq409
+         s93A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677864773;
+        d=gmail.com; s=20210112; t=1678718320;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=BnxKtEBEVGPMAD+rF0jGUdUPNYYlklqpV5/1H+wG2gE=;
-        b=Sb4+IN/5a33p71QnOWXwH5XC3Ys5827PrTEsVMvKF/LMUdr6/mdxvLuouYSwrna+lN
-         PCtUeOQIMWL5Yhr5eZQrMJUylM8WIKnO5JvnDKky6WL5OmbAZ+FUyeGSwBr88NpTiqG8
-         eaOZMTSycgZrRS/NA6np3XN24OX2NsOK/Ciw2LljD5tVSd1XJkKiUlTM74XXrh3HIC3b
-         SBC1Q9kxafjG1b0y3le/I25zdXcFAMZ+K28G9Jv/HmoTaH+fKnjVVUvOf4uofnazNVk5
-         S9TPaPpt8pjv5wLyCqMSxFBouWEHNHLpzyHMhdr5e4o6iFgNZbPb+osf13D5rX12rmzK
-         bNNw==
+        bh=siEUkM7jU3F8eZV3cYNB4CXsb71YWXgxzHRBDEp0xMQ=;
+        b=i7DHkhEIoCdY3fJ3bbSVVjQp8GHkYOkeXW8F/p7coEZEk/jUmULxr3pHKNx2YxzOx6
+         kK4vd0S902I5SX9wOg5ex9AOGVrVcJAAZop967c5UhAqK1Hoh7WYMYhfKrVgcU3gnHYj
+         NQkAhLP+fEoLHqlr/H2HiDE+yMdy/Dmdb9qumeO3H6tKT4tQeKau4h/Ods9drYzicfFr
+         bYfxLF+2DH4haVnW7ozavZIVDroM0dxfgJJ38IpB5h7FwDUMkcQRM8aFDuIHPRtnFAhw
+         Focl3CkRjZC4JMxgz9Nao0ZLCH19lzS3dQzHXmgot5NZAWWJQn1jzenYSDBL4/af2duv
+         ZgVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677864773;
+        d=1e100.net; s=20210112; t=1678718320;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:to:subject
          :message-id:date:from:mime-version:x-gm-message-state:sender:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=BnxKtEBEVGPMAD+rF0jGUdUPNYYlklqpV5/1H+wG2gE=;
-        b=fEUaHHkE0D/irrnn33GaIf4xLeLrm68T974LLz6EKqxkoDY2Rb4cd+sKLUB68a33FW
-         zMph60jYXXf5qBippKF6eB9o8gvKai6WnSjNl1e/Z4iWuVFPSOqOQuwYKnz1R4DPS6g7
-         YNS3TcSiYbPZMIxjZ2nMKy1kmhi3s1qta9vEJKscvRtqVIivEdUBvnvdk96hkwvuB15q
-         7YxptREcyhYMDFRSQLWmvdbxHfOV0pnpjZPDDiKxa397Y3E66qNdqPP+OvcywPmIaLBL
-         dK0v4/9gjctIQfkoVY07Q8h7xie+oY9H72bXIp6vID4NGT2C5yIu2r61/gImIFVZBusu
-         yiow==
+        bh=siEUkM7jU3F8eZV3cYNB4CXsb71YWXgxzHRBDEp0xMQ=;
+        b=q7b8nXwL3w1HT6Zg/7Qod+6nQ0z5EeB8RNpeR4NaiEVWuimHiwHkm/GwY/opIQEjUD
+         755Y3g7HfyPzEpJw/hFFiAu1B2kNAfDwyamUXuQ/S0hjUuHFtqdI4pZIBcAt/CjYCQJ/
+         0o/hC8VWmInJh0pFKWNFJQLOD0mfHxSdYS6uhMVnonQarCE8SWGVszmOi42kRhjvAJPK
+         K8V3iGptbKU9mGjUn6ev9TlGoq+HmOHorm/nooEz3wX9V240ERszhkfIejOys01XQDSf
+         l5a+vI9D3PJPSQZWq7ge4NIwOUDid7dVNro1eQbUZr/UUImyYOy8PwgyR7FT6uQOMk1R
+         ho0g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKVfTc6jfwGNBN0kZqjnaL9Lj1Q/m68qFQwKW1ISq5e5Rt/UxHdo
-	BTQ8QNFm9Vkv/GUqzwvTlIk=
-X-Google-Smtp-Source: AK7set9lTlxucnae+TczRqKQbG3cJqFzRfti83awNI1QG3cTssQc1r3xKjnutRu7FI/MNwfUkh9yNA==
-X-Received: by 2002:ac8:155:0:b0:3bf:cdf8:61f4 with SMTP id f21-20020ac80155000000b003bfcdf861f4mr739867qtg.4.1677864773640;
-        Fri, 03 Mar 2023 09:32:53 -0800 (PST)
+X-Gm-Message-State: AO0yUKU9n9nDogEiEslM9I4kUYJJRgbVY4f7EYtIkw5DJqFIUqW/lADF
+	Hv3IH7x+dtiQxDgyThVFuCY=
+X-Google-Smtp-Source: AK7set855mJhQvnGrVVMwW7LRVVmxGk1zvuW8ArlbA4uUDlbibgEMgqqAbJNTmv5JcUplZoAfZIWIw==
+X-Received: by 2002:a05:6830:158:b0:68d:3fc4:a1e7 with SMTP id j24-20020a056830015800b0068d3fc4a1e7mr3972108otp.2.1678718320745;
+        Mon, 13 Mar 2023 07:38:40 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5e10:0:b0:3b8:64eb:ae2a with SMTP id h16-20020ac85e10000000b003b864ebae2als3492656qtx.11.-pod-prod-gmail;
- Fri, 03 Mar 2023 09:32:52 -0800 (PST)
-X-Received: by 2002:a05:622a:446:b0:3b9:b497:109e with SMTP id o6-20020a05622a044600b003b9b497109emr3127646qtx.18.1677864772792;
-        Fri, 03 Mar 2023 09:32:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1677864772; cv=none;
+Received: by 2002:a9d:62c1:0:b0:694:3ac6:71e with SMTP id z1-20020a9d62c1000000b006943ac6071els2880419otk.11.-pod-prod-gmail;
+ Mon, 13 Mar 2023 07:38:40 -0700 (PDT)
+X-Received: by 2002:a05:6830:928:b0:68b:d61c:168f with SMTP id v40-20020a056830092800b0068bd61c168fmr19461607ott.11.1678718319921;
+        Mon, 13 Mar 2023 07:38:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1678718319; cv=none;
         d=google.com; s=arc-20160816;
-        b=TiKsgtarLc7EgltH665iFJJEN7SU/jyr87bmTRK6xJtXP53/sGP8ahTbQv9jq9uxT5
-         xBaM5e2Y3ESfwb03X57JvGhu/4pZ4sadUVPJCrXSvQGScNgB5NhSCIhA8alaJfaxg+HF
-         qQ2EAzLYZ8uRF6mLJ7oJ4Oh1vJJ9VbT9AAzdOLZfPxpvNGvG7U0zys6JOhubgRwbwSjm
-         yNR6ZRHcqLhpzSgVqO/tLLxKcmRJeD3Otp1HgqtXJB6CKvOuPkXD9qDDj/7GV5Vcl10w
-         opDqL5a/wzhbXpI/vv7CgawmiUivV4gGSPyV6Hx7EMY+Qo5JiRCKDYnRxLl7FAANgKGf
-         e7SQ==
+        b=SW8RU4dw9inE5lOu0aaIgdjBkxwNbCBhrkUBsVHzKG5JWKyJS6Edf0r1OJz8foSjvU
+         WHDF8i4ccu+EVQVqeEFqHMx2J2i5l8/TGYl8kGFXVOUTDjh5iC+cgCTUb3PXLzzEUqRj
+         mn6B+r6tHyhMJXqiMcDqpxUojh6Dw2lPOmlUt13aT8SkLjIa05anaBwukQGpmNGRn+bt
+         2ajGuuFE66uNr7s/EuAEiOhvIvC1wnUfa28/sQhsKH63qzUKl1RCUPayc7zdnBJqXPuF
+         FuRAqjygLdPojO8jVaAvUJSKmDlKYtmmHtkunMCX0o9YKfpwX1TGQ1jb8nrzkWK2yCsa
+         Z29w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=mlhsxNg1W0OhdhZh+c7Hmj0ZUfaIuPmf16VFtJflees=;
-        b=Mg+vPGd/g1O41XlnnMGCV2LxK4VlTGpLO1QdRcZuh7ncvE2suqmrNJEyASTkX4TXOR
-         Ao+Ryqrn8bYyHOJEiyu02h9cG2aK/YZWSsItm0MF9e1dLfR6KZZp7z4GI7CPRtLTfM1o
-         7mqit9UAN5xBGgHlUrrF7Opq777IJh3cJd3Yr2N4ZdOTTuQ2vDaOFji7jkxM2HXVJoG1
-         KFd7GiuPgkZPS2cOERqaB/AWsOc5FVSbmSNUHAE/6ZJ4X2XOTyNL/EhuXAdSqv8fiWx/
-         WofIViTnBQI27eb47W54qq3nAcbY3EU8H3f9t20SZ3BfoTZUTJJvXUQChMN5iOJz5drg
-         829w==
+        bh=spq2qdLkT+7WJGRKnPSobxA2I9f3pqEPEAhrxY3tSGQ=;
+        b=yWUM9BGzlAVODzw4oUCamiAFTcuau/Z08PdYDQp4tt75l5qgjWJRcwChobmQ5S5+2T
+         /p24yfHYW/Pvz0ttbDuCkMnuysH0z1bAqczucfYRaF1tpWsSnM0VBrEbDTyM4sHvgSiv
+         aZDwkxkHKOP/fChikmpcf+SmiJ1yJs+HWcrp5lDsCXpsipRsk6iLuPWzrCDm1vHY2AlW
+         Sb2/shXxsglkJlxtR3CLmh6N5QNaAtlpnjXbXL67MWmjdMrjTRbgSb07hXL+x7u58Z65
+         X0zlYdjttSh8BpAorK/TBLNkIwRhRbwBxKLZ4fIzNjHK4SQ1r9UdW+ipDWjxZw5r2Ais
+         fgXg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20210112 header.b=S78fm74y;
-       spf=pass (google.com: domain of raffaelebtt@gmail.com designates 2607:f8b0:4864:20::42b as permitted sender) smtp.mailfrom=raffaelebtt@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20210112 header.b="DK/kxcZT";
+       spf=pass (google.com: domain of tiantong411@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) smtp.mailfrom=tiantong411@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com. [2607:f8b0:4864:20::42b])
-        by gmr-mx.google.com with ESMTPS id br19-20020a05622a1e1300b003bfa7f2df56si204828qtb.4.2023.03.03.09.32.52
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com. [2607:f8b0:4864:20::643])
+        by gmr-mx.google.com with ESMTPS id r2-20020a4ad4c2000000b005176d876205si796982oos.0.2023.03.13.07.38.39
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 03 Mar 2023 09:32:52 -0800 (PST)
-Received-SPF: pass (google.com: domain of raffaelebtt@gmail.com designates 2607:f8b0:4864:20::42b as permitted sender) client-ip=2607:f8b0:4864:20::42b;
-Received: by mail-pf1-x42b.google.com with SMTP id c10so2021269pfv.13
-        for <jailhouse-dev@googlegroups.com>; Fri, 03 Mar 2023 09:32:52 -0800 (PST)
-X-Received: by 2002:a63:385c:0:b0:502:f46f:c7c6 with SMTP id
- h28-20020a63385c000000b00502f46fc7c6mr766928pgn.1.1677864771643; Fri, 03 Mar
- 2023 09:32:51 -0800 (PST)
+        Mon, 13 Mar 2023 07:38:39 -0700 (PDT)
+Received-SPF: pass (google.com: domain of tiantong411@gmail.com designates 2607:f8b0:4864:20::643 as permitted sender) client-ip=2607:f8b0:4864:20::643;
+Received: by mail-pl1-x643.google.com with SMTP id p20so13144467plw.13
+        for <jailhouse-dev@googlegroups.com>; Mon, 13 Mar 2023 07:38:39 -0700 (PDT)
+X-Received: by 2002:a17:90a:88a:b0:23d:ef4:513b with SMTP id
+ v10-20020a17090a088a00b0023d0ef4513bmr1051703pjc.8.1678718319145; Mon, 13 Mar
+ 2023 07:38:39 -0700 (PDT)
 MIME-Version: 1.0
-From: Raffaele Battiloro <raffaelebtt@gmail.com>
-Date: Fri, 3 Mar 2023 17:32:40 +0100
-Message-ID: <CAObWrvcJxeuBEznc6myZ8gKikeAN+BdhoPKusQiyC=tr7yJdKw@mail.gmail.com>
-Subject: Error while booting non root linux
+From: TONG TIAN <tiantong411@gmail.com>
+Date: Mon, 13 Mar 2023 22:38:28 +0800
+Message-ID: <CAGE391V8ZXcw-fZt3yqQspYYdD3TOgTQ04m2J33XMMMwy8DWDw@mail.gmail.com>
+Subject: 
 To: jailhouse-dev@googlegroups.com
-Content-Type: multipart/alternative; boundary="000000000000b1ee0405f60255a9"
-X-Original-Sender: raffaelebtt@gmail.com
+Content-Type: multipart/alternative; boundary="00000000000017389c05f6c91168"
+X-Original-Sender: tiantong411@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20210112 header.b=S78fm74y;       spf=pass
- (google.com: domain of raffaelebtt@gmail.com designates 2607:f8b0:4864:20::42b
- as permitted sender) smtp.mailfrom=raffaelebtt@gmail.com;       dmarc=pass
+ header.i=@gmail.com header.s=20210112 header.b="DK/kxcZT";       spf=pass
+ (google.com: domain of tiantong411@gmail.com designates 2607:f8b0:4864:20::643
+ as permitted sender) smtp.mailfrom=tiantong411@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -137,74 +137,27 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000b1ee0405f60255a9
+--00000000000017389c05f6c91168
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Dear all,
- I am trying to boot a linux non root cell in a qemu-x86 VM (version 7.2),
-but launching the command I get this output:
+Hi,How can I quickly understand or learn jailhouse code=EF=BC=9Fthank you!
 
-sudo jailhouse cell linux jailhouse/configs/x86/linux-x86.cell  vmlinux.bin
--i bionic.rootfs.ext4  -c "console=ttyS0,115200"
-Traceback (most recent call last):
-  File "/usr/local/libexec/jailhouse/jailhouse-cell-linux", line 726, in
-<module>
-    arch.setup(args, config)
-  File "/usr/local/libexec/jailhouse/jailhouse-cell-linux", line 256, in
-setup
-    args.kernel_decomp_factor, config)
-  File "/usr/local/libexec/jailhouse/jailhouse-cell-linux", line 600, in
-__init__
-    self.setup_header.set_kernel_alignment(self.setup_header.pref_address)
-  File "/usr/local/libexec/jailhouse/jailhouse-cell-linux", line 547, in
-set_kernel_alignment
-    self.set_value_in_data('Q', 0x230, value)
-  File "/usr/local/libexec/jailhouse/jailhouse-cell-linux", line 527, in
-set_value_in_data
-    value)
-struct.error: pack_into requires a buffer of at least 8 bytes
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/CAGE391V8ZXcw-fZt3yqQspYYdD3TOgTQ04m2J33XMMMwy8DWDw%40mail.gm=
+ail.com.
 
-The config file is a copy of the demo file provided in the source
-with an increased memory size (I also tested with the demo file). I
-followed the instructions in the "non-root-linux" file and I was wondering
-if the patches applied to the kernel are strictly necessary since I am
-trying to boot a specific image.
-
-Thank you for your help, best regards
-Raffaele
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAObWrvcJxeuBEznc6myZ8gKikeAN%2BBdhoPKusQiyC%3Dtr7yJdKw%40mail.gmail.com.
-
---000000000000b1ee0405f60255a9
+--00000000000017389c05f6c91168
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Dear all,<div>=C2=A0I am trying to boot a linux non root c=
-ell in a qemu-x86 VM (version 7.2), but launching the command I get this ou=
-tput:<div><div><br></div><div>sudo jailhouse cell linux jailhouse/configs/x=
-86/linux-x86.cell=C2=A0 vmlinux.bin -i bionic.rootfs.ext4 =C2=A0-c &quot;co=
-nsole=3DttyS0,115200&quot;<br>Traceback (most recent call last):<br>=C2=A0 =
-File &quot;/usr/local/libexec/jailhouse/jailhouse-cell-linux&quot;, line 72=
-6, in &lt;module&gt;<br>=C2=A0 =C2=A0 arch.setup(args, config)<br>=C2=A0 Fi=
-le &quot;/usr/local/libexec/jailhouse/jailhouse-cell-linux&quot;, line 256,=
- in setup<br>=C2=A0 =C2=A0 args.kernel_decomp_factor, config)<br>=C2=A0 Fil=
-e &quot;/usr/local/libexec/jailhouse/jailhouse-cell-linux&quot;, line 600, =
-in __init__<br>=C2=A0 =C2=A0 self.setup_header.set_kernel_alignment(self.se=
-tup_header.pref_address)<br>=C2=A0 File &quot;/usr/local/libexec/jailhouse/=
-jailhouse-cell-linux&quot;, line 547, in set_kernel_alignment<br>=C2=A0 =C2=
-=A0 self.set_value_in_data(&#39;Q&#39;, 0x230, value)<br>=C2=A0 File &quot;=
-/usr/local/libexec/jailhouse/jailhouse-cell-linux&quot;, line 527, in set_v=
-alue_in_data<br>=C2=A0 =C2=A0 value)<br>struct.error: pack_into requires a =
-buffer of at least 8 bytes</div><div><br></div><div>The=C2=A0config file is=
- a copy of the demo file provided in the source with=C2=A0an=C2=A0increased=
-=C2=A0memory size (I also tested with the demo file). I followed the instru=
-ctions in the &quot;non-root-linux&quot; file and I was wondering if the pa=
-tches applied to the kernel are strictly necessary since I am trying to boo=
-t a specific image.</div><div><br></div><div>Thank you for your help, best =
-regards</div><div>Raffaele<br><div><br></div></div></div></div></div>
+<div dir=3D"ltr">Hi,How can I quickly understand or learn jailhouse code=EF=
+=BC=9Fthank you!<br></div>
 
 <p></p>
 
@@ -215,9 +168,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAObWrvcJxeuBEznc6myZ8gKikeAN%2BBdhoPKusQiyC%3Dtr7=
-yJdKw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://grou=
-ps.google.com/d/msgid/jailhouse-dev/CAObWrvcJxeuBEznc6myZ8gKikeAN%2BBdhoPKu=
-sQiyC%3Dtr7yJdKw%40mail.gmail.com</a>.<br />
+om/d/msgid/jailhouse-dev/CAGE391V8ZXcw-fZt3yqQspYYdD3TOgTQ04m2J33XMMMwy8DWD=
+w%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.g=
+oogle.com/d/msgid/jailhouse-dev/CAGE391V8ZXcw-fZt3yqQspYYdD3TOgTQ04m2J33XMM=
+Mwy8DWDw%40mail.gmail.com</a>.<br />
 
---000000000000b1ee0405f60255a9--
+--00000000000017389c05f6c91168--
