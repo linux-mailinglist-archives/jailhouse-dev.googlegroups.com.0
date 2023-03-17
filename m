@@ -1,74 +1,138 @@
-Return-Path: <jailhouse-dev+bncBC3J54VZ4EEBBUG72GQAMGQEDWSNV7I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBHPL2GQAMGQEAXUZPMA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C70F6BEA75
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Mar 2023 14:49:06 +0100 (CET)
-Received: by mail-yb1-xb37.google.com with SMTP id e20-20020a25d314000000b00b33355abd3dsf5317529ybf.14
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Mar 2023 06:49:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20210112; t=1679060945;
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04F086BEAC9
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Mar 2023 15:13:51 +0100 (CET)
+Received: by mail-wm1-x33a.google.com with SMTP id ay12-20020a05600c1e0c00b003ed201dcf71sf2326218wmb.4
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 17 Mar 2023 07:13:51 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1679062430; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=C5JIr28t+mMRXA/nQpweBLs+TbdhYzr+i3V5+LUpIhWwr+yW2H28BnqLUW1Co0EHfQ
+         1uX4RGPtBuCAg9ZkgLXgCGydYpZz+Ob0DZOzcSaitIbqUtWSaOXQt3CkxDJujCiCeZh2
+         aaUnq6loWFJmGyvR7zjC+tAfAPpqCJxpBXRYmetdJMbIT7S449kmAmcHvOxrBMfXA99n
+         kf3UM3df281e53EBsv6IY249j45+yqrboPWiIPo1o2HyfnFc/dsOpfQxUDQz6QP2K0hE
+         Pew60f2wGLD4CaWSz5QS0yr8gcg852tXzdGVTUOM/7P9uabYwwWtxHLboQCEp8FiCMft
+         ApTw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wSloxUqcb8BoRwoVAb+Smm73e8Zk3JVHNnJ8+o6rXCU=;
-        b=XM+8zPjw560DxZ3I9xbBjVCvFwolhIJ1dttMRKfK5nrxmV3cXdKJO3qAgSdr4GVhN0
-         s/6qXDO1OckGo+XKPW2ZJEnOnYMsAyad4nkJ3KbPoqQAv5m2kClJ3n+FG2UbkjlYCMka
-         QPiQf4DRj2iwZ0NLLkE2q2C0hmldLUx3CHxg+CmTftmB1J0ZYwpnsEAb0lveqMx9qK28
-         Jl8iYS9NjP0sESrtAZJDFQhw39PFlMdJM6znXCoDQhdxqS8BLlcr98iBgxbwnt7iW+cf
-         KQ1LtwGcWC2ZiJ6J05SURSiZZcgQqnIDb/8C+AqB4DPEIq4shbRnBC16KdxI5GyYv+PR
-         fdYw==
+         :list-id:mailing-list:precedence:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :sender:dkim-signature;
+        bh=rby5lDPtFoo/UQ5psCdz/w/N1VOhrLeHQ+dj5lQosB8=;
+        b=Zo9AE6KDuhonvbsrTDZtHEkImW+P3EAXakx1bssgfDtZCSDi1DMXrOo531NjSou/hs
+         GwDrh7tcOuHellJtWkUUx7h/EW+fIiDxHyBYvPAWnZpAa7VbOnSEq+XE2jKJ6N1r0zZt
+         l8iaQg4igXVbzImwFoKIeWujvwqx9ZV6vU+1jM/WOnzPWL/MAbRZUA4c156j5CWcsSCe
+         KBgemp8ZzG7c7Fy4+eDT6AgKAvxisfhLt6maZ3zbskHjmlZ1c3qBCDbiaTfljlQ/8Lpp
+         OMGlnho4WzG2P7rabNulWrXb8NbD+Cbj9s6kHb5X6e6k21hnqIfJIU0vBa/DMjfEqFc8
+         neSg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=waWbz+dP;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679060945;
+        d=googlegroups.com; s=20210112; t=1679062430;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:in-reply-to:from:content-language:references:to
+         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wSloxUqcb8BoRwoVAb+Smm73e8Zk3JVHNnJ8+o6rXCU=;
-        b=e4UggZ2LB6omRbLrNYSD+9bFDdQAMPy3ZI+2DF8jpYl0ixeYobecuJxJPGZTb2U9sz
-         C6sBQYn0GJdB6YCSwfcuSIKFz/xWQD9tberWOnc4785EBP3S3E9PMuAkCG9RHYhCHWqd
-         /PGMUo1/T3+194W1HCOt00Qn+B2BgL7SCd5VSJXvSitZYK2GYbKVutuVmhjAjt3r4kD5
-         FZ0TUyl7TKxfGsb/m9uTAsaX6/FY5fnSyue6dQ4LpIxuQ5TbgVgWviUmJ8rJtPVocLRW
-         SlsSOB93DwGOyAzHNIcBL820oizDBzu203/8f+LPl0p6gI+0BtY8kbXhDm0VdwTCWT2S
-         JcFw==
+        bh=rby5lDPtFoo/UQ5psCdz/w/N1VOhrLeHQ+dj5lQosB8=;
+        b=XwCVjVwcuXjj9x2G6JudJSdTTl6slquiN9Jbbs2wolNsQq3oZ531uzEwNc3W1KJceS
+         i1kUhbDnk/fneTkMu3lcYBQAniyKbgt9gbT0ncl4mD+lkR+4afXPHEc9J3AxbfWkeUW4
+         m1QgLHlVCkfTG5yixoZHhdAQsBunRhw95VOx1xpR4eUIsH4uIV0oMkgPn/l3WqPt1bAx
+         He/M+GDsoQgCoXuWhmuQQtBIvT+9H9Ze21dQ3yOihwmtIYkymvZkc6VFsBCkPN7lJweo
+         j7ajBHMbEXl4+wWONbIDk6WO3dBME1wEcNUZbw7xIH/Cf2zOS3kI9AWgbBSYR/qYfRU+
+         DDyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679060945;
+        d=1e100.net; s=20210112; t=1679062430;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wSloxUqcb8BoRwoVAb+Smm73e8Zk3JVHNnJ8+o6rXCU=;
-        b=vmw6krdHG6KGS30kk0I+wJp2gyFpXluogScjQyEP8MrAbW1RlzwWe5erJvHC2Ynb9D
-         zfql0E5yHt/j1pnVcc/yfraOR3iCQE6/TGvl9hf2mBiETEVxNKJ+2wv/fS2BKLk9Jb+8
-         zJixD9aEcp1YT9T/aD0rdvJYdN52KWd2loOP+2MS2fR+9Sh3TZRrcOmO5t24ZyuncLft
-         jfhPMsOIzZl7n5LlNV2ceJHEykHEoeDPQtZXvazKEntX2u3HdUh24skZUOcG2zFzzLXp
-         MJYW/ClEfmckUXu1JiydwkH60oDNM087vvvPXa8IZTAu9pVb4a3GUH5hVnzZIxfvOcm5
-         SIDA==
+         :x-original-authentication-results:x-original-sender:in-reply-to
+         :from:content-language:references:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rby5lDPtFoo/UQ5psCdz/w/N1VOhrLeHQ+dj5lQosB8=;
+        b=0EWWXnVLZ4J0C2taZXSa2JjdeaHb1KRGWUv1rFy2Npx9ufZ8SF7LHdP+eivdD/NyOe
+         bUY93g2GSfMYUVvks0NdMU0w06ryzPn0EgOeIiaaodOhyxLO8dOViFpqss8i6I7lqcHc
+         3xoCjUmsAsnrCi3PZfUQbdKpchv2oMapKFsqpad0uKEQ71gfYOwyqxecBF9S4+Lspze2
+         zt+3YYhKuuEqss06Go9tUBpthZsS4TrW6j25jlxkr/e1OMhbkjPCdgU2YSz6xAkeUysp
+         X8f3MjdWDkxn7h/x5utgYJGboVo84AJ9iCOYYPZzQd6gbaDIyAubMbg0gR+dRFPLRqNp
+         gtXg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AO0yUKXP98NcASxHtAkJWNzxI4VGMIombahvW9chIU8GSC0ZODDJp6lq
-	0pjErsaPNDn326M5NtKewfY=
-X-Google-Smtp-Source: AK7set8SboMrr5sjWi7u9stlrkUhy2lBVlRDx3C3BDMIcmrZdp+gZyUtY/5hHlY3S20P1EtlZ6yygQ==
-X-Received: by 2002:a81:c606:0:b0:541:9063:8e9e with SMTP id l6-20020a81c606000000b0054190638e9emr4495755ywi.2.1679060944931;
-        Fri, 17 Mar 2023 06:49:04 -0700 (PDT)
+X-Gm-Message-State: AO0yUKVE9EngOfjdEPASvHkYTai6+WeLy8r/eDTgL4y5nkWO2jdmfpoO
+	4qwNOx5fOOTjE5Dzz5iSySs=
+X-Google-Smtp-Source: AK7set+O4ye6mCuVIPb5r9sbl+Iod0xXkXyG5zAgaH0GAZ6bSJhlvqGIq6GSP+M8wD2u6yEh6JAQNw==
+X-Received: by 2002:a05:6000:805:b0:2cf:e4ae:7158 with SMTP id bt5-20020a056000080500b002cfe4ae7158mr918210wrb.5.1679062430497;
+        Fri, 17 Mar 2023 07:13:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:ada5:0:b0:b25:605d:bcb8 with SMTP id z37-20020a25ada5000000b00b25605dbcb8ls2469800ybi.8.-pod-prod-gmail;
- Fri, 17 Mar 2023 06:49:04 -0700 (PDT)
-X-Received: by 2002:a05:6902:725:b0:b58:b42d:945c with SMTP id l5-20020a056902072500b00b58b42d945cmr3865770ybt.0.1679060943267;
-        Fri, 17 Mar 2023 06:49:03 -0700 (PDT)
-Date: Fri, 17 Mar 2023 06:49:02 -0700 (PDT)
-From: Daniel Baluta <daniel.baluta@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a22210d5-6ea5-4926-acc4-fec65ca36884n@googlegroups.com>
-In-Reply-To: <83472a1d-e6cf-3336-a4a8-df3c6bcc2cab@siemens.com>
+Received: by 2002:a05:600c:1da0:b0:3ed:2f3f:8597 with SMTP id
+ p32-20020a05600c1da000b003ed2f3f8597ls2985396wms.3.-pod-control-gmail; Fri,
+ 17 Mar 2023 07:13:48 -0700 (PDT)
+X-Received: by 2002:a05:600c:c8a:b0:3eb:2067:1141 with SMTP id fj10-20020a05600c0c8a00b003eb20671141mr24238815wmb.38.1679062428506;
+        Fri, 17 Mar 2023 07:13:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1679062428; cv=none;
+        d=google.com; s=arc-20160816;
+        b=T6CScOuiVMuT2DgFbd+u1oem4v/ZQzGihKtUyunCBFXhJAD5iBQg3jpGrPZomFWMgX
+         8hPLMcpfTxQG7S6bg9BFHreTlDrBVNlPU0YHTILwvaBzP17t24nkY8z+fjiz4ZFl1hVF
+         5j3/t1azkE69KPIl2xR2LdHo3SEADnpr2uHETqjI4X+zCOFWCgioJs9GQCLsPI/Ea+BR
+         IECIqUEnwZrOIk/VfYb8I2UJkwkb5Phuo7dfGTD4iiqvCMj9ddutIfrkDBtsugY6KoKa
+         StaqWsHd2A1DODIIQYuYyn+a3aTaLi2dI6esMhLfY09+29YFwDbrua2fJhmfHshgSt0K
+         5Syg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=qcNaWNgNJCdrX4ErkqHUTlDkvyexkSekxGn/pJ2dw9I=;
+        b=JqFn13iCrnR3T9YuaPtpPMXCeLJdq19m1iWGWhP46PPfDrBGwIgYWpqQDoqKEF6uEF
+         qk1ztw9d8etcqhO5GmMx91E0z03hJq/biMnrgumOsGK3SMDhWwHdiTLrlKkBote4TfU1
+         URfC6eXvhcZiDDO0z2FOI534G65npMPElnlzzJ92kAqRMR/uH7poVlitX7A94RjESbwP
+         ajsvlTyE/W/OnHJnKbRYap7Fwe9O/iuxkGDgtiLg4bfsApmwXoU/ntqNO0WmXy792N2g
+         KvTC4392dyjHGcTT3JOAU4pKIDmbFnoSIm+4yUqvBiXGAf4kHMMGtKIkrrHVhcwiXzUY
+         y3NA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=waWbz+dP;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de. [194.95.104.12])
+        by gmr-mx.google.com with ESMTPS id az35-20020a05600c602300b003ed2382d2fesi423350wmb.1.2023.03.17.07.13.48
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Mar 2023 07:13:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.12 as permitted sender) client-ip=194.95.104.12;
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4PdR241VCfzxt6;
+	Fri, 17 Mar 2023 15:13:48 +0100 (CET)
+Received: from [172.16.2.140] (194.95.106.226) by E16S03.hs-regensburg.de
+ (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 17 Mar
+ 2023 15:13:47 +0100
+Message-ID: <e442d6f8-e9f3-467e-8a9e-5ef053b6e46d@oth-regensburg.de>
+Date: Fri, 17 Mar 2023 15:13:47 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: Question: integrating Jailhouse in the Linux kernel tree
+To: Daniel Baluta <daniel.baluta@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
 References: <VE1PR04MB6607BED3DA85B3BFC335000792BF9@VE1PR04MB6607.eurprd04.prod.outlook.com>
  <83472a1d-e6cf-3336-a4a8-df3c6bcc2cab@siemens.com>
-Subject: Re: Question: integrating Jailhouse in the Linux kernel tree
-MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_4408_374079187.1679060942691"
-X-Original-Sender: daniel.baluta@gmail.com
+ <a22210d5-6ea5-4926-acc4-fec65ca36884n@googlegroups.com>
+Content-Language: en-US
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <a22210d5-6ea5-4926-acc4-fec65ca36884n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Originating-IP: [194.95.106.226]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=waWbz+dP;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.104.12 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -81,159 +145,22 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_4408_374079187.1679060942691
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_4409_32789445.1679060942691"
-
-------=_Part_4409_32789445.1679060942691
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 
+On 17/03/2023 14:49, Daniel Baluta wrote:
+> 
+>     What you can already do is pushing the setup into an initramfs.
+> 
+> 
+> This won't really help in our case. Our driver (Sound Open Firmware) 
+> runs at boot and somehow
+> it already expects that the jailhouse to be enabled in a controlled way.
 
-On Friday, March 17, 2023 at 9:01:39=E2=80=AFAM UTC+2 Jan Kiszka wrote:
+Why? What happens?
 
-On 15.03.23 19:29, Laurentiu Mihalcea wrote:=20
-> Hi,=20
->=20
-> I'm not sure if this topic has been discussed before but would it be=20
-> possible to integrate the Jailhouse driver in the Linux kernel tree?=20
-> This would allow other kernel modules to utilise Jailhouse and would be=
-=20
-> useful in cases where user space is not yet available (e.g: during a=20
-> device's probe()) to do all the setup.=20
->=20
->=20
-> Use case:=20
-> =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=821) Linux boots=20
-> =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=822) device_x's probe=
-() is called=20
-> =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=823) User space becom=
-es available.=20
->=20
-> I would be interested in enabling the hypervisor, creating an inmate and=
-=20
-> loading some image during step 2) of the above flow.=20
->=20
+   Ralf
 
-But you know that Jailhouse startup and non-root cell loading currently=20
-depends on userspace? How would a built-in Jailhouse driver help there?=20
-
-
-We want to make startup and cell root loading independent of user space.=20
-
-e.g=20
-
-Use EXPORT_SYMBOL for jailhouse_cmd_cell_load / jailhouse_cmd_cell_load &=
-=20
-friends.=20
-
-
-What you can already do is pushing the setup into an initramfs.=20
-
-=20
-This won't really help in our case. Our driver (Sound Open Firmware) runs=
-=20
-at boot and somehow
-it already expects that the jailhouse to be enabled in a controlled way.=20
-
-e.g -> Our driver already handles loading the inmate and starting it.=20
-
-We come from a world where there was no need to use Jailhouse (there was a=
-=20
-separate DSP core).
-
-Exporting the symbols will allow our driver to call in the jailhouse API=20
-and create the expected
-environment.
-
-Also, where there any attempt to upstream the Jailhouse driver to the Linux=
-=20
-kernel community?
-
-thanks,
-Daniel.
-=20
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a22210d5-6ea5-4926-acc4-fec65ca36884n%40googlegroups.com.
-
-------=_Part_4409_32789445.1679060942691
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br /><br /><div><div dir=3D"auto">On Friday, March 17, 2023 at 9:01:39=E2=
-=80=AFAM UTC+2 Jan Kiszka wrote:<br /></div><blockquote style=3D"margin: 0p=
-x 0px 0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1=
-ex;">On 15.03.23 19:29, Laurentiu Mihalcea wrote:
-<br />&gt; Hi,
-<br />&gt;=20
-<br />&gt; I'm not sure if this topic has been discussed before but would i=
-t be
-<br />&gt; possible to integrate the Jailhouse driver in the Linux kernel t=
-ree?
-<br />&gt; This would allow other kernel modules to utilise Jailhouse and w=
-ould be
-<br />&gt; useful in cases where user space is not yet available (e.g: duri=
-ng a
-<br />&gt; device's probe()) to do all the setup.
-<br />&gt;=20
-<br />&gt;=20
-<br />&gt; Use case:
-<br />&gt; =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=821) Linux b=
-oots
-<br />&gt; =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=822) device_=
-x's probe() is called
-<br />&gt; =E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=82=E2=80=823) User sp=
-ace becomes available.
-<br />&gt;=20
-<br />&gt; I would be interested in enabling the hypervisor, creating an in=
-mate and
-<br />&gt; loading some image during step 2) of the above flow.
-<br />&gt;=20
-<br />
-<br />But you know that Jailhouse startup and non-root cell loading current=
-ly
-<br />depends on userspace? How would a built-in Jailhouse driver help ther=
-e?
-<br />
-<br /></blockquote><div><br /></div><div>We want to make startup and cell r=
-oot loading independent of user space. <br /><br />e.g <br /></div><div><br=
- /></div>Use EXPORT_SYMBOL for jailhouse_cmd_cell_load / jailhouse_cmd_cell=
-_load &amp; friends. <br /><br /><br /><blockquote style=3D"margin: 0px 0px=
- 0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">=
-What you can already do is pushing the setup into an initramfs.
-<br />
-<br /></blockquote><div>=C2=A0<br />This won't really help in our case. Our=
- driver (Sound Open Firmware) runs at boot and somehow</div><div>it already=
- expects that the jailhouse to be enabled in a controlled way. <br /><br />=
-e.g -&gt; Our driver already handles loading the inmate and starting it. <b=
-r /><br />We come from a world where there was no need to use Jailhouse (th=
-ere was a separate DSP core).</div><div><br /></div><div>Exporting the symb=
-ols will allow our driver to call in the jailhouse API and create the expec=
-ted</div><div>environment.<br /><br />Also, where there any attempt to upst=
-ream the Jailhouse driver to the Linux kernel community?<br /><br />thanks,=
-</div><div>Daniel.<br /></div><div>=C2=A0</div></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a22210d5-6ea5-4926-acc4-fec65ca36884n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/a22210d5-6ea5-4926-acc4-fec65ca36884n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_4409_32789445.1679060942691--
-
-------=_Part_4408_374079187.1679060942691--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e442d6f8-e9f3-467e-8a9e-5ef053b6e46d%40oth-regensburg.de.
