@@ -1,131 +1,150 @@
-Return-Path: <jailhouse-dev+bncBAABBSMUV6QQMGQER2OOULI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBB4FUV6QQMGQEAD6U5KI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0606D5906
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Apr 2023 08:57:15 +0200 (CEST)
-Received: by mail-ot1-x33f.google.com with SMTP id r17-20020a05683002f100b006a131178723sf9530212ote.10
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Apr 2023 23:57:15 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1680591434; cv=pass;
+Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 936436D5A49
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Apr 2023 10:06:10 +0200 (CEST)
+Received: by mail-lf1-x13b.google.com with SMTP id d23-20020a193857000000b004e9d2af9e57sf12745550lfj.23
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Apr 2023 01:06:10 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1680595570; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Vd7QGwAvZ+g6B8N/ODIQrnl8Cfqya0uL4qEQ5hXzNyXDtp7xm8yJZUnv+9+2X+Q2cA
-         NS+4iJA+xCHbh7jLHRcLLothmofRgWJD2onO/XaaUfRIFGhiv/ecMIl5EcFqIla4GV/Z
-         d10yr3v/Oq79yV1vi9qq7T0nNd6LhQPdHRD5Dzz39iOB0uhdNliMkh5z8xbkMkGztNwv
-         kOG19Ba1TirKCOhuZYlcONLeW+adU/laRC9CjxxD6qidmi6LjIYAVSFLO+FVj5JSazV/
-         Td8Mfx7vVNHKbsbK1rclg8UMghKP3x5v6VNkbxfoOJy22C1hw48EUTE0rArAxR3LVQMJ
-         Jynw==
+        b=0GDs4DNRfZCwzYTFcQMQlzacEgPgIpimIomDtAKbAPtZ6DxbFxhWDELcxpbyYT/rJU
+         K/QGupHXOREkamv6G/lELtn5rYW8fXAElpwe0bZncS1o6SbNO1piaupRYZz/arcjoJAw
+         Z3qTEnGjPLdmIHCbrh5RVcvG5tpmyvojmv1+5U9xhBInig7Xs+xapB9/vLebyQ7DjcLV
+         jseukGsu+xR9OIsNSWMhlBFIcbv/slrNF+1vRRx6Llrpoqd8M7r6dIeCaBz3hohGBhQ9
+         OjwFW8SqaGBNT8a8dH0d5UhMb58LzPUz6AV2H9ZRl9/C7RpQidDKAlm+dTPvYHTyP4gE
+         k0BA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:message-id:date
-         :subject:cc:to:from:sender:dkim-signature;
-        bh=l9frBmVCwrqYEWoaK1UIvInbcCv/q2WeMDNC9Xc3sO4=;
-        b=h1jQYgCRuZVuE2tJg7QHCZbbP00OurQKRgFaCaX1YnXtKCKVuq65kcXsOOjOBHxTNY
-         bvZm7h9MCZP8xIaYAtcdLoF8/iWLaO/PWC6++2v2X4TH4qAiikvQ/4liUsUEoYCBHqNd
-         DOro84KustxnqmkpV7+dfz6IA9t7U2zOlWcn8xVUmNClNNqmyOYjLptGyVxAX2Fxahlo
-         8L7CdeaMlsYUZObsSwok3J4yqkio444FYMPI5LXA2+3HXgrGYuvlMeUqH5sQxuvGttfM
-         fLuLzCUnu+AnQbI4g3T53W0o7EXWpJmPHhdVSMIt00icl3E/+GZ53TrDUkv4CSmkmY4h
-         7o6w==
+         :list-id:mailing-list:precedence:ui-outboundreport:to:references
+         :message-id:content-transfer-encoding:cc:date:in-reply-to:from
+         :subject:mime-version:sender:dkim-signature;
+        bh=OBk+UOxxE5F7Mn5uFqX5tazAJz2rKRETGbWRLSJQbhI=;
+        b=AW2192hcxOhif3qbioodKdshXU54V9WgrSi+y2PpBTTPmbwOIeMXrXozfTMLCLi+FQ
+         GzXSGiKwfcCStkGQIrhLtJNaOaXHlY4VHjqbQybBmhxb/tTowyMTiG8O2TQBnA77PWIA
+         M6d0XFuneb19g5cVKFq0cpgdZtNL6+nZh9buC7y6b8PeJ6BmgrxAcsXW8kD9LtDYblC0
+         kIxbd6lLuh5tCJh6FTCkD0bkv3AmOuiUmF2iOl6GFCmXw39YwU8NdFtV7dLdyOV1y4mm
+         YXAN+gMr1dVClWKhzYH6IafZKToOklskikOx7AJm6N9lsZs2YHNTTXxe6ZsR682LEv0P
+         oX4Q==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhangyunfei@kylinos.cn designates 124.126.103.232 as permitted sender) smtp.mailfrom=zhangyunfei@kylinos.cn
+       dkim=pass header.i=@gmx.de header.s=s31663417 header.b=i37hCQtB;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20210112; t=1680591434;
+        d=googlegroups.com; s=20210112; t=1680595570;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:message-id:date:subject:cc:to:from
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=l9frBmVCwrqYEWoaK1UIvInbcCv/q2WeMDNC9Xc3sO4=;
-        b=WVWaPBvDp68rOdycbOjyRHosCwrprc1irmwXsd2KirAA/vXSOjv2cAWyrCKpfTE8RV
-         I4uEJKCRq9vGxsSgVuqxDmgn2oBhtFou5HsHJgvr/6oluE16fVv5J6giqCj/OXTgI+r6
-         nB2feL4rzH69kZVsaGd86JiUALTuz+54H+iBTq+mxRczjbJ1WKb0GHKcRX75JaOX5ck2
-         nnCy4jpHcX7znjp+LJzWFZRE10pUJSQtEeyRhfkCRlKu/ihmzvFvFaCgtBTr4JYcJTOE
-         cHl/74b4sC0MseXdKRRtygnyaExqdAFEJELMR7bpFAvo5cJJQsqprIWJeGnnEe8K37xz
-         C7jQ==
+         :x-original-sender:ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=OBk+UOxxE5F7Mn5uFqX5tazAJz2rKRETGbWRLSJQbhI=;
+        b=f2BsXB9GWfkpVP7R9Yc4YUb1+kPwmfMM79dlvmjrxuXmdLbkc7Xa+dJUm3j5PfdnVj
+         LBtkA0+4qUnuUqDXN54KVtwoeTXgrHMglvZOqH2sk9z0O/yCVQRUC3th3Zs/0Y9dmokO
+         4zHjq/TXEyOZV5ZfWzdbuMzndC8IYuEjMK1e4/5XPcXWr9OfwgJU/8M6TW8nvO0l0pCe
+         A4CKlPikx65ilZ3ysEidr91MYb+6KGntTfXIduPG9NPxmNerBJEQt2k/Qa7ZkN4xbGNR
+         qNCZO2O0eJgJPmAtOMCLposggNsT7AVClrNOEN2KOd6R8TZ/4sn0gsxdlvSZyr3cq9yz
+         t1AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680591434;
+        d=1e100.net; s=20210112; t=1680595570;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:mime-version
-         :message-id:date:subject:cc:to:from:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=l9frBmVCwrqYEWoaK1UIvInbcCv/q2WeMDNC9Xc3sO4=;
-        b=XkVVORf6AdxP3ZQ/HCGf2HsbVB975b6T8mhQnmJ363dxxOOoGw9L4jupaZZwB05k5Y
-         WEB+KD1zBHhOycribo6CfHQyDl+ttYV4fyucwPT6p79TfJ8gDbCROsbgc7JPF6NeLYOr
-         ybk5/3QCVS08l5pXyRXDyzAhj5xZP43scaHcUhEvKmhKPFFa5JjjstF7Em/y7C1X488/
-         7Z5MhHfY8oDGp3nGo6HlPqnjzOaC13cOBFiXi1CmbqwqaxSKk1KUzGpmHE0afgmxHpJt
-         4sycV33XQbWBb6/vu11+lc8ePgwKVBNFdepgBNYQ7bJmhvE6tepvMJeGGpgaZUCnpa8j
-         N2TA==
+         :x-original-authentication-results:x-original-sender
+         :ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OBk+UOxxE5F7Mn5uFqX5tazAJz2rKRETGbWRLSJQbhI=;
+        b=2rLgxLoXs343yMPg0xpUHDf8ZiVdS89iXHUMHvuWw1NDcnfzXGwr7n3znfON2hy/hr
+         7ovDJPzINR0ohw5KUSJQMUXXZjNxM1fN0OJABFtPpA1OK/lyrPN6r1ABDqveNKUG7ZLC
+         V580IfW252x0GaMMS6Efs3PTiGslvVtcLWjJAkuyya1wJN0iGjufI2y3nfNFyLqQ8CZU
+         p6CYhT+2wDHa91cddg3NAki7TsNMDfzKcNwuQGhW19bYb6HI+sz5PrS9KCrgqZ83IPpX
+         sZW4LZae2DUqHUY4C3mHxwy+4gUQTfJqdPcS7+O4IleswcDBcfSC585wtQBjWvBCy02R
+         U/8w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AAQBX9ftmGm/hlei+0LHll2gWsDeVuuS87U2gsJ33kIFUV4liOa0gd7D
-	IIs4rCaYXVUtYJ4kNZhgzOE=
-X-Google-Smtp-Source: AKy350Za0zzhN8uuIil36Paw0xBM3cTnJVD0fa+kihFHfMDnrtnP8LQgjAW1yPFE2W270lDS4wWXyg==
-X-Received: by 2002:a05:6870:5817:b0:180:1f9f:923e with SMTP id r23-20020a056870581700b001801f9f923emr859185oap.5.1680591434460;
-        Mon, 03 Apr 2023 23:57:14 -0700 (PDT)
+X-Gm-Message-State: AAQBX9epvCP3j8cIwoPt3M0o7My3HLuDZ8NHDE6+JhGLquiKvVtmFaBf
+	JmJ1ffc+HemiHeWfrdG+9bk=
+X-Google-Smtp-Source: AKy350YRrUjCPQdE8Bxu8MIn+xn6f3ujLwHwy7/YTYvcHhZ4Gu4h7eBHnn5SaOaRGotMKUvFAWVNrQ==
+X-Received: by 2002:ac2:546a:0:b0:4e9:bcf5:a0b6 with SMTP id e10-20020ac2546a000000b004e9bcf5a0b6mr467963lfn.11.1680595569473;
+        Tue, 04 Apr 2023 01:06:09 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6870:f228:b0:16d:c495:95f9 with SMTP id
- t40-20020a056870f22800b0016dc49595f9ls5019119oao.0.-pod-prod-gmail; Mon, 03
- Apr 2023 23:57:13 -0700 (PDT)
-X-Received: by 2002:a05:6870:8a0d:b0:179:95f2:56e8 with SMTP id p13-20020a0568708a0d00b0017995f256e8mr1260451oaq.3.1680591433303;
-        Mon, 03 Apr 2023 23:57:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1680591433; cv=none;
+Received: by 2002:a05:6512:1114:b0:4e8:6261:7dc1 with SMTP id
+ l20-20020a056512111400b004e862617dc1ls435662lfg.2.-pod-prod-gmail; Tue, 04
+ Apr 2023 01:06:07 -0700 (PDT)
+X-Received: by 2002:a19:505e:0:b0:4d8:86c1:477d with SMTP id z30-20020a19505e000000b004d886c1477dmr5965070lfj.18.1680595567371;
+        Tue, 04 Apr 2023 01:06:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1680595567; cv=none;
         d=google.com; s=arc-20160816;
-        b=mQ8yv35CDkMK2EpXSlidy4sai2OjG7SjCoiC0ddT0F1ZsZJrySPdJGXEWiMwz1UzAB
-         o5vAUn9SqC94vU25ji2e1el9GP4AwwqSjoKf30Z7w3zEabEAH8TYOXlv8sQHp74KXWCw
-         o1yqs861+8f9GZckMGRSZUZvtr80DaJUvXD8WB+aPIq/PVcm3dBpFMRjx2hECZ0Ux3JZ
-         oCO+b9rVudneuRTCOwARQrgIbaOqRWZX9vjdudgANLzFWNQtq72iNyDETL2QZl2F0dQV
-         rIAbAOizZcv2zMEzf32SsmjMg2hUS/UiNosXyNrNx5iNRYpEjdzcT7yAvu9uokHhu95q
-         v+1w==
+        b=E262/ZGX47/mvFu3d0Ntfp4v9jHJiqyBSa2+5RMClOnQVm6w6RTzFzQdXB8upGfiMv
+         UF/j9SBREXdO8Czc20xQgQwJhGokDRZt2U85uPVMYeMeV7WiZXCHTCr4mEE/jqpmq+CJ
+         uPukenY3/nxuet6vi2P2ogk68//+V1ycMQDl3PcjGBatjQY4eTIrmilCnIluGnUNTfrB
+         LQsF+HQZCLUvzR1+bYR0CqlgaJ05B5zzSjTyOs4IoX3OUg7FwYklDwP5P9GHULIQ8ZOD
+         iVVUpBdAQNj2EEXS4txrYOcOYeoLx/u4pGTXmqIJaU2MoGLMwyvdWHt1RL16fvqhKrwr
+         mJNQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from;
-        bh=F9/OrjOc3bwhKCjxMXBE5xmbtSSZjbWHPd2tUZUJFmE=;
-        b=wp2puav2OQl6mJj1mtcsARGrr7Xbc5EodQv9SYzmKoLr1r7EUi0tgbBOGg4v+TwIog
-         ds7p3bRRcDu5cCFYAlRRkHBRT6+YJZtRxMmgzhg5CzLnkezm9hrvk0m2MNorj8Zr85u0
-         V0qGIS1e9/+v6Vob9GYqgDtiVT3HE79Y+hRgtT0VFjYatMFmcJ/l6myY1E2zrQ5Z5j8m
-         EnGxfx1M8ShlOLdgwgjRubuLzmiyfT9jWOqozuqTV2ldC1LycLbqWBwfUhP8mI3daF42
-         dBveAz6sfxvZWC7LG8OL0m4azaow3MCSo19PziXjtAsg00R05yp/mI7+I+iM9X1aMVZi
-         msqw==
+        h=ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:dkim-signature;
+        bh=77rqQTdmgW435Aus2ZYSTurpnyXqERXNjznzf0obu8s=;
+        b=pELOzY04qdTDVj187lVRdVw9Lgn8C2+SBAnFOMuhe8X2snXZJG7MeecrwFCMC6Bt9x
+         yjVPjU9Ix2tdr10SDc7ZEmbOnTJ18XqBqPUb2zpHx38N4FvgpiPLH6z2Wg7h+Xd/Syoo
+         Fa5Jb6bz+buGBflrNwKNaU+yfBBWEFTHgzdHGaL71CViY8UY0hPnBBHnFRJWqGFHxpLQ
+         m7iPQ5vw6Ub1P/JgnaF0uMKK4K+Ihpa5S3Rw+agIHUR5+xrZM+RLl2HbkUF7py7QDV/o
+         J0yXD7jXQlvLIzeuYg+qcC8WMEnPwK9sPiMTBW6eVm8l9SkzEzvUSonCdTQHTvaEzoc8
+         6EKw==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of zhangyunfei@kylinos.cn designates 124.126.103.232 as permitted sender) smtp.mailfrom=zhangyunfei@kylinos.cn
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn. [124.126.103.232])
-        by gmr-mx.google.com with ESMTPS id oq2-20020a0568707d8200b001723959e146si1234553oab.4.2023.04.03.23.57.12
+       dkim=pass header.i=@gmx.de header.s=s31663417 header.b=i37hCQtB;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.15.19])
+        by gmr-mx.google.com with ESMTPS id k2-20020ac24f02000000b004dbafe55d43si521851lfr.13.2023.04.04.01.06.07
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 03 Apr 2023 23:57:13 -0700 (PDT)
-Received-SPF: pass (google.com: domain of zhangyunfei@kylinos.cn designates 124.126.103.232 as permitted sender) client-ip=124.126.103.232;
-X-UUID: 0e5a0b16db0a49c0adb4b22db8692416-20230404
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:2e0280ba-290b-4b8c-b0ce-1329396029f2,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:5
-X-CID-INFO: VERSION:1.1.22,REQID:2e0280ba-290b-4b8c-b0ce-1329396029f2,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:5
-X-CID-META: VersionHash:120426c,CLOUDID:4f2a542a-564d-42d9-9875-7c868ee415ec,B
-	ulkID:23040414515960O46NSQ,BulkQuantity:1,Recheck:0,SF:24|17|19|44|102,TC:
-	nil,Content:0,EDM:-3,IP:1,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 0e5a0b16db0a49c0adb4b22db8692416-20230404
-X-User: zhangyunfei@kylinos.cn
-Received: from localhost.localdomain.localdomain [(123.150.8.42)] by mailgw
-	(envelope-from <zhangyunfei@kylinos.cn>)
-	(Generic MTA)
-	with ESMTP id 1172300046; Tue, 04 Apr 2023 14:57:07 +0800
-From: zhangyunfei <zhangyunfei@kylinos.cn>
-To: jailhouse-dev@googlegroups.com
-Cc: Zhang Yunfei <zhangyunfei@kylinos.cn>
-Subject: [PATCH] hypervisor:mmio: Optimize subpage Optimize the access process of subpage and improve the real-time access of subpages.When subpage is accessed, a temporary page table needs to be established,which is too time-consuming and reduces real-time performance.So we choose to create a permanent page table from the remap_pool when the subpage is registered. In this way, every time it falls into subpage processing, it directly queries the established page table, and then adds the address offset. This saves the time of creating page tables each time.
-Date: Mon,  3 Apr 2023 23:57:04 -0700
-Message-Id: <20230404065704.92082-1-zhangyunfei@kylinos.cn>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
-X-Original-Sender: zhangyunfei@kylinos.cn
-X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
- (google.com: domain of zhangyunfei@kylinos.cn designates 124.126.103.232 as
- permitted sender) smtp.mailfrom=zhangyunfei@kylinos.cn
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Apr 2023 01:06:07 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as permitted sender) client-ip=212.227.15.19;
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from smtpclient.apple ([185.74.151.140]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MrQIv-1qEYyP2Qgp-00oVHR; Tue, 04
+ Apr 2023 10:06:06 +0200
 Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: Performance issues on Arm64
+From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
+In-Reply-To: <df4f654b-fcc7-bef7-d385-0841c16e80c5@tum.de>
+Date: Tue, 4 Apr 2023 10:06:05 +0200
+Cc: jailhouse-dev@googlegroups.com,
+ Alex Zuepke <alex.zuepke@tum.de>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <998A86F7-CC75-4448-BBD9-18B5D9561DDB@gmx.de>
+References: <8EB33626-D440-43B2-91AF-D1C06BD34770@gmx.de>
+ <df4f654b-fcc7-bef7-d385-0841c16e80c5@tum.de>
+To: Andrea Bastoni <andrea.bastoni@tum.de>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Provags-ID: V03:K1:lQyB2ddxTzhxa0iGdrPInFxDB45wyXT/6N4r6JZAhrudPMq1a7Q
+ f5gDSo4ABFK6GGWTMaEHmOTn5aISLcJl+0r1C6Pu3mHz0X+FndVcUz+71ZgK4ovMKv+6DKZ
+ I3CSoysn8gNnP06GP29BuB4iAAu+geQ3ew5Bu9gSSDRYjBbRstLdCa7Xhyy5/oaoZnuOTPX
+ dyjvQRMALnrqmgvdl3mLA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:c2SHEsUkQC8=;Kij2gyRAkntD7vG5cun9A/rJx+8
+ JY/UCZRsaJkHj1s0qeiYpgB3xQ0W5N5xo6TUKTOxtSIyL4+wV1JglMxJolO4HIq8TAuCc8D9o
+ SLCyJ93ruf3c516hGHWrAS3FlBZGW77mDPIfE+sj0gv1s5frG01sZcxk3hlFDd5ALm6Io5Gpa
+ lZm8HA6gMg5AeF4Hd9zxUTcYVttJvvuLzADVUpNvDjoAIMP9bJOKUQbRv+vzOzEDqXLSTMjAB
+ PwoO9zBDwTOEAEWZ1jA8/tU4KxsgYwLCLZpkiPkWrMl7abLkhIkXp+VOdK5ULGQgfwFRjqYJH
+ bxHFbVr+Xf/vUJLyuqsThQGrUFkIjKPbFdCvvUePqxSx9spFMdM0mjN3J3M/lH+QYLRyfMI6y
+ 8oJxCjMGm6/Xfveu38INIUt6/JUguNRA8eQoO/zVWZwtriZDQbQ2LSPxjWpz587pb8ashd3QU
+ D/7TB4DM0PP6pdJS4uD12EYXUPt6xA3tz3bX22Gj+/XimeTrvZe3IYdXLQiUbgGRHhazhh4aM
+ VerLdUi07KeuUw1KQ9JZiDeSoSUA+vvwpgObHzpfCj8fzMgdVconTVLguH3ysrgAX3m8rvI5g
+ UVnThJGQD17f6iQ99dscfYH8OQ+4OkLPsNf4Vf0smASuQ+hfT/yQkuY70Oyk8GXHIUkWhAqpl
+ bg0gtZ4k9YNDQjzEX9imSf8QvS0C2BNdHs+TWpeRh5wkj2X/M6l9BP97sQXrs3uTJvXrkSdLL
+ wY/s4lZAmEm+R0BZPgZK1Buwmy5/sH+up+YaJ1ybAD8xcEZD9D4YZjm2TLwMHJIjzZ8KxPU8H
+ FSp9ePo55FDIpvciXJ/fMsIktRUTKho4v0f6ywJDDOMvvjrBnUV9y9ddXqTLWDNocTz5P37Tl
+ HE3+U48aW2NyAZvSrkHhq8q8+KMGNm7Efy5HwWtUhN2NT2bpNSdGhw5zXoqisHdJvij/Ikqh9
+ hgrwBlrKWymTuSOZExZmsxRMzzA=
+X-Original-Sender: oliver.schwartz@gmx.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmx.de header.s=s31663417 header.b=i37hCQtB;       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.19 as
+ permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -138,174 +157,59 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Zhang Yunfei <zhangyunfei@kylinos.cn>
+Hi Andrea,
 
-By making a contribution to this project, I certify that:
+thanks for the hints. Unfortunately I=E2=80=99m stuck on ARMV8.0, so no FEA=
+T_EVT. I guess that leaves patching as the best option.
 
-    (a) The contribution was created in whole or in part by me and I
-        have the right to submit it under the open source license
-        indicated in the file; or
+Kind regards,
 
-    (b) The contribution is based upon previous work that, to the best
-        of my knowledge, is covered under an appropriate open source
-        license and I have the right under that license to submit that
-        work with modifications, whether created in whole or in part
-        by me, under the same open source license (unless I am
-        permitted to submit under a different license), as indicated
-        in the file; or
+Oliver
 
-    (c) The contribution was provided directly to me by some other
-        person who certified (a), (b) or (c) and I have not modified
-        it.
+> On 3 Apr 2023, at 16:43, Andrea Bastoni <andrea.bastoni@tum.de> wrote:
+>=20
+> Hi Oliver,
+>=20
+> On 03/04/2023 14:46, Oliver Schwartz wrote:
+>> Dear all,
+>> I=E2=80=99ve been hunting down some performance issues I had in jailhous=
+e inmates cells on Arm64 lately. The problem was that some operations drive=
+n by interrupts in a baremetal inmate cell failed to meet the timing requir=
+ements depending on activity in the root cell.
+>> I=E2=80=99ve finally figured out that the reason is the page table opera=
+tions in the Linux root cell. In arch/arm64/include/asm/tlbflush.h in the l=
+inux kernel all page table invalidations are broadcasted to all other CPU c=
+ores. As far as I understand, this forces all CPU cores to flush and reload=
+ their pagetables, regardless of whether they are running in the same cell =
+or not. In my case, this has caused interrupt latencies to increase from un=
+der 1 =C2=B5s to above 20 =C2=B5s in the inmate if a Linux application did =
+some heavy memory (de-)allocation.
+>> Apparently this has been addressed on LKML before, but the proposed patc=
+h was rejected: https://lore.kernel.org/linux-arm-kernel/20191101172851.GC3=
+983@willie-the-truck/T/
+>> Since I only use a single core for Linux I can workaround this issue wit=
+h local updates to the page table. However, I was wondering if there is a w=
+ay to address this in the hypervisor?
+>=20
+> A hypervisor-only solution is possible, but suboptimal if you're not on A=
+RMv8.2+ boards.
+>=20
+> You could set HCR_EL2.TTLB to trap TLB maintenance instructions, but this=
+ will trap _all_ TLB maintenance instructions (so, possibly quite a lot). W=
+ith FEAT_EVT, you could use HCR_EL2.TTLBIS (TTLBOS) to trap only inner (out=
+er) shareable updates.
+>=20
+> We had similar issues with cache invalidations (where you can use a simil=
+ar trick), but since we didn't have a v8.2 board, we needed to implement a =
+patch for the OS.
+>=20
+> Best regards,
+> Andrea
 
-    (d) I understand and agree that this project and the contribution
-        are public and that a record of the contribution (including all
-        personal information I submit with it, including my sign-off) is
-        maintained indefinitely and may be redistributed consistent with
-        this project or the open source license(s) involved.
-Signed-off-by: Zhang Yunfei <zhangyunfei@kylinos.cn>
----
- hypervisor/mmio.c | 91 ++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 75 insertions(+), 16 deletions(-)
-
-diff --git a/hypervisor/mmio.c b/hypervisor/mmio.c
-index 3747bf6f..489c849c 100644
---- a/hypervisor/mmio.c
-+++ b/hypervisor/mmio.c
-@@ -18,6 +18,23 @@
- #include <jailhouse/unit.h>
- #include <jailhouse/percpu.h>
- 
-+#define JAILHOUSE_MAX_SUBPAGE_DEVICES 32
-+
-+struct subpage_device {
-+
-+	u32 id;
-+	bool used_flag;
-+	void *mapping_base;
-+	u64 phys_start;
-+};
-+
-+/* Considering that there maybe fewer subpage devices,it is currently
-+implemented with an array, and a linked list can be considered in the future */
-+static struct subpage_device subpage_devices[JAILHOUSE_MAX_SUBPAGE_DEVICES];
-+#define for_each_subpage(subpage, counter)                                     \
-+	for((subpage) = &subpage_devices[0], (counter) = 0;                        \
-+	    (counter) < JAILHOUSE_MAX_SUBPAGE_DEVICES; (subpage)++, (counter)++)
-+
- /**
-  * Perform MMIO-specific initialization for a new cell.
-  * @param cell		Cell to be initialized.
-@@ -308,11 +325,9 @@ static enum mmio_result mmio_handle_subpage(void *arg, struct mmio_access *mmio)
- {
- 	const struct jailhouse_memory *mem = arg;
- 	u64 perm = mmio->is_write ? JAILHOUSE_MEM_WRITE : JAILHOUSE_MEM_READ;
--	unsigned long page_phys =
--		((unsigned long)mem->phys_start + mmio->address) & PAGE_MASK;
--	unsigned long virt_base;
--	int err;
--
-+	void *virt_base = NULL;
-+	struct subpage_device *subpage;
-+	u32 dev;
- 	/* check read/write access permissions */
- 	if (!(mem->flags & perm))
- 		goto invalid_access;
-@@ -326,11 +341,14 @@ static enum mmio_result mmio_handle_subpage(void *arg, struct mmio_access *mmio)
- 	    !(mem->flags & JAILHOUSE_MEM_IO_UNALIGNED))
- 		goto invalid_access;
- 
--	err = paging_create(&this_cpu_data()->pg_structs, page_phys, PAGE_SIZE,
--			    TEMPORARY_MAPPING_BASE,
--			    PAGE_DEFAULT_FLAGS | PAGE_FLAG_DEVICE,
--			    PAGING_NON_COHERENT | PAGING_NO_HUGE);
--	if (err)
-+	for_each_subpage(subpage, dev)
-+	{
-+		if(subpage->phys_start == mem->phys_start) {
-+			virt_base = subpage->mapping_base;
-+			break;
-+		}
-+	}
-+	if (dev == JAILHOUSE_MAX_SUBPAGE_DEVICES)
- 		goto invalid_access;
- 
- 	/*
-@@ -342,9 +360,9 @@ static enum mmio_result mmio_handle_subpage(void *arg, struct mmio_access *mmio)
- 	 *
- 	 * Reason: mmio_perform_access does addr = base + mmio->address.
- 	 */
--	virt_base = TEMPORARY_MAPPING_BASE + (mem->phys_start & PAGE_OFFS_MASK)
--		- (mmio->address & PAGE_MASK);
--	mmio_perform_access((void *)virt_base, mmio);
-+	virt_base = (void *)((u64)virt_base + (mem->phys_start & PAGE_OFFS_MASK) -
-+	                     (mmio->address & PAGE_MASK));
-+	mmio_perform_access(virt_base, mmio);
- 	return MMIO_HANDLED;
- 
- invalid_access:
-@@ -357,13 +375,54 @@ invalid_access:
- 
- int mmio_subpage_register(struct cell *cell, const struct jailhouse_memory *mem)
- {
--	mmio_region_register(cell, mem->virt_start, mem->size,
--			     mmio_handle_subpage, (void *)mem);
-+	unsigned long page_phys;
-+	struct subpage_device *subpage;
-+	u32 dev;
-+	mmio_region_register(cell, mem->virt_start, mem->size, mmio_handle_subpage,
-+	                     (void *)mem);
-+	for_each_subpage(subpage, dev)
-+	{
-+		if(!subpage->used_flag) {
-+			subpage->id         = dev;
-+			subpage->used_flag  = true;
-+			subpage->phys_start = mem->phys_start;
-+			page_phys = ((unsigned long)mem->phys_start) & PAGE_MASK;
-+			break;
-+		}	
-+	}
-+	if(dev == JAILHOUSE_MAX_SUBPAGE_DEVICES) {
-+		panic_printk("FATAL: Subpage_devices is full\n");
-+		return MMIO_ERROR;
-+	}
-+	subpage->mapping_base = paging_map_device(page_phys, PAGE_SIZE);
-+	if(!subpage->mapping_base) {
-+		goto invalid_pagemap;
-+	}
-+	
- 	return 0;
-+
-+invalid_pagemap:
-+	panic_printk("FATAL: Subpage_devices paging_map_device error\n");
-+
-+	return MMIO_ERROR;
- }
- 
- void mmio_subpage_unregister(struct cell *cell,
--			     const struct jailhouse_memory *mem)
-+                             const struct jailhouse_memory *mem)
- {
-+	struct subpage_device *subpage;
-+	u32 dev;
- 	mmio_region_unregister(cell, mem->virt_start);
-+	for_each_subpage(subpage, dev)
-+	{
-+		if(subpage->phys_start == mem->phys_start) {
-+			subpage->id        = 0;
-+			subpage->used_flag = false;
-+			paging_unmap_device(subpage->phys_start, subpage->mapping_base,
-+			                    PAGE_SIZE);
-+			subpage->phys_start   = 0;
-+			subpage->mapping_base = 0;
-+			break;
-+		}
-+	}
- }
--- 
-2.27.0
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230404065704.92082-1-zhangyunfei%40kylinos.cn.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/998A86F7-CC75-4448-BBD9-18B5D9561DDB%40gmx.de.
