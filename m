@@ -1,191 +1,136 @@
-Return-Path: <jailhouse-dev+bncBCQYBNFYQ4NBBJFM2GQQMGQES7MBOZQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDCIDHFI3EEBBDHU36QQMGQE6Y7ECAA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x240.google.com (mail-lj1-x240.google.com [IPv6:2a00:1450:4864:20::240])
-	by mail.lfdr.de (Postfix) with ESMTPS id F026F6DCAC5
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Apr 2023 20:32:05 +0200 (CEST)
-Received: by mail-lj1-x240.google.com with SMTP id s5-20020a05651c048500b002a76f86229fsf782890ljc.20
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 10 Apr 2023 11:32:05 -0700 (PDT)
-ARC-Seal: i=3; a=rsa-sha256; t=1681151525; cv=pass;
+Received: from mail-qt1-x83d.google.com (mail-qt1-x83d.google.com [IPv6:2607:f8b0:4864:20::83d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 979246E0DA7
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Apr 2023 14:48:13 +0200 (CEST)
+Received: by mail-qt1-x83d.google.com with SMTP id r22-20020ac85c96000000b003e638022bc9sf28594232qta.5
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Apr 2023 05:48:13 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1681390092; cv=pass;
         d=google.com; s=arc-20160816;
-        b=O9RYn2xr4XaDmgr3JTHUtA8KeHkEbgYhdGdFie5MdWaO1W2SqXWLE8gwQ1X2FbsEPm
-         jhkY7/zcUy5B8IgkuRZGTqVJjHKp3el+qHfFKuKND0OUR9z+C2XpQX15lqkaBMnEtRg5
-         QUhZZ71JBGOBwXHwir5WZij6he75FPOLGDjZXfHRIGmpRMpFpY/KsnCiqLn06eiRiqjn
-         +TNwYvkW3Ve9ftcNLH1bjnLehU+tU694k94VDnQOqAgSdYcHakyj/06eRrJU0YQYCw4g
-         LgopIIkOWKl/EoSbAesictfjLiGH8+FwgS6dyxES6It8tPeE/AIPWL1SQh+HgkAU3tbF
-         TPKQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=xiUAWf+JFWb8G9fT+IXKGqL77P4J9W03e4AAuw5/lNC8KWQ/p7ifR7pAFfH0xYGFmX
+         3yKOdPXjtJhE2kLtf6dMBiWbswLgjxnLVyrUUQwZS1jtCvC41T50zF4j8FeNrQ8MshMi
+         CRy8O3LkKbhPNoCi+dQ20/yuyi+Jvj+dVeHmH28MNUVSvg6g6G7hQZeRGK/IoEM0afIU
+         cXqpBEKcdWtWklp4YAS/kLbHAf8SnufQsR3x0W+wGC3PAzp/uxTT5/kramxHl4JJ+pRJ
+         vsWq6XZ09VkXJ3/K3W6axIO0RU7FLluE+6EANnpbE7JNFziB7OCZiAU5DCtuspjchZJT
+         hELw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:msip_labels
-         :content-language:accept-language:in-reply-to:references:message-id
-         :date:thread-index:thread-topic:subject:to:from:sender
-         :dkim-signature;
-        bh=CWMQW4OcUmGw8CE62y6aUAbNOsMjOwLPOgM1jeHt7oQ=;
-        b=jznoKE2RsZERjQF5iur7ZXfbQuQnYfVNsfQEL7lJz/yB97lFhmei2Gyg+5b6zEJ271
-         mt96rA6tI8orbOsTgf6T7NLKSEzcg1mkQxiQBlarAagdWvM5C/Ii6lODFzuQy1dgtkrS
-         CgFNGQWKcHv3GqOUJhlTolwk2678EPQ6sVqNq9EKBer8mOr/10iQc6ACQJavDToWTQ6k
-         oU2+vCA7RInFNMoWhkWaFWqK9dj8642rztqx+RR+9BWhHxKkBHD0kOt2I8FUSxFb7v36
-         d4uKNtAE1o5HzoXVYq4VE5TyZ9I+4zyBnrcDLK62N8Tntdb3bm6wx3Kg/YItIGAYrGGQ
-         o4MQ==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@hotmail.com header.s=selector1 header.b=idDoIsJ+;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of jefpatrick@hotmail.com designates 2a01:111:f400:7e1a::81f as permitted sender) smtp.mailfrom=jefpatrick@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :reply-to:mime-version:sender:dkim-signature:dkim-signature;
+        bh=Cy7uuB/iIHPX9AaxHQgQNrNWUOx0qDeXrHFCdoRG/rQ=;
+        b=hr2Dh6zzEj2gmAIpHfkdtQ0nGFGKwkxeALIbnnArYarO+Vg8er9k4PIv8mTQ0cMIXY
+         0InLNLZklZENbi+86ggfChdD2vSPBVkR0/RCfq2WjcvJtIigULymdONcI2ITKa7SebVF
+         /GrZ0Y6SKCHwnM7/b4F/37WbQAQs7tBhoY0VMQQ8rzRg2wFCbEPNxxXTubSKzpfzoxX3
+         rklsjWf0AqCrDJ69I4ijjyza13nd18+m65bzu+GfQ5TaBBN2Lo4r2atFbgpcgQuw0IPp
+         MKeS94vy56N6Eo5px9TNC2Ia7x2aADo8089HZNJT//Gud+N8qAVIReNV8oqxqLe6UOkV
+         8qCQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20221208 header.b=FNvVzWg7;
+       spf=pass (google.com: domain of bandeharouna3@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) smtp.mailfrom=bandeharouna3@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1681151525;
+        d=googlegroups.com; s=20221208; t=1681390092; x=1683982092;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:msip_labels:content-language
-         :accept-language:in-reply-to:references:message-id:date:thread-index
-         :thread-topic:subject:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CWMQW4OcUmGw8CE62y6aUAbNOsMjOwLPOgM1jeHt7oQ=;
-        b=CYlMDnVp4dy5rkkGYdCUmz7yl6vYMdILcqTKByQQgANqO4/iRzTyu5XSmmsl74Up3v
-         gbI+almO4F1V0bnCUZLug3ivkgHJIAQHE/tiOA6Vcf0feqcRRqhJrtSK+1uZa+t9jUqH
-         DBqNjVEFmzhpkTnLziBWgUCKCy2QT4Y882wjmqSB8J4JOyPC0FgQzVll9/ZwkxgD9ylu
-         i7+PD2NdxOWOv1+WVPpXlZfjyuPGsr3+PGUkOQCCJBaQfHUJGc7Wq5E1eBtLwnCv1YpW
-         kYwMXu65/0AQfvs93UZf/UbeujZWKt5/GumP6+lGY6VbEM9BJUvF5KyCfhjdbIHGg3mj
-         ocig==
+         :x-original-sender:to:subject:message-id:date:from:reply-to
+         :mime-version:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cy7uuB/iIHPX9AaxHQgQNrNWUOx0qDeXrHFCdoRG/rQ=;
+        b=VtJVXn/zkBmxONpnnCaF9pfYB3dux8TyBAeLoKMqYZlKqrU6DqgmGeevH3ywJZBr7U
+         WewK4eOFjT0BHpmjFSERLQPIObR2CLqBJGAuu/KjV8lSqYBnucQTCSsfTOcSxFLqyAth
+         9Up25ylfvzHI5rscypirkC/aXJ0bD9043jOJT8sUwd2OV8PO11Ai8gATIVshKpQiJBoe
+         LXYSLCAhcsNI3vj6aFbdKLQ9HMTkxZOjSeScmU3WfAGQowcpW6ytLzWbGR2kN1z+6MXg
+         uMrqyWczqIfADm1/JkJxaC67+8l6AMrRvS7AWYWVs4NHOnns9QaDE6FS8lD5lvJYA47i
+         oKXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681390092; x=1683982092;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cy7uuB/iIHPX9AaxHQgQNrNWUOx0qDeXrHFCdoRG/rQ=;
+        b=JwEH/44koFy3NyKOYqYF8xrJO4+AfRu77RwXAIwEpz6XrugCK98TXgtogfZx9F19sQ
+         /9A7b3vqrRD+r45Qg8CtUYZHrjJmJZs5a6cDiuSLJQz9+tx0e5Mw0mI+CTRvxCBU5e0Q
+         4SPm3ZfOWbpai39E4BCuEeRb7wtdQ4ag9JFRR9BcLXtXReMXEyCc4B5VwoSeTHRj/KkU
+         DjXhNnR+mZWLP370om2wofKj+//Bk9yINuNrPekEK1AakjQ88VSgtrzAkljU3K0Tdua0
+         eRHCKpu0wx2N/sDgzRse6L9EXoFFgNe7zq0E47BgFX5CX3xuJ2oGSuyXJVAN5tp7Axkg
+         0D5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681151525;
+        d=1e100.net; s=20221208; t=1681390092; x=1683982092;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:mime-version
-         :msip_labels:content-language:accept-language:in-reply-to:references
-         :message-id:date:thread-index:thread-topic:subject:to:from
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CWMQW4OcUmGw8CE62y6aUAbNOsMjOwLPOgM1jeHt7oQ=;
-        b=K3jRZvV5dusCMuS/HNNhoFGG29OvuCE8nfYS4bcfyEWpvAh4l5UQM2jiSIKbewIrxT
-         Hi3/uW6CILKKX9b7iMACHs3okcPozvbzNxbCr5dC1ah3y/3x7rWcnNWXzL0Ql5/ctI3a
-         T3Dx2M+pdpGGA16GMYsGO94jYh7KgoPFLbf3kpfM1y268U+NBf3uvPhzIL0DoKG9bV5k
-         GSR6y/cra1oysvkZuK1Qp/jnFWsgmEb705UW331EjKVSQ7il9MVrpoe2SAFKkVMH0gTF
-         eWYeFMmUqhKiEKMOAYqvym89haRLbqOOBEE/bQBrGrmzwFncyObWn4EE2tp//ybF8oam
-         zh/Q==
+         :x-original-authentication-results:x-original-sender:to:subject
+         :message-id:date:from:reply-to:mime-version:x-beenthere
+         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Cy7uuB/iIHPX9AaxHQgQNrNWUOx0qDeXrHFCdoRG/rQ=;
+        b=AKajV7LbUG+rPiZKhrDCkPqbE6IjKuVtZ8wOraQ09eZKBsN4YndPWxvM/2YlIVhEL4
+         kU48JZlR1v2ZXDJglOqGBYBeY7Yt8WRU8IQcUCl3tcseoggEejbXnl/wPtJGumfINaDt
+         WXwCrEiGTLGje9zn0bqwbQDM+HlTkx0PGhICq5uIZr1Toaja9bH/8kguBAiKfh231ybS
+         C2pythbQ0aqdrXIZnJ1oXzTaX2p/Uajk76qBOOp5lNR0adMPc71UeNRKf6XmS0JYR/Nw
+         ksX9KaWrPAeD6lZ/Uc3ke2nbc5t8kNTnVVKbBRtXTPHwrznWryNMjFSbzCRgn0PYqVXH
+         pqWg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AAQBX9d02IVEn3b4ZfnFU+GQb4X14/TQ3YCP22UsIHU7w1T0NTBamMu2
-	qVCrDga500hSk+V/ygJh8WU=
-X-Google-Smtp-Source: AKy350YymEHwu7jnn9kGMdGUzENL+u7H1NLKWz9Xdsxwu8XoB00EiLMafFJnnfnpKxNcvTxdl+x+Vg==
-X-Received: by 2002:a2e:3309:0:b0:2a7:85b3:582b with SMTP id d9-20020a2e3309000000b002a785b3582bmr147794ljc.6.1681151524973;
-        Mon, 10 Apr 2023 11:32:04 -0700 (PDT)
+X-Gm-Message-State: AAQBX9ecMp0TVIKTGeQBzVLHKSuD2BE8zNiphMf8SndP/5d1V4gVjKDm
+	nni0d5XjGqjyU09+UYlVBLc=
+X-Google-Smtp-Source: AKy350YcoB4nJLCHyfPgcVxEMA8VIWv1V29QTAhn3UmGi8XEQocI+iB1Yc9YsBHJdergH7NS/i9aHA==
+X-Received: by 2002:a05:622a:1b9e:b0:3e3:2af6:7edc with SMTP id bp30-20020a05622a1b9e00b003e32af67edcmr625480qtb.4.1681390092349;
+        Thu, 13 Apr 2023 05:48:12 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:be8e:0:b0:295:c3fc:8a56 with SMTP id a14-20020a2ebe8e000000b00295c3fc8a56ls39558ljr.1.-pod-delta-00-eu;
- Mon, 10 Apr 2023 11:32:02 -0700 (PDT)
-X-Received: by 2002:a2e:a555:0:b0:2a7:66e0:cf1 with SMTP id e21-20020a2ea555000000b002a766e00cf1mr2725085ljn.0.1681151522626;
-        Mon, 10 Apr 2023 11:32:02 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1681151522; cv=pass;
+Received: by 2002:a05:6214:4599:b0:5e8:ac03:a05a with SMTP id
+ op25-20020a056214459900b005e8ac03a05als10897562qvb.1.-pod-prod-gmail; Thu, 13
+ Apr 2023 05:48:11 -0700 (PDT)
+X-Received: by 2002:a05:6214:3008:b0:56e:b557:2d4e with SMTP id ke8-20020a056214300800b0056eb5572d4emr3087210qvb.6.1681390091602;
+        Thu, 13 Apr 2023 05:48:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1681390091; cv=none;
         d=google.com; s=arc-20160816;
-        b=nENLo1C8aHSZWHqi6irC3Lzr8TfJ7omXE3ohZ+cjF8IR7ZgYi6awawk9zp4kqW50HK
-         iVv9NQc7W4vdq3T/KG9UGrNf8EiKKu/4wJuLwe6ciMfwzc5JuegQunKIIknqywUtgcnr
-         /XA5JTqAgW/ZSGoE3zK1osXA9xIzkvz1dxhYYBCpQwLocXyNjM6oLDFzvihfHOZ2bz+m
-         5ija8ScFZkoMPV/PP1+rqjAO+xurgzPuRRkx9YWXP01pUel/PJPRbfN3zgzgP3xDCuME
-         7Lxgi16M4U2CyaS/Cci+ymJwxqqIeGDGEWt6ksZYmH8Ymwvh7GvY0T0j+V8EptyKSgqP
-         L/Ow==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:msip_labels:content-language:accept-language
-         :in-reply-to:references:message-id:date:thread-index:thread-topic
-         :subject:to:from:dkim-signature;
-        bh=FSQ2ZW4hfGGWT4XT2KmjCTB0cM2PXC+Acxz38/1PXCA=;
-        b=s9DonqI72aa46/zAuiF1WKcCTt6YBiVkbX0E0FFCbRG7zHcHwwvcvtuTS6ersO8RrT
-         YsPnO2HT89uTVaI66JugUbBgah23RHUnQxNmrD8Zu0fPC3PLFpn8/xdrdQ9rVLbLpfbD
-         dFCUkVZumzvN+M3NsCtbJy43/bQjQSbetu8LvCgnSAInpHNO84kjbH0hmDPz4j9uk9b3
-         12kPRZw/KVOlVq7Fu9iKV66BQc+kxLy8RG9OHaqogVQFrnL7guvjAe0RCigqo3kvPulS
-         LZYL/5pkUz1WvpkrfMjwXiJe5KG8qQssQzShdIQm1mqBqd6qPsPeFHV0NQ5unmyk+0yM
-         fFEw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@hotmail.com header.s=selector1 header.b=idDoIsJ+;
-       arc=pass (i=1);
-       spf=pass (google.com: domain of jefpatrick@hotmail.com designates 2a01:111:f400:7e1a::81f as permitted sender) smtp.mailfrom=jefpatrick@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (mail-db8eur05olkn2081f.outbound.protection.outlook.com. [2a01:111:f400:7e1a::81f])
-        by gmr-mx.google.com with ESMTPS id i3-20020a056512224300b004ec62de2d52si427625lfu.1.2023.04.10.11.32.02
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 10 Apr 2023 11:32:02 -0700 (PDT)
-Received-SPF: pass (google.com: domain of jefpatrick@hotmail.com designates 2a01:111:f400:7e1a::81f as permitted sender) client-ip=2a01:111:f400:7e1a::81f;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kqKZANjWlK7CeeX3/mJuF0RFfPHqpEpZa2jSj4Kk2w9IOAUvjXJd8mvfS1qs8kCrUG87L3gVrRZPXYCR8Q/nQDXXTDj/oUL//ZhFbVrnYpN2gLAACS4Tc8SzWyPqQPCuH/sh5801oIwB6UWG0Ffrs9rhGZAUN/OB1hY3iCH56PwDHT1uqkMY6Fz0yxVaqaDQb9QbCdeL+W+RaDS3oRexQ90QmOWAoUOj8IOpD4m5OvnvskmDUtM4YUY7TidF5p9MCawveW9YFBO9I3dHzbPYMniB7XwghfAfzRHWckydlmK5UOzVYweDu9My1lJ0fQelLnW12+PKsHtu31X2AW7OdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FSQ2ZW4hfGGWT4XT2KmjCTB0cM2PXC+Acxz38/1PXCA=;
- b=Bm0AHBYcS2AsYa2mkH/kNUqQa+pmQ1JqnLRe6TlCeFBl0siKDYFOINrxuiYoS40zAF+MJwzIMaFLAm9V5iIok/aBZ6zoXMVfETEKxYlFlrYHISJJoakCC+XbwHarrmO3xuGEwH2DB5DXuT0JL9LUJOqnD3RghSt+yLujmjkgSQPXfOv6rgAyVh0K51aV3RlWGIllW1Mc1rfNVKcq9J89sklEBy7U/6pjFGVXPfc+//fiL1Se7og0mFcCKcRUEaEd+oSvcMWblL5zSacu2rWx0kJlE83ULghPtxzZxxEyJQeJmJ5N1CHCYxcwf/dOduCTd4lkqngqoNnv7/ov4qN3hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:3b9::5)
- by PAXPR10MB5182.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:289::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.25; Mon, 10 Apr
- 2023 18:31:59 +0000
-Received: from DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::3ced:7893:591a:82d3]) by DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::3ced:7893:591a:82d3%5]) with mapi id 15.20.6298.025; Mon, 10 Apr 2023
- 18:31:59 +0000
-From: Jef Patrick <jefpatrick@hotmail.com>
-To: "Jeffersons@bizzfund.sr" <Jeffersons@bizzfund.sr>
-Subject: JKP presents "Missing U - Jeffersons"
-Thread-Topic: JKP presents "Missing U - Jeffersons"
-Thread-Index: AQHZaLFmXFNu1/YIYEO9NFuD1K4PPa8k4/US
-Date: Mon, 10 Apr 2023 18:31:59 +0000
-Message-ID: <DU0PR10MB587591304BA46142C7DEE7EAD0959@DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM>
-References: <XQubIZbIfugS1Jcba3rcfTBcCorZPEVGsbMR2WijzMM@bizzfund.sr>
-In-Reply-To: <XQubIZbIfugS1Jcba3rcfTBcCorZPEVGsbMR2WijzMM@bizzfund.sr>
-Accept-Language: nl-NL, en-US
-Content-Language: nl-NL
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [+pT1NJIuF6bcDRu8BX231djf8kUyWgIfdVH5ePbZDrabY8mK3zbzPGMZPrierVkb]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR10MB5875:EE_|PAXPR10MB5182:EE_
-x-ms-office365-filtering-correlation-id: 53b3c82d-0bb0-4a38-96af-08db39f1df09
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: bcUva/WjAfhdrVwWDBBL9g/s59tv24CF52wSpzUKTQWlyIrV1FnlYQx+Dhuw/I9wOrlCYvA8gNlgMrwhCg1y60JLXfiZjVSckM/9KOjGoolJE5YINsMUHMxnxSiSc9KvtnFFBW9dYS90fGToJICVpuCaEhgciGaKKB7T1uldQOWlHNJ/4CSdlbtnL7y8+l9LUW21GcG8YnslB9BjTktFgV3QqeuKAglK/8e4FOQm1QZlT5ibgKfAGwfi1VieYLboAd3ASu+zP21XD0prS2q/zWSAD48YMO5ibnXV04VDLA9iWnlQ6+hnu+0i+ZHHRucxeJWPDGXj3KBpD6s8GUpHbnXMAV/wkEsZBE0Meuwhn+yvKNWS2L1T/ZrmCh35oTpZKqjj46cMcJUigQyuI69CsgX2KlH4wqop85AhdAYDSr1utuiM2V8gOY7rKyWW1BKDrssVU6o3fIJNneezA9X0tr1+hZnBSCBzwDeRDRPa6BRMfdH7RYB0KTZl9qW4AprfRS1S2hK95SjbwIn0OCQK0YT4e3RelRtwM0y1ONuO236mFElE8J/BpRiEAgLcEeoJA6w2WkLhkij4i9QHuclAM6iFWx7KLRfj0HaxiWu+Qhihmxz2idgHU1ewM4dzwCnqwkdN8GJGEP4J6nrJFPR73/lIbmIFkGkByqB52M80fCXJCZ9vqTCYQuNVHmGAgF6eyOyZqezg5HfDTs7mcrUMYw==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?sVQBkwTjxqZAI2CQeuBY/YzYwxKNGJMbGWtU9CLr3AaBGJm/DhxN/lgMzF?=
- =?iso-8859-1?Q?grqGasjg0Z2p1TfquTv11J/jF/Ijkss26ZGn/CLRM9qBMX6R2c4n84Uu5m?=
- =?iso-8859-1?Q?5pRBW+cV/uqGi6PpsTr8XuJshDbQ7lumKRoN/Tzhugq1tXIrM3p7EX8r3O?=
- =?iso-8859-1?Q?+8hN7GliHwmGysBTldIApUhFNlBMSthCjv7mrOlfq/cvEff3hflZaIuZve?=
- =?iso-8859-1?Q?9ypdN4akuAeJ+oztU06WxjTRWlv2meUo90pHA35wcAwbhQVnCnsrEmmgTh?=
- =?iso-8859-1?Q?mIjNDVtzblHjVAEoW5bRPdQR2Vt34T8DcIX7/ljK0XYDovfu8gnyaDOMIx?=
- =?iso-8859-1?Q?a8IeyTGQ9Q3ioxvxaA6ZXeAOOUQqldc5w4PtbSVSPw8JyhMPHZPHU9EE9l?=
- =?iso-8859-1?Q?zg0pd7cxbAeFKD/GjV66u48MreEP8hZBsf4kXvVMnI+OyIao35lFmzV/C+?=
- =?iso-8859-1?Q?EPeDMsbqDZztvLjXHJwRUE0puIBNgI95ojQtmTfUtRPwgsAyVL7AM6IV0B?=
- =?iso-8859-1?Q?Lcy+ndSzteKawhMfz2TkEffkwr2VLl2J4mhphlGUkkLY1SXzkVDKPYqMDx?=
- =?iso-8859-1?Q?KvFW704DyC4rj03ztMPG5t9XBKCNyleEJB+HbpmWYPFLkilARiNxiGDiqD?=
- =?iso-8859-1?Q?ysLbsHWrUmtYGijmA2U1/qAnSTP7XNqxXn2nSz6FG+7Nr0gAHREDbvDUri?=
- =?iso-8859-1?Q?C3kFmBCjOjNuoLrGwZxgN8oHNd4CTLd2VrNiNh5R3cfZFPS+uGogRLWF6E?=
- =?iso-8859-1?Q?qn40k2AzWeuImGEO0s/DDBfjIuK6nW0IcEysL3qMVC4LAUjzHNv1H7UFUV?=
- =?iso-8859-1?Q?GBWd+N7Oi8f/eC6wcizKYe7VS8mvZz6DhMU+yewmQdGVjL8wHoiQzPbHO8?=
- =?iso-8859-1?Q?r2tbJXyTB4OWXhj9faFG4tHhUW9NxKPNbNuL8ZKBLSR/+ipMWQmkRMjHC6?=
- =?iso-8859-1?Q?7uixXycZZ2KzPZ+f0ckC0n4ZXEgd8TP2dvvoG/U7xK+yhMprZLsWCmZAcv?=
- =?iso-8859-1?Q?3N03d3T6HUl693BKODi7Z1B5zXM08yQ7Z+9Drdza5pY9PkzD4/CheFK35R?=
- =?iso-8859-1?Q?iu8OAr1jKTQXBxVUU8+m7oGyAuH0q4L6+91CB5JqSXcTyC9XtPtyFUb6QS?=
- =?iso-8859-1?Q?ZSuYYSIC2Aui6xji3TdoyM1g7De1KuwdPC0QcTWMXvlMuDN/i8bi78/kf4?=
- =?iso-8859-1?Q?NdZmg1D04ubA482sE9rM/sMkBGnwiL5y0mYkeAAGI6j1WFCotTGCu9V15A?=
- =?iso-8859-1?Q?xCS8pSh4FTlgDb1uC5LhUFSk5mC1N13cQuoayZoDKzZXGU3W6OfYdoV6rL?=
- =?iso-8859-1?Q?0GNdXnSYUkWdCB9tP6O7OfEyBg=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_DU0PR10MB587591304BA46142C7DEE7EAD0959DU0PR10MB5875EURP_"
+        b=PEFsspp/RG/GAdDEN6rTzqi8n83a3R5WJbqoGg5iuBNMZDDa6DkeGjnJ1cOYMqqKby
+         zK67olp7jPjRxheZFjS3Ok/ToS6qGmMkFR5Q2OjFl0vzpnn7CqoNjwfi5uGSUeWzksPn
+         v09XEwAIYHDH2uZT2O+VQl6KkvcKw6QQ651sj7cVwzU+cVvtoL5xxBVR6EP+xGukEM2h
+         TcMf3RfFy+6a4TIeyBl1m9DTKgR0xEOSD3USKsY7r3ERrw8xeQzuJPOgRKFCBBSavOhu
+         W/qdGX7zX/BZ1lCVZe+mqWL2EBd1s2W3SPapmwvbUly9ZRij1OmnZdHEgutsQiL84DwE
+         cBgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :dkim-signature;
+        bh=5RfXJvDmjvocWuhXvJ6jLpYq4JXsjR+fgzQcvxm1L7I=;
+        b=CpfCp1NDH3G9LUas/y0PjXWcGusz/Kn99AUOi04x8VgVn2vRXsup8Gu65KYp+tYiiJ
+         FAUWDJx/5urbq+BS8CZqrvfvbDuV1aMluLOtajK9CkJ3tZhZv8afIC9Skz3aJjCvcELu
+         z2AmS8knCub/JpIZn4dbvBVEoNu/tU3vkNJhZh0UvRqEB0ztA5zcH2YTvFG1n5ys78M9
+         Y/VizCcx+iWigcKHF7i37fiomUO0EkjEmAnldsMRTiL0PnAtLr/ZBLvCWo174wTCzVWw
+         mCONyVFv3Wf1Q1EwjqI4p/eszhzXVPNBJxeZs1T0B0t1N3Z+jNTl3esqgom+dILx69I8
+         UwLA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20221208 header.b=FNvVzWg7;
+       spf=pass (google.com: domain of bandeharouna3@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) smtp.mailfrom=bandeharouna3@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com. [2607:f8b0:4864:20::112b])
+        by gmr-mx.google.com with ESMTPS id om24-20020a0562143d9800b005ef46b24423si60838qvb.8.2023.04.13.05.48.11
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 13 Apr 2023 05:48:11 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bandeharouna3@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) client-ip=2607:f8b0:4864:20::112b;
+Received: by mail-yw1-x112b.google.com with SMTP id 00721157ae682-54fb615ac3dso66508717b3.2
+        for <jailhouse-dev@googlegroups.com>; Thu, 13 Apr 2023 05:48:11 -0700 (PDT)
+X-Received: by 2002:a81:1b8e:0:b0:533:a15a:d33e with SMTP id
+ b136-20020a811b8e000000b00533a15ad33emr4705355ywb.5.1681390091274; Thu, 13
+ Apr 2023 05:48:11 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-6b909.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53b3c82d-0bb0-4a38-96af-08db39f1df09
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2023 18:31:59.4437
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5182
-X-Original-Sender: jefpatrick@hotmail.com
+Received: by 2002:a05:7000:5e1c:b0:4a3:9eb7:336 with HTTP; Thu, 13 Apr 2023
+ 05:48:11 -0700 (PDT)
+Reply-To: mrs.elizabethedward77@gmail.com
+From: "Mrs. Elizabeth Edward" <bandeharouna3@gmail.com>
+Date: Thu, 13 Apr 2023 04:48:11 -0800
+Message-ID: <CAL7D5sG9V6ejaH7X9FvVmExgux5DBwbrabKitdRS8NJe7YZHww@mail.gmail.com>
+Subject: HELLO
+To: undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Original-Sender: bandeharouna3@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@hotmail.com header.s=selector1 header.b=idDoIsJ+;       arc=pass
- (i=1);       spf=pass (google.com: domain of jefpatrick@hotmail.com
- designates 2a01:111:f400:7e1a::81f as permitted sender) smtp.mailfrom=jefpatrick@hotmail.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=hotmail.com
+ header.i=@gmail.com header.s=20221208 header.b=FNvVzWg7;       spf=pass
+ (google.com: domain of bandeharouna3@gmail.com designates 2607:f8b0:4864:20::112b
+ as permitted sender) smtp.mailfrom=bandeharouna3@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -198,545 +143,31 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---_000_DU0PR10MB587591304BA46142C7DEE7EAD0959DU0PR10MB5875EURP_
-Content-Type: text/plain; charset="UTF-8"
+Greetings
+Please forgive me for approaching you through this media. I am Mrs.
+Elizabeth Edward, 63 years, from the USA, I am childless and I am
+suffering from a pro-long critical cancer, my doctors confirmed I may
+not live a few months from now as my ill health has defiled all forms
+of medical treatment.
 
+Since my days are numbered, I have decided willingly to fulfill my
+long-time promise to donate you the sum ($7.000.000.00) million
+dollars I inherited from my late husband Mr. Edward Herbart foreign
+bank account for charities work of God and there is no risk involved;
+it is 100% hitch free & safe because it is my inheritance from late
+husband.
 
-
-Do not scrole on or delete this mail, but check it out on U'r platfom of will
-[https://bizzfund.sr/wp-content/uploads/2023/03/YT-TopPica.jpg]
-A brand new single released on iTunes and Spotify
-[https://bizzfund.sr/wp-content/uploads/2023/03/Bandcamp-Header.jpg]
-Listen to a, Swinging Dynamic Energetic Melodic Jeffersons, catchy lyrics.
-[https://bizzfund.sr/wp-content/uploads/2023/03/iTunes.jpg]<http://itunes.apple.com/album/id/1678248658>
-[https://bizzfund.sr/wp-content/uploads/2023/03/Spotify.png]<https://open.spotify.com/track/2mrZr0qwyHlpbSC7OjIxcS?si=41ce97fdfe18439c>
-[https://bizzfund.sr/wp-content/uploads/2023/03/youtube.jpg]<https://www.youtube.com/watch?v=bzY6ASN6-pM>
-[https://bizzfund.sr/wp-content/uploads/2023/03/Facebook.png]<https://www.facebook.com/Jeffersons411/>
-[https://bizzfund.sr/wp-content/uploads/2023/03/Instagram.jpg]<https://www.instagram.com/jeffersons_411/>
-[https://bizzfund.sr/wp-content/uploads/2023/03/Twitter.png]<https://twitter.com/Jeffersons411>
-[https://bizzfund.sr/wp-content/uploads/2023/03/Missing-U-Cover-1320x1320.jpg]
-Life on the road
-Ready to promote this song worldwide
-
-[https://bizzfund.sr/wp-content/uploads/2023/03/Jeffersons-Ibiza.jpg]
-[https://bizzfund.sr/wp-content/uploads/2023/03/Jeffersons-Nemo.jpg]
-[https://bizzfund.sr/wp-content/uploads/2023/03/Jeffersons-dope.jpg]
-For bookings FB/@JKP Entertainment<https://www.facebook.com/jkpentertain/>
-You are receiving this email because you work in the music or radio industry.
+If you will be interesting to assist in getting this deposit fund
+transfer into your account for charity for the mutual benefit of
+orphans and the less privileged project to fulfill my promise before I
+die, please let me Know immediately and you will take 50% percent of
+the total money for your effort and assistance while 50% of the money
+will go to charity project. I will appreciate your utmost
+confidentiality as I wait for your reply.
+God Bless you,
+Mrs. Elizabeth Edward.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DU0PR10MB587591304BA46142C7DEE7EAD0959%40DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM.
-
---_000_DU0PR10MB587591304BA46142C7DEE7EAD0959DU0PR10MB5875EURP_
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=3D"eleme=
-ntToProof">
-<br>
-</div>
-<div id=3D"divRplyFwdMsg" dir=3D"ltr">
-<div>&nbsp;</div>
-</div>
-<div leftmargin=3D"0" topmargin=3D"0" marginwidth=3D"0" marginheight=3D"0" =
-style=3D"margin: 0px; padding: 0px; background-color: rgb(39, 40, 46);">
-<table class=3D"x_mailpoet_template" border=3D"0" width=3D"100%" cellpaddin=
-g=3D"0" cellspacing=3D"0" style=3D"border-collapse:collapse; border-spacing=
-:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_preheader" height=3D"1" style=3D"border-collapse: c=
-ollapse; display: none; visibility: hidden; font-size: 1px; line-height: 1p=
-x; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; color: rg=
-b(51, 51, 51);">
-Do not scrole on or delete this mail, but check it out on U'r platfom of wi=
-ll </td>
-</tr>
-<tr>
-<td align=3D"center" class=3D"x_mailpoet-wrapper" valign=3D"top" style=3D"b=
-order-collapse: collapse; background-color: rgb(39, 40, 46);">
-<table class=3D"x_mailpoet_content-wrapper" border=3D"0" width=3D"660" cell=
-padding=3D"0" cellspacing=3D"0" style=3D"border-collapse: collapse; border-=
-spacing: 0px; max-width: 660px; width: 100%; background-color: rgb(255, 255=
-, 255);">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_content" align=3D"center" style=3D"border-collapse:=
- collapse; background-color: rgb(39, 40, 46);">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td style=3D"border-collapse:collapse; padding-left:0; padding-right:0">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
-s=3D"x_mailpoet_cols-one" style=3D"border-collapse:collapse; border-spacing=
-:0; table-layout:fixed; margin-left:auto; margin-right:auto; padding-left:0=
-; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<img width=3D"620" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/YT-TopPica.jpg">
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_text x_mailpoet_padded_vertical x_mailpoet_padded_s=
-ide" valign=3D"top" style=3D"border-collapse:collapse; padding-top:10px; pa=
-dding-bottom:10px; padding-left:20px; padding-right:20px; word-break:break-=
-word; word-wrap:break-word">
-<h2 style=3D"margin: 0px; font-family: &quot;merriweather sans&quot;, &quot=
-;helvetica neue&quot;, helvetica, arial, sans-serif; font-size: 24px; line-=
-height: 38.4px; text-align: left; padding: 0px; font-style: normal; font-we=
-ight: normal; color: rgb(39, 40, 46);">
-<span style=3D"color: rgb(153, 153, 153);">A brand new single released on <=
-span style=3D"color: rgb(224, 62, 45);">
-iTunes </span>and <span style=3D"color: rgb(29, 185, 84);">Spotify</span></=
-span></h2>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_spacer" height=3D"20" valign=3D"top" style=3D"borde=
-r-collapse:collapse">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content" align=3D"center" style=3D"border-collapse:=
-collapse">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td style=3D"border-collapse:collapse; padding-left:0; padding-right:0">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
-s=3D"x_mailpoet_cols-one" style=3D"border-collapse:collapse; border-spacing=
-:0; table-layout:fixed; margin-left:auto; margin-right:auto; padding-left:0=
-; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<img width=3D"618" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/Bandcamp-Header.jpg">
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_text x_mailpoet_padded_vertical x_mailpoet_padded_s=
-ide" valign=3D"top" style=3D"border-collapse:collapse; padding-top:10px; pa=
-dding-bottom:10px; padding-left:20px; padding-right:20px; word-break:break-=
-word; word-wrap:break-word">
-<table width=3D"100%" cellpadding=3D"0" style=3D"border-collapse:collapse; =
-border-spacing:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_paragraph" style=3D"border-collapse: collapse; font=
--family: &quot;merriweather sans&quot;, &quot;helvetica neue&quot;, helveti=
-ca, arial, sans-serif; font-size: 15px; line-height: 24px; word-break: brea=
-k-word; overflow-wrap: break-word; text-align: center; color: rgb(39, 40, 4=
-6);">
-<span style=3D"color: rgb(5, 10, 251);">Listen to a, Swinging Dynamic Energ=
-etic Melodic Jeffersons, catchy lyrics.</span>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content-cols-three" align=3D"left" style=3D"border-=
-collapse:collapse">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"border-collapse:collapse; font-size:0">
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"http://itunes.apple.com/album/id/1678248658" data-auth=3D"NotApp=
-licable" style=3D"text-decoration: underline; color: rgb(33, 117, 155);"><i=
-mg width=3D"56" alt=3D"" style=3D"height:auto; max-width:100%; border:0; di=
-splay:block; outline:none; text-align:center" src=3D"https://bizzfund.sr/wp=
--content/uploads/2023/03/iTunes.jpg"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"https://open.spotify.com/track/2mrZr0qwyHlpbSC7OjIxcS?si=3D41ce9=
-7fdfe18439c" data-auth=3D"NotApplicable" style=3D"text-decoration: underlin=
-e; color: rgb(33, 117, 155);"><img width=3D"103" alt=3D"" style=3D"height:a=
-uto; max-width:100%; border:0; display:block; outline:none; text-align:cent=
-er" src=3D"https://bizzfund.sr/wp-content/uploads/2023/03/Spotify.png"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"https://www.youtube.com/watch?v=3DbzY6ASN6-pM " data-auth=3D"Not=
-Applicable" style=3D"text-decoration: underline; color: rgb(33, 117, 155);"=
-><img width=3D"63" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/youtube.jpg"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content-cols-three" align=3D"left" style=3D"border-=
-collapse:collapse">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"border-collapse:collapse; font-size:0">
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"https://www.facebook.com/Jeffersons411/" data-auth=3D"NotApplica=
-ble" style=3D"text-decoration: underline; color: rgb(33, 117, 155);"><img w=
-idth=3D"47" alt=3D"" style=3D"height:auto; max-width:100%; border:0; displa=
-y:block; outline:none; text-align:center" src=3D"https://bizzfund.sr/wp-con=
-tent/uploads/2023/03/Facebook.png"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"https://www.instagram.com/jeffersons_411/  " data-auth=3D"NotApp=
-licable" style=3D"text-decoration: underline; color: rgb(33, 117, 155);"><i=
-mg width=3D"51" alt=3D"" style=3D"height:auto; max-width:100%; border:0; di=
-splay:block; outline:none; text-align:center" src=3D"https://bizzfund.sr/wp=
--content/uploads/2023/03/Instagram.jpg"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"display:inline-block; max-width:220px; vertical-align:top; wi=
-dth:100%">
-<table width=3D"220" class=3D"x_mailpoet_cols-three" border=3D"0" cellpaddi=
-ng=3D"0" cellspacing=3D"0" align=3D"right" style=3D"border-collapse:collaps=
-e; width:100%; max-width:220px; border-spacing:0; table-layout:fixed; margi=
-n-left:auto; margin-right:auto; padding-left:0; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<a href=3D"https://twitter.com/Jeffersons411" data-auth=3D"NotApplicable" s=
-tyle=3D"text-decoration: underline; color: rgb(33, 117, 155);"><img width=
-=3D"52" alt=3D"" style=3D"height:auto; max-width:100%; border:0; display:bl=
-ock; outline:none; text-align:center" src=3D"https://bizzfund.sr/wp-content=
-/uploads/2023/03/Twitter.png"></a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content" align=3D"center" style=3D"border-collapse:=
-collapse">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td style=3D"border-collapse:collapse; padding-left:0; padding-right:0">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
-s=3D"x_mailpoet_cols-one" style=3D"border-collapse:collapse; border-spacing=
-:0; table-layout:fixed; margin-left:auto; margin-right:auto; padding-left:0=
-; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<img width=3D"620" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/Missing-U-Cover-1320x1320.jpg">
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_text x_mailpoet_padded_vertical x_mailpoet_padded_s=
-ide" valign=3D"top" style=3D"border-collapse:collapse; padding-top:10px; pa=
-dding-bottom:10px; padding-left:20px; padding-right:20px; word-break:break-=
-word; word-wrap:break-word">
-<h3 style=3D"margin: 0px 0px 6.6px; font-family: &quot;merriweather sans&qu=
-ot;, &quot;helvetica neue&quot;, helvetica, arial, sans-serif; font-size: 2=
-2px; line-height: 35.2px; text-align: center; padding: 0px; font-style: nor=
-mal; font-weight: normal; color: rgb(255, 255, 255);">
-<span style=3D"color: rgb(39, 40, 46);"><strong>Life on the road</strong></=
-span></h3>
-<table width=3D"100%" cellpadding=3D"0" style=3D"border-collapse:collapse; =
-border-spacing:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_paragraph" style=3D"border-collapse: collapse; font=
--family: &quot;merriweather sans&quot;, &quot;helvetica neue&quot;, helveti=
-ca, arial, sans-serif; font-size: 15px; line-height: 24px; word-break: brea=
-k-word; overflow-wrap: break-word; text-align: center; color: rgb(39, 40, 4=
-6);">
-<span style=3D"color: rgb(90, 92, 102);">Ready to promote this song worldwi=
-de</span><br>
-<br>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_image" align=3D"center" valign=3D"top" style=3D"bor=
-der-collapse:collapse">
-<img width=3D"348" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/Jeffersons-Ibiza.jpg">
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<img width=3D"355" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/Jeffersons-Nemo.jpg">
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_image x_mailpoet_padded_vertical x_mailpoet_padded_=
-side" align=3D"center" valign=3D"top" style=3D"border-collapse:collapse; pa=
-dding-top:10px; padding-bottom:10px; padding-left:20px; padding-right:20px"=
->
-<img width=3D"358" alt=3D"" style=3D"height:auto; max-width:100%; border:0;=
- display:block; outline:none; text-align:center" src=3D"https://bizzfund.sr=
-/wp-content/uploads/2023/03/Jeffersons-dope.jpg">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content" align=3D"center" style=3D"border-collapse:=
-collapse">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td style=3D"border-collapse:collapse; padding-left:0; padding-right:0">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
-s=3D"x_mailpoet_cols-one" style=3D"border-collapse:collapse; border-spacing=
-:0; table-layout:fixed; margin-left:auto; margin-right:auto; padding-left:0=
-; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_text x_mailpoet_padded_vertical x_mailpoet_padded_s=
-ide" valign=3D"top" style=3D"border-collapse:collapse; padding-top:10px; pa=
-dding-bottom:10px; padding-left:20px; padding-right:20px; word-break:break-=
-word; word-wrap:break-word">
-<table width=3D"100%" cellpadding=3D"0" style=3D"border-collapse:collapse; =
-border-spacing:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_paragraph" style=3D"border-collapse: collapse; font=
--family: &quot;merriweather sans&quot;, &quot;helvetica neue&quot;, helveti=
-ca, arial, sans-serif; font-size: 15px; line-height: 24px; word-break: brea=
-k-word; overflow-wrap: break-word; text-align: center; color: rgb(39, 40, 4=
-6);">
-For bookings <a href=3D"https://www.facebook.com/jkpentertain/" data-auth=
-=3D"NotApplicable" style=3D"text-decoration: underline; color: rgb(33, 117,=
- 155);">
-FB/@JKP Entertainment</a> </td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_content" align=3D"center" style=3D"border-collapse:=
- collapse; background-color: rgb(39, 40, 46);">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" styl=
-e=3D"border-collapse:collapse; border-spacing:0">
-<tbody>
-<tr>
-<td style=3D"border-collapse:collapse; padding-left:0; padding-right:0">
-<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
-s=3D"x_mailpoet_cols-one" style=3D"border-collapse:collapse; border-spacing=
-:0; table-layout:fixed; margin-left:auto; margin-right:auto; padding-left:0=
-; padding-right:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_text x_mailpoet_padded_vertical x_mailpoet_padded_s=
-ide" valign=3D"top" style=3D"border-collapse:collapse; padding-top:10px; pa=
-dding-bottom:10px; padding-left:20px; padding-right:20px; word-break:break-=
-word; word-wrap:break-word">
-<table width=3D"100%" cellpadding=3D"0" style=3D"border-collapse:collapse; =
-border-spacing:0">
-<tbody>
-<tr>
-<td class=3D"x_mailpoet_paragraph" style=3D"border-collapse: collapse; font=
--family: &quot;merriweather sans&quot;, &quot;helvetica neue&quot;, helveti=
-ca, arial, sans-serif; font-size: 15px; line-height: 24px; word-break: brea=
-k-word; overflow-wrap: break-word; text-align: center; color: rgb(39, 40, 4=
-6);">
-<span style=3D"color: rgb(255, 255, 255);">You are receiving this email bec=
-ause you work in the music or radio industry.</span>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-<tr>
-<td class=3D"x_mailpoet_spacer" height=3D"20" valign=3D"top" style=3D"borde=
-r-collapse:collapse">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</body>
-</html>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/DU0PR10MB587591304BA46142C7DEE7EAD0959%40DU0PR10MB=
-5875.EURPRD10.PROD.OUTLOOK.COM?utm_medium=3Demail&utm_source=3Dfooter">http=
-s://groups.google.com/d/msgid/jailhouse-dev/DU0PR10MB587591304BA46142C7DEE7=
-EAD0959%40DU0PR10MB5875.EURPRD10.PROD.OUTLOOK.COM</a>.<br />
-
---_000_DU0PR10MB587591304BA46142C7DEE7EAD0959DU0PR10MB5875EURP_--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAL7D5sG9V6ejaH7X9FvVmExgux5DBwbrabKitdRS8NJe7YZHww%40mail.gmail.com.
