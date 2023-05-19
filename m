@@ -1,102 +1,102 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBWV5T6RQMGQENKOBQFQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53a.google.com (mail-ed1-x53a.google.com [IPv6:2a00:1450:4864:20::53a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1441470A0E4
+Received: from mail-ej1-x637.google.com (mail-ej1-x637.google.com [IPv6:2a00:1450:4864:20::637])
+	by mail.lfdr.de (Postfix) with ESMTPS id 982FB70A0E5
 	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 May 2023 22:40:59 +0200 (CEST)
-Received: by mail-ed1-x53a.google.com with SMTP id 4fb4d7f45d1cf-511b509b55bsf1037337a12.0
+Received: by mail-ej1-x637.google.com with SMTP id a640c23a62f3a-9532170e883sf273722566b.3
         for <lists+jailhouse-dev@lfdr.de>; Fri, 19 May 2023 13:40:59 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1684528858; cv=pass;
+ARC-Seal: i=2; a=rsa-sha256; t=1684528859; cv=pass;
         d=google.com; s=arc-20160816;
-        b=nSKz+XO2Gyr5vDxKuIciYIlbappeCY3O7Up9yG1rfSLivP1WNokC9IsU1jSVfKSdVv
-         zGcyYb8S4GN0mMHSyg6HF2jm3bj8nLHP6McStWiHYmSgNdhLnlQT4be/wpmrTgYEvrrx
-         SNmBm0rZhC9V2EFctL8c77m255wpYlYv5XHA25XOab4Zk9/nJeyDQIZcKiNVaBZ6Ee9g
-         YiqXGzvKZd0+eReUKOvlKFgeVOKvE0Du5fgP4K/3VpYRDijUR19XGzom+y6pcdhryZER
-         c9b/DFtfrcbEJ6Z5q2Oqiy5EPkJQZmI4WQ+UL/W7l1ffvXGDsdh6MO2/PHaTx3LZOqyu
-         iHyQ==
+        b=lPrFoj707oHaZ7IfzbyM87bXCPltaGafBOwgnxgfBa4boik04YbhFTbS1cn3c0XEIB
+         Y0MFNNNR49+rH2+k5+E8U2lEcZKrKh2GoxkXgCpzo+N2TWXMNTs7zRxOqtg92q1WVkF/
+         G8TOyF9U45ECiqewnh7tKXtqrzWVgdH5qgrZbCyKDInBo6icfsf3luPSWAAjdmb1lp40
+         bMWUbbI+KdrVK3Qg0MHnaH9E/V/1hnrJPcejAqKGuVKMx3ZqPN3Tw3rh3U4TSAMvYCKn
+         AN25CKjmT4Dh4hyExrCkj5x9dpbJICFKpucpjLnV41maEmLDH47xIs7JxQ/th0ut4pmG
+         Y3fg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=Wq9prRTRbNRu5EUL9tOd1cQYnLKoNj3Icwy6xnucEos=;
-        b=RXHx5v2b48DzYUP/e7a0+RazU2uzlM4RsmfbfbbF9JsBGoZ7KG2oeVk3gKjdoknyBu
-         dWHnDms9SQplV+GqU5LHCdJ+X/5kSce4Y+h/xoQ500xxWeG59kyif9mdiuTU2QWcujCg
-         acbwQ3xoVl/VokY7DX4H9tbB17sOWdrbjqJw09jI0gQ3VNZ8Fpim52jO5PjJzxaTNjsH
-         E4P3dX2Mn0p52QOLkTozxPX+LRH6B+vpQjk0qdwFIks2Hrmdqkapuic0j0fMpkO4puec
-         Q3JPEy2KX+ho2kgG/ifpwb+mLS6M7Q3ePXNR6nNCVoSJKyU4+Oc3tpG0G6qDzcLDRm2B
-         6E2Q==
+        bh=oeUI9WSEFSKWaYRMjgx6DM50zD3tfW7CMAKQ8KPDNkU=;
+        b=ZnBpT1nvI0A/Mp/5n72W502Cz8G62W0rYf/KBJpffWJAK/7wTYHc6F2EyJDhDFmIrn
+         wgwA5JC+m7/XIxg+P+gvqx8H55giP8UxTy7sQns2a4j07mTax4fsfa7dp5qnOcmtXmvm
+         xCsme9l6RcbnjuftgrRdweoofD3LbFPfauOYXVP8xNUD0qZoim/jfXdutpKM+vHII4bF
+         Qol3g6iTLEiV4yvv3zbtuBgPymp7W5L1PaH2EvtbQDuZtR1Y8ltgJHCUuCmaeUAvWw3q
+         il2jHu3FgXJChGcLneKMP9IQL4gYV/GL7sBh5M+757sVcMjgw6MhEs87u7LEcaEU0BiU
+         cHJQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1684528858; x=1687120858;
+        d=googlegroups.com; s=20221208; t=1684528859; x=1687120859;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Wq9prRTRbNRu5EUL9tOd1cQYnLKoNj3Icwy6xnucEos=;
-        b=fos/gPe7/+zFhhEG8G7WaBEs9/VQsQLnUAgKLJ39rWm14FStVTinu478oWfOPUbOZA
-         gKubGbSqkWjTCu6lI8Qq0RJRfmixOwz0Xdj9uv11jdyEtm57vWpLXPw1CR0pAwIU7/G5
-         0VZgfz80IN1ejpvkxG5upcXb1B/2opMQrvrLQ0vq3002umBhX/XnhyHLmrOV54WJApA6
-         IgxowtRhHxBWQ4X2duykf0G0mXTF98be30+WWJfcqTjkw+nV0R6revhiHVMLkxgnUdsU
-         LFFcoxVjS8hrnFh7CNNsR8V9FtW+onSMz24u37pR52Ya52ywNzeQXR6ad0564rdBX3p0
-         oJjQ==
+        bh=oeUI9WSEFSKWaYRMjgx6DM50zD3tfW7CMAKQ8KPDNkU=;
+        b=bUJTeTLWK+z5YKhX6EXsN5oMNoVhmhnF2J1CoxSBUz4ifixfH603E+pEbKftvtRP9z
+         aDxXTX2iJWHODlfcHA8UAYdk0y4VuFzNChUMEoVTeESzpq3TY+ibyP0sEEbFjkM9KRfk
+         yrqcby0RJCIozjoF1Tt5GOvwdJvBptQZkDUePupm0uQBQT2xeerhXxevVZ4bCWHVk2Bz
+         IEmUe/zbXk46L8Nhhmzs3eTdZOySoMw2tnNorIXIdv8msUZ8zAmn5YGBJhQQlnF14NnZ
+         05FRzMOciaug0yDRYueCXqE5q3nU+2cFAHtGJrzaKCmkB4B1Cq3EauW+Yqu4B/jqUiWN
+         QNwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684528858; x=1687120858;
+        d=1e100.net; s=20221208; t=1684528859; x=1687120859;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Wq9prRTRbNRu5EUL9tOd1cQYnLKoNj3Icwy6xnucEos=;
-        b=Dy+k/8dQFaQYSotj31FS47tFYdLH1YXfeAyA3nR2cuoh8Orl7dnSI0p0mVcBwxV0KW
-         APslobbudbbM+6vCGTZE6rrqp5h2B4QRW0E4C3UUMTl6OnUOZdVoL6uAOS4bxxVatfzJ
-         QWK3B+P5zxgAr8Iehl9Q+Cn0i+NYKe8FLAmvb2rk3Ek9kORTKgjuwtadXZEeV3KWCg7e
-         Oe+G3pJYEuvedYOs2sQ99FGqNKPdUCmYV5dvPVsNTae3NQ5ho2TGN1FvpdJuYjECRmNT
-         EmCagVXddpx8XGdqJuhUTCRb4LbBY7FavevUHfvrISM+o8KZXERjxod3cZpKfyxn542j
-         /nqw==
+        bh=oeUI9WSEFSKWaYRMjgx6DM50zD3tfW7CMAKQ8KPDNkU=;
+        b=Q/yZgqeLa/aDveknxlmJePoiBrcNtEMxgcQWZedYgT6GJMs6CcO0U63zaUQOG4qYtq
+         wjFHXT5nCshcd+yOGsBSuqdjFDSxZgQG6OYl3zhER8e6PxnpxA/btk4sXGhPA3gNVQrD
+         iA8VYyialooWOBl5b3icBtwNQs9vVOcqAJJRdD89jd9ACI72lbhyNXY5hi7qV711lqky
+         /Cb9cdH1oUk/DP59Ty8pW1uVPVEdZ/DhaUkaTrhqiAfiNFk9vlxP3VWQLrsGS8uoGtH5
+         IT2qGXljsmlmYJRupv5kE/osgTiDeSlUdFm3prvaT4u6frQEaA5zt946apiA9kl1rw4g
+         1pHw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDxXo+QLBMdhiu3QArnC7eevRTeOWyuZ6WB8a+D4/9/lokTRfeQv
-	+vtBWdJ6mVf4RTsF7WUpK4g=
-X-Google-Smtp-Source: ACHHUZ7FtoW4X1OZ8AbOPPik2smurvUJCs3gQziH3YYjnfcElciHeuup1DFQoqGxra2HWjxzD3fduw==
-X-Received: by 2002:a17:907:75e8:b0:969:d495:c6c with SMTP id jz8-20020a17090775e800b00969d4950c6cmr936250ejc.14.1684528858560;
+X-Gm-Message-State: AC+VfDymK2gaj2+bKMI1MgAz0dQl47fLMcyhBbT+eM532DKwXGFgxRMf
+	CQ44dB58Psq9s0TRtw5RVMUGEA==
+X-Google-Smtp-Source: ACHHUZ7qter/Kc4gsJuuP5pOWsrAnAzFsgg3nB5TNqV4gpH6Mqoxpoe+YS0Qo0QlaGoBdFGIBRP/WA==
+X-Received: by 2002:a17:906:8a61:b0:966:6437:6ecb with SMTP id hy1-20020a1709068a6100b0096664376ecbmr1126392ejc.6.1684528858901;
         Fri, 19 May 2023 13:40:58 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:d894:0:b0:50b:c6d7:3964 with SMTP id u20-20020aa7d894000000b0050bc6d73964ls6177411edq.0.-pod-prod-09-eu;
- Fri, 19 May 2023 13:40:56 -0700 (PDT)
-X-Received: by 2002:a05:6402:2047:b0:50b:cbac:93e5 with SMTP id bc7-20020a056402204700b0050bcbac93e5mr2705178edb.35.1684528856693;
-        Fri, 19 May 2023 13:40:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1684528856; cv=none;
+Received: by 2002:aa7:c98c:0:b0:50b:c8bf:7aa6 with SMTP id c12-20020aa7c98c000000b0050bc8bf7aa6ls1349894edt.0.-pod-prod-08-eu;
+ Fri, 19 May 2023 13:40:57 -0700 (PDT)
+X-Received: by 2002:aa7:c2d9:0:b0:506:a663:5c1b with SMTP id m25-20020aa7c2d9000000b00506a6635c1bmr2690470edp.18.1684528857069;
+        Fri, 19 May 2023 13:40:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1684528857; cv=none;
         d=google.com; s=arc-20160816;
-        b=vAwBtdweVXIQu1U3A/afrwFfR9AMEs0jb3kF2im4vwQ4PUE8GEJVQKE3CS2JhC4Xzb
-         eCafLyVIqcGj7b2dhjUcivBcF8uzq94KgTaDVivjc5Tu3AjQ90vnMR90vv5RIVQw5v/6
-         8JJSxio93smOEmnGK1ZVtj0J8BJCFBvBhu+NRQu/DDN3jz4wWW9pffyuCZxAKWvjDpgA
-         1yVr/zr/9J/fqlitmgSfrFa7vbmb1FxsKVdaJPOYIxaUCjv9ihah/M/Q3NUtyXL20M5Z
-         oUBCY2WZTPq7Cw55mwIEGwiIbBHYbUifQGI7qvpYFF3nGvU19N8auGUQqZY2PCWhye+i
-         BZgg==
+        b=E00pXZ2S0u2umCfXSU76UxR5DAAaoienTs0K19yMGRcXEe26rOqzFMj4MG8jZ/4m/F
+         DHHDQlDyRgj/H9Kc29ACRKyZj2NeJJNHAtqRee7dyar2jkHHmxWkyascQlm65ZhQkc41
+         V2se46WT2M9W3HeilOQQf9gig5ILis1XqqM5I/+hPkaf0Z1+UjofGuFrNEZcAsxCQyVL
+         iuVS78mk4LllTNhJsUH/Egw1rfcnGyjNmxIO7oOJvAQK5k3U2zp+c1Tz9COE5nVPRTph
+         E21O02kXqmD3Tna2OY7TwtImi5g+QfonK+ZPb4bOXebu48RlNJnc2LOrOnt4c1kr5EPI
+         WxIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=X1E+zhkxeiRnxAt1MZXWYYzZ6dUMxt2b2y7DhSMgiJY=;
-        b=kgkTZcElkCmse0Utab1ORjGflmR+m7GvXNxG9t7mPGmnJtzbm44qJEz2HZjbCZRlrg
-         EkZSv65WMneXRyw8H+ecYaxctS1OokbXMW4CFu9V2sxD60B154LgD81yhw1uJI86v60r
-         rM5OXnT8q4e5uJHAY2IMqyCJ2Vjb9LOKDqEIrVgDnAkFQxEYjspSxZm2fSU9Q5/XZQ6Z
-         kOoa8E3s9sQuFQ50VCOABN2asdHYYXrewqvBDKxOk78jYxn6Kc2EGtJrDf3ZiXJ6XeHs
-         7CIH2BS1NCvcJX0TeQPu7o0oEG+4lIDpV95b522rBNfiobvDhv+JOhQX50/WOTsoBKD4
-         uy3A==
+        bh=PXTrZwOdx4noTPIld7NItpkVGvei6C1PPHXNyn6oK5A=;
+        b=aVvPvnEcPNNyYe13tWFY8/LPRLFHsNTF2ef/QONHlsqkSHj4gBQvAApZ5DgRR8/J9i
+         y7SDM4qr3CqH6Ty27rFH2tZW/mkF6iDHdoCfKLOfAShSoGOXmmRJsDjtZQSqeVL8dmkP
+         k4zz3UJVuOieKAe2HbcfNpm9t7OmRPeiqjy5S5t34lexRaT3yKkXuskLHIuy1VRf4ORH
+         J54XyPkYL2jayY/a/U50Vlwj3gFVbE0ggwErdQJEhZw2vLRMpM4RUL1OAQRQZVTfzzvE
+         YK9GbEhz8jWxyi0SDyytneAzgwXPnRiOSHghSj9T+UVi+IrL07B15ZZexBPZcSxuYKcS
+         Ms3g==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id fi22-20020a056402551600b00510d963132csi21694edb.0.2023.05.19.13.40.56
+Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [2001:638:a01:1096::10])
+        by gmr-mx.google.com with ESMTPS id g26-20020aa7c85a000000b00510cd4eed58si20941edt.2.2023.05.19.13.40.57
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 May 2023 13:40:56 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
+        Fri, 19 May 2023 13:40:57 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:a01:1096::10 as permitted sender) client-ip=2001:638:a01:1096::10;
 Received: from fiasco.hs-regensburg.de (im-srv-005.hs-regensburg.de [194.95.108.59])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4QNJdh0chzzxr0;
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4QNJdh3HCNzxvc;
 	Fri, 19 May 2023 22:40:56 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com
@@ -104,20 +104,20 @@ Cc: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
 	Jan Kiszka <jan.kiszka@siemens.com>,
 	Konrad Schwarz <konrad.schwarz@siemens.com>,
 	Stefan Huber <stefan.huber@oth-regensburg.de>
-Subject: [PATCH v3 50/73] core: riscv: Add PLIC implementation
-Date: Fri, 19 May 2023 22:40:10 +0200
-Message-Id: <20230519204033.643200-51-ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v3 51/73] core: riscv: implement trap handlers
+Date: Fri, 19 May 2023 22:40:11 +0200
+Message-Id: <20230519204033.643200-52-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230519204033.643200-1-ralf.ramsauer@oth-regensburg.de>
 References: <20230519204033.643200-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2023.5.19.203017, AntiVirus-Engine: 6.0.0, AntiVirus-Data: 2023.5.19.600001
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FILESHARE_PHRASE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __INVOICE_MULTILINGUAL 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_NEGATE 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __INVOICE_MULTILINGUAL 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_7 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
- 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+ 2001:638:a01:1096::10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
@@ -132,463 +132,829 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-The design of the PLIC is poor: We basically need to trap & moderate
-each access.
-
-The strategy is as follows:
-
-On IRQ arrival in S-Mode, we directly acknowledge the IRQ, save it in a
-shadow register, and reinject it to the VS-Mode guest. Now disable IRQs
-for S-Mode, until the guest has claimed and acknowledged the IRQ.
-
-After the guest acknowledged the IRQ, reenable IRQs in S-Mode again.
-
 Signed-off-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+[since RFC v1: Add more fine granular SBI accounting, simplify usage of hlvx]
+[since RFC v2: inline single-caller functions, improve rfence handler]
 ---
- hypervisor/arch/riscv/Kbuild    |   2 +-
- hypervisor/arch/riscv/irqchip.c |   7 +-
- hypervisor/arch/riscv/plic.c    | 392 ++++++++++++++++++++++++++++++++
- 3 files changed, 399 insertions(+), 2 deletions(-)
- create mode 100644 hypervisor/arch/riscv/plic.c
+ hypervisor/arch/riscv/traps.c | 793 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 788 insertions(+), 5 deletions(-)
 
-diff --git a/hypervisor/arch/riscv/Kbuild b/hypervisor/arch/riscv/Kbuild
-index 57c52854..0e7d3719 100644
---- a/hypervisor/arch/riscv/Kbuild
-+++ b/hypervisor/arch/riscv/Kbuild
-@@ -15,4 +15,4 @@
- always-y := lib.a
+diff --git a/hypervisor/arch/riscv/traps.c b/hypervisor/arch/riscv/traps.c
+index f61dfc1a..b3bbe413 100644
+--- a/hypervisor/arch/riscv/traps.c
++++ b/hypervisor/arch/riscv/traps.c
+@@ -10,19 +10,802 @@
+  * the COPYING file in the top-level directory.
+  */
  
- lib-y := entry.o exception.o setup.o dbg-write.o control.o ivshmem.o irqchip.o
--lib-y += paging.o pci.o traps.o lib.o
-+lib-y += paging.o pci.o plic.o traps.o lib.o
-diff --git a/hypervisor/arch/riscv/irqchip.c b/hypervisor/arch/riscv/irqchip.c
-index 880f1fab..4d8ade0b 100644
---- a/hypervisor/arch/riscv/irqchip.c
-+++ b/hypervisor/arch/riscv/irqchip.c
-@@ -23,6 +23,8 @@
- #define IRQ_BITMAP_PINS \
- 	(sizeof(((struct cell *)0)->arch.irq_bitmap) * 8)
- 
-+extern const struct irqchip irqchip_plic;
-+
- struct irqchip irqchip;
- 
- static unsigned int irqchip_mmio_count_regions(struct cell *cell)
-@@ -131,8 +133,11 @@ static int irqchip_init(void)
- {
- 	int err;
- 
--	/* We don't have a working irqchip yet */
- 	switch (irqchip_type()) {
-+		case JAILHOUSE_RISCV_PLIC:
-+			irqchip = irqchip_plic;
-+			break;
-+
- 		default:
- 			return trace_error(-ENOSYS);
- 	}
-diff --git a/hypervisor/arch/riscv/plic.c b/hypervisor/arch/riscv/plic.c
-new file mode 100644
-index 00000000..a65de82c
---- /dev/null
-+++ b/hypervisor/arch/riscv/plic.c
-@@ -0,0 +1,392 @@
-+/*
-+ * Jailhouse, a Linux-based partitioning hypervisor
-+ *
-+ * Copyright (c) OTH Regensburg, 2022-2023
-+ *
-+ * Authors:
-+ *  Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2.  See
-+ * the COPYING file in the top-level directory.
-+ */
-+
-+#include <jailhouse/paging.h>
-+#include <jailhouse/cell.h>
-+#include <jailhouse/string.h>
-+#include <jailhouse/unit.h>
 +#include <jailhouse/control.h>
-+#include <jailhouse/processor.h>
 +#include <jailhouse/printk.h>
++#include <jailhouse/entry.h>
++#include <jailhouse/percpu.h>
++#include <jailhouse/processor.h>
++#include <jailhouse/utils.h>
++#include <asm/control.h>
 +#include <asm/irqchip.h>
+ #include <asm/processor.h>
++#include <asm/sbi.h>
++#include <asm/setup.h>
+ 
+ void arch_handle_trap(union registers *regs);
+ void arch_handle_fault(union registers *regs);
+ 
+-void arch_handle_trap(union registers *regs)
++static const char *causes[] = {
++	[EXC_INST_MISALIGNED]		= "Instruction Address Misaligned",
++	[EXC_INST_ACCESS]		= "Instruction Address Fault",
++	[EXC_INST_ILLEGAL]		= "Illegal Instruction",
++	[EXC_BREAKPOINT]		= "Breakpoint",
++	[EXC_LOAD_ACCESS_MISALIGNED]	= "Load Accesss Misaligned",
++	[EXC_LOAD_ACCESS]		= "Load Access Fault",
++	[EXC_AMO_ADDRESS_MISALIGNED]	= "AMO Address Misaligned",
++	[EXC_STORE_ACCESS]		= "Store Access Fault",
++	[EXC_SYSCALL]			= "Env Call From U-Mode",
++	[EXC_HYPERVISOR_SYSCALL]	= "Env Call From S-Mode",
++	[EXC_SUPERVISOR_SYSCALL]	= "Env Call From VS-Mode",
++	[11]				= "Env Call From M-Mode",
++	[EXC_INST_PAGE_FAULT]		= "Instruction Pagefault",
++	[EXC_LOAD_PAGE_FAULT]		= "Load Pagefault",
++	[14]				= "Reserved",
++	[EXC_STORE_PAGE_FAULT]		= "Store Pagefault",
++	[16 ... 19]			= "Reserved",
++	[EXC_INST_GUEST_PAGE_FAULT]	= "Inst Guest Pagefault",
++	[EXC_LOAD_GUEST_PAGE_FAULT]	= "Load Guest Pagefault",
++	[EXC_VIRTUAL_INST_FAULT]	= "Virtual Instruction Fault",
++	[EXC_STORE_GUEST_PAGE_FAULT]	= "Store Guest Pagefault",
++};
 +
-+#define PLIC_PRIO_BASE		0x0
-+#define PLIC_PENDING_BASE	0x1000
-+#define PLIC_ENABLE_BASE	0x2000
-+#define PLIC_ENABLE_OFF		0x80
-+#define PLIC_ENABLE_END		0x1f2000
-+#define PLIC_CTX_BASE		0x200000
-+#define PLIC_CTX_PRIO_TH	0x0
-+#define PLIC_CTX_CLAIM		0x4
-+#define PLIC_CTX_SZ		0x1000
-+#define PLIC_CTX_END		0x4000000
-+
-+static inline s16 hart_to_context(unsigned int hartid)
++static inline bool is_irq(u64 cause)
 +{
-+	if (hartid > ARRAY_SIZE(SYSCONFIG_IRQCHIP.hart_to_context))
-+		return -1;
-+
-+	return SYSCONFIG_IRQCHIP.hart_to_context[hartid];
++	return !!(cause & CAUSE_IRQ_FLAG);
 +}
 +
-+static inline u16 plic_max_priority(void)
++static inline unsigned long to_irq(unsigned long cause)
 +{
-+	return SYSCONFIG_IRQCHIP.max_priority;
++	return cause & ~CAUSE_IRQ_FLAG;
 +}
 +
-+static inline unsigned int plic_size(void)
++static void dump_regs(union registers *r)
 +{
-+	return SYSCONFIG_IRQCHIP.size;
++	struct public_per_cpu *pc = this_cpu_public();
++	unsigned long scause = csr_read(scause);
++	const char *cause_str = "UNKNOWN";
++
++	/* We might want to later exchange it with panic_printk, but for the
++	 * moment of development, printk is more helpful. */
++	void (*printer)(const char *, ...) = panic_printk;
++
++	if (scause <= 23)
++		cause_str = causes[scause];
++	else if (is_irq(scause))
++		cause_str = "IRQ";
++
++	printer("Fatal: Exception on CPU %u (HART %u). Cause: %lu (%s)\n"
++		"scause: 0x%016lx, stval: 0x%016lx, htval<<2: 0x%016lx\n"
++		" PC: 0x%016llx RA: 0x%016llx  SP: 0x%016llx\n"
++		" GP: 0x%016llx TP: 0x%016llx  T0: 0x%016llx\n"
++		" T1: 0x%016llx T2: 0x%016llx  S0: 0x%016llx\n"
++		" S1: 0x%016llx A0: 0x%016llx  A1: 0x%016llx\n"
++		" A2: 0x%016llx A3: 0x%016llx  A4: 0x%016llx\n"
++		" A5: 0x%016llx A6: 0x%016llx  A7: 0x%016llx\n"
++		" S2: 0x%016llx S3: 0x%016llx  S4: 0x%016llx\n"
++		" S5: 0x%016llx S6: 0x%016llx  S7: 0x%016llx\n"
++		" S8: 0x%016llx S9: 0x%016llx S10: 0x%016llx\n"
++		"S11: 0x%016llx T3: 0x%016llx  T4: 0x%016llx\n"
++		" T5: 0x%016llx T6: 0x%016llx\n",
++		pc->cpu_id, pc->phys_id, to_irq(scause), cause_str,
++		scause, csr_read(stval), csr_read(CSR_HTVAL) << 2,
++		r->pc, r->ra, r->sp,
++		r->gp, r->tp, r->t0,
++		r->t1, r->t2, r->s0,
++		r->s1, r->a0, r->a1,
++		r->a2, r->a3, r->a4,
++		r->a5, r->a6, r->a7,
++		r->s2, r->s3, r->s4,
++		r->s5, r->s6, r->s7,
++		r->s8, r->s9, r->s10,
++		r->s11, r->t3, r->t4,
++		r->t5, r->t6);
 +}
 +
-+static inline u32 plic_read(u32 reg)
++static inline int handle_timer(void)
 +{
-+	return mmio_read32(irqchip.base + reg);
-+}
++	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_TIMER]++;
++	sbi_set_timer(-1);
 +
-+static inline void plic_write(u32 reg, u32 value)
-+{
-+	mmio_write32(irqchip.base + reg, value);
-+}
-+
-+static inline u32 plic_read_context(u32 context, u32 off)
-+{
-+	return plic_read(PLIC_CTX_BASE + context * PLIC_CTX_SZ + off);
-+}
-+
-+static inline u16 plic_read_claim(u32 context)
-+{
-+	return plic_read_context(context, PLIC_CTX_CLAIM);
-+}
-+
-+static inline u32 plic_en_reg(s16 context, unsigned int irq)
-+{
-+	u32 reg;
-+
-+	reg = PLIC_ENABLE_BASE + (context * PLIC_ENABLE_OFF) +
-+	      (irq / IRQCHIP_BITS_PER_REG) * IRQCHIP_REG_SZ;
-+
-+	return reg;
-+}
-+
-+static inline u32 plic_read_enabled(s16 context, unsigned int irq)
-+{
-+	return plic_read(plic_en_reg(context, irq));
-+}
-+
-+static inline void plic_write_enabled(s16 context, unsigned int irq, u32 val)
-+{
-+	plic_write(plic_en_reg(context, irq), val);
-+}
-+
-+static inline bool plic_irq_is_enabled(s16 context, unsigned int irq)
-+{
-+	u32 en = plic_read_enabled(context, irq);
-+
-+	return !!(en & IRQ_MASK(irq));
-+}
-+
-+static inline void plic_enable_irq(s16 context, unsigned int irq)
-+{
-+	u32 val;
-+
-+	val = plic_read_enabled(context, irq) | IRQ_MASK(irq);
-+	plic_write_enabled(context, irq, val);
-+}
-+
-+static inline void plic_disable_irq_ctx(s16 context, unsigned int irq)
-+{
-+	u32 val;
-+
-+	val = plic_read_enabled(context, irq) & ~IRQ_MASK(irq);
-+	plic_write_enabled(context, irq, val);
-+}
-+
-+static int plic_claim_irq(void)
-+{
-+	unsigned long hart;
-+	unsigned short irq;
-+	int my_context;
-+
-+	hart = phys_processor_id();
-+
-+	/* Assume that phys_processor_id always returns something < 64 */
-+	my_context = hart_to_context(hart);
-+	if (my_context < 0)
-+		return -ENOSYS;
-+
-+	irq = plic_read_claim(my_context);
-+	if (irq == 0) /* spurious IRQ, should not happen */
-+		return -EINVAL;
-+
-+	if (irq > irqchip_max_irq())
-+		return -EINVAL;
-+
-+	irqchip.pending[hart] = irq;
++	/* inject timer to VS */
++	csr_set(CSR_HVIP, VIE_TIE);
 +
 +	return 0;
 +}
 +
-+static inline void plic_passthru(const struct mmio_access *access)
++static inline void riscv_guest_inject_ipi(void)
 +{
-+	plic_write(access->address, access->value);
++	/* inject IPI to VS */
++	csr_set(CSR_HVIP, VIE_SIE);
 +}
 +
-+static inline enum mmio_result
-+plic_handle_context_claim(struct mmio_access *access, unsigned long hart)
-+{
-+	if (!access->is_write) {
-+		access->value = irqchip.pending[hart];
-+		return MMIO_HANDLED;
++static inline int handle_ipi(void)
+ {
+-	for (;;)
+-		cpu_relax();
++	struct public_per_cpu *pcpu = this_cpu_public();
++	bool check_events = false;
++	u32 *stats = pcpu->stats;
++	int err = 0;
++
++	/* Take the control lock */
++	spin_lock(&pcpu->control_lock);
++
++	/*
++	 * Next, we have to check who's the recipient of the IPI. Is it the
++	 * hypervisor, or is it the guest?
++	 */
++	switch (pcpu->ipi_cause) {
++		case IPI_CAUSE_GUEST:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_IPI]++;
++			riscv_guest_inject_ipi();
++			break;
++
++		case IPI_CAUSE_MGMT:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_MANAGEMENT]++;
++			check_events = true;
++			break;
++
++		case IPI_CAUSE_NONE:
++		default:
++			printk("Fatal: Invalid IPI cause on CPU %u\n",
++			       this_cpu_id());
++			err = -EINVAL;
++			break;
 +	}
 +
-+	/* claim write case */
-+	if (access->value != irqchip.pending[hart]) {
-+		printk("FATAL: Guest acknowledged non-pending IRQ %lu\n",
-+		       access->value);
-+		return MMIO_ERROR;
-+	}
++	this_cpu_public()->ipi_cause = IPI_CAUSE_NONE;
++	/*
++	 * IPI must be acknowledged. Clear the IPI by clearing sip.SSIP.
++	 * Alternatively, IPI could be cleared via SBI. This is deprecated and
++	 * unperformant.
++	 */
++	csr_clear(sip, (1 << IRQ_S_SOFT));
 +
-+	plic_write(access->address, access->value);
++	/*
++	 * Unlock the control lock. Another CPU may us now send some further
++	 * events, until we enter arch_check_events. It is important that the
++	 * IPI is acknowledged here, as from now on, further IPIs might already
++	 * be sent by remote CPUs.
++	 */
++	spin_unlock(&pcpu->control_lock);
 +
-+	/* Check if there's another physical IRQ pending */
-+	/* TODO: This is where we would need to prioritise vIRQs */
-+	irqchip.pending[hart] = plic_read(access->address);
-+	if (irqchip.pending[hart])
-+		return MMIO_HANDLED;
++	if (check_events)
++		arch_check_events();
 +
-+	guest_clear_ext();
-+	ext_enable();
-+
-+	return MMIO_HANDLED;
++	return err;
 +}
 +
-+static enum mmio_result plic_handle_context(struct mmio_access *access)
++static int handle_irq(u64 irq)
++{
++	int err;
++
++	switch (irq) {
++		case IRQ_S_TIMER:
++			err = handle_timer();
++			break;
++
++		case IRQ_S_SOFT:
++			err = handle_ipi();
++			break;
++
++		case IRQ_S_EXT:
++			err = irqchip_set_pending();
++			break;
++
++		default:
++			err = -ENOSYS;
++			break;
++	}
++
++	return err;
++}
++
++static inline int sbi_ext_time(struct sbiret *ret, unsigned int fid, u64 stime)
++{
++	if (fid != SBI_EXT_TIME_SET_TIMER)
++		return -ENOSYS;
++
++	/* Clear pending IRQs */
++	csr_clear(CSR_HVIP, VIE_TIE);
++
++	*ret = sbi_set_timer(stime);
++
++	return 0;
++}
++
++static inline void
++skip_emulated_instruction(union registers *regs, unsigned int b)
++{
++	regs->pc += b;
++	csr_write(sepc, regs->pc);
++}
++
++static bool sbi_permitted_hart(unsigned long hartid)
 +{
 +	unsigned int cpu;
-+	unsigned long hart;
-+	int ctx;
-+	u64 addr;
 +
-+	addr = access->address - PLIC_CTX_BASE;
-+	ctx = addr / PLIC_CTX_SZ;
-+
-+	/*
-+	 * It is clear that a hart is allowed to access its own context.
-+	 * But we also need to allow accesses to context to neighboured
-+	 * harts within the cell.
-+	 *
-+	 * In (probably) 99% of all cases, the current active CPU will access
-+	 * its own context. So do this simple check first, and check other
-+	 * contexts of the cell (for loop) later. This results in a bit more
-+	 * complex code, but results in better performance.
-+	 */
-+	hart = phys_processor_id();
-+	if (hart_to_context(hart) == ctx)
-+		goto allowed;
-+
-+	for_each_cpu_except(cpu, &this_cell()->cpu_set, this_cpu_id())
-+		if (hart_to_context(public_per_cpu(cpu)->phys_id) == ctx)
-+			goto allowed;
-+
-+	return trace_error(MMIO_ERROR);
-+
-+allowed:
-+	addr -= ctx * PLIC_CTX_SZ;
-+	if (addr == PLIC_CTX_CLAIM) {
-+		return plic_handle_context_claim(access, hart);
-+	} else if (addr == PLIC_CTX_PRIO_TH) {
-+		/* We land here if we permit the access */
-+		if (access->is_write)
-+			plic_passthru(access);
-+		else
-+			access->value = plic_read(access->address);
-+	} else {
-+		return MMIO_ERROR;
-+	}
-+
-+	return MMIO_HANDLED;
++	for_each_cpu(cpu, &this_cell()->cpu_set)
++		if (public_per_cpu(cpu)->phys_id == hartid)
++			return true;
++	return false;
 +}
 +
-+static enum mmio_result plic_handle_prio(struct mmio_access *access)
++static void guest_queue_ipi(unsigned int cpu)
 +{
-+	unsigned int irq;
-+	unsigned int prio = access->value;
++	struct public_per_cpu *pcpu = public_per_cpu(cpu);
 +
-+	irq = access->address / IRQCHIP_REG_SZ;
-+
-+	if (!irqchip_irq_in_cell(this_cell(), irq))
-+		return MMIO_ERROR;
-+
-+	/*
-+	 * Maybe we can abandon this check. The cell should know the max
-+	 * allowed value, so simply allow any value?
-+	 */
-+	if (prio > plic_max_priority())
-+		return MMIO_ERROR;
-+
-+	plic_passthru(access);
-+	return MMIO_HANDLED;
++retry:
++	spin_lock(&pcpu->control_lock);
++	if (pcpu->ipi_cause == IPI_CAUSE_NONE)
++		pcpu->ipi_cause = IPI_CAUSE_GUEST;
++	else {
++		spin_unlock(&pcpu->control_lock);
++		goto retry;
++	}
++	spin_unlock(&pcpu->control_lock);
 +}
 +
-+static enum mmio_result plic_handle_enable(struct mmio_access *access)
++static inline int
++handle_sbi_send_ipi(struct sbiret *ret, unsigned long mask, unsigned long base)
 +{
-+	struct public_per_cpu *pc;
-+	u32 irq_allowed_bitmap;
-+	unsigned int idx, cpu;
-+	short int ctx;
-+
-+	ctx = (access->address - PLIC_ENABLE_BASE) / PLIC_ENABLE_OFF;
-+
-+	/* Does the context even belong to one of the cell's CPUs? */
-+	for_each_cpu(cpu, &this_cell()->cpu_set) {
-+		pc = public_per_cpu(cpu);
-+		if (hart_to_context(pc->phys_id) == ctx)
-+			goto allowed;
-+	}
-+
-+	/*
-+	 * FIXME: Why does Linux read non-allowed ctxs? This seems to be an
-+	 * actual bug in Linux. When we remove a CPU from Linux, and we later
-+	 * change the affinity of the IRQ, then Linux will try to access
-+	 * Contexts which it is not in charge of any longer. While Linux
-+	 * disables IRQs, it does not adjust smp_affinities when removing CPUs.
-+	 *
-+	 * For the moment, and as a workaround, simply report any read as 0,
-+	 * and forbid writes != 0.
-+	 *
-+	 * ... Okay, we really have a Linux bug here.
-+	 *  (a) Linux doesn't remove the affinity from removed CPUs
-+	 *  (b) Linux allows to set affinity to non-present CPUs
-+	 *
-+	 * Actually, we should always return MMIO_ERROR here.
-+	 */
-+
-+#if 1
-+	if (!access->is_write) {
-+		access->value = 0;
-+	} else if (access->value != 0)
-+		return MMIO_ERROR;
-+	return MMIO_HANDLED;
-+#else
-+	return MMIO_ERROR;
-+#endif
-+
-+allowed:
-+	/*
-+	 * Now we have to check if we have a read or write access. In case of
-+	 * reads, simply return the real value of the PLIC.
-+	 *
-+	 * In case of writes, compare against the irq_bitmap, if we're allowed
-+	 * to perform the write.
-+	 */
-+	idx = ((access->address - PLIC_ENABLE_BASE) % PLIC_ENABLE_OFF)
-+		* 8 / IRQCHIP_BITS_PER_REG;
-+
-+	if (!access->is_write) {
-+		access->value = plic_read(access->address);
-+		return MMIO_HANDLED;
-+	}
-+
-+	/* write case */
-+	irq_allowed_bitmap = this_cell()->arch.irq_bitmap[idx];
-+
-+	if (access->value & ~irq_allowed_bitmap) {
-+		printk("FATAL: Cell enabled non-assigned IRQ\n");
-+		return MMIO_ERROR;
-+	}
-+
-+	plic_passthru(access);
-+
-+	return MMIO_HANDLED;
-+}
-+
-+static enum mmio_result plic_handler(void *arg, struct mmio_access *access)
-+{
-+	switch (access->address) {
-+	case REG_RANGE(PLIC_PRIO_BASE, PLIC_PENDING_BASE):
-+		return plic_handle_prio(access);
-+		break;
-+
-+	case REG_RANGE(PLIC_ENABLE_BASE, PLIC_ENABLE_END):
-+		return plic_handle_enable(access);
-+		break;
-+
-+	case REG_RANGE(PLIC_CTX_BASE, PLIC_CTX_END):
-+		if (access->address < plic_size())
-+			return plic_handle_context(access);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+
-+	return MMIO_ERROR;
-+}
-+
-+static int plic_init(void)
-+{
-+	unsigned short irq;
++	unsigned long phys, mask_fwd;
 +	unsigned int cpu;
-+	s16 context;
 +
-+	/*
-+	 * If we check during early initialisation if all enabled IRQs belong
-+	 * to the root cell, then we don't need to check if an IRQ belongs to a
-+	 * cell on arrival.
-+	 */
-+	for_each_cpu(cpu, &root_cell.cpu_set) {
-+		context = hart_to_context(cpu);
-+		for (irq = 0; irq < irqchip_max_irq(); irq++) {
-+			if (plic_irq_is_enabled(context, irq) &&
-+			    !irqchip_irq_in_cell(&root_cell, irq)) {
-+				printk("Error: IRQ %u active in root cell\n",
-+				       irq);
-+				return trace_error(-EINVAL);
-+			}
++	mask_fwd = 0;
++	while (mask) {
++		phys = ffsl(mask);
++		mask &= ~(1UL << phys);
++
++		cpu = cpu_by_phys_processor_id(base + phys);
++		if (cpu == this_cpu_id())
++			riscv_guest_inject_ipi();
++		else if (public_per_cpu(cpu)->cell != this_cell())
++			return -EPERM;
++		else {
++			guest_queue_ipi(cpu);
++			mask_fwd |= (1UL << phys);
 +		}
 +	}
 +
++	/* Only forward the IPI, if in mask is anything left */
++	if (mask_fwd)
++		*ret = sbi_send_ipi(mask_fwd, base);
++	else /* Just a single self-IPI */
++		ret->value = ret->error = 0;
++
 +	return 0;
 +}
 +
-+static void plic_disable_irq(unsigned long hart, unsigned int irq)
-+{
-+	s16 ctx = hart_to_context(hart);
-+	if (ctx == -1)
-+		return;
 +
-+	plic_disable_irq_ctx(ctx, irq);
-+}
-+
-+static void plic_adjust_irq_target(struct cell *cell, unsigned int irq)
++static inline int handle_sbi_rfence(struct sbiret *ret, unsigned int fid,
++				    unsigned long mask, unsigned long base,
++				    unsigned long a2, unsigned long a3,
++				    unsigned long a4)
 +{
-+	unsigned long hart;
 +	unsigned int cpu;
++	unsigned long phys;
++	unsigned long _mask;
 +
-+	/* Disable the IRQ on each hart that does not belong to cell */
-+	for (hart = 0; hart < MAX_CPUS; hart++) {
-+		for_each_cpu(cpu, &cell->cpu_set)
-+			if (public_per_cpu(cpu)->phys_id == hart)
-+				goto cont;
++	/*
++	 * We have to remove all unreachable CPUs from the mask. I saw Linux
++	 * sending rfences to CPUs outside its domain.
++	 */
++	_mask = 0;
++	for_each_cpu(cpu, &this_cell()->cpu_set) {
++		phys = public_per_cpu(cpu)->phys_id;
++		if (phys < base)
++			continue;
 +
-+		plic_disable_irq(hart, irq);
-+cont:
++		if (mask & (1UL << (phys - base)))
++			_mask |= 1UL << (phys - base);
 +	}
++
++	*ret = sbi_ecall(SBI_EXT_RFENCE, fid, _mask, base, a2, a3, a4, 0);
++	return 0;
 +}
 +
-+const struct irqchip irqchip_plic = {
-+	.init = plic_init,
-+	.claim_irq = plic_claim_irq,
-+	.adjust_irq_target = plic_adjust_irq_target,
-+	.mmio_handler = plic_handler,
++static int riscv_unpark(struct sbiret *ret, unsigned long hartid,
++			unsigned long start_addr, unsigned long opaque)
++{
++	struct public_per_cpu *pcpu;
++	unsigned int cpu;
++	int err = 0;
++
++	cpu = cpu_by_phys_processor_id(hartid);
++	pcpu = public_per_cpu(cpu);
++	ret->value = 0;
++
++	spin_lock(&pcpu->control_lock);
++	if (pcpu->hsm.state == STARTED || pcpu->hsm.state == START_PENDING) {
++		ret->error = SBI_ERR_ALREADY_AVAILABLE;
++		goto unlock_out;
++	}
++
++	pcpu->hsm.start_addr = start_addr;
++	pcpu->hsm.opaque = opaque;
++	pcpu->hsm.state = START_PENDING;
++	spin_unlock(&pcpu->control_lock);
++
++	arch_send_event(pcpu);
++
++	ret->error = SBI_SUCCESS;
++
++unlock_out:
++	spin_unlock(&pcpu->control_lock);
++	return err;
++}
++
++static inline unsigned long hsm_state(unsigned long hart)
++{
++	return public_per_cpu(cpu_by_phys_processor_id(hart))->hsm.state;
++}
++
++static inline int
++handle_sbi_hsm(struct sbiret *ret, unsigned int fid, unsigned long a0,
++	       unsigned long a1, unsigned long a2)
++{
++	int err = 0;
++
++	switch (fid) {
++		case SBI_EXT_HSM_HART_STOP:
++			riscv_park_cpu();
++			break;
++
++		case SBI_EXT_HSM_HART_START:
++			ret->value = 0;
++			if (!sbi_permitted_hart(a0) ||
++			    a0 == this_cpu_public()->phys_id) {
++				ret->error = SBI_ERR_INVALID_PARAM;
++				break;
++			}
++
++			err = riscv_unpark(ret, a0, a1, a2);
++			break;
++
++		case SBI_EXT_HSM_HART_STATUS:
++			if (sbi_permitted_hart(a0)) {
++				ret->error = SBI_SUCCESS;
++				ret->value = hsm_state(a0);
++			} else {
++				ret->error = SBI_ERR_INVALID_PARAM;
++				ret->value = 0;
++			}
++			break;
++
++		default:
++			printk("Unknown HSM Fid: %u\n", fid);
++			err = -EINVAL;
++			break;
++	}
++
++	return err;
++}
++
++static struct sbiret sbi_probe_ext(unsigned long ext)
++{
++	struct sbiret ret;
++
++	/* Allow access to all extensions but system reset (SRST) */
++	switch (ext) {
++	case SBI_EXT_TIME:
++	case SBI_EXT_SPI:
++	case SBI_EXT_RFENCE:
++	case SBI_EXT_HSM:
++		ret = sbi_ecall(SBI_EXT_BASE, SBI_EXT_BASE_PROBE_EXT, ext,
++				0, 0, 0, 0, 0);
++		break;
++
++	case SBI_EXT_SRST:
++	default:
++		ret.error = SBI_ERR_DENIED;
++		ret.value = 0;
++		break;
++	}
++
++	return ret;
++}
++
++static inline int
++sbi_ext_base(struct sbiret *ret, unsigned long fid, unsigned long a0)
++{
++	int err = 0;
++
++	switch (fid) {
++		case SBI_EXT_BASE_GET_SPEC_VERSION:
++		case SBI_EXT_BASE_GET_IMP_ID:
++		case SBI_EXT_BASE_GET_IMP_VERSION:
++		case SBI_EXT_BASE_GET_MVENDORID:
++		case SBI_EXT_BASE_GET_MARCHID:
++		case SBI_EXT_BASE_GET_MIMPID:
++			*ret = sbi_ecall(SBI_EXT_BASE, fid, a0, 0, 0, 0, 0, 0);
++			break;
++
++		case SBI_EXT_BASE_PROBE_EXT:
++			*ret = sbi_probe_ext(a0);
++			break;
++
++		default:
++			err = -ENOSYS;
++			break;
++	}
++
++	return err;
++}
++
++static int handle_ecall(union registers *regs)
++{
++	/*
++	 * Spec: In the name of compatibility, SBI extension IDs (EIDs) and SBI
++	 * function IDs (FIDs) are encoded as signed 32-bit integers. When
++	 * passed in registers these follow the standard above calling
++	 * convention rules.
++	 */
++	u32 *stats = this_cpu_public()->stats;
++	unsigned int eid, fid;
++	struct sbiret ret;
++	int err = -ENOSYS;
++
++	eid = regs->a7;
++	fid = regs->a6;
++	ret.value = 0;
++
++	switch (eid) {
++		/* Treat putchar like a hypercall. Accounts for a hypercall. */
++		case SBI_EXT_0_1_CONSOLE_PUTCHAR:
++			ret.error = hypercall(JAILHOUSE_HC_DEBUG_CONSOLE_PUTC,
++					      regs->a0, 0);
++			err = 0;
++			break;
++
++		case SBI_EXT_0_1_CONSOLE_GETCHAR:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
++			/*
++			 * I have never seen this one being used in real-world.
++			 * As we would need to think if we allow access (what
++			 * about non-root?), let's simply deny it for the
++			 * moment.
++			 */
++			if (0)
++				ret = sbi_console_getchar_legacy_0_1();
++			else {
++				ret.error = SBI_ERR_DENIED;
++				ret.value = 0;
++			}
++			err = 0;
++			break;
++
++		case SBI_EXT_BASE:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
++			err = sbi_ext_base(&ret, fid, regs->a0);
++			break;
++
++		case SBI_EXT_TIME: /* since SBI v0.2 */
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_TIME]++;
++			err = sbi_ext_time(&ret, fid, regs->a0);
++			break;
++
++		case SBI_EXT_SPI:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_IPI]++;
++			err = handle_sbi_send_ipi(&ret, regs->a0, regs->a1);
++			break;
++
++		case SBI_EXT_RFENCE:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_RFENCE]++;
++			err = handle_sbi_rfence(&ret, fid, regs->a0, regs->a1,
++						regs->a2, regs->a3, regs->a4);
++			break;
++
++		case SBI_EXT_HSM:
++			stats[JAILHOUSE_CPU_STAT_VMEXITS_SBI_OTHER]++;
++			err = handle_sbi_hsm(&ret, fid, regs->a0, regs->a1,
++					     regs->a2);
++			break;
++
++		case JAILHOUSE_EID:
++			ret.error = hypercall(fid, regs->a0, regs->a1);
++			if (fid == JAILHOUSE_HC_DISABLE && !ret.error)
++				riscv_deactivate_vmm(regs, 0, true);
++			err = 0;
++			break;
++
++		default:
++			printk("Unknown SBI call EID: 0x%x FID: 0x%x\n",
++			       eid, fid);
++			return -EINVAL;
++			break;
++	}
++
++	if (err)
++		return err;
++
++	/* If we came from stop, don't propagate error codes */
++	if (eid == SBI_EXT_HSM && fid == SBI_EXT_HSM_HART_STOP)
++		return 0;
++
++	regs->a0 = ret.error;
++	regs->a1 = ret.value;
++	skip_emulated_instruction(regs, 4);
++
++	return 0;
++}
++
++static inline u16 gmem_read16(unsigned long addr)
++{
++	u64 mem;
++
++	/*
++	 * hlvx.hu can potentially fault and throw an exception. But if we end
++	 * up here, we're decoding an instruction that the guest was possible
++	 * to execute. Hence, it must be backed by existing memory, and no
++	 * exception can occur.
++	 */
++	asm volatile(".insn r 0x73, 0x4, 0x32, %0, %1, x3\n" /* hlvx.hu */
++		     : "=r"(mem) : "r"(addr) : "memory");
++
++	return mem;
++}
++
++static inline u64 sext(u32 w)
++{
++	u64 ret;
++	asm volatile("sext.w %0, %0" : "=r"(ret) : "r"(w) :);
++	return ret;
++}
++
++#define COMP_RX_OFF	8
++
++union instruction {
++	struct {
++		u32 type:2;
++		u32 opcode:5;
++		u32 dest:5;
++		u32 width:3;
++		u32 base:5;
++		u32 offset:12;
++	} load __attribute__((packed));
++	struct {
++		u32 type:2;
++		u32 opcode:5;
++		u32 offset40:5;
++		u32 width:3;
++		u32 base:5;
++		u32 src:5;
++		u32 offset115:7;
++	} store __attribute__((packed));
++	struct {
++		u32 type:2;
++		u32 opcode:5;
++		u32 rsvd:25;
++	} generic __attribute__((packed));
++	u32 raw;
++} __attribute__((packed));
++
++union cinstruction {
++	struct {
++		u16 opcode:2;
++		u16 src_dst:3;
++		u16 off1:2;
++		u16 base:3;
++		u16 off2:3;
++		u16 funct3:3;
++	} load_store __attribute__((packed));
++	struct {
++		u16 opcode:2;
++		u16 rsvd:14;
++	} generic __attribute__((packed));
++	u16 raw;
++} __attribute__((packed));
++
++struct riscv_mmio_inst {
++	unsigned char reg;
++	unsigned char width;
++	bool sign_extended;
 +};
++
++static int
++riscv_decode_compressed_instruction(struct riscv_mmio_inst *mmio_inst, u16 inst)
++{
++	union cinstruction i;
++	int err = -ENOSYS;
++
++	i.raw = inst;
++	/* SW */
++	if (i.generic.opcode == 0 && i.load_store.funct3 == 6) {
++		mmio_inst->width = 4;
++		mmio_inst->sign_extended = true;
++		mmio_inst->reg = i.load_store.src_dst + COMP_RX_OFF;
++		err = 0;
++	/* LW */
++	} else if (i.generic.opcode == 0 && i.load_store.funct3 == 2) {
++		mmio_inst->width = 4;
++		mmio_inst->sign_extended = true;
++		mmio_inst->reg = i.load_store.src_dst + COMP_RX_OFF;
++		err = 0;
++	}
++
++	return err;
++}
++
++static int riscv_decode_instruction(struct riscv_mmio_inst *mmio_inst, u32 inst,
++				    bool is_compressed)
++{
++	union instruction i;
++	int err = -ENOSYS;
++
++	if (is_compressed)
++		return riscv_decode_compressed_instruction(mmio_inst, inst);
++
++	i.raw = inst;
++	if (i.generic.type != 0x3)
++		return err;
++
++	/* LB, LH, LW */
++	if (i.generic.opcode == 0x0) {
++		if (i.load.width > 2)
++			return err;
++		mmio_inst->width = 1 << i.load.width;
++		mmio_inst->sign_extended = true;
++		mmio_inst->reg = i.load.dest;
++		err = 0;
++	/* SB, SW, SH */
++	} else if (i.generic.opcode == 0x8) {
++		if (i.store.width > 2)
++			return err;
++		mmio_inst->width = 1 << i.store.width;
++		mmio_inst->sign_extended = true;
++		mmio_inst->reg = i.store.src;
++		err = 0;
++	}
++
++	return err;
++}
++
++static int handle_fault(union registers *regs, bool is_write)
++{
++	struct riscv_mmio_inst mmio_inst;
++	struct mmio_access mmio;
++	enum mmio_result result;
++	bool is_compressed;
++	u32 instruction;
++	size_t *reg;
++	int err;
++
++	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_MMIO]++;
++
++	mmio.is_write = is_write;
++	mmio.address = csr_read(CSR_HTVAL) << 2;
++
++	/*
++	 * Potentially, htval might point to address NULL, while pointing to a
++	 * valid trap value. However, 0 might also indicate that htval is not
++	 * supported by the micro-architecture. Hence, by design, let's say
++	 * that address NULL should (a) not be used or (b) must not cause
++	 * access faults when being used.
++	 *
++	 * Here, we assume that the micro-architecture doesn't support htval,
++	 * if we read back zero on a fault exception.
++	 */
++	if (!mmio.address)
++		return -ENOSYS;
++
++	/* Just ensure that the instruction is 16-bit aligned */
++	if (regs->pc & 0x1)
++		return -EINVAL;
++
++	/* Load remaining lsb two bits from stval */
++	mmio.address |= csr_read(stval) & 0x3;
++
++	/* Load faulting instruction */
++
++	/* check if htinst is available */
++#if 0 /* htinst can hold pseudo-decoded instrs which we don't support yet. */
++	instruction = csr_read(CSR_HTINST);
++#else
++	instruction = 0;
++#endif
++	if (instruction != 0) {
++		is_compressed = (instruction & 0x3) != 0x3;
++	} else { /* if not, load from guest mem */
++		instruction = gmem_read16(regs->pc);
++		if ((instruction & 0x3) == 0x3) {
++			is_compressed = false;
++			instruction |= (u32)gmem_read16(regs->pc + 2) << 16;
++		} else
++			is_compressed = true;
++	}
++
++	err = riscv_decode_instruction(&mmio_inst, instruction, is_compressed);
++	if (err)
++		goto unsup;
++
++	if (mmio.is_write)
++		mmio.value = regs->raw.x[mmio_inst.reg];
++	mmio.size = mmio_inst.width;
++
++	result = mmio_handle_access(&mmio);
++	if (result == MMIO_HANDLED) {
++		if (!mmio.is_write) {
++			reg = &regs->raw.x[mmio_inst.reg];
++			*reg = mmio.value;
++			if (mmio_inst.width < 8) {
++				*reg &= ((1UL << mmio_inst.width * 8) - 1);
++				if (mmio_inst.sign_extended)
++					*reg = sext(*reg);
++			}
++		}
++		skip_emulated_instruction(regs, is_compressed ? 2 : 4);
++		return 0;
++	}
++
++	return -ENOSYS;
++
++unsup:
++	printk("Unsupported instruction: 0x%x\n", instruction);
++	return -ENOSYS;
+ }
+ 
+ void arch_handle_fault(union registers *regs)
+ {
+-	for (;;)
+-		cpu_relax();
++	panic_printk("FATAL: Unhandled S-Mode exception.\n");
++	panic_printk("Hypervisor registers:\n");
++	dump_regs(regs);
++	panic_stop();
++}
++
++void arch_handle_trap(union registers *regs)
++{
++	unsigned long cause;
++	int err = -1;
++
++	this_cpu_public()->stats[JAILHOUSE_CPU_STAT_VMEXITS_TOTAL]++;
++
++	regs->pc = csr_read(sepc);
++	cause = csr_read(scause);
++
++	if (is_irq(cause)) {
++		err = handle_irq(cause & ~CAUSE_IRQ_FLAG);
++		goto out;
++	}
++
++	switch (cause) {
++		case EXC_INST_ACCESS:
++		case EXC_LOAD_ACCESS:
++		case EXC_STORE_ACCESS:
++		case EXC_INST_PAGE_FAULT:
++		case EXC_LOAD_PAGE_FAULT:
++		case EXC_STORE_PAGE_FAULT:
++		case EXC_INST_MISALIGNED:
++		case EXC_LOAD_ACCESS_MISALIGNED:
++		case EXC_AMO_ADDRESS_MISALIGNED:
++			printk("\nFaulting Address: %016lx\n", csr_read(stval));
++			err = -ENOSYS;
++			break;
++
++		case EXC_SUPERVISOR_SYSCALL:
++			err = handle_ecall(regs);
++			break;
++
++		case EXC_BREAKPOINT:
++			printk("BP occured @ PC: %016lx\n", regs->pc);
++			err = -1;
++			break;
++
++		case EXC_LOAD_GUEST_PAGE_FAULT:
++			err = handle_fault(regs, false);
++			break;
++
++		case EXC_STORE_GUEST_PAGE_FAULT:
++			err = handle_fault(regs, true);
++			break;
++
++		case EXC_INST_ILLEGAL:
++		default:
++			err = -1;
++			break;
++	}
++
++out:
++	if (err) {
++		dump_regs(regs);
++		panic_park();
++	}
+ }
 -- 
 2.40.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230519204033.643200-51-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230519204033.643200-52-ralf.ramsauer%40oth-regensburg.de.
