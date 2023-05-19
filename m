@@ -1,30 +1,30 @@
 Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBUF5T6RQMGQEOQRIRDA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E49F70A0C2
+Received: from mail-wm1-x33e.google.com (mail-wm1-x33e.google.com [IPv6:2a00:1450:4864:20::33e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7317C70A0C1
 	for <lists+jailhouse-dev@lfdr.de>; Fri, 19 May 2023 22:40:49 +0200 (CEST)
-Received: by mail-lf1-x140.google.com with SMTP id 2adb3069b0e04-4f3b3108857sf279887e87.1
+Received: by mail-wm1-x33e.google.com with SMTP id 5b1f17b1804b1-3f42867b47dsf21579595e9.2
         for <lists+jailhouse-dev@lfdr.de>; Fri, 19 May 2023 13:40:49 -0700 (PDT)
 ARC-Seal: i=2; a=rsa-sha256; t=1684528849; cv=pass;
         d=google.com; s=arc-20160816;
-        b=sfP/fyVTPaPXKXNHMnxa1ctDUwwiucd6vuwmsBdB0DLTXf/pZsF3w/V212ALxZmA7p
-         XsMBDfzvNsIzcss3mcxEXzCa2pCxCMwpPRCv1kecRV+Ai+IlJa6LhB3b+yaIZ5/4wbdm
-         cQ/uSZhlUOoR9k4zbcHh/S34aqE9g0vQiZAmDICQJmKm2rzjjvc/eAbJHvQNKXyfLGUv
-         /isQPzECwtLRyjFVVbE8/Z/WAHgdWIvJpwauLeBp04QaGreCicMZVs/hHOCl5pbakVDi
-         wpV1d6GQLdhAi9mfv8flVr4jQd+N+cc8YWT1LG+0xcErpPKX5QlceRKk4LzK9qt9Lh9i
-         a9Ng==
+        b=CwOpNygKCSXUzu4OzXEC5A+vrxU0XKZshs7LJoklwEcPROyUioZluz94T0nHP5/NAg
+         VKxT+DQIN/To18IlyZWFb/6Xdg0Z//4QFnTYwFQ0EoKxcmYBTRL8GnXCCuTXcnGOHjEW
+         3DEyXttishPQxqHSOvrBtE5+5EJMgoz7DvAt0jBBzccg9Wbrg1RKlvSTRlKSpKaG8zhU
+         YLdE9wUA5xnXq3cNfHrWk29EJG9tkKQQyt3MPVgI9WU9OAx0SnnXssmsm0nYDP7QFu9I
+         mB7VAndTOaiMg4QeBjbKZ7mXR96RtAzKszOVVscY7I4sqA95lECtu5nRqE3cII8enSST
+         fMvw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=XScB1xF5HL+qizh0D8Ej/RyEQoy7y8lCPHYtBI5vcVs=;
-        b=XDrVekPRCWIRLdV7FCaodWD36Xa5hwaOkqhUVh5aflUqrBqi3eAtrRsDrSv5/zqtFO
-         9DK+AuAUiLqgc/DSBkOCDUAYHHcUevmknLADcLT9Ins0SLSxkstWRstGgyebYNHpQ8aB
-         SwuSbUzav5a/6D0xdlW3bBhPH14Ml8kXGiPAvw3x7OdD1m8t3i2eVGA1f4onsXVCVzQS
-         x0f4sINf2H45BZbtp74yr+WvH+w95zy5slYoMqSAEtQJS8pf12UlKMtlTiSXo0L+mNgX
-         YWxlzrWbOFUOL1nXGFrktYS+SaW9hJx1BZWcxMh34lIx2cMJFCkh5IKmghDgewaRcOmA
-         q6cA==
+        bh=yWg3zR2G7xcW1iKjwXjXTxirAnNiA9bcXQTtimeMus0=;
+        b=bwm2drCofL5XuaLXMue1Y6TSM8x/vEc7seP+hyCXSBDwQtikBF6DsGVjRrgR9a3xUt
+         L0DoaQrZNgk5DVXtlC6BLNNwSjKKFp4u21wYGMPC+KL7L6+xRG8aFO7VhrE+Ohy8604R
+         yltSckwIVu2nKKXV3lyBrz4DHs6hLkTHtEjFLnUxMTLpt4BDxcyUNbbp7S7Acr7GcxtF
+         O7+jYzV0JfgWU2L0wPe3di9QvpBpPA80WCCSxpv4fPesISSuENxk4zZgiioT5MQogo9c
+         vk2JLImSgtlqfCcOkwGX4YRr270pRzkDVdPSVDh3hxSnJ5ARM0yvzQ5h8G6dPdaHrzc+
+         1WPw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
@@ -35,13 +35,13 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=XScB1xF5HL+qizh0D8Ej/RyEQoy7y8lCPHYtBI5vcVs=;
-        b=jVjOP2PjkIOz59iDY72en27ogeUqgQbQLvUCvIr6uL9Q3SvHoPEql+L0qj7BkyjP6X
-         EQU3jPvTG5d8BF6dTiuBbtnZEqjRaDuv3gpfMYaXy/bNlD2mC771DFXSII4GKqObYM79
-         NJYrEypMIaNKcg2k7RrrONQ8MACj3uWnkSb5Kala56WvNz39w4oSXkOVIScF+Xcf3MRA
-         u1cGmQNVphco1XBpLmnFf9gdjwapkltSI/A0R3m1RVjgdMlUiH68CiTlkxOsOi4/XQGK
-         e5BL0l68gDXU5/boO090T5xhtWoP0/m0l2meLZojtKihw7zORx/7+wKpOs92+kUrcJET
-         6dtw==
+        bh=yWg3zR2G7xcW1iKjwXjXTxirAnNiA9bcXQTtimeMus0=;
+        b=s7XAsxDpnNDeRkabpno2V7i8gkO3VwEsKVix7ZOAjeXhHPubstcuUjXmlgLVjXB6ch
+         jDooQeH9qDA64PR9cVKbO2gRpL3C3kX45j0letJA3485DemtiDoUR3rSfqpiG9akxXAe
+         5JuuTIh668LlMLihMcRJlrxnXkzMxN/dTUvJoXuvINJkvJhvPfBAC/WmQQqaILGFjims
+         jHd/Nbvwuh2dLx8xBm0/iRGzcr6y5Bo3YTAeFsc9/wouX8KzJOVtIwdX0/vHkHBh79YM
+         J0zj1l/xJP72l+cSBulN5hfO1Xwct11E4F70OCUUXVQiSQuy6bLCXBod7V7Y1m7nP5hf
+         kjFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20221208; t=1684528849; x=1687120849;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
@@ -50,53 +50,54 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XScB1xF5HL+qizh0D8Ej/RyEQoy7y8lCPHYtBI5vcVs=;
-        b=GAW7HEta2+3VpbKqIOxys6kWRoRtZNLC4hPo90F7CZLBRJl2cBLaYY/vOEmrCCza1s
-         q+qf+Qxcqk8DIpMvrskAVEV1kQB3BFZG7CNTxdNgQxXYylw2EbpsS5d0nOfMkbzV5Gn+
-         wS1CBbYt2l4tIJMDD/M+RlPKRoQBPsltJoUla2VzYIamd4Elyb8JKgduB12CSKsIEtGj
-         jNcpc4jLiUSYG85lUKwkskIcY88KsNAtc5L+07/Wo7MAAI7LDZ5bdzKGW8+JmRgwc7/q
-         /6cmM4JgBIs/DDY+rHecJsIItuEY6N4DqDfoafafxMt4KHbqGwp8lSXucWLXvU1+Cnzz
-         Mwkw==
+        bh=yWg3zR2G7xcW1iKjwXjXTxirAnNiA9bcXQTtimeMus0=;
+        b=ORSCQ6bqrfSPd7u//4BcKtxcbNf5rK+MEVoMkvavAWZ0RSVOyLD9A2o6nhqR+b3z00
+         BgZDS2HPmRtFGJCLQ87cDWicS8F7xSjiUesgOC7nLAB/gGbbDMxexCqhwBawmsUJPbz/
+         5Ptxp1xJWbaH+pdOiXTthGjG1/E+GIe+s6Z55HAPNE3E45erZWd7T8Q2Qcnxwp+VoGnl
+         Gpf4cpMm4gydl9sVMcfZEmCdF1ZT0kY0p7lq/lFOstQINVzLgR71xvXlVbJOGlL15SwD
+         hnbFq16Vv21H4QiwDBrE9GJlkKbQ1Vm78LB4AVxclk1jqBHqaQCk0Uth3Zz3FYM2PgrG
+         3SRg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDyErOmulyB1RSPkWSyA+LoANuF+N8doYibRsu0x2xT28KOJhTsC
-	Pr1dSTdvgF2vvsYCM4l2Xws=
-X-Google-Smtp-Source: ACHHUZ6EwNV44nQSAawxT8qYmBd7uTajs4RWx35I3qjWvgliFC1FA3o/TOS6OsHtjJsaPRvTciVZvg==
-X-Received: by 2002:ac2:5545:0:b0:4f3:98f0:9568 with SMTP id l5-20020ac25545000000b004f398f09568mr891260lfk.0.1684528848850;
+X-Gm-Message-State: AC+VfDwUftAE0EMvKc/UPRnpT0UdDMon2BGw4LR5g8fNNx2k82U18r6P
+	m+/Uohb7RkwiO05IS8spEMY=
+X-Google-Smtp-Source: ACHHUZ6Bf98XjTQU4ZukiUprbzMLb98GLZqxz8yN/qPqNSSsECiFFpF4hN55wCR7SA2a0tHOJXoBTQ==
+X-Received: by 2002:a1c:c913:0:b0:3f4:ec32:69fa with SMTP id f19-20020a1cc913000000b003f4ec3269famr541253wmb.0.1684528848789;
         Fri, 19 May 2023 13:40:48 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac2:5bca:0:b0:4ec:b233:723c with SMTP id u10-20020ac25bca000000b004ecb233723cls1542788lfn.1.-pod-prod-09-eu;
- Fri, 19 May 2023 13:40:47 -0700 (PDT)
-X-Received: by 2002:a05:6512:408:b0:4ec:9e63:6144 with SMTP id u8-20020a056512040800b004ec9e636144mr1222278lfk.42.1684528846989;
-        Fri, 19 May 2023 13:40:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1684528846; cv=none;
+Received: by 2002:a05:600c:4e14:b0:3f4:2d86:4789 with SMTP id
+ b20-20020a05600c4e1400b003f42d864789ls1430247wmq.1.-pod-prod-04-eu; Fri, 19
+ May 2023 13:40:47 -0700 (PDT)
+X-Received: by 2002:a05:600c:2286:b0:3f4:220a:bbf8 with SMTP id 6-20020a05600c228600b003f4220abbf8mr2217202wmf.34.1684528847064;
+        Fri, 19 May 2023 13:40:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1684528847; cv=none;
         d=google.com; s=arc-20160816;
-        b=aicFTCbU7uWaikw7ry2wcBdLMOHq/U43yk4Uwugtz/IChdmg12RO7Is9hDcFzJoBDK
-         3vJkvFJYYPgb8R3SITYNuNUbTvMlJRLSCFHh5Mv4outBUB0m8kB5113B2CtaisEp07wE
-         5dzSF0la6TbgMP9UeRFaOR9eCzNd51EOTqot+Kk7Cxc/4eccCq4z3IeWdEwL6Wh6EKoL
-         4b/gXz1MM2o8T39fwB5VAH5tk71+y8CLhnvYHE/wsBomkphGPXQVehXLe1dz8b9OPnz7
-         GSqzNS6qkzLPMAoazyxWxCny4cTSANRgCAxK4JmvsmFt0Mccr/wxxhWEAsqVbDzP80kJ
-         J0eQ==
+        b=P0U6XW0W10HPcb7aYr+C42ze5MRhsWUSRNyPWNhXm2vLDxsTLJFD2+trFG+XkIOeIz
+         dvcCSeFz6vDI0BjPXjFeAjoldxH57Smf629NPgzym9x9ODKka1caoTrHLF+Cy1ZVJOxU
+         P8O8TcWeqnyJEuONeUJOuXHIcO81LcMcH6MogLlJxKi4zzmF3IrWPDpUzqpmFQ7g7Twb
+         uA4hHg7kRbLunjMvGuPSglrvG9lVt+xA4pf7ipIVqVKEGEIruRi4kabrLiyG2fPcVa0U
+         ZD9X8B6WiagpR78mUzhb68XvPzT04pKwURjGPfP/H00doCbcb82gCwGZyxwLzTXNIIA7
+         ro4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from;
-        bh=+1niXHwbIkcFfkJi7cFjlb9xvXPkUyJqMYI5JluHlsY=;
-        b=JrjrFgBF9v24H+uzISR5syMKu03+rPtMG7M6kVy2cVn1ObahaKY7T3WaxKBbE4IPAo
-         Isk8u/JwttgfExshWCOG8iVjbj0t9+SCFKexnhqqr9J6KC7z8mSgkRuSRGFt+TZYafhl
-         RuVovK7Ya5x5L49NEJzXNjHu/zO4/tLsIjTj6x3kuFODbLrvUhprAiKQcAY5NpDOmnYO
-         1YdNE8qf21gAjG+unD0LqDn7qTD0W7mEjEr23jtWNV4IFkk7n5KScTnU3H85tKuHwJHj
-         5YBvbJv6+gdewwx05/QrobWAjst8K7Q3H2TvR86eXjG4nzxLB+spb8JY6Xyw8Di/vNe1
-         j6HA==
+        bh=WBLhuQrrXN6pv4RQvLFuGS0Min7OM9G4vYhuPS7LFoY=;
+        b=VkD4BHXt8hjgIQMRkERBJR5bCkrWPjbpjdmKApPmw6xzYDsL/cOymPCh6VEwYZhpGo
+         t9tRxgfwQhoLSV+03E3wWdkEHKsAX/SDO/eEu/BLWuYJ93kkce0w5yAkZ54R83q2JqWv
+         QnZk4i2QbhoGWA5KTs3vPjLjssPm7AeZ+6ZhjePma5akh/81pPXDMREhO7Z/1s0CLJo4
+         kzSQzeh1d7h9WZ/NOi6rxPjN+4Z63Ti4zhgD6gj4LNnUAsvycjblJ/3o6KxzGek0nMGc
+         F1TjL/Q7kuu2FSdLfvBapGTzviYlTxzNiZOFNsWd2IHpwicr1D9gXBKq+Bx5xmWfi9kC
+         Sl7Q==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Received: from mtaout.hs-regensburg.de (mtaout.hs-regensburg.de. [194.95.104.10])
-        by gmr-mx.google.com with ESMTPS id u19-20020a05651c141300b002a77f4969bdsi332547lje.5.2023.05.19.13.40.46
+        by gmr-mx.google.com with ESMTPS id p31-20020a05600c1d9f00b003f16ecd5e6esi612874wms.4.2023.05.19.13.40.47
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 May 2023 13:40:46 -0700 (PDT)
+        Fri, 19 May 2023 13:40:47 -0700 (PDT)
 Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.104.10 as permitted sender) client-ip=194.95.104.10;
 Received: from fiasco.hs-regensburg.de (im-srv-005.hs-regensburg.de [194.95.108.59])
-	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4QNJdV1PZnzxpl;
+	by mtaout.hs-regensburg.de (Postfix) with ESMTP id 4QNJdV3Y2bzxpn;
 	Fri, 19 May 2023 22:40:46 +0200 (CEST)
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 To: jailhouse-dev@googlegroups.com
@@ -104,16 +105,16 @@ Cc: Jan Kiszka <jan.kiszka@siemens.com>,
 	Konrad Schwarz <konrad.schwarz@siemens.com>,
 	Stefan Huber <stefan.huber@oth-regensburg.de>,
 	Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-Subject: [PATCH v3 15/73] tools: Convert to new CPU configuration format
-Date: Fri, 19 May 2023 22:39:35 +0200
-Message-Id: <20230519204033.643200-16-ralf.ramsauer@oth-regensburg.de>
+Subject: [PATCH v3 16/73] configs: x86: Convert to new CPU configuration format
+Date: Fri, 19 May 2023 22:39:36 +0200
+Message-Id: <20230519204033.643200-17-ralf.ramsauer@oth-regensburg.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230519204033.643200-1-ralf.ramsauer@oth-regensburg.de>
 References: <20230519204033.643200-1-ralf.ramsauer@oth-regensburg.de>
 MIME-Version: 1.0
 X-PMX-Version: 6.4.8.2820816, Antispam-Engine: 2.7.2.2107409, Antispam-Data: 2023.5.19.203017, AntiVirus-Engine: 6.0.0, AntiVirus-Data: 2023.5.19.600001
 X-PMX-Spam: Gauge=IIIIIIII, Probability=8%, Report='
- MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_CURRENCY 0, __FRAUD_MONEY_CURRENCY_DOLLAR 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __STOCK_PHRASE_7 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
+ MULTIPLE_RCPTS 0.1, HTML_00_01 0.05, HTML_00_10 0.05, BODY_SIZE_10000_PLUS 0, CTE_8BIT 0, IN_REP_TO 0, LEGITIMATE_SIGNS 0, MULTIPLE_REAL_RCPTS 0, NO_CTA_URI_FOUND 0, NO_FUR_HEADER 0, NO_URI_HTTPS 0, REFERENCES 0, SENDER_NO_AUTH 0, SUSP_DH_NEG 0, __ANY_URI 0, __BODY_NO_MAILTO 0, __CC_NAME 0, __CC_NAME_DIFF_FROM_ACC 0, __CC_REAL_NAMES 0, __CTE 0, __FRAUD_MONEY_BIG_COIN 0, __FRAUD_MONEY_BIG_COIN_DIG 0, __FROM_DOMAIN_IN_ANY_CC1 0, __FROM_DOMAIN_IN_RCPT 0, __HAS_CC_HDR 0, __HAS_FROM 0, __HAS_MSGID 0, __HAS_REFERENCES 0, __HAS_X_MAILER 0, __IN_REP_TO 0, __MIME_TEXT_ONLY 0, __MIME_TEXT_P 0, __MIME_TEXT_P1 0, __MIME_VERSION 0, __MULTIPLE_RCPTS_CC_X2 0, __NO_HTML_TAG_RAW 0, __REFERENCES 0, __SANE_MSGID 0, __SUBJ_ALPHA_END 0, __SUBJ_STARTS_S_BRACKETS 0, __TO_MALFORMED_2 0, __TO_NO_NAME 0, __URI_MAILTO 0, __URI_NO_WWW 0, __URI_NS '
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
  (google.com: domain of ralf.ramsauer@oth-regensburg.de designates
@@ -134,238 +135,516 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Jan Kiszka <jan.kiszka@siemens.com>
 
-This updates the config and sysfs parser as well as the config generator
-to the new format.
-
-For generating x86 configs, we are parsing /proc/cpuinfo for the initial
-APIC ID and use that - in Linux order - to fill out the config template.
-
 Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
 ---
- pyjailhouse/config_parser.py  | 24 ++++++++++++++----------
- pyjailhouse/sysfs_parser.py   | 20 ++++++++++++++++++--
- tools/jailhouse-config-create | 14 +++-----------
- tools/root-cell-config.c.tmpl | 15 +++++++--------
- 4 files changed, 42 insertions(+), 31 deletions(-)
+ configs/x86/apic-demo.c      | 10 ++++++----
+ configs/x86/e1000-demo.c     | 10 ++++++----
+ configs/x86/f2a88xm-hd3.c    | 19 +++++++++++++++----
+ configs/x86/imb-a180.c       | 19 +++++++++++++++----
+ configs/x86/ioapic-demo.c    | 10 ++++++----
+ configs/x86/ivshmem-demo.c   | 10 ++++++----
+ configs/x86/linux-x86-demo.c | 13 +++++++++----
+ configs/x86/pci-demo.c       | 10 ++++++----
+ configs/x86/qemu-x86.c       | 19 +++++++++++++++----
+ configs/x86/smp-demo.c       | 16 ++++++++++++----
+ configs/x86/tiny-demo.c      | 10 ++++++----
+ 11 files changed, 102 insertions(+), 44 deletions(-)
 
-diff --git a/pyjailhouse/config_parser.py b/pyjailhouse/config_parser.py
-index be0c749e..0fe30de9 100644
---- a/pyjailhouse/config_parser.py
-+++ b/pyjailhouse/config_parser.py
-@@ -1,7 +1,7 @@
- #
- # Jailhouse, a Linux-based partitioning hypervisor
- #
--# Copyright (c) Siemens AG, 2015-2020
-+# Copyright (c) Siemens AG, 2015-2022
- #
- # Authors:
- #  Jan Kiszka <jan.kiszka@siemens.com>
-@@ -19,7 +19,7 @@ import struct
- from .extendedenum import ExtendedEnum
- 
- # Keep the whole file in sync with include/jailhouse/cell-config.h.
--_CONFIG_REVISION = 14
-+_CONFIG_REVISION = 15
- JAILHOUSE_X86 = 0
- JAILHOUSE_ARM = 1
- JAILHOUSE_ARM64 = 2
-@@ -119,6 +119,14 @@ class MemRegion:
-             self.virt_address_in_region(region.virt_start)
- 
- 
-+class Cpu:
-+    _CPU_FORMAT = 'QI4x'
-+    SIZE = struct.calcsize(_CPU_FORMAT)
-+
-+    def __init__(self, cpu_struct):
-+        self.phys_id = struct.unpack_from(self._CPU_FORMAT, cpu_struct)
-+
-+
- class CacheRegion:
-     _REGION_FORMAT = 'IIBxH'
-     SIZE = struct.calcsize(_REGION_FORMAT)
-@@ -161,7 +169,7 @@ class CellConfig:
-              revision,
-              name,
-              self.flags,
--             self.cpu_set_size,
-+             self.num_cpus,
-              self.num_memory_regions,
-              self.num_cache_regions,
-              self.num_irqchips,
-@@ -181,15 +189,11 @@ class CellConfig:
-             self.arch = convert_arch(self.arch)
- 
-             cpu_set_offs = struct.calcsize(CellConfig._HEADER_FORMAT)
--            mask_array = struct.unpack_from('%dB' % self.cpu_set_size,
--                                            self.data[cpu_set_offs:])
-             self.cpus = set()
--            for n in range(self.cpu_set_size):
--                for bit in range(8):
--                    if mask_array[n] & (1 << bit) != 0:
--                        self.cpus.add(n * 8 + bit)
-+            for n in range(self.num_cpus):
-+                self.cpus.add(Cpu(self.data[cpu_set_offs:]).phys_id)
- 
--            mem_region_offs = cpu_set_offs + self.cpu_set_size
-+            mem_region_offs = cpu_set_offs + self.num_cpus * Cpu.SIZE
-             self.memory_regions = []
-             for n in range(self.num_memory_regions):
-                 self.memory_regions.append(
-diff --git a/pyjailhouse/sysfs_parser.py b/pyjailhouse/sysfs_parser.py
-index 35c59744..540f0248 100644
---- a/pyjailhouse/sysfs_parser.py
-+++ b/pyjailhouse/sysfs_parser.py
-@@ -1,7 +1,7 @@
- #
- # Jailhouse, a Linux-based partitioning hypervisor
- #
--# Copyright (c) Siemens AG, 2014-2017
-+# Copyright (c) Siemens AG, 2014-2022
- # Copyright (c) Valentine Sinitsyn, 2014-2015
- #
- # Authors:
-@@ -48,7 +48,6 @@ inputs['files'].add('/proc/cmdline')
- inputs['files'].add('/proc/ioports')
- inputs['files'].add('/sys/bus/pci/devices/*/config')
- inputs['files'].add('/sys/bus/pci/devices/*/resource')
--inputs['files'].add('/sys/devices/system/cpu/cpu*/uevent')
- inputs['files'].add('/sys/firmware/acpi/tables/APIC')
- inputs['files'].add('/sys/firmware/acpi/tables/MCFG')
- # optional files
-@@ -636,6 +635,18 @@ def parse_ivrs(pcidevices, ioapics):
-         return units, regions
- 
- 
-+def parse_cpus():
-+    cpus = []
-+    with input_open('/proc/cpuinfo') as f:
-+        for line in f:
-+            if not line.strip():
-+                continue
-+            key, value = line.split(':')
-+            if key.strip() == 'initial apicid':
-+                cpus.append(CPU(int(value)))
-+    return cpus
-+
-+
- def get_cpu_vendor():
-     with open(root_dir + '/proc/cpuinfo') as f:
-         for line in f:
-@@ -647,6 +658,11 @@ def get_cpu_vendor():
-     raise RuntimeError('Broken %s/proc/cpuinfo' % root_dir)
- 
- 
-+class CPU:
-+    def __init__(self, phys_id):
-+        self.phys_id = phys_id
-+
-+
- class PCIBARs:
-     IORESOURCE_IO = 0x00000100
-     IORESOURCE_MEM = 0x00000200
-diff --git a/tools/jailhouse-config-create b/tools/jailhouse-config-create
-index c2cd5952..bf2589bd 100755
---- a/tools/jailhouse-config-create
-+++ b/tools/jailhouse-config-create
-@@ -2,7 +2,7 @@
- #
- # Jailhouse, a Linux-based partitioning hypervisor
- #
--# Copyright (c) Siemens AG, 2014-2017
-+# Copyright (c) Siemens AG, 2014-2022
- # Copyright (c) Valentine Sinitsyn, 2014-2015
- #
- # Authors:
-@@ -153,14 +153,6 @@ def alloc_mem(regions, size):
-     raise RuntimeError('failed to allocate memory')
- 
- 
--def count_cpus():
--    list = sysfs_parser.input_listdir('/sys/devices/system/cpu', ['cpu*/uevent'])
--    count = 0
--    for f in list:
--        if re.match(r'cpu[0-9]+', f):
--            count += 1
--    return count
--
- class MMConfig:
-     def __init__(self, base, end_bus):
-         self.base = base
-@@ -252,10 +244,10 @@ product = [
-     input_readline('/sys/class/dmi/id/sys_vendor', True).rstrip(),
-     input_readline('/sys/class/dmi/id/product_name', True).rstrip(),
- ]
--cpu_count = count_cpus()
- mmconfig = MMConfig.parse()
- 
- # Query devices
-+cpus = sysfs_parser.parse_cpus()
- pci_devices = sysfs_parser.parse_pcidevices()
- (mem_regions, dmar_regions) = sysfs_parser.parse_iomem(pci_devices)
- (port_regions, pm_timer_base) = sysfs_parser.parse_ioports()
-@@ -312,6 +304,7 @@ mem_regions.append(sysfs_parser.MemRegion(ourmem[0] + hvmem[1],
-                                           'JAILHOUSE Inmate Memory'))
- 
- kwargs = {
-+    'cpus': cpus,
-     'mem_regions': mem_regions,
-     'port_regions': port_regions,
-     'ourmem': ourmem,
-@@ -320,7 +313,6 @@ kwargs = {
-     'product': product,
-     'pcidevices': pci_devices,
-     'pcicaps': pci_caps,
--    'cpucount': cpu_count,
-     'irqchips': ioapics,
-     'pm_timer_base': pm_timer_base,
-     'vtd_interrupt_limit': vtd_interrupt_limit,
-diff --git a/tools/root-cell-config.c.tmpl b/tools/root-cell-config.c.tmpl
-index c28fcfa4..8f133757 100644
---- a/tools/root-cell-config.c.tmpl
-+++ b/tools/root-cell-config.c.tmpl
-@@ -1,7 +1,7 @@
- /*
-  * Jailhouse, a Linux-based partitioning hypervisor
+diff --git a/configs/x86/apic-demo.c b/configs/x86/apic-demo.c
+index c62befee..9609d6f1 100644
+--- a/configs/x86/apic-demo.c
++++ b/configs/x86/apic-demo.c
+@@ -3,7 +3,7 @@
   *
-- * Copyright (c) Siemens AG, 2014-2017
+  * Minimal configuration for demo inmates, 1 CPU, 1 MB RAM, 1 serial port
+  *
+- * Copyright (c) Siemens AG, 2013
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -17,7 +17,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[2];
+ 	struct jailhouse_cache cache_regions[1];
+ 	struct jailhouse_pio pio_regions[3];
+@@ -29,7 +29,7 @@ struct {
+ 		.name = "apic-demo",
+ 		.flags = JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+ 		.num_irqchips = 0,
+@@ -44,7 +44,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x8,
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/e1000-demo.c b/configs/x86/e1000-demo.c
+index 58868c0c..05b59663 100644
+--- a/configs/x86/e1000-demo.c
++++ b/configs/x86/e1000-demo.c
+@@ -4,7 +4,7 @@
+  * Minimal configuration for PCI demo inmate:
+  * 1 CPU, 1 MB RAM, 1 serial port, 1 Intel HDA PCI device
+  *
+- * Copyright (c) Siemens AG, 2014
 + * Copyright (c) Siemens AG, 2014-2022
   *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -18,7 +18,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[3];
+ 	struct jailhouse_pio pio_regions[4];
+ 	struct jailhouse_pci_device pci_devices[1];
+@@ -32,7 +32,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_irqchips = 0,
+ 		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -47,7 +47,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x4,
++		{
++			.phys_id = 2,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/f2a88xm-hd3.c b/configs/x86/f2a88xm-hd3.c
+index 85f201d2..1517b152 100644
+--- a/configs/x86/f2a88xm-hd3.c
++++ b/configs/x86/f2a88xm-hd3.c
+@@ -4,7 +4,7 @@
+  * Configuration for Gigabyte Technology Co., Ltd. GA-F2A88XM-HD3 Rev. 3.0
+  * board with AMD A10-7800 APU and 1G RAM.
+  *
+- * Copyright (c) Siemens AG, 2014
++ * Copyright (c) Siemens AG, 2014-2022
+  * Copyright (c) Valentine Sinitsyn, 2014
+  *
   * This work is licensed under the terms of the GNU GPL, version 2.  See
-  * the COPYING file in the top-level directory.
-@@ -44,7 +44,7 @@
+@@ -22,7 +22,7 @@
  
  struct {
  	struct jailhouse_system header;
--	__u64 cpus[${int((cpucount + 63) / 64)}];
-+	struct jailhouse_cpu cpus[${len(cpus)}];
- 	struct jailhouse_memory mem_regions[${len(mem_regions)}];
- 	struct jailhouse_irqchip irqchips[${len(irqchips)}];
- 	struct jailhouse_pio pio_regions[${len([1 for r in port_regions if r.permit])}];
-@@ -107,7 +107,7 @@ struct {
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[4];
+ 	struct jailhouse_memory mem_regions[35];
+ 	struct jailhouse_irqchip irqchips[2];
+ 	struct jailhouse_pio pio_regions[8];
+@@ -64,7 +64,7 @@ struct {
  		},
  		.root_cell = {
- 			.name = "RootCell",
+ 			.name = "F2A88XM-HD3",
 -			.cpu_set_size = sizeof(config.cpus),
 +			.num_cpus = ARRAY_SIZE(config.cpus),
  			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
  			.num_irqchips = ARRAY_SIZE(config.irqchips),
  			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
-@@ -117,12 +117,11 @@ struct {
+@@ -74,7 +74,18 @@ struct {
  	},
  
  	.cpus = {
--		% for n in range(int(cpucount / 64)):
--		0xffffffffffffffff,
-+		% for c in cpus:
+-		0x000000000000000f,
 +		{
-+			.phys_id = ${c.phys_id},
++			.phys_id = 0,
 +		},
- 		% endfor
--		% if (cpucount % 64):
--		${'0x%016x,' % ((1 << (cpucount % 64)) - 1)}
--		% endif
++		{
++			.phys_id = 1,
++		},
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/imb-a180.c b/configs/x86/imb-a180.c
+index 02cc0fbe..eac0b91b 100644
+--- a/configs/x86/imb-a180.c
++++ b/configs/x86/imb-a180.c
+@@ -4,7 +4,7 @@
+  * Configuration for ASRock IMB-A180 G-Series (4G RAM) board
+  * created with 'jailhouse config create imb-a180.c'
+  *
+- * Copyright (c) Siemens AG, 2014
++ * Copyright (c) Siemens AG, 2014-2022
+  * Copyright (c) Valentine Sinitsyn, 2014
+  *
+  * This work is licensed under the terms of the GNU GPL, version 2.  See
+@@ -21,7 +21,7 @@
+ 
+ struct {
+ 	struct jailhouse_system header;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[4];
+ 	struct jailhouse_memory mem_regions[42];
+ 	struct jailhouse_irqchip irqchips[1];
+ 	struct jailhouse_pio pio_regions[8];
+@@ -52,7 +52,7 @@ struct {
+ 		},
+ 		.root_cell = {
+ 			.name = "IMB-A180",
+-			.cpu_set_size = sizeof(config.cpus),
++			.num_cpus = ARRAY_SIZE(config.cpus),
+ 			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 			.num_irqchips = ARRAY_SIZE(config.irqchips),
+ 			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -62,7 +62,18 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x000000000000000f,
++		{
++			.phys_id = 0,
++		},
++		{
++			.phys_id = 1,
++		},
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/ioapic-demo.c b/configs/x86/ioapic-demo.c
+index a224036b..3edf3af5 100644
+--- a/configs/x86/ioapic-demo.c
++++ b/configs/x86/ioapic-demo.c
+@@ -4,7 +4,7 @@
+  * Minimal configuration for IOAPIC demo inmate:
+  * 1 CPU, 1 MB RAM, serial ports, 1 ACPI IRQ pin
+  *
+- * Copyright (c) Siemens AG, 2014
++ * Copyright (c) Siemens AG, 2014-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -18,7 +18,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[2];
+ 	struct jailhouse_irqchip irqchips[1];
+ 	struct jailhouse_pio pio_regions[5];
+@@ -31,7 +31,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_irqchips = ARRAY_SIZE(config.irqchips),
+ 		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -45,7 +45,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x4,
++		{
++			.phys_id = 2,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/ivshmem-demo.c b/configs/x86/ivshmem-demo.c
+index 8738c70a..3ca32b66 100644
+--- a/configs/x86/ivshmem-demo.c
++++ b/configs/x86/ivshmem-demo.c
+@@ -4,7 +4,7 @@
+  * Minimal configuration for ivshmem inmate demo:
+  * 1 CPU, 1MB RAM, serial ports, 4K shmem
+  *
+- * Copyright (c) Siemens AG, 2013, 2014
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Henning Schild <henning.schild@siemens.com>
+@@ -18,7 +18,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[7];
+ 	struct jailhouse_pio pio_regions[2];
+ 	struct jailhouse_pci_device pci_devices[1];
+@@ -32,7 +32,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_irqchips = 0,
+ 		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -47,7 +47,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0b0010,
++		{
++			.phys_id = 1,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/linux-x86-demo.c b/configs/x86/linux-x86-demo.c
+index b24a1d16..31a713ed 100644
+--- a/configs/x86/linux-x86-demo.c
++++ b/configs/x86/linux-x86-demo.c
+@@ -3,7 +3,7 @@
+  *
+  * Configuration for Linux inmate, 1 CPU, 74 MB RAM, ~1MB shmem, serial ports
+  *
+- * Copyright (c) Siemens AG, 2013-2015
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -17,7 +17,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[2];
+ #ifdef CONFIG_QEMU_E1000E_ASSIGNMENT
+ 	struct jailhouse_memory mem_regions[24];
+ #else
+@@ -41,7 +41,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			 JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+ 		.num_irqchips = ARRAY_SIZE(config.irqchips),
+@@ -51,7 +51,12 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0b1100,
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/pci-demo.c b/configs/x86/pci-demo.c
+index 137fd2e9..775fe9a1 100644
+--- a/configs/x86/pci-demo.c
++++ b/configs/x86/pci-demo.c
+@@ -4,7 +4,7 @@
+  * Minimal configuration for PCI demo inmate:
+  * 1 CPU, 1 MB RAM, serial ports, 1 Intel HDA PCI device
+  *
+- * Copyright (c) Siemens AG, 2014
++ * Copyright (c) Siemens AG, 2014-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -18,7 +18,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[3];
+ 	struct jailhouse_pio pio_regions[3];
+ 	struct jailhouse_pci_device pci_devices[1];
+@@ -32,7 +32,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_irqchips = 0,
+ 		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -47,7 +47,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x4,
++		{
++			.phys_id = 2,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/qemu-x86.c b/configs/x86/qemu-x86.c
+index cdd3dd6d..369e0b8b 100644
+--- a/configs/x86/qemu-x86.c
++++ b/configs/x86/qemu-x86.c
+@@ -4,7 +4,7 @@
+  * Test configuration for QEMU Q35 VM, 1 GB RAM, 4 cores,
+  * 6 MB hypervisor, 74 MB inmates, 1MB shared mem devices
+  *
+- * Copyright (c) Siemens AG, 2013-2016
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -21,7 +21,7 @@
+ 
+ struct {
+ 	struct jailhouse_system header;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[4];
+ 	struct jailhouse_memory mem_regions[31];
+ 	struct jailhouse_irqchip irqchips[1];
+ 	struct jailhouse_pio pio_regions[13];
+@@ -61,7 +61,7 @@ struct {
+ 		.root_cell = {
+ 			.name = "QEMU-VM",
+ 
+-			.cpu_set_size = sizeof(config.cpus),
++			.num_cpus = ARRAY_SIZE(config.cpus),
+ 			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 			.num_irqchips = ARRAY_SIZE(config.irqchips),
+ 			.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -71,7 +71,18 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0xf,
++		{
++			.phys_id = 0,
++		},
++		{
++			.phys_id = 1,
++		},
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/smp-demo.c b/configs/x86/smp-demo.c
+index 98b32bd7..056cc614 100644
+--- a/configs/x86/smp-demo.c
++++ b/configs/x86/smp-demo.c
+@@ -3,7 +3,7 @@
+  *
+  * Minimal configuration for SMP demo inmates, 3 CPUs, 1 MB RAM, serial ports
+  *
+- * Copyright (c) Siemens AG, 2013-2015
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -17,7 +17,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[3];
+ 	struct jailhouse_memory mem_regions[2];
+ 	struct jailhouse_pio pio_regions[3];
+ } __attribute__((packed)) config = {
+@@ -29,7 +29,7 @@ struct {
+ 		.flags = JAILHOUSE_CELL_PASSIVE_COMMREG |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_irqchips = 0,
+ 		.num_pio_regions = ARRAY_SIZE(config.pio_regions),
+@@ -43,7 +43,15 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0xe,
++		{
++			.phys_id = 1,
++		},
++		{
++			.phys_id = 2,
++		},
++		{
++			.phys_id = 3,
++		},
+ 	},
+ 
+ 	.mem_regions = {
+diff --git a/configs/x86/tiny-demo.c b/configs/x86/tiny-demo.c
+index 6d5fbac9..2b50d803 100644
+--- a/configs/x86/tiny-demo.c
++++ b/configs/x86/tiny-demo.c
+@@ -3,7 +3,7 @@
+  *
+  * Minimal configuration for demo inmates, 1 CPU, 1 MB RAM, serial ports
+  *
+- * Copyright (c) Siemens AG, 2013, 2014
++ * Copyright (c) Siemens AG, 2013-2022
+  *
+  * Authors:
+  *  Jan Kiszka <jan.kiszka@siemens.com>
+@@ -17,7 +17,7 @@
+ 
+ struct {
+ 	struct jailhouse_cell_desc cell;
+-	__u64 cpus[1];
++	struct jailhouse_cpu cpus[1];
+ 	struct jailhouse_memory mem_regions[2];
+ 	struct jailhouse_cache cache_regions[1];
+ 	struct jailhouse_pio pio_regions[3];
+@@ -31,7 +31,7 @@ struct {
+ 			JAILHOUSE_CELL_TEST_DEVICE |
+ 			JAILHOUSE_CELL_VIRTUAL_CONSOLE_PERMITTED,
+ 
+-		.cpu_set_size = sizeof(config.cpus),
++		.num_cpus = ARRAY_SIZE(config.cpus),
+ 		.num_memory_regions = ARRAY_SIZE(config.mem_regions),
+ 		.num_cache_regions = ARRAY_SIZE(config.cache_regions),
+ 		.num_irqchips = 0,
+@@ -46,7 +46,9 @@ struct {
+ 	},
+ 
+ 	.cpus = {
+-		0x4,
++		{
++			.phys_id = 2,
++		},
  	},
  
  	.mem_regions = {
@@ -375,4 +654,4 @@ index c28fcfa4..8f133757 100644
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230519204033.643200-16-ralf.ramsauer%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230519204033.643200-17-ralf.ramsauer%40oth-regensburg.de.
