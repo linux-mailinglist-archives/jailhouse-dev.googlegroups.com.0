@@ -1,101 +1,101 @@
-Return-Path: <jailhouse-dev+bncBDGIV3UHVAGBBQV542RQMGQEZSXPRRY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGIV3UHVAGBBQ5542RQMGQEAYKXNCA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43c.google.com (mail-wr1-x43c.google.com [IPv6:2a00:1450:4864:20::43c])
-	by mail.lfdr.de (Postfix) with ESMTPS id B763271FB5A
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Jun 2023 09:48:19 +0200 (CEST)
-Received: by mail-wr1-x43c.google.com with SMTP id ffacd0b85a97d-30c3ad3238bsf814043f8f.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Jun 2023 00:48:19 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1685692099; cv=pass;
+Received: from mail-lf1-x13f.google.com (mail-lf1-x13f.google.com [IPv6:2a00:1450:4864:20::13f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 159C971FB5C
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Jun 2023 09:48:21 +0200 (CEST)
+Received: by mail-lf1-x13f.google.com with SMTP id 2adb3069b0e04-4f4c62e0c9esf1323769e87.3
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Jun 2023 00:48:21 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1685692100; cv=pass;
         d=google.com; s=arc-20160816;
-        b=KvbrSD0o92+54dqFLzc3tb0DdoqRSfWjE4fNdfrqeO977i20fEt3+wvRn8S83TALYb
-         269WzRHag5boL5i9MQ5CDVfk+JaznAhPruiffUjPPflVOSTBIQjSTrOJ7bqu1WCcgQLb
-         p+FxYt4HZCqAT4BDeKpVgOmyBNB/5Mk5mmsXaYk9XCkfcLPHMwJjU2qjXXQt1USIgnTP
-         E1+KTrlqkEF3dKdOtG5rnAUy3IGdWqWEMZ+PFSa5Qcjq9Z8ODgjlOvMrfZBMrIB1HjJE
-         NiV3BewD/y9EG3mMOLdK4Q9Gd6eY8iTg35zahbr/OVktaMelVl8KSuwircTIR+UqFKvq
-         UdEw==
+        b=wdgp7xbBJzEugmBj38jSGN3Itww+ELFHRpHQnohowyypphkA6Ym0/BIEtsL2lxUmwv
+         LoC7fQr7PcdlkFOrntiutTi8CCMIU3VkV6oVgLSkIrx5j6EsPs1N61QT5EaNpsUYGmbz
+         K/C+vtbH7gMXS/nX8AWOKoNyg4zhuHUVuJCxSTWZUUa+EEE8dkVFzAdJCy9/QmzMMG5U
+         u4B83OSefdyBI1PzSYzYa27qzheIac5+umSZeUehMIGOsnV8GkxPToS9G08n3k7nhwtq
+         dV0rk8Ps3pWLrE0scApArao5MqK0ow5Dlw+cdMJ431qU+duuh1+aKwZ1MTTvAl5jebM3
+         w1Lg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=G5SycRfPNV4tSRHxFPpz4NH889fmWrZqTyGjbABrKkU=;
-        b=ymASa4xEdXLA7MF+RxqcR0lt61i1vs72RjGmvKYasw82COYrW+CEvTyz1ZNlA4XCoR
-         Mpx0zDfBPR1tXwuVuTJVcfxRmTGVwH+Z7459FSGOpSDoDjtPsh5hTA/0tRFAf5IfseOI
-         fFlnMUh1NxjjVvd+vTUZRZQrRwRkYeDdVicD4GdogqBJDwy+cMCgyS5F1XJWMwAriXpA
-         MaENT/xBclWrirBAv/c5TQJwg1w5VceVGu9mz3Ud93tTRncsPDIyYX6U6A0lksBz/2IK
-         yIvP88nVUZAfmBIvXDvt1gbXXmfuit6hARxH56MzEKh7WnMj7PQLTMnpA759nQHxqpUJ
-         6TQw==
+        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
+        b=Er2Rp9xf4uCyouO1Ln7w/umKmtIXxij61EUwwqXdGsk6lNBoB6JUHFnNFWIZ0Q0ALs
+         AOyRFhcYApbsEJpCe/MmuYMn+lk25dLpb3goPUk9o5QkNNq6ZUjl7uKWj9uUN7m2Owgo
+         Y8/byXfN9V5FrrAAiiMHYC1KLoBDVoykgMig4Bh16Zm6MM9142j7kJq9N3yvzebz56hC
+         RtHXKPuoNH2OH4BVR0KC8n0EOgflfzxZTJaADQt1saXKPLIij88SYVmzl5r3C9fAE/jl
+         gVucTtQpkm7eLBRM5WRPBvyf6For2hQVygf7Hv8tEIhYPUFnhNcAAg83RRYOnYFU7EYh
+         Evnw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=1CaHudHE;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e;
+       dkim=pass header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;
+       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
        spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1685692099; x=1688284099;
+        d=googlegroups.com; s=20221208; t=1685692100; x=1688284100;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:mime-version:references:in-reply-to:message-id
          :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=G5SycRfPNV4tSRHxFPpz4NH889fmWrZqTyGjbABrKkU=;
-        b=GpKq+urH5TKv342Np1/Pb/U32Wskc0RKsfmP/Em8bYXWRoYY1TACInvop+eFb5BhOy
-         nKulo+KM28y4YxFUzPamhc4pXxp7phXaLBcUrnnEG1UMVin59BWrbiTwJ6asOwuERqcP
-         9N93PFMHnVzy75IYyr+7BoSn5bplADEVx/P7b40D718KKHHaaggY5XFgEyq1STNvELZ/
-         WjufmsuDCc4ch5ZnYUzUru8GkAxZp0JnJGGrbfHRrnVC1GcjZs6qVR/xQIKOdOFOoIf6
-         fHUGZxx1lu27cYyFoPE+exDrNqAEM/ZMVPhOlSrQVnn6yfrOtGSMkmicoqNy4OfF75Ok
-         jSwA==
+        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
+        b=OGLou2hR7V2C5Vh9mA6n4PUz2mEkcpmAplGvp17rlMewOhjuuXhoH2qtIuGdCe/rQW
+         17oDbxwtnIG6G2AxuGckheBnRg44+wEZVsKapVNJfKWJu/i7vpkM/T1/tsI61ZXe30Yp
+         8hHXrx1DNtGgxRdphS+2wBfE/fNXskUxKLSFlEqZWmGVBDgaYVjVUbaXP21GF81nvj8b
+         6pj8QdpZF85JwVnCL6G+35O1danHPeS8dY0KIOW+hyTg6JGjI6E+vLJJhpXrzTIZmPUg
+         EGlbOystg3bUazk3S45dwvD9roriiux4Hktsi/19HO+VseIXH8UAGSGfElbU1JDIlTZk
+         dgYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685692099; x=1688284099;
+        d=1e100.net; s=20221208; t=1685692100; x=1688284100;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:mime-version
          :references:in-reply-to:message-id:date:subject:cc:to:from
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G5SycRfPNV4tSRHxFPpz4NH889fmWrZqTyGjbABrKkU=;
-        b=ab5P7RiZmqlT1Dr1R4sjiDRL2Ud1rr3ynAW/YC8YNQ6pfM1ZXjK3PtoVAzutFf1Tud
-         qsjS3ZrYTOw+qLxshebhjBhK/8aP9RlryO0W/KCu2IWn/rlAWfr//9DLVTlLjOTcD7Ec
-         +KE9XYmchjStQ6Ow6u5NVLhKuJZMUQmS6BKGH6xVBWgMnQc0YfEzZFLuOttWWymry6lO
-         RZoPKjuUyhm2v8b93XgEBOLdFwthqUWQRz+b1b033qFWJ8mWVjkvR3Ycw6m7pnL+JPDt
-         oVngeoheSlkDxHYUQiEaqPNs8JQzTDvzOJm5dXXYxU4gbCxaY774USMwj4dih+wuFb64
-         HmgA==
+        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
+        b=K/vulTvz+rHgZabVRPw5gtBfC8cTFELp5HFSTc8HEy4gIELWuhsgHk+ufvE0jdfXfz
+         ZjfoJDdy6OqAyq82z2j9TJwrv8VWJQ2hPiQfppr5oh59et7G6J1SLRoPVGfxphrbovCZ
+         qMhlM6dhTmAbnRPd3EyoVJEULx/gqpzTOPjsjHNoz2vBk7NJmdX6JHpofHeXWARmDG3C
+         QJdhFKzf7tkmVf0GnM52IUKqYEtRJABEQBKfUTw/CQSTmOUzToaKmdpfAZ+zK7xzmU7b
+         4ka6z7WcGBczyAkCpRWPe+S4ok7Q7udj0dLTtTB7oxNgx4GIo2O5ptHHCoOIoxINtGV+
+         Fe8g==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDyHcWKDtAua+b6oSR70bZkDwR8dylK+nS9wmnHKJEKEMnCCOcVk
-	f9aq5LaJ7NSwHWgcqIy/pL0=
-X-Google-Smtp-Source: ACHHUZ7PZXCqVSXeV/rbsdrBiUuvRodb+OU4PW9Ij96XWhpPuyJH87z+ECTgNQvc9frj1fWDRnl93w==
-X-Received: by 2002:a5d:6702:0:b0:306:46c4:d313 with SMTP id o2-20020a5d6702000000b0030646c4d313mr3273333wru.28.1685692098956;
-        Fri, 02 Jun 2023 00:48:18 -0700 (PDT)
+X-Gm-Message-State: AC+VfDxp/pX/6ghTmlebgnj9B7faI0sMicKrnKh2n1s3qIL52Qsojq07
+	I3yAciUopbwK3b9h550SFIw=
+X-Google-Smtp-Source: ACHHUZ4R46552xnZq00fiF0w3nwBm6BNqM5vVSK5szy5WNa73t7wp6beGUUusQkmrTADyuJsWXAHIw==
+X-Received: by 2002:ac2:4465:0:b0:4ec:8615:303e with SMTP id y5-20020ac24465000000b004ec8615303emr1505366lfl.33.1685692099606;
+        Fri, 02 Jun 2023 00:48:19 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6000:5c1:b0:30b:3044:3bcd with SMTP id
- bh1-20020a05600005c100b0030b30443bcdls20353wrb.1.-pod-prod-03-eu; Fri, 02 Jun
- 2023 00:48:17 -0700 (PDT)
-X-Received: by 2002:a5d:6950:0:b0:309:4e64:7a28 with SMTP id r16-20020a5d6950000000b003094e647a28mr3713732wrw.49.1685692097315;
+Received: by 2002:a05:6512:3288:b0:4f2:71a1:53f1 with SMTP id
+ p8-20020a056512328800b004f271a153f1ls23938lfe.0.-pod-prod-01-eu; Fri, 02 Jun
+ 2023 00:48:18 -0700 (PDT)
+X-Received: by 2002:ac2:59cf:0:b0:4f3:7b3c:2e16 with SMTP id x15-20020ac259cf000000b004f37b3c2e16mr1206375lfn.39.1685692097907;
         Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1685692097; cv=none;
         d=google.com; s=arc-20160816;
-        b=a8e+/faHmCUHfKFC509NYzLGPEp89gd4B8zr6qFP+3a/BpnLYI1vSZ2y3TzEYLsE23
-         d2AlWMcci8oi2dT+u2L/kWlnifnqeC59fN8agYMLqUlyEzJ6kr0xswwq1zroz1uoAt7w
-         yGVwH92HJOQ67UaHRiGEWbIPzuj+kkqSTtv4eXHNtkSoCXPp0pNQWCF3iTXLDB0K+QGN
-         eGhb/kbJgn9PCa+O8AL4gJllKxp1ZxZ18zwec2pAybT7S6DX5IGbLqXhzujbrlEdxZYV
-         8vYPi2MvPmbO7EGjQ5q5IQlU2gX8U8O1qwKAXO/rhRaA3BrOcSAceQJKyw9x0uqnRF5B
-         WKKA==
+        b=idRmTNv7ASrS6S0hImPVqMuCnz/06bqC3LUe4SmAYWtu+zqddA++Qzukeu3QKT03n7
+         oLs1unqwoUv6tR6nAsJIoLwRyCnglT8uUuvLs9BzpC/YnVx7aCZV+Nm7WozlVw3tzM8+
+         9xoqd4GLBr8aUSzYsDLxBjbF45BXhIpecSZZd+yV9pGR8DoSIkRl33BMFrQK6KDHYBIZ
+         9+E3TP3REpwH9v/5zoObSaf1x5pIsezbztH04rNk3LFhAwUgsCQkoIHmP1x/yunm1bEc
+         rdGM0VPtt+6vGJuyb5XELtsrNvbATOlMIQyelr5Av8vCgSJZJJrvCfJpU8Qsq2KFOAMe
+         c7Eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:dkim-signature:dkim-signature:from;
-        bh=qq5sEmurFcd3/fpI5OnhSC2MKThWwVG23kyoyrWK9v8=;
-        b=tdsKsU7eJ6t/coj5DQQWuvLcskSCOykwtjVlWOp2RWOuRrqwVsxZ1HF3CvkkmyEWzN
-         ZjFtdilN5JxNll0nJty2jl0Vwmy/oeH2IaEZRiChCGryts+w6zBfJ1kTPkv8GRPDeWlu
-         bool9cNWWR/n/J3R+WpweWTBDtOw82IJU4hXMy1Qk1uSwcLZ4UCd1FC3LaSsNNuNORFs
-         iTwEU0uPztmPiaEHrZGJKWZZDutchmiLu9iSx8IIg4xgTPpKBnrB15d+hf400Yc5tZMs
-         iGJhlCIPDRKe1B/dGj/WNFZUL65NToawASNrwUiLOEHo/D6tchcS+AKxkja3Dl1THlJz
-         b16A==
+        bh=EC/D/M0zwOtgFPG+gHM4SAFy30FcYwTWFcUaxDzRBz8=;
+        b=au5LikyHoYbHIU0kyOA9L/2jyAvexiWUfrvl9I/IbytKLT/JNcrLkln+LqewKZZJkr
+         VqPOJ/BuO/T8y7DUB57SZ500hgkSnLUl5WXqkkNnwmsWf5UW1eTu7boOkANI39qWavlX
+         Zrjn/HfavAg2FZy1g1NprkDRDVciAgbmdZxOFOcmF6ywcRCZqT5beHCx+Sn4gy59njju
+         D1tXG0cHRj/oltR4dWLdZGxSeTtFq1WxtA4a+ym5Q9l70oWLIWVdYi2nhjR/Xl9MTTB5
+         siAciL0ZWrBENl8zJ5jZvjVF0AMiCOmOXf2aNMtt/rV2RdZsSBBtV+JDo+RGQ7Ak0n/7
+         q3Bg==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=1CaHudHE;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e;
+       dkim=pass header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;
+       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
        spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
 Received: from galois.linutronix.de (Galois.linutronix.de. [2a0a:51c0:0:12e:550::1])
-        by gmr-mx.google.com with ESMTPS id u6-20020a5d6da6000000b003062765f97esi47297wrs.6.2023.06.02.00.48.17
+        by gmr-mx.google.com with ESMTPS id h15-20020a0565123c8f00b004f4e6ea3713si40932lfv.8.2023.06.02.00.48.17
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
@@ -106,19 +106,19 @@ Cc: Jan Kiszka <jan.kiszka@siemens.com>,
 	Martin Kaistra <martin.kaistra@linutronix.de>,
 	Ulrich Wulff <ulrich.wulff@kumkeo.de>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [RFC PATCH 3/4] arm64: Move setting HCR_EL2.FB from disable to shutdown.
-Date: Fri,  2 Jun 2023 09:48:07 +0200
-Message-Id: <20230602074808.1383333-4-bigeasy@linutronix.de>
+Subject: [RFC PATCH 4/4] arm64: Set HCR_EL2.FB.
+Date: Fri,  2 Jun 2023 09:48:08 +0200
+Message-Id: <20230602074808.1383333-5-bigeasy@linutronix.de>
 In-Reply-To: <20230602074808.1383333-1-bigeasy@linutronix.de>
 References: <20230602074808.1383333-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
 X-Original-Sender: bigeasy@linutronix.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@linutronix.de header.s=2020 header.b=1CaHudHE;       dkim=neutral
- (no key) header.i=@linutronix.de header.s=2020e;       spf=pass (google.com:
- domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as
- permitted sender) smtp.mailfrom=bigeasy@linutronix.de;       dmarc=pass
- (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+ header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;       dkim=neutral
+ (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
+       spf=pass (google.com: domain of bigeasy@linutronix.de designates
+ 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
 Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -134,57 +134,181 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 From: Ulrich Wulff <ulrich.wulff@kumkeo.de>
 
-Move setting HCR_EL2.FB from disable to shutdown.
+Set the FB bit in HCR_EL2 to force broadcasts invalidates within the
+inner shareable by issuing only local invalidations.
 
-Signed-off-by: Ulrich wulff <ulrich.wulff@kumkeo.de>
+The idea is to properly invalidate entries on a SMP system. Then the FB
+bit gets cleared by the hypervisor and Linux switches to UP mode. The
+memory between the two systems is not shared so invalidations on the
+second CPU is not needed and Linux continues to invalidate only locally.
+
+Signed-off-by: Ulrich Wulff <ulrich.wulff@kumkeo.de>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- hypervisor/arch/arm64/setup.c | 2 +-
- hypervisor/control.c          | 7 -------
- 2 files changed, 1 insertion(+), 8 deletions(-)
+ arch/arm64/include/asm/cacheflush.h |  2 +-
+ arch/arm64/include/asm/tlbflush.h   | 54 ++++++++++++++---------------
+ arch/arm64/kernel/head.S            |  2 ++
+ 3 files changed, 30 insertions(+), 28 deletions(-)
 
-diff --git a/hypervisor/arch/arm64/setup.c b/hypervisor/arch/arm64/setup.c
-index dbcba6691729a..21afdb7ae174d 100644
---- a/hypervisor/arch/arm64/setup.c
-+++ b/hypervisor/arch/arm64/setup.c
-@@ -123,7 +123,7 @@ void arch_shutdown_self(struct per_cpu *cpu_data)
- 	irqchip_cpu_shutdown(&cpu_data->public);
+diff --git a/arch/arm64/include/asm/cacheflush.h b/arch/arm64/include/asm/cacheflush.h
+index 9384fd8fc13cc..5a0b126d0164b 100644
+--- a/arch/arm64/include/asm/cacheflush.h
++++ b/arch/arm64/include/asm/cacheflush.h
+@@ -132,7 +132,7 @@ static __always_inline void __flush_icache_all(void)
+ 	if (cpus_have_const_cap(ARM64_HAS_CACHE_DIC))
+ 		return;
  
- 	/* Free the guest */
--	arm_write_sysreg(HCR_EL2, HCR_RW_BIT);
-+	arm_write_sysreg(HCR_EL2, HCR_RW_BIT | HCR_FB_BIT);
- 	arm_write_sysreg(VTCR_EL2, VTCR_RES1);
+-	asm("ic	ialluis");
++	asm("ic	iallu"); /*  promoted to ic ialluis by HCR_EL2.HCR_FB */
+ 	dsb(ish);
+ }
  
- 	/* Remove stage-2 mappings */
-diff --git a/hypervisor/control.c b/hypervisor/control.c
-index a7bcd060ab0ed..3ad8ee48967b4 100644
---- a/hypervisor/control.c
-+++ b/hypervisor/control.c
-@@ -826,7 +826,6 @@ static int hypervisor_disable(struct per_cpu *cpu_data)
- 	unsigned int this_cpu = cpu_data->public.cpu_id;
- 	unsigned int cpu;
- 	int state, ret;
--	u64 hcr_el2;
+diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
+index cc3f5a33ff9c5..3f1b8f7970e7a 100644
+--- a/arch/arm64/include/asm/tlbflush.h
++++ b/arch/arm64/include/asm/tlbflush.h
+@@ -237,9 +237,9 @@ static inline void local_flush_tlb_all(void)
  
- 	/* We do not support shutdown over non-root cells. */
- 	if (cpu_data->public.cell != &root_cell)
-@@ -858,12 +857,6 @@ static int hypervisor_disable(struct per_cpu *cpu_data)
- 	 */
- 	spin_lock(&shutdown_lock);
+ static inline void flush_tlb_all(void)
+ {
+-	dsb(ishst);
+-	__tlbi(vmalle1is);
+-	dsb(ish);
++	dsb(nshst);
++	__tlbi(vmalle1);
++	dsb(nsh);
+ 	isb();
+ }
  
--	/* set the FB bit in HCR_EL2 */
--	arm_read_sysreg(HCR_EL2, hcr_el2);
--	hcr_el2 |= HCR_FB_BIT;
--	arm_write_sysreg(HCR_EL2, hcr_el2);
--	printk("Set the FB bit in HCR_EL2\n");
--
- 	if (cpu_data->public.shutdown_state == SHUTDOWN_NONE) {
- 		state = num_cells == 1 ? SHUTDOWN_STARTED : -EBUSY;
- 		for_each_cpu(cpu, root_cell.cpu_set)
+@@ -247,10 +247,10 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
+ {
+ 	unsigned long asid = __TLBI_VADDR(0, ASID(mm));
+ 
+-	dsb(ishst);
+-	__tlbi(aside1is, asid);
+-	__tlbi_user(aside1is, asid);
+-	dsb(ish);
++	dsb(nshst);
++	__tlbi(aside1, asid);
++	__tlbi_user(aside1, asid);
++	dsb(nsh);
+ }
+ 
+ static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
+@@ -258,16 +258,16 @@ static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
+ {
+ 	unsigned long addr = __TLBI_VADDR(uaddr, ASID(vma->vm_mm));
+ 
+-	dsb(ishst);
+-	__tlbi(vale1is, addr);
+-	__tlbi_user(vale1is, addr);
++	dsb(nshst);
++	__tlbi(vale1, addr);
++	__tlbi_user(vale1, addr);
+ }
+ 
+ static inline void flush_tlb_page(struct vm_area_struct *vma,
+ 				  unsigned long uaddr)
+ {
+ 	flush_tlb_page_nosync(vma, uaddr);
+-	dsb(ish);
++	dsb(nsh);
+ }
+ 
+ /*
+@@ -304,7 +304,7 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
+ 		return;
+ 	}
+ 
+-	dsb(ishst);
++	dsb(nshst);
+ 
+ 	/*
+ 	 * When the CPU does not support TLB range operations, flush the TLB
+@@ -329,11 +329,11 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
+ 		    pages % 2 == 1) {
+ 			addr = __TLBI_VADDR(start, asid);
+ 			if (last_level) {
+-				__tlbi_level(vale1is, addr, tlb_level);
+-				__tlbi_user_level(vale1is, addr, tlb_level);
++				__tlbi_level(vale1, addr, tlb_level);
++				__tlbi_user_level(vale1, addr, tlb_level);
+ 			} else {
+-				__tlbi_level(vae1is, addr, tlb_level);
+-				__tlbi_user_level(vae1is, addr, tlb_level);
++				__tlbi_level(vae1, addr, tlb_level);
++				__tlbi_user_level(vae1, addr, tlb_level);
+ 			}
+ 			start += stride;
+ 			pages -= stride >> PAGE_SHIFT;
+@@ -345,18 +345,18 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
+ 			addr = __TLBI_VADDR_RANGE(start, asid, scale,
+ 						  num, tlb_level);
+ 			if (last_level) {
+-				__tlbi(rvale1is, addr);
+-				__tlbi_user(rvale1is, addr);
++				__tlbi(rvale1, addr);
++				__tlbi_user(rvale1, addr);
+ 			} else {
+-				__tlbi(rvae1is, addr);
+-				__tlbi_user(rvae1is, addr);
++				__tlbi(rvae1, addr);
++				__tlbi_user(rvae1, addr);
+ 			}
+ 			start += __TLBI_RANGE_PAGES(num, scale) << PAGE_SHIFT;
+ 			pages -= __TLBI_RANGE_PAGES(num, scale);
+ 		}
+ 		scale++;
+ 	}
+-	dsb(ish);
++	dsb(nsh);
+ }
+ 
+ static inline void flush_tlb_range(struct vm_area_struct *vma,
+@@ -382,10 +382,10 @@ static inline void flush_tlb_kernel_range(unsigned long start, unsigned long end
+ 	start = __TLBI_VADDR(start, 0);
+ 	end = __TLBI_VADDR(end, 0);
+ 
+-	dsb(ishst);
++	dsb(nshst);
+ 	for (addr = start; addr < end; addr += 1 << (PAGE_SHIFT - 12))
+-		__tlbi(vaale1is, addr);
+-	dsb(ish);
++		__tlbi(vaale1, addr);
++	dsb(nsh);
+ 	isb();
+ }
+ 
+@@ -397,9 +397,9 @@ static inline void __flush_tlb_kernel_pgtable(unsigned long kaddr)
+ {
+ 	unsigned long addr = __TLBI_VADDR(kaddr, 0);
+ 
+-	dsb(ishst);
+-	__tlbi(vaae1is, addr);
+-	dsb(ish);
++	dsb(nshst);
++	__tlbi(vaae1, addr);
++	dsb(nsh);
+ 	isb();
+ }
+ #endif
+diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+index d8d9caf02834e..493c204eab39c 100644
+--- a/arch/arm64/kernel/head.S
++++ b/arch/arm64/kernel/head.S
+@@ -519,6 +519,8 @@ SYM_FUNC_START(el2_setup)
+ 	cbz	x2, set_hcr
+ 	mov_q	x0, HCR_HOST_VHE_FLAGS
+ set_hcr:
++	/*  set HCR_EL2.FB to promote IC IALLU to IC IALLUIS */
++	orr	x0, x0, HCR_FB
+ 	msr	hcr_el2, x0
+ 	isb
+ 
 -- 
 2.40.1
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230602074808.1383333-4-bigeasy%40linutronix.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230602074808.1383333-5-bigeasy%40linutronix.de.
