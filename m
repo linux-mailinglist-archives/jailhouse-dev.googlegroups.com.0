@@ -1,75 +1,120 @@
-Return-Path: <jailhouse-dev+bncBCDKHIWT5EIBBPMOW6RQMGQEX25H5KI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGIV3UHVAGBBQV542RQMGQEZSXPRRY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113e.google.com (mail-yw1-x113e.google.com [IPv6:2607:f8b0:4864:20::113e])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2BAB70F05D
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 24 May 2023 10:13:50 +0200 (CEST)
-Received: by mail-yw1-x113e.google.com with SMTP id 00721157ae682-56552a72cfbsf12994547b3.3
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 24 May 2023 01:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1684916029; x=1687508029;
+Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FF471FB5B
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Jun 2023 09:48:20 +0200 (CEST)
+Received: by mail-lj1-x238.google.com with SMTP id 38308e7fff4ca-2b1abdb8ef9sf3944451fa.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Jun 2023 00:48:20 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1685692099; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=N7F4OIjiEPXhScM8M/bSvXaReBYJwP1pxrjWwsrSa3PHhyjBr5a+SZta7Ld6V7mE6M
+         bq4gjh510rg85x9T8ofTwYwiV9q1AVLbl7UjB47lGY+MxCTas7fYMRpe8AdH6wU3jHgf
+         8rYEeF14UPosT4+kKmO4kUKXH8WovDuxuhVLd50sp+uDuGXBFML4RFv1a29dMltd0KCt
+         L9eKuaJNVQGojah+0180E2qa9Z36i2t/u5g39BA5ojO8IWWjqhHF1izRlzW+/srxM/dg
+         8SqbY9w22SqN5gLi2LgF6yC3jwYE2p0obLalhU73Tpr0g1tjArbod9RcKWcPU7Vrxjdr
+         V/vw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=g5QE6pUvOmAlC6ITd5OFjnEmj5A8itMuv2h36iGwy+g=;
-        b=GlGZutvt+1higeOvsvEZgSZafrbH9wkjwgK1kG+r9nmu9SLgVCkaeXNvGbzLLSBqQf
-         iBA0IJHw/prR4t6pIB/15eZ0s4MZM69gx9+Vpj/ITqN9DJF2ZgXax6VHPeiHQKID1GiZ
-         5HLl9LaI/mqEi3z+njz3p9O/TSEQdmLv+DoJkW6v7BcRxPI11iGkx+bU24sKNrw4bMRK
-         IEsuo6wkgvJGBc2NP/Pou1S4TZ960yWuHk28WtyUT9pfe4UIkdpv19O5hAke4IRfHHmS
-         hOm0xNoNdH5YAvBmX72p0MEil6O52WdD0WXYY/9JYrIJbgPOVk7aGPbr91annLoMNpRy
-         WDEQ==
+         :list-id:mailing-list:precedence:mime-version:message-id:date
+         :subject:cc:to:from:sender:dkim-signature;
+        bh=HJVOEBNlr1lHrykZoFtqGg3hfBAT+qUjAs6edGF8H5s=;
+        b=nnAZASI2Vdjf9xO09Sj79HkL9WVSk/4B2A0hrxmDJFN//72t296pVUz+a4XHpRgs2c
+         dyL90HUD7WWQfG12CbfAXqvFXJvqy7bTp7PmDev6hRil94oi4dw/6dMLbd8u4kv3wOE7
+         fr1sEY5ao8Mimb+zryhJkfYn/J7oovhnu2bX98KaEhX9Ogw+Rh4pJxuJzhJ+hg0+X0al
+         x6+Bj29wSL4ZaEi84vIjexTM+/6WJxnIGEtaUE0XA1xttH+Fyhso4uiWEF9i3xFZssk7
+         u1LOpgCcWvCuwrySDZ0dDWLanSoRgJIazY0U+qsb8tz+C6KFbjq/exDhBoL6XgTijf7q
+         /DWA==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@linutronix.de header.s=2020 header.b=LAOfB62e;
+       dkim=neutral (no key) header.i=@linutronix.de;
+       spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684916029; x=1687508029;
+        d=googlegroups.com; s=20221208; t=1685692099; x=1688284099;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=g5QE6pUvOmAlC6ITd5OFjnEmj5A8itMuv2h36iGwy+g=;
-        b=L4kb7pRqaZZBgwwjD5eH8AH7FePzJYbZ1nGzuvEfpGNwXNrPPt09TsLAfJ+Qu6w1Ne
-         kdVMQSdhqc7ODOjYRnLUpsEkI4Cs0bgIax6hGqDtN2/G6W1pYJPR/xCSVZDSQ/ofOGvc
-         jue3u+/Y0smuBlCD7osOnEzQeAP/0pg6oV8mFJfMjos8VrqphL4wMC/me+zl5L4PPBXH
-         weTsUmxSQzcEjyY3okl0rhmkF39K1H2diyZxlNdgaPQu3VIwzucITiyLQEp0BfOyoynG
-         pBulR1wry707vIAYrXe9XX3f+JwjHyoWS8SgIVp9VKRj1Nzf4xRfP14+9rY/2XObOjff
-         9hPw==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:mime-version:message-id:date:subject:cc:to:from
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=HJVOEBNlr1lHrykZoFtqGg3hfBAT+qUjAs6edGF8H5s=;
+        b=BamwsFtVVFUhjRTbEq/Tg2evrlo+piAC85+sdN3xmbJWYxHjL1aGYGA27xAG+A5M36
+         zYx/7fbUDFilYZLxVm00+dE86oYAwEtGCx+VRWOhgYXWtyCBY3zZIf1kL6+1i2B6xwKi
+         G1krlx9g3cWFz46js2wndBzL563OBsHbemKltWYXOnOuoCbtTp2hwYHtSzr+LoC5e6de
+         fgBPrzbwmt+8Mz7ysHvsUTDsJj8A/jUBEUtlSYUpwpWKQEmgKtKM7TfXm0e7/JSmoeDa
+         4S8vdUNGXA1Ku/P2qTKVUU2X1BtUEp6FMpFc8/xdedqg5FvUtOKAqcKhF/xjhuq/VuVH
+         5SLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684916029; x=1687508029;
+        d=1e100.net; s=20221208; t=1685692099; x=1688284099;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=g5QE6pUvOmAlC6ITd5OFjnEmj5A8itMuv2h36iGwy+g=;
-        b=f/f/sDpT8LMOQEHHMe955k0KcXZVaEu+pw8D/J7WjhN0MndiKey3vhdjoU8YU3k2Zv
-         N8hc4rehEHeFfFClBtwDM2NoLJuutATR2tbrxzFRAp92v6+xT6qIl9Sf5rS4wpzqxN/Q
-         5Q1B8Aqh4eqt/ASteVvn1kvXb4Ok/q07vpiAy068nM3I0gRMKo9OxH+Ynh7cA0pxPrgf
-         LjPp1Vp2hQCy4nkrqC2vw7NGXNeAaQb0QuYWyLkjREFvE1MJEBZN5uXRpuc8jyDLBoXL
-         iemRYFKEuK0eP6zUUfsNLqibAxKC/Wq1UcTdwkByTpn6/6gUQWDxUsbVGxnWQu8Trk6G
-         YA6Q==
+         :x-original-authentication-results:x-original-sender:mime-version
+         :message-id:date:subject:cc:to:from:x-beenthere:x-gm-message-state
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=HJVOEBNlr1lHrykZoFtqGg3hfBAT+qUjAs6edGF8H5s=;
+        b=B6PVkF0TedDld+fAPgVQxH/ON8hY55e97wwkXlaNuzzdhtvW1+G01ft2XKCJ3o0n+K
+         b4WMZODlH56TpVnRI9lf21PniOzDjhtA8WvMvX4OwE3PbvJK4IJFxxF0HlGKrLMW2k8V
+         oaArUXiINj23dFkt2wnpGv+GmgwO/RCXrC9kR8erJKzDo/SPCZUdDqKurTaHNoKL6ycU
+         8irCmg2rVFu2wZjTSQMWclOs5KqlT1LtL5jtiewF1831Zx2ErFjM8diODzWO9AcZmK1U
+         AlPCLyg68l9IlwKe/oPSA4hKLXQ1krl0QHs/wvK0HSmzSCRW8xPg8DUKyHTHU8HF8u3o
+         ZIyw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDw2ZFKu+avKzRQZXj9OkwsRBnIb1WjjF635XY1KTirPah6Y0R0+
-	0Pz8+SXM7t+LxhPIftmUoXA=
-X-Google-Smtp-Source: ACHHUZ5FI9ZD+G0J6osmcRl1B4oU7+5++vib/tNIewszQgykhBKSP6JaXGY25/Qni1aDl1J9zuNtaw==
-X-Received: by 2002:a81:b717:0:b0:560:d237:43dc with SMTP id v23-20020a81b717000000b00560d23743dcmr10596255ywh.3.1684916029582;
-        Wed, 24 May 2023 01:13:49 -0700 (PDT)
+X-Gm-Message-State: AC+VfDygOfKFHWSv9DPlkD4pwVKs2tczUoOOtx2K2WTAJRToJ66CI999
+	aM7GW3YwRVykyQMqJR9hRDI=
+X-Google-Smtp-Source: ACHHUZ5FkHJtXsBPyOj0iwg3WMjC0xdtDLMtbx3DP3uZaKeBO2wqXsi69Fmy7Cz9uB67ITdgy41Ltw==
+X-Received: by 2002:a05:651c:91:b0:2ad:bdb7:b4c3 with SMTP id 17-20020a05651c009100b002adbdb7b4c3mr1131829ljq.22.1685692098945;
+        Fri, 02 Jun 2023 00:48:18 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:42c2:0:b0:ba8:2296:4371 with SMTP id p185-20020a2542c2000000b00ba822964371ls4722682yba.0.-pod-prod-01-us;
- Wed, 24 May 2023 01:13:48 -0700 (PDT)
-X-Received: by 2002:a81:ae68:0:b0:561:94a8:29c5 with SMTP id g40-20020a81ae68000000b0056194a829c5mr10078516ywk.4.1684916028476;
-        Wed, 24 May 2023 01:13:48 -0700 (PDT)
-Date: Wed, 24 May 2023 01:13:47 -0700 (PDT)
-From: chiaming chang <j.jyaming@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <844e14ae-7561-4ecb-83f1-df315dbd2e06n@googlegroups.com>
-In-Reply-To: <2fa70dc0-b445-4176-b19f-3dace98358a1n@googlegroups.com>
-References: <10331404-4fab-410c-ba3f-77f4ed6ccbebn@googlegroups.com>
- <a185b8ff-0b39-4864-bbf2-ca937835ac70n@googlegroups.com>
- <2fa70dc0-b445-4176-b19f-3dace98358a1n@googlegroups.com>
-Subject: Re: install and run jailhouse on rpi4 board
+Received: by 2002:a05:651c:1a28:b0:2b0:5b28:a1e7 with SMTP id
+ by40-20020a05651c1a2800b002b05b28a1e7ls27681ljb.0.-pod-prod-03-eu; Fri, 02
+ Jun 2023 00:48:17 -0700 (PDT)
+X-Received: by 2002:ac2:4a7a:0:b0:4f4:4533:8535 with SMTP id q26-20020ac24a7a000000b004f445338535mr1216121lfp.67.1685692097257;
+        Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1685692097; cv=none;
+        d=google.com; s=arc-20160816;
+        b=y0bMRC2l/IeQ1GrEs/mwKPO2BoctiG2N+ro8VrCmfXMgIFHt6yEH5Ac+tEv243bp+c
+         X5O5PbUXiFNVLdYw57cn04pYOUuvn4uAZrIb/ISkvrMvkSqrVA6P8JX5UQWtfNpRucUC
+         CfZ6DYOeORPTzCrtW+Jv7FnAJuzlUhViE2RnMMax239o1KrP+lNjTxsB/hp6yM8C4sPx
+         ugRYIWQ4jo3WDvjyeZs79vXUqUyPz/ecLTsY+Joc1GqqiUZF32KMh2sHMijXeAzEYyL8
+         WGGS0a/QO96mt6U40QTf1PfSRDPaZ+YFJ/h1HM1ZRLC3GYohiVYbhvY6FcHJ93LP0NqM
+         qgoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:dkim-signature:dkim-signature:from;
+        bh=FiYGSekzZvD73h5/XweAWO6Bj/cF+BYLQO/W3eEgqOE=;
+        b=KoSpLrGOsAFaQg4wXux6wcVzK4CwzQh6GYUWS7fcWvteURiynXUBh6tMH9Yuf3VXZM
+         b50gVG/iaFZEO82vZ2Dyl3jT/tJrsZoZfb3z6pXBIuZh8KOwtcwya14wDvBQ2tCFKy2l
+         OBwEjP/uIjYUpeZOImfM71KojyH6NwzrUib9dnTieJRNxvVuAlNR7uQclECbibeQQ7Ur
+         vbh2QExWTpSe/7Ha0YrHMMuzmNp2vKcTDZf4f0RCWig3UEmd9Nb1+YPwORI0ZHXVtb9m
+         mMP9Bh0I7MmVblSv5feruSBu76vahOahw0Xe+RNS3Z5r9s5254khUQDnOYCq5Gq+9Kpd
+         fShg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@linutronix.de header.s=2020 header.b=LAOfB62e;
+       dkim=neutral (no key) header.i=@linutronix.de;
+       spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+Received: from galois.linutronix.de (Galois.linutronix.de. [2a0a:51c0:0:12e:550::1])
+        by gmr-mx.google.com with ESMTPS id g32-20020a0565123ba000b004f3792ca9b8si41266lfv.6.2023.06.02.00.48.17
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) client-ip=2a0a:51c0:0:12e:550::1;
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: jailhouse-dev@googlegroups.com
+Cc: Jan Kiszka <jan.kiszka@siemens.com>,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Ulrich Wulff <ulrich.wulff@kumkeo.de>
+Subject: [RFC PATCH 0/4] arm64: Limit cache invalidate to local CPU.
+Date: Fri,  2 Jun 2023 09:48:04 +0200
+Message-Id: <20230602074808.1383333-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_1524_1327761439.1684916027658"
-X-Original-Sender: j.jyaming@gmail.com
+X-Original-Sender: bigeasy@linutronix.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@linutronix.de header.s=2020 header.b=LAOfB62e;       dkim=neutral
+ (no key) header.i=@linutronix.de;       spf=pass (google.com: domain of
+ bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender)
+ smtp.mailfrom=bigeasy@linutronix.de;       dmarc=pass (p=NONE sp=QUARANTINE
+ dis=NONE) header.from=linutronix.de
+Content-Type: text/plain; charset="UTF-8"
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -82,161 +127,45 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_1524_1327761439.1684916027658
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1525_1021500278.1684916027658"
+We identified a cache invalidation problem on an ARM64 (Xilinx Zynq
+Ultrascale+ MPSoc, ARM v8) SoC.
+We have a two CPUs setup where one CPU runs Linux and the other runs a
+real time workload on the other CPU. The real time workload needs on
+average 60us, sometimes it gets up to 80us but it must not exceed 100us.
 
-------=_Part_1525_1021500278.1684916027658
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The Linux cell can extend the execution time of the real time workload
+in the other cell by starting stress-ng with --tlb-shootdown 2. The
+execution time rises to over 280us with a few spikes at around 350us.
 
-Hello, meiyan xiao,=20
+The problem is the cache flush/ invalidation which is performed locally
+and signal to the other CPUs in the same cacheable domain. This is
+required on SMP systems where the memory is shared between CPUs but can
+be omitted in setup where each CPU has exclusive memory.
 
-I created a Chinese community about Jailhouse, which provides a detailed=20
-tutorial on building Jailhouse on Raspberry Pi 4B, welcome to join!
+The here suggested solution is to boot Linux with HCR_EL2.FB set which
+forces a broadcast of each "local" flush/ invalidation instruction to
+the CPUs within the inner shareable. So __tlbi(vmalle1) is promoted to
+__tlbi(vmalle1is). Then the opcodes can be replaced to the local
+version while it still behaves as it before and notifies the CPU within
+the inner shareable. 
+The second step is to clear HCR_EL2.FB once jailhouse ensures that only
+one CPU cells are started. Since each cell has exclusive memory access,
+the invalidation can be limited to the local CPU.
 
-Raspberrypi 4B =E8=BF=90=E8=A1=8C Jailhouse-CSDN=E7=A4=BE=E5=8C=BA <https:/=
-/bbs.csdn.net/topics/615205697>
+As a result of the change, the stress-ng load in the Linux cell does no
+longer interfere with real time cell. This change has been tested since
+last December.
 
-If you have any questions you can ask me.
+The patches 1 - 3 are against jailhouse and basically set/ clear
+HCR_EL2.FB. Patch 4 is against Linux. Should #1 - #3 be accepted I don't
+see how #4 could be integrated upstream. The closest thing I could imagine
+is to hide it behind an alternative macro similar to X86's
+X86_FEATURE_UP for the lock prefix. Then patch it once the system goes
+to UP mode.
 
-Jia ming
+Sebastian
 
-=E5=9C=A82023=E5=B9=B45=E6=9C=8824=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+=
-8 15:06:27<meiyan xiao> =E5=86=99=E9=81=93=EF=BC=9A
-
-> hello, I want to build the jailhouse in RPI4, but I meet some errors.=20
-> Could you please give me some guidances, it could be better if you could=
-=20
-> give me your document in Chinese.?
-> I am waiting your positive reply, thanks a lot.
->
-> =E5=9C=A82021=E5=B9=B46=E6=9C=889=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
-+8 13:47:34<=E6=9C=B1=E8=8B=A5=E5=87=A1> =E5=86=99=E9=81=93=EF=BC=9A
->
->> hello, I have an document for rpi4b board to install jailhouse with its=
-=20
->> own kernel, where I can change some code of jailhouse .  I try a lot and=
-=20
->> finally install it. But I only use deconfig of rpi4.cell for no auto too=
-ls=20
->> to build root cell config . What's more, unfortunately the document is i=
-n=20
->> chinese .  If you need it , mail me.
->>
->> =E5=9C=A82021=E5=B9=B46=E6=9C=884=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UT=
-C+8 =E4=B8=8B=E5=8D=886:24:49<nmiliak...@gmail.com> =E5=86=99=E9=81=93=EF=
-=BC=9A
->>
->>> Dear all,=20
->>>
->>> I am student in ECE NTUA and I am studying Jailhouse for my diploma=20
->>> thesis. So far I managed to install and run jailhouse in virtual=20
->>> environment (QEMU) in x86 and use ready-to-use jailhouse images for vir=
-t=20
->>> environment for both x86 and arm architecture. Now I am assigned to ins=
-tall=20
->>> it on rpi4 board.=20
->>>
->>> I know there is this repo https://github.com/siemens/jailhouse-images=
-=20
->>> with ready to use image for rpi4, but I would like to install it manual=
-ly=20
->>> to explore better all the options provided, write some code on my own a=
-nd=20
->>> test it.=20
->>>
->>> I have already explored the internet and this google group for further=
-=20
->>> information, and apart from some general guidance, I didnt find anythin=
-g=20
->>> specific/(or maybe I coudn't understand some key points).=20
->>>
->>>
->>> I would really appreciate it if someone could give me some=20
->>> advice/guidance on this subject.
->>>
->>> Thank you all in advance.=20
->>>
->>> Nikoleta Iliakopoulou
->>>
->>
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/844e14ae-7561-4ecb-83f1-df315dbd2e06n%40googlegroups.com.
-
-------=_Part_1525_1021500278.1684916027658
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello, meiyan xiao,=C2=A0<div><br /></div><div>I created a Chinese communit=
-y about Jailhouse, which provides a detailed tutorial on building Jailhouse=
- on Raspberry Pi 4B, welcome to join!</div><div><br /></div><div><a href=3D=
-"https://bbs.csdn.net/topics/615205697">Raspberrypi 4B =E8=BF=90=E8=A1=8C J=
-ailhouse-CSDN=E7=A4=BE=E5=8C=BA</a><br /><br /></div><div>If you have any q=
-uestions you can ask me.<br /></div><div><br /></div><div>Jia ming</div><di=
-v><br /></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_a=
-ttr">=E5=9C=A82023=E5=B9=B45=E6=9C=8824=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89=
- UTC+8 15:06:27&lt;meiyan xiao> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px=
- solid rgb(204, 204, 204); padding-left: 1ex;">hello, I want to build the j=
-ailhouse in RPI4, but I meet some errors. Could you please give me some gui=
-dances, it could be better if you could give me your document in Chinese.?<=
-br>I am waiting your positive reply, thanks a lot.<br><br><div class=3D"gma=
-il_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82021=E5=B9=B46=E6=
-=9C=889=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+8 13:47:34&lt;=E6=9C=B1=E8=
-=8B=A5=E5=87=A1&gt; =E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">hello, I have an document for rpi4b board to ins=
-tall jailhouse with its own kernel, where I can change some code of jailhou=
-se .=C2=A0 I try a lot and finally install it. But I only use deconfig of r=
-pi4.cell for no auto tools to build root cell config . What&#39;s more, unf=
-ortunately the document is in chinese .=C2=A0 If you need it , mail me.<br>=
-<br><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=
-=9C=A82021=E5=B9=B46=E6=9C=884=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+8 =
-=E4=B8=8B=E5=8D=886:24:49&lt;<a rel=3D"nofollow">nmiliak...@gmail.com</a>&g=
-t; =E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-l=
-eft:1ex">Dear all,=C2=A0<div><br></div><div>I am student in ECE NTUA and I =
-am studying Jailhouse for my diploma thesis. So far I managed to install an=
-d run jailhouse in virtual environment (QEMU) in x86 and use ready-to-use j=
-ailhouse images for virt environment for both x86 and arm architecture. Now=
- I am assigned to install it on rpi4 board.=C2=A0</div><div><br></div><div>=
-I know there is this repo=C2=A0<a href=3D"https://github.com/siemens/jailho=
-use-images" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"http=
-s://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://github.com/siemens/jailho=
-use-images&amp;source=3Dgmail&amp;ust=3D1685002078173000&amp;usg=3DAOvVaw1Y=
-yU_jPw0zwbeDkFC3WcVJ">https://github.com/siemens/jailhouse-images</a> with =
-ready to use image for rpi4, but I would like to install it manually to exp=
-lore better all the options provided, write some code on my own and test it=
-.=C2=A0</div><div><br></div><div>I have already explored the internet and t=
-his google group for further information, and apart from some general guida=
-nce, I didnt find anything specific/(or maybe I coudn&#39;t understand some=
- key points).=C2=A0</div><div><br></div><div><br></div><div>I would really =
-appreciate it if someone could give me some advice/guidance on this subject=
-.</div><div><br></div><div>Thank you all in advance.=C2=A0</div><div><br></=
-div><div>Nikoleta Iliakopoulou</div></blockquote></div></blockquote></div><=
-/blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/844e14ae-7561-4ecb-83f1-df315dbd2e06n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/844e14ae-7561-4ecb-83f1-df315dbd2e06n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_1525_1021500278.1684916027658--
-
-------=_Part_1524_1327761439.1684916027658--
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230602074808.1383333-1-bigeasy%40linutronix.de.
