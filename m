@@ -1,125 +1,150 @@
-Return-Path: <jailhouse-dev+bncBDGIV3UHVAGBBQ5542RQMGQEAYKXNCA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDRKPIXWWIFBBV7B42RQMGQEPNZXKLI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13f.google.com (mail-lf1-x13f.google.com [IPv6:2a00:1450:4864:20::13f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159C971FB5C
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Jun 2023 09:48:21 +0200 (CEST)
-Received: by mail-lf1-x13f.google.com with SMTP id 2adb3069b0e04-4f4c62e0c9esf1323769e87.3
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Jun 2023 00:48:21 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1685692100; cv=pass;
+Received: from mail-lj1-x238.google.com (mail-lj1-x238.google.com [IPv6:2a00:1450:4864:20::238])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5483F71FD10
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  2 Jun 2023 11:05:29 +0200 (CEST)
+Received: by mail-lj1-x238.google.com with SMTP id 38308e7fff4ca-2af1eda690asf16630691fa.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 02 Jun 2023 02:05:29 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1685696729; cv=pass;
         d=google.com; s=arc-20160816;
-        b=wdgp7xbBJzEugmBj38jSGN3Itww+ELFHRpHQnohowyypphkA6Ym0/BIEtsL2lxUmwv
-         LoC7fQr7PcdlkFOrntiutTi8CCMIU3VkV6oVgLSkIrx5j6EsPs1N61QT5EaNpsUYGmbz
-         K/C+vtbH7gMXS/nX8AWOKoNyg4zhuHUVuJCxSTWZUUa+EEE8dkVFzAdJCy9/QmzMMG5U
-         u4B83OSefdyBI1PzSYzYa27qzheIac5+umSZeUehMIGOsnV8GkxPToS9G08n3k7nhwtq
-         dV0rk8Ps3pWLrE0scApArao5MqK0ow5Dlw+cdMJ431qU+duuh1+aKwZ1MTTvAl5jebM3
-         w1Lg==
+        b=Is06Ot9IBpvRz+Lw3fFUavp9sZHXOxpxPngON1Mr5YwLULTTePRn7ZnlcgcEPNiHWy
+         vBANmejauF7HlpxHeNnjoQ8rRjWmxobxG3goAbAWdygtxv9kCi6InpCVUQPtaf9xGwwr
+         hA8nfE4ym8EgUIeBl4ElrPWPNyl0d0cfG5KK8sKF6KxiBJCnnjzNWm7EBjwSRb/pnnue
+         H+vtBb/vXfUDkO81PGlTajOvKqHhNmipYQanHGScMeEkWIzJOdYAJ+gZMGSYex1u+wHX
+         cMmBSOIhFNqqImcyfXSS9skWZ3aemvGN2ORFrbwk3lt7OxEw9eK7p6Klf73v7ZuNKMui
+         Uv1w==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:dkim-signature;
-        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
-        b=Er2Rp9xf4uCyouO1Ln7w/umKmtIXxij61EUwwqXdGsk6lNBoB6JUHFnNFWIZ0Q0ALs
-         AOyRFhcYApbsEJpCe/MmuYMn+lk25dLpb3goPUk9o5QkNNq6ZUjl7uKWj9uUN7m2Owgo
-         Y8/byXfN9V5FrrAAiiMHYC1KLoBDVoykgMig4Bh16Zm6MM9142j7kJq9N3yvzebz56hC
-         RtHXKPuoNH2OH4BVR0KC8n0EOgflfzxZTJaADQt1saXKPLIij88SYVmzl5r3C9fAE/jl
-         gVucTtQpkm7eLBRM5WRPBvyf6For2hQVygf7Hv8tEIhYPUFnhNcAAg83RRYOnYFU7EYh
-         Evnw==
+         :list-id:mailing-list:precedence:ui-outboundreport:to:references
+         :message-id:content-transfer-encoding:cc:date:in-reply-to:from
+         :subject:mime-version:sender:dkim-signature;
+        bh=xlrDzJlbgSB228gmteo/STypb9I7yQ+qUNWF70HwAjw=;
+        b=HkRRIMWy1nHz+Znzr6GL+ddOeLzSyf5/UkLpE7G1bjE0z733XjJbQ2h8hT42x2XlRQ
+         x6YJjomNUbvQ/sAZyDCkMxmiH1rOmhWw6fs4k0Zq8ar26Rdpz20u/D2xkwd/MgPcxxXO
+         i6H1vtPAwRDY8bwcsDd+BDBI9GSxLV+yGuqHiriE2MInw3wTqN/262L4X4qbNvp7cF9t
+         hjOyCGh+rRIlB8S8kg9Vni2au5xO3dw6uCPtW5ACS9EA1kYArGs4mFjAJvqyDhtZb5f4
+         AHxoSR9DzV7BjdL87cKQ3woanIKggVpFfaKzO1ybK52Jjf0HHBGu4NLjOLrzgRmSB4bw
+         ReZQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
-       spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+       dkim=pass header.i=@gmx.de header.s=s31663417 header.b=W8h4ucZ2;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.18 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1685692100; x=1688284100;
+        d=googlegroups.com; s=20221208; t=1685696729; x=1688288729;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:references:in-reply-to:message-id
-         :date:subject:cc:to:from:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
-        b=OGLou2hR7V2C5Vh9mA6n4PUz2mEkcpmAplGvp17rlMewOhjuuXhoH2qtIuGdCe/rQW
-         17oDbxwtnIG6G2AxuGckheBnRg44+wEZVsKapVNJfKWJu/i7vpkM/T1/tsI61ZXe30Yp
-         8hHXrx1DNtGgxRdphS+2wBfE/fNXskUxKLSFlEqZWmGVBDgaYVjVUbaXP21GF81nvj8b
-         6pj8QdpZF85JwVnCL6G+35O1danHPeS8dY0KIOW+hyTg6JGjI6E+vLJJhpXrzTIZmPUg
-         EGlbOystg3bUazk3S45dwvD9roriiux4Hktsi/19HO+VseIXH8UAGSGfElbU1JDIlTZk
-         dgYQ==
+         :x-original-sender:ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=xlrDzJlbgSB228gmteo/STypb9I7yQ+qUNWF70HwAjw=;
+        b=e5MI09Lj4MWaoziE6l2ZTXT+ii2bk6DLVLtQ+iAIdg6gtIhKLW4FpfokruVA99rCZl
+         um+ixz0/BPJeoCS6hyiID/LC3ioSH3K4S7LwgsjeJUbCYOOyOyeekd4riONtIjjAlrM2
+         JaIPVLHg/3djWFf7shzzq+/ULcza6xO6X7L2+TbF43IRyDlah1zlIYVH9KRtzzRBqGK2
+         IBWQBbvtCXYy1+kz3kcKRPxm4ZIerCTkxGaSWGJezpn5zsjwcGYK1QZOxrsQDVNwBy/K
+         Q9CM8jBYzSQCvCvdJ2zP1nmnb/d08RfPR4Ndg6pBnrTwyoHNuzcuGy3DOXB6AkGv6Tot
+         Y3Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685692100; x=1688284100;
+        d=1e100.net; s=20221208; t=1685696729; x=1688288729;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:mime-version
-         :references:in-reply-to:message-id:date:subject:cc:to:from
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JVhCmuyEiS0tJTOR/TmrcAgeK2g6E2/CxFT3FKlOfO0=;
-        b=K/vulTvz+rHgZabVRPw5gtBfC8cTFELp5HFSTc8HEy4gIELWuhsgHk+ufvE0jdfXfz
-         ZjfoJDdy6OqAyq82z2j9TJwrv8VWJQ2hPiQfppr5oh59et7G6J1SLRoPVGfxphrbovCZ
-         qMhlM6dhTmAbnRPd3EyoVJEULx/gqpzTOPjsjHNoz2vBk7NJmdX6JHpofHeXWARmDG3C
-         QJdhFKzf7tkmVf0GnM52IUKqYEtRJABEQBKfUTw/CQSTmOUzToaKmdpfAZ+zK7xzmU7b
-         4ka6z7WcGBczyAkCpRWPe+S4ok7Q7udj0dLTtTB7oxNgx4GIo2O5ptHHCoOIoxINtGV+
-         Fe8g==
+         :x-original-authentication-results:x-original-sender
+         :ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:x-beenthere:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xlrDzJlbgSB228gmteo/STypb9I7yQ+qUNWF70HwAjw=;
+        b=AwfhMBbsYtxSlGfwVTstCxJL1l9w7MTbQX81pukjW9y6lnr6FDX28kuyMK63TOi+ch
+         g/noR0FfiZ/tUjd27nrRd3ePY+6QSXkCRNmtZqRMdFeU5vbu70eqratsdt04ezQ0Er3F
+         GlZiR546TmEAtrjvD92n960pqE8XvyF5e41iOHw9d9V54QRGxdGMf20qaRaxqiII1EeA
+         D5ZIB3XRv+xssHyVWUDAoIC7C2rbHyHiQB9BlFd5fkPs+znX7jXpTY/Mj5EHwBeWV0ql
+         tym7nbABM9d+itx2fnOPbKFUjc2q3kM/2wst3rMUGsC3Nf6SsgKJ3EMNKWssq6FA5Ybf
+         hLJg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDxp/pX/6ghTmlebgnj9B7faI0sMicKrnKh2n1s3qIL52Qsojq07
-	I3yAciUopbwK3b9h550SFIw=
-X-Google-Smtp-Source: ACHHUZ4R46552xnZq00fiF0w3nwBm6BNqM5vVSK5szy5WNa73t7wp6beGUUusQkmrTADyuJsWXAHIw==
-X-Received: by 2002:ac2:4465:0:b0:4ec:8615:303e with SMTP id y5-20020ac24465000000b004ec8615303emr1505366lfl.33.1685692099606;
-        Fri, 02 Jun 2023 00:48:19 -0700 (PDT)
+X-Gm-Message-State: AC+VfDzeKwShS/OaLexHJ9o4Rn58fSnlY3t5ctykFvCv7kyEhKAgRPCC
+	UNhTTZNyEWKyzvVugcJPSXk=
+X-Google-Smtp-Source: ACHHUZ5KUnSUDqN5l3y//sOr7H/heOSe7kVGeqs5J9rVoN7ADLh1QvZZDBafITiGwAMj/PKVJt/jRg==
+X-Received: by 2002:a2e:a0d7:0:b0:2af:1561:a73e with SMTP id f23-20020a2ea0d7000000b002af1561a73emr1035258ljm.52.1685696728195;
+        Fri, 02 Jun 2023 02:05:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3288:b0:4f2:71a1:53f1 with SMTP id
- p8-20020a056512328800b004f271a153f1ls23938lfe.0.-pod-prod-01-eu; Fri, 02 Jun
- 2023 00:48:18 -0700 (PDT)
-X-Received: by 2002:ac2:59cf:0:b0:4f3:7b3c:2e16 with SMTP id x15-20020ac259cf000000b004f37b3c2e16mr1206375lfn.39.1685692097907;
-        Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1685692097; cv=none;
+Received: by 2002:a2e:b634:0:b0:2ac:8284:e51 with SMTP id s20-20020a2eb634000000b002ac82840e51ls192294ljn.1.-pod-prod-07-eu;
+ Fri, 02 Jun 2023 02:05:25 -0700 (PDT)
+X-Received: by 2002:a05:651c:219:b0:2ad:8f4a:1e52 with SMTP id y25-20020a05651c021900b002ad8f4a1e52mr1253923ljn.30.1685696725826;
+        Fri, 02 Jun 2023 02:05:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1685696725; cv=none;
         d=google.com; s=arc-20160816;
-        b=idRmTNv7ASrS6S0hImPVqMuCnz/06bqC3LUe4SmAYWtu+zqddA++Qzukeu3QKT03n7
-         oLs1unqwoUv6tR6nAsJIoLwRyCnglT8uUuvLs9BzpC/YnVx7aCZV+Nm7WozlVw3tzM8+
-         9xoqd4GLBr8aUSzYsDLxBjbF45BXhIpecSZZd+yV9pGR8DoSIkRl33BMFrQK6KDHYBIZ
-         9+E3TP3REpwH9v/5zoObSaf1x5pIsezbztH04rNk3LFhAwUgsCQkoIHmP1x/yunm1bEc
-         rdGM0VPtt+6vGJuyb5XELtsrNvbATOlMIQyelr5Av8vCgSJZJJrvCfJpU8Qsq2KFOAMe
-         c7Eg==
+        b=0FlP6KLgEBCCySqpB7EKOydi88/CclI/rSaRY92kwY+1mwPjL540NtbcqPfBg4V/71
+         bm8Lw0g9FnD5zrBW2N8N7gf2tGV3JQ1yRgExq6HBekhOli4ei6YZB1LqfD4HGovLgQoX
+         Swh2LmfOZwNmfWKGy+/I+01w1zVAgelY8RTqHdzTFIiyk9hBLOsF8lCLvfYM7R6w+lHG
+         +6NknX7CfPzBB2TDuJ6AonLtKkd5cWYWG55CayMe2Dww73dl/FhF5sEPHzYCqB1W9jYK
+         w2Yst4nK7liXsKS41VYZp7x24EpeTTmtvTFXdxp4JVJqbpzSKko2KYbKt9DbU3EwgwAe
+         oBBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:dkim-signature:dkim-signature:from;
-        bh=EC/D/M0zwOtgFPG+gHM4SAFy30FcYwTWFcUaxDzRBz8=;
-        b=au5LikyHoYbHIU0kyOA9L/2jyAvexiWUfrvl9I/IbytKLT/JNcrLkln+LqewKZZJkr
-         VqPOJ/BuO/T8y7DUB57SZ500hgkSnLUl5WXqkkNnwmsWf5UW1eTu7boOkANI39qWavlX
-         Zrjn/HfavAg2FZy1g1NprkDRDVciAgbmdZxOFOcmF6ywcRCZqT5beHCx+Sn4gy59njju
-         D1tXG0cHRj/oltR4dWLdZGxSeTtFq1WxtA4a+ym5Q9l70oWLIWVdYi2nhjR/Xl9MTTB5
-         siAciL0ZWrBENl8zJ5jZvjVF0AMiCOmOXf2aNMtt/rV2RdZsSBBtV+JDo+RGQ7Ak0n/7
-         q3Bg==
+        h=ui-outboundreport:to:references:message-id
+         :content-transfer-encoding:cc:date:in-reply-to:from:subject
+         :mime-version:dkim-signature;
+        bh=GqVBjDQ/H7zDmX0pvXRf/Gim14UEw1HNinbxUzzehCs=;
+        b=XbRy8b0PyhiKSlAk0TvM2n+O8A89UAWeBYXnwVTQeOf0PUrDh5P7d9yY+gYeNl+Zu6
+         tpE+en/D4JsOGgHC/4JR8baFyPKhhiFrpFbBe8K7bcUbsl0IA1m5oW3CQdA/KcvVgSpH
+         rfVxBdfTnU7S+XYB0TRXru4kTmYdS0+91l/aghbmzUkYU4Tw/rfurEYWn+hZiYnMinMN
+         bRiAt2AHdsLMQ2nic2xcNUQxjV5eDTKcw2pUQ6TI6akZxvFqYSOtAXeAyELhUURhTtuF
+         vCbp37p2sOHPLAijzRts+xm4DAQz3bZOU1VTr32xliD7lLOHmBG+8yYjxjMVlNmE4uso
+         Tc9w==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;
-       dkim=neutral (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
-       spf=pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
-Received: from galois.linutronix.de (Galois.linutronix.de. [2a0a:51c0:0:12e:550::1])
-        by gmr-mx.google.com with ESMTPS id h15-20020a0565123c8f00b004f4e6ea3713si40932lfv.8.2023.06.02.00.48.17
+       dkim=pass header.i=@gmx.de header.s=s31663417 header.b=W8h4ucZ2;
+       spf=pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.18 as permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmx.de
+Received: from mout.gmx.net (mout.gmx.net. [212.227.15.18])
+        by gmr-mx.google.com with ESMTPS id k14-20020a05651c0a0e00b002af15d1ad3asi68507ljq.8.2023.06.02.02.05.25
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Jun 2023 00:48:17 -0700 (PDT)
-Received-SPF: pass (google.com: domain of bigeasy@linutronix.de designates 2a0a:51c0:0:12e:550::1 as permitted sender) client-ip=2a0a:51c0:0:12e:550::1;
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: jailhouse-dev@googlegroups.com
-Cc: Jan Kiszka <jan.kiszka@siemens.com>,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Ulrich Wulff <ulrich.wulff@kumkeo.de>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [RFC PATCH 4/4] arm64: Set HCR_EL2.FB.
-Date: Fri,  2 Jun 2023 09:48:08 +0200
-Message-Id: <20230602074808.1383333-5-bigeasy@linutronix.de>
-In-Reply-To: <20230602074808.1383333-1-bigeasy@linutronix.de>
-References: <20230602074808.1383333-1-bigeasy@linutronix.de>
-MIME-Version: 1.0
-X-Original-Sender: bigeasy@linutronix.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@linutronix.de header.s=2020 header.b=NPHTlTuH;       dkim=neutral
- (no key) header.i=@linutronix.de header.s=2020e header.b=kdwYeDb6;
-       spf=pass (google.com: domain of bigeasy@linutronix.de designates
- 2a0a:51c0:0:12e:550::1 as permitted sender) smtp.mailfrom=bigeasy@linutronix.de;
-       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=linutronix.de
+        Fri, 02 Jun 2023 02:05:25 -0700 (PDT)
+Received-SPF: pass (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.18 as permitted sender) client-ip=212.227.15.18;
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from smtpclient.apple ([5.149.24.57]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N49h5-1qDQs13UlV-0104z8; Fri, 02
+ Jun 2023 11:05:24 +0200
 Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: [RFC PATCH 0/4] arm64: Limit cache invalidate to local CPU.
+From: Oliver Schwartz <Oliver.Schwartz@gmx.de>
+In-Reply-To: <20230602074808.1383333-1-bigeasy@linutronix.de>
+Date: Fri, 2 Jun 2023 11:05:23 +0200
+Cc: jailhouse-dev@googlegroups.com,
+ Jan Kiszka <jan.kiszka@siemens.com>,
+ Martin Kaistra <martin.kaistra@linutronix.de>,
+ Ulrich Wulff <ulrich.wulff@kumkeo.de>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BD7FE16F-42F5-4D5C-9182-2AFC442B43BC@gmx.de>
+References: <20230602074808.1383333-1-bigeasy@linutronix.de>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Provags-ID: V03:K1:6retPjZVhUPs+dcykHANlA2VySXZ3gWrc/KqUBKqscsgAfUgvbr
+ yxLBceO3bgmkgT9YQwuchoxg8O5JBD56olw+igCfbbsnMzIFmRuN6/PEPXdYfCVaNlIwD8W
+ cZrEqr9yW84lUR471jBnzMSSNvF9ZxlcqBmfDILgoo4yiCy2ssui/KG8nHFefr+gI7hQcjn
+ XAR+LQ1sq4lP66C1PqN8g==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:GMDtMFttCLE=;cfPy/7UomUMrex1X0XTiQB0oVQs
+ RaiLLMV1lPjVUYMzzCSZ/wDP8MUcdQ7tMcE814tdtAxhPOiFVTh/qMxtj012V66gW9FDHSM4G
+ oFbK45TKzGEcwd+QQzTXD3WuBIS6TN9rvIcgNDVbsyPDJQpBZqt87AWiF2/HQNMyw2NvcT6sD
+ eY26lu8phh6uYtIoiknc/I/5HkS+spNrge84UB2EDnjzMQQ4ahyg0PQzUerLtJVUFH/1Q0JG5
+ W+rvpXywatfHfnHUCxNhQHiEaR3XVuSmHYLZKSdjfSBMhxMnohpL4nRG+Gv/pQQQ4AWNCc23J
+ goefaqj7fkJitCNylRt7oWs0Dzdf78WNydfHVGRa9ZZ7aHYM2SgWsJimt017DwthlLsbRFIUE
+ mqSfrGdFFB9dKjDceXWhLRlFB7+W5Sed1KRcSJkmRWYWkhEEAoqnOKcK3JNRqSRm84ipOJO/N
+ kBnzwHrGdh8vJfliVcBPK3pdhISMGLqKvgLPO1h/d3sbMOAVja8sga7V4f3Gvdk8MpV20CnQh
+ 1pe6qxksqyCEGG3D3gn3Ty1L3CuNkWS+Vl07W3d/eJMVT0umA6XO0URAcBput3POQ1S/gOBDg
+ d6XDLsfzymrHeTZlz9nK5ETZlFQ+iNM4/C7RMniapp2XEHwij/9zpMP9ouzS8to0r9CxlGo9V
+ DQJNYg7N48+0jaSJFnQJ1lDN5+3Bb8MKsh3GigSe2sF8c6CmF96YelNRoEVaoGr3V6h8pY/2S
+ 2b+iLddL0E7/gD7sW5fEZ/Ky4P8CBTVignO3XOcQnJ3oWt2BR+n9ix1Q5UuWj4gdopXgm7PoY
+ EkzOvZn7VfXXY2h5HbrdWnSDGQTJZpwptNvU2gQfX1XlIL3OM0kgs0y+29IiAQiRhbQSKYBeh
+ wp92D/cSAWB6hQIuXtKHadO5AJ3M92+ruHKnvSPX/6pzWTanCuJVCKMTqtqnCVezLS7qVAFfR
+ W0YOvUFYtSNn/zOQ+F5NIbmsv7Q=
+X-Original-Sender: oliver.schwartz@gmx.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmx.de header.s=s31663417 header.b=W8h4ucZ2;       spf=pass
+ (google.com: domain of oliver.schwartz@gmx.de designates 212.227.15.18 as
+ permitted sender) smtp.mailfrom=Oliver.Schwartz@gmx.de;       dmarc=pass
+ (p=NONE sp=NONE dis=NONE) header.from=gmx.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -132,183 +157,29 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-From: Ulrich Wulff <ulrich.wulff@kumkeo.de>
+> The problem is the cache flush/ invalidation which is performed locally
+> and signal to the other CPUs in the same cacheable domain. This is
+> required on SMP systems where the memory is shared between CPUs but can
+> be omitted in setup where each CPU has exclusive memory.
 
-Set the FB bit in HCR_EL2 to force broadcasts invalidates within the
-inner shareable by issuing only local invalidations.
+You might want to take a look at the patches in this thread:=20
+https://lore.kernel.org/linux-arm-kernel/20200223192520.20808-1-aarcange@re=
+dhat.com/t/#u
 
-The idea is to properly invalidate entries on a SMP system. Then the FB
-bit gets cleared by the hypervisor and Linux switches to UP mode. The
-memory between the two systems is not shared so invalidations on the
-second CPU is not needed and Linux continues to invalidate only locally.
+They address the same problem but offer a kernel-only solution (rough summa=
+ry: tlbi broadcast instructions are only issued if more than one CPU is onl=
+ine in Linux). The obvious advantage is that it doesn=E2=80=99t rely on the=
+ cooperation of Linux and the hypervisor. There may even be a chance that t=
+hey make it into mainline.
 
-Signed-off-by: Ulrich Wulff <ulrich.wulff@kumkeo.de>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
----
- arch/arm64/include/asm/cacheflush.h |  2 +-
- arch/arm64/include/asm/tlbflush.h   | 54 ++++++++++++++---------------
- arch/arm64/kernel/head.S            |  2 ++
- 3 files changed, 30 insertions(+), 28 deletions(-)
+Oliver
 
-diff --git a/arch/arm64/include/asm/cacheflush.h b/arch/arm64/include/asm/cacheflush.h
-index 9384fd8fc13cc..5a0b126d0164b 100644
---- a/arch/arm64/include/asm/cacheflush.h
-+++ b/arch/arm64/include/asm/cacheflush.h
-@@ -132,7 +132,7 @@ static __always_inline void __flush_icache_all(void)
- 	if (cpus_have_const_cap(ARM64_HAS_CACHE_DIC))
- 		return;
- 
--	asm("ic	ialluis");
-+	asm("ic	iallu"); /*  promoted to ic ialluis by HCR_EL2.HCR_FB */
- 	dsb(ish);
- }
- 
-diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
-index cc3f5a33ff9c5..3f1b8f7970e7a 100644
---- a/arch/arm64/include/asm/tlbflush.h
-+++ b/arch/arm64/include/asm/tlbflush.h
-@@ -237,9 +237,9 @@ static inline void local_flush_tlb_all(void)
- 
- static inline void flush_tlb_all(void)
- {
--	dsb(ishst);
--	__tlbi(vmalle1is);
--	dsb(ish);
-+	dsb(nshst);
-+	__tlbi(vmalle1);
-+	dsb(nsh);
- 	isb();
- }
- 
-@@ -247,10 +247,10 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
- {
- 	unsigned long asid = __TLBI_VADDR(0, ASID(mm));
- 
--	dsb(ishst);
--	__tlbi(aside1is, asid);
--	__tlbi_user(aside1is, asid);
--	dsb(ish);
-+	dsb(nshst);
-+	__tlbi(aside1, asid);
-+	__tlbi_user(aside1, asid);
-+	dsb(nsh);
- }
- 
- static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
-@@ -258,16 +258,16 @@ static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
- {
- 	unsigned long addr = __TLBI_VADDR(uaddr, ASID(vma->vm_mm));
- 
--	dsb(ishst);
--	__tlbi(vale1is, addr);
--	__tlbi_user(vale1is, addr);
-+	dsb(nshst);
-+	__tlbi(vale1, addr);
-+	__tlbi_user(vale1, addr);
- }
- 
- static inline void flush_tlb_page(struct vm_area_struct *vma,
- 				  unsigned long uaddr)
- {
- 	flush_tlb_page_nosync(vma, uaddr);
--	dsb(ish);
-+	dsb(nsh);
- }
- 
- /*
-@@ -304,7 +304,7 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
- 		return;
- 	}
- 
--	dsb(ishst);
-+	dsb(nshst);
- 
- 	/*
- 	 * When the CPU does not support TLB range operations, flush the TLB
-@@ -329,11 +329,11 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
- 		    pages % 2 == 1) {
- 			addr = __TLBI_VADDR(start, asid);
- 			if (last_level) {
--				__tlbi_level(vale1is, addr, tlb_level);
--				__tlbi_user_level(vale1is, addr, tlb_level);
-+				__tlbi_level(vale1, addr, tlb_level);
-+				__tlbi_user_level(vale1, addr, tlb_level);
- 			} else {
--				__tlbi_level(vae1is, addr, tlb_level);
--				__tlbi_user_level(vae1is, addr, tlb_level);
-+				__tlbi_level(vae1, addr, tlb_level);
-+				__tlbi_user_level(vae1, addr, tlb_level);
- 			}
- 			start += stride;
- 			pages -= stride >> PAGE_SHIFT;
-@@ -345,18 +345,18 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
- 			addr = __TLBI_VADDR_RANGE(start, asid, scale,
- 						  num, tlb_level);
- 			if (last_level) {
--				__tlbi(rvale1is, addr);
--				__tlbi_user(rvale1is, addr);
-+				__tlbi(rvale1, addr);
-+				__tlbi_user(rvale1, addr);
- 			} else {
--				__tlbi(rvae1is, addr);
--				__tlbi_user(rvae1is, addr);
-+				__tlbi(rvae1, addr);
-+				__tlbi_user(rvae1, addr);
- 			}
- 			start += __TLBI_RANGE_PAGES(num, scale) << PAGE_SHIFT;
- 			pages -= __TLBI_RANGE_PAGES(num, scale);
- 		}
- 		scale++;
- 	}
--	dsb(ish);
-+	dsb(nsh);
- }
- 
- static inline void flush_tlb_range(struct vm_area_struct *vma,
-@@ -382,10 +382,10 @@ static inline void flush_tlb_kernel_range(unsigned long start, unsigned long end
- 	start = __TLBI_VADDR(start, 0);
- 	end = __TLBI_VADDR(end, 0);
- 
--	dsb(ishst);
-+	dsb(nshst);
- 	for (addr = start; addr < end; addr += 1 << (PAGE_SHIFT - 12))
--		__tlbi(vaale1is, addr);
--	dsb(ish);
-+		__tlbi(vaale1, addr);
-+	dsb(nsh);
- 	isb();
- }
- 
-@@ -397,9 +397,9 @@ static inline void __flush_tlb_kernel_pgtable(unsigned long kaddr)
- {
- 	unsigned long addr = __TLBI_VADDR(kaddr, 0);
- 
--	dsb(ishst);
--	__tlbi(vaae1is, addr);
--	dsb(ish);
-+	dsb(nshst);
-+	__tlbi(vaae1, addr);
-+	dsb(nsh);
- 	isb();
- }
- #endif
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index d8d9caf02834e..493c204eab39c 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -519,6 +519,8 @@ SYM_FUNC_START(el2_setup)
- 	cbz	x2, set_hcr
- 	mov_q	x0, HCR_HOST_VHE_FLAGS
- set_hcr:
-+	/*  set HCR_EL2.FB to promote IC IALLU to IC IALLUIS */
-+	orr	x0, x0, HCR_FB
- 	msr	hcr_el2, x0
- 	isb
- 
--- 
-2.40.1
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/20230602074808.1383333-5-bigeasy%40linutronix.de.
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/BD7FE16F-42F5-4D5C-9182-2AFC442B43BC%40gmx.de.
