@@ -1,72 +1,194 @@
-Return-Path: <jailhouse-dev+bncBD65FYEH6ABBBPUPVOSAMGQEAGOCR6Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCWKP54GYYIRB5X7V2SAMGQE5KWJLGY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965F57311CE
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 15 Jun 2023 10:11:44 +0200 (CEST)
-Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-bc501a1b17fsf2014331276.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 15 Jun 2023 01:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1686816703; x=1689408703;
+Received: from mail-wm1-x339.google.com (mail-wm1-x339.google.com [IPv6:2a00:1450:4864:20::339])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C60F7324DB
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 16 Jun 2023 03:50:48 +0200 (CEST)
+Received: by mail-wm1-x339.google.com with SMTP id 5b1f17b1804b1-3f7e7cfcae4sf501725e9.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 15 Jun 2023 18:50:48 -0700 (PDT)
+ARC-Seal: i=3; a=rsa-sha256; t=1686880247; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=gLbrwPXLF8laa7Nw/IAQU0CW/KjsD3CJndzNtYJQinPRwHApq4ozVGENagA2VRZmZ4
+         gkwg1k+Lkyt6ZW3eTHqQ6a9NZUd42+4nH168UR0kcvCdt+gieZuZCsC35epbcSiCkZJT
+         1IWZvOVN7XA0CX5B20Eh50qeNACaXW1K6tUINwGL0GUhKdX3F+XxkkOLntOYFKkE5suY
+         fcch/2g2J0EQdDg6Wqsa/PFh4b2L7Tq3v3p5axXiHCBNWY/Xl/2tIwfj8umYjDmrJ6z1
+         PVfo9V49XWsBYx7Y1zKxzeWxs4lFnM/AeWpwqZpZVY4LH8MfSLKv9MOhD1FdyWuPT1NP
+         NNhg==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EJ3QcUO1sbEVEYd9Vfz65MeTiqdJlBjCu8zgQRWs3jQ=;
-        b=oZTgHrlKvSlP/YXiXWppDZMDWyRLhj6dDnTC4O/eKunmIRtlf6zs5sVNATiAEOl3AT
-         RCK6jafYqinCXrbLh1Swo51BK1VjKpyI76DpyMV++SSHRfyYpJ1XzoWbV3GPKaqt8/3a
-         XiZoNvZBTyp0L27pPWPid+2QuA3ioSLNxduuHJyQxY6IwnD0STOGngLUXzR2Skjf8bib
-         X2nBz5IQrNCYf3J9bxbRtYmJyFqvnLvsPPib5w7VHp6IyYH91lGOw9eqgjylkcd882f7
-         Wc5b0PAyWhgLUSRAQqVq2Kl5QZaBVelZF0uI8U+NfVMlJiGSK4S+eHtaCDn/ZvzGWGtI
-         O2oA==
+         :list-id:mailing-list:precedence:mime-version:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:sender:dkim-signature;
+        bh=gDdeTVSQll6MNu5dI9PrWLAZVWRyPJqwaREn+8gd/7o=;
+        b=VgWVjkqWDrwNp5B/jTvVD+JIfgUHoRRDbvAhikqAlJqyJeOCtyw/tEAY4+PJwGSjX1
+         vrhrwq7e9AU/G3z8+cCXCmoDgT3QTyp3pW7xUbnrNc7kwaygZyPobAujMs8qI8K2ScnY
+         M2ofMSKd9dJxYl5l3nvw2BC5q69g7UOk05IZBtG7iUCpVn23Jjn88TZNZ4ZzR2rOaWZj
+         JcXpB8NeqCoeZXAOsl4JkAQMt4dWjbq2jUQxg1kMg5D62BZiqZcIzSrMBXIsyASaagDS
+         f8gsKjhozZU+p6+GYqIEIVfTqa1FziJVfxindaiBfr/ka1Uon0JaSPVMaDVNe6iWFOEx
+         lFdw==
+ARC-Authentication-Results: i=3; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=g2QkQlLb;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe1f::617 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686816703; x=1689408703;
+        d=googlegroups.com; s=20221208; t=1686880247; x=1689472247;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EJ3QcUO1sbEVEYd9Vfz65MeTiqdJlBjCu8zgQRWs3jQ=;
-        b=pdgbCXfYG+vVb0FvWxtYYk4JuScRKxcOBXjGwpa5byKUy2DKoNqxGURmaT7e55ra7l
-         MvyIgOcOprXd/qa0IvSaTIJi8Z6OxYVx3Pp3h5xiUBDHK3lRJ5eE2xrR5aEQI9AbKfLf
-         rHtH+IjI7TBnfcpqU++hIH8Tjn0u8B6upsuFajeYQCST6mvzyjpvy0W7VHiALjw6U8Qw
-         HdspNv2Xn/raX2VZeiLLEDa/c/G/y2ygyMN7zQ0egL8G4ghrt4Rquk7w10sm0RFgsjmZ
-         05T0YKs7c5mRbIRK6IdX6dnZYgpsJHFIgqgwiwmGJ5CPrCB+fz8Ruvo834c+kmfD46Ee
-         7xHw==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:mime-version:content-language:accept-language
+         :message-id:date:thread-index:thread-topic:subject:cc:to:from:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gDdeTVSQll6MNu5dI9PrWLAZVWRyPJqwaREn+8gd/7o=;
+        b=UC1u4S6HddcqURXjQYfaSb2WVfpjRnldMiFm20QRqXdiv/Q6noUbTZ0hyWNFLTEahr
+         ifsuMk8m4srHdq4WYVnp5eygXjof1W3h1+l6CRIq1rqVtmItLnsC60K+YAelqMK95aW9
+         Hd2IZ29bcsQjD8ZCEwMGmAr366jyrUjxshHcg84/Dq1JXBpSYwqqeMrxxb1qnB3Jm0jv
+         51sLTl8xdgYXhxsMkgAG/J86uOCDGzbJJu8gAFnZ/x7RNoTLAozTZHO2gP1KxBZhbPS0
+         VRD71b8hsN/MY0OY2CN3is5x7GIaycLD4H7PKxuVkNYnq8uVB/i3Dgs4uv+k3ll0nvUn
+         j8Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686816703; x=1689408703;
+        d=1e100.net; s=20221208; t=1686880247; x=1689472247;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EJ3QcUO1sbEVEYd9Vfz65MeTiqdJlBjCu8zgQRWs3jQ=;
-        b=Zr4Mvp7Y3jqYasVqP/SLTdxyFtcIj51GD9Ox+nx/wO9KYg4kcGam0nyGArrj+V/uPm
-         2g0uYQOVy2MkHZHaV8FKurtgw61L03x566fY6Mejlb7B3s9dqhzdT/mR8diieXVmTx4O
-         tkL6Mhle5K/SiQzSMRXmJXRZ+zarlImoY/RqTWHloSOyxaUcl6xe6uF0ItH6ps3XlSkE
-         EHFLqc9mv+A5ffXWipLj922lflMfN1l12/gIZp8oEQ+/dyro7lmmwukWoKXaa0DCuojG
-         On4oqSixbEDGLpoMN/+pCbQ13RO4LryOGe9C1FEmPON+3/DvkXCknrX9FAbXhlSCBvJL
-         kWDQ==
+         :x-original-authentication-results:x-original-sender:mime-version
+         :content-language:accept-language:message-id:date:thread-index
+         :thread-topic:subject:cc:to:from:x-beenthere:x-gm-message-state
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=gDdeTVSQll6MNu5dI9PrWLAZVWRyPJqwaREn+8gd/7o=;
+        b=hWEVsLgKyhYeJ4MAESJyzC3jCVZ9dbNBl44krwssLHnP1eqswz4DT5ReDU98yW5/zp
+         PCpSA5OBBjsAVyZl8NwEGvSPkfccqMKP36BIrXn1Ou80Pf8/882LJJQ40SAzA3FaR6Or
+         PpfSEayeIEznrIayQWogE/ni2CGk2tFfiAzBi3fSe+YemSlGagsjV1BpBIOOeiIRikEm
+         ID6KrVYb+zKjxduT9bqPR1Cgr6gW1OXrKvUD6D/Hjh9EHQ4EGK0LB7o6xHEWrnHKX1PN
+         x6hIUnrERhfXAh/AZbY2lNHfO3C0vPixjKxU4xKE7vdh8OA3dAPakk8jQT3084qokuI3
+         LHcQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AC+VfDyM5BKUYiYeEULiOKeY1waa4n+VNJ6MHAOxB1ey0RnDs0olWZGa
-	ww0wElTK87zhA4aWMTx933Y=
-X-Google-Smtp-Source: ACHHUZ56k4dGDRSPshJdG0TQuGXVEhID14NJPQrbTBO36jW3pEhi9YZG08V3N3ftCRzMtISLOBaOIQ==
-X-Received: by 2002:a25:495:0:b0:bd0:1f43:5618 with SMTP id 143-20020a250495000000b00bd01f435618mr4024642ybe.58.1686816703237;
-        Thu, 15 Jun 2023 01:11:43 -0700 (PDT)
+X-Gm-Message-State: AC+VfDx6ucs8nPk7gVL/0xsRNuH2dh6l4PK4y1zf1TiSi+7dfG35p1c5
+	sdikNWt9RVnL/hvUkU+0ujA=
+X-Google-Smtp-Source: ACHHUZ6Ng5lL/99BPG4tBWc+Dd3DQN1WlxR8SCjwn5SHGRXPQyVK2RwdYKBJf79ymLfVWoEBNeGMow==
+X-Received: by 2002:a7b:c389:0:b0:3f7:f7d5:a07f with SMTP id s9-20020a7bc389000000b003f7f7d5a07fmr575858wmj.17.1686880247043;
+        Thu, 15 Jun 2023 18:50:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:ac97:0:b0:bc6:44e9:7fe0 with SMTP id x23-20020a25ac97000000b00bc644e97fe0ls1161504ybi.0.-pod-prod-07-us;
- Thu, 15 Jun 2023 01:11:42 -0700 (PDT)
-X-Received: by 2002:a81:ac1f:0:b0:562:837:122f with SMTP id k31-20020a81ac1f000000b005620837122fmr1913947ywh.9.1686816702035;
-        Thu, 15 Jun 2023 01:11:42 -0700 (PDT)
-Date: Thu, 15 Jun 2023 01:11:41 -0700 (PDT)
-From: sai krishna Allu <saikrishna.allu@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3e6d4f38-5938-4da0-9666-9093a0b76300n@googlegroups.com>
-Subject: FATAL: Unhandled HYP exception in Raspberry Pi 4 for jailhouse
- hypervisor
+Received: by 2002:a05:6000:38e:b0:30c:2d4b:ad5f with SMTP id
+ u14-20020a056000038e00b0030c2d4bad5fls142375wrf.0.-pod-prod-02-eu; Thu, 15
+ Jun 2023 18:50:44 -0700 (PDT)
+X-Received: by 2002:adf:e4d2:0:b0:30e:4886:425a with SMTP id v18-20020adfe4d2000000b0030e4886425amr290542wrm.40.1686880244852;
+        Thu, 15 Jun 2023 18:50:44 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1686880244; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=yTAj/EwweZ3Ysyx8FNLf/v6/kjWJuMil0z0U6mklaTBSb106k7TpoDEl4T82y18RLM
+         5ps89rFXCYNsEOHmYIuGgVd/alYkKfOt4CfvWFSgzw76i/QVJOcNpIVsbS4l2nQptI6T
+         SaFM/ZGQCkUv0mW085eXqOv2IBMnkkUpIJ6A4kegIgAdFWIr/VBgT6koCGTMht2ZZ/Xw
+         YrBKUejmScdopwPmrOt22yNRzr5YZU1cmKVeHy1ik8Yrj8wSOpexK7gvWUxV1VYW4474
+         eMiLj6eoERGzCWoH9s7KnGiKjyIES3WRg79SygPI8QqiwPU7AxbMoYjxJgj/P+sqvBim
+         hlQA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-transfer-encoding:content-language
+         :accept-language:message-id:date:thread-index:thread-topic:subject
+         :cc:to:from:dkim-signature;
+        bh=31i/KZd/YJCDmkoNukxplauMXOCnWX3FeC1LNllh6U8=;
+        b=UwCARdhF1BtNZThBw/UQkKJxZ0DO7uKitfevvuctFcy3/uxGNuDh74C+JQiGol9F4F
+         6FCbM9sY5F9PtyvwSqF8lzM8/MjmpGGQxoJvnJJnieWF0kKd/zeFvXID6yTqicHDEFDX
+         rns1zOUU1Ep6WMY6jeE6q4eOjrrsjLAbBePAUi0ZwzQtrad5nuqkF/I0hHsceZeR0yc6
+         qpzkx+1eQYQ2lV051UzwGa9h6Tu6z90edtIwzCxdo6cw12K15s7aBo3RIGlFPHoimQq9
+         o1Yo0nzS4zScGbkGsCaux7KI57aFl+ClwLcLILAF3CuMLE3QU7uGtXVmfr/v3irxvE1d
+         IwfQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@nxp.com header.s=selector2 header.b=g2QkQlLb;
+       arc=pass (i=1 spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass fromdomain=nxp.com);
+       spf=pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe1f::617 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (mail-ve1eur01on0617.outbound.protection.outlook.com. [2a01:111:f400:fe1f::617])
+        by gmr-mx.google.com with ESMTPS id co14-20020a0560000a0e00b0030fbd4303a5si101234wrb.7.2023.06.15.18.50.44
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 15 Jun 2023 18:50:44 -0700 (PDT)
+Received-SPF: pass (google.com: domain of peng.fan@nxp.com designates 2a01:111:f400:fe1f::617 as permitted sender) client-ip=2a01:111:f400:fe1f::617;
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mkH0lHDts6JyF9zhNIOLtVcNVQUdvtBslpDOeprWHSsITwyrc9qkXpjsfTqIuj2YMEoDdUdl8V/58YdIHyNp9EEvPhzxlAOJa+S/frDo6Yal+p/14XI1eFFuUFzu2+3W5wfj7SHBzSVmDZ9F/Rb4jJaRuWFpNqlZbDgsOo+r4IWLTPNHV20QDUG5n1psuTNrybp8fheFjllRGVUXIevza3PP1pBK1ohsAk88YxZrm1+O9xCqSuKcKnsHPaszjsH5gr37OPAzwjUbOBHXlo9qL6HNVrWdq9KL/shrQxum/L19LGnYVLUbYfDu9ZlDmo74w025tz5dtlaq8An/6iGYJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=31i/KZd/YJCDmkoNukxplauMXOCnWX3FeC1LNllh6U8=;
+ b=lNg3okKMaBh1WvXmM8pZdi7G2jMTFev1whdmGcEN3zj8S+tOOMn5Vd/M17KO5gPQKixUc0gaT3vWVjs6gnsm8BdXIHOB6ohky3ClVJN/qnkZQrt2wOOVbbdyfgZh0Ml6EZFVwxOBrnnnoBOPV0GCfUGEEqAv5Sz5L0GXDXczPGDl0F2fapMpxbaFIB7Eqwvu5I654CbKSzsIgwvl6b3ZQyj6G2KDEqgSbWE15qJvzDcfGUcOaN5CtKOPOhz8apsMx1GNYrMe6BbdWg5mRokaTp8lRy85kaMtFaUlOihznUGNGyQaRkf091QWVZCYOV/9nU073wJtuPflN5wwaOcVWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
+ by DBAPR04MB7464.eurprd04.prod.outlook.com (2603:10a6:10:1a8::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.29; Fri, 16 Jun
+ 2023 01:50:43 +0000
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::efff:43d6:6f46:eea]) by DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::efff:43d6:6f46:eea%7]) with mapi id 15.20.6500.029; Fri, 16 Jun 2023
+ 01:50:43 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
+CC: Jan Kiszka <jan.kiszka@siemens.com>
+Subject: NXP adoption of jailhouse hypervisor
+Thread-Topic: NXP adoption of jailhouse hypervisor
+Thread-Index: Admf9N6VzJthxFS9Q++rDSmHMA7Vyg==
+Date: Fri, 16 Jun 2023 01:50:42 +0000
+Message-ID: <DU0PR04MB94173DED6C08CED6A986E3338858A@DU0PR04MB9417.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|DBAPR04MB7464:EE_
+x-ms-office365-filtering-correlation-id: af8accec-6e92-464d-ceb8-08db6e0c1858
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: vByj47oorxd/jKUozkr3W9+XVABdoxBdphJq//N7c/D663lkUKsLAOK7s9vnf4HDpz+OJOXQxL36xN+IreLlEhT7bfXhTZ20IeCwyqFswVbq8FVKIFGM8UceSPP63oU9C/rzeoy6MlYYveIql15SZ6cTDLSR9FqE+Zm/4/vxI8gZv3o87/AyW6MzCP9VczSqSRsFribcQxc9yTKUcajw2ZX9kMrezmxh59XhnglEJgiGFjFHop8qa2yxwCByiqAia8TuHMbaMrJhGsvlZWsuROPt60ZepIItzKlcMjH5zEdZmTeLqJg++3IMRetAULXgZDqSyIc46niix+BLpBYgwj3kvy1UK+YAP7l7G8sPwf9WFqnnM5hLfL5Ye4vwlcPPzLip+97kvC4KLEuDrZepkXAiWo9RGBXpiJbJ53Q5fB82hxefxQQ95aUFxu39ua32KzhJ8wglxMDfCILWq+MkbPXUmoekHQWxTxSaeh7WPpG8WyThGHpA5FfG95+JFUmxIgFPb/qVvpLNKDsJPvf/DQnC5XTnyZ9IbRwKxPKWyQR2DHsrfsVnOL9GehfukKRbOwxAes6gjYNehQY/GKmCNqf6M//ARsKatymgyUnEs6c=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(376002)(366004)(39860400002)(396003)(451199021)(52536014)(5660300002)(33656002)(558084003)(8936002)(76116006)(41300700001)(8676002)(316002)(966005)(7696005)(71200400001)(186003)(6506007)(9686003)(26005)(478600001)(4326008)(64756008)(66946007)(6916009)(66446008)(66556008)(66476007)(86362001)(44832011)(122000001)(38100700002)(38070700005)(55016003)(2906002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Q4AspfrHOCgSt/ntKQfoRgFyBoeisn9JtzF5cpPXPArao2dM0ZuzBGyh655U?=
+ =?us-ascii?Q?/zZu11VdiUX/qtxqLUxnFP1UXLZ0XKUfGFRweLWokjcUzq25P0GJClP7oibQ?=
+ =?us-ascii?Q?3urhwFLK7pBtdfbL0ww9K5KOdhx+poSs6Aerj+MeCq5CtpWqhcrpW6yKzxZ8?=
+ =?us-ascii?Q?WCYVAMHVMjv3Is/us7enCuWiV0VFoYGibDkUejm3Vcx1kKVCOF5Zg4RsAVB/?=
+ =?us-ascii?Q?sNRWyAeq+EMh1wNj7+kHItZWmpKnH5AS/ay3uvYJICHuJfzeMa8pliyuycNv?=
+ =?us-ascii?Q?O1Pt+1L5IkpIfQTPLoBhkIdyh05173gkoIaacZEDY2WW+9/iWsn1dZi9QalT?=
+ =?us-ascii?Q?gYp2Z47NpyF6xUO2GrohDk4t1tSn9BucjxO2HtFPvyyVWR5h3TRUmJrpADm9?=
+ =?us-ascii?Q?mZefgYWpTU00aRisNGkHuo9rn/h1EPLizkNbNAezRwf6BzrMCPAIhvzs1Qat?=
+ =?us-ascii?Q?WWVgNKBha81yF45/0ALhX/8MnEn7wBai4vO8vNI6WZpYCzLx/mP5xC10RvYt?=
+ =?us-ascii?Q?5IHPinfkqXRTqkKjbM3++H+eKDLg6/H4V/NTYeAhbSVDQycQg5DZ4TyyzQIJ?=
+ =?us-ascii?Q?gC4v5Gq+KEORlLLZAdgizwqEjEd7+N+C87Xooj3lQIrFRxG2VhuJrIIB/kYo?=
+ =?us-ascii?Q?kVvE1wxAn4MEq6SaAJba9oPiSp4PrTnqrIJYYv6vJTgybgg+XLFSHLm36Jo6?=
+ =?us-ascii?Q?Z3JLfOVvZnKv8rqAqeLJosbeOjZo5jr5ojs5AmLO3VMsGVlf1RV1rQYQKtXg?=
+ =?us-ascii?Q?e+1alQQIRFfQQtVQmCc2L15EztPyEyZ6IYk+rFHEhu3/JGA0GqO4mK7Id5tD?=
+ =?us-ascii?Q?xDie/sL7+26KJ/FMKWNWFvomj+IgCThxXfjtm0GQZ1RigKJmEqfRPw7bVr4v?=
+ =?us-ascii?Q?CbJnTs5DHo9m/udHhzWFM1wjFSdJp8wlNneTHJ9Dc/vXcGjDUXFpGZ9lFDyQ?=
+ =?us-ascii?Q?ViMRvI4PvtbG8BuO4BgjtEFsDqcyVyV5Fh7wUmPW8/fX/PZ5o6Q+I5YG024k?=
+ =?us-ascii?Q?x8luoev/NduxqRiaP6YV1mbrbB79uLTEoeX49i3lOqbOm5s7+gu9RYDONCMk?=
+ =?us-ascii?Q?4IYcqgrUKmikhVRy8dRvIsQXhCdobKlQKK4JKLciCNoxMllNXL42Up0xUZac?=
+ =?us-ascii?Q?k+erUue7TqAzVRRvlEIKNU7VGA9ptEpRjb/Bo988UPjLrxxGjN0YoYgO3Ocl?=
+ =?us-ascii?Q?zXj1ClYpcnOg8OUdHZ97n9yCFnBKbktLVuau49nY8JsoXiMaL0g+R6usWSS1?=
+ =?us-ascii?Q?3F2g/ShPoCz4G0OFqvOrQo/sC0D5pps/jA+bkW0ViVn/tR/OsaUvzaA9t+H8?=
+ =?us-ascii?Q?pJXiFWecRHYMuaZ3HyF8jBvt5Q1Bm9KZFc9Ldx3viIZGiwTKwPLDnTmmi9wY?=
+ =?us-ascii?Q?R5MLpyYH6Mv8cHGieHQRYGoV9rTHQzTb48MmT2BISNuLDwjAo/T0y+NOk3wP?=
+ =?us-ascii?Q?8jfrGUktQeygyadO4R1IyffratzjPY4Dm7k4G0ozpUvxiTnJqKEHwYw4UHM6?=
+ =?us-ascii?Q?DyY1jD5w54UI7gilaiWEGUuZ3SOi8cmk2P7C5NY2Q4mEzcNmnRsQ4MpoUy6U?=
+ =?us-ascii?Q?v9hOm/lwkCOEADoh1KE=3D?=
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_7570_1242228106.1686816701377"
-X-Original-Sender: saikrishna.allu@gmail.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af8accec-6e92-464d-ceb8-08db6e0c1858
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2023 01:50:42.9683
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /K/5YLx6hHkzDo+0mANKm32meXpElDuhVzYULln6UXS6kcb2ZK0Vt5aQov7aPSz21xtbF3W2+67oHdZVvm/krg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7464
+X-Original-Sender: peng.fan@nxp.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@nxp.com header.s=selector2 header.b=g2QkQlLb;       arc=pass (i=1
+ spf=pass spfdomain=nxp.com dkim=pass dkdomain=nxp.com dmarc=pass
+ fromdomain=nxp.com);       spf=pass (google.com: domain of peng.fan@nxp.com
+ designates 2a01:111:f400:fe1f::617 as permitted sender) smtp.mailfrom=peng.fan@nxp.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nxp.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,97 +201,14 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7570_1242228106.1686816701377
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7571_1491710881.1686816701377"
+NXP adoption of jailhouse hypervisor
 
-------=_Part_7571_1491710881.1686816701377
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Team,
-
-I have Raspberry Pi 4, which is installed with Ubuntu 20.04.5 LTS 64 bit.
-after loading the jailhouse.ko file, when I gave following command I am 
-getting the exception.
-
-ubuntu@ubuntu:~/jailhouse$ sudo jailhouse enable configs/arm64/rpi4.cell
-
-Initializing Jailhouse hypervisor v0.12 (0-g92db71f2) on CPU 0
-Code location: 0x0000ffffc0200800
-Page pool usage after early setup: mem 39/994, remap 0/131072
-Initializing processors:
- CPU 0...
-FATAL: Unhandled HYP exception: synchronous abort from EL2
- pc: 0000ffffc0203820   lr: 0000ffffc020380c spsr: 800003c9     EL2
- sp: 0000ffffc021ee40  esr: 00 1 0000000
- x0: 0000000084000000   x1: 0000000000000008   x2: 0000000080003580
- x3: 0000ffffc020e170   x4: 0000000000000014   x5: 000003ffffffffff
- x6: 0000000000000029   x7: 0000ffffc0219d30   x8: 000000000000002a
- x9: 0000000000000000  x10: 0000000000000000  x11: 0000000000000001
-x12: 0000000000000015  x13: 0000000000000001  x14: 0000ffffc0219000
-x15: 0000ffffc0015040  x16: 0000ffffc020d1fc  x17: ffffbcae22826688
-x18: 0000000000000001  x19: 0000ffffc021e000  x20: 0000ffffc0219000
-x21: 0000ffffc0200000  x22: 0000ffffc0219000  x23: 0000000000000000
-x24: 0000000000000001  x25: 0000ffffc021e000  x26: 0000ffffc021f000
-x27: 0000ffffc020f000  x28: 0000ffffc0218000  x29: 0000ffffc021ee40
-
-Hypervisor stack before exception Stopping CPU 0 (Cell: "Raspberry-Pi4")
-
-
-Please suggest how to fix this problem.
+https://www.nxp.com/design/development-boards/i-mx-evaluation-and-development-boards/harpoon-rtos-on-cortex-a:HARPOON
 
 Regards,
-Sai Krishna
+Peng.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/3e6d4f38-5938-4da0-9666-9093a0b76300n%40googlegroups.com.
-
-------=_Part_7571_1491710881.1686816701377
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Team,<div><br /></div><div>I have=C2=A0Raspberry Pi 4, which is installe=
-d with Ubuntu 20.04.5 LTS 64 bit.</div><div>after loading the jailhouse.ko =
-file, when I gave following command I am getting the exception.</div><div><=
-br /></div><div>ubuntu@ubuntu:~/jailhouse$ sudo jailhouse enable configs/ar=
-m64/rpi4.cell<br /></div><div><br /></div><div>Initializing Jailhouse hyper=
-visor v0.12 (0-g92db71f2) on CPU 0<br />Code location: 0x0000ffffc0200800<b=
-r />Page pool usage after early setup: mem 39/994, remap 0/131072<br />Init=
-ializing processors:<br />=C2=A0CPU 0...<br />FATAL: Unhandled HYP exceptio=
-n: synchronous abort from EL2<br />=C2=A0pc: 0000ffffc0203820 =C2=A0 lr: 00=
-00ffffc020380c spsr: 800003c9 =C2=A0 =C2=A0 EL2<br />=C2=A0sp: 0000ffffc021=
-ee40 =C2=A0esr: 00 1 0000000<br />=C2=A0x0: 0000000084000000 =C2=A0 x1: 000=
-0000000000008 =C2=A0 x2: 0000000080003580<br />=C2=A0x3: 0000ffffc020e170 =
-=C2=A0 x4: 0000000000000014 =C2=A0 x5: 000003ffffffffff<br />=C2=A0x6: 0000=
-000000000029 =C2=A0 x7: 0000ffffc0219d30 =C2=A0 x8: 000000000000002a<br />=
-=C2=A0x9: 0000000000000000 =C2=A0x10: 0000000000000000 =C2=A0x11: 000000000=
-0000001<br />x12: 0000000000000015 =C2=A0x13: 0000000000000001 =C2=A0x14: 0=
-000ffffc0219000<br />x15: 0000ffffc0015040 =C2=A0x16: 0000ffffc020d1fc =C2=
-=A0x17: ffffbcae22826688<br />x18: 0000000000000001 =C2=A0x19: 0000ffffc021=
-e000 =C2=A0x20: 0000ffffc0219000<br />x21: 0000ffffc0200000 =C2=A0x22: 0000=
-ffffc0219000 =C2=A0x23: 0000000000000000<br />x24: 0000000000000001 =C2=A0x=
-25: 0000ffffc021e000 =C2=A0x26: 0000ffffc021f000<br />x27: 0000ffffc020f000=
- =C2=A0x28: 0000ffffc0218000 =C2=A0x29: 0000ffffc021ee40<br /><br />Hypervi=
-sor stack before exception Stopping CPU 0 (Cell: "Raspberry-Pi4")<br /></di=
-v><div><br /></div><div><br /></div><div>Please suggest how to fix this pro=
-blem.</div><div><br /></div><div>Regards,</div><div>Sai Krishna</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3e6d4f38-5938-4da0-9666-9093a0b76300n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3e6d4f38-5938-4da0-9666-9093a0b76300n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_7571_1491710881.1686816701377--
-
-------=_Part_7570_1242228106.1686816701377--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/DU0PR04MB94173DED6C08CED6A986E3338858A%40DU0PR04MB9417.eurprd04.prod.outlook.com.
