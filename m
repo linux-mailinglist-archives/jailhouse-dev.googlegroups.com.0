@@ -1,71 +1,143 @@
-Return-Path: <jailhouse-dev+bncBCW2V4XPZICRBTGWYOSQMGQEMGIW5HY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBRXYYOSQMGQEFVCQMPA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oa1-x3f.google.com (mail-oa1-x3f.google.com [IPv6:2001:4860:4864:20::3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12827531F3
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jul 2023 08:29:34 +0200 (CEST)
-Received: by mail-oa1-x3f.google.com with SMTP id 586e51a60fabf-1b03f7fb970sf2705163fac.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jul 2023 23:29:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1689316173; x=1691908173;
+Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 60E37753357
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jul 2023 09:42:00 +0200 (CEST)
+Received: by mail-ed1-x53d.google.com with SMTP id 4fb4d7f45d1cf-50bf847b267sf1080255a12.3
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jul 2023 00:42:00 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1689320520; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=W4Lv1vGibsePePSNgGGQq2Wa4JQ8J+uDt6R4sKYzrQSzyELnFsBQoOhd5pvB2qn5XK
+         lE9cvSTEnrEcoBHKOcKs9P2NTY5BLZpc1dkr3O8XQK48RbVh/S2HI9UDevIhd8H2gLs0
+         BbsxTnUgGrGfpM0dURxCC/dgG0C6Aau+huNNWxy1k2nIYrzb26Rl6l7TGaHlYCH974J7
+         MmdTgSS1cnqtTgbo2rLnIlI79ruWlv7yZfVLm1U+tiANrCIVttKnVTqq+MqSgv5o5+6D
+         8Ojs/+3SsFJDpJFPOfkxbOBM4ioaGTIBgusHYhDJjebIpr8VrtNA2h7a5VcDjKETWCVn
+         58Qg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H7S31XwmBsUB/obnglHCT2VYw3df1OM91/rz41VQ+w8=;
-        b=oBhQyOgvV2W/RxiF4qCQx7ilMhqDQ7OPwOf1CZ9LLfpqFqC+fQ/+JwHn6B4vMl+oNA
-         6RXS+YsvWPcWdvux37wyz3iCu+GOh6W58Xj6bu5SA0170ocyOuiGjCzI401MFN1C5VOh
-         ej0BL9Hd5fOtu8cwKbt3y/Zyr47eNkDMxAas0iehBHCUhbonhIdG7BvYMOuMHm6iGx25
-         XmM86FlGO5bh9iOGZi20S1Ivsl9geO3l8jijYbb9rySNhG1QgL+PtJ0ppnTzDHDwSsu2
-         OjYHFDt4sDJwy67i0ou1s/XlrEL9KLA1A/MCn0sIDT6c1qiRqSS9Gj4C1qfqPosqEqB7
-         794Q==
+         :list-id:mailing-list:precedence:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :sender:dkim-signature;
+        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
+        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
+        b=DE2i1VLcygIIdtvzlTNcBxLAVSP2pOGOmIRSGOnJPaCWcTxBmVDH+gpxiDMUyZKhCW
+         vkq6O5izgdTrZB3Wkl24AXogpahcc5VhxgI+METJfwa5kUcPUY51hyL2p6rWuYYDhggX
+         ytWgvZdQD9Vp6EuwQAt6nwDYcB3cYW67TcDCvsnoEskfj1JSkMMxR/DJPAQ1zRq9EsFJ
+         umLznYdKW8NsHomqeog6B3zyT/XARXuksIH+y1W55rtQQIySqnXZ2VX+mhVu9FVJ2evl
+         ndynGPYCJgSZmQ4L+FOQWO0QipBRzn6RBs3BVewEIkT67j8CnBNnWUj4TZrbHjDDR0eZ
+         Sirg==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689316173; x=1691908173;
+        d=googlegroups.com; s=20221208; t=1689320520; x=1691912520;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=H7S31XwmBsUB/obnglHCT2VYw3df1OM91/rz41VQ+w8=;
-        b=Hu1QXWGhitFNd5H5R5U2B4wS+dCRz8I3xnQ36btFPcLTfvyOdDZjjCkENl9UobKUxK
-         Dsgvz9hPXImIp9lrLYwEvws3/ZFd5ZzrAZs03H8co2XNQKgj2PT/EvSV/dTpZUVvUurY
-         zwDkcoJMv01ZiQAK3DrzP3Hn++vIHxde184JM/Dr3Jv4A4S2G2STGBCnefAd4QjDkRBF
-         2O7HL3VCIuTCZeLk9nKGr3+y1+luXVGyJAIfV7rVtR4kar1SuqvEE4LI4rf0MwUSx1yL
-         F7XFrmeMluj02zm624YcVhbIxedjZMAH7yT17A8Ei0Axlo9gs2ISzkl4LLz+oDlEWfne
-         FpEA==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:in-reply-to:from:references:to:content-language
+         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
+        b=h07tA5nDFIGdarXvN8xljSIC7X9HPLf7tXg/N0VTTbsV9Pv7XlMZQSBnhqkNhG/3Yn
+         AnUcYvFeBQ2ifTVIP/wb8HLPg17bQV215XhXQCo9lESKmM/ZMZYqyeGKwgvMmXG5/F52
+         6mq/Vwh0cWJA0qsynPJVb+9uZqhlDWvQYBmKiaPVV2yHha9bL0/dZxObnM9f2vNwUUsd
+         t9d3h+qPN9QOah1VQJDYsfv/bOzOyOL5M+cW/zem+7B0meO7WUl+Piar0O0VT6lkSPbW
+         qE8mRl5We1yQK8YSUTm6IzgGvJpIPxUkDQS51JJjv15jMP0IsSOplF8QgEHwl3JcSJX6
+         pNfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689316173; x=1691908173;
+        d=1e100.net; s=20221208; t=1689320520; x=1691912520;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H7S31XwmBsUB/obnglHCT2VYw3df1OM91/rz41VQ+w8=;
-        b=ESLdHGrq0xCXrFfAqzLgxqxM/88GTJxUYVEcy5sSOY9uDTTGE+DDPF0XBLeUJHjVku
-         zV8AKr1773aHKOEY4sg/coMzHKLWUps0sRgXKgAGVUm3pGtyj2r89Xx6+DSok3pc40Xr
-         ZRXdo3LpPZEkYY0y6QKC0KIfpa9gJBbgguxoBAZBE848/SslbOa/EsxwAhcZ8fA1Szp5
-         tViCLKDS9RFyS3ylBUwOTSj8BAPOk+V1PRVe6SCeAwh8EdROb16y80/iMEWtFxSx+jgi
-         dAUjHM1frFacUfLnZySWHkBx12EGL++wvGbAClrWLHL6UC7TA+VtoYw7pEKFovb9HYpz
-         stpQ==
+         :x-original-authentication-results:x-original-sender:in-reply-to
+         :from:references:to:content-language:subject:user-agent:mime-version
+         :date:message-id:x-beenthere:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
+        b=A7n+TDXoUMrkOzEAn4iEGhVqMdEfnu/h9EJ77LjlGcjRa/PsUN6ndXB4UmNHCwQ4m6
+         2JTc2arrmMbcq8b4U+nESAGFKFVKooWD7K2IsdptRFn5jguD96W8EemsCElF/kCiZ41H
+         FguUP4UeN6wUD0gVezfXA4nWsCT6nVjnOnqnm4BqdVt0V0GgH0EOMXEbBKoGv09JgX6e
+         /hyZ/LF5h2bEkQ2bcwuiuCygSe4+FaSx/zT33WfdKQNTa2Ugwtt3wT2Mmn7Jpi6qa+nd
+         NmJu84iDKflpjECLENnGAxIJe/mqMWdsL51LFTIXX4OdTGrKvgPYsbMsrROOwWAZvhoV
+         mmHQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ABy/qLaZcn3YEwbNL9dX7eKjUsCoFZ3zP0rD+rizU6pDRPfzXS/BkD+P
-	HIlsbP+h0oWqWfU199gBCD0=
-X-Google-Smtp-Source: APBJJlEh7oibJ2Yu6dCeBll40ukdq2SgamNoRZ97HyKG5HN6pwlUlusXTqOdwba0lQXXWT4mH1ch+Q==
-X-Received: by 2002:a05:6870:c890:b0:1b0:84df:50ec with SMTP id er16-20020a056870c89000b001b084df50ecmr4470436oab.50.1689316172871;
-        Thu, 13 Jul 2023 23:29:32 -0700 (PDT)
+X-Gm-Message-State: ABy/qLZ6fmrUPyQnIKdfEjAKWWS7GIyB6ey56UCt0Cl0sjrC6YR4vu1E
+	yhMoLmF7qpdR3S1hNtc0Oa4=
+X-Google-Smtp-Source: APBJJlFPlJtbG2ITvbVa6o4bbCI4dVeuIejdEnMLh3Ncw6PfHBYGTzAJJAvbEhWQjiza1SV3EPc/lg==
+X-Received: by 2002:aa7:c38d:0:b0:514:9df0:e3f3 with SMTP id k13-20020aa7c38d000000b005149df0e3f3mr3972018edq.0.1689320519005;
+        Fri, 14 Jul 2023 00:41:59 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a4a:33c8:0:b0:563:6091:747f with SMTP id q191-20020a4a33c8000000b005636091747fls1689276ooq.2.-pod-prod-05-us;
- Thu, 13 Jul 2023 23:29:32 -0700 (PDT)
-X-Received: by 2002:a05:6808:309c:b0:3a4:3c6c:27a1 with SMTP id bl28-20020a056808309c00b003a43c6c27a1mr2766889oib.5.1689316171853;
-        Thu, 13 Jul 2023 23:29:31 -0700 (PDT)
-Date: Thu, 13 Jul 2023 23:29:31 -0700 (PDT)
-From: Johnson Wang <ghost84426@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c54d2322-fd4a-4568-bc01-8d96e83845f0n@googlegroups.com>
-Subject: How the root cell access virtqueue memory created by Linux inmate
+Received: by 2002:aa7:d891:0:b0:51d:b03f:3fda with SMTP id u17-20020aa7d891000000b0051db03f3fdals212493edq.2.-pod-prod-01-eu;
+ Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
+X-Received: by 2002:aa7:cf0f:0:b0:51a:5e8f:ac1 with SMTP id a15-20020aa7cf0f000000b0051a5e8f0ac1mr4404913edy.23.1689320516574;
+        Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1689320516; cv=none;
+        d=google.com; s=arc-20160816;
+        b=wAG7MiXpDAqKA2MmUbruCSodSZtP/vq7Sy0qel4siBvHigaL9KzHXDehxdxQ3cnmHg
+         nuh09cwPdtakFut4FaavqXNFAmJVOWX5vDRxkVJQCD1uTqWaP1V9n+vdqAOmGzmeMV5k
+         /8jmwdklLy3VEXFXAzd40yCg2re+00XjSHjPCf2q80T37a2zMNNQwCAxKghtPJqnypDH
+         EY18giHwF4iQH0Pd55Y+tdxLhQkfGbM53YtMi04wHqtiFb+8pCfJJTR1gNIGuuMLDA4i
+         PMp/HZ5AwUcAVNfi70wXyMIqyyyILw84hwaAN+bvn8o7ckknF+Ug9UlJThajgX/iMIyO
+         kFvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=Fat757SxeIFZtRvbZT2aiSru1Oe3tzbcshwgxan2nag=;
+        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
+        b=ShqJRAMxUAqzg295oGC/OGWgIR73pcODT99HUeqbM2wLQMpZ7SqKolBYAqbn6RBjaW
+         qhJiEXKe55bVyVuIzab4Uf8A8DKQ6MGzKxhH1qvi4BQXSMSn+rfMUqZNfRxfTjtG0/Ig
+         rC2OKoAkKoAGtDNrTScgYXDwTjV7E7GE53iaekCTIasNjhnznsnjdHsV9RHqaFGVn9F0
+         SBJHiCguQCKiAaqFgd4+u5HwGsdefbyeQ1DSTLqtHCPoTy55RzRBW/8aC3ReA/wqIj/L
+         kjm1n21jP+gY33lczXQGPX/YkB3K99We//ge6adsmlMol4PXmYZnagofvQxRKDVIs9ML
+         cmzg==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [2001:638:d:c302:acdc:1979:2:f4])
+        by gmr-mx.google.com with ESMTPS id z21-20020a05640240d500b0051fe05f750asi408148edb.2.2023.07.14.00.41.56
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c302:acdc:1979:2:f4;
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=194.95.104.12; helo=mta02.hs-regensburg.de; envelope-from=ralf.ramsauer@oth-regensburg.de; receiver=<UNKNOWN>
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
+	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id 8241E3E00D2;
+	Fri, 14 Jul 2023 09:41:55 +0200 (CEST)
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4R2Nhz0z1DzyqK;
+	Fri, 14 Jul 2023 09:41:55 +0200 (CEST)
+Received: from [IPV6:2001:638:a01:8068:f8d9:f11a:f164:a35a]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 14 Jul
+ 2023 09:41:54 +0200
+Message-ID: <214dd509-8fa9-82fd-425e-c1b6b9e74542@oth-regensburg.de>
+Date: Fri, 14 Jul 2023 09:41:53 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_9064_1810074426.1689316171133"
-X-Original-Sender: ghost84426@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: Simplification of the hypervisor configuration for the root cell
+Content-Language: en-US
+To: Jan-Marc Stranz <stranzjanmarc@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <d33e6a84-7a1d-4a28-85b0-62165fd20b56n@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <d33e6a84-7a1d-4a28-85b0-62165fd20b56n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender)
+ smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,87 +150,55 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_9064_1810074426.1689316171133
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_9065_9510644.1689316171133"
+Hi,
 
-------=_Part_9065_9510644.1689316171133
-Content-Type: text/plain; charset="UTF-8"
+On 13/07/2023 16:42, Jan-Marc Stranz wrote:
+> Is there a way and the corresponding rules to simplify the hypervisor 
+> configuration for the root cell?
+> 
+> I have a hypervisor configuration for the root cell with 99 entries for 
+> "MemRegion".
+> I am now trying to merge these regions together.
+> 
+> My idea is to free all areas - except the areas for the hypervisor, for 
+> ivshmem and the guest cells.
+> However, this fails: when starting the hypervisor, the whole system 
+> "freezes".
 
-Hi all,
+freezes in terms of no responsiveness without a crash?
 
-Recently I am working on porting jailhouse hypervisor onto arm64 platforms.
-I've brought up the root-cell and also linux non-root cell.
+Are you sure that you did not make any mistakes while merging the 
+regions? Did you decrease the number of memory regions in the 
+declaration? Does jailhouse-config-check yell?
 
-Now I want to make virtio-console work, I started to write my virtio B/E 
-framework by reference the demo code[1]. I'm pretty sure that the ivshmem 
-region is working
-as virtio_ivshmem.c finishes its .probe() callback, and virtio_console.c 
-has registered a hvc0 node. My virtio B/E can R/W the ivshmem region 
-properly.
+   Ralf
 
-However, I noticed that when virtio_ivshmem.c calls 
-vring_create_virtqueue() to allocate virtqueue structure, it uses inmate 
-private memory to allocate it, which is inaccessible for root-cell. For 
-example, the inmate memory is starting from 0x1d0c00000 and virtqueue 
-structure is starting from 0x1d29be000. The virtqueue structure is 
-allocated inside the inmate memory, not shared memory. This means that 
-virtio B/E fails to retrieve the vring infomations.
-
-Is it possible for root-cell to access inmate memory?
-or create virtqueue in the ivshemem region that is accessible for root-cell?
-Does jailhouse have any MMU translation mechanism?
-
-Please give me some suggestion. Thanks for watching this.
-
-
-[1] https://git.kiszka.org/?p=linux.git;a=commit;h=b6a3ec1cee44b986b556b60ed2368d0da1faca51
+> 
+> Then I tried to group only some areas with the same values for the 
+> ".flags" element.
+> This is only partially successful and I can't really see a rule when 
+> areas can be grouped together or not.
+> 
+> How could we simplify the configuration for a root cell?
+> 
+> For our application we don't need the fine grained sharing of memory 
+> areas (security aspect).
+> Couldn't we share the whole address range for the root cell - except the 
+> ranges for the hypervisor, for ivshmem and the guest cells?
+> 
+> Jan-Marc.
+> 
+> 
+> -- 
+> You received this message because you are subscribed to the Google 
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send 
+> an email to jailhouse-dev+unsubscribe@googlegroups.com 
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit 
+> https://groups.google.com/d/msgid/jailhouse-dev/d33e6a84-7a1d-4a28-85b0-62165fd20b56n%40googlegroups.com <https://groups.google.com/d/msgid/jailhouse-dev/d33e6a84-7a1d-4a28-85b0-62165fd20b56n%40googlegroups.com?utm_medium=email&utm_source=footer>.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c54d2322-fd4a-4568-bc01-8d96e83845f0n%40googlegroups.com.
-
-------=_Part_9065_9510644.1689316171133
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,<div><br /></div><div>Recently I am working on porting jailhouse hyp=
-ervisor onto arm64 platforms.</div><div>I've brought up the root-cell and a=
-lso linux non-root cell.</div><div><br /></div><div>Now I want to make virt=
-io-console work, I started to write my virtio B/E framework by reference th=
-e demo code[1]. I'm pretty sure that the ivshmem region is working</div><di=
-v>as virtio_ivshmem.c finishes its .probe() callback, and virtio_console.c =
-has registered a hvc0 node. My virtio B/E can R/W the ivshmem region proper=
-ly.</div><div><br /></div><div>However, I noticed that when virtio_ivshmem.=
-c calls vring_create_virtqueue() to allocate virtqueue structure, it uses i=
-nmate private memory to allocate it, which is=C2=A0inaccessible for root-ce=
-ll. For example, the inmate memory is starting from 0x1d0c00000 and virtque=
-ue structure is starting from 0x1d29be000. The virtqueue structure is alloc=
-ated inside the inmate memory, not shared memory. This means that virtio B/=
-E fails to retrieve the vring infomations.</div><div><br /></div><div>Is it=
- possible for root-cell to access inmate memory?</div><div>or create virtqu=
-eue in the ivshemem region that is accessible for root-cell?</div><div>Does=
- jailhouse have any MMU translation=C2=A0mechanism?</div><div><br /></div><=
-div>Please give me some suggestion. Thanks for watching this.</div><div><br=
- /></div><div><br /></div><div>[1]=C2=A0https://git.kiszka.org/?p=3Dlinux.g=
-it;a=3Dcommit;h=3Db6a3ec1cee44b986b556b60ed2368d0da1faca51</div><div><br />=
-</div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/c54d2322-fd4a-4568-bc01-8d96e83845f0n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/c54d2322-fd4a-4568-bc01-8d96e83845f0n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_9065_9510644.1689316171133--
-
-------=_Part_9064_1810074426.1689316171133--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/214dd509-8fa9-82fd-425e-c1b6b9e74542%40oth-regensburg.de.
