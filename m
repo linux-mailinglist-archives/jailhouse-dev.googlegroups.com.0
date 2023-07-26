@@ -1,143 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBRXYYOSQMGQEFVCQMPA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCI7XTXZ6ADBBV5LQOTAMGQERMGY6PQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53d.google.com (mail-ed1-x53d.google.com [IPv6:2a00:1450:4864:20::53d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E37753357
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jul 2023 09:42:00 +0200 (CEST)
-Received: by mail-ed1-x53d.google.com with SMTP id 4fb4d7f45d1cf-50bf847b267sf1080255a12.3
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jul 2023 00:42:00 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1689320520; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=W4Lv1vGibsePePSNgGGQq2Wa4JQ8J+uDt6R4sKYzrQSzyELnFsBQoOhd5pvB2qn5XK
-         lE9cvSTEnrEcoBHKOcKs9P2NTY5BLZpc1dkr3O8XQK48RbVh/S2HI9UDevIhd8H2gLs0
-         BbsxTnUgGrGfpM0dURxCC/dgG0C6Aau+huNNWxy1k2nIYrzb26Rl6l7TGaHlYCH974J7
-         MmdTgSS1cnqtTgbo2rLnIlI79ruWlv7yZfVLm1U+tiANrCIVttKnVTqq+MqSgv5o5+6D
-         8Ojs/+3SsFJDpJFPOfkxbOBM4ioaGTIBgusHYhDJjebIpr8VrtNA2h7a5VcDjKETWCVn
-         58Qg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
-        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
-        b=DE2i1VLcygIIdtvzlTNcBxLAVSP2pOGOmIRSGOnJPaCWcTxBmVDH+gpxiDMUyZKhCW
-         vkq6O5izgdTrZB3Wkl24AXogpahcc5VhxgI+METJfwa5kUcPUY51hyL2p6rWuYYDhggX
-         ytWgvZdQD9Vp6EuwQAt6nwDYcB3cYW67TcDCvsnoEskfj1JSkMMxR/DJPAQ1zRq9EsFJ
-         umLznYdKW8NsHomqeog6B3zyT/XARXuksIH+y1W55rtQQIySqnXZ2VX+mhVu9FVJ2evl
-         ndynGPYCJgSZmQ4L+FOQWO0QipBRzn6RBs3BVewEIkT67j8CnBNnWUj4TZrbHjDDR0eZ
-         Sirg==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-oo1-xc3f.google.com (mail-oo1-xc3f.google.com [IPv6:2607:f8b0:4864:20::c3f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C626762F64
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Jul 2023 10:14:17 +0200 (CEST)
+Received: by mail-oo1-xc3f.google.com with SMTP id 006d021491bc7-5667356cfcesf10266898eaf.1
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 26 Jul 2023 01:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1689320520; x=1691912520;
+        d=googlegroups.com; s=20221208; t=1690359256; x=1690964056;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:in-reply-to:from:references:to:content-language
-         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
-        b=h07tA5nDFIGdarXvN8xljSIC7X9HPLf7tXg/N0VTTbsV9Pv7XlMZQSBnhqkNhG/3Yn
-         AnUcYvFeBQ2ifTVIP/wb8HLPg17bQV215XhXQCo9lESKmM/ZMZYqyeGKwgvMmXG5/F52
-         6mq/Vwh0cWJA0qsynPJVb+9uZqhlDWvQYBmKiaPVV2yHha9bL0/dZxObnM9f2vNwUUsd
-         t9d3h+qPN9QOah1VQJDYsfv/bOzOyOL5M+cW/zem+7B0meO7WUl+Piar0O0VT6lkSPbW
-         qE8mRl5We1yQK8YSUTm6IzgGvJpIPxUkDQS51JJjv15jMP0IsSOplF8QgEHwl3JcSJX6
-         pNfg==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C7S5a7nPCKnoHl8YygZOtUoDr0voF/Viq1XeBbNylNQ=;
+        b=H3j/ArniAJNHi4jQVRfCj2Wn/5u8EOQzzXtGa87ThonqNNNBLy6Jp6jL0Xn8mk/9g3
+         035mJDIO6y3SDlYoLy0y8mt7pN8AJpFi77V6DULtnOT7CTLwEBoY8Lsu3Njg78POn70K
+         FFX5ItMr8TTjP+9PVZguOHeMMsNrkCHi2FFG3YEGrt7DoHl7hePyo751jTY6Vgk2ngIe
+         11BXnRsGjktqUbhM5kIQ1qZpNy/++IFaY5C/ggDm0nIdCMsshXWDRhDeAmrWnkxw6ZJF
+         ccp8wF48UoQs7ZRyeKU9SCaXIF6DcYsJ00bVY56cTUKqfg3FPv7Dz5ljC77Ypa+BUiZE
+         Eaqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690359256; x=1690964056;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C7S5a7nPCKnoHl8YygZOtUoDr0voF/Viq1XeBbNylNQ=;
+        b=apPRpEozTBA5mj2NJlIQ5dHQbPUMMFAcuCAIhUn/RAK/bZ5UGjCirA8huQ+2xW7D7W
+         Q+iztJ1MBPRz9MHwoYDNM/TBqNTJk9NRPAHY1pOFBxdzuYbsU0TIWc0hlHLencGtjXXD
+         quXpMe8o6ev5iPcBvywDnty/iIRKZvHslWoGWGqZkrDMx5p6VG+zUceMF0KLQQfXamFo
+         VpYYOlYfmzSdKfemTYb7yQ57NCjOM+L8d1iE6uKM1vHIvQzi4jmxGTjqq+K4V4X0BxcV
+         N8Q9GbpFQD2Hd3fNN1hu6asDwZ0Uu5hxl7+t9e7Xg3oTJVznKiGJ0W143X8G8vVu6DRv
+         FAcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689320520; x=1691912520;
+        d=1e100.net; s=20221208; t=1690359256; x=1690964056;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:references:to:content-language:subject:user-agent:mime-version
-         :date:message-id:x-beenthere:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=M+SUEkTJUjDkMh9EzDR0tD2SVrJ68zI9e06uetj1QBY=;
-        b=A7n+TDXoUMrkOzEAn4iEGhVqMdEfnu/h9EJ77LjlGcjRa/PsUN6ndXB4UmNHCwQ4m6
-         2JTc2arrmMbcq8b4U+nESAGFKFVKooWD7K2IsdptRFn5jguD96W8EemsCElF/kCiZ41H
-         FguUP4UeN6wUD0gVezfXA4nWsCT6nVjnOnqnm4BqdVt0V0GgH0EOMXEbBKoGv09JgX6e
-         /hyZ/LF5h2bEkQ2bcwuiuCygSe4+FaSx/zT33WfdKQNTa2Ugwtt3wT2Mmn7Jpi6qa+nd
-         NmJu84iDKflpjECLENnGAxIJe/mqMWdsL51LFTIXX4OdTGrKvgPYsbMsrROOwWAZvhoV
-         mmHQ==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C7S5a7nPCKnoHl8YygZOtUoDr0voF/Viq1XeBbNylNQ=;
+        b=jKmI6UyIJZGr+Azgu7290XXsxy67gOI1IGhL+5wEkA42QfovqxfjxY5pKZOhluYZB6
+         JgToJ/Gy///DKSUVhzeofethZIsOdTtEf+6S6BY5hnSukC+4wtfplKQrm5U+ufAjhVOs
+         /HVc6PyS4decUPPnMyyTvvBvgA61yQ3cqz9wvjGWtyyqHJx+Ke8oJEB4Tyd2B6geGIHP
+         Z5qC3Scdphj/Ja7PHPLE3Y2jGnmR/inIuU2YxnXIcOalVUykeWHrVOQQZAVoCoNL1zEp
+         jqza3j7TOLj+38O1IQtldIht5DrAL0nDkD5D/1PDOGzwQGmDcG7nHpULYYJ5etFEKt25
+         5sMA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ABy/qLZ6fmrUPyQnIKdfEjAKWWS7GIyB6ey56UCt0Cl0sjrC6YR4vu1E
-	yhMoLmF7qpdR3S1hNtc0Oa4=
-X-Google-Smtp-Source: APBJJlFPlJtbG2ITvbVa6o4bbCI4dVeuIejdEnMLh3Ncw6PfHBYGTzAJJAvbEhWQjiza1SV3EPc/lg==
-X-Received: by 2002:aa7:c38d:0:b0:514:9df0:e3f3 with SMTP id k13-20020aa7c38d000000b005149df0e3f3mr3972018edq.0.1689320519005;
-        Fri, 14 Jul 2023 00:41:59 -0700 (PDT)
+X-Gm-Message-State: ABy/qLZYM40wDXTwUGlTkCvPBml6fDg+QU+BkzNxfwcfyCX/SGF5Pq3Q
+	7RKy+qrRsizd9SvninkY6HE=
+X-Google-Smtp-Source: APBJJlHLAQImA9aoMjPYZNrqx3uLgSY/zyKdnsHbDowqGa/1O6BlEIQD8/E9SU5okJfgGNVBW4qzbw==
+X-Received: by 2002:a4a:2a49:0:b0:566:f6a0:87e4 with SMTP id x9-20020a4a2a49000000b00566f6a087e4mr919696oox.0.1690359255706;
+        Wed, 26 Jul 2023 01:14:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:d891:0:b0:51d:b03f:3fda with SMTP id u17-20020aa7d891000000b0051db03f3fdals212493edq.2.-pod-prod-01-eu;
- Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
-X-Received: by 2002:aa7:cf0f:0:b0:51a:5e8f:ac1 with SMTP id a15-20020aa7cf0f000000b0051a5e8f0ac1mr4404913edy.23.1689320516574;
-        Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1689320516; cv=none;
-        d=google.com; s=arc-20160816;
-        b=wAG7MiXpDAqKA2MmUbruCSodSZtP/vq7Sy0qel4siBvHigaL9KzHXDehxdxQ3cnmHg
-         nuh09cwPdtakFut4FaavqXNFAmJVOWX5vDRxkVJQCD1uTqWaP1V9n+vdqAOmGzmeMV5k
-         /8jmwdklLy3VEXFXAzd40yCg2re+00XjSHjPCf2q80T37a2zMNNQwCAxKghtPJqnypDH
-         EY18giHwF4iQH0Pd55Y+tdxLhQkfGbM53YtMi04wHqtiFb+8pCfJJTR1gNIGuuMLDA4i
-         PMp/HZ5AwUcAVNfi70wXyMIqyyyILw84hwaAN+bvn8o7ckknF+Ug9UlJThajgX/iMIyO
-         kFvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=Fat757SxeIFZtRvbZT2aiSru1Oe3tzbcshwgxan2nag=;
-        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
-        b=ShqJRAMxUAqzg295oGC/OGWgIR73pcODT99HUeqbM2wLQMpZ7SqKolBYAqbn6RBjaW
-         qhJiEXKe55bVyVuIzab4Uf8A8DKQ6MGzKxhH1qvi4BQXSMSn+rfMUqZNfRxfTjtG0/Ig
-         rC2OKoAkKoAGtDNrTScgYXDwTjV7E7GE53iaekCTIasNjhnznsnjdHsV9RHqaFGVn9F0
-         SBJHiCguQCKiAaqFgd4+u5HwGsdefbyeQ1DSTLqtHCPoTy55RzRBW/8aC3ReA/wqIj/L
-         kjm1n21jP+gY33lczXQGPX/YkB3K99We//ge6adsmlMol4PXmYZnagofvQxRKDVIs9ML
-         cmzg==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [2001:638:d:c302:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id z21-20020a05640240d500b0051fe05f750asi408148edb.2.2023.07.14.00.41.56
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Jul 2023 00:41:56 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c302:acdc:1979:2:f4;
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=194.95.104.12; helo=mta02.hs-regensburg.de; envelope-from=ralf.ramsauer@oth-regensburg.de; receiver=<UNKNOWN>
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
-	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id 8241E3E00D2;
-	Fri, 14 Jul 2023 09:41:55 +0200 (CEST)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4R2Nhz0z1DzyqK;
-	Fri, 14 Jul 2023 09:41:55 +0200 (CEST)
-Received: from [IPV6:2001:638:a01:8068:f8d9:f11a:f164:a35a]
- (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 14 Jul
- 2023 09:41:54 +0200
-Message-ID: <214dd509-8fa9-82fd-425e-c1b6b9e74542@oth-regensburg.de>
-Date: Fri, 14 Jul 2023 09:41:53 +0200
+Received: by 2002:a4a:4146:0:b0:566:a929:67e7 with SMTP id x67-20020a4a4146000000b00566a92967e7ls2260083ooa.2.-pod-prod-09-us;
+ Wed, 26 Jul 2023 01:14:14 -0700 (PDT)
+X-Received: by 2002:a4a:4f09:0:b0:55b:85b9:68ed with SMTP id c9-20020a4a4f09000000b0055b85b968edmr2333543oob.0.1690359254621;
+        Wed, 26 Jul 2023 01:14:14 -0700 (PDT)
+Date: Wed, 26 Jul 2023 01:14:13 -0700 (PDT)
+From: Jan-Marc Stranz <stranzjanmarc@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <81fa9191-18dd-4003-9cfb-bed496d5723fn@googlegroups.com>
+Subject: Configuration with 2 guest cells
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: Simplification of the hypervisor configuration for the root cell
-Content-Language: en-US
-To: Jan-Marc Stranz <stranzjanmarc@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <d33e6a84-7a1d-4a28-85b0-62165fd20b56n@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <d33e6a84-7a1d-4a28-85b0-62165fd20b56n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=DlgAQXnv;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender)
- smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_940_1880925127.1690359253971"
+X-Original-Sender: stranzjanmarc@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -150,55 +78,224 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+------=_Part_940_1880925127.1690359253971
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_941_1115202120.1690359253971"
 
-On 13/07/2023 16:42, Jan-Marc Stranz wrote:
-> Is there a way and the corresponding rules to simplify the hypervisor 
-> configuration for the root cell?
-> 
-> I have a hypervisor configuration for the root cell with 99 entries for 
-> "MemRegion".
-> I am now trying to merge these regions together.
-> 
-> My idea is to free all areas - except the areas for the hypervisor, for 
-> ivshmem and the guest cells.
-> However, this fails: when starting the hypervisor, the whole system 
-> "freezes".
+------=_Part_941_1115202120.1690359253971
+Content-Type: text/plain; charset="UTF-8"
 
-freezes in terms of no responsiveness without a crash?
+I have a HW target with Intel core i5  (11th generation) and 32 GB RAM.
 
-Are you sure that you did not make any mistakes while merging the 
-regions? Did you decrease the number of memory regions in the 
-declaration? Does jailhouse-config-check yell?
+In the hypervisor configuration for the root cell, 1 GiB (1024 MiB) is 
+reserved for guest cells:
 
-   Ralf
+        /* MemRegion: 110600000-1505fffff : guest cells (1024 MiB) */
+        {
+            .phys_start = 0x110600000,
+            .virt_start = 0x110600000,
+            .size = 0x40000000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
+        },
 
-> 
-> Then I tried to group only some areas with the same values for the 
-> ".flags" element.
-> This is only partially successful and I can't really see a rule when 
-> areas can be grouped together or not.
-> 
-> How could we simplify the configuration for a root cell?
-> 
-> For our application we don't need the fine grained sharing of memory 
-> areas (security aspect).
-> Couldn't we share the whole address range for the root cell - except the 
-> ranges for the hypervisor, for ivshmem and the guest cells?
-> 
-> Jan-Marc.
-> 
-> 
-> -- 
-> You received this message because you are subscribed to the Google 
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send 
-> an email to jailhouse-dev+unsubscribe@googlegroups.com 
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit 
-> https://groups.google.com/d/msgid/jailhouse-dev/d33e6a84-7a1d-4a28-85b0-62165fd20b56n%40googlegroups.com <https://groups.google.com/d/msgid/jailhouse-dev/d33e6a84-7a1d-4a28-85b0-62165fd20b56n%40googlegroups.com?utm_medium=email&utm_source=footer>.
+In the configurations for the guest cells, this area is divided so that 
+each guest cell can use a maximum of 512 MiB:
+
+Guest 1:
+
+        /* MemRegion: 110600000-1305fffff : Guest Cell (1) (max. 512 MiB) */
+        /* Low RAM (1 MiB) */ 
+        {
+            .phys_start = 0x110600000,
+            .virt_start = 0,
+            .size = 0x100000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,
+        },
+        /* Communication region (4 KiB) */ 
+        {
+            .virt_start = 0x00100000,
+            .size = 0x1000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_COMM_REGION,
+        },
+        /* High RAM (max. 511 MiB) */ 
+        {
+            .phys_start = 0x110700000,
+            .virt_start = 0x00200000,
+            .size = 0x1ff00000,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,
+        },
+
+Guest 2:
+
+        /* MemRegion: 130600000-1505fffff : Guest Cell (2) (max. 512 MiB) */
+        /* Low RAM (1 MiB) */ 
+        {
+            .phys_start = 0x130600000,
+            .virt_start = 0,
+            .size = 0x100000 ,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,
+        },
+        /* Communication region (4 KiB) */ 
+        {
+            .virt_start = 0x00100000,
+            .size = 0x100000 ,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_COMM_REGION,
+        },
+        /* High RAM (max. 511 MiB) */ 
+        {
+            .phys_start = 0x130700000,
+            .virt_start = 0x00200000,
+            .size = 0x1ff00000 ,
+            .flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | 
+JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,
+        },
+
+If only 320 MiB is used in both guest cells, then the guest cells can be 
+successfully started one after the other with the command "jailhouse cell 
+linux".
+
+However, if more than 320 MiB is used in guest cells (e.g. 336 MiB), then 
+only one of the two guest cells can be successfully started.
+When the 2nd guest cell is started, an error message is issued:
+
+Traceback (most recent call last):
+  File "/usr/libexec/jailhouse/jailhouse-cell-linux", line 737, in <module>
+    cell = JailhouseCell(config)
+  File "/usr/lib/python3.8/site-packages/pyjailhouse/cell.py", line 36, in 
+__init__
+    raise e
+  File "/usr/lib/python3.8/site-packages/pyjailhouse/cell.py", line 33, in 
+__init__
+    fcntl.ioctl(self.dev, JailhouseCell.JAILHOUSE_CELL_CREATE, create)
+OSError: [Errno 12] Cannot allocate memory
+ERROR: Linux guest cell not started!
+
+I have now run numerous tests with different sizes for the guest cells and 
+have come to the limit of 320 MiB, at which both guest cells can still be 
+started.
+
+However, I cannot see why both guest cells cannot be started.
+Actually, in the configuration for the root cell, enough memory has been 
+reserved for both guest cells.
+
+Is there an explanation for this unexpected behavior?
+
+Jan-Marc.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/214dd509-8fa9-82fd-425e-c1b6b9e74542%40oth-regensburg.de.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/81fa9191-18dd-4003-9cfb-bed496d5723fn%40googlegroups.com.
+
+------=_Part_941_1115202120.1690359253971
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I have a HW target with Intel core i5=C2=A0 (11th generation) and 32 GB RAM=
+.<br /><br />In the hypervisor configuration for the root cell, 1 GiB (1024=
+ MiB) is reserved for guest cells:<br /><div><span style=3D"font-family: Co=
+urier New;"><br /></span></div><div><span style=3D"font-family: Courier New=
+;">=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* MemRegion: 110600000-1505fffff : guest ce=
+lls (1024 MiB) */<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 .phys_start =3D 0x110600000,<br />=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .virt_start =3D 0x110600000,<br />=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 .size =3D 0x40000000,<br />=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRIT=
+E,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },</span><br /></div><div><br /></div><=
+div>In the configurations for the guest cells, this area is divided so that=
+ each guest cell can use a maximum of 512 MiB:</div><div><br /></div><div>G=
+uest 1:</div><div><br /></div><span style=3D"font-family: Courier New;">=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 /* MemRegion: 110600000-1305fffff : Guest Cell (1)=
+ (max. 512 MiB) */<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Low RAM (1 MiB) */ <=
+br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 .phys_start =3D 0x110600000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 .virt_start =3D 0,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .=
+size =3D 0x100000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =
+=3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAIL=
+HOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },=
+<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Communication region (4 KiB) */ <br />=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 .virt_start =3D 0x00100000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 .size =3D 0x1000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags=
+ =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_COMM_REGION,<=
+br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Hig=
+h RAM (max. 511 MiB) */ <br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .phys_start =3D 0x110700000,<br />=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .virt_start =3D 0x00200000,<br />=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .size =3D 0x1ff00000,<br />=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_=
+WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAILHOUSE_MEM_LOADABLE,=
+<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br /></span><div><br /></div><div>Gues=
+t 2:</div><div><br /></div><div><span style=3D"font-family: Courier New;">=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* MemRegion: 130600000-1505fffff : Guest Cell =
+(2) (max. 512 MiB) */<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Low RAM (1 MiB) *=
+/ <br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 .phys_start =3D 0x130600000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .virt_start =3D 0,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 .size =3D=20
+0x100000
+
+,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_R=
+EAD | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAI=
+LHOUSE_MEM_LOADABLE,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br />=C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 /* Communication region (4 KiB) */ <br />=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .virt_start =3D=
+ 0x00100000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .size =3D=20
+0x100000
+
+,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_R=
+EAD | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_COMM_REGION,<br />=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 },<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* High RAM (max. 511 MiB=
+) */ <br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 .phys_start =3D 0x130700000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 .virt_start =3D 0x00200000,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 .size =3D=20
+0x1ff00000
+
+,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_R=
+EAD | JAILHOUSE_MEM_WRITE | JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA | JAI=
+LHOUSE_MEM_LOADABLE,<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br /></span></div>=
+<br />If only 320 MiB is used in both guest cells, then the guest cells can=
+ be successfully started one after the other with the command "jailhouse ce=
+ll linux".<br /><br />However, if more than 320 MiB is used in guest cells =
+(e.g. 336 MiB), then only one of the two guest cells can be successfully st=
+arted.<br />When the 2nd guest cell is started, an error message is issued:=
+<br /><div><br /></div><div><span style=3D"font-family: Courier New;">Trace=
+back (most recent call last):<br />=C2=A0 File "/usr/libexec/jailhouse/jail=
+house-cell-linux", line 737, in &lt;module&gt;<br />=C2=A0 =C2=A0 cell =3D =
+JailhouseCell(config)<br />=C2=A0 File "/usr/lib/python3.8/site-packages/py=
+jailhouse/cell.py", line 36, in __init__<br />=C2=A0 =C2=A0 raise e<br />=
+=C2=A0 File "/usr/lib/python3.8/site-packages/pyjailhouse/cell.py", line 33=
+, in __init__<br />=C2=A0 =C2=A0 fcntl.ioctl(self.dev, JailhouseCell.JAILHO=
+USE_CELL_CREATE, create)<br />OSError: [Errno 12] Cannot allocate memory<br=
+ />ERROR: Linux guest cell not started!<br /></span></div><br /><div>I have=
+ now run numerous tests with different sizes for the guest cells and have c=
+ome to the limit of 320 MiB, at which both guest cells can still be started=
+.</div><div><br /></div><div>However, I cannot see why both guest cells can=
+not be started.</div><div></div><div>Actually, in the configuration for the=
+ root cell, enough memory has been reserved for both guest cells.</div><br =
+/>Is there an explanation for this unexpected behavior?<br /><br /><div>Jan=
+-Marc.</div><div><br /></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/81fa9191-18dd-4003-9cfb-bed496d5723fn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/81fa9191-18dd-4003-9cfb-bed496d5723fn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_941_1115202120.1690359253971--
+
+------=_Part_940_1880925127.1690359253971--
