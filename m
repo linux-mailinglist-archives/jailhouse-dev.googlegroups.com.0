@@ -1,149 +1,137 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBCNERGTAMGQEIDBO6FA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBAABBDM7UKTAMGQEH45NL7I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x539.google.com (mail-ed1-x539.google.com [IPv6:2a00:1450:4864:20::539])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD6276520B
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 27 Jul 2023 13:16:27 +0200 (CEST)
-Received: by mail-ed1-x539.google.com with SMTP id 4fb4d7f45d1cf-52279f6305bsf529921a12.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 27 Jul 2023 04:16:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1690456586; cv=pass;
+Received: from mail-wm1-x33f.google.com (mail-wm1-x33f.google.com [IPv6:2a00:1450:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20FA076A809
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  1 Aug 2023 06:52:31 +0200 (CEST)
+Received: by mail-wm1-x33f.google.com with SMTP id 5b1f17b1804b1-3fc08035926sf31260305e9.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 31 Jul 2023 21:52:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1690865550; cv=pass;
         d=google.com; s=arc-20160816;
-        b=XnJE2EYS7CdJo68JrTTG0rTRWmGnPQKsAJQt3Kr+97gkfJLSwz+8Zp2+tGjyvZjMKT
-         MaU2MohbnMY1WHh4iVgBsI5op8C0OEbEP/7k9cGWM2aIMdE0ABYwOhqgW4GRisTJfUc9
-         ej/36yR/gRubX1/L5yXeRrjAe/qt2tBfjRgLhDMkh76loxEzyafRZL9pag1aVBk3DcOY
-         vg9N796kIOj/piuWxfPDasPfHgRgYRahBR53Tt488QKgiYJW2K387RjRmZuoEK8VFh/x
-         u2/mm+mL6lL2cfcB+/dZR7sHQy375b5nR6Q3VdUhHE7ebgcm48Ge4jQsmsVJuBi6wHIH
-         w4OA==
+        b=I0YHtF2MYBhHDOLiyj7j6Pj2ALY0c/zCbV71rNcmXYe81PlDbRrDAtqpw0hYvjc/9A
+         ZMMEIwSHHauQnN6Tp0Nc1laBe1XVDvUsUqlLGROH9e/JNSoavTg6e/8zUvKw7X9CuzoY
+         AM6UKeUIyFoUqITCmB0UDxLtW3ZC4DipJi1vYfsR071jHJwsEIowbvtErzI65o72cEWb
+         dqLz2mnp4+lAInl84XmQDuUtmYsgwCxCFoZ9mnNGDXEZBFM4RUaDKLHJ7LcVwe/pOQbc
+         bA+mg6YG4sSx3+4Av1wZ4jVrV/Lu4bxieeMOS8pRn3D2Qldzy7ZTFQkVKIeVYODENrLP
+         vmTw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=0GJ/9mWbb0FYTIU2Xx+2rpeqcOEoBbRMyFHNRLAA4nI=;
-        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
-        b=t2JQ/odfXPVVp20fkoUAJq+Ch+MOIP2x0q/HoIAhzK1M7vDQ1c/VJd2P5HQKKbZmgL
-         W3yb8QCB81mjwB0RHwk/9V6VFV0JuwFOcRbMGB2a3K+OL4GUtT5afC7y758jai3qAQ/r
-         gfQ0VxRLNvJqlxLz8kq57QgFfW5lp9meWAWMdrHY/3AkuHS+amYoNv29xx7/rpiiqZag
-         ZImn+DisOL63f/vqFI6W1cFq26ZxFu9dHC4ydAkGZT3cIgBVk+r/YIIfccVdLVWNVHWx
-         s4JQ9SWsQi1Q8JTnVg9eiBob3XG3rfEHGUWqalTAfrsFTZaURPcqdVwFMJ/q6u9CkbR2
-         QmgQ==
+         :list-id:mailing-list:precedence:message-id:reply-to:date:from:to
+         :subject:content-description:content-transfer-encoding:mime-version
+         :sender:dkim-signature;
+        bh=u4Nnuwtu5D6RdU4nkoJkR2Dpi8BGbtH9vUTRFvAOIpg=;
+        fh=7mMxHpbopq18kJcLfdEy1muhL9F1LmZojgNwPf1Q/V4=;
+        b=WphNOICV4Z9iijBea+ame4BS5T3snD13653yLskYcUMKywIpYbOmCsTbJV0IuxqRgc
+         pcETxxv/Sry9jao65nI3eXilFyqRXILW9hu0CsNwgP8bw0qQAj4AhdmiYpMsexY2K6az
+         cemaF1bmZE+myBY/kOnZI5nOEc8UDzO7lZVfUSj2EabjW6rL0/TqrVGMK4TwwHBoRiU2
+         9D4RV3UBhcJkfZTe9n6en8A+BCj9JA6UXIOqdAWgpC26iKte1D5JQ/DMyOZtqav8uCoK
+         w45cjKtgei3+Bv6fXNKlwOAvyvZG8sw19wL54fSYOEiAM4MunRJqCVhsdy3jUs+rpzL1
+         hRXw==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=i0COhspc;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       spf=pass (google.com: domain of testuser@e-guven.com designates 31.25.168.78 as permitted sender) smtp.mailfrom=testuser@e-guven.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1690456586; x=1691061386;
+        d=googlegroups.com; s=20221208; t=1690865550; x=1691470350;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=0GJ/9mWbb0FYTIU2Xx+2rpeqcOEoBbRMyFHNRLAA4nI=;
-        b=qifdoiuVEgEtRht67T4eQbFCB9CGWW8MLwGyNovqJbhuNhWwLqhPWLAHowOQYTl12/
-         O96pJ5u75nxDxnpvKfxVlyVdDmPAx7aLJn6BAnoFe98olPpRo3EHVxgFS5Golz0s3O2b
-         oBpsMWOY7JTU3XapHfoD6zDIXxKSMjiNv2vknVqh/yWkE9fV0H+VfOCmROYLVotq6vtQ
-         SjpBFo+Z+3mDLbCG+cj54t6+AE3/F2AD1wSZA8j4lVWiNgzfVwALfz4q4Fw0FkDArGGV
-         qJACPxQ0gPjXWbTMz+YuZMzj6KBctxrZGED/Z4xKfTcssTMr9U0WRCBpCpJZOib7UnzC
-         wGCQ==
+         :x-original-sender:message-id:reply-to:date:from:to:subject
+         :content-description:content-transfer-encoding:mime-version:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=u4Nnuwtu5D6RdU4nkoJkR2Dpi8BGbtH9vUTRFvAOIpg=;
+        b=AeObqi4pgOULB5wSuWHtxf4TlBrQcjt9k0M9HpAB4+ZxGXBoIwnnV7phTgMKP1Eqc6
+         /JrIiOcLEbVuPHzuRvNrT5NN7SFpZGvXMF09ILElfsy57U0GEnQRMwt2xyU181zqoZBv
+         OMkD0T+5YBFrgCOCPkiUl9DH+lRKiY5CZwJrXJ1sP7F3NRIi5jmc6cz+bTtNxKpZu8n3
+         /kMDyKqqZu7jnUuxcqBKkZRiu+aFrg9UzExts0I8ubrIIbyi20kaEsIWda6cIcTwTtLD
+         f7966ubtdzYJSLHpBN7i8pQzcqNbELFzO4AsbQV7reiwiv8e+xXAh9/lBNfuxqGGVPc+
+         Z08Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690456586; x=1691061386;
+        d=1e100.net; s=20221208; t=1690865550; x=1691470350;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0GJ/9mWbb0FYTIU2Xx+2rpeqcOEoBbRMyFHNRLAA4nI=;
-        b=X2dcceVZ2zXv6GDPeRtR7JPUB8DoAUn56x7I8HScBckHLs7zEqHMG6epO7N9lmZyqx
-         WDLWyCSP/XWlWgSKDNvthbP5jaucj5Nl/3XWtoHXIt5+zFvDuVVPVpk1AxpwsQS933Y5
-         yhj9RNfLWme0bbGcthTTmntm8uJAyRaKrD2Vu9aNvfDLh30Zf0ijVT7xwdPG9OhDgTv8
-         3XcIjUGSyODQAU/CUEKRxuN3rxk19fWW3P9bsC43R+o6pWCQJZYSt5NwsyhsQ6Mw4yKK
-         aeVJxAfZYXDudUwvZZcEmG5QvY17ZCmMp4LwfUYqeSm5m2MTsINLW12IaaMawF+fjQBC
-         5WrQ==
+         :x-original-authentication-results:x-original-sender:message-id
+         :reply-to:date:from:to:subject:content-description
+         :content-transfer-encoding:mime-version:x-beenthere
+         :x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=u4Nnuwtu5D6RdU4nkoJkR2Dpi8BGbtH9vUTRFvAOIpg=;
+        b=Md6wc0rVBugDiwTRBe81wKTAbjsWbdmKfwWZsBuZjJQDGgzAJWqTOtHw8eYld88075
+         oL/40r5DyLGq1gvXZoNPHGy2vu8nsiGGyLzsOAEtrd3+Y5KxK8Xz7jCH+qBpTqd+mb9m
+         cnrEz7czEIDsGbvLqc8WpqAuJe2LPMV9xP2nEBxx13CT0OMJPoSQesLoN30NtbMyJvSk
+         DevjW1Vbq6jG3V3Fi7Tzd/Q1uPNbQnaFSJuZExOCw7VmiA1g8yGD078zEFboL56NxoCL
+         a6OhBd5Sy7xzof3ctmeuenFO2ZCWE8ihpoYImLCCyPSeLkapet6OG3cIXQUfbyNBBWYJ
+         bHYQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: ABy/qLbSdddUY/IJOPbo/cuJtM62YqpmjUlGiURfOjlfAx8x3caSiMBH
-	78A9RhLdaRnrN09o8+nSjlJrGw==
-X-Google-Smtp-Source: APBJJlEY47ZJNR7oeYIw2XJKjvFOm56SKzxT0UZ07H0gqnsBAw/GUaHia++Z8QUOpIRptKdABq8XFA==
-X-Received: by 2002:aa7:c14a:0:b0:522:4200:e20b with SMTP id r10-20020aa7c14a000000b005224200e20bmr1488374edp.36.1690456586285;
-        Thu, 27 Jul 2023 04:16:26 -0700 (PDT)
+X-Gm-Message-State: ABy/qLYS6zAQwfGoBxmDwdlzRgYz41o3nDYj/JM75bOBZBCw6OARsUNB
+	ekKahkZ8XkoLWodXVU34rFA=
+X-Google-Smtp-Source: APBJJlGda7dOOt83d/EGTGMi/yWVA6k3XN5ryqOLX4ymA1liOE2X30wnb393yEqX2xXc9R+VnTyiOQ==
+X-Received: by 2002:adf:db51:0:b0:313:f75b:c552 with SMTP id f17-20020adfdb51000000b00313f75bc552mr1162893wrj.15.1690865550084;
+        Mon, 31 Jul 2023 21:52:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:1801:b0:521:956b:b8a3 with SMTP id
- g1-20020a056402180100b00521956bb8a3ls439523edy.2.-pod-prod-03-eu; Thu, 27 Jul
- 2023 04:16:24 -0700 (PDT)
-X-Received: by 2002:a17:906:292:b0:988:9b29:5653 with SMTP id 18-20020a170906029200b009889b295653mr1382337ejf.77.1690456583873;
-        Thu, 27 Jul 2023 04:16:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1690456583; cv=none;
+Received: by 2002:a5d:4811:0:b0:312:831e:dc1b with SMTP id l17-20020a5d4811000000b00312831edc1bls1095667wrq.2.-pod-prod-00-eu;
+ Mon, 31 Jul 2023 21:52:28 -0700 (PDT)
+X-Received: by 2002:a5d:660b:0:b0:311:b18:9ca4 with SMTP id n11-20020a5d660b000000b003110b189ca4mr1175010wru.17.1690865548203;
+        Mon, 31 Jul 2023 21:52:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1690865548; cv=none;
         d=google.com; s=arc-20160816;
-        b=PJIRNCfamqgWHGECgPXA0bC1dZhuvGafFQEIwscyvgjtBmCzcdt/WOBVBDnLLAZnn1
-         xfsIuYqpiPkhaNAAKsEADCEvEz4FRPomnhdvqtbV9WhoQlp0VxFSYN7HIL5jgk/7Osjq
-         hQToDx3TOyjX2QYR5ZoC3uq4pamTy1t8y8pvBN0rhi/UNzp8mfqFi3zO6djO9XldoWK7
-         jke7spR8gtnc9Qvx3xKACke+JBwJT3QaA/5wNnXmQt1sI5DAXV2z4AprFMcZL2X0jdWV
-         zu1sDe45DVGCbViG9GEsr8c/lnttBmzNFQKNIi9kliguekjesjxvI8U2Fh8ZAQ+dbGFE
-         fXEw==
+        b=y4GPP6gzQcaHp+mV3wQmTnXHNTEaeh1CPWwKxv8AaLa9yX9rV+5ZOVHmKF4xLGaOwQ
+         qZ7J/+P5Cb/KhnIrXPxA8PfZRs12SJfMMyCPdvpcFMHZnS8rgR5YoHxbBlpjbJCM4lyV
+         WF6YN2928NfWmht500a4QK9iT3s0AZEcYQ5TWYNZhnAyww6L6aZL4fDQACCQkV4YKh6C
+         eLMZByaeUmsD+qf/ZhsIxoAeZ038xr0cLCWZWtv+G0C72fs1IfLBaMeZThIe77bmRIuU
+         5fEGeIjJwsX4repmSwcSnLEdypt68r36QFn/DtDzclrl3LGtFM//4Z7S7/s5zr/SZCc1
+         40ag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=yg1zM7Jyw4GyfHFZ5S7e1VUc+VjGOWFs+UAt4pbPf7E=;
-        fh=FrV6cpl4HCjWBPv4bD7daMcPSJruKZfBcVW/WO33Ffk=;
-        b=pNSLcOCFRTSxR5i0acWJi0aJOR3xwSPoAj12agJs1RiWuuyTpYPweKe2M5qV6bv/1/
-         YgQZv5rGZhmPaSxAg37FsX+2y81vcL2ozm/8eOzODD8XFv+yAYspYZQACy6531vv8wO0
-         S9/taaY98oSoHWPRWrUC+u2Uo7Rd19kH99DIXbQk6SkAww4HjWrzLyVPWjCsZ5j/6BAF
-         JhNrtUic6lY3QHmNSw0u9mDMZWbLyICzvqZHyd+a4cf46RZ54rYhjkF4ipVrSmTZ+lVI
-         noVtAg/qNEZt77kNOwSGgUaHxXqnDBKz2JVQZ+sWf/Er1IO1KjEafpA7DXgzlk4JAuj9
-         mVEw==
+        h=message-id:reply-to:date:from:to:subject:content-description
+         :content-transfer-encoding:mime-version;
+        bh=sOGI9tSxIEHYciPcvkcHY7M1AD9aE3bOOs69sziNdxE=;
+        fh=7mMxHpbopq18kJcLfdEy1muhL9F1LmZojgNwPf1Q/V4=;
+        b=ls2sSK43wo2KkO0TXz8WeSFMiz92HXnqhreLHCWZ5jovc1/ikceALuDAcUy/GhWREM
+         Mr/yxJ2i+5AoHcHML5xhjWHvh2qQfX4ztb1G8kUw2kasMGcadibmGjWj0kMeJT7+9iN+
+         khkePysN53jLpBnqsVVAgBzDRLJ90U1KJYc3i0YfuTc50mN/OfhZD/K70VbDa8uj6xhB
+         DSkoc32iKpDqNspIkPsa+Uq/PNkST3UFUnCVaHXv9GuVyjhEfItRO7490gD/qh9gfNeS
+         f+ozOYInRGtMv2ZP0Mns3Erm61NXXxKWYyG+pJx8Y0W3byj8itc4htqhYMK83bO9jPN1
+         QLpA==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=i0COhspc;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [2001:638:d:c302:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id vm2-20020a170907b68200b00991ee378a7csi73840ejc.2.2023.07.27.04.16.23
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Jul 2023 04:16:23 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c302:acdc:1979:2:f4;
-Received: from mta03.hs-regensburg.de (mta03.hs-regensburg.de [194.95.104.13])
-	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id 9C7203E00E6;
-	Thu, 27 Jul 2023 13:16:22 +0200 (CEST)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta03.hs-regensburg.de (Postfix) with ESMTPS id 4RBSrQ2SlGzxt0;
-	Thu, 27 Jul 2023 13:16:22 +0200 (CEST)
-Received: from [172.16.2.23] (194.95.106.226) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 27 Jul
- 2023 13:16:22 +0200
-Message-ID: <8e9df4fc-0fb3-5149-aba6-d7f506e902af@oth-regensburg.de>
-Date: Thu, 27 Jul 2023 13:16:16 +0200
+       spf=pass (google.com: domain of testuser@e-guven.com designates 31.25.168.78 as permitted sender) smtp.mailfrom=testuser@e-guven.com
+Received: from newsmg.ebi.com.tr (mail.ebi.com.tr. [31.25.168.78])
+        by gmr-mx.google.com with ESMTP id bu25-20020a056000079900b00317685aa000si725151wrb.4.2023.07.31.21.52.28
+        for <jailhouse-dev@googlegroups.com>;
+        Mon, 31 Jul 2023 21:52:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of testuser@e-guven.com designates 31.25.168.78 as permitted sender) client-ip=31.25.168.78;
+X-AuditID: ac1f0a62-94bff70000002080-9a-64c89307c8de
+Received: from [192.168.8.119] (188.213.34.99) by EGUVENEX.EGUVEN.LOCAL
+ (192.168.127.11) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Tue, 1 Aug
+ 2023 07:39:19 +0300
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Configuration with 2 guest cells
-To: Jan-Marc Stranz <stranzjanmarc@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <81fa9191-18dd-4003-9cfb-bed496d5723fn@googlegroups.com>
- <faf9ae5c-7f62-5814-7453-793bffb881c3@oth-regensburg.de>
- <43f41f9d-0930-416b-a618-1955e237cc87n@googlegroups.com>
- <d5ffbbc4-d926-5bc0-e7bb-fa400875039b@oth-regensburg.de>
- <57a4477a-2c32-49ef-8ccc-e95e1d9fb815n@googlegroups.com>
- <27f131ff-b744-05fc-0e81-bd2b1267d394@oth-regensburg.de>
- <10922b18-30e5-414e-8d85-7e1f33f2f9fan@googlegroups.com>
-Content-Language: en-US
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <10922b18-30e5-414e-8d85-7e1f33f2f9fan@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.226]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=i0COhspc;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender)
- smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Description: Mail message body
+Subject: I'm Azim Hashim Premji,
+To: Recipients <testuser@EGUVEN.LOCAL>
+From: <testuser@EGUVEN.LOCAL>
+Date: Mon, 31 Jul 2023 21:39:12 -0700
+Reply-To: <premjiazim01@outlook.com>
+Message-ID: <66cb73b765dd4463ba6378e9a93c7437@EGUVENEX.EGUVEN.LOCAL>
+X-Originating-IP: [188.213.34.99]
+X-ClientProxiedBy: EGUVENEX.EGUVEN.LOCAL (192.168.127.11) To
+ EGUVENEX.EGUVEN.LOCAL (192.168.127.11)
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Re0hTYRjG+c6+HU+T4WkJfhnpHDayy9KU+EgJkcwThVl0sSjmbEdbed3M
+	0pBMU2OZeclis+xihqZhmeYmlrr94dSGkaHS0ig3K2WamNoFM5dE/vfwex5efvBSHEENdKcU
+	CSmsMkEWJyJ5sK3qvPNGpxKT3NdodMFDc/Uknrk0ReLBXh2Br9tScZnJ7oTvXv5N4rE7ATj7
+	1SjEti/PnfDMty4CV1peQ1yq+cLFVbl9HDz3OZfABv0MwENN90jc87iLi836WQLnVmcR+KOp
+	GwS7Mhf6s0mmxPqEYCo1PZDpySuDjF476MS0FHWSzHD+S5LJul1CMFfabwLGXlRHMJaRZ5DR
+	ao0EUzgwDCL4R3hBcjZOkcoqN22L4p0w183ApAry7MR8PycTlHPVYBmF6ADUUP4LqgGPEtCP
+	APrQ0cJxFBxaggZKr5GOzKeXo06NFS7y9ejB3bGFDbWQxWhaneLAK2ghmsrpBo7suoCbWi8S
+	jglJr0YFfbQDQ3oNqqh7/hcLaG/UMggWj29HdlsudxGLkLVm36KYF2rsuA0cGNEsslYHFgIX
+	7RIz7RIz7RIz7X+zOwA+BHS8TBHnJ2GjFZLjifGSFGU9WPhnrScvWgd6GyYlBkBQwAAQxRG5
+	8lf96pAL+HJZWjqrTJQqT8exKgNYRUGRG9/X54VUQMfKUthTLJvEKv+1BLXMPZNoy4jfrW4I
+	M4+rE6Sm8EPrDIS5jH56Rp7Umjweacl0NrrBwK86/ns7d3Z6OuycaqN+S3N/aJU/Q3gc8+yH
+	XYHZc+etzybCPj0e0R/u2b/nfuuPYcHWEdPeW+LqTo+jIHTYkrySnhV6nTxYHtPdoPF5b4wa
+	hU+PMyGF5bv2zlmMwqEDfhP28OCIzW80U3n+r5prY1rr04Wlt9757GwpFuu8E1N59qzvLh7j
+	zmHi2oSrkzfcVWvy1T62G3ad2aXx8PL5iJDZyKkXadfH3iq53Tv8gw9ENRXlnYkp8NPVu9Xw
+	cmyNQbU/1xqji9trCjOEZX2KgCI7ijXwpM0D0g0iEVSdkPmt4yhVsj/DNPxkPgMAAA==
+X-Original-Sender: testuser@eguven.local
+X-Original-Authentication-Results: gmr-mx.google.com;       spf=pass
+ (google.com: domain of testuser@e-guven.com designates 31.25.168.78 as
+ permitted sender) smtp.mailfrom=testuser@e-guven.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -156,175 +144,28 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+Hallo,
 
+Ich bin Azim Hashim Premji, ein indischer Wirtschaftsmagnat, Investor und P=
+hilanthrop. Ich bin der Vorsitzende von Wipro Limited. Ich habe 25 Prozent =
+meines pers=C3=B6nlichen Verm=C3=B6gens f=C3=BCr wohlt=C3=A4tige Zwecke ges=
+pendet. Und ich habe auch versprochen, die restlichen 25 % dieses Jahr 2023=
+ an Einzelpersonen zu verschenken.
+Ich habe beschlossen, Ihnen 2.500.000,00 $ zu spenden. Wenn Sie an meiner S=
+pende interessiert sind, kontaktieren Sie mich f=C3=BCr weitere Information=
+en.
 
-On 27/07/2023 10:58, Jan-Marc Stranz wrote:
-> Hello Ralf!
->=20
-> Thank you very much for the explanations!
->=20
-> I wonder now that if the hypervisor now has to handle a very large page=
-=20
-> table, the timing behavior of an application in the guest cell will be=20
-> negatively affected.
+Unter folgendem Link k=C3=B6nnen Sie auch mehr =C3=BCber mich erfahren
 
-Of course, can be.
+http://en.wikipedia.org/wiki/Azim_Premji
 
->=20
-> Could this then be optimized, e.g. using "huge pages"?
+Antworten Sie per E-Mail an ( premjiazim01@outlook.com ).
 
-Yes. Depending on the alignment, Jailhouse will automatically try to map=20
-huge pages, if possible.
+Antworten Sie per E-Mail an ( premjiazim01@outlook.com ).
 
-> Is there a description for this?
-
-See here for x86 paging mechanisms:
-
-https://github.com/siemens/jailhouse/blob/master/hypervisor/arch/x86/paging=
-.c#L134C4-L134C35
-
-Besides 4k pages, you also have 2M and 1G pages. However, 1G pages=20
-require, that the physical and virtual address are 1G-aligned.
-
-   Ralf
-
-
->=20
-> Thanks
-> Jan.
->=20
-> Ralf Ramsauer schrieb am Mittwoch, 26. Juli 2023 um 15:48:44 UTC+2:
->=20
->=20
->=20
->     On 26/07/2023 14:41, Jan-Marc Stranz wrote:
->      > Thanks for the tip to increase the memory area for the hypervisor!
->      >
->      > I have increased the memory area for the hypervisor from 6 MiB to
->     9 MiB
->      > and can now successfully start both guest cells with a size of
->     512 MiB each.
->      >
->      > I don't know if there is a hint in the documentation for the
->     hypervisor
->      > "Jailhouse" (in the GIT repository).
->      > If not, it would certainly be very helpful if this correlation
->     (guest
->      > cell size - required memory for hypervisor) is described
->     somewhere (e.g.
->      > in the file "Documentation/non-root-linux.txt").
->=20
->     Patches welcome! I'd rather recommend to print a proper error
->     message in
->     the hypervisor that gives a pointer to this issue.
->=20
->     Just a short explanation what happened: Jailhouse tries to map huge
->     pages to minimise pressure on TLB. In your case, the area isn't align=
-ed
->     with huge pages, so Jailhouse must map tons of 4k-Pages to cover that
->     memory region. Mapping those pages requires memory for page tables, a=
-nd
->     apparently, 6MiB weren't sufficient.
->=20
->     Thanks
->     Ralf
->=20
->      >
->      > Jan-Marc.
->      >
->      > Ralf Ramsauer schrieb am Mittwoch, 26. Juli 2023 um 13:12:02 UTC+2=
-:
->      >
->      >
->      >
->      > On 26/07/2023 12:56, Jan-Marc Stranz wrote:
->      > > Of course, I checked the configuration for the root cell with
->      > "jailhouse
->      > > config check".
->      > > However, this is not changed at all while I change the
->      > configuration for
->      > > the guest cells.
->      > >
->      > > Also, everything is fine as long as I don't set the size for the
->      > guest
->      > > cell larger than 320 MiB in the guest cell configuration.
->      > > This only uses about 62% of the memory area reserved for the
->      > guest cells
->      > > in the configuration for the root cell.
->      > >
->      > > I will follow up on the tip to increase the memory area for the
->      > > hypervisor ( hypervisor_memory.size).
->      > > So far, 6 MiB is reserved for the hypervisor itself.
->      > > To what size should I increase this memory area?
->      >
->      > Just a bit more. Try 10 MiB or so.
->      >
->      > Ralf
->      >
->      > >
->      > > However, to find the cause in the driver or hypervisor, I lack t=
-he
->      > > necessary knowledge about the structure and relationships.
->      > > So I have to rely on external help.
->      > >
->      > > Thanks a lot!
->      > > Jan-Marc.
->      > >
->      > > --
->      > > You received this message because you are subscribed to the Goog=
-le
->      > > Groups "Jailhouse" group.
->      > > To unsubscribe from this group and stop receiving emails from it=
-,
->      > send
->      > > an email to jailhouse-de...@googlegroups.com
->      > > <mailto:jailhouse-de...@googlegroups.com>.
->      > > To view this discussion on the web visit
->      > >
->      >
->     https://groups.google.com/d/msgid/jailhouse-dev/43f41f9d-0930-416b-a6=
-18-1955e237cc87n%40googlegroups.com <https://groups.google.com/d/msgid/jail=
-house-dev/43f41f9d-0930-416b-a618-1955e237cc87n%40googlegroups.com> <https:=
-//groups.google.com/d/msgid/jailhouse-dev/43f41f9d-0930-416b-a618-1955e237c=
-c87n%40googlegroups.com <https://groups.google.com/d/msgid/jailhouse-dev/43=
-f41f9d-0930-416b-a618-1955e237cc87n%40googlegroups.com>> <https://groups.go=
-ogle.com/d/msgid/jailhouse-dev/43f41f9d-0930-416b-a618-1955e237cc87n%40goog=
-legroups.com?utm_medium=3Demail&utm_source=3Dfooter <https://groups.google.=
-com/d/msgid/jailhouse-dev/43f41f9d-0930-416b-a618-1955e237cc87n%40googlegro=
-ups.com?utm_medium=3Demail&utm_source=3Dfooter> <https://groups.google.com/=
-d/msgid/jailhouse-dev/43f41f9d-0930-416b-a618-1955e237cc87n%40googlegroups.=
-com?utm_medium=3Demail&utm_source=3Dfooter <https://groups.google.com/d/msg=
-id/jailhouse-dev/43f41f9d-0930-416b-a618-1955e237cc87n%40googlegroups.com?u=
-tm_medium=3Demail&utm_source=3Dfooter>>>.
->      >
->      > --
->      > You received this message because you are subscribed to the Google
->      > Groups "Jailhouse" group.
->      > To unsubscribe from this group and stop receiving emails from it,
->     send
->      > an email to jailhouse-de...@googlegroups.com
->      > <mailto:jailhouse-de...@googlegroups.com>.
->      > To view this discussion on the web visit
->      >
->     https://groups.google.com/d/msgid/jailhouse-dev/57a4477a-2c32-49ef-8c=
-cc-e95e1d9fb815n%40googlegroups.com <https://groups.google.com/d/msgid/jail=
-house-dev/57a4477a-2c32-49ef-8ccc-e95e1d9fb815n%40googlegroups.com> <https:=
-//groups.google.com/d/msgid/jailhouse-dev/57a4477a-2c32-49ef-8ccc-e95e1d9fb=
-815n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter <https://gro=
-ups.google.com/d/msgid/jailhouse-dev/57a4477a-2c32-49ef-8ccc-e95e1d9fb815n%=
-40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>.
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/10922b18-30e5-414e-8d85-7=
-e1f33f2f9fan%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/10922b18-30e5-414e-8d85-7e1f33f2f9fan%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
+Gr=C3=BC=C3=9Fe
+Gesch=C3=A4ftsf=C3=BChrer Wipro Limited
+Azim Hashim Premji
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -332,4 +173,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/8e9df4fc-0fb3-5149-aba6-d7f506e902af%40oth-regensburg.de.
+jailhouse-dev/66cb73b765dd4463ba6378e9a93c7437%40EGUVENEX.EGUVEN.LOCAL.
