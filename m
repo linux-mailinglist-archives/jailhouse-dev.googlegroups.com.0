@@ -1,130 +1,136 @@
-Return-Path: <jailhouse-dev+bncBDKLL2HKV4DRBZ5RZGTAMGQE6SEFPNA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDKLL2HKV4DRBTOOZGTAMGQETIBP7KY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83f.google.com (mail-qt1-x83f.google.com [IPv6:2607:f8b0:4864:20::83f])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3511773AD4
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Aug 2023 17:02:01 +0200 (CEST)
-Received: by mail-qt1-x83f.google.com with SMTP id d75a77b69052e-40fda0270basf67816511cf.3
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Aug 2023 08:02:01 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1691506920; cv=pass;
+Received: from mail-oo1-xc39.google.com (mail-oo1-xc39.google.com [IPv6:2607:f8b0:4864:20::c39])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05C82773C43
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  8 Aug 2023 18:03:28 +0200 (CEST)
+Received: by mail-oo1-xc39.google.com with SMTP id 006d021491bc7-56cd299ba92sf9579107eaf.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 08 Aug 2023 09:03:27 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1691510606; cv=pass;
         d=google.com; s=arc-20160816;
-        b=Y8zkhzUbETYb2fbGMfzDYO5RuqV95GiAhv/727NQnT86+K9OhyCAZuHzpHuZuCTjUj
-         waDx28TdSSZl6VWOOxeb0sU5dPYfBOPMWaWMBMBHMvMZxrh6rUuqo4b7q+gnjfVc/e6v
-         uzdpNLjN0azg0q8dAMmMJMWgQjV5siEOVwzlDNFL04ygWdilc5xoJo3etHfF2EK1ozw/
-         Glo0FyovQtwGj6KDmm2V2eWFLF3gqRoNho8bUAr3/U9AaWUpQHnxxqW3Eq7qeOyV6ROE
-         Cfd72BmcFsg5zmWE0Bq1izjLTRq2Tdixw3dhF/Zpc4Ndrkzt0AP/IfdSwRyZMQgS4R4J
-         3S4Q==
+        b=rNF/bFeRP9iyLoUJZLCPuugjW2l0do65cDlUPbtJZKzKmRIxtSVv7+M+xK9pyJQYxC
+         8sohhK8SDa9bqkYddo6Zkc7j8bkJtNYHHeZrp8vUChwvoszWRM9Kp6XHS5FuZAS03Fr0
+         7LikfeGMNppJETfIpImUYDjcgJyCQvjzjVaJnzpB5t/shaCKATPL78AlbHRs81HNiWEE
+         Vtys1nUXr4BVDuGmuYvRjB92x9jOrFssz+x6rhQUO3EWqYW+pRqsVzJjitOodcvXyScZ
+         xDKcJc1Kanw6+jsSeJgCvd3EAPC0LUxN7HHZR5vQ2SFihaAXOmZbdEPMJrQ9qayEh6DX
+         J08A==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:to:subject:message-id:date:from
-         :mime-version:sender:dkim-signature:dkim-signature;
-        bh=mgnKs7bsMSc74ziCllBDPT0WDe3ccK9z1fby9eYDXnQ=;
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=SYLoKD3PZQaYlgR7/OifLiT7BTb47HLg0LL6087EiOA=;
         fh=lHviolv2QIugOx+iONdMildTHSwHBzLPv847DRGo4aU=;
-        b=FjlTGhq2TUYhsUU/PXjVk8Ci+SEVupKsvrlJXe3AFd1n8X3mBINkeUz3nXkkUHCWA8
-         DcPE8JyqJvaPIeH+/SJPn5gIINFBF/QnBtfbFATYOmXwglQztaSobgdevuAgvHmjffnq
-         yc6epvO/M6fYu4uff7eo5zodZFClncTA9lKllEqR/yS958lkZJEfpaWmJ6AckH20D+/a
-         00F4Y/RMbftIIYVjqzPl6wuAeZgyjrK2s9K5U8XzCvMSzvuimMiabqhNZDO7fpaRn3H7
-         gIknGin+ntzavuFCOHn5+Aub8mIJnFrQt5qGsWpMGAq38dYMl8R51QIGQnpBls7KsqCo
-         Wa+Q==
+        b=AXwpE3WmHg8Blj+pYqRHdWoxhcU1DT0DWby5da3lOt0qfjyMzv715HF5FTNNkymN3v
+         K3bvq/+/TNJ0rFkg2YN6lZee4WDwPhqnVGM51zyeLhN3HooT56AKpwFpH6LaWfjXaO5f
+         yOFXf4b9ZCAvSdIbf/7nUrGqOyWWmUs+ipk2R2zuR6Xi85eFRlgeUsc4auhVWXylNHnB
+         QtmUiv7ZdwVj2sKd8VvNH9pKNIXWJw04mDU1GokWk7VSMnMfcfqK9Z/nEWY0+OLAOiKP
+         jM+qy9bJzBt3zrK6t1kQmE+4+9WSy/XOsnWZRFaYwhNWvsMPYbfR5fyi2xIW8EL7f4m+
+         d+8g==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20221208 header.b=bwS8WGX9;
-       spf=pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) smtp.mailfrom=barathiraja@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20221208 header.b=DJoUQxkP;
+       spf=pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::32c as permitted sender) smtp.mailfrom=barathiraja@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20221208; t=1691506920; x=1692111720;
+        d=googlegroups.com; s=20221208; t=1691510606; x=1692115406;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:to:subject:message-id:date:from:mime-version
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=mgnKs7bsMSc74ziCllBDPT0WDe3ccK9z1fby9eYDXnQ=;
-        b=sGGC3DlGSGG0WGW8/Duh0qMukJHS8SqSHTb6//QFVrYzAQpxUnR4eo/5pxcGNryb0J
-         +ppRC4MuAx4KPo13j6hOqFlLc7tLDQSIPfbt0nGzwByIpMkjutsu+11+gZ8I6+EEiSfE
-         khMh4Fp6DvfXqnb1pOZ1DjSn1AOepbhJJtTZ77wpSBuzojdGB3NHkg0kEBMNF1uOuifV
-         o6gXr1AK1mDhog1a2b6syQxoO7ZNfplvd4imf63Afv8j+qeYWjIuVkBgajDIf1vstOzK
-         ec2xE+RanlDNwALCvrL32oQ+ZGhpYrlo10RmzKdhjW4NFtyB2ToeEby2UE+FiuPmitWX
-         m8cA==
+         :x-original-sender:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SYLoKD3PZQaYlgR7/OifLiT7BTb47HLg0LL6087EiOA=;
+        b=O9T4h04t3NzIk89MI84QhiJ8UNx/BI1Lb9gWhT2OwQApj/wCn7BB4LtJXOPXiuqU/m
+         ZJpjxn5F/rYpluPR0JdiOkalbylv3P7/Up+tBbKiDRPWwwBPwiGpGp8QUces/GEIKNV2
+         wMQtfFFGeubRPq+hVXVZ0GMZDIhJ2CdkSVG4we+/YXfkc3BWZ7T/Naa+JLZc8IrDFrop
+         gVWB1amjJlTp8hWlcnuSZy/dE9qJYSb41Sjefnylx4UeFCb8rtYfurE8dbvP6+3ta8zr
+         ceuOx9FwpW9ICcx+teSbZXbCYG6sMLCYBFMbkoh6lQn2//WXoUGIHhSr2/zLIN4ziKvD
+         8gTA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691506920; x=1692111720;
+        d=gmail.com; s=20221208; t=1691510606; x=1692115406;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mgnKs7bsMSc74ziCllBDPT0WDe3ccK9z1fby9eYDXnQ=;
-        b=Bwc5UWWci6jdRxDuXL7+863hTRllIT2pAYk1K8CrszNpV5kaZCcxtlX9yrJGkzGxKI
-         l0YUzwRcugn9ndwAjBWTGmRL1BBV/bueHyPlIFK7EP7XNi1t9/K3ZwvgMtk2EIz5FRaN
-         WCFa8/1pNwJOcpVAf/r25GQup7lrXOMWOkApRJacNL+Ako9tf8yxYzTFXSze0q6lI9wd
-         qmHq5kvYxjU1qnd07XOwoS6k5stBUCqKCLXmcTDZpvPKrRBFpqrVoJAZuo06W96F0WkG
-         2brYOgqkm6SRmHH41uQp3MuGA6hoQEQGeQ5T+AijJX9plHpls+k0FW/mRheObIvUP4NS
-         OUfw==
+         :x-original-sender:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=SYLoKD3PZQaYlgR7/OifLiT7BTb47HLg0LL6087EiOA=;
+        b=sY2LIBO6tMcTOrkvAx6IFqmnw0rtnPT3ftwkD1JLzTryhfmybKuKHB3TeuDmqlBX4v
+         xnNxPgPyKEKcfzOCUBM2X7O87ebdesMkHbdjY3cG1z1HIQN6fLm0AfeQOrAgNRWGbTWR
+         0cP5E94DDIzHf2Vj3E0k4rZ0zXSqxketmSqQQ8iU2SB1MCn4M9GxpjsyLVPBG6jice6b
+         aiq2yflWHQ0QHBBTYBxJkgfne3q1FcBZgkXjTsu+jZV2y8wxGd/tzeb3zucJPdGsrro4
+         xPpJdgzkFuz0t1VvmZwGFu8PhzDGXFdvnVvSnD/ASFQZFO7iVyTwMhnK6r1e19kJ5dh7
+         8PCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691506920; x=1692111720;
+        d=1e100.net; s=20221208; t=1691510606; x=1692115406;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender:to:subject
-         :message-id:date:from:mime-version:x-beenthere:x-gm-message-state
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=mgnKs7bsMSc74ziCllBDPT0WDe3ccK9z1fby9eYDXnQ=;
-        b=JuS3Qs9fDZ+x/A/3Ore9nKLPTTtkqyfVKLSQLdd8EtU3I/ZY+WuL6m2B9HoBBdA6kY
-         a3HSK0k1QmR1rw5bYMUQs8qstWW2GmQBPCW15uAzqbuTR28VFifSrJzEWcTqNJk0mvT8
-         Rjy5s+ippt1HxEVoG5WEvZEL+tFHijLLqJURZvIJAXmO4/KC22gw89yazZLpMrHlXLpi
-         wYdvF8GevEG7MuLv0hMrAMGMAEddoqmqjKw4MLwEDu7UrDHmpTt6ucbxDOmYIqriDvFv
-         jOqdJF1wvJvu4Vo6n2+PGsKH0CW54qb+2/q935jE6AFLBOKT248rl/cyZCLEdTWuYbpZ
-         wg8g==
+         :message-id:date:from:in-reply-to:references:mime-version
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SYLoKD3PZQaYlgR7/OifLiT7BTb47HLg0LL6087EiOA=;
+        b=Tl3SusbaQvQznltDXk+U0q1YlES6gFhYt79URhje+1kShdk7RrCfB0RIgJqL8D1GWs
+         ursJew4/r7FfRYxxkoKEKutaZym3O36b8jAhjCZoorgrxCKzMWdjHjwCCYdFy/BbdL5Z
+         zdwaUV61CUIjeF1Ob5XwLH+IDqgTuhTIcKboVHDG60Tao37qUBrvN9i0lOeYx4TOPlmZ
+         dIrZY5iO72BH44s8TyiMXSkwdJJ/nZ7XjQX7AO79ZeNf1HyAdJQrXvPnFbw/qnhjfxL9
+         sCMcnMVafex4kYpUvpY+gKPcVF+0CzLCfbxioyUFoLlN54PCxq6cpUOYahLo19Ak3v/e
+         cy2A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YwY8UTx6/Jbf/8XtrYott626u2kiQbzFkXfoTmz/hkSZoIvIAoW
-	rkxRz+9YA+V4emu5UEDttLg=
-X-Google-Smtp-Source: AGHT+IERvJelTZw+B7PI8cT6wFw/6Cq+843Yfpa59CSpllrNe7Yo/nvh654uhX01L1qkafSLkkN2+g==
-X-Received: by 2002:ac8:5945:0:b0:403:e959:710f with SMTP id 5-20020ac85945000000b00403e959710fmr15663465qtz.49.1691506920231;
-        Tue, 08 Aug 2023 08:02:00 -0700 (PDT)
+X-Gm-Message-State: AOJu0Yw64GnR8Px+i0Az8L9FJin/wx1zi1qbzmZfhA9XSeF1+8xGvJVO
+	t7cQUjiXx1KYPDeHqOj0Ywk=
+X-Google-Smtp-Source: AGHT+IGQzfUVFWoKhkxO8bcVZzGrbiGTkCM7qlOxqBrxmoledpGWoNGacA594DbCX9IbkyEGjQXMpg==
+X-Received: by 2002:a4a:6c5b:0:b0:56c:e928:2889 with SMTP id u27-20020a4a6c5b000000b0056ce9282889mr242932oof.3.1691510606236;
+        Tue, 08 Aug 2023 09:03:26 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:ac8:5314:0:b0:3ff:301b:5417 with SMTP id t20-20020ac85314000000b003ff301b5417ls1693445qtn.2.-pod-prod-05-us;
- Tue, 08 Aug 2023 08:01:59 -0700 (PDT)
-X-Received: by 2002:a05:622a:1d5:b0:40f:db31:3a8e with SMTP id t21-20020a05622a01d500b0040fdb313a8emr16087386qtw.46.1691506918855;
-        Tue, 08 Aug 2023 08:01:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1691506918; cv=none;
+Received: by 2002:a4a:41d5:0:b0:56c:8738:f79d with SMTP id x204-20020a4a41d5000000b0056c8738f79dls3318547ooa.1.-pod-prod-05-us;
+ Tue, 08 Aug 2023 09:03:25 -0700 (PDT)
+X-Received: by 2002:a05:6358:880e:b0:134:ec9d:ef18 with SMTP id hv14-20020a056358880e00b00134ec9def18mr8751475rwb.28.1691510604851;
+        Tue, 08 Aug 2023 09:03:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1691510604; cv=none;
         d=google.com; s=arc-20160816;
-        b=aywzbaWz5AqnDZR5j9PnXJBxRV1Y/6dqGUzuIrKg1N4vf1p+uMWra/N85qWktr2nBS
-         IVKiRdJloblcB933nsHVSPCv5Abmc//aWJhzCdpHDyFtPOW+VUfgAnI+peiagSx2j17A
-         Ap7VFjL8ZIS5antFFSSbnVo7iSQ/pvi8aVaJHu7WuR5URFgisgFRSJS8ZGq1wIrjHR0q
-         2hLw9lT27d6HM2N09X6c/a6oOApyR/ryJ5TRLVHrS+bN9+dqCShwkiJVYek93KOE4amq
-         AlXefo+cEZ03mYTN8ZtbHBTrNBHBvZI5o5+/87FvYlFQFJIC1kdDkYBwFyfbpDwe8rZH
-         L9EQ==
+        b=M8hACYH21OiYkeSL7eyz3Ps5fW79vLWIAS2/QBklwZ6rmN20FzdQNphFutvJob179L
+         xwMSaLeeZe3h/o2UZGs9MqobBYf2/lKmkicioD5zNSsI10T2PahsjTsB1IphMfY/66+v
+         h9KJBvJUsrJseMjFuRvVPHbWdRr9qmB6SkckWoSviiVEk9jSet+6DZJT5cVoDTmvK2AO
+         m6dtCStDnlPhiszZH19ExcqP9UwbsQ0W/W2R7c9E6TGMsPnP0FwIBbATnD2qj3oR9BX3
+         H7WO+tjamfA49je24MvfL7f9Rm2m4gvk6ugmRBpZuKATsFWUwKuebCJdpbqF2xOv+jHC
+         ZYIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=/nKtfxIk9iHlDUHsI2BhlbovK+u8AtRw+e4qlq+h33I=;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=1gfEDHmp6YFyBLIO2E7t8lUQbzppbijQbv/YBrO5USg=;
         fh=lHviolv2QIugOx+iONdMildTHSwHBzLPv847DRGo4aU=;
-        b=GoQF9ygQLSKTZFFx4Q8EwBOP4eZdNZ3d5sjzoHHDJqAfN8eHAVwmGlPFF2kNgZFuvV
-         N3mvExkRdiifWcdQ+1EIr1403occEOfK+K7U/Iz+jdmpojWpr9rnfUWL3EwBdX83fil1
-         jeVxCR6NdxPQ5nL4/2aQTCv4PoeeDTw29KAiIsFLV9AlEcs5iE/spuopNr+NLjno2VGq
-         RryP7Dg4JLFVultqyRFMYRx7wZbdRXNQov0KItkUoj4SaIytHtPaI298DXaCNezA/SnZ
-         B09pIWexusbb8YqvQN6/qyp27T/Ui2M8CKNxN5ah8YhbZ4sJM5CyywfHej6WLwQCsNYS
-         T0Ng==
+        b=mNrGg6VMwVSH0TbA1Ml6IhlmWj+8Fqx8NbynmD94OyjCew2vm5h34AaxDWGB3kDjHZ
+         TNGYIvSInFQqyENYbkLwSPFA/XfLUGboy1bPwwZkdlyaYtvNCbEDRSXqoZpzPz9Z1KNu
+         9t7mYn743bffn85qpLrKXKHNRlrEyRA/uyT+zaH6Sw58xAHqLiVkLD7xJ4BEvnfHvTR+
+         hYAhlPCNfeD4fdo0Q6xQ+HQ3z39MrZX06v+R0D6cJJZ2N+xfCUTzljEF1Xokw64A/s2j
+         HBJXucszGdDdtL5j8kO7lHAONzQYckEXNoH7qzN2/IxKLr3qaovdAf59VLxLqYI/IP8x
+         YVcQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@gmail.com header.s=20221208 header.b=bwS8WGX9;
-       spf=pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) smtp.mailfrom=barathiraja@gmail.com;
+       dkim=pass header.i=@gmail.com header.s=20221208 header.b=DJoUQxkP;
+       spf=pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::32c as permitted sender) smtp.mailfrom=barathiraja@gmail.com;
        dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com. [2607:f8b0:4864:20::112b])
-        by gmr-mx.google.com with ESMTPS id cc11-20020a05622a410b00b00403ea989befsi1548478qtb.1.2023.08.08.08.01.58
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com. [2607:f8b0:4864:20::32c])
+        by gmr-mx.google.com with ESMTPS id i21-20020a0561023d1500b00447d287c186si607861vsv.0.2023.08.08.09.03.24
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Aug 2023 08:01:58 -0700 (PDT)
-Received-SPF: pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::112b as permitted sender) client-ip=2607:f8b0:4864:20::112b;
-Received: by mail-yw1-x112b.google.com with SMTP id 00721157ae682-58411e24eefso62306387b3.1
-        for <jailhouse-dev@googlegroups.com>; Tue, 08 Aug 2023 08:01:58 -0700 (PDT)
-X-Received: by 2002:a25:360a:0:b0:d4c:cbd2:f6f3 with SMTP id
- d10-20020a25360a000000b00d4ccbd2f6f3mr7930925yba.53.1691506916405; Tue, 08
- Aug 2023 08:01:56 -0700 (PDT)
+        Tue, 08 Aug 2023 09:03:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::32c as permitted sender) client-ip=2607:f8b0:4864:20::32c;
+Received: by mail-ot1-x32c.google.com with SMTP id 46e09a7af769-6bc8d1878a0so4979266a34.1
+        for <jailhouse-dev@googlegroups.com>; Tue, 08 Aug 2023 09:03:24 -0700 (PDT)
+X-Received: by 2002:a05:6830:1643:b0:6b9:1af3:3307 with SMTP id
+ h3-20020a056830164300b006b91af33307mr32123otr.17.1691510603700; Tue, 08 Aug
+ 2023 09:03:23 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAGA=GbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCNCUguag4-Nfsg@mail.gmail.com>
+In-Reply-To: <CAGA=GbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCNCUguag4-Nfsg@mail.gmail.com>
 From: Bharathiraja Nallathambi <barathiraja@gmail.com>
-Date: Tue, 8 Aug 2023 20:31:44 +0530
-Message-ID: <CAGA=GbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCNCUguag4-Nfsg@mail.gmail.com>
-Subject: Need help for jailhouse Linux demo on imx8mm board
+Date: Tue, 8 Aug 2023 21:33:12 +0530
+Message-ID: <CAGA=Gbz2Ex86ay715NTjSCDYhqAeOgfO+PemStDzjNOoS+8NWw@mail.gmail.com>
+Subject: jailhouse Linux demo on imx8mm (IOT-GATE-iMX8 - Industrial IoT Gateway)
 To: jailhouse-dev@googlegroups.com
-Content-Type: multipart/mixed; boundary="000000000000e4a08b06026aa481"
+Content-Type: multipart/mixed; boundary="000000000000ab055806026b8049"
 X-Original-Sender: barathiraja@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@gmail.com header.s=20221208 header.b=bwS8WGX9;       spf=pass
- (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::112b
+ header.i=@gmail.com header.s=20221208 header.b=DJoUQxkP;       spf=pass
+ (google.com: domain of barathiraja@gmail.com designates 2607:f8b0:4864:20::32c
  as permitted sender) smtp.mailfrom=barathiraja@gmail.com;       dmarc=pass
  (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
@@ -139,10 +145,10 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---000000000000e4a08b06026aa481
-Content-Type: multipart/alternative; boundary="000000000000e4a08806026aa47f"
+--000000000000ab055806026b8049
+Content-Type: multipart/alternative; boundary="000000000000ab055606026b8047"
 
---000000000000e4a08806026aa47f
+--000000000000ab055606026b8047
 Content-Type: text/plain; charset="UTF-8"
 
 Hi,
@@ -366,139 +372,150 @@ Can someone help me here please.
 Thanks and Regards,
 Bharathiraja Nallathambi
 
+
+-- 
+Thanks and Regards,
+Bharathiraja Nallathambi
+
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAGA%3DGbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCNCUguag4-Nfsg%40mail.gmail.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CAGA%3DGbz2Ex86ay715NTjSCDYhqAeOgfO%2BPemStDzjNOoS%2B8NWw%40mail.gmail.com.
 
---000000000000e4a08806026aa47f
+--000000000000ab055606026b8047
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi,<br>=C2=A0 I am trying to run jailhouse Linux demo on i=
-mx8mm board (<a href=3D"https://www.compulab.com/products/iot-gateways/iot-=
-gate-imx8-industrial-arm-iot-gateway/">https://www.compulab.com/products/io=
-t-gateways/iot-gate-imx8-industrial-arm-iot-gateway/</a>)<div>=C2=A0 <br>Af=
-ter the dts patch and kernel re-build, I am able to run the jailhouse inmat=
-e demo (gic-demo.bin) without any issues.</div><div>=C2=A0 <br>When i tried=
- to run jailhouse Linux demo on imx8mm board, i face the following challeng=
-e,<br><br>#Enable Jailhouse: =C2=A0<br>export PATH=3D$PATH:/usr/share/jailh=
-ouse/tools<br>insmod /lib/modules/5.15.32-iot-gate-imx8m-3.2.1+/extra/drive=
-r/jailhouse.ko <br>jailhouse enable /usr/share/jailhouse/cells/imx8mm.cell =
-<br>jailhouse cell list<br><br>#try to run Linux<br>jailhouse cell linux im=
-x8mm-linux-demo.cell /home/root/jailhouse/vmlinux -d /home/root/jailhouse/s=
-b-iotgimx8.dtb -c &quot;clk_ignore_unused console=3Dttymxc2,115200 earlycon=
-=3Dec_imx6q,0x30880000,115200 net.ifnames=3D0 root=3D/dev/sda2 rootwait rw&=
-quot;<br><br>imx8mm-linux-demo.cell - file attached for reference<br>sb-iot=
-gimx8.dts - file attached for reference<br><br>#jailhouse console output<br=
->root@iot-gate-imx8:~/jailhouse# jailhouse console<br><br>Initializing Jail=
-house hypervisor v0.2 on CPU 0<br>Code location: 0x0000ffffc0200800<br>Page=
- pool usage after early setup: mem 39/993, remap 0/131072<br>Initializing p=
-rocessors:<br>=C2=A0CPU 0... OK<br>=C2=A0CPU 3... OK<br>=C2=A0CPU 1... OK<b=
-r>=C2=A0CPU 2... OK<br>Initializing unit: irqchip<br>Initializing unit: ARM=
- SMMU v3<br>Initializing unit: ARM SMMU<br>Initializing unit: PVU IOMMU<br>=
-Initializing unit: PCI<br>Adding virtual PCI device 00:02.0 to cell &quot;i=
-mx8mm&quot;<br>Adding virtual PCI device 00:03.0 to cell &quot;imx8mm&quot;=
-<br>Adding virtual PCI device 00:00.0 to cell &quot;imx8mm&quot;<br>Adding =
-virtual PCI device 00:01.0 to cell &quot;imx8mm&quot;<br>Page pool usage af=
-ter late setup: mem 63/993, remap 144/131072<br>Activating hypervisor<br>Ad=
-ding virtual PCI device 00:02.0 to cell &quot;linux-inmate-demo&quot;<br>Sh=
-ared memory connection established, peer cells:<br>=C2=A0&quot;imx8mm&quot;=
-<br>Adding virtual PCI device 00:03.0 to cell &quot;linux-inmate-demo&quot;=
-<br>Shared memory connection established, peer cells:<br>=C2=A0&quot;imx8mm=
-&quot;<br>Adding virtual PCI device 00:00.0 to cell &quot;linux-inmate-demo=
-&quot;<br>Shared memory connection established, peer cells:<br>=C2=A0&quot;=
-imx8mm&quot;<br>Adding virtual PCI device 00:01.0 to cell &quot;linux-inmat=
-e-demo&quot;<br>Shared memory connection established, peer cells:<br>=C2=A0=
-&quot;imx8mm&quot;<br>Created cell &quot;linux-inmate-demo&quot;<br>Page po=
-ol usage after cell creation: mem 77/993, remap 144/131072<br><br>#jailhous=
-e cell list output<br>#root@iot-gate-imx8:~/jailhouse# jailhouse cell list<=
-br>ID =C2=A0 =C2=A0 =C2=A0Name =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0State =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-Assigned CPUs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Failed CPUs =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>0 =C2=A0 =C2=A0 =C2=A0 imx8mm =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0running =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0-1 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+<div dir=3D"ltr"><br><div class=3D"gmail_quote"><div dir=3D"ltr">Hi,<br>=C2=
+=A0 I am trying to run jailhouse Linux demo on imx8mm board (<a href=3D"htt=
+ps://www.compulab.com/products/iot-gateways/iot-gate-imx8-industrial-arm-io=
+t-gateway/" target=3D"_blank">https://www.compulab.com/products/iot-gateway=
+s/iot-gate-imx8-industrial-arm-iot-gateway/</a>)<div>=C2=A0 <br>After the d=
+ts patch and kernel re-build, I am able to run the jailhouse inmate demo (g=
+ic-demo.bin) without any issues.</div><div>=C2=A0 <br>When i tried to run j=
+ailhouse Linux demo on imx8mm board, i face the following challenge,<br><br=
+>#Enable Jailhouse: =C2=A0<br>export PATH=3D$PATH:/usr/share/jailhouse/tool=
+s<br>insmod /lib/modules/5.15.32-iot-gate-imx8m-3.2.1+/extra/driver/jailhou=
+se.ko <br>jailhouse enable /usr/share/jailhouse/cells/imx8mm.cell <br>jailh=
+ouse cell list<br><br>#try to run Linux<br>jailhouse cell linux imx8mm-linu=
+x-demo.cell /home/root/jailhouse/vmlinux -d /home/root/jailhouse/sb-iotgimx=
+8.dtb -c &quot;clk_ignore_unused console=3Dttymxc2,115200 earlycon=3Dec_imx=
+6q,0x30880000,115200 net.ifnames=3D0 root=3D/dev/sda2 rootwait rw&quot;<br>=
+<br>imx8mm-linux-demo.cell - file attached for reference<br>sb-iotgimx8.dts=
+ - file attached for reference<br><br>#jailhouse console output<br>root@iot=
+-gate-imx8:~/jailhouse# jailhouse console<br><br>Initializing Jailhouse hyp=
+ervisor v0.2 on CPU 0<br>Code location: 0x0000ffffc0200800<br>Page pool usa=
+ge after early setup: mem 39/993, remap 0/131072<br>Initializing processors=
+:<br>=C2=A0CPU 0... OK<br>=C2=A0CPU 3... OK<br>=C2=A0CPU 1... OK<br>=C2=A0C=
+PU 2... OK<br>Initializing unit: irqchip<br>Initializing unit: ARM SMMU v3<=
+br>Initializing unit: ARM SMMU<br>Initializing unit: PVU IOMMU<br>Initializ=
+ing unit: PCI<br>Adding virtual PCI device 00:02.0 to cell &quot;imx8mm&quo=
+t;<br>Adding virtual PCI device 00:03.0 to cell &quot;imx8mm&quot;<br>Addin=
+g virtual PCI device 00:00.0 to cell &quot;imx8mm&quot;<br>Adding virtual P=
+CI device 00:01.0 to cell &quot;imx8mm&quot;<br>Page pool usage after late =
+setup: mem 63/993, remap 144/131072<br>Activating hypervisor<br>Adding virt=
+ual PCI device 00:02.0 to cell &quot;linux-inmate-demo&quot;<br>Shared memo=
+ry connection established, peer cells:<br>=C2=A0&quot;imx8mm&quot;<br>Addin=
+g virtual PCI device 00:03.0 to cell &quot;linux-inmate-demo&quot;<br>Share=
+d memory connection established, peer cells:<br>=C2=A0&quot;imx8mm&quot;<br=
+>Adding virtual PCI device 00:00.0 to cell &quot;linux-inmate-demo&quot;<br=
+>Shared memory connection established, peer cells:<br>=C2=A0&quot;imx8mm&qu=
+ot;<br>Adding virtual PCI device 00:01.0 to cell &quot;linux-inmate-demo&qu=
+ot;<br>Shared memory connection established, peer cells:<br>=C2=A0&quot;imx=
+8mm&quot;<br>Created cell &quot;linux-inmate-demo&quot;<br>Page pool usage =
+after cell creation: mem 77/993, remap 144/131072<br><br>#jailhouse cell li=
+st output<br>#root@iot-gate-imx8:~/jailhouse# jailhouse cell list<br>ID =C2=
+=A0 =C2=A0 =C2=A0Name =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0State =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Assigned C=
+PUs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Failed CPUs =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 <br>0 =C2=A0 =C2=A0 =C2=A0 imx8mm =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0running =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 0-1 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
 =A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 <br>1 =C2=A0 =C2=A0 =C2=A0 linux-inmate-demo =
-=C2=A0 =C2=A0 =C2=A0 shut down =C2=A0 =C2=A0 =C2=A0 =C2=A0 2-3 <br><br>#/pr=
-oc/cmdline<br>console=3Dttymxc2,115200 earlycon=3Dec_imx6q,0x30880000,11520=
-0 net.ifnames=3D0 root=3D/dev/mmcblk2p2 rootwait rw panic=3D5 oops=3Dpanic<=
-br><br>#/proc/iomem<br>root@iot-gate-imx8:~/jailhouse# cat /proc/iomem <br>=
-00100000-00107fff : 30900000.crypto caam-sm@100000<br>18000000-1fefffff : p=
-cie@33800000<br>=C2=A0 18000000-180fffff : 0000:00:00.0<br>=C2=A0 18100000-=
-181fffff : PCI Bus 0000:01<br>=C2=A0 =C2=A0 18100000-18103fff : 0000:01:00.=
-0<br>=C2=A0 =C2=A0 =C2=A0 18100000-18103fff : iwlwifi<br>=C2=A0 18200000-18=
-20ffff : 0000:00:00.0<br>1ff00000-1ff7ffff : 33800000.pcie config<br>302000=
-00-3020ffff : 30200000.gpio gpio@30200000<br>30210000-3021ffff : 30210000.g=
-pio gpio@30210000<br>30220000-3022ffff : 30220000.gpio gpio@30220000<br>302=
-30000-3023ffff : 30230000.gpio gpio@30230000<br>30240000-3024ffff : 3024000=
-0.gpio gpio@30240000<br>30260000-3026ffff : 30260000.tmu tmu@30260000<br>30=
-280000-3028ffff : 30280000.watchdog watchdog@30280000<br>302b0000-302bffff =
-: 302b0000.dma-controller dma-controller@302b0000<br>302c0000-302cffff : 30=
-2c0000.dma-controller dma-controller@302c0000<br>30330000-3033ffff : 303300=
-00.pinctrl pinctrl@30330000<br>30350000-3035ffff : 30350000.efuse efuse@303=
-50000<br>30380000-3038ffff : 30380000.clock-controller clock-controller@303=
-80000<br>30820000-3082ffff : 30820000.spi spi@30820000<br>30860000-3086ffff=
- : 30860000.serial serial@30860000<br>30880000-3088ffff : 30880000.serial s=
-erial@30880000<br>30900000-3093ffff : 30900000.crypto crypto@30900000<br>30=
-a20000-30a2ffff : 30a20000.i2c i2c@30a20000<br>30a30000-30a3ffff : 30a30000=
-.i2c i2c@30a30000<br>30a60000-30a6ffff : 30a60000.serial serial@30a60000<br=
->30aa0000-30aaffff : 30aa0000.mailbox mailbox@30aa0000<br>30b50000-30b5ffff=
- : 30b50000.mmc mmc@30b50000<br>30b60000-30b6ffff : 30b60000.mmc mmc@30b600=
-00<br>30bd0000-30bdffff : 30bd0000.dma-controller dma-controller@30bd0000<b=
-r>30be0000-30beffff : 30be0000.ethernet ethernet@30be0000<br>32e28000-32e28=
-003 : 32e28000.dispmix-sft-rstn dispmix-sft-rstn@32e28000<br>32e28004-32e28=
-007 : 32e28004.dispmix-clk-en dispmix-clk-en@32e28004<br>32e28008-32e2800b =
-: 32e28008.dispmix-mipi-rst dispmix-mipi-rst@32e28008<br>32e40000-32e401ff =
-: usb@32e40000<br>=C2=A0 32e40000-32e401ff : ci_hdrc.0 usb@32e40000<br>32e4=
-0200-32e403ff : 32e40200.usbmisc usbmisc@32e40200<br>32e50000-32e501ff : us=
-b@32e50000<br>=C2=A0 32e50000-32e501ff : ci_hdrc.1 usb@32e50000<br>32e50200=
--32e503ff : 32e50200.usbmisc usbmisc@32e50200<br>32f00000-32f0ffff : 338000=
-00.pcie pcie-phy@32f00000<br>33000000-33001fff : 33000000.dma-controller dm=
-a-controller@33000000<br>33800000-33bfffff : 33800000.pcie dbi<br>3d800000-=
-3dbfffff : 3d800000.ddr-pmu ddr-pmu@3d800000<br>40000000-55ffffff : System =
-RAM<br>=C2=A0 40610000-41ceffff : Kernel code<br>=C2=A0 41cf0000-4206ffff :=
- reserved<br>=C2=A0 42070000-423bffff : Kernel data<br>=C2=A0 43000000-4300=
-afff : reserved<br>58000000-93bfffff : System RAM<br>=C2=A0 6a000000-91ffff=
-ff : reserved<br>93c00000-b83fffff : reserved<br>=C2=A0 b7c00000-b7ffffff :=
- Jailhouse hypervisor<br>b8400000-bb6fffff : System RAM<br>bb700000-bbbffff=
-f : reserved<br>bbc00000-bfffffff : System RAM<br>=C2=A0 bd900000-bfbfffff =
-: reserved<br>=C2=A0 bfc6d000-bfc6dfff : reserved<br>=C2=A0 bfc6e000-bfce5f=
-ff : reserved<br>=C2=A0 bfce8000-bfce9fff : reserved<br>=C2=A0 bfcea000-bfc=
-eafff : reserved<br>=C2=A0 bfceb000-bfcfefff : reserved<br>=C2=A0 bfcff000-=
-bfcfffff : reserved<br>=C2=A0 bfd00000-bfd35fff : reserved<br>=C2=A0 bfd360=
-00-bfffffff : reserved<br><br><br>#dts patch<br><br>From aaee5eb45ada7121c7=
-c34af7049c0db11ea2b572 Mon Sep 17 00:00:00 2001<br>From: Bharathiraja Nalla=
-thambi &lt;<a href=3D"mailto:bharathiraja.nallathambi@xxxxxx.com">bharathir=
-aja.nallathambi@xxxxxx.com</a>&gt;<br>Date: Mon, 31 Jul 2023 17:14:42 +0000=
-<br>Subject: [PATCH] adding reserved memory for jailhouse<br><br>- adding r=
-eserved memory for jailhouse imx8mm<br><br>Signed-off-by: Bharathiraja Nall=
-athambi &lt;<a href=3D"mailto:bharathiraja.nallathambi@xxxxxx.com">bharathi=
-raja.nallathambi@xxxxxx.com</a>&gt;<br>---<br>=C2=A0arch/arm64/boot/dts/com=
-pulab/sb-iotgimx8.dts | 38 ++++++++++++++++++++<br>=C2=A01 file changed, 38=
- insertions(+)<br><br>diff --git a/arch/arm64/boot/dts/compulab/sb-iotgimx8=
-.dts b/arch/arm64/boot/dts/compulab/sb-iotgimx8.dts<br>index 08de87e55d0b..=
-6539aa8c83f6 100644<br>--- a/arch/arm64/boot/dts/compulab/sb-iotgimx8.dts<b=
-r>+++ b/arch/arm64/boot/dts/compulab/sb-iotgimx8.dts<br>@@ -315,3 +315,41 @=
-@ MX8MM_IOMUXC_SAI5_RXC_GPIO3_IO20	0x140<br>=C2=A0		};<br>=C2=A0	};<br>=C2=
-=A0};<br>+<br>+&amp;{/reserved-memory} {<br>+<br>+	ivshmem_reserved: ivshme=
-m@bbb00000 {<br>+		no-map;<br>+		reg =3D &lt;0 0xbbb00000 0x0 0x00100000&gt=
-;;<br>+	};<br>+<br>+	ivshmem2_reserved: ivshmem2@bba00000 {<br>+		no-map;<b=
-r>+		reg =3D &lt;0 0xbba00000 0x0 0x00100000&gt;;<br>+	};<br>+<br>+	pci_res=
-erved: pci@bb800000 {<br>+		no-map;<br>+		reg =3D &lt;0 0xbb800000 0x0 0x00=
-200000&gt;;<br>+	};<br>+<br>+	loader_reserved: loader@bb700000 {<br>+		no-m=
-ap;<br>+		reg =3D &lt;0 0xbb700000 0x0 0x00100000&gt;;<br>+	};<br>+<br>+	jh=
-_reserved: jh@b7c00000 {<br>+		no-map;<br>+		reg =3D &lt;0 0xb7c00000 0x0 0=
-x00400000&gt;;<br>+	};<br>+<br>+	/* 512MB */<br>+	inmate_reserved: inmate@9=
-3c00000 {<br>+		no-map;<br>+		reg =3D &lt;0 0x93c00000 0x0 0x24000000&gt;;<=
-br>+	};<br>+};<br>+<br>+&amp;{/reserved-memory/linux,cma} {<br>+	alloc-rang=
-es =3D &lt;0 0x40000000 0 0x60000000&gt;;<br>+};<br>-- <br>2.34.1<br><br><b=
-r>There is no console output. The terminal froze.<br><br>Can someone help m=
-e here please.<br>=C2=A0 <br>=C2=A0 <br><div><br></div><span class=3D"gmail=
-_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"=
- data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Thanks and Regards,<di=
-v>Bharathiraja Nallathambi</div></div></div></div></div>
+=C2=A0 =C2=A0 =C2=A0 <br>1 =C2=A0 =C2=A0 =C2=A0 linux-inmate-demo =C2=A0 =
+=C2=A0 =C2=A0 shut down =C2=A0 =C2=A0 =C2=A0 =C2=A0 2-3 <br><br>#/proc/cmdl=
+ine<br>console=3Dttymxc2,115200 earlycon=3Dec_imx6q,0x30880000,115200 net.i=
+fnames=3D0 root=3D/dev/mmcblk2p2 rootwait rw panic=3D5 oops=3Dpanic<br><br>=
+#/proc/iomem<br>root@iot-gate-imx8:~/jailhouse# cat /proc/iomem <br>0010000=
+0-00107fff : 30900000.crypto caam-sm@100000<br>18000000-1fefffff : pcie@338=
+00000<br>=C2=A0 18000000-180fffff : 0000:00:00.0<br>=C2=A0 18100000-181ffff=
+f : PCI Bus 0000:01<br>=C2=A0 =C2=A0 18100000-18103fff : 0000:01:00.0<br>=
+=C2=A0 =C2=A0 =C2=A0 18100000-18103fff : iwlwifi<br>=C2=A0 18200000-1820fff=
+f : 0000:00:00.0<br>1ff00000-1ff7ffff : 33800000.pcie config<br>30200000-30=
+20ffff : 30200000.gpio gpio@30200000<br>30210000-3021ffff : 30210000.gpio g=
+pio@30210000<br>30220000-3022ffff : 30220000.gpio gpio@30220000<br>30230000=
+-3023ffff : 30230000.gpio gpio@30230000<br>30240000-3024ffff : 30240000.gpi=
+o gpio@30240000<br>30260000-3026ffff : 30260000.tmu tmu@30260000<br>3028000=
+0-3028ffff : 30280000.watchdog watchdog@30280000<br>302b0000-302bffff : 302=
+b0000.dma-controller dma-controller@302b0000<br>302c0000-302cffff : 302c000=
+0.dma-controller dma-controller@302c0000<br>30330000-3033ffff : 30330000.pi=
+nctrl pinctrl@30330000<br>30350000-3035ffff : 30350000.efuse efuse@30350000=
+<br>30380000-3038ffff : 30380000.clock-controller clock-controller@30380000=
+<br>30820000-3082ffff : 30820000.spi spi@30820000<br>30860000-3086ffff : 30=
+860000.serial serial@30860000<br>30880000-3088ffff : 30880000.serial serial=
+@30880000<br>30900000-3093ffff : 30900000.crypto crypto@30900000<br>30a2000=
+0-30a2ffff : 30a20000.i2c i2c@30a20000<br>30a30000-30a3ffff : 30a30000.i2c =
+i2c@30a30000<br>30a60000-30a6ffff : 30a60000.serial serial@30a60000<br>30aa=
+0000-30aaffff : 30aa0000.mailbox mailbox@30aa0000<br>30b50000-30b5ffff : 30=
+b50000.mmc mmc@30b50000<br>30b60000-30b6ffff : 30b60000.mmc mmc@30b60000<br=
+>30bd0000-30bdffff : 30bd0000.dma-controller dma-controller@30bd0000<br>30b=
+e0000-30beffff : 30be0000.ethernet ethernet@30be0000<br>32e28000-32e28003 :=
+ 32e28000.dispmix-sft-rstn dispmix-sft-rstn@32e28000<br>32e28004-32e28007 :=
+ 32e28004.dispmix-clk-en dispmix-clk-en@32e28004<br>32e28008-32e2800b : 32e=
+28008.dispmix-mipi-rst dispmix-mipi-rst@32e28008<br>32e40000-32e401ff : usb=
+@32e40000<br>=C2=A0 32e40000-32e401ff : ci_hdrc.0 usb@32e40000<br>32e40200-=
+32e403ff : 32e40200.usbmisc usbmisc@32e40200<br>32e50000-32e501ff : usb@32e=
+50000<br>=C2=A0 32e50000-32e501ff : ci_hdrc.1 usb@32e50000<br>32e50200-32e5=
+03ff : 32e50200.usbmisc usbmisc@32e50200<br>32f00000-32f0ffff : 33800000.pc=
+ie pcie-phy@32f00000<br>33000000-33001fff : 33000000.dma-controller dma-con=
+troller@33000000<br>33800000-33bfffff : 33800000.pcie dbi<br>3d800000-3dbff=
+fff : 3d800000.ddr-pmu ddr-pmu@3d800000<br>40000000-55ffffff : System RAM<b=
+r>=C2=A0 40610000-41ceffff : Kernel code<br>=C2=A0 41cf0000-4206ffff : rese=
+rved<br>=C2=A0 42070000-423bffff : Kernel data<br>=C2=A0 43000000-4300afff =
+: reserved<br>58000000-93bfffff : System RAM<br>=C2=A0 6a000000-91ffffff : =
+reserved<br>93c00000-b83fffff : reserved<br>=C2=A0 b7c00000-b7ffffff : Jail=
+house hypervisor<br>b8400000-bb6fffff : System RAM<br>bb700000-bbbfffff : r=
+eserved<br>bbc00000-bfffffff : System RAM<br>=C2=A0 bd900000-bfbfffff : res=
+erved<br>=C2=A0 bfc6d000-bfc6dfff : reserved<br>=C2=A0 bfc6e000-bfce5fff : =
+reserved<br>=C2=A0 bfce8000-bfce9fff : reserved<br>=C2=A0 bfcea000-bfceafff=
+ : reserved<br>=C2=A0 bfceb000-bfcfefff : reserved<br>=C2=A0 bfcff000-bfcff=
+fff : reserved<br>=C2=A0 bfd00000-bfd35fff : reserved<br>=C2=A0 bfd36000-bf=
+ffffff : reserved<br><br><br>#dts patch<br><br>From aaee5eb45ada7121c7c34af=
+7049c0db11ea2b572 Mon Sep 17 00:00:00 2001<br>From: Bharathiraja Nallathamb=
+i &lt;<a href=3D"mailto:bharathiraja.nallathambi@xxxxxx.com" target=3D"_bla=
+nk">bharathiraja.nallathambi@xxxxxx.com</a>&gt;<br>Date: Mon, 31 Jul 2023 1=
+7:14:42 +0000<br>Subject: [PATCH] adding reserved memory for jailhouse<br><=
+br>- adding reserved memory for jailhouse imx8mm<br><br>Signed-off-by: Bhar=
+athiraja Nallathambi &lt;<a href=3D"mailto:bharathiraja.nallathambi@xxxxxx.=
+com" target=3D"_blank">bharathiraja.nallathambi@xxxxxx.com</a>&gt;<br>---<b=
+r>=C2=A0arch/arm64/boot/dts/compulab/sb-iotgimx8.dts | 38 +++++++++++++++++=
++++<br>=C2=A01 file changed, 38 insertions(+)<br><br>diff --git a/arch/arm6=
+4/boot/dts/compulab/sb-iotgimx8.dts b/arch/arm64/boot/dts/compulab/sb-iotgi=
+mx8.dts<br>index 08de87e55d0b..6539aa8c83f6 100644<br>--- a/arch/arm64/boot=
+/dts/compulab/sb-iotgimx8.dts<br>+++ b/arch/arm64/boot/dts/compulab/sb-iotg=
+imx8.dts<br>@@ -315,3 +315,41 @@ MX8MM_IOMUXC_SAI5_RXC_GPIO3_IO20	0x140<br>=
+=C2=A0		};<br>=C2=A0	};<br>=C2=A0};<br>+<br>+&amp;{/reserved-memory} {<br>+=
+<br>+	ivshmem_reserved: ivshmem@bbb00000 {<br>+		no-map;<br>+		reg =3D &lt;=
+0 0xbbb00000 0x0 0x00100000&gt;;<br>+	};<br>+<br>+	ivshmem2_reserved: ivshm=
+em2@bba00000 {<br>+		no-map;<br>+		reg =3D &lt;0 0xbba00000 0x0 0x00100000&=
+gt;;<br>+	};<br>+<br>+	pci_reserved: pci@bb800000 {<br>+		no-map;<br>+		reg=
+ =3D &lt;0 0xbb800000 0x0 0x00200000&gt;;<br>+	};<br>+<br>+	loader_reserved=
+: loader@bb700000 {<br>+		no-map;<br>+		reg =3D &lt;0 0xbb700000 0x0 0x0010=
+0000&gt;;<br>+	};<br>+<br>+	jh_reserved: jh@b7c00000 {<br>+		no-map;<br>+		=
+reg =3D &lt;0 0xb7c00000 0x0 0x00400000&gt;;<br>+	};<br>+<br>+	/* 512MB */<=
+br>+	inmate_reserved: inmate@93c00000 {<br>+		no-map;<br>+		reg =3D &lt;0 0=
+x93c00000 0x0 0x24000000&gt;;<br>+	};<br>+};<br>+<br>+&amp;{/reserved-memor=
+y/linux,cma} {<br>+	alloc-ranges =3D &lt;0 0x40000000 0 0x60000000&gt;;<br>=
++};<br>-- <br>2.34.1<br><br><br>There is no console output. The terminal fr=
+oze.<br><br>Can someone help me here please.<br>=C2=A0 <br>=C2=A0 <br><div>=
+<br></div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"=
+ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr">Thanks and Regards,<div>Bharathiraja Nallathambi</div></div></div>=
+</div></div>
+</div><br clear=3D"all"><div><br></div><span class=3D"gmail_signature_prefi=
+x">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=
+=3D"gmail_signature"><div dir=3D"ltr">Thanks and Regards,<div>Bharathiraja =
+Nallathambi</div></div></div></div>
 
 <p></p>
 
@@ -509,14 +526,14 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/CAGA%3DGbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCNCUguag4-N=
-fsg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
-.google.com/d/msgid/jailhouse-dev/CAGA%3DGbyPEO8Z9bAgpfRaAaFAg2sqHuvfEzCbCN=
-CUguag4-Nfsg%40mail.gmail.com</a>.<br />
+om/d/msgid/jailhouse-dev/CAGA%3DGbz2Ex86ay715NTjSCDYhqAeOgfO%2BPemStDzjNOoS=
+%2B8NWw%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://gr=
+oups.google.com/d/msgid/jailhouse-dev/CAGA%3DGbz2Ex86ay715NTjSCDYhqAeOgfO%2=
+BPemStDzjNOoS%2B8NWw%40mail.gmail.com</a>.<br />
 
---000000000000e4a08806026aa47f--
---000000000000e4a08b06026aa481
-Content-Type: text/x-csrc; charset="US-ASCII"; name="imx8mm-linux-demo.c"
+--000000000000ab055606026b8047--
+--000000000000ab055806026b8049
+Content-Type: text/x-c-code; charset="US-ASCII"; name="imx8mm-linux-demo.c"
 Content-Disposition: attachment; filename="imx8mm-linux-demo.c"
 Content-Transfer-Encoding: base64
 Content-ID: <f_ll2fi2uy0>
@@ -620,8 +637,8 @@ CQkJLmJhcl9tYXNrID0gSkFJTEhPVVNFX0lWU0hNRU1fQkFSX01BU0tfSU5UWCwKCQkJLnNobWVt
 X3JlZ2lvbnNfc3RhcnQgPSAxMywKCQkJLnNobWVtX2Rldl9pZCA9IDEsCgkJCS5zaG1lbV9wZWVy
 cyA9IDIsCgkJCS5zaG1lbV9wcm90b2NvbCA9IEpBSUxIT1VTRV9TSE1FTV9QUk9UT19WRVRILAoJ
 CX0sCgl9LAp9Owo=
---000000000000e4a08b06026aa481
-Content-Type: audio/vnd.dts; name="sb-iotgimx8.dts"
+--000000000000ab055806026b8049
+Content-Type: application/octet-stream; name="sb-iotgimx8.dts"
 Content-Disposition: attachment; filename="sb-iotgimx8.dts"
 Content-Transfer-Encoding: base64
 Content-ID: <f_ll2fi2vn1>
@@ -775,4 +792,4 @@ MHgwIDB4MDA0MDAwMDA+OwoJfTsKCgkvKiA1MTJNQiAqLwoJaW5tYXRlX3Jlc2VydmVkOiBpbm1h
 dGVAOTNjMDAwMDAgewoJCW5vLW1hcDsKCQlyZWcgPSA8MCAweDkzYzAwMDAwIDB4MCAweDI0MDAw
 MDAwPjsKCX07Cn07Cgomey9yZXNlcnZlZC1tZW1vcnkvbGludXgsY21hfSB7CglhbGxvYy1yYW5n
 ZXMgPSA8MCAweDQwMDAwMDAwIDAgMHg2MDAwMDAwMD47Cn07Cg==
---000000000000e4a08b06026aa481--
+--000000000000ab055806026b8049--
