@@ -1,76 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCWY74EX3IPRB74W36TQMGQES35MK3A@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCPOLQPRTECBBCFR36TQMGQEVQUEIIY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D39C7932F9
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 Sep 2023 02:44:50 +0200 (CEST)
-Received: by mail-ot1-x33f.google.com with SMTP id 46e09a7af769-6b9d34de264sf3634590a34.0
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 05 Sep 2023 17:44:50 -0700 (PDT)
+Received: from mail-pj1-x103b.google.com (mail-pj1-x103b.google.com [IPv6:2607:f8b0:4864:20::103b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F17879336F
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 Sep 2023 03:40:27 +0200 (CEST)
+Received: by mail-pj1-x103b.google.com with SMTP id 98e67ed59e1d1-26d68b5995dsf3386045a91.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 05 Sep 2023 18:40:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1693961088; x=1694565888; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1693964425; x=1694569225; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
-        b=SaP5u3iuDD/aerdoF6smaHSqdh7Z42QdYZs6TeJTN+PkmuFGC75G9klvcX31wLjavN
-         3BXjxVTZ2pcjHqLwUG9q+A+p1WbRLpiepzsFAyUjqSLYaGO5l9nJHfapFn364Iw9lJ7I
-         54UvOygIUIKwCA7HemQBv+yOm8FGR2yDtpajMkfPVsb51LET0oPSiGoIimsUPMOem9NO
-         ivAzpgqTMpzg05x37kA6d+idd+LVGH5VXtcBroDNV7BldHMQ+L2L7NCce/wjNzHGihiS
-         YPwy1JZ88mHEV2RXt6JyUxN/fiuCTBPhRSXpkIsvbjsy0+oTY2dXDgBi1SJH4bKpOyOK
-         W41w==
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vjQ6sagQEJs04JTlmRcMHUymBMH/Jro7Jhi0Mtu3BHU=;
+        b=qRF4KdV2GmOQrCF1PkoB0ZRsphg4vxZ+zA11jHKJ6BKR9Nf1wI47kXJHPdlRIomX80
+         P5aIf+cMCdcqNAYlaosJe7qBrxNOfgq0aezqlQljuWlMQQEy+qIGBw05X10i+E50dUS1
+         nADtezD2SzhT2sH+/XJiGAUymmsJ3HrKfXg+aTTpMlVN3mIWNbSAT6aGKsVhzoxhMe/w
+         iWZDLAwLy18dE7AskTxodX0n+AevXpQmGKV/YHdVDjIRn8DrEEY6xr1qD2Q2YjO8GB5e
+         DBbKTZF2kH0CuF4NwVLzstYHIOJofWyha5iwlP8Ox5A7C60h5FQL4CUkv6AtiVteqIdC
+         Xd7A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1693961088; x=1694565888; darn=lfdr.de;
+        d=gmail.com; s=20221208; t=1693964425; x=1694569225; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
-        b=Pakpc8lJP/ytbIvhXEAYjrLfOtXNZNV7uZQqSpC+r7KQc+ESegFG7P87nOam37vl8J
-         mZvUG6JLWE69fKc3jYiNFs+zqsYA567aX+T1LoyW0CF1Sn1V9JcUG9PisUcp9QlJch8Y
-         9Dla6AyjOnkMP+rV76sV9OsYoaW3VHNzvW9HPJQIfn4UyBxzaOYk9I4DEOZt3r5U8MSW
-         nYk0z8UF3Kvza5fhgphOPemZVKIbpCZgk8rkPNpb3qsZfcP9/Wjq0odOTHwY5kcmSpzE
-         9X3wa32iHQSL+AWoRS5QIAWYddVg8Sf0Ux6qbCaJrbMyitoC44Su7jEWhiyzsAlGGyLY
-         N4Ww==
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vjQ6sagQEJs04JTlmRcMHUymBMH/Jro7Jhi0Mtu3BHU=;
+        b=JJTqopfgRGqN4GAdNgH1bJh7yKV8r/tUwKpdFFcZVSIgOybSSzjezQLoZbPUXIzqvS
+         oi2Q5bdkEsEOGr7aaUKDj54uo2wUT+UthbjQFp9XB3D6gOOC1A6bjHY58kuwQRDf68dC
+         O/H2tFHVsQ4ACeOMuDDjxOz2U16PDCLwFkL/jgfz+1GZFaDLvrYPX7f7zbyYJnbIs1be
+         Jh3JVD/pxQjJMx0/arakW3l3RNfXrs9t09xwKBRfONg5SnNjvw6Kbvm2GhnAaGpncdSC
+         sjGKC/dx9chHLM7XQ2Y7rP78clvnNCpGax4HQo7LZtZajp3bBLu8xJo4uxsRYb+lXDQo
+         ku7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693961088; x=1694565888;
+        d=1e100.net; s=20221208; t=1693964425; x=1694569225;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
-        b=SywmSevJOtqCFZCF/naK05nEkqv/gW9apf9Ck71QNoygszLMASJXVxoXz3j5nvNwZZ
-         tGELIedQhLuLBEL1Vj1fmyNpabKXNjV13CG9Qe1Y4DVzvj8epYFh4OV2yW7vo6ho/xVE
-         LmfXJfNk6AMtD2K5nEPQSf3RTDYpd8BdYTv/zVd0Ts80oENNRq7PNF+LG+kDLkJScccO
-         wPfR/UyWZ9Zp66lO9AzPMD3ZwTbQ5OGccVexALmdCKDBClSi7YfDfGQUBIS2DKNvDbV4
-         OXB0/JqtqnAHWqX5Jt4rW35viiVl5z6BSFQg6ugnAxuN+4kRe5R1rKMxxQqavOhx1XQW
-         mB1A==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vjQ6sagQEJs04JTlmRcMHUymBMH/Jro7Jhi0Mtu3BHU=;
+        b=PmORbjuvOA0bDymA9gzZFP2IJj2bvUk2+YF77lUEG8wpBc/xBV4lClFolz4N77OOgK
+         PEOqfvB/sfE/JBNBJXuBJFOgRtS9KIKWef3snEX90bQQwSxOYPmGRu5xjTbFg2scM9Eb
+         zRJhgaC1Dr4gtmaYlS8R3JBAFJwQM8G0JBT0NYNc9DBaBuG4Fi9QPTn+8UcciuuIGBVL
+         +N4EPvUS0yY6ER2S+xdmB1n5EAcyOIXJHDuqGIKcsIXCo0xOxjADa9KE+aJQIV59LDvx
+         vgV13DKWI2p3+9KCOI6wuQL1pZOPsrk+3mITNXmf0MmHMUr2K5EIT3TjagI0QqhGDKpk
+         Zf1w==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YyyWLrAh4L6ORcz9AU7EDDrb/VDN5Sm+cXKbFd6qNGAWaXWtHtS
-	Un9P74NymS+o5vcJ+sRtS8A=
-X-Google-Smtp-Source: AGHT+IGGKZb0xXAoA+oax8PA3SHBJ4ZzFF/67EUG5b53bwSsPgA1AQYxhgX7VOBaxfwoSAdVOySLmA==
-X-Received: by 2002:a05:6358:4429:b0:134:c984:ab74 with SMTP id z41-20020a056358442900b00134c984ab74mr1689960rwc.9.1693961088503;
-        Tue, 05 Sep 2023 17:44:48 -0700 (PDT)
+X-Gm-Message-State: AOJu0YxXQteZu/dbzfFV6OnqIO6McuiEmfCKcLdOGsvrRv3OXEIDp7n6
+	tIhmNfUtexzM1FrXjbYKJWs=
+X-Google-Smtp-Source: AGHT+IH1sbRawULE4ObKnNFjLfjjMVpBkKnbCLrbSlJv2O9O6WsWvik6QY7fBeVbuhF5yqt5ZU4IkQ==
+X-Received: by 2002:a17:90b:314a:b0:268:2d6:74d6 with SMTP id ip10-20020a17090b314a00b0026802d674d6mr11356145pjb.16.1693964425269;
+        Tue, 05 Sep 2023 18:40:25 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90b:358b:b0:268:f0b:2429 with SMTP id
- mm11-20020a17090b358b00b002680f0b2429ls5231195pjb.1.-pod-prod-08-us; Tue, 05
- Sep 2023 17:44:47 -0700 (PDT)
-X-Received: by 2002:a17:90a:e281:b0:268:200c:4a9f with SMTP id d1-20020a17090ae28100b00268200c4a9fmr3482245pjz.2.1693961086928;
-        Tue, 05 Sep 2023 17:44:46 -0700 (PDT)
-Date: Tue, 5 Sep 2023 17:44:45 -0700 (PDT)
-From: Zhan Zheng <zzlossdev@gmail.com>
+Received: by 2002:a17:90b:370e:b0:269:671:d45b with SMTP id
+ mg14-20020a17090b370e00b002690671d45bls5280384pjb.0.-pod-prod-08-us; Tue, 05
+ Sep 2023 18:40:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:1258:b0:26f:7521:25bc with SMTP id gx24-20020a17090b125800b0026f752125bcmr3510996pjb.0.1693964423921;
+        Tue, 05 Sep 2023 18:40:23 -0700 (PDT)
+Date: Tue, 5 Sep 2023 18:40:23 -0700 (PDT)
+From: bot crack <unintialized@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c43555c0-b479-43c3-8afc-41208516a92bn@googlegroups.com>
-In-Reply-To: <a4c85fc2-4bf4-4c07-830f-67a60a6d40a6@oth-regensburg.de>
-References: <ca381c51-0921-42cf-ad8f-2b6f6727ce6dn@googlegroups.com>
- <a5a7147d-750d-4000-87f5-6ca0cc93fcb2n@googlegroups.com>
- <a4c85fc2-4bf4-4c07-830f-67a60a6d40a6@oth-regensburg.de>
-Subject: Re: when enter_hypervisor on rk3568, system reboot without oops
+Message-Id: <4edd4683-c693-4cad-aca7-53605eef02f3n@googlegroups.com>
+Subject: How to add new system register macro definition in arm64?
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_17408_2143336604.1693961085877"
-X-Original-Sender: zzlossdev@gmail.com
+	boundary="----=_Part_16844_273581583.1693964423063"
+X-Original-Sender: unintialized@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -83,78 +79,30 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_17408_2143336604.1693961085877
+------=_Part_16844_273581583.1693964423063
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_17409_672600043.1693961085877"
+	boundary="----=_Part_16845_905891538.1693964423063"
 
-------=_Part_17409_672600043.1693961085877
+------=_Part_16845_905891538.1693964423063
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Hi
 
-%% ./jailhouse-config-check ~/works/jailhouse/configs/arm64/rk3568.cell=20
-Reading configuration set:
-  Architecture:  arm64
-  Root cell:     RK3568=20
-(/home/zyz/works/jailhouse/configs/arm64/rk3568.cell)
-Overlapping memory regions inside cell: None
-Overlapping memory regions with hypervisor: None
-Missing PCI MMCONFIG interceptions: None
-Missing resource interceptions for architecture arm64: None
-=E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+8=
- 18:26:26<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
-
-> Hi,
->
-> What does jailhouse config-check report on your system configuration?
->
-> Ralf
->
-> On 05/09/2023 10:52, Zhan Zheng wrote:
-> > dmesg in `screen-exchange`
-> >=20
-> > =E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C U=
-TC+8 16:00:57<Zhan Zheng> =E5=86=99=E9=81=93=EF=BC=9A
-> >=20
-> > hello, everyone. I'm porting jailhouse to rk3568 which running open
-> > harmony.
-> > jailhouse.ko, jailhouse.bin, jailhouse were ready, and i wrote a
-> > basic root cell to test it.
-> > but when i `jailhouse enable rk3568.cell`, the system reboot. can
-> > someone help me pls?
-> > thanks
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.
-> > To unsubscribe from this group and stop receiving emails from it, send=
+   1. I want to add some register definitions.=20
+   2. I want to know why #define CNTPCT_EL0 SYSREG_64(0, c14) in arm64 *has=
 =20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6=
-ca0cc93fcb2n%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6=
-ca0cc93fcb2n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >.
->
-> --=20
-> Mit freundlichen Gr=C3=BC=C3=9Fen
->
-> Dr. Ralf Ramsauer
-> Labor f=C3=BCr Digitalisierung
-> Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
->
-> Ostbayerische Technische Hochschule Regensburg
-> Galgenbergstrasse 32
-> 93053 Regensburg
->
-> Tel.: +49 (0)941 943-9267 <+49%20941%209439267>
-> E-Mail: ralf.r...@oth-regensburg.de
-> http://www.oth-regensburg.de
->
+   only two arguments*, but it can be expanded into assembly "MRS X0, #3,=
+=20
+   c14, c0, #1"
+   3. I didn=E2=80=99t understand the definition in=20
+   inmates/lib/arm64/include/asm/sysregs.h because I couldn=E2=80=99t find =
+how to=20
+   expand the macro definition SYSREG_64
+   4. For example, I want to add a new CNTVCT_EL0 (op0=3D0b11, op1=3D0b011,=
+=20
+   CRn=3D0b1110, CRm=3D0b0, op2=3Db010) register. How should I do it?
+
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -162,93 +110,21 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegroups.com.
+jailhouse-dev/4edd4683-c693-4cad-aca7-53605eef02f3n%40googlegroups.com.
 
-------=_Part_17409_672600043.1693961085877
+------=_Part_16845_905891538.1693964423063
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />%% ./jailhouse-config-check ~/works/jailhouse/configs/arm64/rk3568.ce=
-ll <br />Reading configuration set:<br />=C2=A0 Architecture: =C2=A0arm64<b=
-r />=C2=A0 Root cell: =C2=A0 =C2=A0 RK3568 (/home/zyz/works/jailhouse/confi=
-gs/arm64/rk3568.cell)<br />Overlapping memory regions inside cell: None<br =
-/>Overlapping memory regions with hypervisor: None<br />Missing PCI MMCONFI=
-G interceptions: None<br />Missing resource interceptions for architecture =
-arm64: None<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmai=
-l_attr">=E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=
-=8C UTC+8 18:26:26&lt;Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A<br/></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left=
-: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi,
-<br>
-<br>What does jailhouse config-check report on your system configuration?
-<br>
-<br>   Ralf
-<br>
-<br>On 05/09/2023 10:52, Zhan Zheng wrote:
-<br>&gt; dmesg in `screen-exchange`
-<br>&gt;=20
-<br>&gt; =E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=
-=8C UTC+8 16:00:57&lt;Zhan Zheng&gt; =E5=86=99=E9=81=93=EF=BC=9A
-<br>&gt;=20
-<br>&gt;     hello, everyone. I&#39;m porting jailhouse to rk3568 which run=
-ning open
-<br>&gt;     harmony.
-<br>&gt;     jailhouse.ko, jailhouse.bin, jailhouse were ready, and i wrote=
- a
-<br>&gt;     basic root cell to test it.
-<br>&gt;     but when i `jailhouse enable rk3568.cell`, the system reboot. =
-can
-<br>&gt;     someone help me pls?
-<br>&gt;     thanks
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google=
-=20
-<br>&gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send=20
-<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
-e...@googlegroups.com</a>=20
-<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
-...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit=20
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a5a7147=
-d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
-p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87=
-f5-6ca0cc93fcb2n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16940473=
-68463000&amp;usg=3DAOvVaw06a8HVkAHdrtD_v_hdvB6y">https://groups.google.com/=
-d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.=
-com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a5a7=
-147d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.com?utm_medium=3Demail&amp=
-;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirectu=
-rl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.c=
-om/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%2540googlegr=
-oups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;us=
-t=3D1694047368463000&amp;usg=3DAOvVaw1PjlFAeM06GuZA3HGy6lDu">https://groups=
-.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%40g=
-ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br>
-<br>--=20
-<br>Mit freundlichen Gr=C3=BC=C3=9Fen
-<br>
-<br>Dr. Ralf Ramsauer
-<br>Labor f=C3=BCr Digitalisierung
-<br>Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
-<br>
-<br>Ostbayerische Technische Hochschule Regensburg
-<br>Galgenbergstrasse 32
-<br>93053 Regensburg
-<br>
-<br>Tel.: <a href=3D"tel:+49%20941%209439267" value=3D"+499419439267" targe=
-t=3D"_blank" rel=3D"nofollow">+49 (0)941 943-9267</a>
-<br>E-Mail: <a href data-email-masked rel=3D"nofollow">ralf.r...@oth-regens=
-burg.de</a>
-<br><a href=3D"http://www.oth-regensburg.de" target=3D"_blank" rel=3D"nofol=
-low" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3D=
-http://www.oth-regensburg.de&amp;source=3Dgmail&amp;ust=3D1694047368463000&=
-amp;usg=3DAOvVaw3L7QRLMweBCSEA1tskSPTT">http://www.oth-regensburg.de</a>
-<br></blockquote></div>
+<div>Hi</div><ol><li>I want to add some register definitions.=C2=A0</li><li=
+>I want to know why #define CNTPCT_EL0 SYSREG_64(0, c14) in arm64 <b><font =
+color=3D"#ff0000">has only two arguments</font></b>, but it can be expanded=
+ into assembly "MRS X0, #3, c14, c0, #1"</li><li>I didn=E2=80=99t understan=
+d the definition in inmates/lib/arm64/include/asm/sysregs.h because I could=
+n=E2=80=99t find how to expand the macro definition SYSREG_64<br /></li><li=
+>For example, I want to add a new CNTVCT_EL0 (op0=3D0b11, op1=3D0b011, CRn=
+=3D0b1110, CRm=3D0b0, op2=3Db010) register. How should I do it?</li></ol><d=
+iv><br /></div>
 
 <p></p>
 
@@ -259,11 +135,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegrou=
+om/d/msgid/jailhouse-dev/4edd4683-c693-4cad-aca7-53605eef02f3n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegroups.co=
+msgid/jailhouse-dev/4edd4683-c693-4cad-aca7-53605eef02f3n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_17409_672600043.1693961085877--
+------=_Part_16845_905891538.1693964423063--
 
-------=_Part_17408_2143336604.1693961085877--
+------=_Part_16844_273581583.1693964423063--
