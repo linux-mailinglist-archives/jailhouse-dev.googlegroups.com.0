@@ -1,143 +1,76 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBUME3STQMGQEAN2VSWY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCWY74EX3IPRB74W36TQMGQES35MK3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-wr1-x43b.google.com (mail-wr1-x43b.google.com [IPv6:2a00:1450:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B797921D8
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  5 Sep 2023 12:26:27 +0200 (CEST)
-Received: by mail-wr1-x43b.google.com with SMTP id ffacd0b85a97d-31f46ccee0fsf796555f8f.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 05 Sep 2023 03:26:27 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1693909587; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Ll7hLpmPXMa9xrsg2r4Mx0nXGk2rexr7WFTQWEWX02bpOzwDFUP7HXu8pz4X8UjhAe
-         KBQtnisKmmA0zd8XXc3S4X54L6Z1qzqF0GaOZtbI4nwbE0oOZn2mBcoY+f3vQtPxYayO
-         XSLyd8qGOjgDq8TzKQCujnK6U1G1xcKDCEAhVVq2Dr/7uL209WpN7SeqOMs4P7p4zVTd
-         OxTQMD/Hzb4HaM2LToCQM/ro+eYLbjvU16gg7+VWzB3D3ceYNW+gX6oFGO2g1vtNo27Y
-         TSzufa0aMuxCbEK5tmH8v0PKxGkW9RZvOxnSe1iSeMHQri519HW4Dzi4Z6O4mmDowiLf
-         fmbg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=1kibrug6Kiz6bxh8pKI+NGpLWRGdbrz1tVHb71oBWBA=;
-        fh=BpAVTopiFedOQLrB8p68CNBMN1+ngfjJPKgZMaa6nIw=;
-        b=bHit4C2mcQPeWWb3mYTwPq6tlK58kls0q23RdQg60GXDt1wewHJQfwLGIpps7EeFz4
-         HT7ylekTv77FAURcW2w70rMVHf4/RKnRu7kJwNGqCEXN0bglkX/JiPoA0cvLuPt1bESe
-         PYNfzbqELMHtgNXwXT8ZkNIPPVVRV40C88M5IJcFR8tMlowkPfhsfcJNJNo9C9H5XGAH
-         d9RDCEi5BHgfIC7Jwsm6gKYKBM2HULuMtE2HHxESLNa7D4yKr4u1XLtZWv3e8U2O7t+o
-         0o9ooxBw36rqWg5lIAZaOQX4fHCpTnykqhOxigZjUBWhM6y9kWhLaFQz6A8hck7CbYj4
-         j6jw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b="DwSi6/4S";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-ot1-x33f.google.com (mail-ot1-x33f.google.com [IPv6:2607:f8b0:4864:20::33f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D39C7932F9
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  6 Sep 2023 02:44:50 +0200 (CEST)
+Received: by mail-ot1-x33f.google.com with SMTP id 46e09a7af769-6b9d34de264sf3634590a34.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 05 Sep 2023 17:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1693909587; x=1694514387; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1693961088; x=1694565888; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :references:to:content-language:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=1kibrug6Kiz6bxh8pKI+NGpLWRGdbrz1tVHb71oBWBA=;
-        b=akblo2gvh4yyEkGlJE1bKjfiLIM4vUGm0akI1uZ1x2g9TJSYcRJUXXakgtkFUp4wf/
-         X6yAq1gEnc1xjb7QPEidOEEu+fwk4okBcx2UeKhpFwwcRxtyBJv5E++gt2NolAk0SOYF
-         A+2+Zvb5y/V6HW/7qsFgfBOTbFI5d7WSA82nOX+/u2hVLg3gjllmE85rG5YeZPliURnX
-         xN1PYOt88gg8dqY8q1dRi5NN7dtSV202PHaATVZa1FmQzoTUeOEevfp9avoZCYrQBxHi
-         5pJfQzXevyj9yaVXxDHNkz8+qzZDRzz+910EDZ0tDdYsOshZz8t167cyw+mH1wnBcoYe
-         eshA==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
+        b=SaP5u3iuDD/aerdoF6smaHSqdh7Z42QdYZs6TeJTN+PkmuFGC75G9klvcX31wLjavN
+         3BXjxVTZ2pcjHqLwUG9q+A+p1WbRLpiepzsFAyUjqSLYaGO5l9nJHfapFn364Iw9lJ7I
+         54UvOygIUIKwCA7HemQBv+yOm8FGR2yDtpajMkfPVsb51LET0oPSiGoIimsUPMOem9NO
+         ivAzpgqTMpzg05x37kA6d+idd+LVGH5VXtcBroDNV7BldHMQ+L2L7NCce/wjNzHGihiS
+         YPwy1JZ88mHEV2RXt6JyUxN/fiuCTBPhRSXpkIsvbjsy0+oTY2dXDgBi1SJH4bKpOyOK
+         W41w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1693961088; x=1694565888; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
+        b=Pakpc8lJP/ytbIvhXEAYjrLfOtXNZNV7uZQqSpC+r7KQc+ESegFG7P87nOam37vl8J
+         mZvUG6JLWE69fKc3jYiNFs+zqsYA567aX+T1LoyW0CF1Sn1V9JcUG9PisUcp9QlJch8Y
+         9Dla6AyjOnkMP+rV76sV9OsYoaW3VHNzvW9HPJQIfn4UyBxzaOYk9I4DEOZt3r5U8MSW
+         nYk0z8UF3Kvza5fhgphOPemZVKIbpCZgk8rkPNpb3qsZfcP9/Wjq0odOTHwY5kcmSpzE
+         9X3wa32iHQSL+AWoRS5QIAWYddVg8Sf0Ux6qbCaJrbMyitoC44Su7jEWhiyzsAlGGyLY
+         N4Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1693909587; x=1694514387;
+        d=1e100.net; s=20221208; t=1693961088; x=1694565888;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1kibrug6Kiz6bxh8pKI+NGpLWRGdbrz1tVHb71oBWBA=;
-        b=WADU3sMwhDGkcq7mC/zt4qG6qaRvOEk/DdUyl1O77O1NnLQLYI1cVp4c/M9ancWIE/
-         tib7IwV1xPuzCpES29cceDG8kP7I7x03xOzyY0cZaKBypvc/qLuvenrvTncn5u/RAsD0
-         6tJLcH0vH2lZO30zT2TcChD8AyQrMeHML+WUwWZ3y5X0UI2jxjYtwQHr82ZxVf64pbPp
-         0TMObXiVg+QPY0NC4HZPmxZDmot1VFfEt+gdGFmqIJniLE4D0+9Mt5qzH9K2V/woZn8X
-         wBwIQF2rmizHP4i2Aru9W9HwoNssr+fSEtM4QnHsA+MGv8rkGOFdDSaoQdfP1ZR7bI3c
-         2xVg==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NMSkce/R46kB7nOQULfDAFPnkovq2d4nSlJv7SOH7RE=;
+        b=SywmSevJOtqCFZCF/naK05nEkqv/gW9apf9Ck71QNoygszLMASJXVxoXz3j5nvNwZZ
+         tGELIedQhLuLBEL1Vj1fmyNpabKXNjV13CG9Qe1Y4DVzvj8epYFh4OV2yW7vo6ho/xVE
+         LmfXJfNk6AMtD2K5nEPQSf3RTDYpd8BdYTv/zVd0Ts80oENNRq7PNF+LG+kDLkJScccO
+         wPfR/UyWZ9Zp66lO9AzPMD3ZwTbQ5OGccVexALmdCKDBClSi7YfDfGQUBIS2DKNvDbV4
+         OXB0/JqtqnAHWqX5Jt4rW35viiVl5z6BSFQg6ugnAxuN+4kRe5R1rKMxxQqavOhx1XQW
+         mB1A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YxVC39x2w5gguNkQ75gJOpZApQ9aXe1MPzeupaxXbdSqRFFfC2F
-	1M/dCRSpQkfCqyJxAQlqyWk=
-X-Google-Smtp-Source: AGHT+IH/D6xA08/6Z8m2pHMlA4AS3kzGUo7sn5ihCiUB0Ds+eI3Kvhs8aE2c6g9ZdeozFlFLcZekIg==
-X-Received: by 2002:a05:6000:11c3:b0:319:735f:92c5 with SMTP id i3-20020a05600011c300b00319735f92c5mr9847962wrx.32.1693909586692;
-        Tue, 05 Sep 2023 03:26:26 -0700 (PDT)
+X-Gm-Message-State: AOJu0YyyWLrAh4L6ORcz9AU7EDDrb/VDN5Sm+cXKbFd6qNGAWaXWtHtS
+	Un9P74NymS+o5vcJ+sRtS8A=
+X-Google-Smtp-Source: AGHT+IGGKZb0xXAoA+oax8PA3SHBJ4ZzFF/67EUG5b53bwSsPgA1AQYxhgX7VOBaxfwoSAdVOySLmA==
+X-Received: by 2002:a05:6358:4429:b0:134:c984:ab74 with SMTP id z41-20020a056358442900b00134c984ab74mr1689960rwc.9.1693961088503;
+        Tue, 05 Sep 2023 17:44:48 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5d:514d:0:b0:312:831e:dc1b with SMTP id u13-20020a5d514d000000b00312831edc1bls1005541wrt.2.-pod-prod-00-eu;
- Tue, 05 Sep 2023 03:26:24 -0700 (PDT)
-X-Received: by 2002:a5d:6d46:0:b0:315:7f1d:7790 with SMTP id k6-20020a5d6d46000000b003157f1d7790mr9077965wri.6.1693909584397;
-        Tue, 05 Sep 2023 03:26:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1693909584; cv=none;
-        d=google.com; s=arc-20160816;
-        b=NHOiZi3srZFnnqwnYm1bjpgiRKqR1/ZUxZFb0spH9fmJbaxFQYh0RtwJTpHzXoA2Q5
-         3sXVcYtBgSHTY6T05Nl82o5NDWIGPPm0mhE0Cz+2HPEcMdE2sV36zQzfX2HfwAW9p+4M
-         VbTCF1wSR7m3nct0YsnWPniw4uKtLd0tCQ6OoL5o5EiRotakjhKHGfNPjjeCilNSQN9h
-         1uE8fgB6EOo+cNwiU3HAciKbJgtZ4CQdiI5fE4hSRLXJLRrPUPhkdCj3PqFDja/yQsw+
-         4/K6w8YhDQF1mmYlOkefZKoJUCUSdhzq2fG5utAYiQzKni7cDs+tXvqfXQggAEbAkvYh
-         qXDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=xnywQ2De88eHKGE3ZsWvPDvpEdrqgfpx17zFpYLsYJY=;
-        fh=BpAVTopiFedOQLrB8p68CNBMN1+ngfjJPKgZMaa6nIw=;
-        b=l+94RtERrsMhCQQQpFAHTgqJSHv8IKQYKcY7LWMzwIcltMsbMPeJtEyVi28NxON7LX
-         q+0gPsIY0/nqtPlVO7xRYwl6r05EmA/vaKrtmZGdNVEEGhbRv8UMtu9C46YErTrg5APL
-         7UN+MvU33J4K4vC9RlcQ7EZVUrzlfTcEhVQB33lxYccfLgTOCrOKFdEEX3rOHZQYYZXu
-         upjlR8Q56ledoLlgZa7fQF6JYFhVgLNGLIAhY5JNrD8UIN3hpc26hJ6SzrlV29qS2guK
-         mDgylrZ7hyQwzyTldAKIoxiB/nd/QBX5etlV7MDR3zv6SQRLxytxm2dNejLPy8N/IDQx
-         cOWQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b="DwSi6/4S";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from a2752.mx.srv.dfn.de (a2752.mx.srv.dfn.de. [2001:638:d:c301:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id bo29-20020a056000069d00b0031c3528356asi855803wrb.2.2023.09.05.03.26.24
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 Sep 2023 03:26:24 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c301:acdc:1979:2:f4;
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
-	by a2752.mx.srv.dfn.de (Postfix) with ESMTPS id EE1492E0104;
-	Tue,  5 Sep 2023 12:26:22 +0200 (CEST)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Rg1rG4n2yzxws;
-	Tue,  5 Sep 2023 12:26:22 +0200 (CEST)
-Received: from [172.16.2.23] (194.95.106.226) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 5 Sep
- 2023 12:26:22 +0200
-Message-ID: <a4c85fc2-4bf4-4c07-830f-67a60a6d40a6@oth-regensburg.de>
-Date: Tue, 5 Sep 2023 12:26:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: when enter_hypervisor on rk3568, system reboot without oops
-Content-Language: en-US
-To: Zhan Zheng <zzlossdev@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
+Received: by 2002:a17:90b:358b:b0:268:f0b:2429 with SMTP id
+ mm11-20020a17090b358b00b002680f0b2429ls5231195pjb.1.-pod-prod-08-us; Tue, 05
+ Sep 2023 17:44:47 -0700 (PDT)
+X-Received: by 2002:a17:90a:e281:b0:268:200c:4a9f with SMTP id d1-20020a17090ae28100b00268200c4a9fmr3482245pjz.2.1693961086928;
+        Tue, 05 Sep 2023 17:44:46 -0700 (PDT)
+Date: Tue, 5 Sep 2023 17:44:45 -0700 (PDT)
+From: Zhan Zheng <zzlossdev@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <c43555c0-b479-43c3-8afc-41208516a92bn@googlegroups.com>
+In-Reply-To: <a4c85fc2-4bf4-4c07-830f-67a60a6d40a6@oth-regensburg.de>
 References: <ca381c51-0921-42cf-ad8f-2b6f6727ce6dn@googlegroups.com>
  <a5a7147d-750d-4000-87f5-6ca0cc93fcb2n@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <a5a7147d-750d-4000-87f5-6ca0cc93fcb2n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [194.95.106.226]
-X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b="DwSi6/4S";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender)
- smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=oth-regensburg.de
+ <a4c85fc2-4bf4-4c07-830f-67a60a6d40a6@oth-regensburg.de>
+Subject: Re: when enter_hypervisor on rk3568, system reboot without oops
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_17408_2143336604.1693961085877"
+X-Original-Sender: zzlossdev@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -150,52 +83,78 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+------=_Part_17408_2143336604.1693961085877
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_17409_672600043.1693961085877"
 
-What does jailhouse config-check report on your system configuration?
+------=_Part_17409_672600043.1693961085877
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-   Ralf
 
-On 05/09/2023 10:52, Zhan Zheng wrote:
-> dmesg in `screen-exchange`
->=20
-> =E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC=
-+8 16:00:57<Zhan Zheng> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->     hello, everyone. I'm porting jailhouse to rk3568 which running open
->     harmony.
->     jailhouse.ko, jailhouse.bin, jailhouse were ready, and i wrote a
->     basic root cell to test it.
->     but when i `jailhouse enable rk3568.cell`, the system reboot. can
->     someone help me pls?
->     thanks
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
+%% ./jailhouse-config-check ~/works/jailhouse/configs/arm64/rk3568.cell=20
+Reading configuration set:
+  Architecture:  arm64
+  Root cell:     RK3568=20
+(/home/zyz/works/jailhouse/configs/arm64/rk3568.cell)
+Overlapping memory regions inside cell: None
+Overlapping memory regions with hypervisor: None
+Missing PCI MMCONFIG interceptions: None
+Missing resource interceptions for architecture arm64: None
+=E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C UTC+8=
+ 18:26:26<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
+
+> Hi,
+>
+> What does jailhouse config-check report on your system configuration?
+>
+> Ralf
+>
+> On 05/09/2023 10:52, Zhan Zheng wrote:
+> > dmesg in `screen-exchange`
+> >=20
+> > =E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=8C U=
+TC+8 16:00:57<Zhan Zheng> =E5=86=99=E9=81=93=EF=BC=9A
+> >=20
+> > hello, everyone. I'm porting jailhouse to rk3568 which running open
+> > harmony.
+> > jailhouse.ko, jailhouse.bin, jailhouse were ready, and i wrote a
+> > basic root cell to test it.
+> > but when i `jailhouse enable rk3568.cell`, the system reboot. can
+> > someone help me pls?
+> > thanks
+> >=20
+> > --=20
+> > You received this message because you are subscribed to the Google=20
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send=
+=20
+> > an email to jailhouse-de...@googlegroups.com=20
+> > <mailto:jailhouse-de...@googlegroups.com>.
+> > To view this discussion on the web visit=20
+> >=20
 > https://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6=
-ca0cc93fcb2n%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
-
---=20
-Mit freundlichen Gr=C3=BC=C3=9Fen
-
-Dr. Ralf Ramsauer
-Labor f=C3=BCr Digitalisierung
-Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
-
-Ostbayerische Technische Hochschule Regensburg
-Galgenbergstrasse 32
-93053 Regensburg
-
-Tel.: +49 (0)941 943-9267
-E-Mail: ralf.ramsauer@oth-regensburg.de
-http://www.oth-regensburg.de
+ca0cc93fcb2n%40googlegroups.com=20
+> <
+> https://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6=
+ca0cc93fcb2n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
+> >.
+>
+> --=20
+> Mit freundlichen Gr=C3=BC=C3=9Fen
+>
+> Dr. Ralf Ramsauer
+> Labor f=C3=BCr Digitalisierung
+> Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
+>
+> Ostbayerische Technische Hochschule Regensburg
+> Galgenbergstrasse 32
+> 93053 Regensburg
+>
+> Tel.: +49 (0)941 943-9267 <+49%20941%209439267>
+> E-Mail: ralf.r...@oth-regensburg.de
+> http://www.oth-regensburg.de
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -203,4 +162,108 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a4c85fc2-4bf4-4c07-830f-67a60a6d40a6%40oth-regensburg.de.
+jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegroups.com.
+
+------=_Part_17409_672600043.1693961085877
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br />%% ./jailhouse-config-check ~/works/jailhouse/configs/arm64/rk3568.ce=
+ll <br />Reading configuration set:<br />=C2=A0 Architecture: =C2=A0arm64<b=
+r />=C2=A0 Root cell: =C2=A0 =C2=A0 RK3568 (/home/zyz/works/jailhouse/confi=
+gs/arm64/rk3568.cell)<br />Overlapping memory regions inside cell: None<br =
+/>Overlapping memory regions with hypervisor: None<br />Missing PCI MMCONFI=
+G interceptions: None<br />Missing resource interceptions for architecture =
+arm64: None<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmai=
+l_attr">=E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=
+=8C UTC+8 18:26:26&lt;Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A<br/></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left=
+: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi,
+<br>
+<br>What does jailhouse config-check report on your system configuration?
+<br>
+<br>   Ralf
+<br>
+<br>On 05/09/2023 10:52, Zhan Zheng wrote:
+<br>&gt; dmesg in `screen-exchange`
+<br>&gt;=20
+<br>&gt; =E5=9C=A82023=E5=B9=B49=E6=9C=885=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=
+=8C UTC+8 16:00:57&lt;Zhan Zheng&gt; =E5=86=99=E9=81=93=EF=BC=9A
+<br>&gt;=20
+<br>&gt;     hello, everyone. I&#39;m porting jailhouse to rk3568 which run=
+ning open
+<br>&gt;     harmony.
+<br>&gt;     jailhouse.ko, jailhouse.bin, jailhouse were ready, and i wrote=
+ a
+<br>&gt;     basic root cell to test it.
+<br>&gt;     but when i `jailhouse enable rk3568.cell`, the system reboot. =
+can
+<br>&gt;     someone help me pls?
+<br>&gt;     thanks
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google=
+=20
+<br>&gt; Groups &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send=20
+<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
+e...@googlegroups.com</a>=20
+<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
+...@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit=20
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a5a7147=
+d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.com" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
+p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87=
+f5-6ca0cc93fcb2n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D16940473=
+68463000&amp;usg=3DAOvVaw06a8HVkAHdrtD_v_hdvB6y">https://groups.google.com/=
+d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.=
+com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a5a7=
+147d-750d-4000-87f5-6ca0cc93fcb2n%40googlegroups.com?utm_medium=3Demail&amp=
+;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirectu=
+rl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.c=
+om/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%2540googlegr=
+oups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;us=
+t=3D1694047368463000&amp;usg=3DAOvVaw1PjlFAeM06GuZA3HGy6lDu">https://groups=
+.google.com/d/msgid/jailhouse-dev/a5a7147d-750d-4000-87f5-6ca0cc93fcb2n%40g=
+ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
+<br>
+<br>--=20
+<br>Mit freundlichen Gr=C3=BC=C3=9Fen
+<br>
+<br>Dr. Ralf Ramsauer
+<br>Labor f=C3=BCr Digitalisierung
+<br>Fakult=C3=A4t f=C3=BCr Informatik und Mathematik
+<br>
+<br>Ostbayerische Technische Hochschule Regensburg
+<br>Galgenbergstrasse 32
+<br>93053 Regensburg
+<br>
+<br>Tel.: <a href=3D"tel:+49%20941%209439267" value=3D"+499419439267" targe=
+t=3D"_blank" rel=3D"nofollow">+49 (0)941 943-9267</a>
+<br>E-Mail: <a href data-email-masked rel=3D"nofollow">ralf.r...@oth-regens=
+burg.de</a>
+<br><a href=3D"http://www.oth-regensburg.de" target=3D"_blank" rel=3D"nofol=
+low" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3D=
+http://www.oth-regensburg.de&amp;source=3Dgmail&amp;ust=3D1694047368463000&=
+amp;usg=3DAOvVaw3L7QRLMweBCSEA1tskSPTT">http://www.oth-regensburg.de</a>
+<br></blockquote></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/c43555c0-b479-43c3-8afc-41208516a92bn%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_17409_672600043.1693961085877--
+
+------=_Part_17408_2143336604.1693961085877--
