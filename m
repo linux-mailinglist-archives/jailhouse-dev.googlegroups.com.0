@@ -1,140 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBYEU7SUAMGQED6NCBIY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDK2NDXEWICBB2NSRGUQMGQEVPQGWSQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13b.google.com (mail-lf1-x13b.google.com [IPv6:2a00:1450:4864:20::13b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B7A7BA9D0
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  5 Oct 2023 21:11:31 +0200 (CEST)
-Received: by mail-lf1-x13b.google.com with SMTP id 2adb3069b0e04-503343a850asf1290009e87.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 05 Oct 2023 12:11:31 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1696533090; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=Trq6vUnP33+zXdQNhSE1di/oiaI45nDIwEkmd0wUMofdReOZXdecbuV78LOSL1VfFI
-         GgqX4n95VcobNIVrpAthFOw4OmJPAGaxR9TnENpPAufqtBnQjkLVOlADJDD29iZmMTZw
-         XsxhrpNdjgNM4JcZrbOz6jySLuaTzR7mWUyjM6n5HtsFuqtEXeI7h+AZHv++8gtUXBVk
-         M6rogHQh/L6Fwv4sQ+LmyG8mG1WzpZpXksz3lkFIQZDumeFibslonLVwA7pHb/mcYUYU
-         C6TJCjhd51B99j++ZZ8Z71FFNPbOTJwSwJ6kXHcdWn76rwszXYN0suv2expKJkEahC6z
-         N9jw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:dkim-signature;
-        bh=6i4WmionjmsG9/WLoBsZG55oOQm7qJVN/a8YJLu+YhU=;
-        fh=OBUtSBb8cwNe7G7jC0Mqvz8LZrcHTbpJVHkerD3Maqk=;
-        b=WkUkzp5c2sIboheejqxYCcV6toLqq5T6VaoeWNJEgsoy3xuf1szCN+0SZ08/CrFMu1
-         idJx397LVAMrxJnWbiVSyy34Ukp/au5WCRswPEIuKHnyawRy2VgCfkkNwG0v+HTPEjya
-         G2OAUVlmtJX41tcEQMn4aT9Ds647devDWSKsQwj78liP2Fli0YHPxVxcV8Z3WCeDfBt6
-         WYP7DXklsnDSt4GHMn+qZ6u1gh3fPi8/GOYxC9UCBTy5MMmE3w4R1Al4DAYBMTSHN3CA
-         +6UguEh+vCxnzT+FaKIfsRqWEiMEStk1Id48AphofLdolwJ1bAQfXmyq1HIqv45UX2jJ
-         mu/w==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b="oN0u/fK9";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-ot1-x33c.google.com (mail-ot1-x33c.google.com [IPv6:2607:f8b0:4864:20::33c])
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD197BCD06
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  8 Oct 2023 09:25:31 +0200 (CEST)
+Received: by mail-ot1-x33c.google.com with SMTP id 46e09a7af769-6c660a0f0e8sf4538969a34.1
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 08 Oct 2023 00:25:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1696533090; x=1697137890; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1696749930; x=1697354730; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:in-reply-to:from:references:to:content-language
-         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6i4WmionjmsG9/WLoBsZG55oOQm7qJVN/a8YJLu+YhU=;
-        b=aAHgVok7XCQt8QCEwT5XUxxld0UFRkXA69gxca7Rv2OvVqINQwD8Miin0HLEYI1c1E
-         xUXQQb1Zy1nMPPpLWC52OBpR447fC7hIXL011Q+5Dm5LxnevzR2v9Y6nr7rpEzLnxD6T
-         StMRx7iIiwU6/mbcHmo9p6i30PsLraw3gdXysbdnqZ0z/zD1IoTOSG8/D73PAWGMgeCo
-         ie5vfpXmbZrYWRzDguUWXiPRKxQLdpQUI6C5+qex10ztI/7GJujwiWtGMIxkqDwPYk1m
-         SIIJAoMJ0/wGhBbOTQZ8DxrJqrP+lS9bXCixg+KW2G2MnbbdhWtLJtdH2mfL6C1g5ISX
-         ID3g==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AI9VzaTSMMCGNNnwLwm3OqmYSBF5EljHRTjoToGz4CI=;
+        b=b8a2q3pB3BglSXjtW2l5jhFvtHWB2TTSljWa3oGaRqGmHszyySd7w0WPoe56w785lS
+         fdjXVoj9vRcuxieeFA0NghOF30JHs4hlLTBOuuGH35tH5X/JGRY2MVcM0GMxJyvB63+Q
+         TPnEENMo3BXMKTF9iFteg8ByNj9B/TEtKQ4cd5uwvddN4afeD80ARDkX++qTCCFem2fP
+         jwu+eQAP/bqO8AGlP0R/IUwNG0SpBpKv6wsvXg14Gd08vWp/DMMDTAP2rHf8QyL9ESo8
+         bwCM2Roax8SMEA1gdfHPP/60+SQ+Y9Wwys1fjs+SABkRE3tW5naJPUok8v7RVYvH0T3z
+         tIew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1696749930; x=1697354730; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AI9VzaTSMMCGNNnwLwm3OqmYSBF5EljHRTjoToGz4CI=;
+        b=TIbNBxUVYit/YHhMl6tvWSiXVTssL74xKp5KfgYZ4FQCWGrD8cVYwzW4JZF2rbmnBq
+         E2xfu/TTen734nYcEONmj3Qxyw6SDWMQVEAOwgAKVhqdRWvS7W1f/cWjTCTZFhD6XrKx
+         0hT02Xsw2+BNPvS6cfjDjBk0DaU/vKPOIzsHxjblA0o5z/5JCVGM/1ipBPksiLLgyyx2
+         XbB/3kwYLVtiPP4M6W4LbqYRf2Emw0d8Yx/vT14g16J9n9bIw+VaWJ27e7L/v9burDRQ
+         PrhCIukjUpE875gcPiD97+sf/6t/BMKFgEjGd+VQx4huchSVu0A7ezTksnqu/vzjARYz
+         MfwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696533090; x=1697137890;
+        d=1e100.net; s=20230601; t=1696749930; x=1697354730;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:in-reply-to
-         :from:references:to:content-language:subject:user-agent:mime-version
-         :date:message-id:x-beenthere:x-gm-message-state:sender:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6i4WmionjmsG9/WLoBsZG55oOQm7qJVN/a8YJLu+YhU=;
-        b=XHrctcbCvYWcLYykDwEQLY4I3mNhdo79zFLCdX5YUzV88PPan4kFASC76b8VtpkuyF
-         SOR+ICChHSl4xpiP+wYRdbqJ06WeOBAjD/ECO3BPdvcVEtZ9wEJYG+KNsi+ns3P2Or/h
-         PhpTs4m1Vx5Uyz49dCoaOXTYWjJ5Rt1clO4FwfdwLtRmo1F3ai5D5xiukLVVCu5ksVey
-         Ul1BTBqALlxI1Xy+rmLtXtH63d02fTCFuA/QlNJXqk2Kdu0EgBgD5tbnOSIn/zGqYgF3
-         acG2CjhQD8tgiBfWayoNUkUMW0s8knJIPm3z5qiItCpe9G18joe7KwmtSt25Mg2TvLvp
-         MZHg==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AI9VzaTSMMCGNNnwLwm3OqmYSBF5EljHRTjoToGz4CI=;
+        b=pd/K/RfFiZ0bgLO/xm+uKOF6ADVc/bKzvDL3HH5k6ISOwpBAQAsyL3sx/lecuo7gVl
+         YYrgKK0Azq/fRNk+TIi2aA6IqBd3AyNBXxM5E4bfjVUI5kigGNiJW3jJjfybTL3eE0A/
+         clet1/sRixT86nUo9LAfDpYzDUkssKsamnfFrU+ps9UVw1gBHAn8MEqN8raftcVtnWR1
+         xJanHMd9yl5q/tOP2BSXu9mLAr5X/QvQaZaQ1Q1PrU+JYYjtdWUF0SwsAyuzTWhBxqwX
+         gzP3LhZWceYnba+vdV/oy+78qrjWy4aki5FsNn/qQDjC2Ef4nSHf4MVlOz912E5eAj3N
+         HP4A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0Yymi0l7Ttvt7aODmBshOmYBYCqGdm6LPOh5Crs9v9qsiSj3Pdea
-	yMpc4iUjS3Y/7tydCkjKxDo=
-X-Google-Smtp-Source: AGHT+IH9tny31bxFYM+64M0x1Cep+zwi7GkWXge0kuuH5GRtzMzrvJDeroa+mkXc1vcbm5Pcnk++zg==
-X-Received: by 2002:a19:5004:0:b0:503:3245:6eda with SMTP id e4-20020a195004000000b0050332456edamr5551078lfb.40.1696533089678;
-        Thu, 05 Oct 2023 12:11:29 -0700 (PDT)
+X-Gm-Message-State: AOJu0YydB/NoFuOMXZix8xbrl2Pn/GBcZWKYulSplTh2Te1INWrMLOd+
+	hkrwJ2jrNGoCX46lh+EKHcc=
+X-Google-Smtp-Source: AGHT+IFYkx3vvoBX77iaHsnwIFjBF1Kq3pi8l/WWzmFzmtBSrUK2ggjiMSaXPsFobe3dVaP2+WTUKw==
+X-Received: by 2002:a9d:6c85:0:b0:6c6:19a6:29bf with SMTP id c5-20020a9d6c85000000b006c619a629bfmr13666835otr.7.1696749930489;
+        Sun, 08 Oct 2023 00:25:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a2e:a4ac:0:b0:2be:58d1:dc38 with SMTP id g12-20020a2ea4ac000000b002be58d1dc38ls225246ljm.1.-pod-prod-06-eu;
- Thu, 05 Oct 2023 12:11:26 -0700 (PDT)
-X-Received: by 2002:a05:6512:10c8:b0:503:343a:829f with SMTP id k8-20020a05651210c800b00503343a829fmr7625111lfg.23.1696533086717;
-        Thu, 05 Oct 2023 12:11:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1696533086; cv=none;
-        d=google.com; s=arc-20160816;
-        b=WKu3nlK/yNBaV6Y1Btt0gPCgoBHhMJMXqNHnlwto7V4UuXVn2wV3339bx1nc6S3Aq3
-         gGKYdGkQOGjB69z5wrrcqi2PbjS701r9gQo36aCjIXtN0AyZ//0D96aeSz5KA7R/kuou
-         /Hs9FIPYW5bidpKMvk69jdUv65DMjwMg7NjEsSdFVQzly3DNUFmdoLqi69uCg6qlH2Et
-         C2dPiErigM3xQsVWHgBV17KQK9Qu+Ymz4OknU+YAMh8gxusN2mUbMSCGyyZ5xt2mSymA
-         JMUE6OvGuTbyuuALOqG7sKMi+4c7lnHOGQCWXM6okd8WryFsdhN7lyjORCcEUcuRSaEm
-         y7Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=qmefgozTdPqtZSlaYToJQWETmfqSZxF8TGG/gzm5cdk=;
-        fh=OBUtSBb8cwNe7G7jC0Mqvz8LZrcHTbpJVHkerD3Maqk=;
-        b=Oh3KMRrfMOCS90yBkd7KRQ8zvzJIlyBXM7XP5JjaHJq4nNJ1AhRphE3LMBgmhbdANl
-         0k4zDYW6Xuoga1Jk72AQHBZKZWb1G8r6qTc1zU5LP0TBfyscbglXa1pEvAr8g1IhyCA/
-         ncPk4+Nqs0QVfSfifm0fetcQsvRmyBc2SqW2S7gYrrbB84/w3DEV5cKsULsmu8nfipXb
-         aGQPippLpLjkaie6GiemiffXM+Qu+iehzJG/mmSrJKV1hwVOwOikUlFD671U4s5a6NMF
-         qxJ+DN33IwIiQPUtaIlMICqjY4KqVclihE1CEc1/r7B9J+muDzwLeDaunDPyrI53B8RM
-         IqWw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b="oN0u/fK9";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [2001:638:d:c303:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id c22-20020ac25f76000000b0050446001e0bsi86315lfc.3.2023.10.05.12.11.26
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Oct 2023 12:11:26 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c303:acdc:1979:2:f4;
-Received: from mta03.hs-regensburg.de (mta03.hs-regensburg.de [IPv6:2001:638:a01:1096::13])
-	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id 416B92A0120;
-	Thu,  5 Oct 2023 21:11:25 +0200 (CEST)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta03.hs-regensburg.de (Postfix) with ESMTPS id 4S1h4F01hYzxw9;
-	Thu,  5 Oct 2023 21:11:25 +0200 (CEST)
-Received: from [172.23.3.112] (194.95.106.226) by E16S03.hs-regensburg.de
- (2001:638:a01:8013::93) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 5 Oct
- 2023 21:11:24 +0200
-Message-ID: <16d9bc11-f820-48e3-955f-6beb04afc6f3@oth-regensburg.de>
-Date: Thu, 5 Oct 2023 21:11:19 +0200
+Received: by 2002:a4a:4f4a:0:b0:57b:6ab1:a1f8 with SMTP id c71-20020a4a4f4a000000b0057b6ab1a1f8ls2317637oob.2.-pod-prod-08-us;
+ Sun, 08 Oct 2023 00:25:29 -0700 (PDT)
+X-Received: by 2002:a9d:6b18:0:b0:6c4:b0e7:7403 with SMTP id g24-20020a9d6b18000000b006c4b0e77403mr4015080otp.6.1696749929174;
+        Sun, 08 Oct 2023 00:25:29 -0700 (PDT)
+Date: Sun, 8 Oct 2023 00:25:28 -0700 (PDT)
+From: z ws <wszlight@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <9773370c-619a-47c7-a0fb-522217cc6fa9n@googlegroups.com>
+Subject: =?UTF-8?Q?HELP=EF=BC=9Ahaving_trouble_using_virtio_console?=
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: How to use a TTC timer with jailhouse
-Content-Language: en-US
-To: Sara Alonso <alonsosara44@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <7ba359f8-b5ac-4a5b-b0f8-2a4988aae36en@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <7ba359f8-b5ac-4a5b-b0f8-2a4988aae36en@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Originating-IP: [194.95.106.226]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta03-20220613 header.b="oN0u/fK9";
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender)
- smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_97265_768962921.1696749928365"
+X-Original-Sender: wszlight@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -147,41 +78,106 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Sara,
+------=_Part_97265_768962921.1696749928365
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_97266_2026482399.1696749928365"
 
-On 05/10/2023 11:50, Sara Alonso wrote:
-> Hi!
-> 
-> I want to create an inmate where I generate a periodic interrupt with a 
-> TTC timer (I am using a zynq zcu102 board). The address of the TTC is 
-> 0xFF120000 and the interrupt number is 71. I am writing the c code for 
-> the inmate and I have used irq_init(Handler) and irq_enable(71) to 
-> enable the interrupt, but now I don't know how to configure and start 
-> the TTC timer. Are there any functions to do that? Or how could I do it?
+------=_Part_97266_2026482399.1696749928365
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For Jailhouse: Extend the configuration of the inmate by assigning the 
-memory region to the guest. Second, add IRQ 71 to the irqchips member of 
-the inmate's configuration. Cf. zynqmp-zcu102-linux-demo.c to see how 
-specific interrupts are assigned to the cell.
+Hi=EF=BC=8Call
 
-Have a look at the Zynq's reference manual to see how the timer can be 
-used and configured.
+when i use virtio console, i ran into a problem.
+in root cell : insmod uio_ivshmem.ko
+            echo "110a 4106 110a 4106 ffc003 ffffff" >                     =
+=20
+   /sys/bus/pci/drivers/uio_ivshmem/new_id
+            then ./virtio-ivshmem-console /dev/uio0
+then i start non root cell linux=20
+(CONFIG_VIRTIO_CONSOLE=3Dy/CONFIG_VIRTTIO_IVSHMEM=3Dy),but i can not use it=
+=20
+like a serial console. The virtio-ivshmem-console print some status,and=20
+then there has no input and output.
 
-   Ralf
+this is the virtio-ivshmem-console output:
+Starting virtio device
+device_status: 0x0
+device_status: 0x1
+device_status: 0x3
+device_features_sel: 1
+device_features_sel: 0
+driver_features_sel: 1
+driver_features[1]: 0x13
+driver_features_sel: 0
+driver_features[0]: 0x1
+device_status: 0xb
+queue_sel: 0
+queue size: 8
+queue driver vector: 0
+queue desc: 0x200
+queue driver: 0x280
+queue device: 0x2c0
+queue enable: 1
+queue_sel: 1
+queue size: 8
+queue driver vector: 0=20
+queue desc: 0x400
+queue driver: 0x480
+queue device: 0x4c0
+queue enable: 1
+device_status: 0xf
 
-> 
-> 
-> 
-> -- 
-> You received this message because you are subscribed to the Google 
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send 
-> an email to jailhouse-dev+unsubscribe@googlegroups.com 
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit 
-> https://groups.google.com/d/msgid/jailhouse-dev/7ba359f8-b5ac-4a5b-b0f8-2a4988aae36en%40googlegroups.com <https://groups.google.com/d/msgid/jailhouse-dev/7ba359f8-b5ac-4a5b-b0f8-2a4988aae36en%40googlegroups.com?utm_medium=email&utm_source=footer>.
+queue driver vector: 0 is different with demo, Where do I start=20
+troubleshooting?
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/16d9bc11-f820-48e3-955f-6beb04afc6f3%40oth-regensburg.de.
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/9773370c-619a-47c7-a0fb-522217cc6fa9n%40googlegroups.com.
+
+------=_Part_97266_2026482399.1696749928365
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi=EF=BC=8Call<br /><br />when i use virtio console, i ran into a problem.<=
+br />in root cell : insmod uio_ivshmem.ko<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 echo "110a 4106 110a 4106 ffc003 ffffff" &gt;=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0/sys/bus/pci/drivers/uio_ivshmem/new_id<br />=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 then ./virtio-ivshmem-console /dev/uio0<br />then i start no=
+n root cell linux (CONFIG_VIRTIO_CONSOLE=3Dy/CONFIG_VIRTTIO_IVSHMEM=3Dy),bu=
+t i can not use it like a serial console. The virtio-ivshmem-console print =
+some status,and then there has no input and output.<br /><br />this is the =
+virtio-ivshmem-console output:<br />Starting virtio device<br />device_stat=
+us: 0x0<br />device_status: 0x1<br />device_status: 0x3<br />device_feature=
+s_sel: 1<br />device_features_sel: 0<br />driver_features_sel: 1<br />drive=
+r_features[1]: 0x13<br />driver_features_sel: 0<br />driver_features[0]: 0x=
+1<br />device_status: 0xb<br />queue_sel: 0<br />queue size: 8<br />queue d=
+river vector: 0<br />queue desc: 0x200<br />queue driver: 0x280<br />queue =
+device: 0x2c0<br />queue enable: 1<br />queue_sel: 1<br />queue size: 8<br =
+/>queue driver vector: 0 <br />queue desc: 0x400<br />queue driver: 0x480<b=
+r />queue device: 0x4c0<br />queue enable: 1<br />device_status: 0xf<br /><=
+br />queue driver vector: 0 is different with demo, Where do I start troubl=
+eshooting?<br />
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/9773370c-619a-47c7-a0fb-522217cc6fa9n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/9773370c-619a-47c7-a0fb-522217cc6fa9n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_97266_2026482399.1696749928365--
+
+------=_Part_97265_768962921.1696749928365--
