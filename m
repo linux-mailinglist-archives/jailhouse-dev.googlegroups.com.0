@@ -1,134 +1,74 @@
-Return-Path: <jailhouse-dev+bncBDM2HMO5Q4HBB576XKUQMGQE6C2Z6MA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDM2HMO5Q4HBBVUFXOUQMGQEBOBZPIQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lj1-x23d.google.com (mail-lj1-x23d.google.com [IPv6:2a00:1450:4864:20::23d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B0377CC97B
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Oct 2023 19:08:09 +0200 (CEST)
-Received: by mail-lj1-x23d.google.com with SMTP id 38308e7fff4ca-2b6ff15946fsf55850251fa.2
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Oct 2023 10:08:09 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1697562488; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=dO1D4t1xIk99IjZlsnUanxH1u33gRHboStUI6XhkHVOSNL5DD0xI3etM/Lw5pse4Ck
-         xJpYHSYkAgdIM0O84melu8selgkPLn2fgS2rHpu5rUe1X1LFrKogKTyfZ8cLIITYKO4Z
-         2VOcSuQfHiHfXrUr2OjnDp3ACetKRZTQifI1qS+Tae8JSYz1Wm7Dg7TYlvw77lJLBQvs
-         GHYS9OIGWHRxBLwPm9IyMbpYrWwxe0+hdpxJjscYAyHzavKC1SMuut52etiz+C31PPzJ
-         xbU7cnPxNmlrcFpYj+6UivCootz9rO9L8fwceQPobBmLITkFNOywLiLqOazRCoFZxSsE
-         5ODw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=C4eGwgdGyUZtqrcuuypZbU5tX0D8PAp4OUiSXSuIz4Y=;
-        fh=ZYufU8t05C/rWqh06LxvJ8smNawm+0A98AoemSU+uos=;
-        b=n8nXVQDnQIaduU4DLMcqp+4bSVqKgGJm76K/SJIDwxiKdnYpCktUFzgvVTX2XhUtw0
-         kQWBI/aTzjZ28w25kgkECsb5EmFbh6QMx5Jk7ZGgbuVEl6DqYPqz1v2BHQhcgziAv4Ou
-         cr7bdwKT2zVHstsyw+PU5lKPPUVOjBJUDk5RJyHub3/FX3dV/ypYv+IRylz4c/oAwSgv
-         IlMIbF6XKiroeDuwgU8x31bgGxhJnfP0tEqyVMbPF09lxWoqydEYIUt1IEyiiCPB7Fiw
-         lnF2kNxGhhoOT5DWzM2OhGFDb+vpMtlGY0u39bvlC2bWd52Q2af4cDjBpofelJXArvE1
-         RTTw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@marples.net header.s=mail header.b="UzSDN/4m";
-       spf=neutral (google.com: 2a00:1450:4864:20::42f is neither permitted nor denied by domain of dave@marples.net) smtp.mailfrom=dave@marples.net
+Received: from mail-oa1-x3c.google.com (mail-oa1-x3c.google.com [IPv6:2001:4860:4864:20::3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC31D7CC9C8
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Oct 2023 19:22:31 +0200 (CEST)
+Received: by mail-oa1-x3c.google.com with SMTP id 586e51a60fabf-1ea01dcf2ccsf4798742fac.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 17 Oct 2023 10:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1697562488; x=1698167288; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1697563351; x=1698168151; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :references:to:content-language:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=C4eGwgdGyUZtqrcuuypZbU5tX0D8PAp4OUiSXSuIz4Y=;
-        b=Rx/MAsMQ1cIG5j1N+ReNykxnIdN/5IJAhUJwQDKTXwiG8gbqbk0qEnXZsgmI3HYqFg
-         QaaSuK/ZcMxSw7NKL1EqwRlbgMslDChUWGqmVxbmpG4eevasvFxNZjdCKg4NzTfiCNsV
-         LuCwqvujzz9yfQzzeAVH0ESxA3wCsUK0iV96CY2bKaxjM4ZiEKHUQ5RsLO2/WQMHt0t2
-         Za6Dqeqmvub2ytLIB7IE9GBCQgV5iEUcbQX9Cut8eVMcS8uw48WwIh3xgTGHGfksY6qf
-         Q+JQSKjYgDTT2g+19KZKlZLk1O/5DGX3uC6w68F96lskEUNBfyOpLrH5gNWBr49UNF+J
-         gzUg==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=H032OUFA1VyzhlReSiOAKuD/XeeSgNVmIJlITkoyDhQ=;
+        b=jOOamNU+2SffbRYioePHyXLKk3+PiRIkW63WI/B1JI6P3GufbqBQnFKVXOp7Fd9bqD
+         JSs8OodprVmqAL98qKDEG7W3BK/UbKZgSMokVwERtBNQIUKV2DFQ/BhLBUhBR8oIFcvj
+         BvlM2sE0JHmIoCEDu7pFFGbnH2+d5oQK0MkvagD0od5I4EpInxIDZRHWiUH2DZMSEcCm
+         7ibsz73uFIjyZBNrTCsavOBu52l0fuIsohDJTZYrR3I+ee8iG0gE/AOFGJg376hHCLqH
+         hswCfa27GbYEDNdxqwIHMiw62/cdZS+BtD28C00Ntpoy+uWjQ2W6pDD6yW+O9zg5g13r
+         SNcA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=marples.net; s=mail; t=1697563351; x=1698168151; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=H032OUFA1VyzhlReSiOAKuD/XeeSgNVmIJlITkoyDhQ=;
+        b=ECEUFN6/N6bcH+g39pTvww8PUtC5lrAMhA+tJQGT0MoZA61gjsnk8CmkGIBHxHps5w
+         ozlTNnwLsY1J7Gw8viq/Xj1s5HGoj+bswr6zvnhJ9TTu827o6WuO2Ugh16d3WhC5r/St
+         C1/AeJ5l1+TNJaX6KlEISBDd4YnuKWIpfXEHs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697562488; x=1698167288;
+        d=1e100.net; s=20230601; t=1697563351; x=1698168151;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C4eGwgdGyUZtqrcuuypZbU5tX0D8PAp4OUiSXSuIz4Y=;
-        b=p4gpw/bPBocYxvVb/bLgVIAZ2EtDc5LLLPdzyqjy36c0DrRvrnIiozPtv1GK2tc+r2
-         nlx0p/j+qix+2kF4OrNYUuH6LO8y99b0BXgSdNweny+HzkMDFpaJMkBfuHph1V2tkI2j
-         Cjd9WukjDCK2n0HyTJuxW+mWhaVhje40+J0u3AOfYa7YxvBEGVATy0kIS5lbGaPjAVLJ
-         Y5OX77NpyrFh3VEv3QREBJ84SRbmbPT2p7CbcfsMGOIOrIJrXBDJgWphOaPx3YDQAKTN
-         7j8BvQs6dCmF644iai9sj820EdrqRMZoNmRSfI1gsgce1AvpnpymZGwiEJDmnNMwql+G
-         HSBQ==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=H032OUFA1VyzhlReSiOAKuD/XeeSgNVmIJlITkoyDhQ=;
+        b=bZlgE4XiLQCBl0nO+9MtEnwXyzMZH5Ot/YsjdhJ59ueHS55u/+tnXvhujH9zkP9Btw
+         ZqM8ewDihnr9YL60GJQHaOfBLhJhN4MR+L2aZvW+rSf9GBr0jsAq8sGrEe8az28XjYJc
+         xyvxy26aEfBVdOIrIl9oOFkE4DHJcXRUrHlup82vhMnPkGcR5UFQUX4KcZwd6O4gy4og
+         v0aH6cFYj17XQ9i1bzJeiFhR1Fm7KjVfKt2rCNhujYWbK/WrwjNdj+GJbG70t1XntK/o
+         TgTB7K8IKq8vn6IOgneQDvr0hPNsqpon0apHXvL2D6ZvJaay6U/k9LedbcyTjmmSKiwT
+         +hhA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzRg1KbADczsW8RaS7WhRVhsdh8ZZShBHqZzzJ3nYgtKRn3GTGe
-	XeVJ9NH0ng+fIAaSpPnx5to=
-X-Google-Smtp-Source: AGHT+IHnk8grJwlUk7BjvhZQAL2blMtG87RA+PNz9GdueXPyk+qcjmALUjCA+xeAcSAtG9gzkXyQDg==
-X-Received: by 2002:a05:6512:54a:b0:507:a0bc:4aec with SMTP id h10-20020a056512054a00b00507a0bc4aecmr2270449lfl.64.1697562488044;
-        Tue, 17 Oct 2023 10:08:08 -0700 (PDT)
+X-Gm-Message-State: AOJu0YwailKEVFoaKwMPNVrj0/vYSwDAWqJThw2Wxup9MI2k16bV/4gM
+	253ruk8w3s82Mue36dGO8L0=
+X-Google-Smtp-Source: AGHT+IHWdi+h7yYTnvuosUqoj2ieQrJ74SvWK5WaGrZ5a6Ehbsd+XwYt9WXWa6KM9x3VCWZoJRPyDg==
+X-Received: by 2002:a05:6870:310f:b0:1e9:a85a:9ec0 with SMTP id v15-20020a056870310f00b001e9a85a9ec0mr1324032oaa.0.1697563350776;
+        Tue, 17 Oct 2023 10:22:30 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6402:5d1:b0:52f:3b2b:a285 with SMTP id
- n17-20020a05640205d100b0052f3b2ba285ls266261edx.0.-pod-prod-03-eu; Tue, 17
- Oct 2023 10:08:05 -0700 (PDT)
-X-Received: by 2002:a05:6402:4415:b0:53e:bd5c:801f with SMTP id y21-20020a056402441500b0053ebd5c801fmr2696881eda.21.1697562485811;
-        Tue, 17 Oct 2023 10:08:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1697562485; cv=none;
-        d=google.com; s=arc-20160816;
-        b=qOdE3c3Q6MiCV+z0GUBDDUIBsVo6xJ7lSJt8mDLJolJR6e/Y9V+4xLs3hHhn2ugTOT
-         hGStI/1gC6RFE/DhoCXIsCEDcsmNoOQ7lYvXZcrVunaIIb41CRWf9IHIq4LP1qSXYxB+
-         ks4+uYEOz/fMll0cd0rSHkQ8LoB35bWaFXhAdynYfWdBVyg2zKCg6+Fo17igpMX6l+7Y
-         1HQ3YvzY8pG6IQKhNeCSBZjanIrej1zTX0bUUrVWxqf7Mv6QkGaw3kLznCgJXXwkfoSw
-         QdbPaPz9az4KMbcv4k2MBhDr+UmC7n7+J1BqPgzkha9LBELpFg6b1UXxVz272Wnl1iUf
-         y7qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=FxjbSHySxnISGbSCsI1v638vENgptUmM1PdAho+Ae6I=;
-        fh=ZYufU8t05C/rWqh06LxvJ8smNawm+0A98AoemSU+uos=;
-        b=LO7OgLuwtn6pnDN9rFssQLQ2Ggl83SfTdwMVwLE0lGzbDlQpO5lbdzgiUyu00ZcWwg
-         xZt7E1dRLR2S3C3l6/ZRTvHasLJhLCYvVdbZ6Fggg6QIQ5WSeslFH7PZRtKf+eeeggM0
-         1+DPvSw/L10zDd+10/b04hU8In4gU6FPqdU5AgPWIF/ATURwDhM6p1H5zRjOWDHtd3Q5
-         RQH7XJG/vCJZgWWr4ub8MeJ0ZIOcJ+Lx4VOecXlBuBnedj+wW7J5iy/O09UYuQgJNrtr
-         pYy0iVGKzv9RblpBJ6qThEALtZjZRbBVXoYqDBq7+rVOSdYYpCZINWcryth8wqxjea2r
-         lGmQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@marples.net header.s=mail header.b="UzSDN/4m";
-       spf=neutral (google.com: 2a00:1450:4864:20::42f is neither permitted nor denied by domain of dave@marples.net) smtp.mailfrom=dave@marples.net
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com. [2a00:1450:4864:20::42f])
-        by gmr-mx.google.com with ESMTPS id o15-20020a056402038f00b0053e26876354si93168edv.5.2023.10.17.10.08.05
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Oct 2023 10:08:05 -0700 (PDT)
-Received-SPF: neutral (google.com: 2a00:1450:4864:20::42f is neither permitted nor denied by domain of dave@marples.net) client-ip=2a00:1450:4864:20::42f;
-Received: by mail-wr1-x42f.google.com with SMTP id ffacd0b85a97d-32da9ef390fso2428276f8f.2
-        for <jailhouse-dev@googlegroups.com>; Tue, 17 Oct 2023 10:08:05 -0700 (PDT)
-X-Received: by 2002:adf:f70f:0:b0:32d:7615:372b with SMTP id r15-20020adff70f000000b0032d7615372bmr2330790wrp.12.1697562484728;
-        Tue, 17 Oct 2023 10:08:04 -0700 (PDT)
-Received: from [192.168.0.250] (cpc143270-mfl21-2-0-cust976.13-1.cable.virginm.net. [86.28.243.209])
-        by smtp.gmail.com with ESMTPSA id a15-20020a056000100f00b0032d9337e7d1sm203007wrx.11.2023.10.17.10.08.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Oct 2023 10:08:04 -0700 (PDT)
-Message-ID: <8753f9c0-7105-4362-9884-90a2c57fd137@marples.net>
-Date: Tue, 17 Oct 2023 18:08:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Can't install jailhouse on linux-6.1 arm system
-Content-Language: en-US
-To: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>,
- jailhouse-dev@googlegroups.com
+Received: by 2002:a05:6870:9189:b0:1e9:88a0:a67c with SMTP id
+ b9-20020a056870918900b001e988a0a67cls1398310oaf.2.-pod-prod-01-us; Tue, 17
+ Oct 2023 10:22:29 -0700 (PDT)
+X-Received: by 2002:a05:6808:18aa:b0:3ad:29a4:f54f with SMTP id bi42-20020a05680818aa00b003ad29a4f54fmr1176782oib.4.1697563349723;
+        Tue, 17 Oct 2023 10:22:29 -0700 (PDT)
+Date: Tue, 17 Oct 2023 10:22:29 -0700 (PDT)
+From: Dave Marples <dave@marples.net>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <bf20ebf0-f447-4e73-8d94-e82b2d8dd836n@googlegroups.com>
+In-Reply-To: <8753f9c0-7105-4362-9884-90a2c57fd137@marples.net>
 References: <5a564454-0a20-4c44-93c2-67e30025c8a6n@googlegroups.com>
  <4b8c293a-de5d-4ede-ab38-c42294ba3554@marples.net>
  <36d21a58-fb8b-47f3-977f-ab179f0ea8b6@oth-regensburg.de>
-From: Dave Marples <dave@marples.net>
-In-Reply-To: <36d21a58-fb8b-47f3-977f-ab179f0ea8b6@oth-regensburg.de>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <8753f9c0-7105-4362-9884-90a2c57fd137@marples.net>
+Subject: Re: Can't install jailhouse on linux-6.1 arm system
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_522_320067783.1697563349130"
 X-Original-Sender: dave@marples.net
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@marples.net header.s=mail header.b="UzSDN/4m";       spf=neutral
- (google.com: 2a00:1450:4864:20::42f is neither permitted nor denied by domain
- of dave@marples.net) smtp.mailfrom=dave@marples.net
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -141,32 +81,113 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
+------=_Part_522_320067783.1697563349130
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_523_1840207485.1697563349130"
+
+------=_Part_523_1840207485.1697563349130
+Content-Type: text/plain; charset="UTF-8"
+
+Grr, my build suffered User Error. Once I built it properly everthing 
+starts to work much better. Thanks for the help!!
+
+# jailhouse enable imx8mm.cell
+[   57.058121]  jailhouse: firmware: direct-loading firmware jailhouse.bin
+[   57.068743] pci-host-generic bb800000.pci: host bridge /pci@0 ranges:
+[   57.075325] pci-host-generic bb800000.pci:      MEM 
+0x00bb900000..0x00bb903fff -> 0x00bb900000
+[   57.084068] pci-host-generic bb800000.pci: ECAM at [mem 
+0xbb800000-0xbb8fffff] for [bus 00]
+[   57.092822] pci-host-generic bb800000.pci: PCI host bridge to bus 0001:00
+[   57.099638] pci_bus 0001:00: root bus resource [bus 00]
+[   57.104908] pci_bus 0001:00: root bus resource [mem 
+0xbb900000-0xbb903fff]
+[   57.111833] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
+[   57.117874] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[   57.124382] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
+[   57.130430] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[   57.137880] pci 0001:00:00.0: BAR 0: assigned [mem 0xbb900000-0xbb900fff]
+[   57.144709] pci 0001:00:01.0: BAR 0: assigned [mem 0xbb901000-0xbb901fff]
+[   57.151711] The Jailhouse is opening.
+root@localhost:~/jailhouse/configs/arm64# 
+
+On Tuesday, 17 October 2023 at 18:08:08 UTC+1 Dave Marples wrote:
+
+>
+>
+> Help still appreciated...Can't help getting the feeling I'm missing a 
+> document somewhere whereby all this lot magically becomes easy... 
+>
+>
+> Did you also apply the patch that I attached? I'm pretty sure that it's 
+> missing. 
+>
+> Hi Ralf,
+>
+> Thanks for the reply. That patch was indeed missing but applying it didn't 
+> change my symptoms. Just spinning up a yocto image to see where the 
+> differences are.
+>
+> Regards
+>
+> DAVE
+>
+>
+>
+>
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/bf20ebf0-f447-4e73-8d94-e82b2d8dd836n%40googlegroups.com.
+
+------=_Part_523_1840207485.1697563349130
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Grr, my build suffered User Error. Once I built it properly everthing start=
+s to work much better. Thanks for the help!!<div><br /></div><div><font fac=
+e=3D"Courier New"># jailhouse enable imx8mm.cell<br />[ =C2=A0 57.058121] =
+=C2=A0jailhouse: firmware: direct-loading firmware jailhouse.bin<br />[ =C2=
+=A0 57.068743] pci-host-generic bb800000.pci: host bridge /pci@0 ranges:<br=
+ />[ =C2=A0 57.075325] pci-host-generic bb800000.pci: =C2=A0 =C2=A0 =C2=A0M=
+EM 0x00bb900000..0x00bb903fff -&gt; 0x00bb900000<br />[ =C2=A0 57.084068] p=
+ci-host-generic bb800000.pci: ECAM at [mem 0xbb800000-0xbb8fffff] for [bus =
+00]<br />[ =C2=A0 57.092822] pci-host-generic bb800000.pci: PCI host bridge=
+ to bus 0001:00<br />[ =C2=A0 57.099638] pci_bus 0001:00: root bus resource=
+ [bus 00]<br />[ =C2=A0 57.104908] pci_bus 0001:00: root bus resource [mem =
+0xbb900000-0xbb903fff]<br />[ =C2=A0 57.111833] pci 0001:00:00.0: [110a:410=
+6] type 00 class 0xff0000<br />[ =C2=A0 57.117874] pci 0001:00:00.0: reg 0x=
+10: [mem 0x00000000-0x00000fff]<br />[ =C2=A0 57.124382] pci 0001:00:01.0: =
+[110a:4106] type 00 class 0xff0001<br />[ =C2=A0 57.130430] pci 0001:00:01.=
+0: reg 0x10: [mem 0x00000000-0x00000fff]<br />[ =C2=A0 57.137880] pci 0001:=
+00:00.0: BAR 0: assigned [mem 0xbb900000-0xbb900fff]<br />[ =C2=A0 57.14470=
+9] pci 0001:00:01.0: BAR 0: assigned [mem 0xbb901000-0xbb901fff]<br />[ =C2=
+=A0 57.151711] The Jailhouse is opening.<br />root@localhost:~/jailhouse/co=
+nfigs/arm64# </font><br /><br /></div><div class=3D"gmail_quote"><div dir=
+=3D"auto" class=3D"gmail_attr">On Tuesday, 17 October 2023 at 18:08:08 UTC+=
+1 Dave Marples wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"=
+margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-lef=
+t: 1ex;"><div>
     <br>
-    <blockquote type=3D"cite"
-      cite=3D"mid:36d21a58-fb8b-47f3-977f-ab179f0ea8b6@oth-regensburg.de">
+    <blockquote type=3D"cite">
       <blockquote type=3D"cite">
         <br>
-        Help still appreciated...Can't help getting the feeling I'm
+        Help still appreciated...Can&#39;t help getting the feeling I&#39;m
         missing a document somewhere whereby all this lot magically
         becomes easy...
         <br>
       </blockquote>
       <br>
-      Did you also apply the patch that I attached? I'm pretty sure that
-      it's missing.
+      Did you also apply the patch that I attached? I&#39;m pretty sure tha=
+t
+      it&#39;s missing.
       <br>
       <br>
     </blockquote>
-    <p>Hi Ralf,</p>
+    </div><div><p>Hi Ralf,</p>
     <p>Thanks for the reply. That patch was indeed missing but applying
-      it didn't change my symptoms. Just spinning up a yocto image to
+      it didn&#39;t change my symptoms. Just spinning up a yocto image to
       see where the differences are.</p>
     <p>Regards</p>
     <p>DAVE</p>
@@ -174,8 +195,9 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
     </p>
     <p><br>
     </p>
-  </body>
-</html>
+  </div>
+
+</blockquote></div>
 
 <p></p>
 
@@ -186,6 +208,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/8753f9c0-7105-4362-9884-90a2c57fd137%40marples.net=
-?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/=
-jailhouse-dev/8753f9c0-7105-4362-9884-90a2c57fd137%40marples.net</a>.<br />
+om/d/msgid/jailhouse-dev/bf20ebf0-f447-4e73-8d94-e82b2d8dd836n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/bf20ebf0-f447-4e73-8d94-e82b2d8dd836n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_523_1840207485.1697563349130--
+
+------=_Part_522_320067783.1697563349130--
