@@ -1,71 +1,72 @@
-Return-Path: <jailhouse-dev+bncBDDLR4VP3AKRBQERUOVAMGQER7G5QHY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC4YHVHNQYHBB75OVSVAMGQEE2MK4GQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oo1-xc3a.google.com (mail-oo1-xc3a.google.com [IPv6:2607:f8b0:4864:20::c3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F087E1F5D
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  6 Nov 2023 12:06:42 +0100 (CET)
-Received: by mail-oo1-xc3a.google.com with SMTP id 006d021491bc7-583fb42332csf5094902eaf.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 06 Nov 2023 03:06:42 -0800 (PST)
+Received: from mail-oa1-x3a.google.com (mail-oa1-x3a.google.com [IPv6:2001:4860:4864:20::3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id AEE397E4FD4
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Nov 2023 06:07:13 +0100 (CET)
+Received: by mail-oa1-x3a.google.com with SMTP id 586e51a60fabf-1ef4f8d26d2sf8539819fac.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 07 Nov 2023 21:07:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1699268801; x=1699873601; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1699420032; x=1700024832; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=11tGUHLYRc4C9pT0YxRPLLqT6ITeh5FRKZySfCXOY8w=;
-        b=RdKw0WlQOzMc7dDCPp8iz0JZA+chufQ79xUJYok5PagE+zNJefZ9KaA9qzYFJISzT+
-         FsR8VKobjQYLhh0KQm1OnjEmqSFPfYlHYCcUK2os4Za5OsX3l0fxukZQu01oiz/uYtJL
-         D7v1XqVXxEeXRGaEMAynIJ1PG4C9vuM4Svl92F8Hokr44h6GPb+rdrFBmwk6xlZQ8oNm
-         LKuCIP+KppBxM6EJGyukOJ+5Xuqr0YvnpPtfmXNVn8pnYuUwqAfnOfX4uI62Cn99/gGd
-         e6R1GFBdTsdP9AMbRoNiohK9f2JUgYTz2/QXqVi726ZAb/FTzplJXT4ZmVTtzuxg1hwe
-         UX0Q==
+        bh=lumJzOnBAU0hGR8SiJA6hvtN40Vu41+YeESwv3eNgBQ=;
+        b=ncsMuNJnT0M8djrbC9JhkTSL+trsQ6whjHsCLyTpjKhS7poV8wGtu8RtycMBFYa931
+         sscb2fePt/WBMcOzdt4xbd+Z45qDzpEgw2F6BNRca1GYyIMLu1XaN6Md3J0/vNgVMri5
+         jkmB88kMJSJnu1CWgHJRslN9NDDdeQ1rgXWfwyN2K19f4ktIXp+cUv5rQ9gD9JMLdJMd
+         0pnkyI8gay6/FVmIx6YEktdMB4CAS3uTCVPFxyeF9hLsBFJ3P8TfScOnLOcn8tlPwW/o
+         mbM8/wGNLFUpsAlmItx8FoKsfWGFYrKw16g0w4gbjkpjL89EynK7mvusL27MZYUDNE8x
+         iTvQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699268801; x=1699873601; darn=lfdr.de;
+        d=googlegroups-com.20230601.gappssmtp.com; s=20230601; t=1699420032; x=1700024832; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=11tGUHLYRc4C9pT0YxRPLLqT6ITeh5FRKZySfCXOY8w=;
-        b=ElXRMmsNr9cHMbrVatvtJm2s8z4k2emCgp9nHR0tPd+0pddwXzbYyJwFPYn4X+Z6Nx
-         Rln6S7nSn87AL9Gtc+BBhHA8mXVL7WporqXVqh15BxiqunRDjAKJ6QsHoeJhXcSlB6xU
-         giE00jLb0ERUFlIrfRGGiNgR+oKT0bOcZ2i+qsS9JTy3EhMiKfR/D+ITMHhDvLTaOnQk
-         DZ0T46367+/B8NzedfTOd+yK5d+xIgGXaLUfia0pjOpKToRgZ5PcVFeJ0oXjlwmLbmQN
-         B5vXZz1fULJNhj48bl1/hQk9V7Kxn9afX8LsYqcecmJ4bDemy+WDd/mo/blmhog5xzUk
-         j1cg==
+        bh=lumJzOnBAU0hGR8SiJA6hvtN40Vu41+YeESwv3eNgBQ=;
+        b=aNMfc3L+Ag3B0r6YojNAHJtXgr2jtBgW9RJGAB8jz6Mx/pH5Wm86QCdJGkEtPoyaeD
+         Yk5L+IlymCFoxc6b9fhGqa4lX4p+Er6iW0aTJN5bxB+2fDiWGGtdxe5aRU1FOdQS3u30
+         b/dghbCDOG2FkSEHNjyVvqm1xVQidAPmzI3pshEZdEMwKyXcV/MR/o3E7loPTM+QPFQM
+         GXF/n13+YEOe5tf+6fMs7bDXeEW7h7CWcv2tS2Nz1axQF5/5WTgbP8kO1PCDUjiFcBDH
+         nR4yygHrKgsaYoKiiUedUVLuvbqESV5A4zvKgE+GW78GpXOr9xmFNoQvLBsqmxuPL+td
+         mj5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699268801; x=1699873601;
+        d=1e100.net; s=20230601; t=1699420032; x=1700024832;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=11tGUHLYRc4C9pT0YxRPLLqT6ITeh5FRKZySfCXOY8w=;
-        b=gjyZK0YyPZzLCfcJUFlfYM3qHstR273i+r267JkVd/odVpqm+1PQy+/D82hxUuU/D1
-         6SkDkyrBFhzOCEn5KXDZbYDczbE6uaHdpk/KcVRTtrBdrNFFd+YEFtuIhVq9ieqEgty5
-         bUrgNzrnvc7Kqp9V0Wq44r6vi23vfBFOJqe3oqOhYD0qf1ijdCqtQDF/z0TBDPITQ2rT
-         jGLyFwosdYduttO0GGmkcW30MdKqmNT1skqusUwhvMpyvtYO0Kvo+ryTFj6OtvBwNel0
-         L2hsi9paj++Q9MYt61KIC2ZNgC6LyocnkGfV/qsafcpGH+N8PhtXcv0KFeP1vlLSW8CJ
-         Y6Tg==
+        bh=lumJzOnBAU0hGR8SiJA6hvtN40Vu41+YeESwv3eNgBQ=;
+        b=qbBdRpPO4Zw+GVThwulSZg1HEBirzelI/ttLWq/Ybad/mS79tIxYse/zH1EiU96shQ
+         ZJKVLlJq/NJvxcOJ/oKXLNNugiDgd4Zj0+qPU6TtG16KOzfdHv8k8uTtC07VO3UJA90N
+         nuYbaFLtk3N/zKq7HZgxEPb0o5STX2M2j1KuJWsDMMl9ymv5LAvWIpaORIKk8NvGUYIL
+         e1d+diL7QQ+AweRc4Re0xXlG8d5M89lgkpNbAihgAM3b35xmP0UjL2iRuzxD9yIXYySJ
+         KoUp92XRG5w6zcH6N7eqD9VwWhKBaQBDw36SqGSviWpeJOYl/HnC86Tup5axuWGddYdw
+         QEBg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YyNCpN4NLdioT7Aqoq0oqIcybd+7UCialwXRrf12rK+z3rJdUxJ
-	ztrV15eeoBBW8VEGSObZJfM=
-X-Google-Smtp-Source: AGHT+IH/CeLPox21MWB4eNp8hRZ3YhFHrTGKFm5G8qjiUvXnw7zjuMzjaSE9m4nYeuDeFxDOmfo5Vw==
-X-Received: by 2002:a4a:bb89:0:b0:581:d922:e7f3 with SMTP id h9-20020a4abb89000000b00581d922e7f3mr25121897oop.9.1699268801132;
-        Mon, 06 Nov 2023 03:06:41 -0800 (PST)
+X-Gm-Message-State: AOJu0YxsVcpxCC5EJP9Sqqgmb3JgWL2WBC41Il9egM8OA//8qoWkLd/a
+	uXXNQv8KimT+vkRG3ba/Kbg=
+X-Google-Smtp-Source: AGHT+IEoN+9VEzOH22J6KXojPrxi/q80vD9vDlW73++RRBAvbpJwYA7mo2kI9/jAA3v11tySPzQ+7Q==
+X-Received: by 2002:a05:6870:1394:b0:1e9:b2e2:8754 with SMTP id 20-20020a056870139400b001e9b2e28754mr709851oas.2.1699420031899;
+        Tue, 07 Nov 2023 21:07:11 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a4a:e7d6:0:b0:587:b2b4:2c7 with SMTP id y22-20020a4ae7d6000000b00587b2b402c7ls1355090oov.1.-pod-prod-08-us;
- Mon, 06 Nov 2023 03:06:40 -0800 (PST)
-X-Received: by 2002:a05:6830:40b2:b0:6c4:c061:341c with SMTP id x50-20020a05683040b200b006c4c061341cmr8224815ott.5.1699268800140;
-        Mon, 06 Nov 2023 03:06:40 -0800 (PST)
-Date: Mon, 6 Nov 2023 03:06:39 -0800 (PST)
-From: Tony <antonydellerario@gmail.com>
+Received: by 2002:a05:6870:3b1a:b0:1d1:3283:6299 with SMTP id
+ gh26-20020a0568703b1a00b001d132836299ls1518507oab.1.-pod-prod-00-us; Tue, 07
+ Nov 2023 21:07:11 -0800 (PST)
+X-Received: by 2002:a05:6808:1788:b0:3a1:c163:6022 with SMTP id bg8-20020a056808178800b003a1c1636022mr346934oib.4.1699420030940;
+        Tue, 07 Nov 2023 21:07:10 -0800 (PST)
+Date: Tue, 7 Nov 2023 21:07:10 -0800 (PST)
+From: Veerapandiyan V <v.pandiyan@blackpeppertech.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <187937f5-9346-485b-b2f1-8a7d78ac2768n@googlegroups.com>
-Subject: How to display xil_printf or printf in jailhouse?
+Message-Id: <24836639-c565-4576-874e-726bdee8dcb9n@googlegroups.com>
+Subject: dot cell file
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_16548_1592842461.1699268799368"
-X-Original-Sender: antonydellerario@gmail.com
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_121846_1521659710.1699420030256"
+X-Original-Sender: v.pandiyan@blackpeppertech.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -78,42 +79,57 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_16548_1592842461.1699268799368
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_16549_1771443888.1699268799369"
-
-------=_Part_16549_1771443888.1699268799369
+------=_Part_121846_1521659710.1699420030256
 Content-Type: text/plain; charset="UTF-8"
 
-Hello everyone. 
-I am trying to load a binary as a non-root cell of Jailhouse and run it on 
-the Ultrascale ZCU104.  Within this binary there are serial prints executed 
-via xil_printf that I do not see in output when I run the binary on 
-jailhouse. I think because jailhouse does not support the libraries 
-required by xil_printf, such as the printf libraries. In fact, the default 
-demos (gic-demo and uart-demo) print via printk. How can I solve so that I 
-can be able to see something output on the serial from my binary, without 
-necessarily including the printk's within my binary? Thank you all in 
-advance. 
+Hi Everyone,
+            How to edit dot cell file. I want to blink led code.
+Thanks Regards,
+ Veerapandiyan V.
+
+-- 
+
+
+
+
+
+
+
+
+
+Important Note: This e-mail may contain IP, trade secrets or 
+privileged, undisclosed or otherwise confidential information. If you have 
+received this e-mail by error, you are hereby notified that any review, 
+copying or distribution of it is strictly prohibited. Please inform us 
+immediately(info@blackpeppertech.com <mailto:info@blackpeppertech.com>) and 
+destroy the original transmittal. Thank you for your cooperation.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/187937f5-9346-485b-b2f1-8a7d78ac2768n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/24836639-c565-4576-874e-726bdee8dcb9n%40googlegroups.com.
 
-------=_Part_16549_1771443888.1699268799369
+------=_Part_121846_1521659710.1699420030256
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello everyone. <br />I am trying to load a binary as a non-root cell of Ja=
-ilhouse and run it on the Ultrascale ZCU104. =C2=A0Within this binary there=
- are serial prints executed via xil_printf that I do not see in output when=
- I run the binary on jailhouse. I think because jailhouse does not support =
-the libraries required by xil_printf, such as the printf libraries. In fact=
-, the default demos (gic-demo and uart-demo) print via printk. How can I so=
-lve so that I can be able to see something output on the serial from my bin=
-ary, without necessarily including the printk's within my binary? Thank you=
- all in advance.=C2=A0<br />
+<div>Hi Everyone,</div><div>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 How to edit dot cell file. I want to blink led code.<=
+/div><div>Thanks Regards,</div><div>=C2=A0Veerapandiyan V.<br /></div>
+<br>
+<p><font face=3D""></font><p><font face=3D""><font size=3D"3">
+
+<font face=3D""><font size=3D"3">
+
+<br><font face=3D""><span style=3D"color:rgb(31,73,125)"><font size=3D"3">I=
+mportant Note: This e-mail may contain IP, trade secrets or privileged, und=
+isclosed or otherwise confidential information. If you have received this e=
+-mail by error, you are hereby notified that any review, copying or distrib=
+ution of it is strictly prohibited. Please inform us immediately(</font><a =
+href=3D"mailto:info@blackpeppertech.com" target=3D"_blank"><font size=3D"3"=
+><em>info@<wbr>blackpeppertech.com</em></font></a><font size=3D"3">) and de=
+stroy the original transmittal. Thank you for your cooperation.</font></spa=
+n></font></font></font></font></font></p></p>
 
 <p></p>
 
@@ -124,11 +140,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/187937f5-9346-485b-b2f1-8a7d78ac2768n%40googlegrou=
+om/d/msgid/jailhouse-dev/24836639-c565-4576-874e-726bdee8dcb9n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/187937f5-9346-485b-b2f1-8a7d78ac2768n%40googlegroups.co=
+msgid/jailhouse-dev/24836639-c565-4576-874e-726bdee8dcb9n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_16549_1771443888.1699268799369--
-
-------=_Part_16548_1592842461.1699268799368--
+------=_Part_121846_1521659710.1699420030256--
