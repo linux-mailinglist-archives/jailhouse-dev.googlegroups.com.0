@@ -1,142 +1,72 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBD5HV2VAMGQE7GUGBAY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBP5IZSVAMGQEGOOTE5I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9067E5829
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  8 Nov 2023 14:56:33 +0100 (CET)
-Received: by mail-ed1-x53f.google.com with SMTP id 4fb4d7f45d1cf-53df4385dccsf5532559a12.0
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 08 Nov 2023 05:56:33 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1699451792; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=cfQVY0lgSJyxject4Qz9ZY3X6T34jX3r1lNBgg6EcFCerp0/RkJsIUwnkX8Rus++Sc
-         uo4XA2fSLBE8XrittqWgrKSdWYjE9KVqQLb/DWjrFWsXDngTbjPAj6phzydUfkqdPiaa
-         4OcKZnowrpO2fw+qZAXIHq/hVixBjwzIlyJJXdUPrA3XNAgqaYxwKyRMZ67PRC9KiRTD
-         jUZSPR3EoLvfqdGo46sv79FDI6Cod4UKGdE6X/nrm5o5qiee/rpZ+2PyV4Xhi21ZWIBQ
-         +vK+CWTFI+ojB0jJDAZOAdHbHwEszJl9XfeRqUPyKBPHlevhpAdsfP0ZlzF9W8tLqPOM
-         54CQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=orVmW2aip4dlxyqU0XCH5JDqjgvOL3bdXdNPnVTNVYk=;
-        fh=HyCuoSZT1Boat0rJHkEmYcyLjZ0hbalVuyDXeHe8ims=;
-        b=Vi5xXGfIdv4e+TsaL4NXW5PRQzw3TRC6DEPaqzXyd1Zff5cyo38FbBFOCNsNQIEUv8
-         ukkhKEdrpxWWNMlLgUFEUFdiQnYjKZqh4G2e+mqTys8aRyZp79KPHEhaVxhk4lLfT3+Q
-         tTjEMrlDpPmapwIdigwILLkzuiVPGyKnGK2gFQw/spCVSG1fCZNAokGZjbKyWj+m1cIV
-         2IDZrfdEwQTEne3r649ODcI+H7spc2iNF5GNpoCt7HQq4Ntfx7HUMCtIccNCPfagm2/2
-         tdbzYBwGtFikQPUnuz67WIeTSXCkINWAVayO9dZkg9336ByuPvGyPxDYiQ0aM7p8TEmL
-         NLEw==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=Ut6li3wJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-pj1-x103b.google.com (mail-pj1-x103b.google.com [IPv6:2607:f8b0:4864:20::103b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9909D7EAA83
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 14 Nov 2023 07:31:29 +0100 (CET)
+Received: by mail-pj1-x103b.google.com with SMTP id 98e67ed59e1d1-28016806be2sf6310290a91.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 13 Nov 2023 22:31:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1699451792; x=1700056592; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1699943488; x=1700548288; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=orVmW2aip4dlxyqU0XCH5JDqjgvOL3bdXdNPnVTNVYk=;
-        b=iwQfJeV9yLtBqfVYdnbW0Iq+398aISLPd88gk/oGNaJVnpQ9EHP55W19V6TVN3aSKY
-         s9nP+DJduQikwxS9FnIhMdXOphZyRytRZMoZBRXE0ZOxkc4pWnfHIQIFyqPj9GZK4jGZ
-         UPGNAr8t/3Pa4JKAy5AUT77DfrLJOaRJzmPUncqbH++Xt/lZkkRWd+KDfNPC1xJ28BJ0
-         8Zq8SJeASGmyV0Gl83ftHPzW4Ql26DgQR05YeTuOp3AcPM3GIuK1XCwV0PEKLZQy2kv8
-         zu8UZrSS0mm0Jc96+eH58eMXfn+gnZiVr7bmk/gbMfWnKK9gZSF/FvaFFQhFkZt5tKdX
-         cqaA==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=747z2q2DdY0n/fq1zmVdx3laGiobmi5BWrCPkehCAWc=;
+        b=JTXivvdkdPiMrWuyBpywa/tIghY11cbqkiVrpd9+N+u7MWlL5uXGrRW23cBq9pNJmp
+         f430uG7zpTGGoqFOKzY4hmC0ArsAPRsfCj7wl2+FpPc/xjiRGy/C3h/dOoAk4VG0tYIM
+         TkmBOjv3Iw4JRTjTanCgGgxB9vtHd2okaOOrMp/QWMCBtFPFhxi223POfU/wubq+96FE
+         MTVpxm/11Dp/u8wdLVBBr+GXDDRJem0Moddba9PkTEOKk+lrQroKuAeyTwU9NTba6COB
+         +TNXJWzSCt+ZtRSjlUxL0ulyhrLnQwDmcQQt5nuR4EqIx0/xuTwpwMZNoOXieCeKQxXN
+         36AQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1699943488; x=1700548288; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=747z2q2DdY0n/fq1zmVdx3laGiobmi5BWrCPkehCAWc=;
+        b=OHEnE/2g8GRrTlTFYH4KZheSdyIReIyiu1MtZpXaS1+8VAelOIJDp0tBrep4YD0lmO
+         bEZZzwC+21Q/qUJ6b83SOScVlEqePp99AcKaX0v+hgII5ukNKfCHHhNR+lryuxJwt4NZ
+         QAG4DKTHNwAU02JP4N+ddgWeu1MDcJyMMow02ESIwOLxrGnra9SDef/khhg35Vj0f7XR
+         kt1BrTp+pgaUpZQa3CR9Vg0V/2lhDsxZH6cbVTFywGhCWq/p8hXQcwO0uWqVnqu/Dy9P
+         krmi83L14a+NKlL1TwdxVWkWyOYMJMktwqkh5VTJ3ujI66bMoDAPm7/vnrffs6KlxG0z
+         Yywg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699451792; x=1700056592;
+        d=1e100.net; s=20230601; t=1699943488; x=1700548288;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=orVmW2aip4dlxyqU0XCH5JDqjgvOL3bdXdNPnVTNVYk=;
-        b=Qg1HJKhp8mUIS8+pFN9Glm/vp/lsEOiIxQgEv6e7Y2E0HEllPXCAhet5lWlurEY9K7
-         8pxDZpLgRdVKmmX5N8EWn1+pnfCPxTAjuFnu8u6Jr7toIpIHzABs9j9dz4lf3mf/4pKk
-         yWLPCfg6Vu93EoXy71r/OOSYIxvVgPWF6+z3WaoOvhp6jIRMozLyXPTQDx0W4uGsqQEj
-         Mmxuj8ZrCqOGmnz5MVDoML78lNmgzKZpFg28E4ar2O72cpkbpm9O9APtKsc9NkUdVbEQ
-         ybxr9rANTuavsEtmCUNiQ6IWfS5LMDNzD66YuStZMZHiKt9oO/Jby2O2xhewc1eaPGzy
-         7Qlg==
+        bh=747z2q2DdY0n/fq1zmVdx3laGiobmi5BWrCPkehCAWc=;
+        b=vpKNTb0hi0jvxqQYDPcKO0Q1BVYD+ToAqmH0RURzXI6mQBsWDSm+4QXJqwNVtFAU5u
+         O1Z+jJN0jerUujH8BXLjMw2I/3fOkNFyjjkLhS09m6ZCy2s3SKCvPcMTKdnWMDEbuN17
+         4XztPyF6jbEsr5uv/GLppU0NCdhoOVt7rJy3kfE70ZyBjAfh57jsrMWNPhmV8RYfi+tt
+         Nk3AIpAKl1yomJSH2w/q1pbWkSZNEeBA/XzAeu/5sblKEUEUFII9krAZYnSlTWCGmu8o
+         AjT15ACgZ/Wc6ODLdRKOgT5OslxAqMdps12GqLZmY3C97JT3FmwRggIV0Bj4D+xyNtZL
+         oLYQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzFBjl8X5/OHkf6C8MPUoG0GKHAZ+EQqkLFFD3SBEgFVaBZ9CbS
-	3GN41B9wXXSENJs7hcIoqiA=
-X-Google-Smtp-Source: AGHT+IFoqPs7ZSg/WnZmNtJjOQdCKSWdcD5YP7f0gM3sid4oDXBerYqf82JCi5jVqrmi1pJagO5xFg==
-X-Received: by 2002:a50:bae4:0:b0:53d:d913:d3cb with SMTP id x91-20020a50bae4000000b0053dd913d3cbmr1715022ede.28.1699451792428;
-        Wed, 08 Nov 2023 05:56:32 -0800 (PST)
+X-Gm-Message-State: AOJu0Yw1fpblQo3wd4F7QGxIIstXqBxHOllzzMA8Ahzfz7p6IgB+vt7p
+	qMoCyXg698t5FsxfDSaOSEk=
+X-Google-Smtp-Source: AGHT+IEQZ7v+MrlLRY4VA87mKqH9lbmdyz8Qvt53etd5EtbeYNKg8Zro3K30fTcVO1p3rAm6BeYFHg==
+X-Received: by 2002:a17:90b:4f84:b0:280:892a:75ab with SMTP id qe4-20020a17090b4f8400b00280892a75abmr2582758pjb.10.1699943487885;
+        Mon, 13 Nov 2023 22:31:27 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:aa7:df17:0:b0:543:7aea:f48a with SMTP id c23-20020aa7df17000000b005437aeaf48als425091edy.2.-pod-prod-09-eu;
- Wed, 08 Nov 2023 05:56:30 -0800 (PST)
-X-Received: by 2002:a50:d092:0:b0:53e:323a:274f with SMTP id v18-20020a50d092000000b0053e323a274fmr1452487edd.42.1699451789762;
-        Wed, 08 Nov 2023 05:56:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1699451789; cv=none;
-        d=google.com; s=arc-20160816;
-        b=egjDdY+K9EcSkn29ugkKt1jis4g0zOHlGuUZHKWS5d507AnwI/YgbARmYwi+wyTjvN
-         b7KPq08FIsbaUOZxmQ+yDXlXf+u88af9UfexzeScAB7kWpr6UHOcR8p/pjYmNNTnJXce
-         wjx1Dr06QGsbN7iWK/uhFZG2oa7ixIn+xpLJ9xvNVzsub2EGNMF6FK0d/B8bDTgS5pCI
-         1GkpwP0id05Ygu+8L4Fe+Dmh0ykQ7eezDVz030UtPfSaKY2+BtuSdWGOZ1YOziMZ5nsP
-         GfGOsXdVy3OUaUXBn7WI/Xu08ecVx7lrRlQqeuNz6L1ATWIaXACJ3ayVAS3KxT1NQVrp
-         O1Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=HH3yMgZhTaaA9BPYfbTMi9b3UYxXnhEpRW47/4ixslo=;
-        fh=HyCuoSZT1Boat0rJHkEmYcyLjZ0hbalVuyDXeHe8ims=;
-        b=UI++BrXlMExP1DZDiEHzZAgO2jYP6j6ICH8xvE1aCfgpQSKdElXPoWSq9iiMpfVmni
-         ofMYBD65O7Qhjm2BlHV5BtFZCJmvWkJ5PF/BLlPdSlybJnuhRzMwU8Lzk+B0VlrXVMRE
-         kDqJl5K10Ic06ZqD0rlrx6j1L7bS6AvYc+dfubYAUis+s+d8qWtulWXwQTpd/WR2nZnX
-         U8iesIbQDjATd0P+yqZv/pcK5ML4i7amaZJOm+hi2wH46HcJ/fNoEl8/7qEBm1pq7VkL
-         s+O4fmGEqDAtmT0yh6WilBi8C2KnrpGsKXeZsz3d07NOBnFdji/W3qo9VFwNYz2ZuYj3
-         ig4Q==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=Ut6li3wJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [194.95.239.60])
-        by gmr-mx.google.com with ESMTPS id a20-20020aa7d914000000b00542da7908e0si784338edr.2.2023.11.08.05.56.29
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Nov 2023 05:56:29 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) client-ip=194.95.239.60;
-Received: from mta03.hs-regensburg.de (mta03.hs-regensburg.de [194.95.104.13])
-	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id CF5262A015A;
-	Wed,  8 Nov 2023 14:56:28 +0100 (CET)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta03.hs-regensburg.de (Postfix) with ESMTPS id 4SQRT84R5lzxqs;
-	Wed,  8 Nov 2023 14:56:28 +0100 (CET)
-Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
- (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 8 Nov
- 2023 14:56:28 +0100
-Message-ID: <493f2502-4a97-4421-86c3-ce366b00496b@oth-regensburg.de>
-Date: Wed, 8 Nov 2023 14:56:27 +0100
+Received: by 2002:a17:90a:bf06:b0:280:87c:818e with SMTP id
+ c6-20020a17090abf0600b00280087c818els4447340pjs.1.-pod-prod-08-us; Mon, 13
+ Nov 2023 22:31:26 -0800 (PST)
+X-Received: by 2002:a17:90a:9406:b0:27d:e40a:96d3 with SMTP id r6-20020a17090a940600b0027de40a96d3mr2562960pjo.2.1699943486575;
+        Mon, 13 Nov 2023 22:31:26 -0800 (PST)
+Date: Mon, 13 Nov 2023 22:31:25 -0800 (PST)
+From: xin zhang <zhangxin6483@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <8b7c90c6-73bb-4e57-b705-ec1f1b692ee4n@googlegroups.com>
+Subject: jailhouse enable linux kernel error
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: How to display xil_printf or printf in jailhouse?
-To: Tony <antonydellerario@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <187937f5-9346-485b-b2f1-8a7d78ac2768n@googlegroups.com>
-Content-Language: en-US
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <187937f5-9346-485b-b2f1-8a7d78ac2768n@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta03-20220613 header.b=Ut6li3wJ;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_85003_2030242069.1699943485662"
+X-Original-Sender: zhangxin6483@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -149,40 +79,78 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Tony,
+------=_Part_85003_2030242069.1699943485662
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_85004_132490027.1699943485662"
 
-On 06/11/2023 12:06, Tony wrote:
-> Hello everyone.
-> I am trying to load a binary as a non-root cell of Jailhouse and run it=
+------=_Part_85004_132490027.1699943485662
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+What is the reason for the following error printed when using Jailhouse to=
 =20
-> on the Ultrascale ZCU104. =C2=A0Within this binary there are serial print=
-s=20
-> executed via xil_printf that I do not see in output when I run the=20
-> binary on jailhouse. I think because jailhouse does not support the=20
-> libraries required by xil_printf, such as the printf libraries. In fact,=
-=20
-> the default demos (gic-demo and uart-demo) print via printk. How can I=20
-> solve so that I can be able to see something output on the serial from=20
-> my binary, without necessarily including the printk's within my binary?=
-=20
-> Thank you all in advance.
+start Linux in Linux? Replacing the image is also not feasible
+ the error log as follows=EF=BC=9A
 
-I guess you're using vitis? There's no compatibility with vitis.
+[    0.092570][  0] Unable to handle kernel paging request at virtual=20
+address 0000400000000008
+[    0.101012][  0] Mem abort info:
+[    0.104266][  0]   ESR =3D 0x96000005
+[    0.107785][  0]   Exception class =3D DABT (current EL), IL =3D 32 bits
+[    0.114204][  0]   SET =3D 0, FnV =3D 0
+[    0.117723][  0]   EA =3D 0, S1PTW =3D 0
+[    0.121328][  0] Data abort info:
+[    0.124671][  0]   ISV =3D 0, ISS =3D 0x00000005
+[    0.128980][  0]   CM =3D 0, WnR =3D 0
+[    0.132410][  0] [0000400000000008] user address but active_mm is swappe=
+r
+[    0.139270][  0] Internal error: Oops: 96000005 [#1] SMP
+[    0.144636][  0] Modules linked in:
+[    0.148156][  0] Process kthreadd (pid: 2, stack limit =3D=20
+0x(____ptrval____))
+[    0.155281][  0] CPU: 0 PID: 2 Comm: kthreadd Not tainted 4.19.90-69+ #3
+[    0.162052][  0] Source Version: a22085976f26303c72a6bc7cc0d4ee20ff890cf=
+9
+[    0.168912][  0] Hardware name: FT-2000/4-D4-DSK Development Board (DT)
+[    0.175596][  0] pstate: 60000085 (nZCv daIf -PAN -UAO)
+[    0.180876][  0] pc : get_partial_node.isra.24+0x38/0x298
+[    0.186330][  0] lr : ___slab_alloc+0x3b8/0x528
+[    0.190903][  0] sp : ffff80000a143b10
+[    0.194685][  0] x29: ffff80000a143b10 x28: 0000400000000000
+[    0.200490][  0] x27: ffff80000a0fbc00 x26: ffff800023e55de0
+[    0.206294][  0] x25: 0000000000000000 x24: 0000000000000035
+[    0.212099][  0] x23: ffff0000080edc34 x22: ffff000009539b08
+[    0.217903][  0] x21: 0000000000000000 x20: 0000000000000001
+[    0.223707][  0] x19: 00000000007080c0 x18: 0000000000000001
+[    0.229511][  0] x17: 0000000000000000 x16: 0000000000000000
+[    0.235315][  0] x15: ffff000089b4cbb7 x14: 0000000000000003
+[    0.241120][  0] x13: ffff000009b4cbca x12: 0000000000000000
+[    0.246924][  0] x11: ffff00000990e2a8 x10: ffff7fe000028520
+[    0.252728][  0] x9 : ffff80000a143d90 x8 : ffff80000a126e20
+[    0.258532][  0] x7 : 0000000000000000 x6 : 0000000080080008
+[    0.264337][  0] x5 : 0000000000000000 x4 : ffff7fe000028520
+[    0.270141][  0] x3 : 00000000007080c0 x2 : ffff800023e55df0
+[    0.275945][  0] x1 : 0000400000000000 x0 : ffff000008315028
+[    0.281749][  0] Call trace:
+[    0.284654][  0]  get_partial_node.isra.24+0x38/0x298
+[    0.289755][  0]  ___slab_alloc+0x3b8/0x528
+[    0.293978][  0]  __slab_alloc+0x5c/0x78
+[    0.297937][  0]  kmem_cache_alloc_node+0xd8/0x220
+[    0.302774][  0]  copy_process.isra.8+0x1dc/0x1308
+[    0.307611][  0]  _do_fork+0x78/0x370
+[    0.311306][  0]  kernel_thread+0x48/0x58
+[    0.315352][  0]  kthreadd+0x1c8/0x268
+[    0.319135][  0]  ret_from_fork+0x10/0x18
+[    0.323182][  0] Code: b90067a3 f90037a2 d503201f b400117c (f9400780)
+[    0.329784][  0] ---[ end trace df01b2bd811dec5e ]---
+[    0.334885][  0] Kernel panic - not syncing: Fatal exception
+[    0.340604][  0] Rebooting in 30 seconds..
+[   30.346222][  0] Reboot failed -- System halted
 
-   Ralf
 
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/187937f5-9346-485b-b2f1-8=
-a7d78ac2768n%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/187937f5-9346-485b-b2f1-8a7d78ac2768n%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
+
+thanks.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -190,4 +158,84 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/493f2502-4a97-4421-86c3-ce366b00496b%40oth-regensburg.de.
+jailhouse-dev/8b7c90c6-73bb-4e57-b705-ec1f1b692ee4n%40googlegroups.com.
+
+------=_Part_85004_132490027.1699943485662
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br /><div>What is the reason for the following error printed when using Ja=
+ilhouse to start Linux in Linux? Replacing the image is also not feasible<b=
+r /></div><div>=C2=A0the error log as follows=EF=BC=9A</div><div><br /></di=
+v><div>[ =C2=A0 =C2=A00.092570][ =C2=A00] Unable to handle kernel paging re=
+quest at virtual address 0000400000000008<br />[ =C2=A0 =C2=A00.101012][ =
+=C2=A00] Mem abort info:<br />[ =C2=A0 =C2=A00.104266][ =C2=A00] =C2=A0 ESR=
+ =3D 0x96000005<br />[ =C2=A0 =C2=A00.107785][ =C2=A00] =C2=A0 Exception cl=
+ass =3D DABT (current EL), IL =3D 32 bits<br />[ =C2=A0 =C2=A00.114204][ =
+=C2=A00] =C2=A0 SET =3D 0, FnV =3D 0<br />[ =C2=A0 =C2=A00.117723][ =C2=A00=
+] =C2=A0 EA =3D 0, S1PTW =3D 0<br />[ =C2=A0 =C2=A00.121328][ =C2=A00] Data=
+ abort info:<br />[ =C2=A0 =C2=A00.124671][ =C2=A00] =C2=A0 ISV =3D 0, ISS =
+=3D 0x00000005<br />[ =C2=A0 =C2=A00.128980][ =C2=A00] =C2=A0 CM =3D 0, WnR=
+ =3D 0<br />[ =C2=A0 =C2=A00.132410][ =C2=A00] [0000400000000008] user addr=
+ess but active_mm is swapper<br />[ =C2=A0 =C2=A00.139270][ =C2=A00] Intern=
+al error: Oops: 96000005 [#1] SMP<br />[ =C2=A0 =C2=A00.144636][ =C2=A00] M=
+odules linked in:<br />[ =C2=A0 =C2=A00.148156][ =C2=A00] Process kthreadd =
+(pid: 2, stack limit =3D 0x(____ptrval____))<br />[ =C2=A0 =C2=A00.155281][=
+ =C2=A00] CPU: 0 PID: 2 Comm: kthreadd Not tainted 4.19.90-69+ #3<br />[ =
+=C2=A0 =C2=A00.162052][ =C2=A00] Source Version: a22085976f26303c72a6bc7cc0=
+d4ee20ff890cf9<br />[ =C2=A0 =C2=A00.168912][ =C2=A00] Hardware name: FT-20=
+00/4-D4-DSK Development Board (DT)<br />[ =C2=A0 =C2=A00.175596][ =C2=A00] =
+pstate: 60000085 (nZCv daIf -PAN -UAO)<br />[ =C2=A0 =C2=A00.180876][ =C2=
+=A00] pc : get_partial_node.isra.24+0x38/0x298<br />[ =C2=A0 =C2=A00.186330=
+][ =C2=A00] lr : ___slab_alloc+0x3b8/0x528<br />[ =C2=A0 =C2=A00.190903][ =
+=C2=A00] sp : ffff80000a143b10<br />[ =C2=A0 =C2=A00.194685][ =C2=A00] x29:=
+ ffff80000a143b10 x28: 0000400000000000<br />[ =C2=A0 =C2=A00.200490][ =C2=
+=A00] x27: ffff80000a0fbc00 x26: ffff800023e55de0<br />[ =C2=A0 =C2=A00.206=
+294][ =C2=A00] x25: 0000000000000000 x24: 0000000000000035<br />[ =C2=A0 =
+=C2=A00.212099][ =C2=A00] x23: ffff0000080edc34 x22: ffff000009539b08<br />=
+[ =C2=A0 =C2=A00.217903][ =C2=A00] x21: 0000000000000000 x20: 0000000000000=
+001<br />[ =C2=A0 =C2=A00.223707][ =C2=A00] x19: 00000000007080c0 x18: 0000=
+000000000001<br />[ =C2=A0 =C2=A00.229511][ =C2=A00] x17: 0000000000000000 =
+x16: 0000000000000000<br />[ =C2=A0 =C2=A00.235315][ =C2=A00] x15: ffff0000=
+89b4cbb7 x14: 0000000000000003<br />[ =C2=A0 =C2=A00.241120][ =C2=A00] x13:=
+ ffff000009b4cbca x12: 0000000000000000<br />[ =C2=A0 =C2=A00.246924][ =C2=
+=A00] x11: ffff00000990e2a8 x10: ffff7fe000028520<br />[ =C2=A0 =C2=A00.252=
+728][ =C2=A00] x9 : ffff80000a143d90 x8 : ffff80000a126e20<br />[ =C2=A0 =
+=C2=A00.258532][ =C2=A00] x7 : 0000000000000000 x6 : 0000000080080008<br />=
+[ =C2=A0 =C2=A00.264337][ =C2=A00] x5 : 0000000000000000 x4 : ffff7fe000028=
+520<br />[ =C2=A0 =C2=A00.270141][ =C2=A00] x3 : 00000000007080c0 x2 : ffff=
+800023e55df0<br />[ =C2=A0 =C2=A00.275945][ =C2=A00] x1 : 0000400000000000 =
+x0 : ffff000008315028<br />[ =C2=A0 =C2=A00.281749][ =C2=A00] Call trace:<b=
+r />[ =C2=A0 =C2=A00.284654][ =C2=A00] =C2=A0get_partial_node.isra.24+0x38/=
+0x298<br />[ =C2=A0 =C2=A00.289755][ =C2=A00] =C2=A0___slab_alloc+0x3b8/0x5=
+28<br />[ =C2=A0 =C2=A00.293978][ =C2=A00] =C2=A0__slab_alloc+0x5c/0x78<br =
+/>[ =C2=A0 =C2=A00.297937][ =C2=A00] =C2=A0kmem_cache_alloc_node+0xd8/0x220=
+<br />[ =C2=A0 =C2=A00.302774][ =C2=A00] =C2=A0copy_process.isra.8+0x1dc/0x=
+1308<br />[ =C2=A0 =C2=A00.307611][ =C2=A00] =C2=A0_do_fork+0x78/0x370<br /=
+>[ =C2=A0 =C2=A00.311306][ =C2=A00] =C2=A0kernel_thread+0x48/0x58<br />[ =
+=C2=A0 =C2=A00.315352][ =C2=A00] =C2=A0kthreadd+0x1c8/0x268<br />[ =C2=A0 =
+=C2=A00.319135][ =C2=A00] =C2=A0ret_from_fork+0x10/0x18<br />[ =C2=A0 =C2=
+=A00.323182][ =C2=A00] Code: b90067a3 f90037a2 d503201f b400117c (f9400780)=
+<br />[ =C2=A0 =C2=A00.329784][ =C2=A00] ---[ end trace df01b2bd811dec5e ]-=
+--<br />[ =C2=A0 =C2=A00.334885][ =C2=A00] Kernel panic - not syncing: Fata=
+l exception<br />[ =C2=A0 =C2=A00.340604][ =C2=A00] Rebooting in 30 seconds=
+..<br />[ =C2=A0 30.346222][ =C2=A00] Reboot failed -- System halted<br /><=
+/div><div><br /></div><div><br /></div><div><br /></div><div>thanks.</div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/8b7c90c6-73bb-4e57-b705-ec1f1b692ee4n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/8b7c90c6-73bb-4e57-b705-ec1f1b692ee4n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_85004_132490027.1699943485662--
+
+------=_Part_85003_2030242069.1699943485662--
