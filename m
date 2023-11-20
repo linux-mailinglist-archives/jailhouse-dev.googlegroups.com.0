@@ -1,198 +1,143 @@
-Return-Path: <jailhouse-dev+bncBCXIRKNM3UERBKOC5WVAMGQEI7QB3VY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBCGS5WVAMGQECJ2PBSY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-io1-xd3a.google.com (mail-io1-xd3a.google.com [IPv6:2607:f8b0:4864:20::d3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38A307F1483
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Nov 2023 14:37:47 +0100 (CET)
-Received: by mail-io1-xd3a.google.com with SMTP id ca18e2360f4ac-7b099b85b53sf238457339f.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Nov 2023 05:37:47 -0800 (PST)
-ARC-Seal: i=3; a=rsa-sha256; t=1700487466; cv=pass;
+Received: from mail-ed1-x53f.google.com (mail-ed1-x53f.google.com [IPv6:2a00:1450:4864:20::53f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CA47F155B
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Nov 2023 15:11:22 +0100 (CET)
+Received: by mail-ed1-x53f.google.com with SMTP id 4fb4d7f45d1cf-540150414efsf3105978a12.3
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Nov 2023 06:11:22 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700489481; cv=pass;
         d=google.com; s=arc-20160816;
-        b=ebPXLumloQFfLyHrm2N5CeXD+1a16ba3Djf7B9a9LK15j/Rv7wD0CRhVO+m3Qh/lq+
-         83rW0ukyjjcwDNpPKPFsEK2h/vOmWBSEgSzohgvjiA4/2Hr8zR1zxvkxvhxUEngCuHW2
-         ijH5IGeEXZBf3yzHATCw6SY8bgs6T8Q2V+XR4dAUu88+ZTx5Pk7TShfuUlmEOtSYYSP9
-         qIwTR9S45iwrmKeFXugEWzl8PWikDdIS0RGMrb7Cjb+7LLuldWuMpeab/UPIIGmO17J/
-         HNSfyW6gcweTMSZPRUn5g38O8WNFmB+CjjYAUL/zWQQs17n0EpnIWmpoykT3eckzaMvp
-         0APQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        b=AxCO1p7ZddEFefGQBN/7qpHewoqKg4qEwyw/5e5/tmoY2YAC1I02So4y1+DbkFT4Kx
+         XOkF8Kgj6Y7WxjVxAwhs3HPgLkxGtvBpPaX/TQybunjYsOamDaWEGtbAyeoZsljv3na5
+         hjsdztO0vMtFE0USkrlJWyZBXF5ecWBT1TM0OMYmdmY1NqIxiFIUzQJSh+Idsg7pBqFp
+         5GhSrb+RwysKpiYium88niPwHveHliB0sp+5fIFFMI1EqYW7bM4kiH0eLE5MdPgYVQSW
+         v+kxJ8+QHVJhg2FSinkhDhACfnQ63wzEAKdIbT68bXwxl1xLVBAVhss6n+yk1Fm+m9hD
+         4ZVw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:mime-version:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :to:from:sender:dkim-signature;
-        bh=S3p+yr+MWVt1ZlgWsYSmHIgJSsPn7g181Cw0XoCUpl0=;
-        fh=gxv6KPRH6O+Oq3mqvhuXuTetS01385E93D+NhmqUcp4=;
-        b=LXDwa24sdUbyy0eS+fkgATOpVkUUQJ6AB1rk/4FjpwkxfsBY5eUAPUDj7coK0aM/YE
-         R2bb7zJGywedeCXyBNG0hBDXNHOBVYLIINN1ULlE/McsT0Vm8/Qa42fnk1tgdlwZQZZS
-         dIEb/iTAzq6tnvbJEYZ0/tvfLhplfWTYH7pUdiKPoyEkabK5oe6jmr0vqBRnteGYcNF5
-         iowBpzjhkMdMrsH9tmc5LkCu45H/7s0xEjRIGEgJCOBzIiGsdA29pVfxkQYuOXYHBVN/
-         sRL0Ses7JyT3zYgHS4G12NW0DtuZLfIIK941KtYDEsfsRZksKpSIDfmIL+VRL2o7dyeQ
-         SZnw==
-ARC-Authentication-Results: i=3; gmr-mx.google.com;
-       dkim=pass header.i=@renesas.com header.s=selector1 header.b=lHsAcbOB;
-       arc=pass (i=1 spf=pass spfdomain=renesas.com dkim=pass dkdomain=renesas.com dmarc=pass fromdomain=renesas.com);
-       spf=pass (google.com: domain of chris.paterson2@renesas.com designates 2a01:111:f403:201a::701 as permitted sender) smtp.mailfrom=Chris.Paterson2@renesas.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
+         :list-id:mailing-list:precedence:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :sender:dkim-signature;
+        bh=/bgW2trW0Sx3wW/RvbXPRyVQ9/THZeF5f90RnndIqw0=;
+        fh=2cxIsw1LLFkS7vaMzO0KZ+TrRtxPxLIpPee53a0bnd8=;
+        b=gR2+2Hw50hHMtC3kwGD+80z99iC0AFTUV2vUMLdV7ar7HIX4Nrap+Zr+AdXDZ+565i
+         bAu8qGnleYHE9gJx54MnBTUZR87FpmZ5G6XCW4N6ujU/Nb3VdGvo55cctFv5sJRUDy6j
+         m3YyuLjJteIRdEfKDejEiN2HmFj/l0M086DM96S820k95PsjlvInxr92F9dAzxW1fxuf
+         +5DiArWg5Q0u/imSzOUxmz4r8kBWSQUZ9i3WSa1GhdNuPkEA8fe3s9ZheWvVg1CwIzXI
+         i0RQMwxpvELWyXzfTH871bW8/n2VBNGFRRxhz7ga3n33bz3SuexReqhBxjvgujB0ygN0
+         CGlw==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=mjDifgGa;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700487466; x=1701092266; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700489481; x=1701094281; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:mime-version:content-language:accept-language
-         :message-id:date:thread-index:thread-topic:subject:to:from:sender
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=S3p+yr+MWVt1ZlgWsYSmHIgJSsPn7g181Cw0XoCUpl0=;
-        b=bFNDc2Iy6ErvDFwBU7hYTTSbZmipwTpK5+HsZ60turtnxZGyW1xMHBbsFSQYmA001j
-         yreXbE4yMfV1BYN8LIWfm34kQnoYkQmcrjfAhOCosa8QGDV1tVb2XGxGFb6EGBc9rzJS
-         F2wws+06F9+rY6eemUlK1Eyo7YLQvJLyPk0vbpCR87KNxWXSbQmNQK+ze8x1NFxdoCp7
-         zku90eOcJQKvbN5sFtLnICTC6NDuX72ano5mOIUN476F5c3F5L3ANzIG4f34cWOvqFYP
-         J2woR83fZ3mQKigmBsWitrAfJzwyQRxwzhbaPwMMMu70RdD9cYs9U45UDkn2O7YiVyRj
-         P6Bw==
+         :x-original-sender:in-reply-to:from:references:to:content-language
+         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/bgW2trW0Sx3wW/RvbXPRyVQ9/THZeF5f90RnndIqw0=;
+        b=RA5flhrXFcvTwWRNxOdKZx6Bm1Io4kFVln71OH6fuEQzSaiiuw5iGKWXvnU8jBkJM+
+         R2+J2rfScFRbYfF/Dh9SigkgD8OPHYVRxH/oVKHz1QBWuM5SUYN22yJd7Uh7Oa57UloD
+         xLjIs8A5NMQvrOUi+u0hJxlTVhmdXM8RkiaeppEFtjdxIlfxyWhZxxdP5izOjSwCevxi
+         QpmRuWzVbTXX16HK6OAQAAIFLbBREyC0P+7904j0+v+Wcs8/UbMxm2IAbtRV2h2E1FYb
+         ErGGcD/pPeOr8sCGLpI5XujZp/OFlBNF+kFmQ0pwrv0bmELy7FB37Ti7HmOCZikKIEI3
+         BUPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700487466; x=1701092266;
+        d=1e100.net; s=20230601; t=1700489481; x=1701094281;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:mime-version
-         :content-language:accept-language:message-id:date:thread-index
-         :thread-topic:subject:to:from:x-beenthere:x-gm-message-state:sender
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=S3p+yr+MWVt1ZlgWsYSmHIgJSsPn7g181Cw0XoCUpl0=;
-        b=QHs+TM4GRkZ222ARfOgrUxMCvvxq+qIClBgsHXRl99RwC5vLh/tOPIGaMwnJf5Vy0U
-         iW9rczhXrbAqZtFX1d3tDQ0lj/KbdVSmsym9Z1K+gnCa6V8kE81v9cUh62fZ00pozhwX
-         LiNePFWpnRJxoxDtWpvJJnDD6Coii3HP5BjTW0lInw4B3bC2/aGRdfU6tJ0gqGfPPKFC
-         FRBcDwkdm93wvgmvcf9u4onrz5ajr63YNKNvi6HD0ymHfs0BU9NPANmvj5KygpCJcvIe
-         SMD7QIXKgadkwMZEM6aGA+ARZ3J//YLGsCetehfkzGwLOle7U4h5N5czPv/cqFpR2X5c
-         R+mQ==
+         :x-original-authentication-results:x-original-sender:in-reply-to
+         :from:references:to:content-language:subject:user-agent:mime-version
+         :date:message-id:x-beenthere:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/bgW2trW0Sx3wW/RvbXPRyVQ9/THZeF5f90RnndIqw0=;
+        b=U3B622ZhbuRpbVlcrJVGuLqEYJh2NcVG5nqsFgk5fCqpHKb2zlnWQiB6lYsn7pKFBq
+         nopi0ofyxAiuDlAOb86BjXjo13KCJPV1k+p/iH4wvvFoI3g+plFmWg7XsNBE8pN7TVL0
+         S83SbXFUfAUWC45Z4a8kWat/h8ayMVAwoEQrKySHxcxlvDVnSXPLyptwtsWbehdBIdTT
+         A6b+bTM19kUHjfG2a45UTCDAmIUVl8/dTi6NVMTxG9GmhwTaGZaGMRbWiCTi2gUZoMt7
+         YdLnURdii0gpvGLHKZ9eUwUDe6iq/NF9MJqPDdHq4uVN2Pm4lmwU2eizZH9QG3moBDM+
+         8FqA==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzSrUnzJ0+Eg52B7DCr3i2R67aV3zspM/Q/D/VkFGxDU2wjG4nq
-	ih9lmDZvRTTqZyBYACcJV3TjJA==
-X-Google-Smtp-Source: AGHT+IEfVD6VXRUc+/lHdBMeY0Ld9Shop17wSivWTVGF8S7q8zVpdwT2XfmiYRzS/6PVwo3ZUiGeMw==
-X-Received: by 2002:a92:cf0d:0:b0:359:cc3e:cad with SMTP id c13-20020a92cf0d000000b00359cc3e0cadmr8464074ilo.5.1700487465861;
-        Mon, 20 Nov 2023 05:37:45 -0800 (PST)
+X-Gm-Message-State: AOJu0YwIEQGGkc79RZN8gYEyZNukL4ngYd580Qtb3hEIADpb3neiOvo2
+	hLsJwh10r3ggt6QcNWVaoyo=
+X-Google-Smtp-Source: AGHT+IEvcFb6etbDPVwHFQMBzTu2ZyQHQtkPJqtjNr4GjgSxfyAA1y/K4/I0oLiH/L6yrbFy1xOiKw==
+X-Received: by 2002:a05:6402:202a:b0:540:b0ec:bcc7 with SMTP id ay10-20020a056402202a00b00540b0ecbcc7mr5248955edb.5.1700489481216;
+        Mon, 20 Nov 2023 06:11:21 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6e02:1105:b0:35a:e34a:d377 with SMTP id
- u5-20020a056e02110500b0035ae34ad377ls2392170ilk.0.-pod-prod-08-us; Mon, 20
- Nov 2023 05:37:45 -0800 (PST)
-X-Received: by 2002:a05:6602:298b:b0:7ac:cb6b:616a with SMTP id o11-20020a056602298b00b007accb6b616amr10640046ior.8.1700487464864;
-        Mon, 20 Nov 2023 05:37:44 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700487464; cv=pass;
+Received: by 2002:a05:6402:1cce:b0:543:7afc:7030 with SMTP id
+ ds14-20020a0564021cce00b005437afc7030ls2280993edb.1.-pod-prod-05-eu; Mon, 20
+ Nov 2023 06:11:19 -0800 (PST)
+X-Received: by 2002:a05:6402:70e:b0:543:5f7a:a020 with SMTP id w14-20020a056402070e00b005435f7aa020mr5207088edx.25.1700489478741;
+        Mon, 20 Nov 2023 06:11:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700489478; cv=none;
         d=google.com; s=arc-20160816;
-        b=kRZ38NpDt2Ek2GSpAaXw7eMIOyZmSVyo1eFYaep6HyatKkVOgEhGOvgEvu1BK80b8Q
-         C30aC6MBiuqm4tUUaRxR4M+6947YmQuSYk/8tCS1Idp0+TE1VRVD5wAFmdJ+ExDageCx
-         yZ+SBzo/zrOCuKCxz2UM6Wlfb+SDzX0+Iw4OCJXxs4yHJ+lrBOboit4msCpbWSqDKxxG
-         TIVU/kXmx/nDxEWR5arrgn89wSn3yHkQmwakotvQWN0E0FNfvTDDslMHtZ2hp9sYbUPB
-         RYPkRJWF9FF5kXisN0ZQF6dFbFa/9A99XS1JqoriDy9CiR5LgvurQVuO9BFK2/5rBvpo
-         RVdQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=mime-version:content-transfer-encoding:content-language
-         :accept-language:message-id:date:thread-index:thread-topic:subject
-         :to:from:dkim-signature;
-        bh=nssN8E8Drj0HmbpxJat1778JnvoZQkGDEqfLu3O4FV0=;
-        fh=gxv6KPRH6O+Oq3mqvhuXuTetS01385E93D+NhmqUcp4=;
-        b=MEjvUm6Fc7Odd4whUlXydXo2ZpnX7ROhYSUNTZgab2L5ZXOpiLorUoWpfuQK31QZcW
-         U4MTpEIbcorXbTp5OfL0H40z5Dx/QO4YMtkHVJFx/WP0Q1/4Br8LsoFx3bkPUj3p6A9G
-         LDIwOYugeBEu+wC2xg4wIjxtnL2bTv2ajX9xln8tKh5gOWw9TFl4c82wT3CV/MUG2//P
-         U5q2paraR4YwcCmuCYpMSvRZ8nRpZk6m6aIk3AC+ScuVGl5OVGHVimweahhloOPqQOq+
-         gf+6ITeoHi0dvk5O/8lm4HPwGaQb01R+IDp1IrGZhKFxw3R2tFNI9Nxuzx8Jupi4jhIc
-         UX8Q==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@renesas.com header.s=selector1 header.b=lHsAcbOB;
-       arc=pass (i=1 spf=pass spfdomain=renesas.com dkim=pass dkdomain=renesas.com dmarc=pass fromdomain=renesas.com);
-       spf=pass (google.com: domain of chris.paterson2@renesas.com designates 2a01:111:f403:201a::701 as permitted sender) smtp.mailfrom=Chris.Paterson2@renesas.com;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=renesas.com
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com (mail-os0jpn01on20701.outbound.protection.outlook.com. [2a01:111:f403:201a::701])
-        by gmr-mx.google.com with ESMTPS id fw23-20020a0566381d9700b00463fcd15b78si548170jab.0.2023.11.20.05.37.44
+        b=rwQPa/cDaHkZ1Sx00TgW1M79OaRDi+JQLsgoMoTzaRcxLXfCOHXL+TNtcZ/Oaq8l/t
+         elq/L8Vv9pV3eVdWW+Y4gnZKz2TWtTgenR/GHGY3HFOODMh6sc94mih7WEzx31qWiznP
+         xyOfm5pvOT3dndV9Hb5pGYEKYAeKrzVSlQn89se48cB1wBigfMVIU6Cr5oiGEjwq5/7D
+         ggfPDXtpDueGsxSJEJP/BM3IevhWDH4om+s0LMUJCi3tNHNQjBUvRj57sFNCIQYW0SYO
+         P65Imr17zyR3B7v+xwQM6S0p8DphcQ2TAKTuJuNlnP+cX73ORlfKHNthEcyduTIbtkH3
+         Q8Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=kF32nKuQg9OYbK/Oe+xZ0Briegi/d+Iik932vXd1rzY=;
+        fh=2cxIsw1LLFkS7vaMzO0KZ+TrRtxPxLIpPee53a0bnd8=;
+        b=Xnw0BCeInb6E/bW7NPwCQJ4mZIiFJf6ZjkjMWXa2x6hNydmyC+VE+39FgHXxrVhUna
+         XnzrDS5y3C0N/i1HjvVab6MGxBDfzybMOUQaZiHWju0WOYDQ8vbyvqRWHkNg92WRN99/
+         d8tr4Cgj1CFfVvYl1Vti3wPOfi1qFp1bncZUFWelQbEwRnQpJ7tUoIb8r30mR8FRBjib
+         FlS2/QKbWY6/iPTYM8oJOuV7fuUEoJXIGQLPeoZSOXHU8fckDoWAfNKuxe8kXe3X+6sp
+         RKaZY+qDuunmb3nKp2w3atXa+8oUf+t1/5iwlck7JZ6D/Vvi26jxgz3fefcQaz58EHLV
+         D6kw==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=mjDifgGa;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [2001:638:d:c302:acdc:1979:2:f4])
+        by gmr-mx.google.com with ESMTPS id p12-20020a056402500c00b005457f8a07e6si321250eda.4.2023.11.20.06.11.18
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 20 Nov 2023 05:37:44 -0800 (PST)
-Received-SPF: pass (google.com: domain of chris.paterson2@renesas.com designates 2a01:111:f403:201a::701 as permitted sender) client-ip=2a01:111:f403:201a::701;
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DGmjLjgZNsKUV/LnNJY7mGJtO2s9CndfUiVBwFO64OItLNWXKST3U+g8u9nppj7tJ5nyr1UtdDSH/KrKA5TVDupy+7xWLo4VCNKWvVVuu1e6RxCLvWyyXfXrNy9BoSpxkmYqj/sDxLIBmI9+agI6BS01FBN+AnsGnJGU2wlcjWp8knK0t9niKRkW+uVygH5gyv/G7ogyWJIKMwtpe+rQ1E3r96Z8wvgvqPA9LwODzGry1hlxMPEA0J2q7D5B/dR5sboyECuodBtYPEQounLxIEkjHSPEXDkU9YfFp94DmWzcJpaX/jjTuFwec1CLQEpu+OainvWZfB63RVPgX1jqJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nssN8E8Drj0HmbpxJat1778JnvoZQkGDEqfLu3O4FV0=;
- b=QDGuDhqRmy8s6DhjRiEQ0AuZcsvWeRX1w43VYYc5OqW38Z3kgr10QRtfYfRqAFW3+MBaOu04Ubo5/tnnMnEe2DOrSEQtdauk1Xs9tkiejAmNSmpS/O65tEj/es8qU8gJJ7SDDjzb3u0QwjEigIQHqAJKeSilgE+0vGbjeAdOHFcbsbrAtSCWkIRWK8wwzz8Ft7/BhufWWIEmWoirf5MPWl3MntdHcQ/6GvCDPQm0TkilLtXZ9WgEuY0TGgZS5FaUcjovjJv22fBq8k39gG35LvXLYMsBThU8qXo3g7pK+vD7HH7/2KCvcvhOjAWqLbNYSINhY4CnmLntN6xoxTJbwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-Received: from TY2PR01MB3788.jpnprd01.prod.outlook.com (2603:1096:404:dd::14)
- by OS3PR01MB9577.jpnprd01.prod.outlook.com (2603:1096:604:1ca::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7002.27; Mon, 20 Nov
- 2023 13:37:41 +0000
-Received: from TY2PR01MB3788.jpnprd01.prod.outlook.com
- ([fe80::6779:9c53:db73:8052]) by TY2PR01MB3788.jpnprd01.prod.outlook.com
- ([fe80::6779:9c53:db73:8052%4]) with mapi id 15.20.7002.026; Mon, 20 Nov 2023
- 13:37:41 +0000
-From: Chris Paterson <Chris.Paterson2@renesas.com>
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-Subject: Development status
-Thread-Topic: Development status
-Thread-Index: AdobtkWeMSqDiOPgQqe/VyWdaj7RRg==
-Date: Mon, 20 Nov 2023 13:37:41 +0000
-Message-ID: <TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A@TY2PR01MB3788.jpnprd01.prod.outlook.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PR01MB3788:EE_|OS3PR01MB9577:EE_
-x-ms-office365-filtering-correlation-id: 84bd679f-868f-4b55-0844-08dbe9cdde89
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9IxSnsbPkE52Cy/ymi4+NcRN4Mhg7DIulhRRPDJmqUBEvM0v7ZpDkUWKC3QFtw07E32YoyQUWcpfvwkLp8GwIVzHmFq7oPLOED8dh1T6EXMXczCdSlmBSQpVntkX+NlKABDWOjX4N5XYexTOqO7641Ex8THJShCOOOLip2AEGdqiY9BsdBX1IFbozff+TxpMqnltVG2mCdaZHLDopINWiaXGoTmB8Pv+AuWWH+Ib0xsFF9DnAhTaADgdUuBu57attUCkd1GMbA2xdwEWMR8TO06plpWRjEEROemhychErDClLK/e1o4VinEzhSDcII59vsCPm7okpeGuhon7boC4LyengcnF7txOJYxt3D1bpzxjyLDNWo+mKT/juQQRj6Let+sx/CVPbSJAEmdW32jBfVSnpKpbope6CvnXmhWWM9ja2H3dcoAJlqZEhOMrUf8mF6Yi19uktHPFGi4ABmorDddBMOjr9VMssH2kyl/tQVVZH0+4ekdRJ1CxnvoxwT3R78g9Go7kUDNXacLxznpjJvZyUFTICtwb41pWb6KNiUz5A8f+51QrWR2Hqlf34GpONM81VJ7zkGeIM/B4WRLR0+LjaTJybDEN4Al8Q6iLgHf6ebRdHd+NP79wsQJlFz5Hh0fnik0SciH2mwbdv/P++g==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PR01MB3788.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(346002)(39860400002)(136003)(366004)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(41300700001)(33656002)(86362001)(5660300002)(4744005)(7116003)(52536014)(2906002)(38070700009)(966005)(55016003)(26005)(122000001)(83380400001)(55236004)(71200400001)(478600001)(6506007)(7696005)(9686003)(3480700007)(38100700002)(8676002)(8936002)(316002)(6916009)(76116006)(64756008)(66946007)(66446008)(66476007)(66556008);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?w630RDJqkUNB6/wdd1OqZAjB0isGCft6RvteEMWn2Dw/rkKe+79iAKWatd?=
- =?iso-8859-1?Q?g7redzGD7EfREOMktzXZyQRk1LktLClUu78PTGOMGGc7RyLBtFKR3EV1aJ?=
- =?iso-8859-1?Q?BoGxuYaWmndxHB8RlW3V1PvcMnTfuGxCO+W+ZzL29iKLF4ofvtN5tMSws0?=
- =?iso-8859-1?Q?BzDPhrFvo4vPVF9SUvgkA54Z+FOzXLT4S0Hhuh21eLo+puSg2d6cZBoNVb?=
- =?iso-8859-1?Q?vqzs7gb2GXUUzu40cZT5XhzlwrapGiiVUqfwkkDrC5xoZE888WgRIOECol?=
- =?iso-8859-1?Q?3bxRp4lhuOdLKvf8OnSLxQUN3xSIZT3Lk4A7dXHWBe977D0V3GuCSYbeZm?=
- =?iso-8859-1?Q?TsG5qKncdsFFUyF85zxjHbSAtjjSZ0nIjfSoJENocNVRafFTDGhIJ76kCB?=
- =?iso-8859-1?Q?8INQOn5ohWsNyOP/89ErzFQiahKJL6T7RjedXeHBLSNzKrYGFxyj2TsoYp?=
- =?iso-8859-1?Q?Nai+B9njg7k+/hthzhAykDOXL74f8bC9ZUPpkkLc1hYFAR9Fr+y9Sv+5en?=
- =?iso-8859-1?Q?la2ZwTkiHawVhWtuWgiI76OYvl53xaogpcveRmL5lIBZ1Nti4q9HuF/jGZ?=
- =?iso-8859-1?Q?wrFNCq4heB9oyvBSDOqCGb5xagewIlsPNh9y3aYrogQEN6Eq20h5We3Hz0?=
- =?iso-8859-1?Q?tngV6DZVEOy8iZfJnD9sCXsUlXT5nTpCN4pC38fl4yWU/hvkbMJCCZ3euc?=
- =?iso-8859-1?Q?rHmcQho3jxSvCx6oYLQTdGEQpYwv/JcV3VVbnvVvDZFhZ/lB6zsTsuOeVk?=
- =?iso-8859-1?Q?Cigh8sQg6bX0RFrxl+DFWDFNicvhVTQfeC/fr92x73z4WXz21XnhJb8PGz?=
- =?iso-8859-1?Q?ENyNR9/SbGU8IEnCm1Q/AKGn5F2WFW3rT6+zwnzFH2DVZcUY12z3IW2Lhm?=
- =?iso-8859-1?Q?QHcOSJLvYDvmB3S//SJnoqcZvKRFC4EB793M989+9lF6JszMcMzb21UYlv?=
- =?iso-8859-1?Q?a4SRHc5Zm0Uvyg04q9nJOV4xt5VFGgL0UaPSyXcqSDPqaGGR9ognRnoHtS?=
- =?iso-8859-1?Q?h8JT8KOIRibG6OBptGU/vBATunuXvMVUdgi7pn5zQdIp8BQOadtLRdm2Xz?=
- =?iso-8859-1?Q?/2WT+FzehtMPfQAaBTcAnn8l8yQGAJSkyGDsxIE/S6OcoOcCFXVpd0cC/9?=
- =?iso-8859-1?Q?GJ1CcIqKb9qOCU7vh+rduuoz/e3jU/YdUddehYNVWBgmAz3+BEVDn5gNLd?=
- =?iso-8859-1?Q?EMSVpYQv5DTVHA/a4lIjgLvgPr8XzdxlhtDFZJh1yOFQsBLo4f/FoXGxZ2?=
- =?iso-8859-1?Q?rrxvv8U9x/60JF/yPF2cz1+c+SyB/uJ/OWFu1fWWR+u7l97HTGl7EXoODl?=
- =?iso-8859-1?Q?aW70h0JO6ZBmXrWIgtAXm4QLfcgc2Kr2H6jrCHHjryO3Zztu9PPglQ3+Yw?=
- =?iso-8859-1?Q?vCEkLjw61Lsjlu6VtnwjcTwD2PbJdw3YnWXmeUPi2xBVVyIZBcw6wwqH+N?=
- =?iso-8859-1?Q?OfglpIm8gDRg0hBVAoq62u3NKKlob0Q40cL5EV3TauBNpD/zYXWmbJ+jn5?=
- =?iso-8859-1?Q?jE/B/WuwxTHC7tH2IHU/Vtm71a9/Tk1aYb2e04IQCQqS/xQaTd7PFgctMQ?=
- =?iso-8859-1?Q?Fuxmsab9vtDMrnyhopsNG0zcKWyWZsJ5cQwbhY4/v8nvuh8qCJCGSU2trD?=
- =?iso-8859-1?Q?PJpZx0BR7gmIIS72yRM/g0R6tT5H1XTPpgEQXAh89tR6TMO9bn2V2WGw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="UTF-8"
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Nov 2023 06:11:18 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c302:acdc:1979:2:f4;
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de [IPv6:2001:638:a01:1096::11])
+	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id AD6DF3E00EC;
+	Mon, 20 Nov 2023 15:11:17 +0100 (CET)
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4SYqDj1j7yzxpq;
+	Mon, 20 Nov 2023 15:11:17 +0100 (CET)
+Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 20 Nov
+ 2023 15:11:16 +0100
+Message-ID: <df468a43-ecdf-46a4-bf02-31681d3ce799@oth-regensburg.de>
+Date: Mon, 20 Nov 2023 15:11:16 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB3788.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84bd679f-868f-4b55-0844-08dbe9cdde89
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2023 13:37:41.3697
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vMU8wb2E8EJu9PsxKvwW3vMvUtGgDo3+h7xRQZKoUPoGrmIMMvmnMXyYw8EIai/70P2YGDFUwmo1ow2DJ8wYYiG+fbzfwkNGtThELyZvgC8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB9577
-X-Original-Sender: chris.paterson2@renesas.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: Development status
+Content-Language: en-US
+To: Chris Paterson <Chris.Paterson2@renesas.com>,
+	"jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>, Jan Kiszka
+	<jan.kiszka@siemens.com>
+References: <TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A@TY2PR01MB3788.jpnprd01.prod.outlook.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A@TY2PR01MB3788.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@renesas.com header.s=selector1 header.b=lHsAcbOB;       arc=pass
- (i=1 spf=pass spfdomain=renesas.com dkim=pass dkdomain=renesas.com dmarc=pass
- fromdomain=renesas.com);       spf=pass (google.com: domain of
- chris.paterson2@renesas.com designates 2a01:111:f403:201a::701 as permitted
- sender) smtp.mailfrom=Chris.Paterson2@renesas.com;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=renesas.com
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=mjDifgGa;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender)
+ smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -205,19 +150,34 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hello Jailhouse maintainers,
+Hi Chris,
 
-I was just looking at Jailhouse GitHub repo [0] and it looks like the master branch hasn't been updated for a while (10 months).
-Is this project still active?
+On 20/11/2023 14:37, Chris Paterson wrote:
+> Hello Jailhouse maintainers,
+> 
+> I was just looking at Jailhouse GitHub repo [0] and it looks like the master branch hasn't been updated for a while (10 months).
+> Is this project still active?
 
-On a side note, are there any plans to merge the latest patches from the next branch [1] into master?
+Yes, we're currently still working on the RISC-V Port of Jailhouse, and 
+we're almost ready for integration. Therefore, we also have a bunch of 
+auxiliary patches in the queue. They'll soon land on the list.
 
-[0] https://github.com/siemens/jailhouse
-[1] https://github.com/siemens/jailhouse/compare/master...next
+> 
+> On a side note, are there any plans to merge the latest patches from the next branch [1] into master?
 
-Kind regards, Chris
+@Jan: Ping :)
+
+Thanks,
+   Ralf
+
+> 
+> [0] https://github.com/siemens/jailhouse
+> [1] https://github.com/siemens/jailhouse/compare/master...next
+> 
+> Kind regards, Chris
+> 
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A%40TY2PR01MB3788.jpnprd01.prod.outlook.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/df468a43-ecdf-46a4-bf02-31681d3ce799%40oth-regensburg.de.
