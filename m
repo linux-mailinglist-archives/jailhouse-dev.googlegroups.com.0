@@ -1,74 +1,144 @@
-Return-Path: <jailhouse-dev+bncBD4MLPEEWIHBB3PE6CVAMGQELS5VYHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBTM76OVAMGQEQTPXVLY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pl1-x639.google.com (mail-pl1-x639.google.com [IPv6:2607:f8b0:4864:20::639])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B9957F24D4
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 05:30:40 +0100 (CET)
-Received: by mail-pl1-x639.google.com with SMTP id d9443c01a7336-1cc23aa0096sf63146115ad.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 20 Nov 2023 20:30:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700541039; x=1701145839; darn=lfdr.de;
+Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 687DF7F328B
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 16:42:07 +0100 (CET)
+Received: by mail-lf1-x13a.google.com with SMTP id 2adb3069b0e04-5079630993dsf5296230e87.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 07:42:07 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700581326; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=dMEJpI7r6mTgxwMtGJ+7ry1eB7F8Mx22Zw89gjpM4tGhNxW8pTcI1bVhkil7NoMlXr
+         RBi+Wcd5jEV3hImtlaHdNgQNgDCXQxZtGC7H6A0XQHSWX/6NjQvXEhMxhhOfrycnGOdy
+         3jd+/Sgcxw1au8zdfCrUWQFy4cD04QpaG/AQMMv9Wz/d1rycfOblZ3Mz5cwajLwYCk4x
+         fA6wTEp36iM3Jark0eFz9lmlBWz6XsvDwnDx74lDnmoGot+Zzoim2VsX4VG4WbBRe5Ia
+         uwMZrgHK+SgRhm1teiF5dDQ5PQw+kdJa0M91MJA8XgtXHa4hrdj1uTnE3t5x7xBg1Bb7
+         p4Rw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kbOsbfE30TssqSe4FDdMsnrfr0t3+0tcGDNcEmhj/K0=;
-        b=fTgQ2wCDPd7Ofy59cNhzgxb4s0DSIvk2+k0G+q6UcE2kz8l9iXibro+St4WsSSJOpk
-         fb3TEz0ijO70Bev2ZSp6IVgyuPxzxkjI9ajgQoOGviQ+JNN/aEpeWcSHrGfVvU5mqRFL
-         I3ROviIx6g/zbu/XFGeKRvDFf+NPVgL27jkoJ9msa46ByunrKKgczilojffgi5BilNj5
-         9CPSX2efF1+6LxoOd581cTTu57+jCBVK2DS5tgM5lwBke3CMONe1ZoVXQaPUihGjZPQX
-         XJHxe3bY/+HFb8MP3yQN3QiAPa+CmoGPltNYBtKPAU5wCRwSwJOqtvgOlHz18I/d8KRa
-         HyPA==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:sender:dkim-signature;
+        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
+        fh=3GS9BGSzdOIlLnZEGOXnk9YKm5KT4NzPBz2ENBb9RNo=;
+        b=eiBEX5bLU+Y/3+lOlZlGqHbJcCMqvqdLxtNpCuvETqz3dOTXt4UnCPQoP19nL1GHm9
+         i8ABrllaaGCIdheMF5m2g9yhZXSxAE/2whk5SuTuoDZ+/CttZHXY/IYXQvYPu9akp1kS
+         ojXTHpfbieejdWzoqKbVFfetptoYCjKOdrtWgkouAu51E3DH0oyyMSysxCQdDfVRx1YE
+         EOMWSFW25Fd6+uyxfUUKvGScRNQQH9HRfwRy9lZMgR25AQawTyth3s+2xKirbDi3thiF
+         MmXjRkd/JacTYO6WzEiOLlCpI5nifrTnO0Q0QD/snLMY/MoQaM1dcEPU27gf0jLkYXLQ
+         iwTQ==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700541039; x=1701145839; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700581326; x=1701186126; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kbOsbfE30TssqSe4FDdMsnrfr0t3+0tcGDNcEmhj/K0=;
-        b=Ar++SmoWeh+7llDf59is4OEpYJNTSxzsajtoZnLhvK8GSpa+9Mz0TRnh1gFFL5Qzzx
-         NzOtYAo8g2sxUnX9Avq7Ur2X4byrdxY1qxH5roahlob0KyNwY5pqCb+rLU3OYmYAyUWO
-         cziKAFvBpk+QrkblgAdUnf+aIXfIgEgIdemb6reT1iOJN3dZm1aGkcDBYSQ/Eej+kmrj
-         XozG4AawUjsRu4dZLC8Pc056gyonThX9yookQ2mwZwisMKpRYad/UYsF+hQZ0JxW+SkC
-         hFkazfr0w4XkRYOBt8DqX1PqFBiX5bokBHP6M7zI2XQfZ/x3rpTaBKT0mlIbOEoFsFq+
-         iUVg==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:content-transfer-encoding:in-reply-to:from
+         :references:to:content-language:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
+        b=Rtkv2s0B5kehmFqMXp0TFYrt7t7qMgdYUmUUwTLuLeQ/5colYuRiXIdwirh8zWO79Q
+         uvwiI1efyASgi+RrIEaclwZpYg5+vdBMNVSK4A36o1N6Us+VtPLM9K8eW5KSuru4D2Ab
+         vNeV5RBgKCgtwixM8e+pwczulT96ezwym17VxfjzlpS81JcNevQ+OHHCRJIWflCbhjQO
+         W8yE3pydQQ/jfr3B/hu+OSYE65pfPNWw2MsWRKo5of/hsc4H6oWEFNqqvXMe8byKuaJR
+         uRTuYkuPMZ6boUPc1awmf4WlRDa0fYagQgzAfM70eo2n/EUphl0+pieEW+vtgMFZvA2J
+         ag6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700541039; x=1701145839;
+        d=1e100.net; s=20230601; t=1700581326; x=1701186126;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kbOsbfE30TssqSe4FDdMsnrfr0t3+0tcGDNcEmhj/K0=;
-        b=b42mEycgAwDXjisZINFJzvCPiU5gG3tmmvdDEs04VA0BrRzzX9rj2X7cs/BVmtt4Fm
-         jd43qwhu6NX6MwzbMd3L7Lg64oQfMCjMQWLhYkg3v+d7F8dXEBoUuJC756tjjJCFGnuC
-         vuGDoAaE4DtgVBsyVxNc64fIXFY9yRhvo9DjuExYl2b/NQ2OV1h5TNWIFJ+FXq/yFTBs
-         WFPgSZtbK8QoC8XaygWfkM3RW6tF7Pl8aMd6FYw7NQcDRFcMCke2TpGiCopyTVKRkhsK
-         guPtm0sBAsVc7/YTtQ6WvD+F6U9RUw+II8meGqfOOOp7ajXS3NIdfK0pJGT+ZHGQdaDx
-         LWLw==
+         :x-original-authentication-results:x-original-sender
+         :content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
+        b=uMW17MarYqsCuYgcEnJxbF6x1V/mw4Wob4odCGQ/7PVHLWQgqOA8XYpessBfymEJ3U
+         aKJzllXwfserNDPOlO5THd6prBO82Pri6oIY29Do16GNJC9cJ9dE1bWLDX8eTIyoTLVD
+         JI1iD5f64Dpb0+dU4yEnB5kfB9jyvyvZW5FCxdFolkQI7JHSrcIF3K6QsBoSDXtVtRcE
+         R1cGLlNJbCfTOrcPYk27kQd9cr+maI/pv3bJzlOTjMUiD63gOuUclRuG56r50UQZCWlJ
+         0T4mfnVt8BS9hF9werRvMsv+Tn9wH1E0FERhKbNi2cjp6T39bkijK5u9gZlgNsq9PEI/
+         6udg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0Yzq6qi5VAw4Tzc2Ig3c6vEeCvKKR6M1MQxvFmJ0Ox5FH34bGqjZ
-	rEu/n0K7DknjYrgITBKY/ws=
-X-Google-Smtp-Source: AGHT+IFAlXpuLGT45Ma9+/Qu8W+VdaJv6ptn2yvC49jiKLQaR8ei9JIuxFONpvF48mKfbItqGtmsmA==
-X-Received: by 2002:a17:903:22c3:b0:1cf:6453:b268 with SMTP id y3-20020a17090322c300b001cf6453b268mr4156029plg.53.1700541038468;
-        Mon, 20 Nov 2023 20:30:38 -0800 (PST)
+X-Gm-Message-State: AOJu0YxJ9hrqazEni1IacBHurtG558ZA3EWbS9gCDjlnCWxYGESa2M9J
+	MkZhf3rr/eIXd8kFgz1T+D0=
+X-Google-Smtp-Source: AGHT+IFlSCU1j4/+/+KilUcxX8aL0CRyjayaRiocQj4XlzncNhOn3GEl3AM7cB8W2YYLHbyxu5YQBA==
+X-Received: by 2002:a05:6512:1084:b0:507:9803:ff8b with SMTP id j4-20020a056512108400b005079803ff8bmr10686379lfg.44.1700581325913;
+        Tue, 21 Nov 2023 07:42:05 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:902:f78d:b0:1cf:6945:758e with SMTP id
- q13-20020a170902f78d00b001cf6945758els955013pln.0.-pod-prod-04-us; Mon, 20
- Nov 2023 20:30:37 -0800 (PST)
-X-Received: by 2002:a17:902:b491:b0:1cc:281a:8463 with SMTP id y17-20020a170902b49100b001cc281a8463mr2469861plr.7.1700541036774;
-        Mon, 20 Nov 2023 20:30:36 -0800 (PST)
-Date: Mon, 20 Nov 2023 20:30:35 -0800 (PST)
-From: Paresh Bhagat <pareshbhagat29@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <261c0edb-f0a7-4384-a300-8a0567c16f8dn@googlegroups.com>
-In-Reply-To: <2847752b-a183-418c-9c42-42641c6ffe20n@googlegroups.com>
-References: <2847752b-a183-418c-9c42-42641c6ffe20n@googlegroups.com>
-Subject: Re: Jailhouse enable pci error
+Received: by 2002:a05:6512:1149:b0:507:979a:7f48 with SMTP id
+ m9-20020a056512114900b00507979a7f48ls248699lfg.1.-pod-prod-04-eu; Tue, 21 Nov
+ 2023 07:42:03 -0800 (PST)
+X-Received: by 2002:a19:6712:0:b0:50a:764d:7de9 with SMTP id b18-20020a196712000000b0050a764d7de9mr6528291lfc.66.1700581323070;
+        Tue, 21 Nov 2023 07:42:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700581323; cv=none;
+        d=google.com; s=arc-20160816;
+        b=WFMEhKo/QDBhXd1F+IA0S39dSgsU7Ojh5UR1ljkPHDQAZNvEJQKvrinUCFRUHvtZwN
+         YrklCej4eRnlCAc3gyqEHhpJ0P8NL/JChcZFOI1MdGPMx19c0lP4jSkEWGv5rhUAAmHW
+         9Ju44UzixvoOed6kWj4lxTtqqfsxmSkWHfu666yNoRsChuk60WpQzIFWGa76uXQTHzO+
+         MzzqoOzZ2EbeCO1EArcQHvUub2vJd7igZJNsoMzpdPM1TB3eesctDZo4FHQn5SRpetCN
+         gW7DBT/6+L5ZTBeKOEDjYa0G6WQgtJF0COSUasuvBcrA2sLLeYSTZYjaN8C1Pwq41Krs
+         zTQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=/4xo5bxGavn5VZx9BTpSVKCYYlS81XwcGIcNOXFWqTY=;
+        fh=3GS9BGSzdOIlLnZEGOXnk9YKm5KT4NzPBz2ENBb9RNo=;
+        b=RolxSfE4j9mXaTu6S7dER9TSmXLoNgv1eX2yyVpdT9a6Po/LTbp12/VR0ckeoi4pT8
+         DDJCRGC+1BdxSfO3SitRG//wKO/8rZcJL3OB9uqXYIYOesgqgpH+E5km+Uk7228TO+/c
+         Y/dTw6CL6PulG7UOZsxC+7z/nlQ+0Ja8DKal5QN1lZ30taDHP80Y00av+KIyX7CR7TSi
+         37PeFAb5xre4oIctYvGdAt5qRdVYmBiY5fyJWCpo4YFh3/qmhhF/6V+LMDmILWcbfTm2
+         j5qesfai77TAavoBXIyVBXhQXNu0z9Jwh9sxh9ke37AfszeEPyLTv03X2oWziTG1s2iT
+         fqsA==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [194.95.239.60])
+        by gmr-mx.google.com with ESMTPS id fl19-20020a05600c0b9300b0040b29e29a47si133021wmb.0.2023.11.21.07.42.02
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Nov 2023 07:42:03 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) client-ip=194.95.239.60;
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
+	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id E490B2A00F4;
+	Tue, 21 Nov 2023 16:42:01 +0100 (CET)
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4SZTBx4LN7zxqw;
+	Tue, 21 Nov 2023 16:42:01 +0100 (CET)
+Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 Nov
+ 2023 16:42:01 +0100
+Message-ID: <3b88b7b0-60fd-4fbb-8506-d2d0309c5333@oth-regensburg.de>
+Date: Tue, 21 Nov 2023 16:42:01 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_47283_1827035519.1700541035338"
-X-Original-Sender: pareshbhagat29@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: Jailhouse enable pci error
+Content-Language: en-US
+To: Paresh Bhagat <pareshbhagat29@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <2847752b-a183-418c-9c42-42641c6ffe20n@googlegroups.com>
+ <261c0edb-f0a7-4384-a300-8a0567c16f8dn@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <261c0edb-f0a7-4384-a300-8a0567c16f8dn@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -81,73 +151,19 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_47283_1827035519.1700541035338
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_47284_393324100.1700541035338"
+Hi Paresh,
 
-------=_Part_47284_393324100.1700541035338
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Update. Got the jailhouse enabled but still getting the pci error.
-
-nitializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU 3
-Code location: 0x0000ffffc0200800
-Page pool usage after early setup: mem 39/993, remap 0/131072
-Initializing processors:
- CPU 3... OK
- CPU 2... OK
- CPU 0... OK
- CPU 1... OK
-Initializing unit: irqchip
-Initializing unit: ARM SMMU v3
-Initializing unit: ARM SMMU
-Initializing unit: PVU IOMMU
-Initializing unit: PCI
-Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"
-Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"
-Page pool usage after late setup: mem 79/993, remap 144/131072
-Activating hypervisor
-[  332.417442] pci-host-generic 76000000.pci: host bridge /pci@0 ranges:
-[  332.417476] pci-host-generic 76000000.pci:      MEM=20
-0x0076100000..0x0076103fff -> 0x0076100000
-[  332.417572] pci-host-generic 76000000.pci: ECAM at [mem=20
-0x76000000-0x760fffff] for [bus 00]
-[  332.417732] pci-host-generic 76000000.pci: PCI host bridge to bus 0001:0=
-0
-[  332.417741] pci_bus 0001:00: root bus resource [bus 00]
-[  332.417748] pci_bus 0001:00: root bus resource [mem=20
-0x76100000-0x76103fff]
-[  332.417793] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
-[  332.417819] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x0000ffff]
-[  332.418103] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
-[  332.418127] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x0000ffff]
-[  332.420175] pci 0001:00:00.0: BAR 0: no space for [mem size 0x00010000]
-[  332.420195] pci 0001:00:00.0: BAR 0: failed to assign [mem size=20
-0x00010000]
-[  332.420203] pci 0001:00:01.0: BAR 0: no space for [mem size 0x00010000]
-[  332.420209] pci 0001:00:01.0: BAR 0: failed to assign [mem size=20
-0x00010000]
-[  332.420916] The Jailhouse is opening.
-[  332.531915] psci: CPU1 killed (polled 0 ms)
-[  332.579879] psci: CPU2 killed (polled 0 ms)
-[  332.631860] psci: CPU3 killed (polled 0 ms)
-
-
-On Tuesday, November 21, 2023 at 12:50:49=E2=80=AFAM UTC+5:30 Paresh Bhagat=
- wrote:
-
-> Any fix for the following error while trying to enable jailhouse ?=20
-> something wrong with the memory allocation?=20
->
-> Initializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU 0
+On 21/11/2023 05:30, Paresh Bhagat wrote:
+> Update. Got the jailhouse enabled but still getting the pci error.
+>=20
+> nitializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU 3
 > Code location: 0x0000ffffc0200800
 > Page pool usage after early setup: mem 39/993, remap 0/131072
 > Initializing processors:
->  CPU 0... OK
->  CPU 2... OK
->  CPU 1... OK
->  CPU 3... OK
+>  =C2=A0CPU 3... OK
+>  =C2=A0CPU 2... OK
+>  =C2=A0CPU 0... OK
+>  =C2=A0CPU 1... OK
 > Initializing unit: irqchip
 > Initializing unit: ARM SMMU v3
 > Initializing unit: ARM SMMU
@@ -155,41 +171,132 @@ On Tuesday, November 21, 2023 at 12:50:49=E2=80=AFAM UTC+5:30 Paresh Bhagat=
 > Initializing unit: PCI
 > Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"
 > Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"
-> Page pool usage after late setup: mem 78/993, remap 144/131072
+> Page pool usage after late setup: mem 79/993, remap 144/131072
 > Activating hypervisor
-> [  122.542841] pci-host-generic 76000000.pci: host bridge /pci@0 ranges:
-> [  122.542873] pci-host-generic 76000000.pci:      MEM=20
+> [ =C2=A0332.417442] pci-host-generic 76000000.pci: host bridge /pci@0 ran=
+ges:
+> [ =C2=A0332.417476] pci-host-generic 76000000.pci: =C2=A0 =C2=A0 =C2=A0ME=
+M=20
 > 0x0076100000..0x0076103fff -> 0x0076100000
-> [  122.542947] pci-host-generic 76000000.pci: ECAM at [mem=20
+> [ =C2=A0332.417572] pci-host-generic 76000000.pci: ECAM at [mem=20
 > 0x76000000-0x760fffff] for [bus 00]
-> [  122.543103] pci-host-generic 76000000.pci: PCI host bridge to bus=20
-> 0001:00
-> [  122.543112] pci_bus 0001:00: root bus resource [bus 00]
-> [  122.543119] pci_bus 0001:00: root bus resource [mem=20
+> [ =C2=A0332.417732] pci-host-generic 76000000.pci: PCI host bridge to bus=
+ 0001:00
+> [ =C2=A0332.417741] pci_bus 0001:00: root bus resource [bus 00]
+> [ =C2=A0332.417748] pci_bus 0001:00: root bus resource [mem=20
 > 0x76100000-0x76103fff]
-> root@am62pxx-evm:/usr/share/jailhouse# [  122.543161] pci 0001:00:00.0:=
+> [ =C2=A0332.417793] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
+
+According to your config, 1:0:0.0 ist the first ivshmem device, 1:0:1.0=20
+is the second one, right?
+
+Could you please try to enable one ivshmem device, so please disable the=20
+second one for testing. Let's try to get one running, then we can go=20
+further.
+
+And for the first ivshmem device, would you consider (just for testing),=20
+to only connect two peers? And, in your config, plase use the=20
+JAILHOUSE_SHMEM_=E2=80=A6 macros for defining the ivshmem memregions.
+
+Thanks,
+   Ralf
+
+> [ =C2=A0332.417819] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x0000fff=
+f]
+> [ =C2=A0332.418103] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
+> [ =C2=A0332.418127] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x0000fff=
+f]
+> [ =C2=A0332.420175] pci 0001:00:00.0: BAR 0: no space for [mem size 0x000=
+10000]
+> [ =C2=A0332.420195] pci 0001:00:00.0: BAR 0: failed to assign [mem size=
 =20
-> [110a:4106] type 00 class 0xff0000
-> [  122.543187] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x0000ffff]
-> [  122.543455] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
-> [  122.543481] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x0000ffff]
-> [  122.545437] pci 0001:00:00.0: BAR 0: no space for [mem size 0x00010000=
-]
-> [  122.545458] pci 0001:00:00.0: BAR 0: failed to assign [mem size=20
 > 0x00010000]
-> [  122.545466] pci 0001:00:01.0: BAR 0: no space for [mem size 0x00010000=
-]
-> [  122.545471] pci 0001:00:01.0: BAR 0: failed to assign [mem size=20
+> [ =C2=A0332.420203] pci 0001:00:01.0: BAR 0: no space for [mem size 0x000=
+10000]
+> [ =C2=A0332.420209] pci 0001:00:01.0: BAR 0: failed to assign [mem size=
+=20
 > 0x00010000]
-> [  122.545896] The Jailhouse is opening.
-> Unhandled data read at 0xb00328(4)
-> FATAL: unhandled trap (exception class 0x24)
->
-> i have attached root cell config and output of cat /proc/iomem for=20
-> referrence.
->
-> Thanks
->
+> [ =C2=A0332.420916] The Jailhouse is opening.
+> [ =C2=A0332.531915] psci: CPU1 killed (polled 0 ms)
+> [ =C2=A0332.579879] psci: CPU2 killed (polled 0 ms)
+> [ =C2=A0332.631860] psci: CPU3 killed (polled 0 ms)
+>=20
+>=20
+> On Tuesday, November 21, 2023 at 12:50:49=E2=80=AFAM UTC+5:30 Paresh Bhag=
+at wrote:
+>=20
+>     Any fix for the following error while trying to enable jailhouse ?
+>     something wrong with the memory allocation?
+>=20
+>     Initializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU =
+0
+>     Code location: 0x0000ffffc0200800
+>     Page pool usage after early setup: mem 39/993, remap 0/131072
+>     Initializing processors:
+>      =C2=A0CPU 0... OK
+>      =C2=A0CPU 2... OK
+>      =C2=A0CPU 1... OK
+>      =C2=A0CPU 3... OK
+>     Initializing unit: irqchip
+>     Initializing unit: ARM SMMU v3
+>     Initializing unit: ARM SMMU
+>     Initializing unit: PVU IOMMU
+>     Initializing unit: PCI
+>     Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"
+>     Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"
+>     Page pool usage after late setup: mem 78/993, remap 144/131072
+>     Activating hypervisor
+>     [ =C2=A0122.542841] pci-host-generic 76000000.pci: host bridge /pci@0=
+ ranges:
+>     [ =C2=A0122.542873] pci-host-generic 76000000.pci: =C2=A0 =C2=A0 =C2=
+=A0MEM
+>     0x0076100000..0x0076103fff -> 0x0076100000
+>     [ =C2=A0122.542947] pci-host-generic 76000000.pci: ECAM at [mem
+>     0x76000000-0x760fffff] for [bus 00]
+>     [ =C2=A0122.543103] pci-host-generic 76000000.pci: PCI host bridge to=
+ bus
+>     0001:00
+>     [ =C2=A0122.543112] pci_bus 0001:00: root bus resource [bus 00]
+>     [ =C2=A0122.543119] pci_bus 0001:00: root bus resource [mem
+>     0x76100000-0x76103fff]
+>     root@am62pxx-evm:/usr/share/jailhouse# [ =C2=A0122.543161] pci
+>     0001:00:00.0: [110a:4106] type 00 class 0xff0000
+>     [ =C2=A0122.543187] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x000=
+0ffff]
+>     [ =C2=A0122.543455] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0=
+001
+>     [ =C2=A0122.543481] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x000=
+0ffff]
+>     [ =C2=A0122.545437] pci 0001:00:00.0: BAR 0: no space for [mem size
+>     0x00010000]
+>     [ =C2=A0122.545458] pci 0001:00:00.0: BAR 0: failed to assign [mem si=
+ze
+>     0x00010000]
+>     [ =C2=A0122.545466] pci 0001:00:01.0: BAR 0: no space for [mem size
+>     0x00010000]
+>     [ =C2=A0122.545471] pci 0001:00:01.0: BAR 0: failed to assign [mem si=
+ze
+>     0x00010000]
+>     [ =C2=A0122.545896] The Jailhouse is opening.
+>     Unhandled data read at 0xb00328(4)
+>     FATAL: unhandled trap (exception class 0x24)
+>=20
+>     i have attached root cell config and output of cat /proc/iomem for
+>     referrence.
+>=20
+>     Thanks
+>=20
+> --=20
+> You received this message because you are subscribed to the Google=20
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send=20
+> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit=20
+> https://groups.google.com/d/msgid/jailhouse-dev/261c0edb-f0a7-4384-a300-8=
+a0567c16f8dn%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
+e-dev/261c0edb-f0a7-4384-a300-8a0567c16f8dn%40googlegroups.com?utm_medium=
+=3Demail&utm_source=3Dfooter>.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -197,418 +304,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/261c0edb-f0a7-4384-a300-8a0567c16f8dn%40googlegroups.com.
-
-------=_Part_47284_393324100.1700541035338
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Update. Got the jailhouse enabled but still getting the pci error.<br /><br=
- />nitializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU 3<br=
- />Code location: 0x0000ffffc0200800<br />Page pool usage after early setup=
-: mem 39/993, remap 0/131072<br />Initializing processors:<br />=C2=A0CPU 3=
-... OK<br />=C2=A0CPU 2... OK<br />=C2=A0CPU 0... OK<br />=C2=A0CPU 1... OK=
-<br />Initializing unit: irqchip<br />Initializing unit: ARM SMMU v3<br />I=
-nitializing unit: ARM SMMU<br />Initializing unit: PVU IOMMU<br />Initializ=
-ing unit: PCI<br />Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"=
-<br />Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"<br />Page po=
-ol usage after late setup: mem 79/993, remap 144/131072<br />Activating hyp=
-ervisor<br />[ =C2=A0332.417442] pci-host-generic 76000000.pci: host bridge=
- /pci@0 ranges:<br />[ =C2=A0332.417476] pci-host-generic 76000000.pci: =C2=
-=A0 =C2=A0 =C2=A0MEM 0x0076100000..0x0076103fff -&gt; 0x0076100000<br />[ =
-=C2=A0332.417572] pci-host-generic 76000000.pci: ECAM at [mem 0x76000000-0x=
-760fffff] for [bus 00]<br />[ =C2=A0332.417732] pci-host-generic 76000000.p=
-ci: PCI host bridge to bus 0001:00<br />[ =C2=A0332.417741] pci_bus 0001:00=
-: root bus resource [bus 00]<br />[ =C2=A0332.417748] pci_bus 0001:00: root=
- bus resource [mem 0x76100000-0x76103fff]<br />[ =C2=A0332.417793] pci 0001=
-:00:00.0: [110a:4106] type 00 class 0xff0000<br />[ =C2=A0332.417819] pci 0=
-001:00:00.0: reg 0x10: [mem 0x00000000-0x0000ffff]<br />[ =C2=A0332.418103]=
- pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001<br />[ =C2=A0332.4181=
-27] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x0000ffff]<br />[ =C2=A033=
-2.420175] pci 0001:00:00.0: BAR 0: no space for [mem size 0x00010000]<br />=
-[ =C2=A0332.420195] pci 0001:00:00.0: BAR 0: failed to assign [mem size 0x0=
-0010000]<br />[ =C2=A0332.420203] pci 0001:00:01.0: BAR 0: no space for [me=
-m size 0x00010000]<br />[ =C2=A0332.420209] pci 0001:00:01.0: BAR 0: failed=
- to assign [mem size 0x00010000]<br />[ =C2=A0332.420916] The Jailhouse is =
-opening.<br />[ =C2=A0332.531915] psci: CPU1 killed (polled 0 ms)<br />[ =
-=C2=A0332.579879] psci: CPU2 killed (polled 0 ms)<br />[ =C2=A0332.631860] =
-psci: CPU3 killed (polled 0 ms)<br /><div><br /></div><div><br /></div><div=
- class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Tuesday, N=
-ovember 21, 2023 at 12:50:49=E2=80=AFAM UTC+5:30 Paresh Bhagat wrote:<br/><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border=
--left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Any fix for the fo=
-llowing error while trying to enable jailhouse ? something wrong with the m=
-emory allocation?=C2=A0<br><br>Initializing Jailhouse hypervisor v0.12 (324=
--ge57d1eff-dirty) on CPU 0<br>Code location: 0x0000ffffc0200800<br>Page poo=
-l usage after early setup: mem 39/993, remap 0/131072<br>Initializing proce=
-ssors:<br>=C2=A0CPU 0... OK<br>=C2=A0CPU 2... OK<br>=C2=A0CPU 1... OK<br>=
-=C2=A0CPU 3... OK<br>Initializing unit: irqchip<br>Initializing unit: ARM S=
-MMU v3<br>Initializing unit: ARM SMMU<br>Initializing unit: PVU IOMMU<br>In=
-itializing unit: PCI<br>Adding virtual PCI device 00:00.0 to cell &quot;k3-=
-am62p5-sk&quot;<br>Adding virtual PCI device 00:01.0 to cell &quot;k3-am62p=
-5-sk&quot;<br>Page pool usage after late setup: mem 78/993, remap 144/13107=
-2<br>Activating hypervisor<br>[ =C2=A0122.542841] pci-host-generic 76000000=
-.pci: host bridge /pci@0 ranges:<br>[ =C2=A0122.542873] pci-host-generic 76=
-000000.pci: =C2=A0 =C2=A0 =C2=A0MEM 0x0076100000..0x0076103fff -&gt; 0x0076=
-100000<br>[ =C2=A0122.542947] pci-host-generic 76000000.pci: ECAM at [mem 0=
-x76000000-0x760fffff] for [bus 00]<br>[ =C2=A0122.543103] pci-host-generic =
-76000000.pci: PCI host bridge to bus 0001:00<br>[ =C2=A0122.543112] pci_bus=
- 0001:00: root bus resource [bus 00]<br>[ =C2=A0122.543119] pci_bus 0001:00=
-: root bus resource [mem 0x76100000-0x76103fff]<br>root@am62pxx-evm:/usr/sh=
-are/jailhouse# [ =C2=A0122.543161] pci 0001:00:00.0: [110a:4106] type 00 cl=
-ass 0xff0000<br>[ =C2=A0122.543187] pci 0001:00:00.0: reg 0x10: [mem 0x0000=
-0000-0x0000ffff]<br>[ =C2=A0122.543455] pci 0001:00:01.0: [110a:4106] type =
-00 class 0xff0001<br>[ =C2=A0122.543481] pci 0001:00:01.0: reg 0x10: [mem 0=
-x00000000-0x0000ffff]<br>[ =C2=A0122.545437] pci 0001:00:00.0: BAR 0: no sp=
-ace for [mem size 0x00010000]<br>[ =C2=A0122.545458] pci 0001:00:00.0: BAR =
-0: failed to assign [mem size 0x00010000]<br>[ =C2=A0122.545466] pci 0001:0=
-0:01.0: BAR 0: no space for [mem size 0x00010000]<br>[ =C2=A0122.545471] pc=
-i 0001:00:01.0: BAR 0: failed to assign [mem size 0x00010000]<br>[ =C2=A012=
-2.545896] The Jailhouse is opening.<br>Unhandled data read at 0xb00328(4)<b=
-r>FATAL: unhandled trap (exception class 0x24)<br><br>i have attached root =
-cell config and output of cat /proc/iomem for referrence.<div><br>Thanks</d=
-iv></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/261c0edb-f0a7-4384-a300-8a0567c16f8dn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/261c0edb-f0a7-4384-a300-8a0567c16f8dn%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_47284_393324100.1700541035338--
-
-------=_Part_47283_1827035519.1700541035338
-Content-Type: text/x-csrc; charset=US-ASCII; name=k3-am62p5-sk.c
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename=k3-am62p5-sk.c
-X-Attachment-Id: 52c481ec-3a09-4e23-91b7-5ff825714012
-Content-ID: <52c481ec-3a09-4e23-91b7-5ff825714012>
-
-/*
- * Jailhouse, a Linux-based partitioning hypervisor
- *
- * Copyright (c) 2022 Texas Instruments Incorporated - http://www.ti.com/
- *
- * Configuration for K3 based AM62P5 EVM
- *
- * Authors:
- *  Matt Ranostay <mranostay@ti.com>
- *
- * This work is licensed under the terms of the GNU GPL, version 2.  See
- * the COPYING file in the top-level directory.
- */
-
-#include <jailhouse/types.h>
-#include <jailhouse/cell-config.h>
-
-struct {
-	struct jailhouse_system header;
-	__u64 cpus[1];
-	struct jailhouse_memory mem_regions[31];
-	struct jailhouse_irqchip irqchips[5];
-	struct jailhouse_pci_device pci_devices[2];
-} __attribute__((packed)) config = {
-	.header = {
-		.signature = JAILHOUSE_SYSTEM_SIGNATURE,
-		.revision = JAILHOUSE_CONFIG_REVISION,
-		.architecture = JAILHOUSE_ARM64,
-		.flags = JAILHOUSE_SYS_VIRTUAL_DEBUG_CONSOLE,
-		.hypervisor_memory = {
-			.phys_start = 0x9dfc00000,
-			.size = 0x400000,
-		},
-		.debug_console = {
-			.address = 0x02800000,
-			.size = 0x1000,
-			.type = JAILHOUSE_CON_TYPE_8250,
-			.flags = JAILHOUSE_CON_ACCESS_MMIO |
-				 JAILHOUSE_CON_REGDIST_4,
-		},
-		.platform_info = {
-			.pci_mmconfig_base = 0x76000000,
-			.pci_mmconfig_end_bus = 0,
-			.pci_is_virtual = 1,
-			.pci_domain = 1,
-			.arm = {
-				.gic_version = 3,
-				.gicd_base = 0x01800000,
-				.gicr_base = 0x01880000,
-				.maintenance_irq = 25,
-			},
-		},
-		.root_cell = {
-			.name = "k3-am62p5-sk",
-
-			.cpu_set_size = sizeof(config.cpus),
-			.num_memory_regions = ARRAY_SIZE(config.mem_regions),
-			.num_irqchips = ARRAY_SIZE(config.irqchips),
-			.num_pci_devices = ARRAY_SIZE(config.pci_devices),
-			.vpci_irq_base = 180 - 32,
-		},
-	},
-
-	.cpus = {
-		0xf,
-	},
-
-	.mem_regions = {
-		/* IVSHMEM shared memory regions for 00:00.0 (demo) */
-		{
-			.phys_start = 0x9dfa00000,
-			.virt_start = 0x9dfa00000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ,
-		},
-		{
-			.phys_start = 0x9dfa10000,
-			.virt_start = 0x9dfa10000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* Peer 0 */ {
-			.phys_start = 0x9dfa20000,
-			.virt_start = 0x9dfa20000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE,
-		},
-		/* Peer 1 */ {
-			.phys_start = 0x9dfa30000,
-			.virt_start = 0x9dfa30000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ,
-		},
-		/* Peer 2 */ {
-			.phys_start = 0x9dfa40000,
-			.virt_start = 0x9dfa40000,
-			.size = 0x10000,
-			.flags = JAILHOUSE_MEM_READ,
-		},
-		/* IVSHMEM shared memory region for 00:01.0 */
-		JAILHOUSE_SHMEM_NET_REGIONS(0x9dfb00000, 0),
-		{
-			.phys_start = 0x01810000,
-			.virt_start = 0x01810000,
-			.size = 0x00070000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		{
-			.phys_start = 0x018a0000,
-			.virt_start = 0x018a0000,
-			.size = 0x00060000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* RAM */ {
-			.phys_start = 0x80000000,
-			.virt_start = 0x80000000,
-			.size = 0x80000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* RAM */ {
-			.phys_start = 0x880000000,
-			.virt_start = 0x880000000,
-			.size = 0x15fa00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* RAM. Reserved for inmates */ {
-			.phys_start = 0x9e0000000,
-			.virt_start = 0x9e0000000,
-			.size = 0x20000000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_EXECUTE,
-		},
-		/* ctrl mmr */ {
-			.phys_start = 0x000f0000,
-			.virt_start = 0x000f0000,
-			.size = 0x00030000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* GPIO */ {
-			.phys_start = 0x00600000,
-			.virt_start = 0x00600000,
-			.size = 0x00002000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* temp */ {
-			.phys_start = 0x00b00000,
-			.virt_start = 0x00b00000,
-			.size = 0x00020000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-	            JAILHOUSE_MEM_IO,
-		},
-		/* GPU */ {
-			.phys_start = 0x0fd00000,
-			.virt_start = 0x0fd00000,
-			.size = 0x00020000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* First peripheral window, 1 of 2 */ {
-			.phys_start = 0x01000000,
-			.virt_start = 0x01000000,
-			.size = 0x00800000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* First peripheral window, 2 of 2 */ {
-			.phys_start = 0x01900000,
-			.virt_start = 0x01900000,
-			.size = 0x01229000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* Second peripheral window */ {
-			.phys_start = 0x0e000000,
-			.virt_start = 0x0e000000,
-			.size = 0x01d00000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* Third peripheral window */ {
-			.phys_start = 0x20000000,
-			.virt_start = 0x20000000,
-			.size = 0x0a008000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* OCSRAM */ {
-			.phys_start = 0x70000000,
-			.virt_start = 0x70000000,
-			.size = 0x00010000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* DSS */ {
-			.phys_start = 0x30200000,
-			.virt_start = 0x30200000,
-			.size = 0x00010000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* DMSS */ {
-			.phys_start = 0x48000000,
-			.virt_start = 0x48000000,
-			.size = 0x06400000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* USB */ {
-			.phys_start = 0x31000000,
-			.virt_start = 0x31000000,
-			.size = 0x00050000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* USB */ {
-			.phys_start = 0x31100000,
-			.virt_start = 0x31100000,
-			.size = 0x00050000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* CPSW */ {
-			.phys_start = 0x08000000,
-			.virt_start = 0x08000000,
-			.size = 0x00200000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* First Wake Up Domain */ {
-			.phys_start = 0x2b000000,
-			.virt_start = 0x2b000000,
-			.size = 0x00301000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* Second Wake Up Domain */ {
-			.phys_start = 0x43000000,
-			.virt_start = 0x43000000,
-			.size = 0x00020000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-		/* MCU Domain Range */ {
-			.phys_start = 0x04000000,
-			.virt_start = 0x04000000,
-			.size = 0x01ff2000,
-			.flags = JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-				JAILHOUSE_MEM_IO,
-		},
-	},
-
-	.irqchips = {
-		{
-			.address = 0x01800000,
-			.pin_base = 32,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-		{
-			.address = 0x01800000,
-			.pin_base = 160,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-		{
-			.address = 0x01800000,
-			.pin_base = 288,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-		{
-			.address = 0x01800000,
-			.pin_base = 416,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-		{
-			.address = 0x01800000,
-			.pin_base = 544,
-			.pin_bitmap = {
-				0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff,
-			},
-		},
-	},
-
-	.pci_devices = {
-		/* 0001:00:00.0 */ {
-			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-			.domain = 1,
-			.bdf = 0 << 3,
-			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX_64K,
-			.shmem_regions_start = 0,
-			.shmem_dev_id = 0,
-			.shmem_peers = 3,
-			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
-		},
-		/* 0001:00:01.0 */ {
-			.type = JAILHOUSE_PCI_TYPE_IVSHMEM,
-			.domain = 1,
-			.bdf = 1 << 3,
-			.bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX_64K,
-			.shmem_regions_start = 5,
-			.shmem_dev_id = 0,
-			.shmem_peers = 2,
-			.shmem_protocol = JAILHOUSE_SHMEM_PROTO_VETH,
-		},
-	},
-};
-
-------=_Part_47283_1827035519.1700541035338--
+jailhouse-dev/3b88b7b0-60fd-4fbb-8506-d2d0309c5333%40oth-regensburg.de.
