@@ -1,144 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBY7566VAMGQE5O6EDLI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCZ5RDPSVIPRBYVV7CVAMGQEGO5R7QQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF6A7F477A
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 14:15:17 +0100 (CET)
-Received: by mail-lf1-x137.google.com with SMTP id 2adb3069b0e04-50aa6b26836sf4612643e87.3
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 05:15:17 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700658916; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=z4YKOFz15Sge0yrFdnAXtBegD9ppT4QxkSjn76FER7kKrWW4UcU04Sjq60PhjXyOPN
-         BVoIXWtzCbvuV5JN0+OUOppceMePfp9LLtWyuHjsHpgE2/5L3zAEm27nPrNAIzfXnxQg
-         9VhJz3qjCQxW7poy2qh1/RlpHhL9WK5Km9JYhH64h0Q7g+NHz8aGNqcOmlN/cQz7BL0S
-         pRgekq6Z637Tn9s9aQrG7OV+JInI7ke9TBFvc8fwl33roSTyD7Zr3f9pfZtdQvuXS5Gu
-         2GmgmFvP8VIskgDvaa70fcftVEBx2sN23jeycngKSuMaqpnWvCT8cHmBerTzC/vhtSEH
-         Clrg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
-        fh=t0Nw2nhOOnWFAR86PFfZva7qIMx1vMlLM9e++XkoW8A=;
-        b=VTvqE5Ri6XgM+iN57NOlmHALBrz2a9KdHfHzks+iWCkG2LQmnMwvWXffIiW04Xkvb8
-         zK8Uu0jApfJEg/EQWHZSBdWndNA3nfL445UDAIvklSr8XNILrmj9xTZURl+BaX12Hv+N
-         z6hFyb757ZLc8jhihCoKXif17vLD8V93Y/3+NLylOimdNMzdEMUAtpYdbbFSa33rCP8s
-         UXyodiA3qrqH058/tLdXnKPqM+6h46zanG+Tbq2ZXj4XdUrWcdUFuOjyWnGJEbcRFqIn
-         HtoGf1nUAOmXZFUjW/eskU12c7jFtzYtg22p0wCAJt8yHJ4RrQ7N4/M7RxEK8CpeSjCw
-         DHdA==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1EC07F4A05
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 16:14:44 +0100 (CET)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-db410931c23sf597749276.2
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 07:14:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700658916; x=1701263716; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700666083; x=1701270883; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :references:to:content-language:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
-        b=olmShI3aJluQLOSKytWp7x+tJ4/f3J7VQZHw0YZDDY5UM+K88oi5kOvFOJeJeVOyeS
-         ywDiquDgJTIcXV0hBFoSVpjzL+JxrOLnFdtPcy29byNhLioQiRpA3SjRqj6bz/GzxEQP
-         AQw2xn/IyZ8lnTHjyV68EztjjiLiSoqI773tXRVpKsDZzcrc1G+ywraqVIPn2eZQDCeA
-         vCmu0uKry6+5wyTY6LM6MaXBXYnBMyYwH3QDAefTkN3lzgu8iCc6NG1SRBti5ArAj3UA
-         XKVE3wprAcp2BzIRURSAtc4CAR4vtmYaacGsVr3SS+zZ+AaamYUb+yJx1FFcpOlWIuYN
-         RPig==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=67hf5rE6KwSyrEDSCOT9PelAf/o3+3gnsV4aRbYttkw=;
+        b=AAaFrKom2NVOjsYVJeL/4FbyuZSEt8DdJOsYmCgGsFOX42ZEAuVWozF+/5lTTHoBFe
+         4olDHYr4KvJjbzdyHMUDg727vVCpy8xrcMVz4ldspbogQXnVFTuvhPYNOOKbu+Bp3b9l
+         0Dr8/O3SynEtDLFCS5nwEuWGpGBt3NVIUvN8hPn0glbJX/QUltnCHCMY8R+l3MNMNQN5
+         9v6sGs5/I6LF+UmFWEbWrN/HTwtuQ7UNe/9//JK6VWS0HC3ov9pvO3NaLgBRTs/jzRQE
+         iVARNYH+uu1s7YcReEwenjlUEyoRI+lhC1LuKDUm/HkaCdkZmCYDJcj+er4A0J2kKL7Q
+         jOKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700666083; x=1701270883; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=67hf5rE6KwSyrEDSCOT9PelAf/o3+3gnsV4aRbYttkw=;
+        b=bY0A5OlcJHA4YTCzWA0sFB4Q/bnudo+SBxjr2YEgYG6qi6okaguSVy2OVQD9znCGsC
+         LFq16Xij0Mc77sq7IojR3+xF79dMte27vz8UIai4hl7KqU/+0wNREjyTndPss7RjNqNd
+         /oqHp/Qw738kdR+9NuGHNjJ6z+lKNSMr7PwN/uD2qHLwmjV9z/pnBfR5LTc208xKK/fG
+         Yo5eExJObqIczWNNR6gGPKl0eBDEsKw0jQsDs4EZNeh/0720VZ2iJ1XIoj6b7/DvcfuJ
+         nsXRsnMTzLCIGAQHt8nRxBIaiMXu3CIOgHWKfnLkGEqPXoWejp5tCD/BvskpLRSGaNOU
+         PLaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700658916; x=1701263716;
+        d=1e100.net; s=20230601; t=1700666083; x=1701270883;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
-        b=f8z3eLT3PkBBgvBnBo5cuOA+0Vi3AGQTijhGzB+c0Jd+EBZjd1MfDCxBRHyv3OUI6I
-         4Yoxoz0Yl80wAsvXCDQWE37LTe3T5vipyWcJR5rDu6NK4CiMc8zMU0D6w+YjNLtFOKoI
-         LaXvgj3G5Y1lPrtoZfa3gfIlNe0i7BKnJWDBYG894MQu+/BLsQAu6RWaEupajiuKp9zQ
-         DiiE5mxXGsjrVlrHA3D+qGv6HLYiiohRITHqthbT+mZ8lvbttpvi8NQstlD3hZjHNZgR
-         ko315J48uK1Q1DNNZ8bkSPHn5sdUknud6QtYiX3KxgMXiwmZMe4Fcsr6u9j0YjDNJ084
-         vWMg==
+        bh=67hf5rE6KwSyrEDSCOT9PelAf/o3+3gnsV4aRbYttkw=;
+        b=CbjPZKpCYk0FlXIvHOg2ydZqq7SBS9ljVNwm77Vpr6ECA10POwQS0lefJxuzI0u03m
+         v3Pvt92fBi16noUg0VF0iyNYC+MsqQhfKVJv7mL4JNW0AGBaiq16D3rEbueC412wlaRV
+         sHz7okIkquapA5t3T1fEhKNa/HqNwbvU5UNwWlHLJ5rPcUby1zb7qiOClIXnVMtuFbzk
+         cQrqclZ2GBxQNrCMM3+rV3CZLxHj1gLmIpQ15B25tcH3GbpmmPcBf9Ij0cL4axJOwz79
+         bo6cQyiq4n88SPWxzTqkiz6un8BSC7bh6dKou3iVLylIFV3nsNU9/lG3SU67o4pwC2g7
+         MfeQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzsISXFeuXl9EdKpDVDdf2JTRPDiq27pNKiAPJ6PzsXLz8j8lUc
-	Ux/sqTYODK12PzeJXvHsu50=
-X-Google-Smtp-Source: AGHT+IHE4zKsq81tUrlxYACX6cCidXvKAbdLCbnX5UxK2Y+6BBpXsIlY6i8bl8NoFtu0YiBHXj/4Uw==
-X-Received: by 2002:ac2:4469:0:b0:4fe:1681:9377 with SMTP id y9-20020ac24469000000b004fe16819377mr262793lfl.44.1700658915798;
-        Wed, 22 Nov 2023 05:15:15 -0800 (PST)
+X-Gm-Message-State: AOJu0Yx2C2RMkdIuDjCJT90lLL7Gj/SxZyRHWtnq57oSJp8YORJ9FAUg
+	DBZUMS7bBao20phc8FMZFiM=
+X-Google-Smtp-Source: AGHT+IHFDZ8EZ7gAXbKjUrtv/c+oT3kfw4bsTa7xIXFRQC3RiUW+W+dJ7w+x8WJgPXPpCiXNNCkfTQ==
+X-Received: by 2002:a25:9207:0:b0:d86:9fd5:9350 with SMTP id b7-20020a259207000000b00d869fd59350mr2420134ybo.59.1700666083234;
+        Wed, 22 Nov 2023 07:14:43 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3e22:b0:50a:a6be:1dc0 with SMTP id
- i34-20020a0565123e2200b0050aa6be1dc0ls107538lfv.1.-pod-prod-09-eu; Wed, 22
- Nov 2023 05:15:13 -0800 (PST)
-X-Received: by 2002:a05:6512:1387:b0:509:4655:d8d5 with SMTP id fc7-20020a056512138700b005094655d8d5mr307502lfb.11.1700658912985;
-        Wed, 22 Nov 2023 05:15:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700658912; cv=none;
-        d=google.com; s=arc-20160816;
-        b=nawtz0K0Cjd083e8l9jXsLPfbNWTBueYTyY7syTlm4M9SgZ20gm5NXTLpLGIhrJJp6
-         0rkO/sfaKtdblqf4057A0rGka+aIq1BVPoBb+HupOe0bxjy1S1HkJA91Ez0Dw0HsBDM+
-         iJCSpbQVVoVgu3pAfJ9MzdDOTSUphKLGj8uElRxGe2FoK6e4E5lgl1Ul6itWzRCJ8aoq
-         S8KyuBiiXBSpoxra5+I68oLEhWikxCpHN1mxyR9pi5g4uGlm/vcrKh+wZSVpzUkxEJEE
-         8Z3b795fmE4cWKegc1nNBqlTV9MvdDf3sQwyNpY9i1EieF+tYVFHIFxhkYvJcL5jiNI6
-         JsYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=aqqVC7Aoz2xuLllVG0djc5mBFozDvt5xC+DYR0iW3ik=;
-        fh=t0Nw2nhOOnWFAR86PFfZva7qIMx1vMlLM9e++XkoW8A=;
-        b=0jm0Tdb7HTNbsSTZtV5wsJyUWXNLJaqi1HBFM2f4/qPaLLJVJIc5daammJy+Ikwf6f
-         gc2Xdqr2UI7bbnqlwDN8NAxEbv2XVXTSNl+w9u2EUINH4qzGApXQ/qxffxRhlgnE4Gme
-         fHQGFU/tiWdQDnTuPc5a96ZNsYqxHzaRjrzve+y8qbYMsesiHbsuVL3AF9PDtasIUtpL
-         63F/UNUJYfwtpsW8fdgELLa63R6cX/iSZ4THG4YmFbBOvFRgkcN35F8GrxaKvAKY0ZOx
-         IBYp4ibAcALCSXtvowpS4YB8aCQ1rQAG4jtnwXgKlGE8WaGWwaO6+JLObWaVolZJelrT
-         L+fQ==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [2001:638:d:c303:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id fi27-20020a056402551b00b0053e26876354si627723edb.5.2023.11.22.05.15.12
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Nov 2023 05:15:12 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c303:acdc:1979:2:f4;
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [IPv6:2001:638:a01:1096::12])
-	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id EBEB82A00FF;
-	Wed, 22 Nov 2023 14:15:11 +0100 (CET)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Sb1v34d6Fzxr6;
-	Wed, 22 Nov 2023 14:15:11 +0100 (CET)
-Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
- (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 22 Nov
- 2023 14:15:11 +0100
-Message-ID: <1024f0c9-f851-46e2-abcb-3f3b40f5c47c@oth-regensburg.de>
-Date: Wed, 22 Nov 2023 14:15:11 +0100
+Received: by 2002:a25:d74f:0:b0:d9c:c968:ec87 with SMTP id o76-20020a25d74f000000b00d9cc968ec87ls1382991ybg.0.-pod-prod-00-us;
+ Wed, 22 Nov 2023 07:14:42 -0800 (PST)
+X-Received: by 2002:a05:690c:4286:b0:5cc:a957:2557 with SMTP id gj6-20020a05690c428600b005cca9572557mr47988ywb.0.1700666081811;
+        Wed, 22 Nov 2023 07:14:41 -0800 (PST)
+Date: Wed, 22 Nov 2023 07:14:41 -0800 (PST)
+From: Laurent Corbin <laucorbin78@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <18173bdd-0873-4774-a664-ba03be4bd7a3n@googlegroups.com>
+Subject: Jailhouse on LX2160ardb
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: jailhouse enable linux
-Content-Language: en-US
-To: xin zhang <zhangxin6483@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender)
- smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
- sp=NONE dis=NONE) header.from=oth-regensburg.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_10164_1393695660.1700666081057"
+X-Original-Sender: laucorbin78@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -151,125 +78,251 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
+------=_Part_10164_1393695660.1700666081057
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_10165_1281209852.1700666081057"
+
+------=_Part_10165_1281209852.1700666081057
+Content-Type: text/plain; charset="UTF-8"
+
+Hi all,
+
+I'm trying to run jailhouse on LX2160ardb (NXP board). To do that,
+1. I wrote a cell file for my root cell.
+2. I built a Linux 6.1 and a jailhouse (branch lf-6.1.36_2.1.0 from nxp 
+mirror) with yocto.
+3. I loaded the jailhouse driver as a kernel module.
+
+But when I try to "enable" jailhouse I get this error :
 
 
-On 22/11/2023 07:25, xin zhang wrote:
-> when I run linux image on jailhouse, guset serial port print follow=20
-> errors: where I can get ways to sovle it=EF=BC=9F
 
-Please provide more context. Does this happen in the root or non-root cell?
+root@lx2160ardb-rev2:~# insmod jailhouse.ko
+root@lx2160ardb-rev2:~#
+root@lx2160ardb-rev2:~#
+root@lx2160ardb-rev2:~#
+root@lx2160ardb-rev2:~# cat /sys/module/jailhouse/sections/.text
+0xffffc45e1113e000
+root@lx2160ardb-rev2:~# jailhouse enable lx2160a-rdb.cell
 
-   Ralf
+Initializing Jailhouse hypervisor v0.12 (369-g6a87b739) on CPU 0
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 151/993, remap 0/131072
+Initializing processors:
+ CPU 0... OK
+ CPU 1... OK
+ CPU 5... OK
+ CPU 4... OK
+ CPU 2... OK
+ CPU 3... OK
+ CPU 9... OK
+ CPU 8... OK
+ CPU 15... OK
+ CPU 13... OK
+ CPU 12... OK
+ CPU 7... OK
+ CPU 10... OK
+ CPU 11... OK
+ CPU 6... OK
+ CPU 14... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU v3
+Initializing unit: ARM SMMU
+ARM MMU500 at 0x5000000 with:
+ stream matching with 128 SMR groups
+ 64 context banks (0 stage-2 only)
+Initializing unit: PVU IOMMU
+Initializing unit: PCI
+Adding virtual PCI device 00:00.0 to cell "lx2160a"
+Adding virtual PCI device 00:01.0 to cell "lx2160a"
+Page pool usage after late setup: mem 228/993, remap 2576/131072
+Activating hypervisor
+[  173.577969] SError Interrupt on CPU0, code 0x00000000bf000000 -- SError
+[  173.577985] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           O       
+6.1.22+g66e442bc7fdc #1
+[  173.577993] Hardware name: NXP Layerscape LX2160ARDB (DT)
+[  173.577996] pstate: 200000c5 (nzCv daIF -PAN -UAO -TCO -DIT -SSBS 
+BTYPE=--)
+[  173.578002] pc : enter_hypervisor+0x44/0xa4 [jailhouse]
+[  173.578025] lr : enter_hypervisor+0x44/0xa4 [jailhouse]
+[  173.578040] sp : ffff800008003f10
+[  173.578042] x29: ffff800008003f10 x28: ffffc45e51736c40 x27: 
+00000000fbd0ea70
+[  173.578052] x26: 0000000000000001 x25: 00000028652e0c1e x24: 
+00000028652b7617
+[  173.578060] x23: 0000000000000000 x22: 0000000000000000 x21: 
+0000000000000000
+[  173.578067] x20: 0000000000000000 x19: ffffc45e11144000 x18: 
+0000000000000000
+[  173.578074] x17: 0000000000000000 x16: 0000000000000000 x15: 
+0000000000000000
+[  173.578080] x14: 0000000000000000 x13: 0000000000000000 x12: 
+0000000000000000
+[  173.578086] x11: 0000000000000000 x10: 0000000000000000 x9 : 
+0000000000000000
+[  173.578092] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 
+0000000000000000
+[  173.578098] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 
+0000000000000000
+[  173.578104] x2 : 0000000000000000 x1 : 0000000000000000 x0 : 
+0000000000000000
+[  173.578111] Kernel panic - not syncing: Asynchronous SError Interrupt
+[  173.578115] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           O       
+6.1.22+g66e442bc7fdc #1
+[  173.578120] Hardware name: NXP Layerscape LX2160ARDB (DT)
+[  173.578122] Call trace:
+[  173.578124]  dump_backtrace.part.0+0xe0/0xf0
+[  173.578140]  show_stack+0x18/0x30
+[  173.578148]  dump_stack_lvl+0x64/0x80
+[  173.578158]  dump_stack+0x18/0x34
+[  173.578166]  panic+0x188/0x340
+[  173.578173]  nmi_panic+0xac/0xb0
+[  173.578179]  arm64_serror_panic+0x6c/0x7c
+[  173.578184]  do_serror+0x58/0x5c
+[  173.578188]  el1h_64_error_handler+0x30/0x4c
+[  173.578193]  el1h_64_error+0x64/0x68
+[  173.578198]  enter_hypervisor+0x44/0xa4 [jailhouse]
+[  173.578213]  __flush_smp_call_function_queue+0xd0/0x250
+[  173.578223]  generic_smp_call_function_single_interrupt+0x14/0x20
+[  173.578232]  ipi_handler+0x98/0x160
+[  173.578239]  handle_percpu_devid_irq+0x84/0x130
+[  173.578245]  generic_handle_domain_irq+0x2c/0x4c
+[  173.578251]  gic_handle_irq+0x50/0x130
+[  173.578258]  call_on_irq_stack+0x2c/0x5c
+[  173.578263]  do_interrupt_handler+0x80/0x84
+[  173.578270]  el1_interrupt+0x34/0x6c
+[  173.578278]  el1h_64_irq_handler+0x18/0x2c
+[  173.578283]  el1h_64_irq+0x64/0x68
+[  173.578287]  cpuidle_enter_state+0x130/0x2fc
+[  173.578296]  cpuidle_enter+0x38/0x50
+[  173.578302]  do_idle+0x22c/0x2c0
+[  173.578308]  cpu_startup_entry+0x28/0x30
+[  173.578313]  kernel_init+0x0/0x12c
+[  173.578319]  arch_post_acpi_subsys_init+0x0/0x18
+[  173.578326]  start_kernel+0x668/0x6a8
+[  173.578331]  __primary_switched+0xbc/0xc4
+[  173.578337] SMP: stopping secondary CPUs
+[  173.578370] Kernel Offset: 0x445e47000000 from 0xffff800008000000
+[  173.578373] PHYS_OFFSET: 0xffffd3bc00000000
+[  173.578376] CPU features: 0x20000,2012c084,0000421b
+[  173.578380] Memory Limit: none
+[  173.853682] ---[ end Kernel panic - not syncing: Asynchronous SError 
+Interrupt ]---
 
->=20
->=20
-> [ =C2=A0 =C2=A00.069576][ 0] [ =C2=A0 =C2=A0T0] Mount-cache hash table en=
-tries: 1024 (order:=20
-> 1, 8192 bytes, linear)
-> [ =C2=A0 =C2=A00.078110][ 0] [ =C2=A0 =C2=A0T0] Mountpoint-cache hash tab=
-le entries: 1024=20
-> (order: 1, 8192 bytes, linear)
-> [ =C2=A0 =C2=A00.087451][ 0] [ =C2=A0 =C2=A0T2] Unable to handle kernel p=
-aging request at=20
-> virtual address 0000000000001388
-> [ =C2=A0 =C2=A00.096606][ 0] [ =C2=A0 =C2=A0T2] Mem abort info:
-> [ =C2=A0 =C2=A00.100564][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ESR =3D 0x96000005
-> [ =C2=A0 =C2=A00.104789][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EC =3D 0x25: DABT =
-(current EL), IL =3D 32 bits
-> [ =C2=A0 =C2=A00.111299][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 SET =3D 0, FnV =3D=
- 0
-> [ =C2=A0 =C2=A00.115522][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EA =3D 0, S1PTW =
-=3D 0
-> [ =C2=A0 =C2=A00.119834][ 0] [ =C2=A0 =C2=A0T2] Data abort info:
-> [ =C2=A0 =C2=A00.123883][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ISV =3D 0, ISS =3D=
- 0x00000005
-> [ =C2=A0 =C2=A00.128898][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 CM =3D 0, WnR =3D =
-0
-> [ =C2=A0 =C2=A00.133034][ 0] [ =C2=A0 =C2=A0T2] [0000000000001388] user a=
-ddress but=20
-> active_mm is swapper
-> [ =C2=A0 =C2=A00.140600][ 0] [ =C2=A0 =C2=A0T2] Internal error: Oops: 960=
-00005 [#1] SMP
-> [ =C2=A0 =C2=A00.146667][ 0] [ =C2=A0 =C2=A0T2] Modules linked in:
-> [ =C2=A0 =C2=A00.150892][ 0] [ =C2=A0 =C2=A0T2] CPU: 0 PID: 2 Comm: kthre=
-add Not tainted=20
-> 5.4.18-101+ #2
-> [ =C2=A0 =C2=A00.158367][ 0] [ =C2=A0 =C2=A0T2] Source Version:=20
-> e7f24793ad667e777f2cf6dab620d082517f6075
-> [ =C2=A0 =C2=A00.165929][ 0] [ =C2=A0 =C2=A0T2] Hardware name: FT-2000/4-=
-D4-DSK Development=20
-> Board (DT)
-> [ =C2=A0 =C2=A00.173317][ 0] [ =C2=A0 =C2=A0T2] pstate: 80000005 (Nzcv da=
-if -PAN -UAO)
-> [ =C2=A0 =C2=A00.179302][ 0] [ =C2=A0 =C2=A0T2] pc : __alloc_pages_nodema=
-sk+0xf8/0x308
-> [ =C2=A0 =C2=A00.185283][ 0] [ =C2=A0 =C2=A0T2] lr : __alloc_pages_nodema=
-sk+0xe0/0x308
-> [ =C2=A0 =C2=A00.191263][ 0] [ =C2=A0 =C2=A0T2] sp : ffffff8031867c30
-> [ =C2=A0 =C2=A00.195749][ 0] [ =C2=A0 =C2=A0T2] x29: ffffff8031867c30 x28=
-: 0000000000800700
-> [ =C2=A0 =C2=A00.202258][ 0] [ =C2=A0 =C2=A0T2] x27: ffffff8031823a80 x26=
-: 00000000ffffffff
-> [ =C2=A0 =C2=A00.208766][ 0] [ =C2=A0 =C2=A0T2] x25: 0000000000400dc0 x24=
-: 0000000000000001
-> [ =C2=A0 =C2=A00.215273][ 0] [ =C2=A0 =C2=A0T2] x23: 0000000000000000 x22=
-: ffffffc0113fa000
-> [ =C2=A0 =C2=A00.221781][ 0] [ =C2=A0 =C2=A0T2] x21: 0000000000000002 x20=
-: ffffffc0113f9000
-> [ =C2=A0 =C2=A00.228289][ 0] [ =C2=A0 =C2=A0T2] x19: 0000000000400dc0 x18=
-: 0000000000000014
-> [ =C2=A0 =C2=A00.234797][ 0] [ =C2=A0 =C2=A0T2] x17: 000000009242c113 x16=
-: 00000000b8b3e41b
-> [ =C2=A0 =C2=A00.241305][ 0] [ =C2=A0 =C2=A0T2] x15: 00000000b31b39bd x14=
-: 0000000000000000
-> [ =C2=A0 =C2=A00.247817][ 0] [ =C2=A0 =C2=A0T2] x13: 0000000000000001 x12=
-: 0000000000000001
-> [ =C2=A0 =C2=A00.254325][ 0] [ =C2=A0 =C2=A0T2] x11: 0000000002e03c00 x10=
-: 0000000005c05800
-> [ =C2=A0 =C2=A00.260833][ 0] [ =C2=A0 =C2=A0T2] x9 : 0000000000000191 x8 =
-: 0000000000000004
-> [ =C2=A0 =C2=A00.267340][ 0] [ =C2=A0 =C2=A0T2] x7 : ffffff8032fe0378 x6 =
-: 0000000000000000
-> [ =C2=A0 =C2=A00.273848][ 0] [ =C2=A0 =C2=A0T2] x5 : 0000000000000003 x4 =
-: 0000000000000000
-> [ =C2=A0 =C2=A00.280355][ 0] [ =C2=A0 =C2=A0T2] x3 : 0000000000001380 x2 =
-: 0000000000000000
-> [ =C2=A0 =C2=A00.286863][ 0] [ =C2=A0 =C2=A0T2] x1 : 0000000000000001 x0 =
-: 0000000000000000
-> [ =C2=A0 =C2=A00.293370][ 0] [ =C2=A0 =C2=A0T2] Call trace:
-> [ =C2=A0 =C2=A00.296978][ 0] [ =C2=A0 =C2=A0T2] =C2=A0__alloc_pages_nodem=
-ask+0xf8/0x308
-> [ =C2=A0 =C2=A00.302609][ 0] [ =C2=A0 =C2=A0T2] =C2=A0copy_process+0x1a4/=
-0x1340
-> [ =C2=A0 =C2=A00.307536][ 0] [ =C2=A0 =C2=A0T2] =C2=A0_do_fork+0x80/0x370
-> [ =C2=A0 =C2=A00.311934][ 0] [ =C2=A0 =C2=A0T2] =C2=A0kernel_thread+0x6c/=
-0x90
-> [ =C2=A0 =C2=A00.316686][ 0] [ =C2=A0 =C2=A0T2] =C2=A0kthreadd+0x1e0/0x27=
-0
-> [ =C2=A0 =C2=A00.321173][ 0] [ =C2=A0 =C2=A0T2] =C2=A0ret_from_fork+0x10/=
-0x18
-> [ =C2=A0 =C2=A00.325924][ 0] [ =C2=A0 =C2=A0T2] Code: 3901c3a0 a9450ba3 b=
-9406fa1 b5000b62=20
-> (b9400860)
-> [ =C2=A0 =C2=A00.333224][ 0] [ =C2=A0 =C2=A0T2] ---[ end trace 7e9dcf3f04=
-9b9227 ]---
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
-a04c86b8b1en%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+It seems that my Linux panic when it has to jump from the hypervisor to the
+driver (in arch_cpu_activate_vmm function in hypervisor/arch/arm64/setup.c 
+file).
+
+Do you have any idea why my Linux panic ?
+
+Thanks in advance,
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/18173bdd-0873-4774-a664-ba03be4bd7a3n%40googlegroups.com.
+
+------=_Part_10165_1281209852.1700666081057
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,<br /><br />I'm trying to run jailhouse on LX2160ardb (NXP board). T=
+o do that,<br />1. I wrote a cell file for my root cell.<br />2. I built a =
+Linux 6.1 and a jailhouse (branch lf-6.1.36_2.1.0 from nxp mirror) with yoc=
+to.<br />3. I loaded the jailhouse driver as a kernel module.<br /><br />Bu=
+t when I try to "enable" jailhouse I get this error :<br /><br /><br /><br =
+/>root@lx2160ardb-rev2:~# insmod jailhouse.ko<br />root@lx2160ardb-rev2:~#<=
+br />root@lx2160ardb-rev2:~#<br />root@lx2160ardb-rev2:~#<br />root@lx2160a=
+rdb-rev2:~# cat /sys/module/jailhouse/sections/.text<br />0xffffc45e1113e00=
+0<br />root@lx2160ardb-rev2:~# jailhouse enable lx2160a-rdb.cell<br /><br /=
+>Initializing Jailhouse hypervisor v0.12 (369-g6a87b739) on CPU 0<br />Code=
+ location: 0x0000ffffc0200800<br />Page pool usage after early setup: mem 1=
+51/993, remap 0/131072<br />Initializing processors:<br />=C2=A0CPU 0... OK=
+<br />=C2=A0CPU 1... OK<br />=C2=A0CPU 5... OK<br />=C2=A0CPU 4... OK<br />=
+=C2=A0CPU 2... OK<br />=C2=A0CPU 3... OK<br />=C2=A0CPU 9... OK<br />=C2=A0=
+CPU 8... OK<br />=C2=A0CPU 15... OK<br />=C2=A0CPU 13... OK<br />=C2=A0CPU =
+12... OK<br />=C2=A0CPU 7... OK<br />=C2=A0CPU 10... OK<br />=C2=A0CPU 11..=
+. OK<br />=C2=A0CPU 6... OK<br />=C2=A0CPU 14... OK<br />Initializing unit:=
+ irqchip<br />Initializing unit: ARM SMMU v3<br />Initializing unit: ARM SM=
+MU<br />ARM MMU500 at 0x5000000 with:<br />=C2=A0stream matching with 128 S=
+MR groups<br />=C2=A064 context banks (0 stage-2 only)<br />Initializing un=
+it: PVU IOMMU<br />Initializing unit: PCI<br />Adding virtual PCI device 00=
+:00.0 to cell "lx2160a"<br />Adding virtual PCI device 00:01.0 to cell "lx2=
+160a"<br />Page pool usage after late setup: mem 228/993, remap 2576/131072=
+<br />Activating hypervisor<br />[ =C2=A0173.577969] SError Interrupt on CP=
+U0, code 0x00000000bf000000 -- SError<br />[ =C2=A0173.577985] CPU: 0 PID: =
+0 Comm: swapper/0 Tainted: G =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 O =C2=A0 =
+=C2=A0 =C2=A0 6.1.22+g66e442bc7fdc #1<br />[ =C2=A0173.577993] Hardware nam=
+e: NXP Layerscape LX2160ARDB (DT)<br />[ =C2=A0173.577996] pstate: 200000c5=
+ (nzCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=3D--)<br />[ =C2=A0173.578002] =
+pc : enter_hypervisor+0x44/0xa4 [jailhouse]<br />[ =C2=A0173.578025] lr : e=
+nter_hypervisor+0x44/0xa4 [jailhouse]<br />[ =C2=A0173.578040] sp : ffff800=
+008003f10<br />[ =C2=A0173.578042] x29: ffff800008003f10 x28: ffffc45e51736=
+c40 x27: 00000000fbd0ea70<br />[ =C2=A0173.578052] x26: 0000000000000001 x2=
+5: 00000028652e0c1e x24: 00000028652b7617<br />[ =C2=A0173.578060] x23: 000=
+0000000000000 x22: 0000000000000000 x21: 0000000000000000<br />[ =C2=A0173.=
+578067] x20: 0000000000000000 x19: ffffc45e11144000 x18: 0000000000000000<b=
+r />[ =C2=A0173.578074] x17: 0000000000000000 x16: 0000000000000000 x15: 00=
+00000000000000<br />[ =C2=A0173.578080] x14: 0000000000000000 x13: 00000000=
+00000000 x12: 0000000000000000<br />[ =C2=A0173.578086] x11: 00000000000000=
+00 x10: 0000000000000000 x9 : 0000000000000000<br />[ =C2=A0173.578092] x8 =
+: 0000000000000000 x7 : 0000000000000000 x6 : 0000000000000000<br />[ =C2=
+=A0173.578098] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 00000000000=
+00000<br />[ =C2=A0173.578104] x2 : 0000000000000000 x1 : 0000000000000000 =
+x0 : 0000000000000000<br />[ =C2=A0173.578111] Kernel panic - not syncing: =
+Asynchronous SError Interrupt<br />[ =C2=A0173.578115] CPU: 0 PID: 0 Comm: =
+swapper/0 Tainted: G =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 O =C2=A0 =C2=A0 =C2=
+=A0 6.1.22+g66e442bc7fdc #1<br />[ =C2=A0173.578120] Hardware name: NXP Lay=
+erscape LX2160ARDB (DT)<br />[ =C2=A0173.578122] Call trace:<br />[ =C2=A01=
+73.578124] =C2=A0dump_backtrace.part.0+0xe0/0xf0<br />[ =C2=A0173.578140] =
+=C2=A0show_stack+0x18/0x30<br />[ =C2=A0173.578148] =C2=A0dump_stack_lvl+0x=
+64/0x80<br />[ =C2=A0173.578158] =C2=A0dump_stack+0x18/0x34<br />[ =C2=A017=
+3.578166] =C2=A0panic+0x188/0x340<br />[ =C2=A0173.578173] =C2=A0nmi_panic+=
+0xac/0xb0<br />[ =C2=A0173.578179] =C2=A0arm64_serror_panic+0x6c/0x7c<br />=
+[ =C2=A0173.578184] =C2=A0do_serror+0x58/0x5c<br />[ =C2=A0173.578188] =C2=
+=A0el1h_64_error_handler+0x30/0x4c<br />[ =C2=A0173.578193] =C2=A0el1h_64_e=
+rror+0x64/0x68<br />[ =C2=A0173.578198] =C2=A0enter_hypervisor+0x44/0xa4 [j=
+ailhouse]<br />[ =C2=A0173.578213] =C2=A0__flush_smp_call_function_queue+0x=
+d0/0x250<br />[ =C2=A0173.578223] =C2=A0generic_smp_call_function_single_in=
+terrupt+0x14/0x20<br />[ =C2=A0173.578232] =C2=A0ipi_handler+0x98/0x160<br =
+/>[ =C2=A0173.578239] =C2=A0handle_percpu_devid_irq+0x84/0x130<br />[ =C2=
+=A0173.578245] =C2=A0generic_handle_domain_irq+0x2c/0x4c<br />[ =C2=A0173.5=
+78251] =C2=A0gic_handle_irq+0x50/0x130<br />[ =C2=A0173.578258] =C2=A0call_=
+on_irq_stack+0x2c/0x5c<br />[ =C2=A0173.578263] =C2=A0do_interrupt_handler+=
+0x80/0x84<br />[ =C2=A0173.578270] =C2=A0el1_interrupt+0x34/0x6c<br />[ =C2=
+=A0173.578278] =C2=A0el1h_64_irq_handler+0x18/0x2c<br />[ =C2=A0173.578283]=
+ =C2=A0el1h_64_irq+0x64/0x68<br />[ =C2=A0173.578287] =C2=A0cpuidle_enter_s=
+tate+0x130/0x2fc<br />[ =C2=A0173.578296] =C2=A0cpuidle_enter+0x38/0x50<br =
+/>[ =C2=A0173.578302] =C2=A0do_idle+0x22c/0x2c0<br />[ =C2=A0173.578308] =
+=C2=A0cpu_startup_entry+0x28/0x30<br />[ =C2=A0173.578313] =C2=A0kernel_ini=
+t+0x0/0x12c<br />[ =C2=A0173.578319] =C2=A0arch_post_acpi_subsys_init+0x0/0=
+x18<br />[ =C2=A0173.578326] =C2=A0start_kernel+0x668/0x6a8<br />[ =C2=A017=
+3.578331] =C2=A0__primary_switched+0xbc/0xc4<br />[ =C2=A0173.578337] SMP: =
+stopping secondary CPUs<br />[ =C2=A0173.578370] Kernel Offset: 0x445e47000=
+000 from 0xffff800008000000<br />[ =C2=A0173.578373] PHYS_OFFSET: 0xffffd3b=
+c00000000<br />[ =C2=A0173.578376] CPU features: 0x20000,2012c084,0000421b<=
+br />[ =C2=A0173.578380] Memory Limit: none<br />[ =C2=A0173.853682] ---[ e=
+nd Kernel panic - not syncing: Asynchronous SError Interrupt ]---<br /><br =
+/><br />It seems that my Linux panic when it has to jump from the hyperviso=
+r to the<br />driver (in arch_cpu_activate_vmm function in hypervisor/arch/=
+arm64/setup.c file).<br /><br />Do you have any idea why my Linux panic ?<b=
+r /><br />Thanks in advance,
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1024f0c9-f851-46e2-abcb-3f3b40f5c47c%40oth-regensburg.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/18173bdd-0873-4774-a664-ba03be4bd7a3n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/18173bdd-0873-4774-a664-ba03be4bd7a3n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_10165_1281209852.1700666081057--
+
+------=_Part_10164_1393695660.1700666081057--
