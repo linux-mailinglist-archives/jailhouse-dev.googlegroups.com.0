@@ -1,144 +1,140 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBTM76OVAMGQEQTPXVLY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCW4LL4WQ4PBBOG76WVAMGQE6FQDZDQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 687DF7F328B
-	for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 16:42:07 +0100 (CET)
-Received: by mail-lf1-x13a.google.com with SMTP id 2adb3069b0e04-5079630993dsf5296230e87.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 07:42:07 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700581326; cv=pass;
+Received: from mail-qk1-x73a.google.com (mail-qk1-x73a.google.com [IPv6:2607:f8b0:4864:20::73a])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0AA47F3C22
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 04:04:25 +0100 (CET)
+Received: by mail-qk1-x73a.google.com with SMTP id af79cd13be357-77d5ea55ca1sf117118685a.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 19:04:25 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700622264; cv=pass;
         d=google.com; s=arc-20160816;
-        b=dMEJpI7r6mTgxwMtGJ+7ry1eB7F8Mx22Zw89gjpM4tGhNxW8pTcI1bVhkil7NoMlXr
-         RBi+Wcd5jEV3hImtlaHdNgQNgDCXQxZtGC7H6A0XQHSWX/6NjQvXEhMxhhOfrycnGOdy
-         3jd+/Sgcxw1au8zdfCrUWQFy4cD04QpaG/AQMMv9Wz/d1rycfOblZ3Mz5cwajLwYCk4x
-         fA6wTEp36iM3Jark0eFz9lmlBWz6XsvDwnDx74lDnmoGot+Zzoim2VsX4VG4WbBRe5Ia
-         uwMZrgHK+SgRhm1teiF5dDQ5PQw+kdJa0M91MJA8XgtXHa4hrdj1uTnE3t5x7xBg1Bb7
-         p4Rw==
+        b=Q3B/M2248KRQ6tPqSO4RHztI7u/qpxsvST6gxLr0ZE9kaVuMMYI2murEdZFkF0PjxK
+         KgL3ZSlIefgNI6Ava74BcYg9chfD+SEe8QUDJbYbscZ+iUkSs4odMlOnd+bt6VVHBvHp
+         OXuBwa2CtBnjb9npI2ow8s4VXBN+Y3CdGwfF+t8tdEW6gCYxcoL/fNgaLGkdnWuO0dDJ
+         OcJVIsoRTxC8KBxLt4cTh7yZF6fLF93IyxWQx+wwoQq+Bq95jv+n1qJQB7LEQz8W5qtD
+         WCV0hRkGl74BY4K7dMKdU0Mpxg6/5rDtcN5Pb7zffaSufMwmp6LIW9DwkkK4TBM9bnSZ
+         bmUQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
-        fh=3GS9BGSzdOIlLnZEGOXnk9YKm5KT4NzPBz2ENBb9RNo=;
-        b=eiBEX5bLU+Y/3+lOlZlGqHbJcCMqvqdLxtNpCuvETqz3dOTXt4UnCPQoP19nL1GHm9
-         i8ABrllaaGCIdheMF5m2g9yhZXSxAE/2whk5SuTuoDZ+/CttZHXY/IYXQvYPu9akp1kS
-         ojXTHpfbieejdWzoqKbVFfetptoYCjKOdrtWgkouAu51E3DH0oyyMSysxCQdDfVRx1YE
-         EOMWSFW25Fd6+uyxfUUKvGScRNQQH9HRfwRy9lZMgR25AQawTyth3s+2xKirbDi3thiF
-         MmXjRkd/JacTYO6WzEiOLlCpI5nifrTnO0Q0QD/snLMY/MoQaM1dcEPU27gf0jLkYXLQ
-         iwTQ==
+         :list-id:mailing-list:precedence:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:sender:dkim-signature
+         :dkim-signature;
+        bh=IkUtw7l35c9pAVPYH0zlnTfnONwZ9l06B1KdLfJTPjk=;
+        fh=bwSLe+MrnuZTdwNEWNot/rSfzPW7Hw6F8bWGLxulN8s=;
+        b=Rx4M4+91PNaj5oSeZZSK9iP3kMuHiFgNd5YUzIgqDilScFqnHEArOtOdJAXdXwirke
+         AiayegkQXNak2+APIjp13NnTK48sCCYi33/S1wABt/MTAXDQr3z5FwVCkVyNLAi1h+ew
+         gso60PObEHYH2mE0mrbNHXR509SVXTkN7g9IcDjaqpHrvrxd4S5kCjrB/YGWbxQQhu5P
+         CFM2t0LOD8qLxTkh7eMaFfto32Dx5nqsBHMFuL46p8C9nDdqQr5cnNyQkdj8YelmzKU/
+         /1xoPzIH7EUpXQQbVRUkQ8/YpQc1gvLuwLxvKoabYZKF2KDhM/mVtk0c18+tJ5emREB6
+         i3MQ==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=V6vNoeuK;
+       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::f36 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700581326; x=1701186126; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700622264; x=1701227064; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to:from
-         :references:to:content-language:subject:user-agent:mime-version:date
-         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
-        b=Rtkv2s0B5kehmFqMXp0TFYrt7t7qMgdYUmUUwTLuLeQ/5colYuRiXIdwirh8zWO79Q
-         uvwiI1efyASgi+RrIEaclwZpYg5+vdBMNVSK4A36o1N6Us+VtPLM9K8eW5KSuru4D2Ab
-         vNeV5RBgKCgtwixM8e+pwczulT96ezwym17VxfjzlpS81JcNevQ+OHHCRJIWflCbhjQO
-         W8yE3pydQQ/jfr3B/hu+OSYE65pfPNWw2MsWRKo5of/hsc4H6oWEFNqqvXMe8byKuaJR
-         uRTuYkuPMZ6boUPc1awmf4WlRDa0fYagQgzAfM70eo2n/EUphl0+pieEW+vtgMFZvA2J
-         ag6w==
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IkUtw7l35c9pAVPYH0zlnTfnONwZ9l06B1KdLfJTPjk=;
+        b=IEW7gumzBvAm+9v3coTN+xf5wSlsOuc3vPHBb7KA2AdIPO34dyOAwmWuPvvhEyFXIb
+         QaeCbJr6Y4QE/Ej1aSl8GmUBNwrm8eAJvDx4z5rMi9NuqnlDNxCHQ8d0tKYa6JHfyi0/
+         l6W42nSu+saXie34uXGUIgiUpw6AHVYt0KsTgLcr2ZeTJEvc4J9dOSmVkJX7QMnZe15W
+         LwfiQP5cULBs9HeAsSIDodU2i87xQWaRWQdqbf+raO5t01KbIOxjyQ1p5t5jWt4vEIb6
+         zL/eVvjs4EJhHkkx78/540KKrS4OMJg7i5p/elX0VZ01eFUyuv5D9+wN+ZCQ+23As4T4
+         vWZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700622264; x=1701227064; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IkUtw7l35c9pAVPYH0zlnTfnONwZ9l06B1KdLfJTPjk=;
+        b=XXwihIIwvgXSsNkQY0WlbLE+1xvILnxKcgHyFoa2VABvVDIqSBnd98h8vlR83nkdXB
+         CfACXCbLpBM8tzR4kpQIalaCMM7Odq67ZzVkH2dGsS7qEKW4IFStdOsJ2EykES98OyLQ
+         8j7n6DOj9NBz/zQ9eb4gRi0Ed7aEmiBUDTtodQUB/ARyU+1VqF8vyAXw94ZxKr9StBN/
+         wzbpTjSqWzwrl4It4Y4dtIiy4iQo/Ts2kG69vFOsmtGBBPBvQ4ZSwE7/BTRbKMS/DFU0
+         44J67BNhb+h7pzU9VKb1q3P3q2az2DuJ5bSDvimUvQHGIwcEl1NoQbt0zT/A34Wq9BWw
+         Wqzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700581326; x=1701186126;
+        d=1e100.net; s=20230601; t=1700622264; x=1701227064;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-original-authentication-results:x-original-sender:cc:to:subject
+         :message-id:date:from:in-reply-to:references:mime-version
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AwRAlWDfA7j/BKsfdjoIDLvdYP8dJKAGShkxj8o89rM=;
-        b=uMW17MarYqsCuYgcEnJxbF6x1V/mw4Wob4odCGQ/7PVHLWQgqOA8XYpessBfymEJ3U
-         aKJzllXwfserNDPOlO5THd6prBO82Pri6oIY29Do16GNJC9cJ9dE1bWLDX8eTIyoTLVD
-         JI1iD5f64Dpb0+dU4yEnB5kfB9jyvyvZW5FCxdFolkQI7JHSrcIF3K6QsBoSDXtVtRcE
-         R1cGLlNJbCfTOrcPYk27kQd9cr+maI/pv3bJzlOTjMUiD63gOuUclRuG56r50UQZCWlJ
-         0T4mfnVt8BS9hF9werRvMsv+Tn9wH1E0FERhKbNi2cjp6T39bkijK5u9gZlgNsq9PEI/
-         6udg==
+        bh=IkUtw7l35c9pAVPYH0zlnTfnONwZ9l06B1KdLfJTPjk=;
+        b=LdYyc/FXrVnX1TiVa/xyBpOuRn2rPv3SlcLL4E6VzUrOw4l3VappH5GKIlz7RCkkWM
+         tJAlaoOTNSMxZe9y1jv3L1ne2gl5At2/3b6eHK8YP6cW8ywkMttzRlq8+Omk5NB2PapV
+         CFAEGv/2OyXq/ZrMhHRJzNiXa+p5iOSoiFw+jXmPbKhz2+LnUVRuP1uJKjE8P/n4MsLm
+         GRy3/nlmmuqclSb4BWH2yVN+je3ZyKUdPWnIJOR8C2ngBi34kAZhC7bUnMEYIFoEwcFs
+         MHDM0DAYQsZ/xQBDvET0nsToseUWD16WQ1ccoR7YyXOMzpDgt+xLsBIcq2r3S2WhKPSz
+         YbKw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YxJ9hrqazEni1IacBHurtG558ZA3EWbS9gCDjlnCWxYGESa2M9J
-	MkZhf3rr/eIXd8kFgz1T+D0=
-X-Google-Smtp-Source: AGHT+IFlSCU1j4/+/+KilUcxX8aL0CRyjayaRiocQj4XlzncNhOn3GEl3AM7cB8W2YYLHbyxu5YQBA==
-X-Received: by 2002:a05:6512:1084:b0:507:9803:ff8b with SMTP id j4-20020a056512108400b005079803ff8bmr10686379lfg.44.1700581325913;
-        Tue, 21 Nov 2023 07:42:05 -0800 (PST)
+X-Gm-Message-State: AOJu0YzGkoUgxpvXQrMycwtvgWJkxe+tGX1Z6Wfyqz1U1gW7/zUd1aeD
+	SuwCRWMNN/u5H80fQ97EWu4=
+X-Google-Smtp-Source: AGHT+IEHPLByV06G3rFP1thOBJyld9w2EKxA68HwbLiSpfkThwrQQotxuYeLaezxPVIRs4A5ilIMzg==
+X-Received: by 2002:ac8:7f0f:0:b0:41e:2d8e:b364 with SMTP id f15-20020ac87f0f000000b0041e2d8eb364mr1384448qtk.53.1700622264430;
+        Tue, 21 Nov 2023 19:04:24 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:1149:b0:507:979a:7f48 with SMTP id
- m9-20020a056512114900b00507979a7f48ls248699lfg.1.-pod-prod-04-eu; Tue, 21 Nov
- 2023 07:42:03 -0800 (PST)
-X-Received: by 2002:a19:6712:0:b0:50a:764d:7de9 with SMTP id b18-20020a196712000000b0050a764d7de9mr6528291lfc.66.1700581323070;
-        Tue, 21 Nov 2023 07:42:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700581323; cv=none;
+Received: by 2002:a05:622a:4c1a:b0:423:7c51:c72d with SMTP id
+ ey26-20020a05622a4c1a00b004237c51c72dls228690qtb.0.-pod-prod-02-us; Tue, 21
+ Nov 2023 19:04:23 -0800 (PST)
+X-Received: by 2002:ac8:7e8c:0:b0:423:7172:4754 with SMTP id w12-20020ac87e8c000000b0042371724754mr1496930qtj.15.1700622263143;
+        Tue, 21 Nov 2023 19:04:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700622263; cv=none;
         d=google.com; s=arc-20160816;
-        b=WFMEhKo/QDBhXd1F+IA0S39dSgsU7Ojh5UR1ljkPHDQAZNvEJQKvrinUCFRUHvtZwN
-         YrklCej4eRnlCAc3gyqEHhpJ0P8NL/JChcZFOI1MdGPMx19c0lP4jSkEWGv5rhUAAmHW
-         9Ju44UzixvoOed6kWj4lxTtqqfsxmSkWHfu666yNoRsChuk60WpQzIFWGa76uXQTHzO+
-         MzzqoOzZ2EbeCO1EArcQHvUub2vJd7igZJNsoMzpdPM1TB3eesctDZo4FHQn5SRpetCN
-         gW7DBT/6+L5ZTBeKOEDjYa0G6WQgtJF0COSUasuvBcrA2sLLeYSTZYjaN8C1Pwq41Krs
-         zTQw==
+        b=WhmycyUFDn2aMKXf5nKD71n/EWEwaZkptLlAA+LFt3oQCyBrfBCVrD4kHtJzXKJKN3
+         kvaCoqtEwdcWQQfNKLMhERs6qbTumdDhR38ikhV5r72g7zrT/izQeriwrPLxlnHecLxQ
+         7JbYoLh39XsBUXAkhov7+65Ntfbg5TNHF0Tacd+RKUfaB9vnZHOL1X0lARMYRBXwx6oq
+         3zWxIBpCJZ4xFPA5JW0+Dg9RXSuNvCADUePm1/GproZwtVBS0YM0cx/iTmk1gz2cX3LE
+         p2Y0c9D7cwSt/jkPoaUumXmMzyPXZ3dHXEFVKA15ot/xtNE6sIRMWfBVaqZp0oMP8/Wy
+         DzqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=/4xo5bxGavn5VZx9BTpSVKCYYlS81XwcGIcNOXFWqTY=;
-        fh=3GS9BGSzdOIlLnZEGOXnk9YKm5KT4NzPBz2ENBb9RNo=;
-        b=RolxSfE4j9mXaTu6S7dER9TSmXLoNgv1eX2yyVpdT9a6Po/LTbp12/VR0ckeoi4pT8
-         DDJCRGC+1BdxSfO3SitRG//wKO/8rZcJL3OB9uqXYIYOesgqgpH+E5km+Uk7228TO+/c
-         Y/dTw6CL6PulG7UOZsxC+7z/nlQ+0Ja8DKal5QN1lZ30taDHP80Y00av+KIyX7CR7TSi
-         37PeFAb5xre4oIctYvGdAt5qRdVYmBiY5fyJWCpo4YFh3/qmhhF/6V+LMDmILWcbfTm2
-         j5qesfai77TAavoBXIyVBXhQXNu0z9Jwh9sxh9ke37AfszeEPyLTv03X2oWziTG1s2iT
-         fqsA==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=goga53CwSsBVNPga/855IhIrMmH9LulQVMauja4yq/U=;
+        fh=bwSLe+MrnuZTdwNEWNot/rSfzPW7Hw6F8bWGLxulN8s=;
+        b=Shev2jtkOsU4vjo58lNQ+NG1fL/u2YKoqHjCC2X0QY5ofBI0GfuzQeP4a7HRCKCWRW
+         WiPx5LJVsTACLupGX7pGKvCwmd/47o1VGoeZ32UnH5ubdZYtOYd/bJyflO04AtAh90Sn
+         F7Vsgfo7ujAgHCFq4roybCvkg+3Ta5tihFpJ4tAfhbo/Nrzqc04M4eMMNNxP6l15QDpr
+         JXdb6Mu7eqHJsw0Jc/8Irk7rmQ/qcjwMElUVK29kwohz/E0CTsbwVDv5WeG+di4I4Am0
+         5ofZlkGkvo66r59osO9QbLIbl5cMMicoQ42repgLLSwTbAskNZCO92aFxJB1tXLdr0uT
+         tjig==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [194.95.239.60])
-        by gmr-mx.google.com with ESMTPS id fl19-20020a05600c0b9300b0040b29e29a47si133021wmb.0.2023.11.21.07.42.02
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=V6vNoeuK;
+       spf=pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::f36 as permitted sender) smtp.mailfrom=van.freenix@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com. [2607:f8b0:4864:20::f36])
+        by gmr-mx.google.com with ESMTPS id bl8-20020a05622a244800b00417048548c7si1775387qtb.2.2023.11.21.19.04.23
         for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Nov 2023 07:42:03 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) client-ip=194.95.239.60;
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
-	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id E490B2A00F4;
-	Tue, 21 Nov 2023 16:42:01 +0100 (CET)
-Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4SZTBx4LN7zxqw;
-	Tue, 21 Nov 2023 16:42:01 +0100 (CET)
-Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
- (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 21 Nov
- 2023 16:42:01 +0100
-Message-ID: <3b88b7b0-60fd-4fbb-8506-d2d0309c5333@oth-regensburg.de>
-Date: Tue, 21 Nov 2023 16:42:01 +0100
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Nov 2023 19:04:23 -0800 (PST)
+Received-SPF: pass (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::f36 as permitted sender) client-ip=2607:f8b0:4864:20::f36;
+Received: by mail-qv1-xf36.google.com with SMTP id 6a1803df08f44-679e7d2d7c4so11093956d6.0
+        for <jailhouse-dev@googlegroups.com>; Tue, 21 Nov 2023 19:04:23 -0800 (PST)
+X-Received: by 2002:a05:6214:1bc6:b0:677:9348:ecaf with SMTP id
+ m6-20020a0562141bc600b006779348ecafmr1035394qvc.45.1700622262791; Tue, 21 Nov
+ 2023 19:04:22 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Jailhouse enable pci error
-Content-Language: en-US
-To: Paresh Bhagat <pareshbhagat29@gmail.com>, Jailhouse
-	<jailhouse-dev@googlegroups.com>
-References: <2847752b-a183-418c-9c42-42641c6ffe20n@googlegroups.com>
- <261c0edb-f0a7-4384-a300-8a0567c16f8dn@googlegroups.com>
-From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <261c0edb-f0a7-4384-a300-8a0567c16f8dn@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
- E16S03.hs-regensburg.de (2001:638:a01:8013::93)
-X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+References: <ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n@googlegroups.com>
+In-Reply-To: <ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n@googlegroups.com>
+From: Peng Fan <van.freenix@gmail.com>
+Date: Wed, 22 Nov 2023 11:04:11 +0800
+Message-ID: <CAEfxd-9ruixKv7sB=EFhnH6Uw4GsYgDnpKjtCqBrRGtkbtxuSg@mail.gmail.com>
+Subject: =?UTF-8?Q?Re=3A_arm_cortex_A55_support=EF=BC=9F?=
+To: =?UTF-8?B?5byg5bmz?= <2022280902@qq.com>
+Cc: Jailhouse <jailhouse-dev@googlegroups.com>
+Content-Type: multipart/alternative; boundary="000000000000def2d7060ab4f9bc"
+X-Original-Sender: Van.Freenix@gmail.com
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=fWcoTc8u;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ header.i=@gmail.com header.s=20230601 header.b=V6vNoeuK;       spf=pass
+ (google.com: domain of van.freenix@gmail.com designates 2607:f8b0:4864:20::f36
+ as permitted sender) smtp.mailfrom=van.freenix@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -151,152 +147,45 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi Paresh,
+--000000000000def2d7060ab4f9bc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 21/11/2023 05:30, Paresh Bhagat wrote:
-> Update. Got the jailhouse enabled but still getting the pci error.
->=20
-> nitializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU 3
-> Code location: 0x0000ffffc0200800
-> Page pool usage after early setup: mem 39/993, remap 0/131072
-> Initializing processors:
->  =C2=A0CPU 3... OK
->  =C2=A0CPU 2... OK
->  =C2=A0CPU 0... OK
->  =C2=A0CPU 1... OK
-> Initializing unit: irqchip
-> Initializing unit: ARM SMMU v3
-> Initializing unit: ARM SMMU
-> Initializing unit: PVU IOMMU
-> Initializing unit: PCI
-> Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"
-> Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"
-> Page pool usage after late setup: mem 79/993, remap 144/131072
-> Activating hypervisor
-> [ =C2=A0332.417442] pci-host-generic 76000000.pci: host bridge /pci@0 ran=
-ges:
-> [ =C2=A0332.417476] pci-host-generic 76000000.pci: =C2=A0 =C2=A0 =C2=A0ME=
-M=20
-> 0x0076100000..0x0076103fff -> 0x0076100000
-> [ =C2=A0332.417572] pci-host-generic 76000000.pci: ECAM at [mem=20
-> 0x76000000-0x760fffff] for [bus 00]
-> [ =C2=A0332.417732] pci-host-generic 76000000.pci: PCI host bridge to bus=
- 0001:00
-> [ =C2=A0332.417741] pci_bus 0001:00: root bus resource [bus 00]
-> [ =C2=A0332.417748] pci_bus 0001:00: root bus resource [mem=20
-> 0x76100000-0x76103fff]
-> [ =C2=A0332.417793] pci 0001:00:00.0: [110a:4106] type 00 class 0xff0000
+There is no difference to run jailhouse on A55 cores.
 
-According to your config, 1:0:0.0 ist the first ivshmem device, 1:0:1.0=20
-is the second one, right?
+'=E5=BC=A0=E5=B9=B3' via Jailhouse <jailhouse-dev@googlegroups.com> =E4=BA=
+=8E2023=E5=B9=B411=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 13:47=E5=86=99=E9=
+=81=93=EF=BC=9A
 
-Could you please try to enable one ivshmem device, so please disable the=20
-second one for testing. Let's try to get one running, then we can go=20
-further.
+>
+> Hi All
+>
+> I would like to know, are there any examples that are adapted to arm
+> cortex A55?
+> Or are there any SOCs that are arm cortex A55 and have successfully
+> transplanted the jailhouse program?
+>
+> I saw that A57 and A53 products have suppressed jailhouse applications,
+> but I didn=E2=80=99t see A55?
+>
+> Cheers,
+> Zhang
+>
+> --
+> You received this message because you are subscribed to the Google Groups
+> "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send an
+> email to jailhouse-dev+unsubscribe@googlegroups.com.
+> To view this discussion on the web visit
+> https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-e=
+f67bb1bf4b3n%40googlegroups.com
+> <https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-=
+ef67bb1bf4b3n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
+> .
+>
 
-And for the first ivshmem device, would you consider (just for testing),=20
-to only connect two peers? And, in your config, plase use the=20
-JAILHOUSE_SHMEM_=E2=80=A6 macros for defining the ivshmem memregions.
 
-Thanks,
-   Ralf
-
-> [ =C2=A0332.417819] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x0000fff=
-f]
-> [ =C2=A0332.418103] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0001
-> [ =C2=A0332.418127] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x0000fff=
-f]
-> [ =C2=A0332.420175] pci 0001:00:00.0: BAR 0: no space for [mem size 0x000=
-10000]
-> [ =C2=A0332.420195] pci 0001:00:00.0: BAR 0: failed to assign [mem size=
-=20
-> 0x00010000]
-> [ =C2=A0332.420203] pci 0001:00:01.0: BAR 0: no space for [mem size 0x000=
-10000]
-> [ =C2=A0332.420209] pci 0001:00:01.0: BAR 0: failed to assign [mem size=
-=20
-> 0x00010000]
-> [ =C2=A0332.420916] The Jailhouse is opening.
-> [ =C2=A0332.531915] psci: CPU1 killed (polled 0 ms)
-> [ =C2=A0332.579879] psci: CPU2 killed (polled 0 ms)
-> [ =C2=A0332.631860] psci: CPU3 killed (polled 0 ms)
->=20
->=20
-> On Tuesday, November 21, 2023 at 12:50:49=E2=80=AFAM UTC+5:30 Paresh Bhag=
-at wrote:
->=20
->     Any fix for the following error while trying to enable jailhouse ?
->     something wrong with the memory allocation?
->=20
->     Initializing Jailhouse hypervisor v0.12 (324-ge57d1eff-dirty) on CPU =
-0
->     Code location: 0x0000ffffc0200800
->     Page pool usage after early setup: mem 39/993, remap 0/131072
->     Initializing processors:
->      =C2=A0CPU 0... OK
->      =C2=A0CPU 2... OK
->      =C2=A0CPU 1... OK
->      =C2=A0CPU 3... OK
->     Initializing unit: irqchip
->     Initializing unit: ARM SMMU v3
->     Initializing unit: ARM SMMU
->     Initializing unit: PVU IOMMU
->     Initializing unit: PCI
->     Adding virtual PCI device 00:00.0 to cell "k3-am62p5-sk"
->     Adding virtual PCI device 00:01.0 to cell "k3-am62p5-sk"
->     Page pool usage after late setup: mem 78/993, remap 144/131072
->     Activating hypervisor
->     [ =C2=A0122.542841] pci-host-generic 76000000.pci: host bridge /pci@0=
- ranges:
->     [ =C2=A0122.542873] pci-host-generic 76000000.pci: =C2=A0 =C2=A0 =C2=
-=A0MEM
->     0x0076100000..0x0076103fff -> 0x0076100000
->     [ =C2=A0122.542947] pci-host-generic 76000000.pci: ECAM at [mem
->     0x76000000-0x760fffff] for [bus 00]
->     [ =C2=A0122.543103] pci-host-generic 76000000.pci: PCI host bridge to=
- bus
->     0001:00
->     [ =C2=A0122.543112] pci_bus 0001:00: root bus resource [bus 00]
->     [ =C2=A0122.543119] pci_bus 0001:00: root bus resource [mem
->     0x76100000-0x76103fff]
->     root@am62pxx-evm:/usr/share/jailhouse# [ =C2=A0122.543161] pci
->     0001:00:00.0: [110a:4106] type 00 class 0xff0000
->     [ =C2=A0122.543187] pci 0001:00:00.0: reg 0x10: [mem 0x00000000-0x000=
-0ffff]
->     [ =C2=A0122.543455] pci 0001:00:01.0: [110a:4106] type 00 class 0xff0=
-001
->     [ =C2=A0122.543481] pci 0001:00:01.0: reg 0x10: [mem 0x00000000-0x000=
-0ffff]
->     [ =C2=A0122.545437] pci 0001:00:00.0: BAR 0: no space for [mem size
->     0x00010000]
->     [ =C2=A0122.545458] pci 0001:00:00.0: BAR 0: failed to assign [mem si=
-ze
->     0x00010000]
->     [ =C2=A0122.545466] pci 0001:00:01.0: BAR 0: no space for [mem size
->     0x00010000]
->     [ =C2=A0122.545471] pci 0001:00:01.0: BAR 0: failed to assign [mem si=
-ze
->     0x00010000]
->     [ =C2=A0122.545896] The Jailhouse is opening.
->     Unhandled data read at 0xb00328(4)
->     FATAL: unhandled trap (exception class 0x24)
->=20
->     i have attached root cell config and output of cat /proc/iomem for
->     referrence.
->=20
->     Thanks
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/261c0edb-f0a7-4384-a300-8=
-a0567c16f8dn%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/261c0edb-f0a7-4384-a300-8a0567c16f8dn%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
+--
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -304,4 +193,55 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3b88b7b0-60fd-4fbb-8506-d2d0309c5333%40oth-regensburg.de.
+jailhouse-dev/CAEfxd-9ruixKv7sB%3DEFhnH6Uw4GsYgDnpKjtCqBrRGtkbtxuSg%40mail.=
+gmail.com.
+
+--000000000000def2d7060ab4f9bc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">There is no difference to run jailhouse on A55 cores.</div=
+><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">&#39;=
+=E5=BC=A0=E5=B9=B3&#39; via Jailhouse &lt;<a href=3D"mailto:jailhouse-dev@g=
+ooglegroups.com">jailhouse-dev@googlegroups.com</a>&gt; =E4=BA=8E2023=E5=B9=
+=B411=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 13:47=E5=86=99=E9=81=93=EF=BC=
+=9A<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>Hi All<b=
+r><br>I would like to know, are there any examples that are adapted to arm =
+cortex A55?<br>Or are there any SOCs that are arm cortex A55 and have succe=
+ssfully transplanted the jailhouse program?<br><br>I saw that A57 and A53 p=
+roducts have suppressed jailhouse applications, but I didn=E2=80=99t see A5=
+5?<br><br>Cheers,<br>Zhang<br>
+
+<p></p>
+
+-- <br>
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br>
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com" targe=
+t=3D"_blank">jailhouse-dev+unsubscribe@googlegroups.com</a>.<br>
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n%40googlegrou=
+ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank">https:=
+//groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef67bb1bf=
+4b3n%40googlegroups.com</a>.<br>
+</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><br></div></div>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/CAEfxd-9ruixKv7sB%3DEFhnH6Uw4GsYgDnpKjtCqBrRGtkbtx=
+uSg%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
+.google.com/d/msgid/jailhouse-dev/CAEfxd-9ruixKv7sB%3DEFhnH6Uw4GsYgDnpKjtCq=
+BrRGtkbtxuSg%40mail.gmail.com</a>.<br />
+
+--000000000000def2d7060ab4f9bc--
