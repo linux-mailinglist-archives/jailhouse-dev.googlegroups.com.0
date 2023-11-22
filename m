@@ -1,63 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCLNDZG33ILRBXNO62VAMGQEF4EGSUQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBXN562VAMGQEJ6Y7HCA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103a.google.com (mail-pj1-x103a.google.com [IPv6:2607:f8b0:4864:20::103a])
-	by mail.lfdr.de (Postfix) with ESMTPS id D49457F3DC5
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 06:53:35 +0100 (CET)
-Received: by mail-pj1-x103a.google.com with SMTP id 98e67ed59e1d1-27ffe79ec25sf6749004a91.2
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 21:53:35 -0800 (PST)
+Received: from mail-yw1-x113a.google.com (mail-yw1-x113a.google.com [IPv6:2607:f8b0:4864:20::113a])
+	by mail.lfdr.de (Postfix) with ESMTPS id D04457F3E19
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 07:25:35 +0100 (CET)
+Received: by mail-yw1-x113a.google.com with SMTP id 00721157ae682-5cca2c844d1sf1127887b3.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 21 Nov 2023 22:25:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700632414; x=1701237214; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700634334; x=1701239134; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:reply-to:x-original-sender
-         :mime-version:subject:references:in-reply-to:message-id:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X1HntJZPaHdRSl5bNq8VdGyU/ex5lewTIWLq4dFjQpc=;
-        b=AVDB9qcKaZt0u747mZtwwDspvl3O91jZEphPSVhrBB+oR+fYD1arJ/+RYQ0UuJgCT3
-         cqY8WfzVM0nUDBivPEawsc0PvUkuh0L19zS3J9wpM1Lbha1fZ1bdvLsElqyi3ndodyjO
-         e3Na5wrc7/ASz2GFm2UEdH9Bat0BaQvH43smBcCH3ZEuoC+56SquaTK3hyx19lN3lBlH
-         Ki2WkwaItviuLnUjl0WB67WrpTdV/Zm2Ge4Of4ddS+RDK5N1xlnho7jBnAkWYqtiwLmI
-         DBdxbKe02qmeAKKqHrmlzKe+Fcrm5flae2iMiuSx+IOhh4/EdYIQxOEf31yybrM9YKfW
-         t/Ww==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nGPpP7BDbuaXJRA+nSwGgROovPkGd0+/Nk+LorPoPeA=;
+        b=kcHxCz6BkacMXWfyzqWAt+a8WsWwrhIE2nQoGAW32gWG2xA1YwpqQRnT6oNksP6S4W
+         CwGfHmWbBB5bkO3Sv7b+9tpC84bkJQB3ukNzB6dDnE59LQNT4kcU0YKqHj7aZh51KYSb
+         kFlM0S0iT246rKkLplMTy/Hon3gn+oEg9ntZEuazl7BOApSpYzc2oRMS1gJVPV9ykwoE
+         6OkIwBj8EGQz3hMXdadK6MRDBObmcDFfu49adCq12zQ1CMnYhsEJA0A6JXZyutau0+WV
+         cYtd9uf98i2E0obk9o+JwxubiElV5wx/G2iS3NsGt54XQKdraEYrHq8D/mwyja+7AOS0
+         Wblw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1700634334; x=1701239134; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nGPpP7BDbuaXJRA+nSwGgROovPkGd0+/Nk+LorPoPeA=;
+        b=a9gaNuuqqIU5R+AFKInMhB43LjA8rb8u2JmBca7qLMA+RU3e2bxemtkDcqk3PKpKVy
+         GDSMxfMEFosroh0ReBqlisT9WpZmp6FRiZbH1zC6JBFT6QpHHPkm9C4Abj+/pPYjuric
+         oZh9nChvRPdy+CQJbRGNTiNHOtLmmQp6aqgFuonrfWLprzCcJLNYRAZgsq6Xev4mUnU9
+         bwpSeIFHDoIUpv8LYEEr8kIh2hAHZw0mWiELnsI/XO3DadpHvxMoj124DiBArNcDL/6n
+         kGH9SbgMhjMhdFczNIqJVuvc0X6IPSo//I6nbLPzbg4BeuX+BLaTwRsR/dYd0Ai2lKwo
+         nB5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700632414; x=1701237214;
+        d=1e100.net; s=20230601; t=1700634334; x=1701239134;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence:reply-to
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=X1HntJZPaHdRSl5bNq8VdGyU/ex5lewTIWLq4dFjQpc=;
-        b=nQL0iuzFAd12+nrcP2GmaDMx76krRWlM49O6ZL9sL7YFu3VgHH3h9ucccdTHSjjbiE
-         XPfPpPBfYIDhLAkpctwmnVATSLG5NukLH57Q69CyCDbTb6VE5lrdhIc/BIm00c9r3v8I
-         6jCuMJyMxjySz98pwRqnQV78MdomiEEhDpttL1FMeofInH2NdmYr5nNxW4crDQuMYjCe
-         iEVdPSrjWJ1pih4rtV5xfUz+q82b0/16jSyi80N6TxLQ22Ad7vb4BX6lkozEV0qxViMw
-         IGjn1I7gNG02vT0vFu8gTsaajZaN+IYqux/UMJVXhK/xPsFOOSLg3m8K9v4UKj9P0KFw
-         e0yg==
-X-Gm-Message-State: AOJu0YyOEtIUlLloRxSRDZzTBaN1KT1qES7O1ToiPYQvwg2PE4rzPNv9
-	YHYpTjLJZ/AxbNuCzk4MEn8=
-X-Google-Smtp-Source: AGHT+IEWVZXi+2bOWyDH4yhC2bIgv5hhjNoIRE+zZwGZxgtI/oyTeAfmjdx14dJwyZOyA5s3kDzT7A==
-X-Received: by 2002:a17:90b:2387:b0:280:f4a:86b4 with SMTP id mr7-20020a17090b238700b002800f4a86b4mr1562203pjb.17.1700632414144;
-        Tue, 21 Nov 2023 21:53:34 -0800 (PST)
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nGPpP7BDbuaXJRA+nSwGgROovPkGd0+/Nk+LorPoPeA=;
+        b=t7rlIDBRw3P6f3n35rlUayKqfk1k481oHw/SH6Eiq856vwaOb8Xw1KJF27fCM7ZzKk
+         hiDmJZ9JDDLZT277ixO/teg6jGj0oT0RSS8udi5TIKrnLTd54ER9URLRmhfEpU/m1tOQ
+         acifKwXqy5u1C8sOqCScMd/nB3eHLLZuZod5UJSZRkq8W86q9LCdrMMelFYZPPFLmNI2
+         KXQeSHCz5tMDDM8v4yfZEZwuwiGuaP7MPEt7mjaKp4Tm8+T7cSwpg+9AvChGPgEg4h7k
+         7/tr72jX5ykBNVhwFN61dyCTS4tWWeulBVXtebZSaXM6e7QS8dcOtOBsToF75HDlbT3U
+         7k9w==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOJu0YzdzMdmLB9NoDE3xO/OEed9QxydB9bt8gsoCRRhjGjkY2thVTSI
+	arRXK4n8E0/uh8WbK76QHtM=
+X-Google-Smtp-Source: AGHT+IFxzKOImIRSSLQI7cZMgJmBAMpQu6YjaywDmXo2Z/UzCn7rjCOXVQgO1+5EgntHDd+B9fSB2g==
+X-Received: by 2002:a0d:d583:0:b0:5ca:6ae0:9c2b with SMTP id x125-20020a0dd583000000b005ca6ae09c2bmr1233955ywd.7.1700634334563;
+        Tue, 21 Nov 2023 22:25:34 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90a:cf0f:b0:285:1e04:e92f with SMTP id
- h15-20020a17090acf0f00b002851e04e92fls811024pju.2.-pod-prod-05-us; Tue, 21
- Nov 2023 21:53:33 -0800 (PST)
-X-Received: by 2002:a05:6a02:590:b0:5bd:d69b:6f8 with SMTP id by16-20020a056a02059000b005bdd69b06f8mr312303pgb.4.1700632412799;
-        Tue, 21 Nov 2023 21:53:32 -0800 (PST)
-Date: Tue, 21 Nov 2023 21:53:32 -0800 (PST)
-From: =?UTF-8?B?J+W8oOW5sycgdmlhIEphaWxob3VzZQ==?= <jailhouse-dev@googlegroups.com>
+Received: by 2002:a05:6a00:6c94:b0:6c3:6105:51b5 with SMTP id
+ jc20-20020a056a006c9400b006c3610551b5ls3616227pfb.1.-pod-prod-08-us; Tue, 21
+ Nov 2023 22:25:33 -0800 (PST)
+X-Received: by 2002:a63:5955:0:b0:5be:1b76:6a87 with SMTP id j21-20020a635955000000b005be1b766a87mr254591pgm.12.1700634332852;
+        Tue, 21 Nov 2023 22:25:32 -0800 (PST)
+Date: Tue, 21 Nov 2023 22:25:31 -0800 (PST)
+From: xin zhang <zhangxin6483@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n@googlegroups.com>
-In-Reply-To: <CAEfxd-9ruixKv7sB=EFhnH6Uw4GsYgDnpKjtCqBrRGtkbtxuSg@mail.gmail.com>
-References: <ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n@googlegroups.com>
- <CAEfxd-9ruixKv7sB=EFhnH6Uw4GsYgDnpKjtCqBrRGtkbtxuSg@mail.gmail.com>
-Subject: =?UTF-8?Q?Re:_arm_cortex_A55_support=EF=BC=9F?=
+Message-Id: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
+Subject: jailhouse enable linux
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_18102_798543062.1700632412127"
-X-Original-Sender: 2022280902@qq.com
-X-Original-From: =?UTF-8?B?5byg5bmz?= <2022280902@qq.com>
-Reply-To: =?UTF-8?B?5byg5bmz?= <2022280902@qq.com>
+	boundary="----=_Part_14850_944291073.1700634331481"
+X-Original-Sender: zhangxin6483@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -70,72 +79,75 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_18102_798543062.1700632412127
+------=_Part_14850_944291073.1700634331481
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_18103_574732964.1700632412127"
+	boundary="----=_Part_14851_890014881.1700634331481"
 
-------=_Part_18103_574732964.1700632412127
+------=_Part_14851_890014881.1700634331481
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I am trying to transplant jailhouse on the A55 core, but now I have=20
-encountered some problems. After I execute the following command, the=20
-system will freeze.
-$ jailhouse enable renesas-r9a07g044l2.cell
-
-What are the possible consequences?
-
-I made sure I did the following:
-1.Linux kernel version 5.10
-2.Linux starts in EL2
-3. Turn on KVM
-4. Turn off kernel CONFIG_ARM64_VHE
-
-Best regards
-zhang,
-
-=E5=9C=A82023=E5=B9=B411=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
-+8 11:04:24<Peng Fan> =E5=86=99=E9=81=93=EF=BC=9A
-
-There is no difference to run jailhouse on A55 cores.
-
-'=E5=BC=A0=E5=B9=B3' via Jailhouse <jailho...@googlegroups.com> =E4=BA=8E20=
-23=E5=B9=B411=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 13:47=E5=86=99=E9=81=93=
-=EF=BC=9A
-
-
-Hi All
-
-I would like to know, are there any examples that are adapted to arm cortex=
+when I run linux image on jailhouse, guset serial port print follow errors:=
 =20
-A55?
-Or are there any SOCs that are arm cortex A55 and have successfully=20
-transplanted the jailhouse program?
+where I can get ways to sovle it=EF=BC=9F
 
-I saw that A57 and A53 products have suppressed jailhouse applications, but=
+
+[    0.069576][ 0] [    T0] Mount-cache hash table entries: 1024 (order: 1,=
 =20
-I didn=E2=80=99t see A55?
-
-Cheers,
-Zhang
-
---=20
-You received this message because you are subscribed to the Google Groups=
+8192 bytes, linear)
+[    0.078110][ 0] [    T0] Mountpoint-cache hash table entries: 1024=20
+(order: 1, 8192 bytes, linear)
+[    0.087451][ 0] [    T2] Unable to handle kernel paging request at=20
+virtual address 0000000000001388
+[    0.096606][ 0] [    T2] Mem abort info:
+[    0.100564][ 0] [    T2]   ESR =3D 0x96000005
+[    0.104789][ 0] [    T2]   EC =3D 0x25: DABT (current EL), IL =3D 32 bit=
+s
+[    0.111299][ 0] [    T2]   SET =3D 0, FnV =3D 0
+[    0.115522][ 0] [    T2]   EA =3D 0, S1PTW =3D 0
+[    0.119834][ 0] [    T2] Data abort info:
+[    0.123883][ 0] [    T2]   ISV =3D 0, ISS =3D 0x00000005
+[    0.128898][ 0] [    T2]   CM =3D 0, WnR =3D 0
+[    0.133034][ 0] [    T2] [0000000000001388] user address but active_mm=
 =20
-"Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an=
-=20
-email to jailhouse-de...@googlegroups.com.
-To view this discussion on the web visit=20
-https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef6=
-7bb1bf4b3n%40googlegroups.com=20
-<https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef=
-67bb1bf4b3n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>
-.
-
-
-
---=20
+is swapper
+[    0.140600][ 0] [    T2] Internal error: Oops: 96000005 [#1] SMP
+[    0.146667][ 0] [    T2] Modules linked in:
+[    0.150892][ 0] [    T2] CPU: 0 PID: 2 Comm: kthreadd Not tainted=20
+5.4.18-101+ #2
+[    0.158367][ 0] [    T2] Source Version:=20
+e7f24793ad667e777f2cf6dab620d082517f6075
+[    0.165929][ 0] [    T2] Hardware name: FT-2000/4-D4-DSK Development=20
+Board (DT)
+[    0.173317][ 0] [    T2] pstate: 80000005 (Nzcv daif -PAN -UAO)
+[    0.179302][ 0] [    T2] pc : __alloc_pages_nodemask+0xf8/0x308
+[    0.185283][ 0] [    T2] lr : __alloc_pages_nodemask+0xe0/0x308
+[    0.191263][ 0] [    T2] sp : ffffff8031867c30
+[    0.195749][ 0] [    T2] x29: ffffff8031867c30 x28: 0000000000800700
+[    0.202258][ 0] [    T2] x27: ffffff8031823a80 x26: 00000000ffffffff
+[    0.208766][ 0] [    T2] x25: 0000000000400dc0 x24: 0000000000000001
+[    0.215273][ 0] [    T2] x23: 0000000000000000 x22: ffffffc0113fa000
+[    0.221781][ 0] [    T2] x21: 0000000000000002 x20: ffffffc0113f9000
+[    0.228289][ 0] [    T2] x19: 0000000000400dc0 x18: 0000000000000014
+[    0.234797][ 0] [    T2] x17: 000000009242c113 x16: 00000000b8b3e41b
+[    0.241305][ 0] [    T2] x15: 00000000b31b39bd x14: 0000000000000000
+[    0.247817][ 0] [    T2] x13: 0000000000000001 x12: 0000000000000001
+[    0.254325][ 0] [    T2] x11: 0000000002e03c00 x10: 0000000005c05800
+[    0.260833][ 0] [    T2] x9 : 0000000000000191 x8 : 0000000000000004
+[    0.267340][ 0] [    T2] x7 : ffffff8032fe0378 x6 : 0000000000000000
+[    0.273848][ 0] [    T2] x5 : 0000000000000003 x4 : 0000000000000000
+[    0.280355][ 0] [    T2] x3 : 0000000000001380 x2 : 0000000000000000
+[    0.286863][ 0] [    T2] x1 : 0000000000000001 x0 : 0000000000000000
+[    0.293370][ 0] [    T2] Call trace:
+[    0.296978][ 0] [    T2]  __alloc_pages_nodemask+0xf8/0x308
+[    0.302609][ 0] [    T2]  copy_process+0x1a4/0x1340
+[    0.307536][ 0] [    T2]  _do_fork+0x80/0x370
+[    0.311934][ 0] [    T2]  kernel_thread+0x6c/0x90
+[    0.316686][ 0] [    T2]  kthreadd+0x1e0/0x270
+[    0.321173][ 0] [    T2]  ret_from_fork+0x10/0x18
+[    0.325924][ 0] [    T2] Code: 3901c3a0 a9450ba3 b9406fa1 b5000b62=20
+(b9400860)
+[    0.333224][ 0] [    T2] ---[ end trace 7e9dcf3f049b9227 ]---
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -143,56 +155,71 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n%40googlegroups.com.
+jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com.
 
-------=_Part_18103_574732964.1700632412127
+------=_Part_14851_890014881.1700634331481
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I am trying to transplant jailhouse on the A55 core, but now I have encount=
-ered some problems. After I execute the following command, the system will =
-freeze.<br />$ jailhouse enable renesas-r9a07g044l2.cell<br /><br />What ar=
-e the possible consequences?<br /><br />I made sure I did the following:<br=
- />1.Linux kernel version 5.10<br />2.Linux starts in EL2<br />3. Turn on K=
-VM<br />4. Turn off kernel CONFIG_ARM64_VHE<div><br /></div><div><span styl=
-e=3D"color: rgb(0, 0, 0); font-family: =E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91=
-, sans-serif; font-size: small;">Best regards</span></div><div><font color=
-=3D"#000000" face=3D"=E5=BE=AE=E8=BD=AF=E9=9B=85=E9=BB=91, sans-serif" size=
-=3D"2">zhang,</font></div><br /><div><div dir=3D"auto">=E5=9C=A82023=E5=B9=
-=B411=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+8 11:04:24&lt;Peng=
- Fan&gt; =E5=86=99=E9=81=93=EF=BC=9A<br /></div><blockquote style=3D"margin=
-: 0px 0px 0px 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-lef=
-t: 1ex;"><div dir=3D"ltr">There is no difference to run jailhouse on A55 co=
-res.</div><br /><div><div dir=3D"ltr">'=E5=BC=A0=E5=B9=B3' via Jailhouse &l=
-t;<a href=3D"" rel=3D"nofollow">jailho...@googlegroups.com</a>&gt; =E4=BA=
-=8E2023=E5=B9=B411=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 13:47=E5=86=99=E9=
-=81=93=EF=BC=9A<br /></div><blockquote style=3D"margin: 0px 0px 0px 0.8ex; =
-border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"></blockquote=
-></div><div><blockquote style=3D"margin: 0px 0px 0px 0.8ex; border-left: 1p=
-x solid rgb(204, 204, 204); padding-left: 1ex;"><br />Hi All<br /><br />I w=
-ould like to know, are there any examples that are adapted to arm cortex A5=
-5?<br />Or are there any SOCs that are arm cortex A55 and have successfully=
- transplanted the jailhouse program?<br /><br />I saw that A57 and A53 prod=
-ucts have suppressed jailhouse applications, but I didn=E2=80=99t see A55?<=
-br /><br />Cheers,<br />Zhang<br />
-
-<p></p></blockquote></div><div><blockquote style=3D"margin: 0px 0px 0px 0.8=
-ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-
--- <br />
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"" rel=3D"nofollow">jailhouse-de...@googlegroups.com</a>.=
-<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n%40googlegrou=
-ps.com?utm_medium=3Demail&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D=
-"nofollow">https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c=
-1b-ac78-ef67bb1bf4b3n%40googlegroups.com</a>.<br />
-</blockquote></div><br clear=3D"all" /><div><br /></div><span>-- </span><br=
- /><div dir=3D"ltr"><div dir=3D"ltr"><br /></div></div>
-</blockquote></div>
+<div>when I run linux image on jailhouse, guset serial port print follow er=
+rors: where I can get ways to sovle it=EF=BC=9F</div><div><br /></div><div>=
+<br /></div>[ =C2=A0 =C2=A00.069576][ 0] [ =C2=A0 =C2=A0T0] Mount-cache has=
+h table entries: 1024 (order: 1, 8192 bytes, linear)<br />[ =C2=A0 =C2=A00.=
+078110][ 0] [ =C2=A0 =C2=A0T0] Mountpoint-cache hash table entries: 1024 (o=
+rder: 1, 8192 bytes, linear)<br />[ =C2=A0 =C2=A00.087451][ 0] [ =C2=A0 =C2=
+=A0T2] Unable to handle kernel paging request at virtual address 0000000000=
+001388<br />[ =C2=A0 =C2=A00.096606][ 0] [ =C2=A0 =C2=A0T2] Mem abort info:=
+<br />[ =C2=A0 =C2=A00.100564][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ESR =3D 0x9600=
+0005<br />[ =C2=A0 =C2=A00.104789][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EC =3D 0x2=
+5: DABT (current EL), IL =3D 32 bits<br />[ =C2=A0 =C2=A00.111299][ 0] [ =
+=C2=A0 =C2=A0T2] =C2=A0 SET =3D 0, FnV =3D 0<br />[ =C2=A0 =C2=A00.115522][=
+ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EA =3D 0, S1PTW =3D 0<br />[ =C2=A0 =C2=A00.1=
+19834][ 0] [ =C2=A0 =C2=A0T2] Data abort info:<br />[ =C2=A0 =C2=A00.123883=
+][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ISV =3D 0, ISS =3D 0x00000005<br />[ =C2=A0=
+ =C2=A00.128898][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 CM =3D 0, WnR =3D 0<br />[ =
+=C2=A0 =C2=A00.133034][ 0] [ =C2=A0 =C2=A0T2] [0000000000001388] user addre=
+ss but active_mm is swapper<br />[ =C2=A0 =C2=A00.140600][ 0] [ =C2=A0 =C2=
+=A0T2] Internal error: Oops: 96000005 [#1] SMP<br />[ =C2=A0 =C2=A00.146667=
+][ 0] [ =C2=A0 =C2=A0T2] Modules linked in:<br />[ =C2=A0 =C2=A00.150892][ =
+0] [ =C2=A0 =C2=A0T2] CPU: 0 PID: 2 Comm: kthreadd Not tainted 5.4.18-101+ =
+#2<br />[ =C2=A0 =C2=A00.158367][ 0] [ =C2=A0 =C2=A0T2] Source Version: e7f=
+24793ad667e777f2cf6dab620d082517f6075<br />[ =C2=A0 =C2=A00.165929][ 0] [ =
+=C2=A0 =C2=A0T2] Hardware name: FT-2000/4-D4-DSK Development Board (DT)<br =
+/>[ =C2=A0 =C2=A00.173317][ 0] [ =C2=A0 =C2=A0T2] pstate: 80000005 (Nzcv da=
+if -PAN -UAO)<br />[ =C2=A0 =C2=A00.179302][ 0] [ =C2=A0 =C2=A0T2] pc : __a=
+lloc_pages_nodemask+0xf8/0x308<br />[ =C2=A0 =C2=A00.185283][ 0] [ =C2=A0 =
+=C2=A0T2] lr : __alloc_pages_nodemask+0xe0/0x308<br />[ =C2=A0 =C2=A00.1912=
+63][ 0] [ =C2=A0 =C2=A0T2] sp : ffffff8031867c30<br />[ =C2=A0 =C2=A00.1957=
+49][ 0] [ =C2=A0 =C2=A0T2] x29: ffffff8031867c30 x28: 0000000000800700<br /=
+>[ =C2=A0 =C2=A00.202258][ 0] [ =C2=A0 =C2=A0T2] x27: ffffff8031823a80 x26:=
+ 00000000ffffffff<br />[ =C2=A0 =C2=A00.208766][ 0] [ =C2=A0 =C2=A0T2] x25:=
+ 0000000000400dc0 x24: 0000000000000001<br />[ =C2=A0 =C2=A00.215273][ 0] [=
+ =C2=A0 =C2=A0T2] x23: 0000000000000000 x22: ffffffc0113fa000<br />[ =C2=A0=
+ =C2=A00.221781][ 0] [ =C2=A0 =C2=A0T2] x21: 0000000000000002 x20: ffffffc0=
+113f9000<br />[ =C2=A0 =C2=A00.228289][ 0] [ =C2=A0 =C2=A0T2] x19: 00000000=
+00400dc0 x18: 0000000000000014<br />[ =C2=A0 =C2=A00.234797][ 0] [ =C2=A0 =
+=C2=A0T2] x17: 000000009242c113 x16: 00000000b8b3e41b<br />[ =C2=A0 =C2=A00=
+.241305][ 0] [ =C2=A0 =C2=A0T2] x15: 00000000b31b39bd x14: 0000000000000000=
+<br />[ =C2=A0 =C2=A00.247817][ 0] [ =C2=A0 =C2=A0T2] x13: 0000000000000001=
+ x12: 0000000000000001<br />[ =C2=A0 =C2=A00.254325][ 0] [ =C2=A0 =C2=A0T2]=
+ x11: 0000000002e03c00 x10: 0000000005c05800<br />[ =C2=A0 =C2=A00.260833][=
+ 0] [ =C2=A0 =C2=A0T2] x9 : 0000000000000191 x8 : 0000000000000004<br />[ =
+=C2=A0 =C2=A00.267340][ 0] [ =C2=A0 =C2=A0T2] x7 : ffffff8032fe0378 x6 : 00=
+00000000000000<br />[ =C2=A0 =C2=A00.273848][ 0] [ =C2=A0 =C2=A0T2] x5 : 00=
+00000000000003 x4 : 0000000000000000<br />[ =C2=A0 =C2=A00.280355][ 0] [ =
+=C2=A0 =C2=A0T2] x3 : 0000000000001380 x2 : 0000000000000000<br />[ =C2=A0 =
+=C2=A00.286863][ 0] [ =C2=A0 =C2=A0T2] x1 : 0000000000000001 x0 : 000000000=
+0000000<br />[ =C2=A0 =C2=A00.293370][ 0] [ =C2=A0 =C2=A0T2] Call trace:<br=
+ />[ =C2=A0 =C2=A00.296978][ 0] [ =C2=A0 =C2=A0T2] =C2=A0__alloc_pages_node=
+mask+0xf8/0x308<br />[ =C2=A0 =C2=A00.302609][ 0] [ =C2=A0 =C2=A0T2] =C2=A0=
+copy_process+0x1a4/0x1340<br />[ =C2=A0 =C2=A00.307536][ 0] [ =C2=A0 =C2=A0=
+T2] =C2=A0_do_fork+0x80/0x370<br />[ =C2=A0 =C2=A00.311934][ 0] [ =C2=A0 =
+=C2=A0T2] =C2=A0kernel_thread+0x6c/0x90<br />[ =C2=A0 =C2=A00.316686][ 0] [=
+ =C2=A0 =C2=A0T2] =C2=A0kthreadd+0x1e0/0x270<br />[ =C2=A0 =C2=A00.321173][=
+ 0] [ =C2=A0 =C2=A0T2] =C2=A0ret_from_fork+0x10/0x18<br />[ =C2=A0 =C2=A00.=
+325924][ 0] [ =C2=A0 =C2=A0T2] Code: 3901c3a0 a9450ba3 b9406fa1 b5000b62 (b=
+9400860)<br />[ =C2=A0 =C2=A00.333224][ 0] [ =C2=A0 =C2=A0T2] ---[ end trac=
+e 7e9dcf3f049b9227 ]---<br />
 
 <p></p>
 
@@ -203,11 +230,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n%40googlegrou=
+om/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n%40googlegroups.co=
+msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_18103_574732964.1700632412127--
+------=_Part_14851_890014881.1700634331481--
 
-------=_Part_18102_798543062.1700632412127--
+------=_Part_14850_944291073.1700634331481--
