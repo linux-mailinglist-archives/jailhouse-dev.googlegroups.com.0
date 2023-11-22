@@ -1,52 +1,52 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBTX466VAMGQEWB4TKSA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBY7566VAMGQE5O6EDLI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x138.google.com (mail-lf1-x138.google.com [IPv6:2a00:1450:4864:20::138])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B8637F4767
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 14:12:48 +0100 (CET)
-Received: by mail-lf1-x138.google.com with SMTP id 2adb3069b0e04-507c4c57567sf6632424e87.0
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 05:12:48 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1700658768; cv=pass;
+Received: from mail-lf1-x137.google.com (mail-lf1-x137.google.com [IPv6:2a00:1450:4864:20::137])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF6A7F477A
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 14:15:17 +0100 (CET)
+Received: by mail-lf1-x137.google.com with SMTP id 2adb3069b0e04-50aa6b26836sf4612643e87.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 22 Nov 2023 05:15:17 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1700658916; cv=pass;
         d=google.com; s=arc-20160816;
-        b=dyuYhcfb1iSIXPo+kFQ1CFJpvINA29oZ6OfqmJBKA40OXpZLPuACl6GTb0KSpqRaBf
-         UDL+2w0wkhO5izBWHrWUH67oM6zC0hyiXB2Qsk3+UfQnbvXfOVJfiNjRjyq/9P3p425z
-         9v6Zzp0T6r6lmLAsBVjZd+dRMzL1BiBvepk5LpCXmPq8eNtsWEV/PpAjhhCAoX5M40tO
-         UxfxhvGlB00xxg7WJSEoeAoJdy8JNDc2GNoiFFXCY4CfhJOgPVlpR76A6dc3NV4Hdz7/
-         uR8J84zcZZMuALTIVj1B+Rngb9mb1mnkkRmBkPAI/w6+kAFQyhkaNsIaXiaHtkS1ZD/q
-         TNDA==
+        b=z4YKOFz15Sge0yrFdnAXtBegD9ppT4QxkSjn76FER7kKrWW4UcU04Sjq60PhjXyOPN
+         BVoIXWtzCbvuV5JN0+OUOppceMePfp9LLtWyuHjsHpgE2/5L3zAEm27nPrNAIzfXnxQg
+         9VhJz3qjCQxW7poy2qh1/RlpHhL9WK5Km9JYhH64h0Q7g+NHz8aGNqcOmlN/cQz7BL0S
+         pRgekq6Z637Tn9s9aQrG7OV+JInI7ke9TBFvc8fwl33roSTyD7Zr3f9pfZtdQvuXS5Gu
+         2GmgmFvP8VIskgDvaa70fcftVEBx2sN23jeycngKSuMaqpnWvCT8cHmBerTzC/vhtSEH
+         Clrg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :in-reply-to:from:references:to:content-language:subject:user-agent
          :mime-version:date:message-id:sender:dkim-signature;
-        bh=YaCC8rCeL8OsqGNr45saWQqBgOc+0VoryHoug8y4kiw=;
-        fh=8SfdoBx/XJgInw4b9LBcr2wFSMupRjR7ptGMcTO0h8w=;
-        b=NNV9rF3gR0ECHTqMQ2jwTeN0U/gzTplJ+rxDNqpPmLvMCQQxNY5RnS2KDZhWV554h3
-         jTKUi1MtiVHA5ci1V5lSj39ApywBmX6G6q18Ff/rn+jkGB0D6Y11MZlizA1CKVpEJyQP
-         zp+pO91ciP48+cHfIrzw8+IEiqvCvjxcb/FNXVqwzQGup71r2YUGO0d7eHZDsOMgPUnV
-         ClHlJqduNCIQ/dGn2nFNpeLadT9KySh5rwRf0/ZFZWAhmBvyAU9Cmt6iNl7vMnKSMW3+
-         3XEhs3dRkV/40AQFA5BEEbeASa3zwJ2Go6XwT2ZK+vfUnsvHPjPW9/eGcTKxIH63h5gs
-         meFw==
+        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
+        fh=t0Nw2nhOOnWFAR86PFfZva7qIMx1vMlLM9e++XkoW8A=;
+        b=VTvqE5Ri6XgM+iN57NOlmHALBrz2a9KdHfHzks+iWCkG2LQmnMwvWXffIiW04Xkvb8
+         zK8Uu0jApfJEg/EQWHZSBdWndNA3nfL445UDAIvklSr8XNILrmj9xTZURl+BaX12Hv+N
+         z6hFyb757ZLc8jhihCoKXif17vLD8V93Y/3+NLylOimdNMzdEMUAtpYdbbFSa33rCP8s
+         UXyodiA3qrqH058/tLdXnKPqM+6h46zanG+Tbq2ZXj4XdUrWcdUFuOjyWnGJEbcRFqIn
+         HtoGf1nUAOmXZFUjW/eskU12c7jFtzYtg22p0wCAJt8yHJ4RrQ7N4/M7RxEK8CpeSjCw
+         DHdA==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=i25QzE04;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1700658768; x=1701263568; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1700658916; x=1701263716; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:content-transfer-encoding:in-reply-to:from
          :references:to:content-language:subject:user-agent:mime-version:date
          :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=YaCC8rCeL8OsqGNr45saWQqBgOc+0VoryHoug8y4kiw=;
-        b=nWBPBwEXWf5/Ay3gLt1hydjYbLLEejiOf1W7riSA4AihVVbjqvJ5FgnmCBKMwzybCn
-         3TiBAuUCe1/qUy3gURWBJZTLgkOqaBypLyzT+j59gmNIA16Qp/MshrgoaN6KMus4pwKh
-         z9nsYP1PKrjBrDFSBwbHGyi+b0J0WHSfqmwZ7sJDkoZNdAQIz2ucDhRorkea7We8NxYu
-         pdDE2o8DJ8r8vUI5lSxQw1spBXYLN891gYcEAmYxFu5YeSwFdAY+wwo3FY2G5tNL/VG3
-         B8R7lpgAF1vEHqay2TvZSQXnxkgZBfPy7EaVN65nhhNWCp9GLke8o5SccuGDzP9VSZn2
-         tqpg==
+        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
+        b=olmShI3aJluQLOSKytWp7x+tJ4/f3J7VQZHw0YZDDY5UM+K88oi5kOvFOJeJeVOyeS
+         ywDiquDgJTIcXV0hBFoSVpjzL+JxrOLnFdtPcy29byNhLioQiRpA3SjRqj6bz/GzxEQP
+         AQw2xn/IyZ8lnTHjyV68EztjjiLiSoqI773tXRVpKsDZzcrc1G+ywraqVIPn2eZQDCeA
+         vCmu0uKry6+5wyTY6LM6MaXBXYnBMyYwH3QDAefTkN3lzgu8iCc6NG1SRBti5ArAj3UA
+         XKVE3wprAcp2BzIRURSAtc4CAR4vtmYaacGsVr3SS+zZ+AaamYUb+yJx1FFcpOlWIuYN
+         RPig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700658768; x=1701263568;
+        d=1e100.net; s=20230601; t=1700658916; x=1701263716;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender
@@ -54,91 +54,89 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YaCC8rCeL8OsqGNr45saWQqBgOc+0VoryHoug8y4kiw=;
-        b=GvA4RVtSpuQf7wD2mHHO9jQ5ZiRnuXl/c3K9HYQDW/cm66wekMX4vMauBOmkdC+gkh
-         VCWAn8PRc7OitKUfpRSO81ncu5Z9+UtNjci9TQqttjBlRIC/JhIOmnNAG8HYxiyWzltW
-         XxtaC2Sn6jKqdE8qRwSrqdmJwW4+2NC68ywxH+JaMpmPAf6dp/NtLORf9SlbXONHEfTf
-         cvkJ5T08ufjRwW/+s1/BqdOUSZW6ViJHGW40iXdEh2zAmk3bhnNJ4DRWxfzP00YJ2H0f
-         LRMGGkQtJO3tv6GNfu6ezt6QUJWMCTOAOaLSrhCbCT6Kh1bBzLpTtidDZOC0IRDrpokq
-         3oaw==
+        bh=rXXLHLCodNvzv4CT30Q3mcxcyaDFj0EfHmw9VeUIck0=;
+        b=f8z3eLT3PkBBgvBnBo5cuOA+0Vi3AGQTijhGzB+c0Jd+EBZjd1MfDCxBRHyv3OUI6I
+         4Yoxoz0Yl80wAsvXCDQWE37LTe3T5vipyWcJR5rDu6NK4CiMc8zMU0D6w+YjNLtFOKoI
+         LaXvgj3G5Y1lPrtoZfa3gfIlNe0i7BKnJWDBYG894MQu+/BLsQAu6RWaEupajiuKp9zQ
+         DiiE5mxXGsjrVlrHA3D+qGv6HLYiiohRITHqthbT+mZ8lvbttpvi8NQstlD3hZjHNZgR
+         ko315J48uK1Q1DNNZ8bkSPHn5sdUknud6QtYiX3KxgMXiwmZMe4Fcsr6u9j0YjDNJ084
+         vWMg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0Yw53xObLlqpQqqrZusiVqeLWdjhfc/brOybaF/sT0CjHYgWJ8eb
-	UU7BlV3O/tCjVIyt2uexQrk=
-X-Google-Smtp-Source: AGHT+IEVvEi8Z7MUNysOn3q8TBI6hZaEUwDHtWfiKApe3srOMtTpkACeyamg6FWwPR9VTN6OYqk4mQ==
-X-Received: by 2002:a05:6512:360e:b0:507:f0f2:57bd with SMTP id f14-20020a056512360e00b00507f0f257bdmr1430994lfs.66.1700658766795;
-        Wed, 22 Nov 2023 05:12:46 -0800 (PST)
+X-Gm-Message-State: AOJu0YzsISXFeuXl9EdKpDVDdf2JTRPDiq27pNKiAPJ6PzsXLz8j8lUc
+	Ux/sqTYODK12PzeJXvHsu50=
+X-Google-Smtp-Source: AGHT+IHE4zKsq81tUrlxYACX6cCidXvKAbdLCbnX5UxK2Y+6BBpXsIlY6i8bl8NoFtu0YiBHXj/4Uw==
+X-Received: by 2002:ac2:4469:0:b0:4fe:1681:9377 with SMTP id y9-20020ac24469000000b004fe16819377mr262793lfl.44.1700658915798;
+        Wed, 22 Nov 2023 05:15:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:3d8a:b0:50a:a9bd:7eaf with SMTP id
- k10-20020a0565123d8a00b0050aa9bd7eafls655464lfv.2.-pod-prod-03-eu; Wed, 22
- Nov 2023 05:12:44 -0800 (PST)
-X-Received: by 2002:a05:6512:38a7:b0:50a:a337:1f42 with SMTP id o7-20020a05651238a700b0050aa3371f42mr1432757lft.36.1700658764065;
-        Wed, 22 Nov 2023 05:12:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1700658764; cv=none;
+Received: by 2002:a05:6512:3e22:b0:50a:a6be:1dc0 with SMTP id
+ i34-20020a0565123e2200b0050aa6be1dc0ls107538lfv.1.-pod-prod-09-eu; Wed, 22
+ Nov 2023 05:15:13 -0800 (PST)
+X-Received: by 2002:a05:6512:1387:b0:509:4655:d8d5 with SMTP id fc7-20020a056512138700b005094655d8d5mr307502lfb.11.1700658912985;
+        Wed, 22 Nov 2023 05:15:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1700658912; cv=none;
         d=google.com; s=arc-20160816;
-        b=Rs+XWx0379HvfvwWZoVrVjd9Rg9pzs9OJglfaTIo3tiyUzx+yqVJGIdV97dKaKCYBx
-         L/FxULD7Q8Yx3VqqdI2kUXZNDNq/WUqB5R+5xiR9LG2S+2RC2Sd8JMtNftK+KqHPT6O/
-         FHstj1AB0zUpKt/Xj+03Z2RSHJxQkAVjiqKR48hCcuRth1pkZCgzieV9CRq+bxH7MRjb
-         8AGI+WGnsHpsrmAzSfNyx/ZRL26zFGuW2dUkiUeR/v8PdWEeJ8MhfHowKFAkG8dIzQMA
-         8/67Lkj5YFn4gqBG+NvlFtLLlakOUNYVghU3ZVgE5fOCyuF++rKhW7xyWLmIIpSKhzTW
-         DJcA==
+        b=nawtz0K0Cjd083e8l9jXsLPfbNWTBueYTyY7syTlm4M9SgZ20gm5NXTLpLGIhrJJp6
+         0rkO/sfaKtdblqf4057A0rGka+aIq1BVPoBb+HupOe0bxjy1S1HkJA91Ez0Dw0HsBDM+
+         iJCSpbQVVoVgu3pAfJ9MzdDOTSUphKLGj8uElRxGe2FoK6e4E5lgl1Ul6itWzRCJ8aoq
+         S8KyuBiiXBSpoxra5+I68oLEhWikxCpHN1mxyR9pi5g4uGlm/vcrKh+wZSVpzUkxEJEE
+         8Z3b795fmE4cWKegc1nNBqlTV9MvdDf3sQwyNpY9i1EieF+tYVFHIFxhkYvJcL5jiNI6
+         JsYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :dkim-signature;
-        bh=brPIyG3cTvhvA+nN5biGg4Em+P8QfHRMjUfTCu9aMtk=;
-        fh=8SfdoBx/XJgInw4b9LBcr2wFSMupRjR7ptGMcTO0h8w=;
-        b=AkeMbz7S2qkF8Jpz8xOqY702rtqF4Tbo7BmDQmxf0+QzyUPNpBE13MrAzxCjkFv4nM
-         FO+JgWJVznGLgbxdGryzt1UUNk8DO4kWjakFLDreq3mQlnADAmynC1KN39TYqnK4a9Vq
-         l2689/6FFnZnxODGFzyFTdd8sdLVeCDmStgTsPz4BjQv2DuOf6NJPxm5y1h+ECHGAbQt
-         uS/dHBOXhRhqdf0Fv1t5R4O0g/IJsD4tIMJJWDhv0VilV2toJK8WBCRmiGh6zV2LnG4q
-         IixH4UKWps/zWWrCIkWsCMyafINqpfPlCAiyEMWv3DZWEfYUB4tKvynqt1WY0feVsT0h
-         I7gA==
+        bh=aqqVC7Aoz2xuLllVG0djc5mBFozDvt5xC+DYR0iW3ik=;
+        fh=t0Nw2nhOOnWFAR86PFfZva7qIMx1vMlLM9e++XkoW8A=;
+        b=0jm0Tdb7HTNbsSTZtV5wsJyUWXNLJaqi1HBFM2f4/qPaLLJVJIc5daammJy+Ikwf6f
+         gc2Xdqr2UI7bbnqlwDN8NAxEbv2XVXTSNl+w9u2EUINH4qzGApXQ/qxffxRhlgnE4Gme
+         fHQGFU/tiWdQDnTuPc5a96ZNsYqxHzaRjrzve+y8qbYMsesiHbsuVL3AF9PDtasIUtpL
+         63F/UNUJYfwtpsW8fdgELLa63R6cX/iSZ4THG4YmFbBOvFRgkcN35F8GrxaKvAKY0ZOx
+         IBYp4ibAcALCSXtvowpS4YB8aCQ1rQAG4jtnwXgKlGE8WaGWwaO6+JLObWaVolZJelrT
+         L+fQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=i25QzE04;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [2001:638:d:c302:acdc:1979:2:f4])
-        by gmr-mx.google.com with ESMTPS id fb13-20020a056512124d00b0050a72e696casi565522lfb.6.2023.11.22.05.12.43
+Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [2001:638:d:c303:acdc:1979:2:f4])
+        by gmr-mx.google.com with ESMTPS id fi27-20020a056402551b00b0053e26876354si627723edb.5.2023.11.22.05.15.12
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Nov 2023 05:12:43 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c302:acdc:1979:2:f4;
+        Wed, 22 Nov 2023 05:15:12 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c303:acdc:1979:2:f4;
 Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [IPv6:2001:638:a01:1096::12])
-	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id E778B3E00E9;
-	Wed, 22 Nov 2023 14:12:41 +0100 (CET)
+	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id EBEB82A00FF;
+	Wed, 22 Nov 2023 14:15:11 +0100 (CET)
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Sb1r93NRSzxqw;
-	Wed, 22 Nov 2023 14:12:41 +0100 (CET)
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Sb1v34d6Fzxr6;
+	Wed, 22 Nov 2023 14:15:11 +0100 (CET)
 Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
  (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 22 Nov
- 2023 14:12:41 +0100
-Message-ID: <184a93de-9ba3-4ad2-9771-f114000eeaf5@oth-regensburg.de>
-Date: Wed, 22 Nov 2023 14:12:40 +0100
+ 2023 14:15:11 +0100
+Message-ID: <1024f0c9-f851-46e2-abcb-3f3b40f5c47c@oth-regensburg.de>
+Date: Wed, 22 Nov 2023 14:15:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?Q?Re=3A_arm_cortex_A55_support=EF=BC=9F?=
+Subject: Re: jailhouse enable linux
 Content-Language: en-US
-To: =?UTF-8?B?5byg5bmz?= <2022280902@qq.com>, Jailhouse
+To: xin zhang <zhangxin6483@gmail.com>, Jailhouse
 	<jailhouse-dev@googlegroups.com>
-References: <ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n@googlegroups.com>
- <CAEfxd-9ruixKv7sB=EFhnH6Uw4GsYgDnpKjtCqBrRGtkbtxuSg@mail.gmail.com>
- <f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n@googlegroups.com>
+References: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n@googlegroups.com>
+In-Reply-To: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S03.hs-regensburg.de (2001:638:a01:8013::93) To
+X-ClientProxiedBy: E16S01.hs-regensburg.de (2001:638:a01:8013::91) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=i25QzE04;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=vKiee3TL;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 2001:638:d:c302:acdc:1979:2:f4 as permitted sender)
+ designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender)
  smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
  sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
@@ -155,68 +153,106 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 
 
-On 22/11/2023 06:53, '=E5=BC=A0=E5=B9=B3' via Jailhouse wrote:
-> I am trying to transplant jailhouse on the A55 core, but now I have=20
-> encountered some problems. After I execute the following command, the=20
-> system will freeze.
-> $ jailhouse enable renesas-r9a07g044l2.cell
+On 22/11/2023 07:25, xin zhang wrote:
+> when I run linux image on jailhouse, guset serial port print follow=20
+> errors: where I can get ways to sovle it=EF=BC=9F
 
-No error log? Is the debug console configured correctly?
-
->=20
-> What are the possible consequences?
->=20
-> I made sure I did the following:
-> 1.Linux kernel version 5.10
-> 2.Linux starts in EL2
-> 3. Turn on KVM
-
-Do not use KVM in combination with Jailhouse. Disable KVM in your kernel.
+Please provide more context. Does this happen in the root or non-root cell?
 
    Ralf
 
-> 4. Turn off kernel CONFIG_ARM64_VHE
->=20
-> Best regards
-> zhang,
->=20
-> =E5=9C=A82023=E5=B9=B411=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 U=
-TC+8 11:04:24<Peng Fan> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->     There is no difference to run jailhouse on A55 cores.
->=20
->     '=E5=BC=A0=E5=B9=B3' via Jailhouse <jailho...@googlegroups.com> =E4=
-=BA=8E2023=E5=B9=B411=E6=9C=8820=E6=97=A5=E5=91=A8
->     =E4=B8=80 13:47=E5=86=99=E9=81=93=EF=BC=9A
 >=20
 >=20
->         Hi All
->=20
->         I would like to know, are there any examples that are adapted to
->         arm cortex A55?
->         Or are there any SOCs that are arm cortex A55 and have
->         successfully transplanted the jailhouse program?
->=20
->         I saw that A57 and A53 products have suppressed jailhouse
->         applications, but I didn=E2=80=99t see A55?
->=20
->         Cheers,
->         Zhang
->=20
->         --=20
->         You received this message because you are subscribed to the
->         Google Groups "Jailhouse" group.
->         To unsubscribe from this group and stop receiving emails from
->         it, send an email to jailhouse-de...@googlegroups.com.
->         To view this discussion on the web visit
->         https://groups.google.com/d/msgid/jailhouse-dev/ab8484e8-cb54-4c1=
-b-ac78-ef67bb1bf4b3n%40googlegroups.com <https://groups.google.com/d/msgid/=
-jailhouse-dev/ab8484e8-cb54-4c1b-ac78-ef67bb1bf4b3n%40googlegroups.com?utm_=
-medium=3Demail&utm_source=3Dfooter>.
->=20
->=20
->=20
->     --=20
+> [ =C2=A0 =C2=A00.069576][ 0] [ =C2=A0 =C2=A0T0] Mount-cache hash table en=
+tries: 1024 (order:=20
+> 1, 8192 bytes, linear)
+> [ =C2=A0 =C2=A00.078110][ 0] [ =C2=A0 =C2=A0T0] Mountpoint-cache hash tab=
+le entries: 1024=20
+> (order: 1, 8192 bytes, linear)
+> [ =C2=A0 =C2=A00.087451][ 0] [ =C2=A0 =C2=A0T2] Unable to handle kernel p=
+aging request at=20
+> virtual address 0000000000001388
+> [ =C2=A0 =C2=A00.096606][ 0] [ =C2=A0 =C2=A0T2] Mem abort info:
+> [ =C2=A0 =C2=A00.100564][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ESR =3D 0x96000005
+> [ =C2=A0 =C2=A00.104789][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EC =3D 0x25: DABT =
+(current EL), IL =3D 32 bits
+> [ =C2=A0 =C2=A00.111299][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 SET =3D 0, FnV =3D=
+ 0
+> [ =C2=A0 =C2=A00.115522][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 EA =3D 0, S1PTW =
+=3D 0
+> [ =C2=A0 =C2=A00.119834][ 0] [ =C2=A0 =C2=A0T2] Data abort info:
+> [ =C2=A0 =C2=A00.123883][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 ISV =3D 0, ISS =3D=
+ 0x00000005
+> [ =C2=A0 =C2=A00.128898][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 CM =3D 0, WnR =3D =
+0
+> [ =C2=A0 =C2=A00.133034][ 0] [ =C2=A0 =C2=A0T2] [0000000000001388] user a=
+ddress but=20
+> active_mm is swapper
+> [ =C2=A0 =C2=A00.140600][ 0] [ =C2=A0 =C2=A0T2] Internal error: Oops: 960=
+00005 [#1] SMP
+> [ =C2=A0 =C2=A00.146667][ 0] [ =C2=A0 =C2=A0T2] Modules linked in:
+> [ =C2=A0 =C2=A00.150892][ 0] [ =C2=A0 =C2=A0T2] CPU: 0 PID: 2 Comm: kthre=
+add Not tainted=20
+> 5.4.18-101+ #2
+> [ =C2=A0 =C2=A00.158367][ 0] [ =C2=A0 =C2=A0T2] Source Version:=20
+> e7f24793ad667e777f2cf6dab620d082517f6075
+> [ =C2=A0 =C2=A00.165929][ 0] [ =C2=A0 =C2=A0T2] Hardware name: FT-2000/4-=
+D4-DSK Development=20
+> Board (DT)
+> [ =C2=A0 =C2=A00.173317][ 0] [ =C2=A0 =C2=A0T2] pstate: 80000005 (Nzcv da=
+if -PAN -UAO)
+> [ =C2=A0 =C2=A00.179302][ 0] [ =C2=A0 =C2=A0T2] pc : __alloc_pages_nodema=
+sk+0xf8/0x308
+> [ =C2=A0 =C2=A00.185283][ 0] [ =C2=A0 =C2=A0T2] lr : __alloc_pages_nodema=
+sk+0xe0/0x308
+> [ =C2=A0 =C2=A00.191263][ 0] [ =C2=A0 =C2=A0T2] sp : ffffff8031867c30
+> [ =C2=A0 =C2=A00.195749][ 0] [ =C2=A0 =C2=A0T2] x29: ffffff8031867c30 x28=
+: 0000000000800700
+> [ =C2=A0 =C2=A00.202258][ 0] [ =C2=A0 =C2=A0T2] x27: ffffff8031823a80 x26=
+: 00000000ffffffff
+> [ =C2=A0 =C2=A00.208766][ 0] [ =C2=A0 =C2=A0T2] x25: 0000000000400dc0 x24=
+: 0000000000000001
+> [ =C2=A0 =C2=A00.215273][ 0] [ =C2=A0 =C2=A0T2] x23: 0000000000000000 x22=
+: ffffffc0113fa000
+> [ =C2=A0 =C2=A00.221781][ 0] [ =C2=A0 =C2=A0T2] x21: 0000000000000002 x20=
+: ffffffc0113f9000
+> [ =C2=A0 =C2=A00.228289][ 0] [ =C2=A0 =C2=A0T2] x19: 0000000000400dc0 x18=
+: 0000000000000014
+> [ =C2=A0 =C2=A00.234797][ 0] [ =C2=A0 =C2=A0T2] x17: 000000009242c113 x16=
+: 00000000b8b3e41b
+> [ =C2=A0 =C2=A00.241305][ 0] [ =C2=A0 =C2=A0T2] x15: 00000000b31b39bd x14=
+: 0000000000000000
+> [ =C2=A0 =C2=A00.247817][ 0] [ =C2=A0 =C2=A0T2] x13: 0000000000000001 x12=
+: 0000000000000001
+> [ =C2=A0 =C2=A00.254325][ 0] [ =C2=A0 =C2=A0T2] x11: 0000000002e03c00 x10=
+: 0000000005c05800
+> [ =C2=A0 =C2=A00.260833][ 0] [ =C2=A0 =C2=A0T2] x9 : 0000000000000191 x8 =
+: 0000000000000004
+> [ =C2=A0 =C2=A00.267340][ 0] [ =C2=A0 =C2=A0T2] x7 : ffffff8032fe0378 x6 =
+: 0000000000000000
+> [ =C2=A0 =C2=A00.273848][ 0] [ =C2=A0 =C2=A0T2] x5 : 0000000000000003 x4 =
+: 0000000000000000
+> [ =C2=A0 =C2=A00.280355][ 0] [ =C2=A0 =C2=A0T2] x3 : 0000000000001380 x2 =
+: 0000000000000000
+> [ =C2=A0 =C2=A00.286863][ 0] [ =C2=A0 =C2=A0T2] x1 : 0000000000000001 x0 =
+: 0000000000000000
+> [ =C2=A0 =C2=A00.293370][ 0] [ =C2=A0 =C2=A0T2] Call trace:
+> [ =C2=A0 =C2=A00.296978][ 0] [ =C2=A0 =C2=A0T2] =C2=A0__alloc_pages_nodem=
+ask+0xf8/0x308
+> [ =C2=A0 =C2=A00.302609][ 0] [ =C2=A0 =C2=A0T2] =C2=A0copy_process+0x1a4/=
+0x1340
+> [ =C2=A0 =C2=A00.307536][ 0] [ =C2=A0 =C2=A0T2] =C2=A0_do_fork+0x80/0x370
+> [ =C2=A0 =C2=A00.311934][ 0] [ =C2=A0 =C2=A0T2] =C2=A0kernel_thread+0x6c/=
+0x90
+> [ =C2=A0 =C2=A00.316686][ 0] [ =C2=A0 =C2=A0T2] =C2=A0kthreadd+0x1e0/0x27=
+0
+> [ =C2=A0 =C2=A00.321173][ 0] [ =C2=A0 =C2=A0T2] =C2=A0ret_from_fork+0x10/=
+0x18
+> [ =C2=A0 =C2=A00.325924][ 0] [ =C2=A0 =C2=A0T2] Code: 3901c3a0 a9450ba3 b=
+9406fa1 b5000b62=20
+> (b9400860)
+> [ =C2=A0 =C2=A00.333224][ 0] [ =C2=A0 =C2=A0T2] ---[ end trace 7e9dcf3f04=
+9b9227 ]---
 >=20
 > --=20
 > You received this message because you are subscribed to the Google=20
@@ -225,9 +261,9 @@ medium=3Demail&utm_source=3Dfooter>.
 > an email to jailhouse-dev+unsubscribe@googlegroups.com=20
 > <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
 > To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/f23d0d17-ca3c-4807-a7b6-0=
-e2154ccbe75n%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/f23d0d17-ca3c-4807-a7b6-0e2154ccbe75n%40googlegroups.com?utm_medium=
+> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
+a04c86b8b1en%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
+e-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=
 =3Demail&utm_source=3Dfooter>.
 
 --=20
@@ -236,4 +272,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/184a93de-9ba3-4ad2-9771-f114000eeaf5%40oth-regensburg.de.
+jailhouse-dev/1024f0c9-f851-46e2-abcb-3f3b40f5c47c%40oth-regensburg.de.
