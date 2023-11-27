@@ -1,67 +1,67 @@
-Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBE6ZR6VQMGQEN36L37Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBZ62R6VQMGQEIWZTZ6I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x43b.google.com (mail-pf1-x43b.google.com [IPv6:2607:f8b0:4864:20::43b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49F7D7F970B
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Nov 2023 02:10:46 +0100 (CET)
-Received: by mail-pf1-x43b.google.com with SMTP id d2e1a72fcca58-6cbca33ad5dsf3847831b3a.0
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Nov 2023 17:10:46 -0800 (PST)
+Received: from mail-pf1-x438.google.com (mail-pf1-x438.google.com [IPv6:2607:f8b0:4864:20::438])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CAA67F9714
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Nov 2023 02:14:17 +0100 (CET)
+Received: by mail-pf1-x438.google.com with SMTP id d2e1a72fcca58-6c7c69e4367sf4121361b3a.0
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Nov 2023 17:14:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1701047444; x=1701652244; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1701047656; x=1701652456; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=HVUc6iHgbBvMRC62Veaixi6WcDbG2NCGnmW02l8eQCE=;
-        b=XBzohWJ+bSc5hWRqDYB07uvZleggFy5E7HvLuTGMOJNV6Yl7zPHfWz8DqDklAk76oI
-         KT8Q+J0YgEsrmyl041JXj2+FIjVpnzGGCmwhT7LE0fc/XShslMT9Vd4kcaBA9ePtMtZJ
-         ANx2imuhqZ30ra5mXBFLwKoo38DknUIn3pGRVzbwGBBMbkBETVm2pQi+7i0sLD9ABJr5
-         a58RgApfqgfbpzZhXjRUPWkJNTC+6hCk1Z4B0aOPktT6fUno+OOrTozHY6DtoMU19I57
-         IIrSIit8D308Vgtq5eM6jEdqN7muyrrb0PxsSzZclrWEb05bHPNOFW74kQ9MLYo2tlne
-         W88A==
+        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
+        b=k2fOapZDvaiIeBv/wuMpD5q88zM59qfkOuXa12qo24IfLbAY9eXggSmnXAx2AVZZAW
+         en/cxDldogJH9YPpH4pDONl5QB/1UbahrjE65rzwSEabAxDPyc1IL4aM+SbzSy+VYuEx
+         ucPqR28WdCOMJjhoscRESKbvJr8i3NDV0zjKojA99qWkcrf6wljBK94OqrjuTOwBRESJ
+         WWo8EDU9fagMQ1BCTDQeK0sReWH4tHFInuSObALfYOOIcry18YYry1DXbJutBXpGZFig
+         8cDYqE64Z0+aFniC1FtrcSGpmYUqPK91XM2ar5UwwUd3Pmk/zebnojKCRIX/1lcDFzYe
+         mQYA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701047444; x=1701652244; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1701047656; x=1701652456; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=HVUc6iHgbBvMRC62Veaixi6WcDbG2NCGnmW02l8eQCE=;
-        b=B2j5mQJ+v2tqtW9fptLaH50bMNwQE+ROi+e3AEpuwUoUY2HP126zLVtGLFORdB7Wmu
-         +6tnOgTLFcTBM6osq6dzg2j8TBureDLk3Mv90Z8bX5/zxf8NvsE8+NXoUrZLrzTnln+a
-         crtxC5lZ2badgJeT5OtlySW3Pd6Yfp6GcgG9pzqKQzRlQXi8b0Txv6kk09WMdbHzm+IP
-         +SPKm3D3PSA+Ws2rbR8isnNdnWwWqjde7xNenlFwnENa2UjaNtE5j9iBJ1d/KLY3e6vp
-         1Vp3dZyG5OFgKGiOC/Di+3pzAW2QqYVyP75lsULgxyLZP2OXSrG7xEkgCSOgajbubHVw
-         36Vw==
+        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
+        b=QpgdjrzM0fhTw87lVnRi4cCGjepc4BbARvCzeZVPbPq/p/Pnjzb//OJR/VSTxg7jHv
+         YRUhpXFhHNXkECe4XFzjwFyfe+DFa2In3slGJdWXY3NFGHFD09U5mw4wXakSf7/7pXNF
+         fKOLRxtdEE+AW3mBjro42m9F0doufoiPNtWbDetd0jL4YkbH/BeqnE1uvTElrM1hps82
+         5hxWmg5ByvV8mHx+e+Q5pxBfGluGKhAdDxn3xGD59Hp9C7ZikS34u01DQodE+w3F1MvG
+         3gnPAmAzalc8bfbVTyQNCu19wvZI/iLOeRthXeeC/IYF5N9LFOnM4I0sZpAidSKZ39DU
+         zs8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701047444; x=1701652244;
+        d=1e100.net; s=20230601; t=1701047656; x=1701652456;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=HVUc6iHgbBvMRC62Veaixi6WcDbG2NCGnmW02l8eQCE=;
-        b=QetOkQU8ngbwKwpBaBo2JsDQ4Btw8RvJ1FPG2ID1yA8H+aeFhTaz4MHvDr4lfF/yF2
-         6athmsSO5HjYgrR28UyKVgBQLtfpKdh6GgJaSxSTCwL1qzIePzHiWUGmjNZPhfkOx2q3
-         7IO0qC73UF2wSMeoVS6mJpF1yji7uhjzTsPNH28usKduU6L/rfL20jAcQpu0mAjHBF8O
-         ycxlSJNKlg2VKQjQzzqMLrSQAQJ3zaqL71jCHo4Lpz8Un4m0jFQFz4aF2rsfm8dvVIsb
-         /+EeV3fw1wKXWSNaX3UjJLO2gVjj8I4qPx/DnIJ5914bV2eMWP41VIXria0/nJAAH80W
-         AaMw==
+        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
+        b=M0RNPgj5+dUnQVZu+5jpx6jPOQessheRmvejM1HHzSDKURzwTjoyRFPKplycPk3YXp
+         DYK6F3fvBfVLPeZckSo2XKvWPQiqL9y5aJbVKriCgXsZeULuTj5DnBKZRo9vrGiCBb/P
+         cP7Qh3+u+7BeJdLfRge8KK1O//4h/LLtXFPQa+4Pi4thW1Wd5JwuZDq55kLqnM1l1DP4
+         zS86287JzQ73OmB4WFrx8L0yB1hnT9ysslU0Z1ggn9BJEfE5QOPF6X3vV2EPAnbw6SKo
+         GYHHX/4CEMaWKql3zHzEc8tPGM8UJmymDjv2XK3dt/FPO4n3YuTu55KcWclWhTNZrUVn
+         f6Qw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YwwvD5u+frEmjW/mJSFIQgo0LSHDAxCOm8k3L87Dnv8bhH8kddc
-	cS4XrLOfpY5O1+NbwmTUbhs=
-X-Google-Smtp-Source: AGHT+IEE2lLEjCMnmZH+IKINgzseVx69yneK0i+W2yyW/6ypq1N+UE9t43VBubdEgmMn84+4GEK6iA==
-X-Received: by 2002:a05:6a00:4983:b0:6cb:5bf7:a50e with SMTP id dn3-20020a056a00498300b006cb5bf7a50emr16001938pfb.12.1701047444081;
-        Sun, 26 Nov 2023 17:10:44 -0800 (PST)
+X-Gm-Message-State: AOJu0YzMo/bSUbSSUekv0GR3YuSld0SP7dGeVH3p8ZjG8Jfftbn++m9L
+	WjVVGwyiDYogrT47N2ycYt8=
+X-Google-Smtp-Source: AGHT+IHLdB4CfY0DKf8J0hvcpzTCx+neD6/DnFAUEN2Flj/YYTEVxTSH5ckm29Ppvg2c4IaYqmyWPw==
+X-Received: by 2002:a05:6a20:7f8c:b0:18b:563c:bdaf with SMTP id d12-20020a056a207f8c00b0018b563cbdafmr11489068pzj.55.1701047655648;
+        Sun, 26 Nov 2023 17:14:15 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6a00:4185:b0:6cb:bd53:aaac with SMTP id
- ca5-20020a056a00418500b006cbbd53aaacls2584152pfb.0.-pod-prod-04-us; Sun, 26
- Nov 2023 17:10:42 -0800 (PST)
-X-Received: by 2002:a63:258:0:b0:5bd:d5fa:1b14 with SMTP id 85-20020a630258000000b005bdd5fa1b14mr1586828pgc.1.1701047442593;
-        Sun, 26 Nov 2023 17:10:42 -0800 (PST)
-Date: Sun, 26 Nov 2023 17:10:41 -0800 (PST)
+Received: by 2002:a17:90b:2306:b0:285:f83:c885 with SMTP id
+ mt6-20020a17090b230600b002850f83c885ls3505475pjb.0.-pod-prod-06-us; Sun, 26
+ Nov 2023 17:14:14 -0800 (PST)
+X-Received: by 2002:a17:90a:d303:b0:285:13b7:e1ee with SMTP id p3-20020a17090ad30300b0028513b7e1eemr2088132pju.8.1701047654220;
+        Sun, 26 Nov 2023 17:14:14 -0800 (PST)
+Date: Sun, 26 Nov 2023 17:14:13 -0800 (PST)
 From: xin zhang <zhangxin6483@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <908fb2bf-874e-4c76-97e0-cb658a206afen@googlegroups.com>
+Message-Id: <36a629ba-c42c-4e7b-aea1-9c69baa1645an@googlegroups.com>
 In-Reply-To: <d55b7419-79f5-4c37-aaa4-d78fef2c26fa@oth-regensburg.de>
 References: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
  <1024f0c9-f851-46e2-abcb-3f3b40f5c47c@oth-regensburg.de>
@@ -70,7 +70,7 @@ References: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
 Subject: Re: jailhouse enable linux
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_127290_1587391675.1701047441479"
+	boundary="----=_Part_28994_101334622.1701047653530"
 X-Original-Sender: zhangxin6483@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -84,20 +84,18 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_127290_1587391675.1701047441479
+------=_Part_28994_101334622.1701047653530
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_127291_1541741011.1701047441479"
+	boundary="----=_Part_28995_868669977.1701047653530"
 
-------=_Part_127291_1541741011.1701047441479
+------=_Part_28995_868669977.1701047653530
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 There should be no issues with the device tree and configuration files, and=
 =20
-some kernel images can be enable. I will analyze the direction you provided=
-=20
-again.
-tks.
+some kernel images can be enable.
+
 =E5=9C=A82023=E5=B9=B411=E6=9C=8824=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC=
 +8 00:17:27<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
 
@@ -259,19 +257,19 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/908fb2bf-874e-4c76-97e0-cb658a206afen%40googlegroups.com.
+jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegroups.com.
 
-------=_Part_127291_1541741011.1701047441479
+------=_Part_28995_868669977.1701047653530
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 There should be no issues with the device tree and configuration files, and=
- some kernel images can be enable. I will analyze the direction you provide=
-d again.<br /><div>tks.</div><div class=3D"gmail_quote"><div dir=3D"auto" c=
-lass=3D"gmail_attr">=E5=9C=A82023=E5=B9=B411=E6=9C=8824=E6=97=A5=E6=98=9F=
-=E6=9C=9F=E4=BA=94 UTC+8 00:17:27&lt;Ralf Ramsauer> =E5=86=99=E9=81=93=EF=
-=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0=
-.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi,
+ some kernel images can be enable.<br /><br /><div class=3D"gmail_quote"><d=
+iv dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82023=E5=B9=B411=E6=9C=8824=E6=
+=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+8 00:17:27&lt;Ralf Ramsauer> =E5=86=
+=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"=
+margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-lef=
+t: 1ex;">Hi,
 <br>
 <br>On 23/11/2023 05:25, xin zhang wrote:
 <br>&gt; In none root cell, start command is :
@@ -449,14 +447,14 @@ a29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com" target=3D"_blank" re=
 l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-C=
 N&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-435=
 2-a328-9a04c86b8b1en%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1701=
-133495813000&amp;usg=3DAOvVaw3xXsXtr4tj1vF5yD2ItBSL">https://groups.google.=
+134028438000&amp;usg=3DAOvVaw2t-dt7m50iBxX0nzATQiG-">https://groups.google.=
 com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegro=
 ups.com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/=
 a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com" target=3D"_blank"=
  rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dz=
 h-CN&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-=
 4352-a328-9a04c86b8b1en%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1=
-701133495813000&amp;usg=3DAOvVaw3xXsXtr4tj1vF5yD2ItBSL">https://groups.goog=
+701134028438000&amp;usg=3DAOvVaw2t-dt7m50iBxX0nzATQiG-">https://groups.goog=
 le.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40google=
 groups.com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhou=
 se-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=
@@ -464,7 +462,7 @@ se-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=
 aferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://gro=
 ups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%=
 2540googlegroups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3D=
-gmail&amp;ust=3D1701133495813000&amp;usg=3DAOvVaw3EsbtjPWIMZNUVEI-BJ6kO">ht=
+gmail&amp;ust=3D1701134028438000&amp;usg=3DAOvVaw0lFLR6yzTbmSOqVm3vOHGq">ht=
 tps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c=
 86b8b1en%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> =
 &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4=
@@ -473,7 +471,7 @@ rce=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"ht=
 tps://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.com/d/msg=
 id/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%2540googlegroups.com=
 ?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1701=
-133495813000&amp;usg=3DAOvVaw3EsbtjPWIMZNUVEI-BJ6kO">https://groups.google.=
+134028438000&amp;usg=3DAOvVaw0lFLR6yzTbmSOqVm3vOHGq">https://groups.google.=
 com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegro=
 ups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt;.
 <br>&gt;=20
@@ -492,8 +490,8 @@ e...@googlegroups.com</a>=20
 0-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.com" target=3D"_blank" rel=3D=
 "nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
 p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87=
-a2-4cd8e9f22308n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17011334=
-95813000&amp;usg=3DAOvVaw1Xt0L-48NS6-RWU2_e-BmE">https://groups.google.com/=
+a2-4cd8e9f22308n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17011340=
+28438000&amp;usg=3DAOvVaw0Ksnf4FN0zj7Nhqu_34nLj">https://groups.google.com/=
 d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.=
 com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/dfb7=
 1410-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.com?utm_medium=3Demail&amp=
@@ -501,7 +499,7 @@ com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/dfb7=
 rl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.c=
 om/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%2540googlegr=
 oups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;us=
-t=3D1701133495813000&amp;usg=3DAOvVaw2dyK5xE0NaibDhjxCh1woP">https://groups=
+t=3D1701134028438000&amp;usg=3DAOvVaw2OPcKFZzinExEDJKh5H79u">https://groups=
 .google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%40g=
 ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
 <br></blockquote></div>
@@ -515,11 +513,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/908fb2bf-874e-4c76-97e0-cb658a206afen%40googlegrou=
+om/d/msgid/jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/908fb2bf-874e-4c76-97e0-cb658a206afen%40googlegroups.co=
+msgid/jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_127291_1541741011.1701047441479--
+------=_Part_28995_868669977.1701047653530--
 
-------=_Part_127290_1587391675.1701047441479--
+------=_Part_28994_101334622.1701047653530--
