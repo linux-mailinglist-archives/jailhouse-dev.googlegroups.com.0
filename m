@@ -1,77 +1,143 @@
-Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBZ62R6VQMGQEIWZTZ6I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBZVUSKVQMGQEF4ULLEI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pf1-x438.google.com (mail-pf1-x438.google.com [IPv6:2607:f8b0:4864:20::438])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CAA67F9714
-	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Nov 2023 02:14:17 +0100 (CET)
-Received: by mail-pf1-x438.google.com with SMTP id d2e1a72fcca58-6c7c69e4367sf4121361b3a.0
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 26 Nov 2023 17:14:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1701047656; x=1701652456; darn=lfdr.de;
+Received: from mail-ed1-x53c.google.com (mail-ed1-x53c.google.com [IPv6:2a00:1450:4864:20::53c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B1117FA120
+	for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Nov 2023 14:32:24 +0100 (CET)
+Received: by mail-ed1-x53c.google.com with SMTP id 4fb4d7f45d1cf-54366567af4sf5339292a12.1
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 27 Nov 2023 05:32:24 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1701091944; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=RdqQ3lCJOxED265f65h5pb3Hv38aLNIxnUdx0m7zaTkp4yOHM+DpozQJgqh24R53iW
+         A9tSa7sBIRiYjPtMgPX0lHu5r9GjOd7iUEZ+sQJGyWFLGAKJjUcQpWQ3mnHZxIrXkHKA
+         TQyPfbbiYgYIpOO6aLFm7CRnpYu5wySTzmJUpSSEUTFfwKbf7KoiKNXCzbdTwfF476B8
+         cQPeRCnWHhLvyxB0pI7Li3oiSMDc1bGDSueYVbcT6LF31uuy27thEK+ba69FoHsWG6ZM
+         N6kwT3qiwfSq+E1eykHSZLtpABTqdHEfTyfdjco5xIzSj89WDbCsyF0wA+6fIOFufNXA
+         qHPg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
-        b=k2fOapZDvaiIeBv/wuMpD5q88zM59qfkOuXa12qo24IfLbAY9eXggSmnXAx2AVZZAW
-         en/cxDldogJH9YPpH4pDONl5QB/1UbahrjE65rzwSEabAxDPyc1IL4aM+SbzSy+VYuEx
-         ucPqR28WdCOMJjhoscRESKbvJr8i3NDV0zjKojA99qWkcrf6wljBK94OqrjuTOwBRESJ
-         WWo8EDU9fagMQ1BCTDQeK0sReWH4tHFInuSObALfYOOIcry18YYry1DXbJutBXpGZFig
-         8cDYqE64Z0+aFniC1FtrcSGpmYUqPK91XM2ar5UwwUd3Pmk/zebnojKCRIX/1lcDFzYe
-         mQYA==
+         :list-id:mailing-list:precedence:content-transfer-encoding
+         :in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:sender:dkim-signature;
+        bh=Az1H2oAWKEfwzQmuAOe51l1ne1be8siwuDTIQPDJr34=;
+        fh=ZvBLHYJdR3VpExSo8GystPkILtg3nxe9mRDpjtESnRg=;
+        b=dQHqHxiegIwImE2Do5HRqWsb53sHmMwBWXq7REhwvihgXOfbriNJhUCyRHBAKkshrR
+         3yAp0XUPY9Kjxbz+q2HdZuhwbmXWWbYjaDM2EeMiLwKvN+HBd8FUTrdn7kyU0Us/D6Eo
+         i7AQYA2OkUnx43YQqTrAwIFQb8/AqRHmebfaVbREqjNM+BmNa9FsF+R3yYo5cEOeqa1B
+         IKRIU5+DxtlwkW0p3NFa/JJk4Ju84HpivtRHf7K4ACvtBwJshxRQQjRZaLcEMYqjeIfs
+         jTl1jJw3B58rdMEX6LDDtVlnM1AFGIwEBn5r6Gdly76qlzT5XJU8+mhV/LhA8+r58uPr
+         Dc8Q==
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=n1nDAQS+;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.235.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701047656; x=1701652456; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1701091944; x=1701696744; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
-        b=QpgdjrzM0fhTw87lVnRi4cCGjepc4BbARvCzeZVPbPq/p/Pnjzb//OJR/VSTxg7jHv
-         YRUhpXFhHNXkECe4XFzjwFyfe+DFa2In3slGJdWXY3NFGHFD09U5mw4wXakSf7/7pXNF
-         fKOLRxtdEE+AW3mBjro42m9F0doufoiPNtWbDetd0jL4YkbH/BeqnE1uvTElrM1hps82
-         5hxWmg5ByvV8mHx+e+Q5pxBfGluGKhAdDxn3xGD59Hp9C7ZikS34u01DQodE+w3F1MvG
-         3gnPAmAzalc8bfbVTyQNCu19wvZI/iLOeRthXeeC/IYF5N9LFOnM4I0sZpAidSKZ39DU
-         zs8g==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:content-transfer-encoding:in-reply-to:from
+         :references:to:content-language:subject:user-agent:mime-version:date
+         :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Az1H2oAWKEfwzQmuAOe51l1ne1be8siwuDTIQPDJr34=;
+        b=QI2P+7JV+4fb7s3y5A5ZPCQswAgzbgBRHHp/uRpS9mOruP2q/isDp7tOifz9Y83Ovc
+         D9B2ebVgqV8lSLfrR07xT0AUAAw/HN/VyDinBPD0Bm3JU+FoeS1Er6uMel8CeiyKoVc7
+         Ynk+9XD1A72+3yMVzngTPzS6nlcIMTxoPAkkXcsmUZhghc0iGErk/6Vbm+vzrAHMq0Nl
+         2g28vnjHowhgfMhekLItPqDigBFsGQjlELPLfhlE0wOJLkF8rYH9tw4mCq4PERfaJi90
+         OjOzY0OqSjr0dYEg4sX0fghsz3rxjFinWQN2Lln4An2IfxiZXvd2oKHZJLGrna/NQj7N
+         cx9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701047656; x=1701652456;
+        d=1e100.net; s=20230601; t=1701091944; x=1701696744;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FribXtIH3+9650Q6TApWLPas4oq3xJTvTM9aSXB3uFQ=;
-        b=M0RNPgj5+dUnQVZu+5jpx6jPOQessheRmvejM1HHzSDKURzwTjoyRFPKplycPk3YXp
-         DYK6F3fvBfVLPeZckSo2XKvWPQiqL9y5aJbVKriCgXsZeULuTj5DnBKZRo9vrGiCBb/P
-         cP7Qh3+u+7BeJdLfRge8KK1O//4h/LLtXFPQa+4Pi4thW1Wd5JwuZDq55kLqnM1l1DP4
-         zS86287JzQ73OmB4WFrx8L0yB1hnT9ysslU0Z1ggn9BJEfE5QOPF6X3vV2EPAnbw6SKo
-         GYHHX/4CEMaWKql3zHzEc8tPGM8UJmymDjv2XK3dt/FPO4n3YuTu55KcWclWhTNZrUVn
-         f6Qw==
+         :x-original-authentication-results:x-original-sender
+         :content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Az1H2oAWKEfwzQmuAOe51l1ne1be8siwuDTIQPDJr34=;
+        b=N4goTIF9Gz7vis2OPDOhK9pEXwflTKLjspAwfJORnm6pJxraq7aGQgw9q9BC8ytdKc
+         O4hjeWE4sjnJ1eZdEno9ziFwwmObMPeLbTdrPqS123IsdS1Re5oqoW4jtCtA8HDh6aGB
+         uMAQrU8erzQX9JnISTcDKAztR35kNxAotgI9ga36WPEcWfM+SPMvZcFUDoOsHZH3/ym+
+         rkhBVNEr79jiRwFGTmIR1PYNhQt308YlR5OkddFMsslcYbqugVkEVeq44tE2wlQTO3eV
+         A3ziCGozaLHtAYMClDxprBFVPaJ0b59H4nIzq0/arLCEcGnVoOWnhUsA4N1XYg05A1IU
+         1C5A==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzMo/bSUbSSUekv0GR3YuSld0SP7dGeVH3p8ZjG8Jfftbn++m9L
-	WjVVGwyiDYogrT47N2ycYt8=
-X-Google-Smtp-Source: AGHT+IHLdB4CfY0DKf8J0hvcpzTCx+neD6/DnFAUEN2Flj/YYTEVxTSH5ckm29Ppvg2c4IaYqmyWPw==
-X-Received: by 2002:a05:6a20:7f8c:b0:18b:563c:bdaf with SMTP id d12-20020a056a207f8c00b0018b563cbdafmr11489068pzj.55.1701047655648;
-        Sun, 26 Nov 2023 17:14:15 -0800 (PST)
+X-Gm-Message-State: AOJu0Yykr3/1tsALOrnR5ecjOo+GiJ4OR8EqM+zgSobXc2uFv2PEiGdg
+	h6BL3Iqx4zODZ4K794AlBZM=
+X-Google-Smtp-Source: AGHT+IEf+ZfNB68DI19/86vo4pQG9Ew3RdpVWbekvwxGzSuTjO+yPRJkXc6FMsepMG1F82G8bmsmIg==
+X-Received: by 2002:a05:6402:3481:b0:54b:6786:3f74 with SMTP id v1-20020a056402348100b0054b67863f74mr3274558edc.11.1701091943444;
+        Mon, 27 Nov 2023 05:32:23 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90b:2306:b0:285:f83:c885 with SMTP id
- mt6-20020a17090b230600b002850f83c885ls3505475pjb.0.-pod-prod-06-us; Sun, 26
- Nov 2023 17:14:14 -0800 (PST)
-X-Received: by 2002:a17:90a:d303:b0:285:13b7:e1ee with SMTP id p3-20020a17090ad30300b0028513b7e1eemr2088132pju.8.1701047654220;
-        Sun, 26 Nov 2023 17:14:14 -0800 (PST)
-Date: Sun, 26 Nov 2023 17:14:13 -0800 (PST)
-From: xin zhang <zhangxin6483@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <36a629ba-c42c-4e7b-aea1-9c69baa1645an@googlegroups.com>
-In-Reply-To: <d55b7419-79f5-4c37-aaa4-d78fef2c26fa@oth-regensburg.de>
-References: <a3ea29e3-da4c-4352-a328-9a04c86b8b1en@googlegroups.com>
- <1024f0c9-f851-46e2-abcb-3f3b40f5c47c@oth-regensburg.de>
- <dfb71410-9ebc-4c01-87a2-4cd8e9f22308n@googlegroups.com>
- <d55b7419-79f5-4c37-aaa4-d78fef2c26fa@oth-regensburg.de>
-Subject: Re: jailhouse enable linux
+Received: by 2002:a05:6402:3223:b0:54b:50bf:aff5 with SMTP id
+ g35-20020a056402322300b0054b50bfaff5ls279452eda.1.-pod-prod-00-eu; Mon, 27
+ Nov 2023 05:32:21 -0800 (PST)
+X-Received: by 2002:aa7:d653:0:b0:54b:3f0c:7fe0 with SMTP id v19-20020aa7d653000000b0054b3f0c7fe0mr4092625edr.6.1701091940603;
+        Mon, 27 Nov 2023 05:32:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1701091940; cv=none;
+        d=google.com; s=arc-20160816;
+        b=F0KR5lKse6yScjKodvHyWYLbNeRhqOMB4FT5h/jKbj/nqrJzWNFji9h0rgylvPD/Ux
+         Y+UOMvIZ18/D7J/T+6sPQmv1m/KkCg0mk0Yb/8PkKFgTuKTUOoexi3CaE7XtbknXxuOg
+         Goihia4gsiAdpTRMbaMXv1TXDvVxFI75YliL5msa7e4G6EpC5XQsZwq0F7uTDWF4gZ8s
+         0RNqOsSNvgwHjPkHvg+JjGzBrDGXE7lN7Mwg1j5Zh8Ojp5TDERx3SBkl8bNH66hgGrwg
+         +8tp7Bb7fEYPu3QRXQ6rEMbFfuLGgvowTjlR+/s4Qbp4luzp5JPBeZTHjbOmIWkyCw4V
+         HEYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=Ge1dwzB8vcGjPENgWV5gIZrdZ1CMhBYuNTs4g16pZzw=;
+        fh=ZvBLHYJdR3VpExSo8GystPkILtg3nxe9mRDpjtESnRg=;
+        b=gN7YbXUkVoXbcorhc6XgO0z9dS44b1K+7KMqAmG6uECkqhZFTm8fBby/9y37SiYtZW
+         pIyTElu7E7Y5KWQfJp0aRhzIKgWK/XUXaFS9X6Yp91dsh5C/CqXCgDQJVS7JNQXrJx1M
+         ahPvuesRmts3F5pHsc1krVqlR1Njn3gf//q4I9xb4ac4vCMG6MKgdlRCj9uV8I8m+R/S
+         ZpDtjVg8vkVfvGv5mrRMyWXOybgqRVY4gcxFxA5j6dTJgJ62S44AcCGFcxNVy1KYxI3p
+         lXooc2nFyGVRRuY7VhHdDb+ljZpA8EOmtDWNt1L5f4p0w5YnvfX8Wau+rHy2zLJLXuzJ
+         L67g==
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=n1nDAQS+;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.235.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from b2752.mx.srv.dfn.de (b2752.mx.srv.dfn.de. [194.95.235.60])
+        by gmr-mx.google.com with ESMTPS id er26-20020a056402449a00b005489dbe8653si484986edb.2.2023.11.27.05.32.20
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Nov 2023 05:32:20 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.235.60 as permitted sender) client-ip=194.95.235.60;
+Received: from mta01.hs-regensburg.de (mta01.hs-regensburg.de [194.95.104.11])
+	by b2752.mx.srv.dfn.de (Postfix) with ESMTPS id 0CD693E00EA;
+	Mon, 27 Nov 2023 14:32:19 +0100 (CET)
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta01.hs-regensburg.de (Postfix) with ESMTPS id 4Sf62V5WrvzxsS;
+	Mon, 27 Nov 2023 14:32:18 +0100 (CET)
+Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 27 Nov
+ 2023 14:32:18 +0100
+Message-ID: <cccc15df-cb50-4153-b0f0-5a058042a41b@oth-regensburg.de>
+Date: Mon, 27 Nov 2023 14:32:17 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_28994_101334622.1701047653530"
-X-Original-Sender: zhangxin6483@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: Jailhouse on OKMX8mq--C , "unable to open an initial console"
+Content-Language: en-US
+To: =?UTF-8?B?5p2o56uj6L22?= <prodigyyanng@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <893f2e46-c438-4182-859f-1f65af16f8d4n@googlegroups.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+In-Reply-To: <893f2e46-c438-4182-859f-1f65af16f8d4n@googlegroups.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta01-20211122 header.b=n1nDAQS+;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 194.95.235.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -84,172 +150,554 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_28994_101334622.1701047653530
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_28995_868669977.1701047653530"
 
-------=_Part_28995_868669977.1701047653530
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-There should be no issues with the device tree and configuration files, and=
+On 25/11/2023 07:57, =E6=9D=A8=E7=AB=A3=E8=BD=B6 wrote:
+> I'm using a OKMX8MQ-C which from imx8, now i can boot the root cell and=
 =20
-some kernel images can be enable.
+> some simple demp such as gic-demo. But when boot the non-root linux=20
+> cell, i face some problem.
+>=20
+> I only use initramfs to boot non-root linux. Furthermore, my initramfs=20
+> only contains a helloworld and a console device. [I cannot use busybox=20
+> to build initramfs because my toolchain does not allow me to compile=20
+> it]. My ramfs directory is as follows=EF=BC=9A=E6=88=AA=E5=B1=8F2023-11-2=
+5 14.49.49.png
+>=20
+> Then my startup command is as follows:
+>=20
+> *cd /home/root/imx_jailhouse *
+> *insmod driver/jailhouse.ko *
+> *export PATH=3D/home/root/imx_jailhouse/tools:$PATH *
+> *jailhouse enable configs/arm64/imx8mq-veth.cell
+> *
+> *jailhouse cell linux configs/arm64/imx8mq-linux-demo.cell \ *
+> *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0~/Image2 -d \ *
+> *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0~/imx8mq-evk-inmate.dtb -i =
+\ *
+> *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ~/rootfs.cpio.gz \ *
+> *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0-c "clk_ignore_unused=20
+> console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,115200=
+=20
+> root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait rw " *
 
-=E5=9C=A82023=E5=B9=B411=E6=9C=8824=E6=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC=
-+8 00:17:27<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
+try to add console=3Dtty0 here. Further, did you set stdout-path in yor=20
+non root's device tree correctly?
 
-> Hi,
->
-> On 23/11/2023 05:25, xin zhang wrote:
-> > In none root cell, start command is :
-> > jailhouse cell linux -i /home/file/rootfs.cpio -d=20
-> > configs/arm64/dts/AMA0.dtb configs/arm64/linux.cell /home/file/Image -c=
+ > console=3Dttymxc0,30860000,115200
+Are you sure that this line is correct? Why do you encode the address here?
+
+Please try:
+console=3Dttymxc0,115200 console=3Dtty0
+
+   Ralf
+
+> *
+> *
+> Eventually, I got the following output=EF=BC=9A*
+> *
+> root@imx8mqevk:~/imx_jailhouse# jailhouse cell linux=20
+> configs/arm64/imx8mq-linux-demo.cell \
+> _unused console=3Dttymxc0,30860000,115200=20
+> earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=3D1000=
+0000=20
+> rdinit=3D/hello rootwait rw "
+>  > =C2=A0 =C2=A0 =C2=A0~/Image2 -d \
+>  > =C2=A0 =C2=A0 ~/imx8mq-evk-inmate.dtb -i \
+>  > =C2=A0 =C2=A0 =C2=A0~/rootfs.cpio.gz \
+>  > =C2=A0-c "clk_ignore_unused console=3Dttymxc0,30860000,115200=20
+> earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=3D1000=
+0000=20
+> rdinit=3D/hello rootwait rw "
+> [ =C2=A0567.018158] Ready to search binary handler...
+> [ =C2=A0567.023161] Finish search binary handler, ret=3D0...
+> [ =C2=A0567.029032] Ready to search binary handler...
+> [ =C2=A0567.033683] Finish search binary handler, ret=3D0...
+> [ =C2=A0567.039395] Ready to search binary handler...
+> [ =C2=A0567.044092] Finish search binary handler, ret=3D0...
+>=20
+>=20
+> [ =C2=A0567.365079] IRQ231: set affinity failed(-22).
+> [ =C2=A0567.365091] IRQ232: set affinity failed(-22).
+> [ =C2=A0567.365646] CPU2: shutdown
+> [ =C2=A0567.377126] psci: CPU2 killed.
+> [ =C2=A0567.424984] IRQ231: set affinity failed(-22).
+> [ =C2=A0567.424991] IRQ232: set affinity failed(-22).
+> [ =C2=A0567.425300] CPU3: shutdown
+> [ =C2=A0567.436789] psci: CPU3 killed.
+> Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
+> Shared memory connection established: "linux-inmate-demo" <--> "imx8mq"
+> iommu_config_commit linux-inmate-demo
+> Created cell "linux-inmate-demo"
+> Page pool usage after cell creation: mem 111/995, remap 144/131072
+> [ =C2=A0567.473937] Created Jailhouse cell "linux-inmate-demo"
+> Cell "linux-inmate-demo" can be loaded
+>=20
+> Started cell "linux-inmate-demo"
+>=20
+> [ =C2=A0 =C2=A00.000000] Booting Linux on physical CPU 0x0000000002 [0x41=
+0fd034]
+> [ =C2=A0 =C2=A00.000000] Linux version 5.4.3 (azureuser@junyiyang-test) (=
+gcc=20
+> version 9.2.0 (GCC)) #46 SMP PREEMPT Fri Nov 24 09:06:54 UTC 2023
+> [ =C2=A0 =C2=A00.000000] Machine model: Freescale i.MX8MQ EVK
+> [ =C2=A0 =C2=A00.000000] earlycon: ec_imx6q0 at MMIO 0x0000000030860000 (=
+options=20
+> '115200')
+> [ =C2=A0 =C2=A00.000000] printk: bootconsole [ec_imx6q0] enabled
+> [ =C2=A0 =C2=A00.000000] efi: Getting EFI parameters from FDT:
+> [ =C2=A0 =C2=A00.000000] efi: UEFI not found.
+> [ =C2=A0 =C2=A00.000000] cma: Reserved 320 MiB at 0x00000000e4000000
+> root@imx8mqevk:~/imx_jailhouse#
+> root@imx8mqevk:~/imx_jailhouse#
+> [ =C2=A0 =C2=A00.000000] NUMA: No NUMA configuration found
+> [ =C2=A0 =C2=A00.000000] NUMA: Faking a node at [mem=20
+> 0x00000000d0000000-0x00000000f9bfffff]
+> [ =C2=A0 =C2=A00.000000] NUMA: NODE_DATA [mem 0xf9a97500-0xf9a98fff]
+> [ =C2=A0 =C2=A00.000000] Zone ranges:
+> [ =C2=A0 =C2=A00.000000] =C2=A0 DMA32 =C2=A0 =C2=A0[mem 0x00000000d000000=
+0-0x00000000f9bfffff]
+> [ =C2=A0 =C2=A00.000000] =C2=A0 Normal =C2=A0 empty
+> [ =C2=A0 =C2=A00.000000] Movable zone start for each node
+> [ =C2=A0 =C2=A00.000000] Early memory node ranges
+> [ =C2=A0 =C2=A00.000000] =C2=A0 node =C2=A0 0: [mem 0x00000000d0000000-0x=
+00000000f9bfffff]
+> [ =C2=A0 =C2=A00.000000] Initmem setup node 0 [mem=20
+> 0x00000000d0000000-0x00000000f9bfffff]
+> root@imx8mqevk:~/imx_jailhouse#
+> [ =C2=A0 =C2=A00.000000] psci: probing for conduit method from DT.
+> [ =C2=A0 =C2=A00.000000] psci: PSCIv1.1 detected in firmware.
+> [ =C2=A0 =C2=A00.000000] psci: Using standard PSCI v0.2 function IDs
+> [ =C2=A0 =C2=A00.000000] psci: MIGRATE_INFO_TYPE not supported.
+> [ =C2=A0 =C2=A00.000000] psci: SMC Calling Convention v1.1
+> [ =C2=A0 =C2=A00.000000] percpu: Embedded 24 pages/cpu s58968 r8192 d3114=
+4 u98304
+> [ =C2=A0 =C2=A00.000000] Detected VIPT I-cache on CPU0
+> [ =C2=A0 =C2=A00.000000] CPU features: detected: ARM erratum 845719
+> [ =C2=A0 =C2=A00.000000] CPU features: detected: GIC system register CPU =
+interface
+> [ =C2=A0 =C2=A00.000000] Built 1 zonelists, mobility grouping on. =C2=A0T=
+otal pages: 168336
+> [ =C2=A0 =C2=A00.000000] Policy zone: DMA32
+> [ =C2=A0 =C2=A00.000000] Kernel command line: clk_ignore_unused=20
+> console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,115200=
 =20
-> > "console=3DttyAMA0,115200 root=3D/dev/ram0  ramdisk_size=3D0x1000000=20
-> > earlycon=3Dpl011,0x28000000"
->
-> Okay. Are you absolutely sure, that the device tree matches with the=20
-> cell configuration? I wonder why the kernel tries to access virtual (!)=
+> root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait rw
+> [ =C2=A0 =C2=A00.000000] Dentry cache hash table entries: 131072 (order: =
+8,=20
+> 1048576 bytes, linear)
+> [ =C2=A0 =C2=A00.000000] Inode-cache hash table entries: 65536 (order: 7,=
+ 524288=20
+> bytes, linear)
+> [ =C2=A0 =C2=A00.000000] mem auto-init: stack:off, heap alloc:off, heap f=
+ree:off
+> root@imx8mqevk:~/imx_jailhouse#
+> [ =C2=A0 =C2=A00.000000] Memory: 307980K/684032K available (16508K kernel=
+ code,=20
+> 1370K rwdata, 6456K rodata, 2944K init, 1039K bss, 48372K reserved,=20
+> 327680K cma-reserved)
+> [ =C2=A0 =C2=A00.000000] SLUB: HWalign=3D64, Order=3D0-3, MinObjects=3D0,=
+ CPUs=3D2, Nodes=3D1
+> [ =C2=A0 =C2=A00.000000] rcu: Preemptible hierarchical RCU implementation=
+.
+> [ =C2=A0 =C2=A00.000000] rcu: =C2=A0 =C2=A0 RCU restricting CPUs from NR_=
+CPUS=3D256 to=20
+> nr_cpu_ids=3D2.
+> [ =C2=A0 =C2=A00.000000] =C2=A0Tasks RCU enabled.
+> [ =C2=A0 =C2=A00.000000] rcu: RCU calculated value of scheduler-enlistmen=
+t delay=20
+> is 25 jiffies.
+> [ =C2=A0 =C2=A00.000000] rcu: Adjusting geometry for rcu_fanout_leaf=3D16=
+, nr_cpu_ids=3D2
+> [ =C2=A0 =C2=A00.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+> [ =C2=A0 =C2=A00.000000] GICv3: 128 SPIs implemented
+> [ =C2=A0 =C2=A00.000000] GICv3: 0 Extended SPIs implemented
+> [ =C2=A0 =C2=A00.000000] GICv3: Distributor has no Range Selector support
+> [ =C2=A0 =C2=A00.000000] GICv3: 16 PPIs implemented
+> [ =C2=A0 =C2=A00.000000] GICv3: no VLPI support, no direct LPI support
+> [ =C2=A0 =C2=A00.000000] GICv3: CPU0: found redistributor 2 region=20
+> 0:0x00000000388c0000
+> [ =C2=A0 =C2=A00.000000] ITS: No ITS available, not enabling LPIs
+> [ =C2=A0 =C2=A00.000000] random: get_random_bytes called from=20
+> start_kernel+0x2b8/0x44c with crng_init=3D0
+> [ =C2=A0 =C2=A00.000000] arch_timer: cp15 timer(s) running at 8.33MHz (vi=
+rt).
+> [ =C2=A0 =C2=A00.000000] clocksource: arch_sys_counter: mask: 0xfffffffff=
+fffff=20
+> max_cycles: 0x1ec0311ec, max_idle_ns: 440795202152 ns
+> [ =C2=A0 =C2=A00.000005] sched_clock: 56 bits at 8MHz, resolution 120ns, =
+wraps=20
+> every 2199023255541ns
+> [ =C2=A0 =C2=A00.008316] Console: colour dummy device 80x25
+> [ =C2=A0 =C2=A00.012477] Calibrating delay loop (skipped), value calculat=
+ed using=20
+> timer frequency.. 16.66 BogoMIPS (lpj=3D33333)
+> [ =C2=A0 =C2=A00.022666] pid_max: default: 32768 minimum: 301
+> [ =C2=A0 =C2=A00.027356] LSM: Security Framework initializing
+> [ =C2=A0 =C2=A00.031897] SELinux: =C2=A0Initializing.
+> [ =C2=A0 =C2=A00.035422] Mount-cache hash table entries: 2048 (order: 2, =
+16384=20
+> bytes, linear)
+> [ =C2=A0 =C2=A00.042725] Mountpoint-cache hash table entries: 2048 (order=
+: 2,=20
+> 16384 bytes, linear)
+> [ =C2=A0 =C2=A00.051555] init thread pid check: 1...
+> root@imx8mqevk:~/imx_jailhouse#
+> root@imx8mqevk:~/imx_jailhouse# [ =C2=A0 =C2=A00.074633] ASID allocator=
 =20
-> address 0x1388, which apparently has no mapping. In case everything is=20
-> configured correctly, then we have here some issue with the kernel, and=
+> initialised with 32768 entries
+> [ =C2=A0 =C2=A00.082633] rcu: Hierarchical SRCU implementation.
+> [ =C2=A0 =C2=A00.091290] EFI services will not be available.
+> [ =C2=A0 =C2=A00.098677] smp: Bringing up secondary CPUs ...
+> [ =C2=A0 =C2=A00.130824] Detected VIPT I-cache on CPU1
+> [ =C2=A0 =C2=A00.130870] GICv3: CPU1: found redistributor 3 region=20
+> 0:0x00000000388e0000
+> [ =C2=A0 =C2=A00.130914] CPU1: Booted secondary processor 0x0000000003 [0=
+x410fd034]
+> [ =C2=A0 =C2=A00.131020] smp: Brought up 1 node, 2 CPUs
+> [ =C2=A0 =C2=A00.149632] SMP: Total of 2 processors activated.
+> [ =C2=A0 =C2=A00.154314] CPU features: detected: 32-bit EL0 Support
+> [ =C2=A0 =C2=A00.159450] CPU features: detected: CRC32 instructions
+> [ =C2=A0 =C2=A00.177838] CPU: All CPU(s) started at EL1
+> [ =C2=A0 =C2=A00.179087] alternatives: patching kernel code
+> [ =C2=A0 =C2=A00.184973] devtmpfs: initialized
+> [ =C2=A0 =C2=A00.192187] clocksource: jiffies: mask: 0xffffffff max_cycle=
+s:=20
+> 0xffffffff, max_idle_ns: 7645041785100000 ns
+> [ =C2=A0 =C2=A00.199073] futex hash table entries: 512 (order: 3, 32768 b=
+ytes, linear)
+> [ =C2=A0 =C2=A00.217026] pinctrl core: initialized pinctrl subsystem
+> [ =C2=A0 =C2=A00.220270] DMI not present or invalid.
+> [ =C2=A0 =C2=A00.223548] NET: Registered protocol family 16
+> [ =C2=A0 =C2=A00.243512] DMA: preallocated 256 KiB pool for atomic alloca=
+tions
+> [ =C2=A0 =C2=A00.246762] audit: initializing netlink subsys (disabled)
+> [ =C2=A0 =C2=A00.252330] audit: type=3D2000 audit(0.212:1): state=3Diniti=
+alized=20
+> audit_enabled=3D0 res=3D1
+> [ =C2=A0 =C2=A00.259890] cpuidle: using governor menu
+> [ =C2=A0 =C2=A00.264391] hw-breakpoint: found 6 breakpoint and 4 watchpoi=
+nt registers.
+> [ =C2=A0 =C2=A00.271261] Serial: AMBA PL011 UART driver
+> [ =C2=A0 =C2=A00.274699] imx mu driver is registered.
+> [ =C2=A0 =C2=A00.278539] imx rpmsg driver is registered.
+> [ =C2=A0 =C2=A00.304587] HugeTLB registered 1.00 GiB page size, pre-alloc=
+ated 0 pages
+> [ =C2=A0 =C2=A00.308453] HugeTLB registered 32.0 MiB page size, pre-alloc=
+ated 0 pages
+> [ =C2=A0 =C2=A00.315123] HugeTLB registered 2.00 MiB page size, pre-alloc=
+ated 0 pages
+> [ =C2=A0 =C2=A00.321805] HugeTLB registered 64.0 KiB page size, pre-alloc=
+ated 0 pages
+> [ =C2=A0 =C2=A00.331139] cryptd: max_cpu_qlen set to 1000
+> [ =C2=A0 =C2=A00.339367] ACPI: Interpreter disabled.
+> [ =C2=A0 =C2=A00.340820] iommu: Default domain type: Translated
+> [ =C2=A0 =C2=A00.345428] vgaarb: loaded
+> [ =C2=A0 =C2=A00.348260] SCSI subsystem initialized
+> [ =C2=A0 =C2=A00.352060] usbcore: registered new interface driver usbfs
+> [ =C2=A0 =C2=A00.357446] usbcore: registered new interface driver hub
+> [ =C2=A0 =C2=A00.362457] usbcore: registered new device driver usb
+> [ =C2=A0 =C2=A00.367753] mc: Linux media interface: v0.10
+> [ =C2=A0 =C2=A00.371747] videodev: Linux video capture interface: v2.00
+> [ =C2=A0 =C2=A00.377234] pps_core: LinuxPPS API ver. 1 registered
+> [ =C2=A0 =C2=A00.382104] pps_core: Software ver. 5.3.6 - Copyright 2005-2=
+007=20
+> Rodolfo Giometti <giometti@linux.it>
+> [ =C2=A0 =C2=A00.391236] PTP clock support registered
+> [ =C2=A0 =C2=A00.395188] EDAC MC: Ver: 3.0.0
+> [ =C2=A0 =C2=A00.398960] No BMan portals available!
+> [ =C2=A0 =C2=A00.402252] QMan: Allocated lookup table at (____ptrval____)=
+, entry=20
+> count 65537
+> [ =C2=A0 =C2=A00.409524] No QMan portals available!
+> [ =C2=A0 =C2=A00.413314] No USDPAA memory, no 'fsl,usdpaa-mem' in device-=
+tree
+> [ =C2=A0 =C2=A00.419312] FPGA manager framework
+> [ =C2=A0 =C2=A00.422483] Advanced Linux Sound Architecture Driver Initial=
+ized.
+> [ =C2=A0 =C2=A00.428969] Bluetooth: Core ver 2.22
+> [ =C2=A0 =C2=A00.432033] NET: Registered protocol family 31
+> [ =C2=A0 =C2=A00.436445] Bluetooth: HCI device and connection manager ini=
+tialized
+> [ =C2=A0 =C2=A00.442785] Bluetooth: HCI socket layer initialized
+> [ =C2=A0 =C2=A00.447644] Bluetooth: L2CAP socket layer initialized
+> [ =C2=A0 =C2=A00.452688] Bluetooth: SCO socket layer initialized
+> [ =C2=A0 =C2=A00.458289] clocksource: Switched to clocksource arch_sys_co=
+unter
+> [ =C2=A0 =C2=A00.463791] VFS: Disk quotas dquot_6.6.0
+> [ =C2=A0 =C2=A00.467580] VFS: Dquot-cache hash table entries: 512 (order =
+0, 4096=20
+> bytes)
+> [ =C2=A0 =C2=A00.474589] pnp: PnP ACPI: disabled
+> [ =C2=A0 =C2=A00.486097] thermal_sys: Registered thermal governor 'step_w=
+ise'
+> [ =C2=A0 =C2=A00.486100] thermal_sys: Registered thermal governor 'power_=
+allocator'
+> [ =C2=A0 =C2=A00.489479] NET: Registered protocol family 2
+> [ =C2=A0 =C2=A00.500595] tcp_listen_portaddr_hash hash table entries: 512=
+ (order:=20
+> 1, 8192 bytes, linear)
+> [ =C2=A0 =C2=A00.508479] TCP established hash table entries: 8192 (order:=
+ 4, 65536=20
+> bytes, linear)
+> [ =C2=A0 =C2=A00.516248] TCP bind hash table entries: 8192 (order: 5, 131=
+072=20
+> bytes, linear)
+> [ =C2=A0 =C2=A00.523523] TCP: Hash tables configured (established 8192 bi=
+nd 8192)
+> [ =C2=A0 =C2=A00.529790] UDP hash table entries: 512 (order: 2, 16384 byt=
+es, linear)
+> [ =C2=A0 =C2=A00.536336] UDP-Lite hash table entries: 512 (order: 2, 1638=
+4 bytes,=20
+> linear)
+> [ =C2=A0 =C2=A00.543469] NET: Registered protocol family 1
+> [ =C2=A0 =C2=A00.548165] RPC: Registered named UNIX socket transport modu=
+le.
+> [ =C2=A0 =C2=A00.553581] RPC: Registered udp transport module.
+> [ =C2=A0 =C2=A00.558262] RPC: Registered tcp transport module.
+> [ =C2=A0 =C2=A00.562952] RPC: Registered tcp NFSv4.1 backchannel transpor=
+t module.
+> [ =C2=A0 =C2=A00.569831] PCI: CLS 0 bytes, default 64
+> [ =C2=A0 =C2=A00.573504] Trying to unpack rootfs image as initramfs...
+> [ =C2=A0 =C2=A00.578681] Compressed data magic: 0x1f 0x8b
+> [ =C2=A0 =C2=A00.604372] Freeing initrd memory: 372K
+> [ =C2=A0 =C2=A00.606046] kvm [1]: HYP mode not available
+> [ =C2=A0 =C2=A00.616895] Initialise system trusted keyrings
+> [ =C2=A0 =C2=A00.618624] workingset: timestamp_bits=3D44 max_order=3D18 b=
+ucket_order=3D0
+> [ =C2=A0 =C2=A00.633665] squashfs: version 4.0 (2009/01/31) Phillip Lough=
+er
+> [ =C2=A0 =C2=A00.637392] NFS: Registering the id_resolver key type
+> [ =C2=A0 =C2=A00.641713] Key type id_resolver registered
+> [ =C2=A0 =C2=A00.645848] Key type id_legacy registered
+> [ =C2=A0 =C2=A00.649848] nfs4filelayout_init: NFSv4 File Layout Driver Re=
+gistering...
+> [ =C2=A0 =C2=A00.656543] jffs2: version 2.2. (NAND) =C2=A9 2001-2006 Red =
+Hat, Inc.
+> [ =C2=A0 =C2=A00.663102] 9p: Installing v9fs 9p2000 file system support
+> [ =C2=A0 =C2=A00.688300] Key type asymmetric registered
+> [ =C2=A0 =C2=A00.689534] Asymmetric key parser 'x509' registered
+> [ =C2=A0 =C2=A00.694461] Block layer SCSI generic (bsg) driver version 0.=
+4 loaded=20
+> (major 244)
+> [ =C2=A0 =C2=A00.701900] io scheduler mq-deadline registered
+> [ =C2=A0 =C2=A00.706301] io scheduler kyber registered
+> [ =C2=A0 =C2=A00.711544] pci-host-generic bfb00000.pci: host bridge /pci@=
+bfb00000=20
+> ranges:
+> [ =C2=A0 =C2=A00.717352] pci-host-generic bfb00000.pci: =C2=A0 MEM=20
+> 0x10000000..0x1000ffff -> 0x10000000
+> [ =C2=A0 =C2=A00.725202] pci-host-generic bfb00000.pci: ECAM at [mem=20
+> 0xbfb00000-0xbfbfffff] for [bus 00]
+> [ =C2=A0 =C2=A00.733608] pci-host-generic bfb00000.pci: PCI host bridge t=
+o bus 0000:00
+> [ =C2=A0 =C2=A00.740249] pci_bus 0000:00: root bus resource [bus 00]
+> [ =C2=A0 =C2=A00.745450] pci_bus 0000:00: root bus resource [mem=20
+> 0x10000000-0x1000ffff]
+> [ =C2=A0 =C2=A00.752335] pci 0000:00:00.0: [1af4:1110] type 00 class 0xff=
+0100
+> [ =C2=A0 =C2=A00.758324] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x00=
+0000ff 64bit]
+> [ =C2=A0 =C2=A00.766848] pci 0000:00:00.0: BAR 0: assigned [mem=20
+> 0x10000000-0x100000ff 64bit]
+> [ =C2=A0 =C2=A00.773175] EINJ: ACPI disabled.
+> [ =C2=A0 =C2=A00.776584] Bus freq driver module loaded
+> [ =C2=A0 =C2=A00.780120] virtio-pci 0000:00:00.0: enabling device (0000 -=
+> 0002)
+> [ =C2=A0 =C2=A00.789667] Serial: 8250/16550 driver, 4 ports, IRQ sharing =
+enabled
+> [ =C2=A0 =C2=A00.794841] 30890000.serial: ttymxc1 at MMIO 0x30890000 (irq=
+ =3D 5,=20
+> base_baud =3D 1562500) is a IMX
+> [ =C2=A0 =C2=A00.812412] brd: module loaded
+> [ =C2=A0 =C2=A00.820118] loop: module loaded
+> [ =C2=A0 =C2=A00.822089] imx ahci driver is registered.
+> [ =C2=A0 =C2=A00.826835] libphy: Fixed MDIO Bus: probed
+> [ =C2=A0 =C2=A00.829601] tun: Universal TUN/TAP device driver, 1.6
+> [ =C2=A0 =C2=A00.833815] CAN device driver interface
+> [ =C2=A0 =C2=A00.837738] thunder_xcv, ver 1.0
+> [ =C2=A0 =C2=A00.840680] thunder_bgx, ver 1.0
+> [ =C2=A0 =C2=A00.843893] nicpf, ver 1.0
+> [ =C2=A0 =C2=A00.846753] Freescale FM module, FMD API version 21.1.0
+> [ =C2=A0 =C2=A00.851814] Freescale FM Ports module
+> [ =C2=A0 =C2=A00.855392] fsl_mac: fsl_mac: FSL FMan MAC API based driver
+> [ =C2=A0 =C2=A00.861005] fsl_dpa: FSL DPAA Ethernet driver
+> [ =C2=A0 =C2=A00.865334] fsl_advanced: FSL DPAA Advanced drivers:
+> [ =C2=A0 =C2=A00.870234] fsl_proxy: FSL DPAA Proxy initialization driver
+> [ =C2=A0 =C2=A00.875835] fsl_oh: FSL FMan Offline Parsing port driver
+> [ =C2=A0 =C2=A00.881572] hclge is initializing
+> [ =C2=A0 =C2=A00.884388] hns3: Hisilicon Ethernet Network Driver for Hip0=
+8 Family=20
+> - version
+> [ =C2=A0 =C2=A00.891589] hns3: Copyright (c) 2017 Huawei Corporation.
+> [ =C2=A0 =C2=A00.896938] e1000: Intel(R) PRO/1000 Network Driver - versio=
+n=20
+> 7.3.21-k8-NAPI
+> [ =C2=A0 =C2=A00.903916] e1000: Copyright (c) 1999-2006 Intel Corporation=
+.
+> [ =C2=A0 =C2=A00.909688] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6=
+-k
+> [ =C2=A0 =C2=A00.915505] e1000e: Copyright(c) 1999 - 2015 Intel Corporati=
+on.
+> [ =C2=A0 =C2=A00.921425] igb: Intel(R) Gigabit Ethernet Network Driver - =
+version=20
+> 5.6.0-k
+> [ =C2=A0 =C2=A00.928314] igb: Copyright (c) 2007-2014 Intel Corporation.
+> [ =C2=A0 =C2=A00.933910] igbvf: Intel(R) Gigabit Virtual Function Network=
+ Driver -=20
+> version 2.4.0-k
+> [ =C2=A0 =C2=A00.941683] igbvf: Copyright (c) 2009 - 2012 Intel Corporati=
+on.
+> [ =C2=A0 =C2=A00.947685] sky2: driver version 1.30
+> [ =C2=A0 =C2=A00.951424] usbcore: registered new interface driver asix
+> [ =C2=A0 =C2=A00.956652] usbcore: registered new interface driver ax88179=
+_178a
+> [ =C2=A0 =C2=A00.962722] usbcore: registered new interface driver cdc_eth=
+er
+> [ =C2=A0 =C2=A00.968534] usbcore: registered new interface driver net1080
+> [ =C2=A0 =C2=A00.974179] usbcore: registered new interface driver cdc_sub=
+set
+> [ =C2=A0 =C2=A00.980082] usbcore: registered new interface driver zaurus
+> [ =C2=A0 =C2=A00.985654] usbcore: registered new interface driver cdc_ncm
+> [ =C2=A0 =C2=A00.991279] usbcore: registered new interface driver huawei_=
+cdc_ncm
+> [ =C2=A0 =C2=A00.997535] usbcore: registered new interface driver qmi_wwa=
+n_q
+> [ =C2=A0 =C2=A01.003641] VFIO - User Level meta-driver version: 0.3
+> [ =C2=A0 =C2=A01.009455] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EH=
+CI) Driver
+> [ =C2=A0 =C2=A01.015039] ehci-pci: EHCI PCI platform driver
+> [ =C2=A0 =C2=A01.019496] ehci-platform: EHCI generic platform driver
+> [ =C2=A0 =C2=A01.024722] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) =
+Driver
+> [ =C2=A0 =C2=A01.030839] ohci-pci: OHCI PCI platform driver
+> [ =C2=A0 =C2=A01.035296] ohci-platform: OHCI generic platform driver
+> [ =C2=A0 =C2=A01.040695] usbcore: registered new interface driver cdc_wdm
+> [ =C2=A0 =C2=A01.046156] usbcore: registered new interface driver usb-sto=
+rage
+> [ =C2=A0 =C2=A01.052184] usbcore: registered new interface driver usbseri=
+al_generic
+> [ =C2=A0 =C2=A01.058636] usbserial: USB Serial support registered for gen=
+eric
+> [ =C2=A0 =C2=A01.064625] usbcore: registered new interface driver option
+> [ =C2=A0 =C2=A01.070174] usbserial: USB Serial support registered for GSM=
+ modem=20
+> (1-port)
+> [ =C2=A0 =C2=A01.078254] <<-GTP-INFO->> GTP driver installing...
+> [ =C2=A0 =C2=A01.082821] i2c /dev entries driver
+> [ =C2=A0 =C2=A01.086604] Bluetooth: HCI UART driver ver 2.3
+> [ =C2=A0 =C2=A01.089846] Bluetooth: HCI UART protocol H4 registered
+> [ =C2=A0 =C2=A01.094981] Bluetooth: HCI UART protocol BCSP registered
+> [ =C2=A0 =C2=A01.100305] Bluetooth: HCI UART protocol LL registered
+> [ =C2=A0 =C2=A01.105394] Bluetooth: HCI UART protocol ATH3K registered
+> [ =C2=A0 =C2=A01.110796] Bluetooth: HCI UART protocol Three-wire (H5) reg=
+istered
+> [ =C2=A0 =C2=A01.117092] Bluetooth: HCI UART protocol Broadcom registered
+> [ =C2=A0 =C2=A01.122689] Bluetooth: HCI UART protocol QCA registered
+> [ =C2=A0 =C2=A01.128079] imx-cpufreq-dt: probe of imx-cpufreq-dt failed w=
+ith error -2
+> [ =C2=A0 =C2=A01.135773] sdhci: Secure Digital Host Controller Interface =
+driver
+> [ =C2=A0 =C2=A01.140731] sdhci: Copyright(c) Pierre Ossman
+> [ =C2=A0 =C2=A01.145172] Synopsys Designware Multimedia Card Interface Dr=
+iver
+> [ =C2=A0 =C2=A01.151282] sdhci-pltfm: SDHCI platform and OF driver helper
+> [ =C2=A0 =C2=A01.157247] ledtrig-cpu: registered to indicate activity on =
+CPUs
+> [ =C2=A0 =C2=A01.163670] usbcore: registered new interface driver usbhid
+> [ =C2=A0 =C2=A01.168242] usbhid: USB HID core driver
+> [ =C2=A0 =C2=A01.172978] No fsl,qman node
+> [ =C2=A0 =C2=A01.174928] Freescale USDPAA process driver
+> [ =C2=A0 =C2=A01.179087] fsl-usdpaa: no region found
+> [ =C2=A0 =C2=A01.182907] Freescale USDPAA process IRQ driver
+> [ =C2=A0 =C2=A01.191715] NET: Registered protocol family 26
+> [ =C2=A0 =C2=A01.193427] Initializing XFRM netlink socket
+> [ =C2=A0 =C2=A01.198204] NET: Registered protocol family 10
+> [ =C2=A0 =C2=A01.202897] Segment Routing with IPv6
+> [ =C2=A0 =C2=A01.205680] NET: Registered protocol family 17
+> [ =C2=A0 =C2=A01.210087] can: controller area network core (rev 20170425 =
+abi 9)
+> [ =C2=A0 =C2=A01.216272] NET: Registered protocol family 29
+> [ =C2=A0 =C2=A01.220654] can: raw protocol (rev 20170425)
+> [ =C2=A0 =C2=A01.224903] can: broadcast manager protocol (rev 20170425 t)
+> [ =C2=A0 =C2=A01.230548] can: netlink gateway (rev 20190810) max_hops=3D1
+> [ =C2=A0 =C2=A01.236247] Bluetooth: RFCOMM TTY layer initialized
+> [ =C2=A0 =C2=A01.240894] Bluetooth: RFCOMM socket layer initialized
+> [ =C2=A0 =C2=A01.246020] Bluetooth: RFCOMM ver 1.11
+> [ =C2=A0 =C2=A01.249739] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+> [ =C2=A0 =C2=A01.255024] Bluetooth: BNEP filters: protocol multicast
+> [ =C2=A0 =C2=A01.260238] Bluetooth: BNEP socket layer initialized
+> [ =C2=A0 =C2=A01.265180] Bluetooth: HIDP (Human Interface Emulation) ver =
+1.2
+> [ =C2=A0 =C2=A01.271085] Bluetooth: HIDP socket layer initialized
+> [ =C2=A0 =C2=A01.276074] 8021q: 802.1Q VLAN Support v1.8
+> [ =C2=A0 =C2=A01.280216] lib80211: common routines for IEEE802.11 drivers
+> [ =C2=A0 =C2=A01.285980] 9pnet: Installing 9P2000 support
+> [ =C2=A0 =C2=A01.290126] tsn generic netlink module v1 init...
+> [ =C2=A0 =C2=A01.294849] Key type dns_resolver registered
+> [ =C2=A0 =C2=A01.299721] registered taskstats version 1
+> [ =C2=A0 =C2=A01.303120] Loading compiled-in X.509 certificates
+> [ =C2=A0 =C2=A01.310428] hctosys: unable to open rtc device (rtc0)
+> [ =C2=A0 =C2=A01.313111] cfg80211: Loading compiled-in X.509 certificates=
+ for=20
+> regulatory database
+> [ =C2=A0 =C2=A01.322641] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf4=
+7aef9cea7'
+> [ =C2=A0 =C2=A01.327262] platform regulatory.0: Direct firmware load for=
 =20
-> you should debug in this direction.
->
-> Ralf
->
-> >=20
-> > =E5=9C=A82023=E5=B9=B411=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89=
- UTC+8 21:15:15<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
-> >=20
-> >=20
-> >=20
-> > On 22/11/2023 07:25, xin zhang wrote:
-> > > when I run linux image on jailhouse, guset serial port print follow
-> > > errors: where I can get ways to sovle it=EF=BC=9F
-> >=20
-> > Please provide more context. Does this happen in the root or
-> > non-root cell?
-> >=20
-> > Ralf
-> >=20
-> > >
-> > >
-> > > [    0.069576][ 0] [    T0] Mount-cache hash table entries: 1024
-> > (order:
-> > > 1, 8192 bytes, linear)
-> > > [    0.078110][ 0] [    T0] Mountpoint-cache hash table entries:
-> > 1024
-> > > (order: 1, 8192 bytes, linear)
-> > > [    0.087451][ 0] [    T2] Unable to handle kernel paging
-> > request at
-> > > virtual address 0000000000001388
-> > > [    0.096606][ 0] [    T2] Mem abort info:
-> > > [    0.100564][ 0] [    T2]   ESR =3D 0x96000005
-> > > [    0.104789][ 0] [    T2]   EC =3D 0x25: DABT (current EL), IL =3D
-> > 32 bits
-> > > [    0.111299][ 0] [    T2]   SET =3D 0, FnV =3D 0
-> > > [    0.115522][ 0] [    T2]   EA =3D 0, S1PTW =3D 0
-> > > [    0.119834][ 0] [    T2] Data abort info:
-> > > [    0.123883][ 0] [    T2]   ISV =3D 0, ISS =3D 0x00000005
-> > > [    0.128898][ 0] [    T2]   CM =3D 0, WnR =3D 0
-> > > [    0.133034][ 0] [    T2] [0000000000001388] user address but
-> > > active_mm is swapper
-> > > [    0.140600][ 0] [    T2] Internal error: Oops: 96000005 [#1] SMP
-> > > [    0.146667][ 0] [    T2] Modules linked in:
-> > > [    0.150892][ 0] [    T2] CPU: 0 PID: 2 Comm: kthreadd Not tainted
-> > > 5.4.18-101+ #2
-> > > [    0.158367][ 0] [    T2] Source Version:
-> > > e7f24793ad667e777f2cf6dab620d082517f6075
-> > > [    0.165929][ 0] [    T2] Hardware name: FT-2000/4-D4-DSK
-> > Development
-> > > Board (DT)
-> > > [    0.173317][ 0] [    T2] pstate: 80000005 (Nzcv daif -PAN -UAO)
-> > > [    0.179302][ 0] [    T2] pc : __alloc_pages_nodemask+0xf8/0x308
-> > > [    0.185283][ 0] [    T2] lr : __alloc_pages_nodemask+0xe0/0x308
-> > > [    0.191263][ 0] [    T2] sp : ffffff8031867c30
-> > > [    0.195749][ 0] [    T2] x29: ffffff8031867c30 x28:
-> > 0000000000800700
-> > > [    0.202258][ 0] [    T2] x27: ffffff8031823a80 x26:
-> > 00000000ffffffff
-> > > [    0.208766][ 0] [    T2] x25: 0000000000400dc0 x24:
-> > 0000000000000001
-> > > [    0.215273][ 0] [    T2] x23: 0000000000000000 x22:
-> > ffffffc0113fa000
-> > > [    0.221781][ 0] [    T2] x21: 0000000000000002 x20:
-> > ffffffc0113f9000
-> > > [    0.228289][ 0] [    T2] x19: 0000000000400dc0 x18:
-> > 0000000000000014
-> > > [    0.234797][ 0] [    T2] x17: 000000009242c113 x16:
-> > 00000000b8b3e41b
-> > > [    0.241305][ 0] [    T2] x15: 00000000b31b39bd x14:
-> > 0000000000000000
-> > > [    0.247817][ 0] [    T2] x13: 0000000000000001 x12:
-> > 0000000000000001
-> > > [    0.254325][ 0] [    T2] x11: 0000000002e03c00 x10:
-> > 0000000005c05800
-> > > [    0.260833][ 0] [    T2] x9 : 0000000000000191 x8 :
-> > 0000000000000004
-> > > [    0.267340][ 0] [    T2] x7 : ffffff8032fe0378 x6 :
-> > 0000000000000000
-> > > [    0.273848][ 0] [    T2] x5 : 0000000000000003 x4 :
-> > 0000000000000000
-> > > [    0.280355][ 0] [    T2] x3 : 0000000000001380 x2 :
-> > 0000000000000000
-> > > [    0.286863][ 0] [    T2] x1 : 0000000000000001 x0 :
-> > 0000000000000000
-> > > [    0.293370][ 0] [    T2] Call trace:
-> > > [    0.296978][ 0] [    T2]  __alloc_pages_nodemask+0xf8/0x308
-> > > [    0.302609][ 0] [    T2]  copy_process+0x1a4/0x1340
-> > > [    0.307536][ 0] [    T2]  _do_fork+0x80/0x370
-> > > [    0.311934][ 0] [    T2]  kernel_thread+0x6c/0x90
-> > > [    0.316686][ 0] [    T2]  kthreadd+0x1e0/0x270
-> > > [    0.321173][ 0] [    T2]  ret_from_fork+0x10/0x18
-> > > [    0.325924][ 0] [    T2] Code: 3901c3a0 a9450ba3 b9406fa1
-> > b5000b62
-> > > (b9400860)
-> > > [    0.333224][ 0] [    T2] ---[ end trace 7e9dcf3f049b9227 ]---
-> > >
-> > > --
-> > > You received this message because you are subscribed to the Google
-> > > Groups "Jailhouse" group.
-> > > To unsubscribe from this group and stop receiving emails from it,
-> > send
-> > > an email to jailhouse-de...@googlegroups.com
-> > > <mailto:jailhouse-de...@googlegroups.com>.
-> > > To view this discussion on the web visit
-> > >
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
-a04c86b8b1en%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
-a04c86b8b1en%40googlegroups.com>=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
-a04c86b8b1en%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9=
-a04c86b8b1en%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >>.
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.
-> > To unsubscribe from this group and stop receiving emails from it, send=
-=20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4=
-cd8e9f22308n%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4=
-cd8e9f22308n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >.
->
+> regulatory.db failed with error -2
+> [ =C2=A0 =C2=A01.330307] clk: Not disabling unused clocks
+> [ =C2=A0 =C2=A01.335778] platform regulatory.0: Falling back to sysfs fal=
+lback=20
+> for: regulatory.db
+> [ =C2=A0 =C2=A01.340026] ALSA device list:
+> [ =C2=A0 =C2=A01.350686] =C2=A0 No soundcards found.
+> [ =C2=A0 =C2=A01.354101] The error code is -2
+> *[ =C2=A0 =C2=A01.357282] Warning: unable to open an initial console.*
+> [ =C2=A0 =C2=A01.363973] Freeing unused kernel memory: 2944K
+> [ =C2=A0 =C2=A01.382376] Run /hello as init process
+> [ =C2=A0 =C2=A01.383398] Ready to search binary handler...
+> [ =C2=A0 =C2=A01.387791] Finish search binary handler, ret=3D0...
+>=20
+>=20
+> My console cannot output the printf code in the helloworld program. I=20
+> can't solve this problem anyway. Can you help me solve it?
+>=20
+> imx8mq-evk-inmate.dts: (for non-root-cell linux)
+> &uart2 {
+> clocks =3D <&osc_25m>,
+> <&osc_25m>;
+> clock-names =3D "ipg", "per";
+> /delete-property/ dmas;
+> /delete-property/ dmas-names;
+> status =3D "okay";
+> };
+>=20
+> ok8mq-evk-root.dts (for root cell )
+> &uart1 {
+> /* uart2 is used by the 2nd OS, so configure pin and clk */
+> pinctrl-0 =3D <&pinctrl_uart1>, <&pinctrl_uart2>;
+> assigned-clocks =3D <&clk IMX8MQ_CLK_UART1>,
+> <&clk IMX8MQ_CLK_UART2>;
+> assigned-clock-parents =3D <&clk IMX8MQ_CLK_25M>,
+> <&clk IMX8MQ_CLK_25M>;
+> };
+>=20
+> --=20
+> You received this message because you are subscribed to the Google=20
+> Groups "Jailhouse" group.
+> To unsubscribe from this group and stop receiving emails from it, send=20
+> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
+> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
+> To view this discussion on the web visit=20
+> https://groups.google.com/d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1=
+f65af16f8d4n%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
+e-dev/893f2e46-c438-4182-859f-1f65af16f8d4n%40googlegroups.com?utm_medium=
+=3Demail&utm_source=3Dfooter>.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -257,267 +705,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegroups.com.
-
-------=_Part_28995_868669977.1701047653530
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-There should be no issues with the device tree and configuration files, and=
- some kernel images can be enable.<br /><br /><div class=3D"gmail_quote"><d=
-iv dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82023=E5=B9=B411=E6=9C=8824=E6=
-=97=A5=E6=98=9F=E6=9C=9F=E4=BA=94 UTC+8 00:17:27&lt;Ralf Ramsauer> =E5=86=
-=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=3D"=
-margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-lef=
-t: 1ex;">Hi,
-<br>
-<br>On 23/11/2023 05:25, xin zhang wrote:
-<br>&gt; In none root cell, start command is :
-<br>&gt; jailhouse cell linux -i /home/file/rootfs.cpio -d=20
-<br>&gt; configs/arm64/dts/AMA0.dtb configs/arm64/linux.cell /home/file/Ima=
-ge -c=20
-<br>&gt; &quot;console=3DttyAMA0,115200 root=3D/dev/ram0 =C2=A0ramdisk_size=
-=3D0x1000000=20
-<br>&gt; earlycon=3Dpl011,0x28000000&quot;
-<br>
-<br>Okay. Are you absolutely sure, that the device tree matches with the=20
-<br>cell configuration? I wonder why the kernel tries to access virtual (!)=
-=20
-<br>address 0x1388, which apparently has no mapping. In case everything is=
-=20
-<br>configured correctly, then we have here some issue with the kernel, and=
-=20
-<br>you should debug in this direction.
-<br>
-<br>   Ralf
-<br>
-<br>&gt;=20
-<br>&gt; =E5=9C=A82023=E5=B9=B411=E6=9C=8822=E6=97=A5=E6=98=9F=E6=9C=9F=E4=
-=B8=89 UTC+8 21:15:15&lt;Ralf Ramsauer&gt; =E5=86=99=E9=81=93=EF=BC=9A
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt;     On 22/11/2023 07:25, xin zhang wrote:
-<br>&gt;      &gt; when I run linux image on jailhouse, guset serial port p=
-rint follow
-<br>&gt;      &gt; errors: where I can get ways to sovle it=EF=BC=9F
-<br>&gt;=20
-<br>&gt;     Please provide more context. Does this happen in the root or
-<br>&gt;     non-root cell?
-<br>&gt;=20
-<br>&gt;     Ralf
-<br>&gt;=20
-<br>&gt;      &gt;
-<br>&gt;      &gt;
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.069576][ 0] [ =C2=A0 =C2=A0T0] Mount-ca=
-che hash table entries: 1024
-<br>&gt;     (order:
-<br>&gt;      &gt; 1, 8192 bytes, linear)
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.078110][ 0] [ =C2=A0 =C2=A0T0] Mountpoi=
-nt-cache hash table entries:
-<br>&gt;     1024
-<br>&gt;      &gt; (order: 1, 8192 bytes, linear)
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.087451][ 0] [ =C2=A0 =C2=A0T2] Unable t=
-o handle kernel paging
-<br>&gt;     request at
-<br>&gt;      &gt; virtual address 0000000000001388
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.096606][ 0] [ =C2=A0 =C2=A0T2] Mem abor=
-t info:
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.100564][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 E=
-SR =3D 0x96000005
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.104789][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 E=
-C =3D 0x25: DABT (current EL), IL =3D
-<br>&gt;     32 bits
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.111299][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 S=
-ET =3D 0, FnV =3D 0
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.115522][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 E=
-A =3D 0, S1PTW =3D 0
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.119834][ 0] [ =C2=A0 =C2=A0T2] Data abo=
-rt info:
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.123883][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 I=
-SV =3D 0, ISS =3D 0x00000005
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.128898][ 0] [ =C2=A0 =C2=A0T2] =C2=A0 C=
-M =3D 0, WnR =3D 0
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.133034][ 0] [ =C2=A0 =C2=A0T2] [0000000=
-000001388] user address but
-<br>&gt;      &gt; active_mm is swapper
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.140600][ 0] [ =C2=A0 =C2=A0T2] Internal=
- error: Oops: 96000005 [#1] SMP
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.146667][ 0] [ =C2=A0 =C2=A0T2] Modules =
-linked in:
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.150892][ 0] [ =C2=A0 =C2=A0T2] CPU: 0 P=
-ID: 2 Comm: kthreadd Not tainted
-<br>&gt;      &gt; 5.4.18-101+ #2
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.158367][ 0] [ =C2=A0 =C2=A0T2] Source V=
-ersion:
-<br>&gt;      &gt; e7f24793ad667e777f2cf6dab620d082517f6075
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.165929][ 0] [ =C2=A0 =C2=A0T2] Hardware=
- name: FT-2000/4-D4-DSK
-<br>&gt;     Development
-<br>&gt;      &gt; Board (DT)
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.173317][ 0] [ =C2=A0 =C2=A0T2] pstate: =
-80000005 (Nzcv daif -PAN -UAO)
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.179302][ 0] [ =C2=A0 =C2=A0T2] pc : __a=
-lloc_pages_nodemask+0xf8/0x308
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.185283][ 0] [ =C2=A0 =C2=A0T2] lr : __a=
-lloc_pages_nodemask+0xe0/0x308
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.191263][ 0] [ =C2=A0 =C2=A0T2] sp : fff=
-fff8031867c30
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.195749][ 0] [ =C2=A0 =C2=A0T2] x29: fff=
-fff8031867c30 x28:
-<br>&gt;     0000000000800700
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.202258][ 0] [ =C2=A0 =C2=A0T2] x27: fff=
-fff8031823a80 x26:
-<br>&gt;     00000000ffffffff
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.208766][ 0] [ =C2=A0 =C2=A0T2] x25: 000=
-0000000400dc0 x24:
-<br>&gt;     0000000000000001
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.215273][ 0] [ =C2=A0 =C2=A0T2] x23: 000=
-0000000000000 x22:
-<br>&gt;     ffffffc0113fa000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.221781][ 0] [ =C2=A0 =C2=A0T2] x21: 000=
-0000000000002 x20:
-<br>&gt;     ffffffc0113f9000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.228289][ 0] [ =C2=A0 =C2=A0T2] x19: 000=
-0000000400dc0 x18:
-<br>&gt;     0000000000000014
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.234797][ 0] [ =C2=A0 =C2=A0T2] x17: 000=
-000009242c113 x16:
-<br>&gt;     00000000b8b3e41b
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.241305][ 0] [ =C2=A0 =C2=A0T2] x15: 000=
-00000b31b39bd x14:
-<br>&gt;     0000000000000000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.247817][ 0] [ =C2=A0 =C2=A0T2] x13: 000=
-0000000000001 x12:
-<br>&gt;     0000000000000001
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.254325][ 0] [ =C2=A0 =C2=A0T2] x11: 000=
-0000002e03c00 x10:
-<br>&gt;     0000000005c05800
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.260833][ 0] [ =C2=A0 =C2=A0T2] x9 : 000=
-0000000000191 x8 :
-<br>&gt;     0000000000000004
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.267340][ 0] [ =C2=A0 =C2=A0T2] x7 : fff=
-fff8032fe0378 x6 :
-<br>&gt;     0000000000000000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.273848][ 0] [ =C2=A0 =C2=A0T2] x5 : 000=
-0000000000003 x4 :
-<br>&gt;     0000000000000000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.280355][ 0] [ =C2=A0 =C2=A0T2] x3 : 000=
-0000000001380 x2 :
-<br>&gt;     0000000000000000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.286863][ 0] [ =C2=A0 =C2=A0T2] x1 : 000=
-0000000000001 x0 :
-<br>&gt;     0000000000000000
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.293370][ 0] [ =C2=A0 =C2=A0T2] Call tra=
-ce:
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.296978][ 0] [ =C2=A0 =C2=A0T2] =C2=A0__=
-alloc_pages_nodemask+0xf8/0x308
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.302609][ 0] [ =C2=A0 =C2=A0T2] =C2=A0co=
-py_process+0x1a4/0x1340
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.307536][ 0] [ =C2=A0 =C2=A0T2] =C2=A0_d=
-o_fork+0x80/0x370
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.311934][ 0] [ =C2=A0 =C2=A0T2] =C2=A0ke=
-rnel_thread+0x6c/0x90
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.316686][ 0] [ =C2=A0 =C2=A0T2] =C2=A0kt=
-hreadd+0x1e0/0x270
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.321173][ 0] [ =C2=A0 =C2=A0T2] =C2=A0re=
-t_from_fork+0x10/0x18
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.325924][ 0] [ =C2=A0 =C2=A0T2] Code: 39=
-01c3a0 a9450ba3 b9406fa1
-<br>&gt;     b5000b62
-<br>&gt;      &gt; (b9400860)
-<br>&gt;      &gt; [ =C2=A0 =C2=A00.333224][ 0] [ =C2=A0 =C2=A0T2] ---[ end=
- trace 7e9dcf3f049b9227 ]---
-<br>&gt;      &gt;
-<br>&gt;      &gt; --
-<br>&gt;      &gt; You received this message because you are subscribed to =
-the Google
-<br>&gt;      &gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt;      &gt; To unsubscribe from this group and stop receiving emails=
- from it,
-<br>&gt;     send
-<br>&gt;      &gt; an email to <a href data-email-masked rel=3D"nofollow">j=
-ailhouse-de...@googlegroups.com</a>
-<br>&gt;      &gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">ja=
-ilhouse-de...@googlegroups.com</a>&gt;.
-<br>&gt;      &gt; To view this discussion on the web visit
-<br>&gt;      &gt;
-<br>&gt;     <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3e=
-a29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com" target=3D"_blank" re=
-l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-C=
-N&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-435=
-2-a328-9a04c86b8b1en%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1701=
-134028438000&amp;usg=3DAOvVaw2t-dt7m50iBxX0nzATQiG-">https://groups.google.=
-com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegro=
-ups.com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/=
-a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com" target=3D"_blank"=
- rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dz=
-h-CN&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-=
-4352-a328-9a04c86b8b1en%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1=
-701134028438000&amp;usg=3DAOvVaw2t-dt7m50iBxX0nzATQiG-">https://groups.goog=
-le.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40google=
-groups.com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhou=
-se-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=
-=3Demail&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-s=
-aferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://gro=
-ups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%=
-2540googlegroups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3D=
-gmail&amp;ust=3D1701134028438000&amp;usg=3DAOvVaw0lFLR6yzTbmSOqVm3vOHGq">ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c=
-86b8b1en%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> =
-&lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/a3ea29e3-da4=
-c-4352-a328-9a04c86b8b1en%40googlegroups.com?utm_medium=3Demail&amp;utm_sou=
-rce=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"ht=
-tps://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.com/d/msg=
-id/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%2540googlegroups.com=
-?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1701=
-134028438000&amp;usg=3DAOvVaw0lFLR6yzTbmSOqVm3vOHGq">https://groups.google.=
-com/d/msgid/jailhouse-dev/a3ea29e3-da4c-4352-a328-9a04c86b8b1en%40googlegro=
-ups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt;.
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google=
-=20
-<br>&gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send=20
-<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
-e...@googlegroups.com</a>=20
-<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
-...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit=20
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/dfb7141=
-0-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
-p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87=
-a2-4cd8e9f22308n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17011340=
-28438000&amp;usg=3DAOvVaw0Ksnf4FN0zj7Nhqu_34nLj">https://groups.google.com/=
-d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.=
-com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/dfb7=
-1410-9ebc-4c01-87a2-4cd8e9f22308n%40googlegroups.com?utm_medium=3Demail&amp=
-;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirectu=
-rl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.c=
-om/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%2540googlegr=
-oups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;us=
-t=3D1701134028438000&amp;usg=3DAOvVaw2OPcKFZzinExEDJKh5H79u">https://groups=
-.google.com/d/msgid/jailhouse-dev/dfb71410-9ebc-4c01-87a2-4cd8e9f22308n%40g=
-ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/36a629ba-c42c-4e7b-aea1-9c69baa1645an%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_28995_868669977.1701047653530--
-
-------=_Part_28994_101334622.1701047653530--
+jailhouse-dev/cccc15df-cb50-4153-b0f0-5a058042a41b%40oth-regensburg.de.
