@@ -1,74 +1,71 @@
-Return-Path: <jailhouse-dev+bncBCC7XQGMWINBBMUXW2VQMGQE73IBWRQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD6ZDC4GXENBBG57W2VQMGQEQEKICEQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113f.google.com (mail-yw1-x113f.google.com [IPv6:2607:f8b0:4864:20::113f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E506802D02
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 Dec 2023 09:20:04 +0100 (CET)
-Received: by mail-yw1-x113f.google.com with SMTP id 00721157ae682-5cfe0b63eeesf71244587b3.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 Dec 2023 00:20:04 -0800 (PST)
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09150802F0E
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  4 Dec 2023 10:45:02 +0100 (CET)
+Received: by mail-ot1-x337.google.com with SMTP id 46e09a7af769-6d88143b45bsf2526977a34.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 04 Dec 2023 01:45:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1701678003; x=1702282803; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1701683100; x=1702287900; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=a48fhsYGdILpCLOoMfGLUsmWvfbhI+MCbbtg+h/rUXc=;
-        b=w8JOQLP+9h/oelF5MsOjKP3lvTTIIxIRb5dHVIFU97RJFuVrmKnywJI0bA+lETdbli
-         NPrLlFggwsX+xWkbR2Uost7DAR4L95fDKKPmTbeFgrm73iEucKKsaENbm8u57xcI4AuW
-         P0LjTqa10Zf/a2vRMBVLiHkQdqBSxM6cgxMIh6oHMUkyJIcAUMgaFlGet0gWL7ljDFZc
-         cpap4FIpsXaJaVVkhpXdtZCvo05i5ElieeTmJJg4Zv+hpvJWxMUU2AG7+ewaBkH/yfXg
-         YyQ0qiE8E6L+c+6Ex2gw2465lszwjjAy/+z21AWBwz0MqgCxSwmrUUl4VwzubGr/kJNj
-         8bWw==
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jv4bQRp5CoC0ODYOEroZlvvxQ0f6R7PFaSeN3kDAj3M=;
+        b=m6HQ7qAt3hOcDQPvBhp4CFKZanX7nEtcKIiVoB0HAKVYBi2X1ukjjAv01eUaiEI0w1
+         IcS4JkNyQ7U5Xz6nWjN3HCFPNt62T3D1VbbEE9yRdVaH86GeABEmJFkwIPqcIoUZb9FE
+         7i/XbEzZw3oLeGKy/IZV2QVOa8bo9toyyGM6H5NMf+2IIKNsxN+JqkcXXO1OYitcwwAE
+         aSRnEghqFJbeSiHxJqesGrcXCeBcvKUSQCbZrdv+O6nyqxrzM729DmiRkkxw381wAwOj
+         foin9sjaIsvnaNIj5fxh3ms9cRECun44aflDJIYNE99ahdSygUzo7QByGcHp41xHAr4g
+         VleA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701678003; x=1702282803; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1701683100; x=1702287900; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=a48fhsYGdILpCLOoMfGLUsmWvfbhI+MCbbtg+h/rUXc=;
-        b=UcKk9zxff7bimHqeXtkBIkFGgopadff5jraMT/DV43fLUj1slY3yP0AMJuKfHCoRXP
-         6Jg7qse9uofL4TCulhQZVBRfzHfETcrzLEf8WWpWG9tLoVzXnB4Tw7IyBnZXa1ZxU1+o
-         lLD7hrTnjgCjSTAQaeLeQoYJdXm/UtTbLRnSsoOTSib9gkWEcFhefAGlxWEt4oUJjH07
-         kTe1E7e3z629YMx85QkVXnomnxTgM1FJ08HjpSXhDMJx0CobUuI0n8buw/c2O1duVFwD
-         M8xVRnEzgH0ZhLDYmAT4nTBAJro0d1ofutI+ZOA5R6T7uNKIe6ZjsGQBjYIlkRPzqSq0
-         y0+w==
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Jv4bQRp5CoC0ODYOEroZlvvxQ0f6R7PFaSeN3kDAj3M=;
+        b=D5QwqAUMD9gADL3mvei9gejutDV/Um8zoya08hl9d5fWYCycl6Umu+eIZQ4qQ9Dxub
+         yK8nztv+EUETJJhM/PvpqOvntVCHLfhCLUdcrj5qTi3ebPB4xiXZ/saLlWkzGDQrZS7m
+         RcQnKvW4G69uyiUcqI1AQnlsY92SEkIQehXAQs5VPrtQmz9ppU+IuNSe5kchVDDDWT9/
+         UQxIh5chMFOBnQHmJvDsvxBUpxPyb2cpjDDMF/4MeOsoh2Phwq5smxLvDFo9MiZIktkL
+         dl8fV/DHEJnYlqNDPrWpNhDAX4KA0OqcLc1I4STL7KMlHsNDTrSKkaG6ddclso7QR2qd
+         AsEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701678003; x=1702282803;
+        d=1e100.net; s=20230601; t=1701683100; x=1702287900;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=a48fhsYGdILpCLOoMfGLUsmWvfbhI+MCbbtg+h/rUXc=;
-        b=h9X5mNaCs9Sm+33d0y/PfW3sKWjDsJQM3Aay3S3TgdBPUTBYCuHQmBSUorGSXsea1V
-         l8vt8+cFHGjyiAPkv8Da8mH+Fc3BB5Ul34JkiIfUVUcFI4iq1WiVBvMM/cfDWl8C9d1S
-         Sg/OadLElS0QtLpLq6y0Lsx+o1zdPKcXje2TpkDVw5Jm1ImTAJnyJwmx9hj2p6qOasiB
-         AjeE8WB72mG82EsIRcV8wAmvyjUapygigMsQvGotl+ONyReZU/IxsnlYGuSLMeeBVwPN
-         le1V6TmDFGXbGE654JH7HuOLdaNk4C3pFUAm/gDa/JyFula+EHSMCeYzjqPIp7M3+CT4
-         8veA==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jv4bQRp5CoC0ODYOEroZlvvxQ0f6R7PFaSeN3kDAj3M=;
+        b=EiS/8MG/Y4OX/phgFAXu7kyxO1nCMzcni1DpvHPc19It+/b79n5qlm7p6xgqrFJfdl
+         /LCrqahyi3GRns2N6nlBLMEkXx53zLDhxoWBpiR1ruKSC/nOp/TCM1VK1T2HzXsjx7gt
+         kk79ZJhN7KDwC1jQcgH1L/pst/w0YLDk7NA3uKrNEegQOirHLRJ5wd1DPQ+KDD8QEZCG
+         o/qqiroKPl/XhP/7MAtZJcVVIGy0cYoaPqI411+mPijEjrhO7uLAR/Ybba39/bCPuwQs
+         DqsJI1OET7bKBY4WyBecszIvfHAFXzNiYetIX/+0hPEBAegr+mH1WeLjVqyCadLeAu9U
+         CNow==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YxumRVCb0hTHOwVZYTiT/9cdsfgtllt9pkF+OaBspEgfB6UNcNM
-	sFAWjTKP/2HTeN/t2v9prSU=
-X-Google-Smtp-Source: AGHT+IGxl+o4puqXGlRCPSSGnGeuqCYO+BRfCgkVSn7rbRLI8OMPb3IUXXYTrhs8DF298K6Sxyudxw==
-X-Received: by 2002:a25:aa63:0:b0:db5:4e2d:8bb2 with SMTP id s90-20020a25aa63000000b00db54e2d8bb2mr2251626ybi.1.1701678002906;
-        Mon, 04 Dec 2023 00:20:02 -0800 (PST)
+X-Gm-Message-State: AOJu0YyvAdl9qI+hyFcAVRLRA3FvqY81kdcoTkf+CJ+CpxrOZE3i7LHK
+	/mcLAoJyGqHhioL2tH3566A=
+X-Google-Smtp-Source: AGHT+IEw5YsVXsWWdUFFHdxe5aE0ug2mGe3b4DpsWD4nb1qrN0Gn82S9FLPzbY4HQXV6/rt+/PmDlw==
+X-Received: by 2002:a05:6820:1c82:b0:58d:6da4:ea70 with SMTP id ct2-20020a0568201c8200b0058d6da4ea70mr5487883oob.3.1701683100329;
+        Mon, 04 Dec 2023 01:45:00 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:abf1:0:b0:db5:e688:5cf6 with SMTP id v104-20020a25abf1000000b00db5e6885cf6ls1254742ybi.1.-pod-prod-03-us;
- Mon, 04 Dec 2023 00:20:01 -0800 (PST)
-X-Received: by 2002:a81:be17:0:b0:5d0:a744:7197 with SMTP id i23-20020a81be17000000b005d0a7447197mr761749ywn.3.1701677997391;
-        Mon, 04 Dec 2023 00:19:57 -0800 (PST)
-Date: Mon, 4 Dec 2023 00:19:56 -0800 (PST)
-From: =?UTF-8?B?5p2o56uj6L22?= <prodigyyanng@gmail.com>
+Received: by 2002:a4a:ba92:0:b0:58f:7a18:580 with SMTP id d18-20020a4aba92000000b0058f7a180580ls1340053oop.0.-pod-prod-07-us;
+ Mon, 04 Dec 2023 01:44:59 -0800 (PST)
+X-Received: by 2002:a05:6808:f0e:b0:3b8:9cc8:86d4 with SMTP id m14-20020a0568080f0e00b003b89cc886d4mr2111527oiw.11.1701683099075;
+        Mon, 04 Dec 2023 01:44:59 -0800 (PST)
+Date: Mon, 4 Dec 2023 01:44:58 -0800 (PST)
+From: xin zhang <zhangxin6483@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <305639b4-0140-4c73-9481-c593701527d5n@googlegroups.com>
-In-Reply-To: <cccc15df-cb50-4153-b0f0-5a058042a41b@oth-regensburg.de>
-References: <893f2e46-c438-4182-859f-1f65af16f8d4n@googlegroups.com>
- <cccc15df-cb50-4153-b0f0-5a058042a41b@oth-regensburg.de>
-Subject: Re: Jailhouse on OKMX8mq--C , "unable to open an initial console"
+Message-Id: <6824bbf9-ae43-4be3-971f-9f72733df8ccn@googlegroups.com>
+Subject: enable jailhouse on tx2 error
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_97567_748884021.1701677996499"
-X-Original-Sender: prodigyyanng@gmail.com
+	boundary="----=_Part_82159_623059946.1701683098178"
+X-Original-Sender: zhangxin6483@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -81,527 +78,51 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_97567_748884021.1701677996499
+------=_Part_82159_623059946.1701683098178
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_97568_1994301258.1701677996499"
+	boundary="----=_Part_82160_844700558.1701683098178"
 
-------=_Part_97568_1994301258.1701677996499
+------=_Part_82160_844700558.1701683098178
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-I tried these two methods, but still can't get any output.
+Hi=EF=BC=8C
+When I running jailhouse on tx2, the following error occurs,Few characters=
+=20
+are printed:
 
-=E5=9C=A82023=E5=B9=B411=E6=9C=8827=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC=
-+8 21:32:23<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
+   [image: =E6=9C=AA=E5=91=BD=E5=90=8D=E5=9B=BE=E7=89=87.png]
 
->
->
-> On 25/11/2023 07:57, =E6=9D=A8=E7=AB=A3=E8=BD=B6 wrote:
-> > I'm using a OKMX8MQ-C which from imx8, now i can boot the root cell and=
-=20
-> > some simple demp such as gic-demo. But when boot the non-root linux=20
-> > cell, i face some problem.
-> >=20
-> > I only use initramfs to boot non-root linux. Furthermore, my initramfs=
-=20
-> > only contains a helloworld and a console device. [I cannot use busybox=
-=20
-> > to build initramfs because my toolchain does not allow me to compile=20
-> > it]. My ramfs directory is as follows=EF=BC=9A=E6=88=AA=E5=B1=8F2023-11=
--25 14.49.49.png
-> >=20
-> > Then my startup command is as follows:
-> >=20
-> > *cd /home/root/imx_jailhouse *
-> > *insmod driver/jailhouse.ko *
-> > *export PATH=3D/home/root/imx_jailhouse/tools:$PATH *
-> > *jailhouse enable configs/arm64/imx8mq-veth.cell
-> > *
-> > *jailhouse cell linux configs/arm64/imx8mq-linux-demo.cell \ *
-> > *                                 ~/Image2 -d \ *
-> > *                                 ~/imx8mq-evk-inmate.dtb -i \ *
-> > *                                  ~/rootfs.cpio.gz \ *
-> > *                                 -c "clk_ignore_unused=20
-> > console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,115200=
-=20
-> > root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait rw " *
->
-> try to add console=3Dtty0 here. Further, did you set stdout-path in yor=
-=20
-> non root's device tree correctly?
->
-> > console=3Dttymxc0,30860000,115200
-> Are you sure that this line is correct? Why do you encode the address her=
-e?
->
-> Please try:
-> console=3Dttymxc0,115200 console=3Dtty0
->
-> Ralf
->
-> > *
-> > *
-> > Eventually, I got the following output=EF=BC=9A*
-> > *
-> > root@imx8mqevk:~/imx_jailhouse# jailhouse cell linux=20
-> > configs/arm64/imx8mq-linux-demo.cell \
-> > _unused console=3Dttymxc0,30860000,115200=20
-> > earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=3D10=
-000000=20
-> > rdinit=3D/hello rootwait rw "
-> > >      ~/Image2 -d \
-> > >     ~/imx8mq-evk-inmate.dtb -i \
-> > >      ~/rootfs.cpio.gz \
-> > >  -c "clk_ignore_unused console=3Dttymxc0,30860000,115200=20
-> > earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=3D10=
-000000=20
-> > rdinit=3D/hello rootwait rw "
-> > [  567.018158] Ready to search binary handler...
-> > [  567.023161] Finish search binary handler, ret=3D0...
-> > [  567.029032] Ready to search binary handler...
-> > [  567.033683] Finish search binary handler, ret=3D0...
-> > [  567.039395] Ready to search binary handler...
-> > [  567.044092] Finish search binary handler, ret=3D0...
-> >=20
-> >=20
-> > [  567.365079] IRQ231: set affinity failed(-22).
-> > [  567.365091] IRQ232: set affinity failed(-22).
-> > [  567.365646] CPU2: shutdown
-> > [  567.377126] psci: CPU2 killed.
-> > [  567.424984] IRQ231: set affinity failed(-22).
-> > [  567.424991] IRQ232: set affinity failed(-22).
-> > [  567.425300] CPU3: shutdown
-> > [  567.436789] psci: CPU3 killed.
-> > Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
-> > Shared memory connection established: "linux-inmate-demo" <--> "imx8mq"
-> > iommu_config_commit linux-inmate-demo
-> > Created cell "linux-inmate-demo"
-> > Page pool usage after cell creation: mem 111/995, remap 144/131072
-> > [  567.473937] Created Jailhouse cell "linux-inmate-demo"
-> > Cell "linux-inmate-demo" can be loaded
-> >=20
-> > Started cell "linux-inmate-demo"
-> >=20
-> > [    0.000000] Booting Linux on physical CPU 0x0000000002 [0x410fd034]
-> > [    0.000000] Linux version 5.4.3 (azureuser@junyiyang-test) (gcc=20
-> > version 9.2.0 (GCC)) #46 SMP PREEMPT Fri Nov 24 09:06:54 UTC 2023
-> > [    0.000000] Machine model: Freescale i.MX8MQ EVK
-> > [    0.000000] earlycon: ec_imx6q0 at MMIO 0x0000000030860000 (options=
-=20
-> > '115200')
-> > [    0.000000] printk: bootconsole [ec_imx6q0] enabled
-> > [    0.000000] efi: Getting EFI parameters from FDT:
-> > [    0.000000] efi: UEFI not found.
-> > [    0.000000] cma: Reserved 320 MiB at 0x00000000e4000000
-> > root@imx8mqevk:~/imx_jailhouse#
-> > root@imx8mqevk:~/imx_jailhouse#
-> > [    0.000000] NUMA: No NUMA configuration found
-> > [    0.000000] NUMA: Faking a node at [mem=20
-> > 0x00000000d0000000-0x00000000f9bfffff]
-> > [    0.000000] NUMA: NODE_DATA [mem 0xf9a97500-0xf9a98fff]
-> > [    0.000000] Zone ranges:
-> > [    0.000000]   DMA32    [mem 0x00000000d0000000-0x00000000f9bfffff]
-> > [    0.000000]   Normal   empty
-> > [    0.000000] Movable zone start for each node
-> > [    0.000000] Early memory node ranges
-> > [    0.000000]   node   0: [mem 0x00000000d0000000-0x00000000f9bfffff]
-> > [    0.000000] Initmem setup node 0 [mem=20
-> > 0x00000000d0000000-0x00000000f9bfffff]
-> > root@imx8mqevk:~/imx_jailhouse#
-> > [    0.000000] psci: probing for conduit method from DT.
-> > [    0.000000] psci: PSCIv1.1 detected in firmware.
-> > [    0.000000] psci: Using standard PSCI v0.2 function IDs
-> > [    0.000000] psci: MIGRATE_INFO_TYPE not supported.
-> > [    0.000000] psci: SMC Calling Convention v1.1
-> > [    0.000000] percpu: Embedded 24 pages/cpu s58968 r8192 d31144 u98304
-> > [    0.000000] Detected VIPT I-cache on CPU0
-> > [    0.000000] CPU features: detected: ARM erratum 845719
-> > [    0.000000] CPU features: detected: GIC system register CPU interfac=
-e
-> > [    0.000000] Built 1 zonelists, mobility grouping on.  Total pages:=
-=20
-> 168336
-> > [    0.000000] Policy zone: DMA32
-> > [    0.000000] Kernel command line: clk_ignore_unused=20
-> > console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,115200=
-=20
-> > root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait rw
-> > [    0.000000] Dentry cache hash table entries: 131072 (order: 8,=20
-> > 1048576 bytes, linear)
-> > [    0.000000] Inode-cache hash table entries: 65536 (order: 7, 524288=
-=20
-> > bytes, linear)
-> > [    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
-> > root@imx8mqevk:~/imx_jailhouse#
-> > [    0.000000] Memory: 307980K/684032K available (16508K kernel code,=
-=20
-> > 1370K rwdata, 6456K rodata, 2944K init, 1039K bss, 48372K reserved,=20
-> > 327680K cma-reserved)
-> > [    0.000000] SLUB: HWalign=3D64, Order=3D0-3, MinObjects=3D0, CPUs=3D=
-2, Nodes=3D1
-> > [    0.000000] rcu: Preemptible hierarchical RCU implementation.
-> > [    0.000000] rcu:     RCU restricting CPUs from NR_CPUS=3D256 to=20
-> > nr_cpu_ids=3D2.
-> > [    0.000000]  Tasks RCU enabled.
-> > [    0.000000] rcu: RCU calculated value of scheduler-enlistment delay=
-=20
-> > is 25 jiffies.
-> > [    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=3D16,=20
-> nr_cpu_ids=3D2
-> > [    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
-> > [    0.000000] GICv3: 128 SPIs implemented
-> > [    0.000000] GICv3: 0 Extended SPIs implemented
-> > [    0.000000] GICv3: Distributor has no Range Selector support
-> > [    0.000000] GICv3: 16 PPIs implemented
-> > [    0.000000] GICv3: no VLPI support, no direct LPI support
-> > [    0.000000] GICv3: CPU0: found redistributor 2 region=20
-> > 0:0x00000000388c0000
-> > [    0.000000] ITS: No ITS available, not enabling LPIs
-> > [    0.000000] random: get_random_bytes called from=20
-> > start_kernel+0x2b8/0x44c with crng_init=3D0
-> > [    0.000000] arch_timer: cp15 timer(s) running at 8.33MHz (virt).
-> > [    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff=20
-> > max_cycles: 0x1ec0311ec, max_idle_ns: 440795202152 ns
-> > [    0.000005] sched_clock: 56 bits at 8MHz, resolution 120ns, wraps=20
-> > every 2199023255541ns
-> > [    0.008316] Console: colour dummy device 80x25
-> > [    0.012477] Calibrating delay loop (skipped), value calculated using=
-=20
-> > timer frequency.. 16.66 BogoMIPS (lpj=3D33333)
-> > [    0.022666] pid_max: default: 32768 minimum: 301
-> > [    0.027356] LSM: Security Framework initializing
-> > [    0.031897] SELinux:  Initializing.
-> > [    0.035422] Mount-cache hash table entries: 2048 (order: 2, 16384=20
-> > bytes, linear)
-> > [    0.042725] Mountpoint-cache hash table entries: 2048 (order: 2,=20
-> > 16384 bytes, linear)
-> > [    0.051555] init thread pid check: 1...
-> > root@imx8mqevk:~/imx_jailhouse#
-> > root@imx8mqevk:~/imx_jailhouse# [    0.074633] ASID allocator=20
-> > initialised with 32768 entries
-> > [    0.082633] rcu: Hierarchical SRCU implementation.
-> > [    0.091290] EFI services will not be available.
-> > [    0.098677] smp: Bringing up secondary CPUs ...
-> > [    0.130824] Detected VIPT I-cache on CPU1
-> > [    0.130870] GICv3: CPU1: found redistributor 3 region=20
-> > 0:0x00000000388e0000
-> > [    0.130914] CPU1: Booted secondary processor 0x0000000003 [0x410fd03=
-4]
-> > [    0.131020] smp: Brought up 1 node, 2 CPUs
-> > [    0.149632] SMP: Total of 2 processors activated.
-> > [    0.154314] CPU features: detected: 32-bit EL0 Support
-> > [    0.159450] CPU features: detected: CRC32 instructions
-> > [    0.177838] CPU: All CPU(s) started at EL1
-> > [    0.179087] alternatives: patching kernel code
-> > [    0.184973] devtmpfs: initialized
-> > [    0.192187] clocksource: jiffies: mask: 0xffffffff max_cycles:=20
-> > 0xffffffff, max_idle_ns: 7645041785100000 ns
-> > [    0.199073] futex hash table entries: 512 (order: 3, 32768 bytes,=20
-> linear)
-> > [    0.217026] pinctrl core: initialized pinctrl subsystem
-> > [    0.220270] DMI not present or invalid.
-> > [    0.223548] NET: Registered protocol family 16
-> > [    0.243512] DMA: preallocated 256 KiB pool for atomic allocations
-> > [    0.246762] audit: initializing netlink subsys (disabled)
-> > [    0.252330] audit: type=3D2000 audit(0.212:1): state=3Dinitialized=
-=20
-> > audit_enabled=3D0 res=3D1
-> > [    0.259890] cpuidle: using governor menu
-> > [    0.264391] hw-breakpoint: found 6 breakpoint and 4 watchpoint=20
-> registers.
-> > [    0.271261] Serial: AMBA PL011 UART driver
-> > [    0.274699] imx mu driver is registered.
-> > [    0.278539] imx rpmsg driver is registered.
-> > [    0.304587] HugeTLB registered 1.00 GiB page size, pre-allocated 0=
-=20
-> pages
-> > [    0.308453] HugeTLB registered 32.0 MiB page size, pre-allocated 0=
-=20
-> pages
-> > [    0.315123] HugeTLB registered 2.00 MiB page size, pre-allocated 0=
-=20
-> pages
-> > [    0.321805] HugeTLB registered 64.0 KiB page size, pre-allocated 0=
-=20
-> pages
-> > [    0.331139] cryptd: max_cpu_qlen set to 1000
-> > [    0.339367] ACPI: Interpreter disabled.
-> > [    0.340820] iommu: Default domain type: Translated
-> > [    0.345428] vgaarb: loaded
-> > [    0.348260] SCSI subsystem initialized
-> > [    0.352060] usbcore: registered new interface driver usbfs
-> > [    0.357446] usbcore: registered new interface driver hub
-> > [    0.362457] usbcore: registered new device driver usb
-> > [    0.367753] mc: Linux media interface: v0.10
-> > [    0.371747] videodev: Linux video capture interface: v2.00
-> > [    0.377234] pps_core: LinuxPPS API ver. 1 registered
-> > [    0.382104] pps_core: Software ver. 5.3.6 - Copyright 2005-2007=20
-> > Rodolfo Giometti <giom...@linux.it>
-> > [    0.391236] PTP clock support registered
-> > [    0.395188] EDAC MC: Ver: 3.0.0
-> > [    0.398960] No BMan portals available!
-> > [    0.402252] QMan: Allocated lookup table at (____ptrval____), entry=
-=20
-> > count 65537
-> > [    0.409524] No QMan portals available!
-> > [    0.413314] No USDPAA memory, no 'fsl,usdpaa-mem' in device-tree
-> > [    0.419312] FPGA manager framework
-> > [    0.422483] Advanced Linux Sound Architecture Driver Initialized.
-> > [    0.428969] Bluetooth: Core ver 2.22
-> > [    0.432033] NET: Registered protocol family 31
-> > [    0.436445] Bluetooth: HCI device and connection manager initialized
-> > [    0.442785] Bluetooth: HCI socket layer initialized
-> > [    0.447644] Bluetooth: L2CAP socket layer initialized
-> > [    0.452688] Bluetooth: SCO socket layer initialized
-> > [    0.458289] clocksource: Switched to clocksource arch_sys_counter
-> > [    0.463791] VFS: Disk quotas dquot_6.6.0
-> > [    0.467580] VFS: Dquot-cache hash table entries: 512 (order 0, 4096=
-=20
-> > bytes)
-> > [    0.474589] pnp: PnP ACPI: disabled
-> > [    0.486097] thermal_sys: Registered thermal governor 'step_wise'
-> > [    0.486100] thermal_sys: Registered thermal governor 'power_allocato=
-r'
-> > [    0.489479] NET: Registered protocol family 2
-> > [    0.500595] tcp_listen_portaddr_hash hash table entries: 512 (order:=
-=20
-> > 1, 8192 bytes, linear)
-> > [    0.508479] TCP established hash table entries: 8192 (order: 4, 6553=
-6=20
-> > bytes, linear)
-> > [    0.516248] TCP bind hash table entries: 8192 (order: 5, 131072=20
-> > bytes, linear)
-> > [    0.523523] TCP: Hash tables configured (established 8192 bind 8192)
-> > [    0.529790] UDP hash table entries: 512 (order: 2, 16384 bytes,=20
-> linear)
-> > [    0.536336] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes,=
-=20
-> > linear)
-> > [    0.543469] NET: Registered protocol family 1
-> > [    0.548165] RPC: Registered named UNIX socket transport module.
-> > [    0.553581] RPC: Registered udp transport module.
-> > [    0.558262] RPC: Registered tcp transport module.
-> > [    0.562952] RPC: Registered tcp NFSv4.1 backchannel transport module=
-.
-> > [    0.569831] PCI: CLS 0 bytes, default 64
-> > [    0.573504] Trying to unpack rootfs image as initramfs...
-> > [    0.578681] Compressed data magic: 0x1f 0x8b
-> > [    0.604372] Freeing initrd memory: 372K
-> > [    0.606046] kvm [1]: HYP mode not available
-> > [    0.616895] Initialise system trusted keyrings
-> > [    0.618624] workingset: timestamp_bits=3D44 max_order=3D18 bucket_or=
-der=3D0
-> > [    0.633665] squashfs: version 4.0 (2009/01/31) Phillip Lougher
-> > [    0.637392] NFS: Registering the id_resolver key type
-> > [    0.641713] Key type id_resolver registered
-> > [    0.645848] Key type id_legacy registered
-> > [    0.649848] nfs4filelayout_init: NFSv4 File Layout Driver=20
-> Registering...
-> > [    0.656543] jffs2: version 2.2. (NAND) =C2=A9 2001-2006 Red Hat, Inc=
-.
-> > [    0.663102] 9p: Installing v9fs 9p2000 file system support
-> > [    0.688300] Key type asymmetric registered
-> > [    0.689534] Asymmetric key parser 'x509' registered
-> > [    0.694461] Block layer SCSI generic (bsg) driver version 0.4 loaded=
-=20
-> > (major 244)
-> > [    0.701900] io scheduler mq-deadline registered
-> > [    0.706301] io scheduler kyber registered
-> > [    0.711544] pci-host-generic bfb00000.pci: host bridge /pci@bfb00000=
-=20
-> > ranges:
-> > [    0.717352] pci-host-generic bfb00000.pci:   MEM=20
-> > 0x10000000..0x1000ffff -> 0x10000000
-> > [    0.725202] pci-host-generic bfb00000.pci: ECAM at [mem=20
-> > 0xbfb00000-0xbfbfffff] for [bus 00]
-> > [    0.733608] pci-host-generic bfb00000.pci: PCI host bridge to bus=20
-> 0000:00
-> > [    0.740249] pci_bus 0000:00: root bus resource [bus 00]
-> > [    0.745450] pci_bus 0000:00: root bus resource [mem=20
-> > 0x10000000-0x1000ffff]
-> > [    0.752335] pci 0000:00:00.0: [1af4:1110] type 00 class 0xff0100
-> > [    0.758324] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x000000ff=
-=20
-> 64bit]
-> > [    0.766848] pci 0000:00:00.0: BAR 0: assigned [mem=20
-> > 0x10000000-0x100000ff 64bit]
-> > [    0.773175] EINJ: ACPI disabled.
-> > [    0.776584] Bus freq driver module loaded
-> > [    0.780120] virtio-pci 0000:00:00.0: enabling device (0000 -> 0002)
-> > [    0.789667] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
-> > [    0.794841] 30890000.serial: ttymxc1 at MMIO 0x30890000 (irq =3D 5,=
-=20
-> > base_baud =3D 1562500) is a IMX
-> > [    0.812412] brd: module loaded
-> > [    0.820118] loop: module loaded
-> > [    0.822089] imx ahci driver is registered.
-> > [    0.826835] libphy: Fixed MDIO Bus: probed
-> > [    0.829601] tun: Universal TUN/TAP device driver, 1.6
-> > [    0.833815] CAN device driver interface
-> > [    0.837738] thunder_xcv, ver 1.0
-> > [    0.840680] thunder_bgx, ver 1.0
-> > [    0.843893] nicpf, ver 1.0
-> > [    0.846753] Freescale FM module, FMD API version 21.1.0
-> > [    0.851814] Freescale FM Ports module
-> > [    0.855392] fsl_mac: fsl_mac: FSL FMan MAC API based driver
-> > [    0.861005] fsl_dpa: FSL DPAA Ethernet driver
-> > [    0.865334] fsl_advanced: FSL DPAA Advanced drivers:
-> > [    0.870234] fsl_proxy: FSL DPAA Proxy initialization driver
-> > [    0.875835] fsl_oh: FSL FMan Offline Parsing port driver
-> > [    0.881572] hclge is initializing
-> > [    0.884388] hns3: Hisilicon Ethernet Network Driver for Hip08 Family=
-=20
-> > - version
-> > [    0.891589] hns3: Copyright (c) 2017 Huawei Corporation.
-> > [    0.896938] e1000: Intel(R) PRO/1000 Network Driver - version=20
-> > 7.3.21-k8-NAPI
-> > [    0.903916] e1000: Copyright (c) 1999-2006 Intel Corporation.
-> > [    0.909688] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6-k
-> > [    0.915505] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
-> > [    0.921425] igb: Intel(R) Gigabit Ethernet Network Driver - version=
-=20
-> > 5.6.0-k
-> > [    0.928314] igb: Copyright (c) 2007-2014 Intel Corporation.
-> > [    0.933910] igbvf: Intel(R) Gigabit Virtual Function Network Driver =
--=20
-> > version 2.4.0-k
-> > [    0.941683] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
-> > [    0.947685] sky2: driver version 1.30
-> > [    0.951424] usbcore: registered new interface driver asix
-> > [    0.956652] usbcore: registered new interface driver ax88179_178a
-> > [    0.962722] usbcore: registered new interface driver cdc_ether
-> > [    0.968534] usbcore: registered new interface driver net1080
-> > [    0.974179] usbcore: registered new interface driver cdc_subset
-> > [    0.980082] usbcore: registered new interface driver zaurus
-> > [    0.985654] usbcore: registered new interface driver cdc_ncm
-> > [    0.991279] usbcore: registered new interface driver huawei_cdc_ncm
-> > [    0.997535] usbcore: registered new interface driver qmi_wwan_q
-> > [    1.003641] VFIO - User Level meta-driver version: 0.3
-> > [    1.009455] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driv=
-er
-> > [    1.015039] ehci-pci: EHCI PCI platform driver
-> > [    1.019496] ehci-platform: EHCI generic platform driver
-> > [    1.024722] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
-> > [    1.030839] ohci-pci: OHCI PCI platform driver
-> > [    1.035296] ohci-platform: OHCI generic platform driver
-> > [    1.040695] usbcore: registered new interface driver cdc_wdm
-> > [    1.046156] usbcore: registered new interface driver usb-storage
-> > [    1.052184] usbcore: registered new interface driver usbserial_gener=
-ic
-> > [    1.058636] usbserial: USB Serial support registered for generic
-> > [    1.064625] usbcore: registered new interface driver option
-> > [    1.070174] usbserial: USB Serial support registered for GSM modem=
-=20
-> > (1-port)
-> > [    1.078254] <<-GTP-INFO->> GTP driver installing...
-> > [    1.082821] i2c /dev entries driver
-> > [    1.086604] Bluetooth: HCI UART driver ver 2.3
-> > [    1.089846] Bluetooth: HCI UART protocol H4 registered
-> > [    1.094981] Bluetooth: HCI UART protocol BCSP registered
-> > [    1.100305] Bluetooth: HCI UART protocol LL registered
-> > [    1.105394] Bluetooth: HCI UART protocol ATH3K registered
-> > [    1.110796] Bluetooth: HCI UART protocol Three-wire (H5) registered
-> > [    1.117092] Bluetooth: HCI UART protocol Broadcom registered
-> > [    1.122689] Bluetooth: HCI UART protocol QCA registered
-> > [    1.128079] imx-cpufreq-dt: probe of imx-cpufreq-dt failed with erro=
-r=20
-> -2
-> > [    1.135773] sdhci: Secure Digital Host Controller Interface driver
-> > [    1.140731] sdhci: Copyright(c) Pierre Ossman
-> > [    1.145172] Synopsys Designware Multimedia Card Interface Driver
-> > [    1.151282] sdhci-pltfm: SDHCI platform and OF driver helper
-> > [    1.157247] ledtrig-cpu: registered to indicate activity on CPUs
-> > [    1.163670] usbcore: registered new interface driver usbhid
-> > [    1.168242] usbhid: USB HID core driver
-> > [    1.172978] No fsl,qman node
-> > [    1.174928] Freescale USDPAA process driver
-> > [    1.179087] fsl-usdpaa: no region found
-> > [    1.182907] Freescale USDPAA process IRQ driver
-> > [    1.191715] NET: Registered protocol family 26
-> > [    1.193427] Initializing XFRM netlink socket
-> > [    1.198204] NET: Registered protocol family 10
-> > [    1.202897] Segment Routing with IPv6
-> > [    1.205680] NET: Registered protocol family 17
-> > [    1.210087] can: controller area network core (rev 20170425 abi 9)
-> > [    1.216272] NET: Registered protocol family 29
-> > [    1.220654] can: raw protocol (rev 20170425)
-> > [    1.224903] can: broadcast manager protocol (rev 20170425 t)
-> > [    1.230548] can: netlink gateway (rev 20190810) max_hops=3D1
-> > [    1.236247] Bluetooth: RFCOMM TTY layer initialized
-> > [    1.240894] Bluetooth: RFCOMM socket layer initialized
-> > [    1.246020] Bluetooth: RFCOMM ver 1.11
-> > [    1.249739] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
-> > [    1.255024] Bluetooth: BNEP filters: protocol multicast
-> > [    1.260238] Bluetooth: BNEP socket layer initialized
-> > [    1.265180] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
-> > [    1.271085] Bluetooth: HIDP socket layer initialized
-> > [    1.276074] 8021q: 802.1Q VLAN Support v1.8
-> > [    1.280216] lib80211: common routines for IEEE802.11 drivers
-> > [    1.285980] 9pnet: Installing 9P2000 support
-> > [    1.290126] tsn generic netlink module v1 init...
-> > [    1.294849] Key type dns_resolver registered
-> > [    1.299721] registered taskstats version 1
-> > [    1.303120] Loading compiled-in X.509 certificates
-> > [    1.310428] hctosys: unable to open rtc device (rtc0)
-> > [    1.313111] cfg80211: Loading compiled-in X.509 certificates for=20
-> > regulatory database
-> > [    1.322641] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea=
-7'
-> > [    1.327262] platform regulatory.0: Direct firmware load for=20
-> > regulatory.db failed with error -2
-> > [    1.330307] clk: Not disabling unused clocks
-> > [    1.335778] platform regulatory.0: Falling back to sysfs fallback=20
-> > for: regulatory.db
-> > [    1.340026] ALSA device list:
-> > [    1.350686]   No soundcards found.
-> > [    1.354101] The error code is -2
-> > *[    1.357282] Warning: unable to open an initial console.*
-> > [    1.363973] Freeing unused kernel memory: 2944K
-> > [    1.382376] Run /hello as init process
-> > [    1.383398] Ready to search binary handler...
-> > [    1.387791] Finish search binary handler, ret=3D0...
-> >=20
-> >=20
-> > My console cannot output the printf code in the helloworld program. I=
-=20
-> > can't solve this problem anyway. Can you help me solve it?
-> >=20
-> > imx8mq-evk-inmate.dts: (for non-root-cell linux)
-> > &uart2 {
-> > clocks =3D <&osc_25m>,
-> > <&osc_25m>;
-> > clock-names =3D "ipg", "per";
-> > /delete-property/ dmas;
-> > /delete-property/ dmas-names;
-> > status =3D "okay";
-> > };
-> >=20
-> > ok8mq-evk-root.dts (for root cell )
-> > &uart1 {
-> > /* uart2 is used by the 2nd OS, so configure pin and clk */
-> > pinctrl-0 =3D <&pinctrl_uart1>, <&pinctrl_uart2>;
-> > assigned-clocks =3D <&clk IMX8MQ_CLK_UART1>,
-> > <&clk IMX8MQ_CLK_UART2>;
-> > assigned-clock-parents =3D <&clk IMX8MQ_CLK_25M>,
-> > <&clk IMX8MQ_CLK_25M>;
-> > };
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.
-> > To unsubscribe from this group and stop receiving emails from it, send=
-=20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1=
-f65af16f8d4n%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1=
-f65af16f8d4n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >.
->
+
+jailhouse config is:
+
+jailhouse/configs/arm64/jetson-tx2.c at=20
+c7a1b6971ac15e4be8a0918b9bef6e2cbd99f9fc =C2=B7 siemens/jailhouse =C2=B7 Gi=
+tHub=20
+<https://github.com/siemens/jailhouse/blob/c7a1b6971ac15e4be8a0918b9bef6e2c=
+bd99f9fc/configs/arm64/jetson-tx2.c>
+
+I have reserved memory by edit config file:
+*vi /boot/extlinux/extlinux.conf*
+
+append args is:
+
+[image: =E6=9C=AA=E5=91=BD=E5=90=8D=E5=9B=BE=E7=89=871.png]
+
+
+
+
+
+*cat /sys/kernel/debug/memblock/memory   0:=20
+0x0000000080000000..0x00000000a06aefff   1:=20
+0x00000000a06b1008..0x00000000a06b1fff   2:=20
+0x00000000a0eb2000..0x00000000abffffff   3:=20
+0x00000000ac200000..0x00000000f07fffff   4:=20
+0x0000000100000000..0x000000024f7fffff*
+
+What should I check next=EF=BC=9F
+
+tks.
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -609,660 +130,33 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/305639b4-0140-4c73-9481-c593701527d5n%40googlegroups.com.
+jailhouse-dev/6824bbf9-ae43-4be3-971f-9f72733df8ccn%40googlegroups.com.
 
-------=_Part_97568_1994301258.1701677996499
+------=_Part_82160_844700558.1701683098178
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<span dir=3D"ltr" style=3D"unicode-bidi: isolate; font-size: 28px; line-hei=
-ght: 36px; background-color: rgb(248, 249, 250); border: none; padding: 2px=
- 0.14em 2px 0px; position: relative; margin: -2px 0px; resize: none; font-f=
-amily: inherit; overflow: hidden; width: 270px; white-space-collapse: prese=
-rve; overflow-wrap: break-word; color: rgb(32, 33, 36);"><span lang=3D"en" =
-tabindex=3D"-1" style=3D"outline: 0px;">I tried these two methods, but stil=
-l can't get any output.</span></span><br /><br /><div class=3D"gmail_quote"=
-><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82023=E5=B9=B411=E6=9C=8827=
-=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=80 UTC+8 21:32:23&lt;Ralf Ramsauer> =E5=
-=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quote" style=
-=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding=
--left: 1ex;">
-<br>
-<br>On 25/11/2023 07:57, =E6=9D=A8=E7=AB=A3=E8=BD=B6 wrote:
-<br>&gt; I&#39;m using a OKMX8MQ-C which from imx8, now i can boot the root=
- cell and=20
-<br>&gt; some simple demp such as gic-demo. But when boot the non-root linu=
-x=20
-<br>&gt; cell, i face some problem.
-<br>&gt;=20
-<br>&gt; I only use initramfs to boot non-root linux. Furthermore, my initr=
-amfs=20
-<br>&gt; only contains a helloworld and a console device. [I cannot use bus=
-ybox=20
-<br>&gt; to build initramfs because my toolchain does not allow me to compi=
-le=20
-<br>&gt; it]. My ramfs directory is as follows=EF=BC=9A=E6=88=AA=E5=B1=8F20=
-23-11-25 14.49.49.png
-<br>&gt;=20
-<br>&gt; Then my startup command is as follows:
-<br>&gt;=20
-<br>&gt; *cd /home/root/imx_jailhouse *
-<br>&gt; *insmod driver/jailhouse.ko *
-<br>&gt; *export PATH=3D/home/root/imx_jailhouse/tools:$PATH *
-<br>&gt; *jailhouse enable configs/arm64/imx8mq-veth.cell
-<br>&gt; *
-<br>&gt; *jailhouse cell linux configs/arm64/imx8mq-linux-demo.cell \ *
-<br>&gt; *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0~/Image2 -d \ *
-<br>&gt; *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0~/imx8mq-evk-inmate.=
-dtb -i \ *
-<br>&gt; *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ~/rootfs.cpio.gz \ =
-*
-<br>&gt; *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0-c &quot;clk_ignore_=
-unused=20
-<br>&gt; console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,1=
-15200=20
-<br>&gt; root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait r=
-w &quot; *
-<br>
-<br>try to add console=3Dtty0 here. Further, did you set stdout-path in yor=
-=20
-<br>non root&#39;s device tree correctly?
-<br>
-<br> &gt; console=3Dttymxc0,30860000,115200
-<br>Are you sure that this line is correct? Why do you encode the address h=
-ere?
-<br>
-<br>Please try:
-<br>console=3Dttymxc0,115200 console=3Dtty0
-<br>
-<br>   Ralf
-<br>
-<br>&gt; *
-<br>&gt; *
-<br>&gt; Eventually, I got the following output=EF=BC=9A*
-<br>&gt; *
-<br>&gt; root@imx8mqevk:~/imx_jailhouse# jailhouse cell linux=20
-<br>&gt; configs/arm64/imx8mq-linux-demo.cell \
-<br>&gt; _unused console=3Dttymxc0,30860000,115200=20
-<br>&gt; earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=
-=3D10000000=20
-<br>&gt; rdinit=3D/hello rootwait rw &quot;
-<br>&gt;  &gt; =C2=A0 =C2=A0 =C2=A0~/Image2 -d \
-<br>&gt;  &gt; =C2=A0 =C2=A0 ~/imx8mq-evk-inmate.dtb -i \
-<br>&gt;  &gt; =C2=A0 =C2=A0 =C2=A0~/rootfs.cpio.gz \
-<br>&gt;  &gt; =C2=A0-c &quot;clk_ignore_unused console=3Dttymxc0,30860000,=
-115200=20
-<br>&gt; earlycon=3Dec_imx6q,0x30860000,115200 root=3D/dev/ram ramdisk_size=
-=3D10000000=20
-<br>&gt; rdinit=3D/hello rootwait rw &quot;
-<br>&gt; [ =C2=A0567.018158] Ready to search binary handler...
-<br>&gt; [ =C2=A0567.023161] Finish search binary handler, ret=3D0...
-<br>&gt; [ =C2=A0567.029032] Ready to search binary handler...
-<br>&gt; [ =C2=A0567.033683] Finish search binary handler, ret=3D0...
-<br>&gt; [ =C2=A0567.039395] Ready to search binary handler...
-<br>&gt; [ =C2=A0567.044092] Finish search binary handler, ret=3D0...
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; [ =C2=A0567.365079] IRQ231: set affinity failed(-22).
-<br>&gt; [ =C2=A0567.365091] IRQ232: set affinity failed(-22).
-<br>&gt; [ =C2=A0567.365646] CPU2: shutdown
-<br>&gt; [ =C2=A0567.377126] psci: CPU2 killed.
-<br>&gt; [ =C2=A0567.424984] IRQ231: set affinity failed(-22).
-<br>&gt; [ =C2=A0567.424991] IRQ232: set affinity failed(-22).
-<br>&gt; [ =C2=A0567.425300] CPU3: shutdown
-<br>&gt; [ =C2=A0567.436789] psci: CPU3 killed.
-<br>&gt; Adding virtual PCI device 00:00.0 to cell &quot;linux-inmate-demo&=
-quot;
-<br>&gt; Shared memory connection established: &quot;linux-inmate-demo&quot=
-; &lt;--&gt; &quot;imx8mq&quot;
-<br>&gt; iommu_config_commit linux-inmate-demo
-<br>&gt; Created cell &quot;linux-inmate-demo&quot;
-<br>&gt; Page pool usage after cell creation: mem 111/995, remap 144/131072
-<br>&gt; [ =C2=A0567.473937] Created Jailhouse cell &quot;linux-inmate-demo=
-&quot;
-<br>&gt; Cell &quot;linux-inmate-demo&quot; can be loaded
-<br>&gt;=20
-<br>&gt; Started cell &quot;linux-inmate-demo&quot;
-<br>&gt;=20
-<br>&gt; [ =C2=A0 =C2=A00.000000] Booting Linux on physical CPU 0x000000000=
-2 [0x410fd034]
-<br>&gt; [ =C2=A0 =C2=A00.000000] Linux version 5.4.3 (azureuser@junyiyang-=
-test) (gcc=20
-<br>&gt; version 9.2.0 (GCC)) #46 SMP PREEMPT Fri Nov 24 09:06:54 UTC 2023
-<br>&gt; [ =C2=A0 =C2=A00.000000] Machine model: Freescale i.MX8MQ EVK
-<br>&gt; [ =C2=A0 =C2=A00.000000] earlycon: ec_imx6q0 at MMIO 0x00000000308=
-60000 (options=20
-<br>&gt; &#39;115200&#39;)
-<br>&gt; [ =C2=A0 =C2=A00.000000] printk: bootconsole [ec_imx6q0] enabled
-<br>&gt; [ =C2=A0 =C2=A00.000000] efi: Getting EFI parameters from FDT:
-<br>&gt; [ =C2=A0 =C2=A00.000000] efi: UEFI not found.
-<br>&gt; [ =C2=A0 =C2=A00.000000] cma: Reserved 320 MiB at 0x00000000e40000=
-00
-<br>&gt; root@imx8mqevk:~/imx_jailhouse#
-<br>&gt; root@imx8mqevk:~/imx_jailhouse#
-<br>&gt; [ =C2=A0 =C2=A00.000000] NUMA: No NUMA configuration found
-<br>&gt; [ =C2=A0 =C2=A00.000000] NUMA: Faking a node at [mem=20
-<br>&gt; 0x00000000d0000000-0x00000000f9bfffff]
-<br>&gt; [ =C2=A0 =C2=A00.000000] NUMA: NODE_DATA [mem 0xf9a97500-0xf9a98ff=
-f]
-<br>&gt; [ =C2=A0 =C2=A00.000000] Zone ranges:
-<br>&gt; [ =C2=A0 =C2=A00.000000] =C2=A0 DMA32 =C2=A0 =C2=A0[mem 0x00000000=
-d0000000-0x00000000f9bfffff]
-<br>&gt; [ =C2=A0 =C2=A00.000000] =C2=A0 Normal =C2=A0 empty
-<br>&gt; [ =C2=A0 =C2=A00.000000] Movable zone start for each node
-<br>&gt; [ =C2=A0 =C2=A00.000000] Early memory node ranges
-<br>&gt; [ =C2=A0 =C2=A00.000000] =C2=A0 node =C2=A0 0: [mem 0x00000000d000=
-0000-0x00000000f9bfffff]
-<br>&gt; [ =C2=A0 =C2=A00.000000] Initmem setup node 0 [mem=20
-<br>&gt; 0x00000000d0000000-0x00000000f9bfffff]
-<br>&gt; root@imx8mqevk:~/imx_jailhouse#
-<br>&gt; [ =C2=A0 =C2=A00.000000] psci: probing for conduit method from DT.
-<br>&gt; [ =C2=A0 =C2=A00.000000] psci: PSCIv1.1 detected in firmware.
-<br>&gt; [ =C2=A0 =C2=A00.000000] psci: Using standard PSCI v0.2 function I=
-Ds
-<br>&gt; [ =C2=A0 =C2=A00.000000] psci: MIGRATE_INFO_TYPE not supported.
-<br>&gt; [ =C2=A0 =C2=A00.000000] psci: SMC Calling Convention v1.1
-<br>&gt; [ =C2=A0 =C2=A00.000000] percpu: Embedded 24 pages/cpu s58968 r819=
-2 d31144 u98304
-<br>&gt; [ =C2=A0 =C2=A00.000000] Detected VIPT I-cache on CPU0
-<br>&gt; [ =C2=A0 =C2=A00.000000] CPU features: detected: ARM erratum 84571=
-9
-<br>&gt; [ =C2=A0 =C2=A00.000000] CPU features: detected: GIC system regist=
-er CPU interface
-<br>&gt; [ =C2=A0 =C2=A00.000000] Built 1 zonelists, mobility grouping on. =
-=C2=A0Total pages: 168336
-<br>&gt; [ =C2=A0 =C2=A00.000000] Policy zone: DMA32
-<br>&gt; [ =C2=A0 =C2=A00.000000] Kernel command line: clk_ignore_unused=20
-<br>&gt; console=3Dttymxc0,30860000,115200 earlycon=3Dec_imx6q,0x30860000,1=
-15200=20
-<br>&gt; root=3D/dev/ram ramdisk_size=3D10000000 rdinit=3D/hello rootwait r=
-w
-<br>&gt; [ =C2=A0 =C2=A00.000000] Dentry cache hash table entries: 131072 (=
-order: 8,=20
-<br>&gt; 1048576 bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.000000] Inode-cache hash table entries: 65536 (or=
-der: 7, 524288=20
-<br>&gt; bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.000000] mem auto-init: stack:off, heap alloc:off,=
- heap free:off
-<br>&gt; root@imx8mqevk:~/imx_jailhouse#
-<br>&gt; [ =C2=A0 =C2=A00.000000] Memory: 307980K/684032K available (16508K=
- kernel code,=20
-<br>&gt; 1370K rwdata, 6456K rodata, 2944K init, 1039K bss, 48372K reserved=
-,=20
-<br>&gt; 327680K cma-reserved)
-<br>&gt; [ =C2=A0 =C2=A00.000000] SLUB: HWalign=3D64, Order=3D0-3, MinObjec=
-ts=3D0, CPUs=3D2, Nodes=3D1
-<br>&gt; [ =C2=A0 =C2=A00.000000] rcu: Preemptible hierarchical RCU impleme=
-ntation.
-<br>&gt; [ =C2=A0 =C2=A00.000000] rcu: =C2=A0 =C2=A0 RCU restricting CPUs f=
-rom NR_CPUS=3D256 to=20
-<br>&gt; nr_cpu_ids=3D2.
-<br>&gt; [ =C2=A0 =C2=A00.000000] =C2=A0Tasks RCU enabled.
-<br>&gt; [ =C2=A0 =C2=A00.000000] rcu: RCU calculated value of scheduler-en=
-listment delay=20
-<br>&gt; is 25 jiffies.
-<br>&gt; [ =C2=A0 =C2=A00.000000] rcu: Adjusting geometry for rcu_fanout_le=
-af=3D16, nr_cpu_ids=3D2
-<br>&gt; [ =C2=A0 =C2=A00.000000] NR_IRQS: 64, nr_irqs: 64, preallocated ir=
-qs: 0
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: 128 SPIs implemented
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: 0 Extended SPIs implemented
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: Distributor has no Range Selector =
-support
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: 16 PPIs implemented
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: no VLPI support, no direct LPI sup=
-port
-<br>&gt; [ =C2=A0 =C2=A00.000000] GICv3: CPU0: found redistributor 2 region=
-=20
-<br>&gt; 0:0x00000000388c0000
-<br>&gt; [ =C2=A0 =C2=A00.000000] ITS: No ITS available, not enabling LPIs
-<br>&gt; [ =C2=A0 =C2=A00.000000] random: get_random_bytes called from=20
-<br>&gt; start_kernel+0x2b8/0x44c with crng_init=3D0
-<br>&gt; [ =C2=A0 =C2=A00.000000] arch_timer: cp15 timer(s) running at 8.33=
-MHz (virt).
-<br>&gt; [ =C2=A0 =C2=A00.000000] clocksource: arch_sys_counter: mask: 0xff=
-ffffffffffff=20
-<br>&gt; max_cycles: 0x1ec0311ec, max_idle_ns: 440795202152 ns
-<br>&gt; [ =C2=A0 =C2=A00.000005] sched_clock: 56 bits at 8MHz, resolution =
-120ns, wraps=20
-<br>&gt; every 2199023255541ns
-<br>&gt; [ =C2=A0 =C2=A00.008316] Console: colour dummy device 80x25
-<br>&gt; [ =C2=A0 =C2=A00.012477] Calibrating delay loop (skipped), value c=
-alculated using=20
-<br>&gt; timer frequency.. 16.66 BogoMIPS (lpj=3D33333)
-<br>&gt; [ =C2=A0 =C2=A00.022666] pid_max: default: 32768 minimum: 301
-<br>&gt; [ =C2=A0 =C2=A00.027356] LSM: Security Framework initializing
-<br>&gt; [ =C2=A0 =C2=A00.031897] SELinux: =C2=A0Initializing.
-<br>&gt; [ =C2=A0 =C2=A00.035422] Mount-cache hash table entries: 2048 (ord=
-er: 2, 16384=20
-<br>&gt; bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.042725] Mountpoint-cache hash table entries: 2048=
- (order: 2,=20
-<br>&gt; 16384 bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.051555] init thread pid check: 1...
-<br>&gt; root@imx8mqevk:~/imx_jailhouse#
-<br>&gt; root@imx8mqevk:~/imx_jailhouse# [ =C2=A0 =C2=A00.074633] ASID allo=
-cator=20
-<br>&gt; initialised with 32768 entries
-<br>&gt; [ =C2=A0 =C2=A00.082633] rcu: Hierarchical SRCU implementation.
-<br>&gt; [ =C2=A0 =C2=A00.091290] EFI services will not be available.
-<br>&gt; [ =C2=A0 =C2=A00.098677] smp: Bringing up secondary CPUs ...
-<br>&gt; [ =C2=A0 =C2=A00.130824] Detected VIPT I-cache on CPU1
-<br>&gt; [ =C2=A0 =C2=A00.130870] GICv3: CPU1: found redistributor 3 region=
-=20
-<br>&gt; 0:0x00000000388e0000
-<br>&gt; [ =C2=A0 =C2=A00.130914] CPU1: Booted secondary processor 0x000000=
-0003 [0x410fd034]
-<br>&gt; [ =C2=A0 =C2=A00.131020] smp: Brought up 1 node, 2 CPUs
-<br>&gt; [ =C2=A0 =C2=A00.149632] SMP: Total of 2 processors activated.
-<br>&gt; [ =C2=A0 =C2=A00.154314] CPU features: detected: 32-bit EL0 Suppor=
-t
-<br>&gt; [ =C2=A0 =C2=A00.159450] CPU features: detected: CRC32 instruction=
-s
-<br>&gt; [ =C2=A0 =C2=A00.177838] CPU: All CPU(s) started at EL1
-<br>&gt; [ =C2=A0 =C2=A00.179087] alternatives: patching kernel code
-<br>&gt; [ =C2=A0 =C2=A00.184973] devtmpfs: initialized
-<br>&gt; [ =C2=A0 =C2=A00.192187] clocksource: jiffies: mask: 0xffffffff ma=
-x_cycles:=20
-<br>&gt; 0xffffffff, max_idle_ns: 7645041785100000 ns
-<br>&gt; [ =C2=A0 =C2=A00.199073] futex hash table entries: 512 (order: 3, =
-32768 bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.217026] pinctrl core: initialized pinctrl subsyst=
-em
-<br>&gt; [ =C2=A0 =C2=A00.220270] DMI not present or invalid.
-<br>&gt; [ =C2=A0 =C2=A00.223548] NET: Registered protocol family 16
-<br>&gt; [ =C2=A0 =C2=A00.243512] DMA: preallocated 256 KiB pool for atomic=
- allocations
-<br>&gt; [ =C2=A0 =C2=A00.246762] audit: initializing netlink subsys (disab=
-led)
-<br>&gt; [ =C2=A0 =C2=A00.252330] audit: type=3D2000 audit(0.212:1): state=
-=3Dinitialized=20
-<br>&gt; audit_enabled=3D0 res=3D1
-<br>&gt; [ =C2=A0 =C2=A00.259890] cpuidle: using governor menu
-<br>&gt; [ =C2=A0 =C2=A00.264391] hw-breakpoint: found 6 breakpoint and 4 w=
-atchpoint registers.
-<br>&gt; [ =C2=A0 =C2=A00.271261] Serial: AMBA PL011 UART driver
-<br>&gt; [ =C2=A0 =C2=A00.274699] imx mu driver is registered.
-<br>&gt; [ =C2=A0 =C2=A00.278539] imx rpmsg driver is registered.
-<br>&gt; [ =C2=A0 =C2=A00.304587] HugeTLB registered 1.00 GiB page size, pr=
-e-allocated 0 pages
-<br>&gt; [ =C2=A0 =C2=A00.308453] HugeTLB registered 32.0 MiB page size, pr=
-e-allocated 0 pages
-<br>&gt; [ =C2=A0 =C2=A00.315123] HugeTLB registered 2.00 MiB page size, pr=
-e-allocated 0 pages
-<br>&gt; [ =C2=A0 =C2=A00.321805] HugeTLB registered 64.0 KiB page size, pr=
-e-allocated 0 pages
-<br>&gt; [ =C2=A0 =C2=A00.331139] cryptd: max_cpu_qlen set to 1000
-<br>&gt; [ =C2=A0 =C2=A00.339367] ACPI: Interpreter disabled.
-<br>&gt; [ =C2=A0 =C2=A00.340820] iommu: Default domain type: Translated
-<br>&gt; [ =C2=A0 =C2=A00.345428] vgaarb: loaded
-<br>&gt; [ =C2=A0 =C2=A00.348260] SCSI subsystem initialized
-<br>&gt; [ =C2=A0 =C2=A00.352060] usbcore: registered new interface driver =
-usbfs
-<br>&gt; [ =C2=A0 =C2=A00.357446] usbcore: registered new interface driver =
-hub
-<br>&gt; [ =C2=A0 =C2=A00.362457] usbcore: registered new device driver usb
-<br>&gt; [ =C2=A0 =C2=A00.367753] mc: Linux media interface: v0.10
-<br>&gt; [ =C2=A0 =C2=A00.371747] videodev: Linux video capture interface: =
-v2.00
-<br>&gt; [ =C2=A0 =C2=A00.377234] pps_core: LinuxPPS API ver. 1 registered
-<br>&gt; [ =C2=A0 =C2=A00.382104] pps_core: Software ver. 5.3.6 - Copyright=
- 2005-2007=20
-<br>&gt; Rodolfo Giometti &lt;<a href data-email-masked rel=3D"nofollow">gi=
-om...@linux.it</a>&gt;
-<br>&gt; [ =C2=A0 =C2=A00.391236] PTP clock support registered
-<br>&gt; [ =C2=A0 =C2=A00.395188] EDAC MC: Ver: 3.0.0
-<br>&gt; [ =C2=A0 =C2=A00.398960] No BMan portals available!
-<br>&gt; [ =C2=A0 =C2=A00.402252] QMan: Allocated lookup table at (____ptrv=
-al____), entry=20
-<br>&gt; count 65537
-<br>&gt; [ =C2=A0 =C2=A00.409524] No QMan portals available!
-<br>&gt; [ =C2=A0 =C2=A00.413314] No USDPAA memory, no &#39;fsl,usdpaa-mem&=
-#39; in device-tree
-<br>&gt; [ =C2=A0 =C2=A00.419312] FPGA manager framework
-<br>&gt; [ =C2=A0 =C2=A00.422483] Advanced Linux Sound Architecture Driver =
-Initialized.
-<br>&gt; [ =C2=A0 =C2=A00.428969] Bluetooth: Core ver 2.22
-<br>&gt; [ =C2=A0 =C2=A00.432033] NET: Registered protocol family 31
-<br>&gt; [ =C2=A0 =C2=A00.436445] Bluetooth: HCI device and connection mana=
-ger initialized
-<br>&gt; [ =C2=A0 =C2=A00.442785] Bluetooth: HCI socket layer initialized
-<br>&gt; [ =C2=A0 =C2=A00.447644] Bluetooth: L2CAP socket layer initialized
-<br>&gt; [ =C2=A0 =C2=A00.452688] Bluetooth: SCO socket layer initialized
-<br>&gt; [ =C2=A0 =C2=A00.458289] clocksource: Switched to clocksource arch=
-_sys_counter
-<br>&gt; [ =C2=A0 =C2=A00.463791] VFS: Disk quotas dquot_6.6.0
-<br>&gt; [ =C2=A0 =C2=A00.467580] VFS: Dquot-cache hash table entries: 512 =
-(order 0, 4096=20
-<br>&gt; bytes)
-<br>&gt; [ =C2=A0 =C2=A00.474589] pnp: PnP ACPI: disabled
-<br>&gt; [ =C2=A0 =C2=A00.486097] thermal_sys: Registered thermal governor =
-&#39;step_wise&#39;
-<br>&gt; [ =C2=A0 =C2=A00.486100] thermal_sys: Registered thermal governor =
-&#39;power_allocator&#39;
-<br>&gt; [ =C2=A0 =C2=A00.489479] NET: Registered protocol family 2
-<br>&gt; [ =C2=A0 =C2=A00.500595] tcp_listen_portaddr_hash hash table entri=
-es: 512 (order:=20
-<br>&gt; 1, 8192 bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.508479] TCP established hash table entries: 8192 =
-(order: 4, 65536=20
-<br>&gt; bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.516248] TCP bind hash table entries: 8192 (order:=
- 5, 131072=20
-<br>&gt; bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.523523] TCP: Hash tables configured (established =
-8192 bind 8192)
-<br>&gt; [ =C2=A0 =C2=A00.529790] UDP hash table entries: 512 (order: 2, 16=
-384 bytes, linear)
-<br>&gt; [ =C2=A0 =C2=A00.536336] UDP-Lite hash table entries: 512 (order: =
-2, 16384 bytes,=20
-<br>&gt; linear)
-<br>&gt; [ =C2=A0 =C2=A00.543469] NET: Registered protocol family 1
-<br>&gt; [ =C2=A0 =C2=A00.548165] RPC: Registered named UNIX socket transpo=
-rt module.
-<br>&gt; [ =C2=A0 =C2=A00.553581] RPC: Registered udp transport module.
-<br>&gt; [ =C2=A0 =C2=A00.558262] RPC: Registered tcp transport module.
-<br>&gt; [ =C2=A0 =C2=A00.562952] RPC: Registered tcp NFSv4.1 backchannel t=
-ransport module.
-<br>&gt; [ =C2=A0 =C2=A00.569831] PCI: CLS 0 bytes, default 64
-<br>&gt; [ =C2=A0 =C2=A00.573504] Trying to unpack rootfs image as initramf=
-s...
-<br>&gt; [ =C2=A0 =C2=A00.578681] Compressed data magic: 0x1f 0x8b
-<br>&gt; [ =C2=A0 =C2=A00.604372] Freeing initrd memory: 372K
-<br>&gt; [ =C2=A0 =C2=A00.606046] kvm [1]: HYP mode not available
-<br>&gt; [ =C2=A0 =C2=A00.616895] Initialise system trusted keyrings
-<br>&gt; [ =C2=A0 =C2=A00.618624] workingset: timestamp_bits=3D44 max_order=
-=3D18 bucket_order=3D0
-<br>&gt; [ =C2=A0 =C2=A00.633665] squashfs: version 4.0 (2009/01/31) Philli=
-p Lougher
-<br>&gt; [ =C2=A0 =C2=A00.637392] NFS: Registering the id_resolver key type
-<br>&gt; [ =C2=A0 =C2=A00.641713] Key type id_resolver registered
-<br>&gt; [ =C2=A0 =C2=A00.645848] Key type id_legacy registered
-<br>&gt; [ =C2=A0 =C2=A00.649848] nfs4filelayout_init: NFSv4 File Layout Dr=
-iver Registering...
-<br>&gt; [ =C2=A0 =C2=A00.656543] jffs2: version 2.2. (NAND) =C2=A9 2001-20=
-06 Red Hat, Inc.
-<br>&gt; [ =C2=A0 =C2=A00.663102] 9p: Installing v9fs 9p2000 file system su=
-pport
-<br>&gt; [ =C2=A0 =C2=A00.688300] Key type asymmetric registered
-<br>&gt; [ =C2=A0 =C2=A00.689534] Asymmetric key parser &#39;x509&#39; regi=
-stered
-<br>&gt; [ =C2=A0 =C2=A00.694461] Block layer SCSI generic (bsg) driver ver=
-sion 0.4 loaded=20
-<br>&gt; (major 244)
-<br>&gt; [ =C2=A0 =C2=A00.701900] io scheduler mq-deadline registered
-<br>&gt; [ =C2=A0 =C2=A00.706301] io scheduler kyber registered
-<br>&gt; [ =C2=A0 =C2=A00.711544] pci-host-generic bfb00000.pci: host bridg=
-e /pci@bfb00000=20
-<br>&gt; ranges:
-<br>&gt; [ =C2=A0 =C2=A00.717352] pci-host-generic bfb00000.pci: =C2=A0 MEM=
-=20
-<br>&gt; 0x10000000..0x1000ffff -&gt; 0x10000000
-<br>&gt; [ =C2=A0 =C2=A00.725202] pci-host-generic bfb00000.pci: ECAM at [m=
-em=20
-<br>&gt; 0xbfb00000-0xbfbfffff] for [bus 00]
-<br>&gt; [ =C2=A0 =C2=A00.733608] pci-host-generic bfb00000.pci: PCI host b=
-ridge to bus 0000:00
-<br>&gt; [ =C2=A0 =C2=A00.740249] pci_bus 0000:00: root bus resource [bus 0=
-0]
-<br>&gt; [ =C2=A0 =C2=A00.745450] pci_bus 0000:00: root bus resource [mem=
-=20
-<br>&gt; 0x10000000-0x1000ffff]
-<br>&gt; [ =C2=A0 =C2=A00.752335] pci 0000:00:00.0: [1af4:1110] type 00 cla=
-ss 0xff0100
-<br>&gt; [ =C2=A0 =C2=A00.758324] pci 0000:00:00.0: reg 0x10: [mem 0x000000=
-00-0x000000ff 64bit]
-<br>&gt; [ =C2=A0 =C2=A00.766848] pci 0000:00:00.0: BAR 0: assigned [mem=20
-<br>&gt; 0x10000000-0x100000ff 64bit]
-<br>&gt; [ =C2=A0 =C2=A00.773175] EINJ: ACPI disabled.
-<br>&gt; [ =C2=A0 =C2=A00.776584] Bus freq driver module loaded
-<br>&gt; [ =C2=A0 =C2=A00.780120] virtio-pci 0000:00:00.0: enabling device =
-(0000 -&gt; 0002)
-<br>&gt; [ =C2=A0 =C2=A00.789667] Serial: 8250/16550 driver, 4 ports, IRQ s=
-haring enabled
-<br>&gt; [ =C2=A0 =C2=A00.794841] 30890000.serial: ttymxc1 at MMIO 0x308900=
-00 (irq =3D 5,=20
-<br>&gt; base_baud =3D 1562500) is a IMX
-<br>&gt; [ =C2=A0 =C2=A00.812412] brd: module loaded
-<br>&gt; [ =C2=A0 =C2=A00.820118] loop: module loaded
-<br>&gt; [ =C2=A0 =C2=A00.822089] imx ahci driver is registered.
-<br>&gt; [ =C2=A0 =C2=A00.826835] libphy: Fixed MDIO Bus: probed
-<br>&gt; [ =C2=A0 =C2=A00.829601] tun: Universal TUN/TAP device driver, 1.6
-<br>&gt; [ =C2=A0 =C2=A00.833815] CAN device driver interface
-<br>&gt; [ =C2=A0 =C2=A00.837738] thunder_xcv, ver 1.0
-<br>&gt; [ =C2=A0 =C2=A00.840680] thunder_bgx, ver 1.0
-<br>&gt; [ =C2=A0 =C2=A00.843893] nicpf, ver 1.0
-<br>&gt; [ =C2=A0 =C2=A00.846753] Freescale FM module, FMD API version 21.1=
-.0
-<br>&gt; [ =C2=A0 =C2=A00.851814] Freescale FM Ports module
-<br>&gt; [ =C2=A0 =C2=A00.855392] fsl_mac: fsl_mac: FSL FMan MAC API based =
-driver
-<br>&gt; [ =C2=A0 =C2=A00.861005] fsl_dpa: FSL DPAA Ethernet driver
-<br>&gt; [ =C2=A0 =C2=A00.865334] fsl_advanced: FSL DPAA Advanced drivers:
-<br>&gt; [ =C2=A0 =C2=A00.870234] fsl_proxy: FSL DPAA Proxy initialization =
-driver
-<br>&gt; [ =C2=A0 =C2=A00.875835] fsl_oh: FSL FMan Offline Parsing port dri=
-ver
-<br>&gt; [ =C2=A0 =C2=A00.881572] hclge is initializing
-<br>&gt; [ =C2=A0 =C2=A00.884388] hns3: Hisilicon Ethernet Network Driver f=
-or Hip08 Family=20
-<br>&gt; - version
-<br>&gt; [ =C2=A0 =C2=A00.891589] hns3: Copyright (c) 2017 Huawei Corporati=
-on.
-<br>&gt; [ =C2=A0 =C2=A00.896938] e1000: Intel(R) PRO/1000 Network Driver -=
- version=20
-<br>&gt; 7.3.21-k8-NAPI
-<br>&gt; [ =C2=A0 =C2=A00.903916] e1000: Copyright (c) 1999-2006 Intel Corp=
-oration.
-<br>&gt; [ =C2=A0 =C2=A00.909688] e1000e: Intel(R) PRO/1000 Network Driver =
-- 3.2.6-k
-<br>&gt; [ =C2=A0 =C2=A00.915505] e1000e: Copyright(c) 1999 - 2015 Intel Co=
-rporation.
-<br>&gt; [ =C2=A0 =C2=A00.921425] igb: Intel(R) Gigabit Ethernet Network Dr=
-iver - version=20
-<br>&gt; 5.6.0-k
-<br>&gt; [ =C2=A0 =C2=A00.928314] igb: Copyright (c) 2007-2014 Intel Corpor=
-ation.
-<br>&gt; [ =C2=A0 =C2=A00.933910] igbvf: Intel(R) Gigabit Virtual Function =
-Network Driver -=20
-<br>&gt; version 2.4.0-k
-<br>&gt; [ =C2=A0 =C2=A00.941683] igbvf: Copyright (c) 2009 - 2012 Intel Co=
-rporation.
-<br>&gt; [ =C2=A0 =C2=A00.947685] sky2: driver version 1.30
-<br>&gt; [ =C2=A0 =C2=A00.951424] usbcore: registered new interface driver =
-asix
-<br>&gt; [ =C2=A0 =C2=A00.956652] usbcore: registered new interface driver =
-ax88179_178a
-<br>&gt; [ =C2=A0 =C2=A00.962722] usbcore: registered new interface driver =
-cdc_ether
-<br>&gt; [ =C2=A0 =C2=A00.968534] usbcore: registered new interface driver =
-net1080
-<br>&gt; [ =C2=A0 =C2=A00.974179] usbcore: registered new interface driver =
-cdc_subset
-<br>&gt; [ =C2=A0 =C2=A00.980082] usbcore: registered new interface driver =
-zaurus
-<br>&gt; [ =C2=A0 =C2=A00.985654] usbcore: registered new interface driver =
-cdc_ncm
-<br>&gt; [ =C2=A0 =C2=A00.991279] usbcore: registered new interface driver =
-huawei_cdc_ncm
-<br>&gt; [ =C2=A0 =C2=A00.997535] usbcore: registered new interface driver =
-qmi_wwan_q
-<br>&gt; [ =C2=A0 =C2=A01.003641] VFIO - User Level meta-driver version: 0.=
-3
-<br>&gt; [ =C2=A0 =C2=A01.009455] ehci_hcd: USB 2.0 &#39;Enhanced&#39; Host=
- Controller (EHCI) Driver
-<br>&gt; [ =C2=A0 =C2=A01.015039] ehci-pci: EHCI PCI platform driver
-<br>&gt; [ =C2=A0 =C2=A01.019496] ehci-platform: EHCI generic platform driv=
-er
-<br>&gt; [ =C2=A0 =C2=A01.024722] ohci_hcd: USB 1.1 &#39;Open&#39; Host Con=
-troller (OHCI) Driver
-<br>&gt; [ =C2=A0 =C2=A01.030839] ohci-pci: OHCI PCI platform driver
-<br>&gt; [ =C2=A0 =C2=A01.035296] ohci-platform: OHCI generic platform driv=
-er
-<br>&gt; [ =C2=A0 =C2=A01.040695] usbcore: registered new interface driver =
-cdc_wdm
-<br>&gt; [ =C2=A0 =C2=A01.046156] usbcore: registered new interface driver =
-usb-storage
-<br>&gt; [ =C2=A0 =C2=A01.052184] usbcore: registered new interface driver =
-usbserial_generic
-<br>&gt; [ =C2=A0 =C2=A01.058636] usbserial: USB Serial support registered =
-for generic
-<br>&gt; [ =C2=A0 =C2=A01.064625] usbcore: registered new interface driver =
-option
-<br>&gt; [ =C2=A0 =C2=A01.070174] usbserial: USB Serial support registered =
-for GSM modem=20
-<br>&gt; (1-port)
-<br>&gt; [ =C2=A0 =C2=A01.078254] &lt;&lt;-GTP-INFO-&gt;&gt; GTP driver ins=
-talling...
-<br>&gt; [ =C2=A0 =C2=A01.082821] i2c /dev entries driver
-<br>&gt; [ =C2=A0 =C2=A01.086604] Bluetooth: HCI UART driver ver 2.3
-<br>&gt; [ =C2=A0 =C2=A01.089846] Bluetooth: HCI UART protocol H4 registere=
-d
-<br>&gt; [ =C2=A0 =C2=A01.094981] Bluetooth: HCI UART protocol BCSP registe=
-red
-<br>&gt; [ =C2=A0 =C2=A01.100305] Bluetooth: HCI UART protocol LL registere=
-d
-<br>&gt; [ =C2=A0 =C2=A01.105394] Bluetooth: HCI UART protocol ATH3K regist=
-ered
-<br>&gt; [ =C2=A0 =C2=A01.110796] Bluetooth: HCI UART protocol Three-wire (=
-H5) registered
-<br>&gt; [ =C2=A0 =C2=A01.117092] Bluetooth: HCI UART protocol Broadcom reg=
-istered
-<br>&gt; [ =C2=A0 =C2=A01.122689] Bluetooth: HCI UART protocol QCA register=
-ed
-<br>&gt; [ =C2=A0 =C2=A01.128079] imx-cpufreq-dt: probe of imx-cpufreq-dt f=
-ailed with error -2
-<br>&gt; [ =C2=A0 =C2=A01.135773] sdhci: Secure Digital Host Controller Int=
-erface driver
-<br>&gt; [ =C2=A0 =C2=A01.140731] sdhci: Copyright(c) Pierre Ossman
-<br>&gt; [ =C2=A0 =C2=A01.145172] Synopsys Designware Multimedia Card Inter=
-face Driver
-<br>&gt; [ =C2=A0 =C2=A01.151282] sdhci-pltfm: SDHCI platform and OF driver=
- helper
-<br>&gt; [ =C2=A0 =C2=A01.157247] ledtrig-cpu: registered to indicate activ=
-ity on CPUs
-<br>&gt; [ =C2=A0 =C2=A01.163670] usbcore: registered new interface driver =
-usbhid
-<br>&gt; [ =C2=A0 =C2=A01.168242] usbhid: USB HID core driver
-<br>&gt; [ =C2=A0 =C2=A01.172978] No fsl,qman node
-<br>&gt; [ =C2=A0 =C2=A01.174928] Freescale USDPAA process driver
-<br>&gt; [ =C2=A0 =C2=A01.179087] fsl-usdpaa: no region found
-<br>&gt; [ =C2=A0 =C2=A01.182907] Freescale USDPAA process IRQ driver
-<br>&gt; [ =C2=A0 =C2=A01.191715] NET: Registered protocol family 26
-<br>&gt; [ =C2=A0 =C2=A01.193427] Initializing XFRM netlink socket
-<br>&gt; [ =C2=A0 =C2=A01.198204] NET: Registered protocol family 10
-<br>&gt; [ =C2=A0 =C2=A01.202897] Segment Routing with IPv6
-<br>&gt; [ =C2=A0 =C2=A01.205680] NET: Registered protocol family 17
-<br>&gt; [ =C2=A0 =C2=A01.210087] can: controller area network core (rev 20=
-170425 abi 9)
-<br>&gt; [ =C2=A0 =C2=A01.216272] NET: Registered protocol family 29
-<br>&gt; [ =C2=A0 =C2=A01.220654] can: raw protocol (rev 20170425)
-<br>&gt; [ =C2=A0 =C2=A01.224903] can: broadcast manager protocol (rev 2017=
-0425 t)
-<br>&gt; [ =C2=A0 =C2=A01.230548] can: netlink gateway (rev 20190810) max_h=
-ops=3D1
-<br>&gt; [ =C2=A0 =C2=A01.236247] Bluetooth: RFCOMM TTY layer initialized
-<br>&gt; [ =C2=A0 =C2=A01.240894] Bluetooth: RFCOMM socket layer initialize=
-d
-<br>&gt; [ =C2=A0 =C2=A01.246020] Bluetooth: RFCOMM ver 1.11
-<br>&gt; [ =C2=A0 =C2=A01.249739] Bluetooth: BNEP (Ethernet Emulation) ver =
-1.3
-<br>&gt; [ =C2=A0 =C2=A01.255024] Bluetooth: BNEP filters: protocol multica=
-st
-<br>&gt; [ =C2=A0 =C2=A01.260238] Bluetooth: BNEP socket layer initialized
-<br>&gt; [ =C2=A0 =C2=A01.265180] Bluetooth: HIDP (Human Interface Emulatio=
-n) ver 1.2
-<br>&gt; [ =C2=A0 =C2=A01.271085] Bluetooth: HIDP socket layer initialized
-<br>&gt; [ =C2=A0 =C2=A01.276074] 8021q: 802.1Q VLAN Support v1.8
-<br>&gt; [ =C2=A0 =C2=A01.280216] lib80211: common routines for IEEE802.11 =
-drivers
-<br>&gt; [ =C2=A0 =C2=A01.285980] 9pnet: Installing 9P2000 support
-<br>&gt; [ =C2=A0 =C2=A01.290126] tsn generic netlink module v1 init...
-<br>&gt; [ =C2=A0 =C2=A01.294849] Key type dns_resolver registered
-<br>&gt; [ =C2=A0 =C2=A01.299721] registered taskstats version 1
-<br>&gt; [ =C2=A0 =C2=A01.303120] Loading compiled-in X.509 certificates
-<br>&gt; [ =C2=A0 =C2=A01.310428] hctosys: unable to open rtc device (rtc0)
-<br>&gt; [ =C2=A0 =C2=A01.313111] cfg80211: Loading compiled-in X.509 certi=
-ficates for=20
-<br>&gt; regulatory database
-<br>&gt; [ =C2=A0 =C2=A01.322641] cfg80211: Loaded X.509 cert &#39;sforshee=
-: 00b28ddf47aef9cea7&#39;
-<br>&gt; [ =C2=A0 =C2=A01.327262] platform regulatory.0: Direct firmware lo=
-ad for=20
-<br>&gt; regulatory.db failed with error -2
-<br>&gt; [ =C2=A0 =C2=A01.330307] clk: Not disabling unused clocks
-<br>&gt; [ =C2=A0 =C2=A01.335778] platform regulatory.0: Falling back to sy=
-sfs fallback=20
-<br>&gt; for: regulatory.db
-<br>&gt; [ =C2=A0 =C2=A01.340026] ALSA device list:
-<br>&gt; [ =C2=A0 =C2=A01.350686] =C2=A0 No soundcards found.
-<br>&gt; [ =C2=A0 =C2=A01.354101] The error code is -2
-<br>&gt; *[ =C2=A0 =C2=A01.357282] Warning: unable to open an initial conso=
-le.*
-<br>&gt; [ =C2=A0 =C2=A01.363973] Freeing unused kernel memory: 2944K
-<br>&gt; [ =C2=A0 =C2=A01.382376] Run /hello as init process
-<br>&gt; [ =C2=A0 =C2=A01.383398] Ready to search binary handler...
-<br>&gt; [ =C2=A0 =C2=A01.387791] Finish search binary handler, ret=3D0...
-<br>&gt;=20
-<br>&gt;=20
-<br>&gt; My console cannot output the printf code in the helloworld program=
-. I=20
-<br>&gt; can&#39;t solve this problem anyway. Can you help me solve it?
-<br>&gt;=20
-<br>&gt; imx8mq-evk-inmate.dts: (for non-root-cell linux)
-<br>&gt; &amp;uart2 {
-<br>&gt; clocks =3D &lt;&amp;osc_25m&gt;,
-<br>&gt; &lt;&amp;osc_25m&gt;;
-<br>&gt; clock-names =3D &quot;ipg&quot;, &quot;per&quot;;
-<br>&gt; /delete-property/ dmas;
-<br>&gt; /delete-property/ dmas-names;
-<br>&gt; status =3D &quot;okay&quot;;
-<br>&gt; };
-<br>&gt;=20
-<br>&gt; ok8mq-evk-root.dts (for root cell )
-<br>&gt; &amp;uart1 {
-<br>&gt; /* uart2 is used by the 2nd OS, so configure pin and clk */
-<br>&gt; pinctrl-0 =3D &lt;&amp;pinctrl_uart1&gt;, &lt;&amp;pinctrl_uart2&g=
-t;;
-<br>&gt; assigned-clocks =3D &lt;&amp;clk IMX8MQ_CLK_UART1&gt;,
-<br>&gt; &lt;&amp;clk IMX8MQ_CLK_UART2&gt;;
-<br>&gt; assigned-clock-parents =3D &lt;&amp;clk IMX8MQ_CLK_25M&gt;,
-<br>&gt; &lt;&amp;clk IMX8MQ_CLK_25M&gt;;
-<br>&gt; };
-<br>&gt;=20
-<br>&gt; --=20
-<br>&gt; You received this message because you are subscribed to the Google=
-=20
-<br>&gt; Groups &quot;Jailhouse&quot; group.
-<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
-send=20
-<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
-e...@googlegroups.com</a>=20
-<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
-...@googlegroups.com</a>&gt;.
-<br>&gt; To view this discussion on the web visit=20
-<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/893f2e4=
-6-c438-4182-859f-1f65af16f8d4n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dzh-CN&am=
-p;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/893f2e46-c438-4182-85=
-9f-1f65af16f8d4n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17017643=
-05930000&amp;usg=3DAOvVaw0WedzWRAX_V1eqq8mfwBIV">https://groups.google.com/=
-d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1f65af16f8d4n%40googlegroups.=
-com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/893f=
-2e46-c438-4182-859f-1f65af16f8d4n%40googlegroups.com?utm_medium=3Demail&amp=
-;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirectu=
-rl=3D"https://www.google.com/url?hl=3Dzh-CN&amp;q=3Dhttps://groups.google.c=
-om/d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1f65af16f8d4n%2540googlegr=
-oups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;us=
-t=3D1701764305930000&amp;usg=3DAOvVaw0MMOz0HLsCXqW-OAf17BVc">https://groups=
-.google.com/d/msgid/jailhouse-dev/893f2e46-c438-4182-859f-1f65af16f8d4n%40g=
-ooglegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
+<div>Hi=EF=BC=8C</div>When I running jailhouse on tx2, the following error =
+occurs,Few characters are printed:<div><br /><div>=C2=A0 =C2=A0<img alt=3D"=
+=E6=9C=AA=E5=91=BD=E5=90=8D=E5=9B=BE=E7=89=87.png" width=3D"119px" height=
+=3D"28.9459px" src=3D"cid:2d125636-b23e-49cc-86f7-27415acbe240" /><br /></d=
+iv><div><br /></div><div><br /></div><div>jailhouse config is:</div><div><b=
+r /></div><div><a href=3D"https://github.com/siemens/jailhouse/blob/c7a1b69=
+71ac15e4be8a0918b9bef6e2cbd99f9fc/configs/arm64/jetson-tx2.c">jailhouse/con=
+figs/arm64/jetson-tx2.c at c7a1b6971ac15e4be8a0918b9bef6e2cbd99f9fc =C2=B7 =
+siemens/jailhouse =C2=B7 GitHub</a><br /></div><div><br /></div><div>I have=
+ reserved memory by edit config file:</div><div><i>vi /boot/extlinux/extlin=
+ux.conf</i><br /></div><div><i><br /></i></div><div>append args is:</div><d=
+iv><br /></div><div><img alt=3D"=E6=9C=AA=E5=91=BD=E5=90=8D=E5=9B=BE=E7=89=
+=871.png" width=3D"434px" height=3D"59.675px" src=3D"cid:3713fcd6-a5c8-4c31=
+-9566-0f4475c4879f" /><br /></div><div><i>cat /sys/kernel/debug/memblock/me=
+mory<br />=C2=A0 =C2=A00: 0x0000000080000000..0x00000000a06aefff<br />=C2=
+=A0 =C2=A01: 0x00000000a06b1008..0x00000000a06b1fff<br />=C2=A0 =C2=A02: 0x=
+00000000a0eb2000..0x00000000abffffff<br />=C2=A0 =C2=A03: 0x00000000ac20000=
+0..0x00000000f07fffff<br />=C2=A0 =C2=A04: 0x0000000100000000..0x000000024f=
+7fffff</i><br /></div></div><div><i><br /></i></div><div>What should I chec=
+k next=EF=BC=9F<i><br /></i></div><div><br /></div><div>tks.</div><div><i><=
+br /></i></div>
 
 <p></p>
 
@@ -1273,11 +167,367 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/305639b4-0140-4c73-9481-c593701527d5n%40googlegrou=
+om/d/msgid/jailhouse-dev/6824bbf9-ae43-4be3-971f-9f72733df8ccn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/305639b4-0140-4c73-9481-c593701527d5n%40googlegroups.co=
+msgid/jailhouse-dev/6824bbf9-ae43-4be3-971f-9f72733df8ccn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_97568_1994301258.1701677996499--
+------=_Part_82160_844700558.1701683098178--
 
-------=_Part_97567_748884021.1701677996499--
+------=_Part_82159_623059946.1701683098178
+Content-Type: image/png; name="=?utf8?B?5pyq5ZG95ZCN5Zu+54mHLnBuZw==?="
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; 
+	filename="=?utf8?B?5pyq5ZG95ZCN5Zu+54mHLnBuZw==?="
+X-Attachment-Id: 2d125636-b23e-49cc-86f7-27415acbe240
+Content-ID: <2d125636-b23e-49cc-86f7-27415acbe240>
+
+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
+------=_Part_82159_623059946.1701683098178
+Content-Type: image/png; name="=?utf8?B?5pyq5ZG95ZCN5Zu+54mHMS5wbmc=?="
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; 
+	filename="=?utf8?B?5pyq5ZG95ZCN5Zu+54mHMS5wbmc=?="
+X-Attachment-Id: 3713fcd6-a5c8-4c31-9566-0f4475c4879f
+Content-ID: <3713fcd6-a5c8-4c31-9566-0f4475c4879f>
+
+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
+------=_Part_82159_623059946.1701683098178--
