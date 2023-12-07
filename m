@@ -1,71 +1,71 @@
-Return-Path: <jailhouse-dev+bncBDMO7H4MUADRBM6FY6VQMGQE45L6ICA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDMO7H4MUADRBQ6FY6VQMGQEGZZGV4A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-oa1-x37.google.com (mail-oa1-x37.google.com [IPv6:2001:4860:4864:20::37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA62808B9C
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Dec 2023 16:20:21 +0100 (CET)
-Received: by mail-oa1-x37.google.com with SMTP id 586e51a60fabf-1fb04956beesf3269294fac.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Dec 2023 07:20:21 -0800 (PST)
+Received: from mail-ot1-x337.google.com (mail-ot1-x337.google.com [IPv6:2607:f8b0:4864:20::337])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4262C808BA3
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  7 Dec 2023 16:20:37 +0100 (CET)
+Received: by mail-ot1-x337.google.com with SMTP id 46e09a7af769-6d88101a54csf1593908a34.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 07 Dec 2023 07:20:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1701962420; x=1702567220; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1701962435; x=1702567235; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gwSRexUkpw76J8Pji9KtwVDg9F/MMxegc9Mv2lB3tKs=;
-        b=fhhgz1RjYJ4/6dhIieW44uAlkGH8Xv2q3u5oTMdpxfHS5CwLq/KVDuzlD5BcrPBwzT
-         2yKe45qv6puSwr7vGY/La4HEaYCInesZSzjhCZkO1M65dKpgPbyyjwbs+m1dhrtE/ott
-         7c5pKG7HNhCNTfdN9E90gfxXJX9xW85M2EJoQZhuP+TyeXLSgTcozhME9ueXCjFMXmNG
-         g5MKA5PzFSYXx4aAePGZkknN2ZQwSbQ6sJ/kUluR/YAl/LTBfCWjEHQIbyMGvRykx7Ze
-         5MmO543fwpw11yFWQJkaxRnhV77CaOF0gFug/BfHnFAv2CiuIJgSbzQ5jG7RqZlHCCxw
-         hmeQ==
+        bh=ZKKX/qi+ghfBeyT8VVSLsFoyM0mNlh4sN91LMn/rTYQ=;
+        b=MZ1Mwlq4ZadDvsVHlt9vxHRsn9owULNI/BC4GbPReQy4GY66WoT62bBMyXv3j0BcRq
+         AQqSFZ6pIjELWOoMMwchhIjRAKhFdlPtJhmjBfWqjsS+7zxFjOlAluXeLg98xpF9+CTi
+         i2V/g0ieZb48f+tIfAkaa2/gbNSTpZvTsP/fbxahWIl0U4TNGN+Ax5oF+G0eW/5oOYSA
+         MY1AeaTmw7r+W/QY/gBDMxrSc65Ayu/9BQbVcwk1lERwh65OEVQ2aicmLZX91xn4WXFd
+         vSfiQhYY3FmnWiUTEk2ddgojuj+Lj0IcVKcAT5ND8I6pAHNnQG6mOiijtTLe9riIBU+K
+         Brnw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701962420; x=1702567220; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1701962435; x=1702567235; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gwSRexUkpw76J8Pji9KtwVDg9F/MMxegc9Mv2lB3tKs=;
-        b=aryi0ed60H4jFiQfoGN12GXaRzvg4dH+5ns8rvhQTbSO9PNrAHcTliDCfAgBSAApuP
-         e8UKoGYKYFY8qPBxppOe2H4CF68qipNEJCv0UP89XUHZ4SnfR6mgHu1XQe4dl25BQ9j/
-         BiIUf0Cs9aSPcEx5yYnT+VyS7JO0+6S5WEygQa65Q6ZW8OUcPwZwpgVvuNzu6FaoT0Cr
-         6Q0sRpKuyoUsmwN4utkRq1d9BncBCtMpEQGoz9TS8GNrGwTizcUObnxPVCjN2FzcIB9W
-         EISdV9Zo0K0mgnwwa4uXa58eydm/fNiSrVrVcG5Gia0ofDqtdKg9w/9PjfAY4LfRrH9t
-         g1gg==
+        bh=ZKKX/qi+ghfBeyT8VVSLsFoyM0mNlh4sN91LMn/rTYQ=;
+        b=G3tcN3/rkqkTv+UdZohZsm8EdeILnXbAXZzktJB0HPVw/+2PCBfZSXEunrMNGyZIuT
+         Jj8wUoMF+unCVqTeRA+YrcIAbEZxuZDiSWS4RmlzpWJZp99DzltsO7ElwNiPi1FcWwQi
+         TVOYYd/6VMHL1AT83m6BDNMoODWlknDbhG6H4YCwxV8sM3/2qZ30Xg2M/cI+dc1OCz3H
+         H0aNAflg57yo2UHZRFoDfInK0R6IMTkdItky6PoL53utt6do32fSZCcGiE670LzNXeHn
+         6kS8ySu+GdqrKvhuhxZy4gIlFwgX06X7aBtbfQdXJLGETZFEuhzP25Z30ubvYbS2kmrM
+         dvMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701962420; x=1702567220;
+        d=1e100.net; s=20230601; t=1701962435; x=1702567235;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gwSRexUkpw76J8Pji9KtwVDg9F/MMxegc9Mv2lB3tKs=;
-        b=G5UjxZ8GhdHOafxIevKlS57bNZA4ofavzm1txAxDVs9y+/16KvOM/dnWZygO/rqnSx
-         I9hpnA2jQDcAfmwhCg6nk1amkJJwabbdVbRpH4J0gcGk355oqtah9j6vkum17ssRkSqN
-         eare/FogDRphzKn+j9Ln0yZ+5XFuRZLnk4UVPGQ3cTcWe6syTBiUhj2k5RWoWEgHUxJG
-         vYgG7AknuSqYs6TOeiStzKdaypz5Mtma0kLnDBFxiIH7XUugrZ/NA5/sWfd5rj054oF2
-         xpFxMlz6B52bKu2PdTogVjHtQjfs+SZfgVyLMcqifc2CsTwQSPK/eWAOlLAhV4U8KViO
-         tMlQ==
+        bh=ZKKX/qi+ghfBeyT8VVSLsFoyM0mNlh4sN91LMn/rTYQ=;
+        b=gmEcrWDyCejVuFgAhhWrCL275w1eqnzLFzjnxH2e/kv971y4HuXKfwQ3f3FaANZKbb
+         qhHAYeH1M3chzB/Lg2ah8sL9lFCtuoWyerjhhyeLM24R9cZQJ4H3MiTbkR5amj+mbO9w
+         GEDHzsGhCCyNnxJNPdzhY3A3Td+2RxxDYSaMuJ9y2OyXB1yck+9dzxxFgkJw0OPulUq1
+         6Oj2ybZ/OkTJ9AJDcpSd09HgUnmObco6yLRebKaH3ka1wwtrbOgCR6+ct2EX37zqJ40g
+         qFWw8X6ly+omPwYJRzov0RrDLYW/wOKS3dEmkAOseR06CpEvKwwNaz+BD2HuHSZ1k8bW
+         tbhQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YzXUwoNBv2JnH6yH526ZTmllTBRQv38Esw3GOMIKfg8fCQbIOqq
-	9bS4SPKZM+xRIpGLoydhxLU=
-X-Google-Smtp-Source: AGHT+IF3i/HEDxvqQMsO3Y2GFkk/mRBKBWbVk3pf6p70FDJ9ALpyyqgWq9ypiji/9hcV5De6gYzk5w==
-X-Received: by 2002:a05:6870:8a28:b0:1fb:788:e8a5 with SMTP id p40-20020a0568708a2800b001fb0788e8a5mr2303823oaq.32.1701962420145;
-        Thu, 07 Dec 2023 07:20:20 -0800 (PST)
+X-Gm-Message-State: AOJu0YyimGnHLtCfj9qthWiwFOiI+YI/NkseVur/eqdYg6Y12bWSAgEz
+	uGNFBl/YpP83Xf48wwRoWnc=
+X-Google-Smtp-Source: AGHT+IFDs089D81WdJW+ZRrxGYaRHrkDGVIqGUhRkNocxAAec7cyisr8p8MumzE3PKYlt0YqNiYYtg==
+X-Received: by 2002:a05:6830:9ca:b0:6d8:74f0:30d7 with SMTP id y10-20020a05683009ca00b006d874f030d7mr2391351ott.33.1701962435706;
+        Thu, 07 Dec 2023 07:20:35 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6870:7b54:b0:1fb:1d02:1209 with SMTP id
- ji20-20020a0568707b5400b001fb1d021209ls863616oab.1.-pod-prod-04-us; Thu, 07
- Dec 2023 07:20:19 -0800 (PST)
-X-Received: by 2002:a05:6870:d8ca:b0:1fa:fc3e:7891 with SMTP id of10-20020a056870d8ca00b001fafc3e7891mr3414328oac.0.1701962418763;
-        Thu, 07 Dec 2023 07:20:18 -0800 (PST)
-Date: Thu, 7 Dec 2023 07:20:18 -0800 (PST)
+Received: by 2002:a05:6820:602:b0:58d:ed89:f343 with SMTP id
+ e2-20020a056820060200b0058ded89f343ls1808710oow.1.-pod-prod-09-us; Thu, 07
+ Dec 2023 07:20:35 -0800 (PST)
+X-Received: by 2002:a54:4885:0:b0:3b9:d9b7:78a2 with SMTP id r5-20020a544885000000b003b9d9b778a2mr1499648oic.11.1701962434738;
+        Thu, 07 Dec 2023 07:20:34 -0800 (PST)
+Date: Thu, 7 Dec 2023 07:20:34 -0800 (PST)
 From: Lupe Elnicki <lupeelnicki@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <7f7c1afc-859b-41ac-8eb8-68eef6e72c95n@googlegroups.com>
-Subject: LS-Magazine-Issue 01 My Childhood.rar
+Message-Id: <67666ab1-f9b0-4523-a574-16acded60f77n@googlegroups.com>
+Subject: Carmina Burana Full Score Pdf Download NEW!
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_55787_1034222333.1701962418023"
+	boundary="----=_Part_62404_170217555.1701962434024"
 X-Original-Sender: lupeelnicki@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -79,27 +79,69 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_55787_1034222333.1701962418023
+------=_Part_62404_170217555.1701962434024
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_55788_2077092335.1701962418023"
+	boundary="----=_Part_62405_1105904088.1701962434024"
 
-------=_Part_55788_2077092335.1701962418023
+------=_Part_62405_1105904088.1701962434024
 Content-Type: text/plain; charset="UTF-8"
 
-LS-Magazine-Issue 01 My Childhood.rar\nDOWNLOAD 
-https://urlin.us/2wIVEk\n\n\n\n eebf2c3492\n\n\n
+
+
+*Musescore.com*
+This site offers downloads of over 1.5 million score files in MuseScore, 
+MusicXML, PDF, MIDI, and MP3 formats. Public domain scores can be 
+downloaded free of charge. Downloading copyrighted scores requires a 
+Musescore PRO subscription for $49/year.
+
+*LifeWay Worship*
+This site sells Christian worship music in a variety of score and audio 
+formats, including full orchestral Finale files. Their SongMap technology 
+allows you to make custom arrangements of both the score and audio files.
+Carmina Burana Full Score Pdf Download NEW!
+
+*DOWNLOAD* https://urlin.us/2wIVF5
+
+
+Impact on Azure. When one downloads a Windows 10 virtual machine in Azure 
+and deploys it, is often built from a release from several months ago. 
+These patching side effects we see in the traditional operating system 
+channels, impact patching on Azure as well. Recently a RDP patch that was 
+released in March and ultimately implemented fully in June impacted Azure 
+virtual machines. The fact that you had to release a Knowledge Base article 
+to instruct customers to go around this issue showcases that delays in 
+patching Azure, and the lack of clear patching communication causes ripple 
+effects to your cloud platforms.
+eebf2c3492
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/7f7c1afc-859b-41ac-8eb8-68eef6e72c95n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/67666ab1-f9b0-4523-a574-16acded60f77n%40googlegroups.com.
 
-------=_Part_55788_2077092335.1701962418023
+------=_Part_62405_1105904088.1701962434024
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>LS-Magazine-Issue 01 My Childhood.rar\nDOWNLOAD https://urlin.us/2wIVE=
-k\n\n\n\n eebf2c3492\n\n\n</div>
+<div><p><strong>Musescore.com</strong><br />This site offers downloads of o=
+ver 1.5 million score files in MuseScore, MusicXML, PDF, MIDI, and MP3 form=
+ats. Public domain scores can be downloaded free of charge. Downloading cop=
+yrighted scores requires a Musescore PRO subscription for $49/year.</p></di=
+v><div><p><strong>LifeWay Worship</strong><br />This site sells Christian w=
+orship music in a variety of score and audio formats, including full orches=
+tral Finale files. Their SongMap technology allows you to make custom arran=
+gements of both the score and audio files.</p></div><div></div><div><h2>Car=
+mina Burana Full Score Pdf Download NEW!</h2><br /><p><b>DOWNLOAD</b> https=
+://urlin.us/2wIVF5</p><br /><br /></div><div><p>Impact on Azure. When one d=
+ownloads a Windows 10 virtual machine in Azure and deploys it, is often bui=
+lt from a release from several months ago. These patching side effects we s=
+ee in the traditional operating system channels, impact patching on Azure a=
+s well. Recently a RDP patch that was released in March and ultimately impl=
+emented fully in June impacted Azure virtual machines. The fact that you ha=
+d to release a Knowledge Base article to instruct customers to go around th=
+is issue showcases that delays in patching Azure, and the lack of clear pat=
+ching communication causes ripple effects to your cloud platforms.</p> eebf=
+2c3492</div><div></div><div></div><div></div><div></div>
 
 <p></p>
 
@@ -110,11 +152,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/7f7c1afc-859b-41ac-8eb8-68eef6e72c95n%40googlegrou=
+om/d/msgid/jailhouse-dev/67666ab1-f9b0-4523-a574-16acded60f77n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/7f7c1afc-859b-41ac-8eb8-68eef6e72c95n%40googlegroups.co=
+msgid/jailhouse-dev/67666ab1-f9b0-4523-a574-16acded60f77n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_55788_2077092335.1701962418023--
+------=_Part_62405_1105904088.1701962434024--
 
-------=_Part_55787_1034222333.1701962418023--
+------=_Part_62404_170217555.1701962434024--
