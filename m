@@ -1,75 +1,73 @@
-Return-Path: <jailhouse-dev+bncBDQKRTU7ZIKBBPWS3GWAMGQE653IBJI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDM2HMO5Q4HBBD4Q3KWAMGQE7Q2CMNQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x1140.google.com (mail-yw1-x1140.google.com [IPv6:2607:f8b0:4864:20::1140])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D3E823D3F
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  4 Jan 2024 09:16:00 +0100 (CET)
-Received: by mail-yw1-x1140.google.com with SMTP id 00721157ae682-5ee22efe5eesf3869157b3.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 04 Jan 2024 00:16:00 -0800 (PST)
+Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F22823F6B
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  4 Jan 2024 11:27:29 +0100 (CET)
+Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-dbe9dacc935sf353289276.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 04 Jan 2024 02:27:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1704356159; x=1704960959; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1704364049; x=1704968849; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RbbQWNBZvJkuCn3s1BMUnM9HDUA/4PXFLMa0q1xMfSs=;
-        b=XJQ8UY1ARhB6JpYY0Ai7y85Y3lzOe+fkXItDhwRXJI6Q35HZTGgEFpTx6jTinWanGx
-         zjnRPbieTlY0vaE1FKG3i+vvjzL7hpBNClsOPI4vqihU0vPSbZkt2AIcX42FPayg9GGU
-         QUz5i/5KB4RTzukfsv+52+exJ5zm7LyvlFeK9D1iRkFUVerPusMYiY5OTOJeemj1jzpk
-         ZIG6yWxrjpHYoPrT7oA1gh2uFtnI/DXDLbIXnLCukyw/L0V6u6JzmMym5+wExbselOTF
-         zgBGSTuG68MifsaKES1tFphYIqA57iIAOpqQZvBoK0bXsBlPzXlCUuY+CBgXsD0NZq6U
-         2uNw==
+        bh=H2IZ0yh0aabDGqSZD5zBHC81B87P7Tn+ICPFGkLe3Lg=;
+        b=qhGEeUslt1qY0dL9zUDSg6TMz+jcoe0P0cXpPWLI1pS0d/WxjpZTDVzDk3f49YO/z7
+         KFX1TTHtnau99+LVP/zRP4dqEB1SJ77wIhABWo0vMuUzhf1tXjQhufU6S2gBhs8hnTP+
+         M+SU5eMDP+ZN7xWa51u0XQODymZuLTX5v2LRba2OUV5gzAmRm3cJyXY2IgVLq3mwuwkr
+         Oh0qGidRrBNFL7oHwK7HAIYgExTEBmTdm+3mk9ub/HDYSC8UFFvNX1Fw6gCQksShab7S
+         OPtk/NPFVPyYp7R2P1M1DOSTWJ3W42sKypo2N37o/ZPN2AURxSc01mXcnbrjOBHEovjW
+         gttA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704356159; x=1704960959; darn=lfdr.de;
+        d=marples.net; s=mail; t=1704364049; x=1704968849; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RbbQWNBZvJkuCn3s1BMUnM9HDUA/4PXFLMa0q1xMfSs=;
-        b=FqnuuT0JVJaY8htmhOQPWoVaXeDfehAns2niUCZ49ll2UIO86I+Yrh2Mkfw3tKLqhr
-         oQRQ4zAQmxFrLerv0s1LxnmuwLm6QL8100yj3ls4yfXqH7hD1X4cFn2TgaJMcnW1cz63
-         ky2mc29FlUhjWYGQhCRRAcs8xZom7/DfRxaxz+uTk1vYg+6cTX28SaX1fMxoL1vbVQ+n
-         ACuD+FDSt98fff2lyBGZ7+hWMs3FdZYhm/w+oWqlAUGJZ99mt3uOPJRZlCXyiFIr4gAn
-         JaeIV8HPbzK4BrzDd8FPmZEh0xS0Ezo5HVrazEaLHyL6cgI9YFnc0TExJS4TALIhs/jU
-         f7LA==
+        bh=H2IZ0yh0aabDGqSZD5zBHC81B87P7Tn+ICPFGkLe3Lg=;
+        b=b0fTmZyDNYF2ExaILxRF0oBrnjKhWzUsJZqZl8Sso8TnTPkDoWMsx3LCDmgf1o0iBL
+         mx3X/lolPVjjgtiwoRCpWlhOKZz/eOqLhihvmOH7LIo3gn2cEvhO2yTEdHefm2OkEFQc
+         bYbaUwXj+Vni2OHcgyIiiyajAAJud70nAuebg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704356159; x=1704960959;
+        d=1e100.net; s=20230601; t=1704364049; x=1704968849;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RbbQWNBZvJkuCn3s1BMUnM9HDUA/4PXFLMa0q1xMfSs=;
-        b=vIiec/cJxUqNIwrJ+UNs97Hft346HrdRSAPCsLNH0W38aJXjuPDkDl2sXgyCoIpa26
-         4tAcUlTDc2bL4gUj6+VajZ1Z8T9jG9dY3g2Tj/EqUYqwJcVV3QBSe2qwkiipggI+jfNQ
-         R8LQOZ/9+L+RHBL5aisAA7vETSGAjnHhAdUtHo+D7Kj3u3MD+480l6NjN8JKEhxsqbKa
-         lk1JHPpwLYclOOebRFNY8W3A2oMe3UNHksEUPPBp25iIYZIg5VXKzH1lBrfMAItmHWBV
-         4w0mwYbzKEMFDpHR62zRWfNZOlkI9mVu4zJKShsIWvaCJ6Hb1YpZRUR4iXeOWdSNx1cm
-         6WzA==
+        bh=H2IZ0yh0aabDGqSZD5zBHC81B87P7Tn+ICPFGkLe3Lg=;
+        b=hqQhiezHFrfAZFKHjzAw9GfNKu/IkujQNn1GoegjV2SBFmwyrKdKUD2yswxs9MbxYM
+         10nraLjdq1HwfWFJt1SsIU6F1kztLVkC18i9SELwcTv9rPR8Dh0EJoO9C3wqBRXDpwp1
+         0KHHEQ3NeSGBqWjCX9aK+v9s4IdHnIzPxaQ7AKaKlVZcXYUwVYnzY5ZaXjPIheDFL2Uq
+         iSp01aFU7tw7S95qkthNmaFFJU45R9cV5zLTzq/yCR1Jg7TwQn2915j2zqBf1yaVVsyH
+         7Wb8qFGMAFa9LpwLksqG5osfr44RP1YHle1PtFEmOBCwoIpl7T8h6Qom0f1rF4SffJbo
+         JyOw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YxM6W3hrX/5Aym7SADZ1GXAN5yPdAtb+QJwER1l/hDOyZMHBQy/
-	8lXORxL6RHBkPm8YzRAbFxg=
-X-Google-Smtp-Source: AGHT+IHJ/2JheKz9U4EZFMRB8JRQo1CgDMPBy1MkvrH2hZ9PmAF9ZezaNg9Jl4TyfWMxEfZjfiU3pQ==
-X-Received: by 2002:a25:d090:0:b0:dbe:a706:a244 with SMTP id h138-20020a25d090000000b00dbea706a244mr186388ybg.66.1704356158809;
-        Thu, 04 Jan 2024 00:15:58 -0800 (PST)
+X-Gm-Message-State: AOJu0Ywd0oYgkS0gH4iJ/4FjLJRCoQYJbaT8ec0CX8IiDkd59MIzPfvQ
+	L7qOFaZjN5+L4RpQaFlaK98=
+X-Google-Smtp-Source: AGHT+IG/4ywmvdXPljOKVsXoqV1oQoUSHkRsPt9gUCAcT2+xlFVqNT3soMSkNf9V+7wOV2T8jsP75Q==
+X-Received: by 2002:a05:6902:3ce:b0:db5:4d1d:ee76 with SMTP id g14-20020a05690203ce00b00db54d1dee76mr253348ybs.64.1704364048622;
+        Thu, 04 Jan 2024 02:27:28 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:dfcb:0:b0:dbd:c21c:c895 with SMTP id w194-20020a25dfcb000000b00dbdc21cc895ls1436459ybg.1.-pod-prod-07-us;
- Thu, 04 Jan 2024 00:15:57 -0800 (PST)
-X-Received: by 2002:a05:690c:d21:b0:5e8:fa92:ee16 with SMTP id cn33-20020a05690c0d2100b005e8fa92ee16mr154171ywb.2.1704356157406;
-        Thu, 04 Jan 2024 00:15:57 -0800 (PST)
-Date: Thu, 4 Jan 2024 00:15:56 -0800 (PST)
-From: star sun <sunxing960116@gmail.com>
+Received: by 2002:a25:7396:0:b0:dbd:56e0:2fad with SMTP id o144-20020a257396000000b00dbd56e02fadls10806ybc.2.-pod-prod-09-us;
+ Thu, 04 Jan 2024 02:27:27 -0800 (PST)
+X-Received: by 2002:a25:bcd1:0:b0:dbd:47f8:8735 with SMTP id l17-20020a25bcd1000000b00dbd47f88735mr126551ybm.9.1704364047113;
+        Thu, 04 Jan 2024 02:27:27 -0800 (PST)
+Date: Thu, 4 Jan 2024 02:27:26 -0800 (PST)
+From: Dave Marples <dave@marples.net>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <2305fab7-744f-4cef-90fc-08879ff55ae4n@googlegroups.com>
-In-Reply-To: <36d21a58-fb8b-47f3-977f-ab179f0ea8b6@oth-regensburg.de>
+Message-Id: <c33ce025-503c-4a9e-b17d-c792587adbb8n@googlegroups.com>
+In-Reply-To: <2305fab7-744f-4cef-90fc-08879ff55ae4n@googlegroups.com>
 References: <5a564454-0a20-4c44-93c2-67e30025c8a6n@googlegroups.com>
  <4b8c293a-de5d-4ede-ab38-c42294ba3554@marples.net>
  <36d21a58-fb8b-47f3-977f-ab179f0ea8b6@oth-regensburg.de>
+ <2305fab7-744f-4cef-90fc-08879ff55ae4n@googlegroups.com>
 Subject: Re: Can't install jailhouse on linux-6.1 arm system
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_13542_673910867.1704356156448"
-X-Original-Sender: sunxing960116@gmail.com
+	boundary="----=_Part_5499_1559788570.1704364046337"
+X-Original-Sender: dave@marples.net
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -82,192 +80,54 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_13542_673910867.1704356156448
+------=_Part_5499_1559788570.1704364046337
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_13543_813328157.1704356156448"
+	boundary="----=_Part_5500_1956999951.1704364046337"
 
-------=_Part_13543_813328157.1704356156448
+------=_Part_5500_1956999951.1704364046337
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
+The patch is pretty straightforward and attached to the message above, but 
+in case you're having trouble getting it here it is as text;
 
+``` diff --git a/mm/vmalloc.c b/mm/vmalloc.c index 
+52f50fe7db83..7fbfad571968 100644 --- a/mm/vmalloc.c +++ b/mm/vmalloc.c @@ 
+-316,7 +316,7 @@ int ioremap_page_range(unsigned long addr, unsigned long 
+end, { int err; - err = vmap_range_noflush(addr, end, phys_addr, 
+pgprot_nx(prot), + err = vmap_range_noflush(addr, end, phys_addr, prot, 
+ioremap_max_page_shift); flush_cache_vmap(addr, end); return err; ```
+Good luck!
+DAVE
 
-I really need this patch
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/c33ce025-503c-4a9e-b17d-c792587adbb8n%40googlegroups.com.
 
-But I can't download it. Can you upload it again? Thank you
-
-=E5=9C=A82023=E5=B9=B410=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC=
-+8 00:48:34<Ralf Ramsauer> =E5=86=99=E9=81=93=EF=BC=9A
-
->
->
-> On 17/10/2023 15:04, Dave Marples wrote:
-> > On 17/10/2023 09:48, Dave Marples wrote:
-> >> I'm building jailhouse on a arm64 linux 6.1 Debian bookworm system=20
-> >> (imx8m, if it matters) using gcc 12.2.0...or, more specfically,=20
-> >> failing to build. I get to the module install stage and then get;
-> >>
-> >>
-> >> ERROR: modpost: "__hyp_stub_vectors"=20
-> >> [/root/jailhouse/driver/jailhouse.ko] undefined!
-> >> ERROR: modpost: "ioremap_page_range"=20
-> >> [/root/jailhouse/driver/jailhouse.ko] undefined!
-> >> ERROR: modpost: "__get_vm_area_caller"=20
-> >> [/root/jailhouse/driver/jailhouse.ko] undefined!
-> >> make[2]: *** [scripts/Makefile.modpost:126:=20
-> >> /root/jailhouse/Module.symvers] Error 1
-> >> make[1]: *** [Makefile:1989: modpost] Error 2
-> >> make: *** [Makefile:40: modules] Error 2
-> >>
-> >>
-> >> So far as I can tell I have all of the required KALLSYMS set, so=20
-> >> wondered if anyone else had trouble with recent kernels or if I'm=20
-> >> missing some magic somewhere?
-> >=20
-> > Just to start the follow-up on this in case it's useful to anyone else=
-=20
-> > in future; I figured out that I'd missed the stage of patching the=20
-> > kernel ( It might make sense to add a prod for this in the 'Build &=20
-> > Installation' instructions ... ) using the patch embedded in=20
-> > gen-kernel-build.sh and adjusting to suit my kernel..is there somewhere=
-=20
-> > else I'm supposed to get that patch from in a cleaner way?
-> >=20
-> > I'm now at the point where the thing will start, but pretty quickly=20
-> > falls over in a big heap;
-> >=20
-> > # jailhouse enable imx8mm.cell
-> > [   62.953888]  jailhouse: firmware: direct-loading firmware=20
-> jailhouse.bin
-> > [   62.961239] Unable to handle kernel execute from non-executable=20
-> > memory at virtual address ffff80000a004000
-> > [   62.961239] Unable to handle kernel execute from non-executable=20
-> > memory at virtual address ffff80000a004000
-> > [   62.961239] Unable to handle kernel execute from non-executable=20
-> > memory at virtual address ffff80000a004000
-> > [   62.961239] Unable to handle kernel execute from non-executable=20
-> > memory at virtual address ffff80000a004000
-> > [   62.961248] Mem abort info:
-> > [   62.961248] Mem abort info:
-> > [   62.961248] Mem abort info:
-> > [   62.961249]   ESR =3D 0x000000008600000e
-> > [   62.961250]   ESR =3D 0x000000008600000e
-> >=20
-> > Help still appreciated...Can't help getting the feeling I'm missing a=
-=20
-> > document somewhere whereby all this lot magically becomes easy...
->
-> Did you also apply the patch that I attached? I'm pretty sure that it's=
-=20
-> missing.
->
-> Thanks,
->
-> Ralf
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/2305fab7-744f-4cef-90fc-08879ff55ae4n%40googlegroups.com.
-
-------=_Part_13543_813328157.1704356156448
+------=_Part_5500_1956999951.1704364046337
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<p style=3D"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: &q=
-uot;PingFang SC&quot;, Arial, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;=
-Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-si=
-ze: 16px; font-variant-ligatures: no-common-ligatures;">I really need this =
-patch</p><p style=3D"margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-f=
-amily: &quot;PingFang SC&quot;, Arial, &quot;Hiragino Sans GB&quot;, STHeit=
-i, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif=
-; font-size: 16px; font-variant-ligatures: no-common-ligatures;">But I can'=
-t download it. Can you upload it again? Thank you</p><br /><div class=3D"gm=
-ail_quote"><div dir=3D"auto" class=3D"gmail_attr">=E5=9C=A82023=E5=B9=B410=
-=E6=9C=8818=E6=97=A5=E6=98=9F=E6=9C=9F=E4=B8=89 UTC+8 00:48:34&lt;Ralf Rams=
-auer> =E5=86=99=E9=81=93=EF=BC=9A<br/></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204);=
- padding-left: 1ex;">
-<br>
-<br>On 17/10/2023 15:04, Dave Marples wrote:
-<br>&gt; On 17/10/2023 09:48, Dave Marples wrote:
-<br>&gt;&gt; I&#39;m building jailhouse on a arm64 linux 6.1 Debian bookwor=
-m system=20
-<br>&gt;&gt; (imx8m, if it matters) using gcc 12.2.0...or, more specfically=
-,=20
-<br>&gt;&gt; failing to build. I get to the module install stage and then g=
-et;
-<br>&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt; ERROR: modpost: &quot;__hyp_stub_vectors&quot;=20
-<br>&gt;&gt; [/root/jailhouse/driver/jailhouse.ko] undefined!
-<br>&gt;&gt; ERROR: modpost: &quot;ioremap_page_range&quot;=20
-<br>&gt;&gt; [/root/jailhouse/driver/jailhouse.ko] undefined!
-<br>&gt;&gt; ERROR: modpost: &quot;__get_vm_area_caller&quot;=20
-<br>&gt;&gt; [/root/jailhouse/driver/jailhouse.ko] undefined!
-<br>&gt;&gt; make[2]: *** [scripts/Makefile.modpost:126:=20
-<br>&gt;&gt; /root/jailhouse/Module.symvers] Error 1
-<br>&gt;&gt; make[1]: *** [Makefile:1989: modpost] Error 2
-<br>&gt;&gt; make: *** [Makefile:40: modules] Error 2
-<br>&gt;&gt;
-<br>&gt;&gt;
-<br>&gt;&gt; So far as I can tell I have all of the required KALLSYMS set, =
-so=20
-<br>&gt;&gt; wondered if anyone else had trouble with recent kernels or if =
-I&#39;m=20
-<br>&gt;&gt; missing some magic somewhere?
-<br>&gt;=20
-<br>&gt; Just to start the follow-up on this in case it&#39;s useful to any=
-one else=20
-<br>&gt; in future; I figured out that I&#39;d missed the stage of patching=
- the=20
-<br>&gt; kernel ( It might make sense to add a prod for this in the &#39;Bu=
-ild &amp;=20
-<br>&gt; Installation&#39; instructions ... ) using the patch embedded in=
+The patch is pretty straightforward and attached to the message above, but =
+in case you're having trouble getting it here it is as text;<br /><br />```=
+<span style=3D"color: rgb(0, 0, 0); overflow-wrap: break-word; white-space-=
+collapse: preserve;">
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 52f50fe7db83..7fbfad571968 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -316,7 +316,7 @@ int ioremap_page_range(unsigned long addr, unsigned lon=
+g end,
+ {
+ 	int err;
 =20
-<br>&gt; gen-kernel-build.sh and adjusting to suit my kernel..is there some=
-where=20
-<br>&gt; else I&#39;m supposed to get that patch from in a cleaner way?
-<br>&gt;=20
-<br>&gt; I&#39;m now at the point where the thing will start, but pretty qu=
-ickly=20
-<br>&gt; falls over in a big heap;
-<br>&gt;=20
-<br>&gt; # jailhouse enable imx8mm.cell
-<br>&gt; [=C2=A0=C2=A0 62.953888]=C2=A0 jailhouse: firmware: direct-loading=
- firmware jailhouse.bin
-<br>&gt; [=C2=A0=C2=A0 62.961239] Unable to handle kernel execute from non-=
-executable=20
-<br>&gt; memory at virtual address ffff80000a004000
-<br>&gt; [=C2=A0=C2=A0 62.961239] Unable to handle kernel execute from non-=
-executable=20
-<br>&gt; memory at virtual address ffff80000a004000
-<br>&gt; [=C2=A0=C2=A0 62.961239] Unable to handle kernel execute from non-=
-executable=20
-<br>&gt; memory at virtual address ffff80000a004000
-<br>&gt; [=C2=A0=C2=A0 62.961239] Unable to handle kernel execute from non-=
-executable=20
-<br>&gt; memory at virtual address ffff80000a004000
-<br>&gt; [=C2=A0=C2=A0 62.961248] Mem abort info:
-<br>&gt; [=C2=A0=C2=A0 62.961248] Mem abort info:
-<br>&gt; [=C2=A0=C2=A0 62.961248] Mem abort info:
-<br>&gt; [=C2=A0=C2=A0 62.961249]=C2=A0=C2=A0 ESR =3D 0x000000008600000e
-<br>&gt; [=C2=A0=C2=A0 62.961250]=C2=A0=C2=A0 ESR =3D 0x000000008600000e
-<br>&gt;=20
-<br>&gt; Help still appreciated...Can&#39;t help getting the feeling I&#39;=
-m missing a=20
-<br>&gt; document somewhere whereby all this lot magically becomes easy...
-<br>
-<br>Did you also apply the patch that I attached? I&#39;m pretty sure that =
-it&#39;s=20
-<br>missing.
-<br>
-<br>Thanks,
-<br>
-<br>   Ralf</blockquote></div>
+-	err =3D vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
++	err =3D vmap_range_noflush(addr, end, phys_addr, prot,
+ 				 ioremap_max_page_shift);
+ 	flush_cache_vmap(addr, end);
+ 	return err;
+</span>```<br />Good luck!<div>DAVE</div><div><div dir=3D"auto"><br /></div=
+></div>
 
 <p></p>
 
@@ -278,11 +138,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/2305fab7-744f-4cef-90fc-08879ff55ae4n%40googlegrou=
+om/d/msgid/jailhouse-dev/c33ce025-503c-4a9e-b17d-c792587adbb8n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/2305fab7-744f-4cef-90fc-08879ff55ae4n%40googlegroups.co=
+msgid/jailhouse-dev/c33ce025-503c-4a9e-b17d-c792587adbb8n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_13543_813328157.1704356156448--
+------=_Part_5500_1956999951.1704364046337--
 
-------=_Part_13542_673910867.1704356156448--
+------=_Part_5499_1559788570.1704364046337--
