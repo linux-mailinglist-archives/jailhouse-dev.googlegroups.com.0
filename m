@@ -1,158 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCDLVQP2RIKBBAHN6SWAMGQECJX5HJQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC7Y32GTCIIPD47UVQDBUBCQSSQ5M@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-pj1-x103d.google.com (mail-pj1-x103d.google.com [IPv6:2607:f8b0:4864:20::103d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21AD58285B3
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jan 2024 13:05:23 +0100 (CET)
-Received: by mail-pj1-x103d.google.com with SMTP id 98e67ed59e1d1-28bd4766346sf1402570a91.3
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jan 2024 04:05:23 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1704801921; cv=pass;
-        d=google.com; s=arc-20160816;
-        b=1JpWkKeBfiKO2Zi3Wta1gohTZAHIadBPP4eBDSAiM/Db1ziKDKDRQ5Y3acIRwj6Gn+
-         XhP4nnBEFWpcW5V8gaiZ3uZdfWCBSai6Xmm4B4u9C07E8y8WtQsoEBewEkJI/VHUXqNO
-         xT8WgaxRRAodyXb4pY8wEay00rodnqi2BBD+Hgo61R+qOnKP77MGJZ9MGbGktzAILluR
-         UKBaF65PmC/zjcHVTIOI2PXPnwALc5EWbQxl2bwIWzf8VGmJ1y6wi51DOhq4qRPTT2uo
-         Ebeyajl5BPalzr/sNMi8PsnlOPgvR3dVNRcJUE/dvJscQByKVq+6Pr6zQIXo/lqt2JaF
-         kHMA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=list-subscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:to:list-unsubscribe:feedback-id:sid
-         :reply-to:subject:message-id:mime-version:from:date:dkim-signature;
-        bh=+1ZgvpIALdNPoVJ2flpHd8vbrP6lMc3jgJAmAk5uwjU=;
-        fh=gxv6KPRH6O+Oq3mqvhuXuTetS01385E93D+NhmqUcp4=;
-        b=p0NSz1HDhmGeXkZlAnjsB6d1xy8sTpRnsHDOr1oKJNQs+wkTfVdftvd7GpcVoD0J0U
-         S4Sg4P3X00PJLYpq/PBMjvWQkGuUpQeH9Wil0dNDe9R3mLFbUUUVaMyPn32zHatKCgT/
-         0G+/e6yeWvCNuuvlur1+K//43X25k5qfhRUtOfHcBmp5ELGXVRffIJD79Wr8XbnrG9QL
-         h4GHQ3DXqJftm85NX+SHJKTJFhK3Itwu9+fTFZSj9rPEwu6/RiY5pFYn4D+mkTG/zjdt
-         OV2MMpBeHS6t0jq+T97nB9Fq8+m8Pa+a6GTV5P8d5f2OoUNQEpDz58x69Vgnqc7tEIP6
-         gF2g==
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@mail.beehiiv.com header.s=s1 header.b=k2RmMqGT;
-       spf=pass (google.com: domain of bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com designates 159.183.141.192 as permitted sender) smtp.mailfrom="bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com";
-       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=beehiiv.com
+Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id A238E8285F3
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jan 2024 13:20:03 +0100 (CET)
+Received: by mail-yb1-xb3c.google.com with SMTP id 3f1490d57ef6-dbdad99096fsf3724316276.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jan 2024 04:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1704801921; x=1705406721; darn=lfdr.de;
-        h=list-subscribe:list-archive:list-help:list-post:list-id
-         :mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:to:list-unsubscribe:feedback-id:sid:reply-to
-         :subject:message-id:mime-version:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+1ZgvpIALdNPoVJ2flpHd8vbrP6lMc3jgJAmAk5uwjU=;
-        b=Wf+mB1RfyOW1SSKeMTVO0czzz8F5SzpY1rFF1hI0n+NrlNWLyYwvmMtRYAVEoMcDeO
-         uMIN7x3ypNK/ZEO7nuea/89G2ksLoiYfj+4/plBMT4t7QWCo6rnz1DKoNXoZNOM1+ekr
-         QZmP7BLK3msjqiZyqXx0NfQm/D8ErsxBrblAN7HsKLAovPuDUaq0oFRdSFiPWadalZJX
-         l2jJ6miWmye7/mDX8ZlsJgz0xj8YwGN46ZYal4GZm1v0/0ITSWZrsmJgZZP0wVgZWDHU
-         dyMQxp1X18/7+VUcJr1V9ByjXxMS+7WSimvGAH8rwp6Wdac6oQWDvyCIUnjMmE+ms3XG
-         ma4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704801921; x=1705406721;
-        h=list-subscribe:list-archive:list-help:list-post
-         :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender:to
-         :list-unsubscribe:feedback-id:sid:reply-to:subject:message-id
-         :mime-version:from:date:x-beenthere:x-gm-message-state:from:to:cc
+        d=googlegroups.com; s=20230601; t=1704802802; x=1705407602; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=K5wUchNfwWhndrfwYJGAmPaY3BNELJJ6NCB4YDsGMh4=;
+        b=D6lNRSJcVPQ4lCxfQSRm0O/+BJnysYGjzBkULj4Ef8s2Mw5a1QYRjuTnIJcbaXjnyH
+         6Io68y55bmNv46o8Ie7Hy1g/vIJHkuTQH0e4y3HZoiExd2lBTJUmqoOSNW0PZjlLX4gL
+         SX5zjgZkJ6AkMmaXB2TzxvqojYKDcD+3LTnYHK5Ai5V9STj6rEg19p60Rg6f0VZKdqU4
+         PBmKct2Zi0Xvkgvhlck11l5AxSsLR4W77SwOKfW5rr7Omm59xsO7cpXICVkZcaPVE69D
+         hYbw9SStpr35Agr3BLHcz2uitDfDWifoUkiS1rqW6t5UivoFOYXHa7C5JF32RmXMOonH
+         pfXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704802802; x=1705407602; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=+1ZgvpIALdNPoVJ2flpHd8vbrP6lMc3jgJAmAk5uwjU=;
-        b=k38UUgaa5dM3dEvO0/Ln9r0QM0GD6Am17roXP2z8lCSwQBn2hVkSH6pwZwe9iwW9i0
-         dGoSZspZUIN5N8lBO3kkO0ag4JMKmfQwSGlktOm2SKU6dVH13hIrSNrUpA17FLUG0tHU
-         UlKnYHdBOLZEXIRDi0ds8Qo1CMxgf5/CL8sLzok726yzfxfcqcHpSObeFDHNSIGnBzrx
-         RLDtmseptwXoxx8uluWzLA1EIk0rx28UhQqt2q6SzuYhDoOro0dHyl5NF2wWooUP06V8
-         rTIDxJ0+iDwSz3gZ4h1unvV3tBVqN/VLWulbQpgH3NZIClzCjFzAqqX/2xFt20cy7jke
-         krKg==
-X-Gm-Message-State: AOJu0Yys+nVo50OjTs9EuYdw3RbSx9GmLfpDpTisn3mA+p3Ehqji5R7L
-	vlZ1m1sSFzfanV++yl0jxO4=
-X-Google-Smtp-Source: AGHT+IHNyZ89+15v28RDlrUXYKZ478MKB/RLLvFAk9nchI9A0A3DwwQJm2yKmshJOCsXTQbtaq1Rgg==
-X-Received: by 2002:a17:90b:3c3:b0:28b:bdc2:33b1 with SMTP id go3-20020a17090b03c300b0028bbdc233b1mr2277035pjb.34.1704801921335;
-        Tue, 09 Jan 2024 04:05:21 -0800 (PST)
+        bh=K5wUchNfwWhndrfwYJGAmPaY3BNELJJ6NCB4YDsGMh4=;
+        b=iy2pMz2Dlt6o1EHqVL7HfNBMCfF3do8loKjNC7bAnO75Ki9cZuO0LsU/jpbhHodPAa
+         lky67w55FnVGE9xc3GJg5C4tJty7draXhnAn25u4RUg85etZdz6BEwNkzaBSP/T/UiwY
+         58FMORld+8LyTJS9NL57hKjnB2t2w2KB4IZZRgrFbTTwBg4CFgkj2OWiijD8N1qRrVDh
+         6k88vkqQdq4ixtJu+ioXkzFAEdXQ0qPKB6NRNlWc5WMBqnct+xCiNBLT8sDkAPHKQT7g
+         5iFVIdMcN3e2yis5JdBKoDD1uO0+NdkUcJVNLYae78jCXoj0GXm21QTmojpqrwInR8Z3
+         PuiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704802802; x=1705407602;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :x-spam-checked-in-group:list-id:mailing-list:precedence
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=K5wUchNfwWhndrfwYJGAmPaY3BNELJJ6NCB4YDsGMh4=;
+        b=mU9iDKWdO9h8vKdS5TTz4yif51MEeOYWG+lyaoeDli9/786ksYDoZLaVM7yYJKjyat
+         jnbvmLKp+r4dwiByYC5uuPAY5LLOcs6mPhoACf9BOn9C6KjqU7bJFiyLYWP0gFGj/4bn
+         8sKJSbISXXah+yN5xxWQ2kaUMYsCB7+Z457fApHLv6oDu+CHIRmm9DTb2zUG81v+pWxV
+         MZ3Si4e5wUK3prKUxwz2M0eup41I2RH0yDb9C8AM0tDg26T50PMeR8Fj+l6yozbh0ouK
+         wk0rGprRoVV9/Y+J0CC3KrVclCM74sb34O/NfGf/285mQQ9xIoXAAA10z/9l4YAtHstN
+         Clvw==
+Sender: jailhouse-dev@googlegroups.com
+X-Gm-Message-State: AOJu0Yz2xrlOvmfmTQ284KasIbpoCCtK780XJ/seZZ44M+RONq4dStrU
+	GMKfxmufKudFFIyS2j8vNN0=
+X-Google-Smtp-Source: AGHT+IE3yPC91ahqdY1qO/j8bRyZkdF7UhrqLL0aHkBvIQ73NFGY80dHD9PQWmrfc7CgXlUMSJy3RQ==
+X-Received: by 2002:a25:83c6:0:b0:dbe:1e16:ef7 with SMTP id v6-20020a2583c6000000b00dbe1e160ef7mr2804546ybm.85.1704802802147;
+        Tue, 09 Jan 2024 04:20:02 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a17:90b:3104:b0:28d:50dc:7fe9 with SMTP id
- gc4-20020a17090b310400b0028d50dc7fe9ls879905pjb.1.-pod-prod-04-us; Tue, 09
- Jan 2024 04:05:19 -0800 (PST)
-X-Received: by 2002:a17:90a:a595:b0:28c:915c:5eca with SMTP id b21-20020a17090aa59500b0028c915c5ecamr2139501pjq.89.1704801919478;
-        Tue, 09 Jan 2024 04:05:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1704801919; cv=none;
-        d=google.com; s=arc-20160816;
-        b=inET91j4GYHagf5/xvag6pNUTRTbzOWqjfQSSeeNWBoUA2VfoHrsNi9pvXtZbjA7zP
-         C/viVuZ1sLl6l0H5oD3xFssw8QmN9irGe9dd/bzj4bITt+Cj1uNzeSH5JEPszG0bodhk
-         qa6XNwqRNyWYDaoKk1ZS/8b3h20FxwtGDf4ZJbkPNMuYA4zpWE0FhyRn8dr1N1uulAIY
-         388N24PbIeTstarMWcWjdOQd+mpL8b+1/YjYLdnb6lGLSt6bdmQhPxXCYQ1qk7eR9X8T
-         JASHtkn5mzpO+ubStBv6Iu2xXemD174DFOu3iNfxCXBIppcFnv277hraIisXVqfe0irV
-         3Q7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
-        h=to:list-unsubscribe:feedback-id:sid:reply-to:subject:message-id
-         :mime-version:from:date:dkim-signature;
-        bh=87D/0zGvCHDkTxuWN8ps/HemNpyrZEarAimEwIVHOug=;
-        fh=gxv6KPRH6O+Oq3mqvhuXuTetS01385E93D+NhmqUcp4=;
-        b=0KwxBud0Q7fiV9nQ5Viq/DkclgJkqE4i1bHP0G6+w5iP2hMFFuVQ8k1sVXdOKMebh2
-         0c44qrYM44IgAaXnKxHOwS7I76X2xcFWg4Cdj72fJfYIIahKaN03NOUNVRbcVbY+q6NR
-         NLCJ+Zlrq7beJ4gdnI9BVsf02BHX2Ul2sQpeSxJFx9+jgbCN0ivOieXGJh6VaQvVZ4eK
-         vAaBmDrqgl0XHsuPxVEuahQFv2fp8GFz8tk6kE8Opnp2OLFEjW5+V4AlZR10arO+gIge
-         OC+H1CcUVDptQ/YwKGcUKuBYhN05o81rpp/gDg+vZ+qI7NcUz6SAo4R4J7ar1lTelzbP
-         Q5Tw==
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@mail.beehiiv.com header.s=s1 header.b=k2RmMqGT;
-       spf=pass (google.com: domain of bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com designates 159.183.141.192 as permitted sender) smtp.mailfrom="bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com";
-       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=beehiiv.com
-Received: from o16.ptr6223.mail.beehiiv.com (o16.ptr6223.mail.beehiiv.com. [159.183.141.192])
-        by gmr-mx.google.com with ESMTPS id lh11-20020a170903290b00b001d39c3be94bsi118356plb.8.2024.01.09.04.05.19
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 09 Jan 2024 04:05:19 -0800 (PST)
-Received-SPF: pass (google.com: domain of bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com designates 159.183.141.192 as permitted sender) client-ip=159.183.141.192;
-Received: by filterdrecv-5984d599dd-gzvxk with SMTP id filterdrecv-5984d599dd-gzvxk-1-659D3673-6E
-        2024-01-09 12:05:07.564747599 +0000 UTC m=+7233791.099164732
-Received: from NDAzNDMyOTY (unknown)
-	by geopod-ismtpd-13 (SG) with HTTP
-	id HnPfpTHvRTGZ5O1G_SIDZg
-	Tue, 09 Jan 2024 12:05:07.473 +0000 (UTC)
-Content-Type: multipart/alternative; boundary=4323bd09bc02649a01c0238bf3dff5fe5db5d46c59ef6d7234fafeb40f74
-Date: Tue, 09 Jan 2024 12:05:18 +0000 (UTC)
-From: "'SEED Conference' via Jailhouse" <jailhouse-dev@googlegroups.com>
-Mime-Version: 1.0
-Message-ID: <HnPfpTHvRTGZ5O1G_SIDZg@geopod-ismtpd-13>
-Subject: Registration is open - SEED '24 Valencia
-Reply-To: SEED Conference <seedconf@upv.es>
-x-beehiiv-type: newsletter
-x-newsletter-id: https://seed-conference-valencia.beehiiv.com/
-x-newsletter-signup: https://seed-conference-valencia.beehiiv.com/subscribe
-sId: 71fc7e6d-cd28-47c6-aa1e-5d673d88c28e
-x-newsletter: https://seed-conference-valencia.beehiiv.com/p/seed-conference-0901204
-Feedback-ID: =?us-ascii?Q?4cc55ca3-913a-4bde-92c0-d644f2bbb6c0=3Anewsletter=3A71fc7e6d-cd28-?=
- =?us-ascii?Q?47c6-aa1e-5d673d88c28e=3A73c7af638dd0cac?=
-x-list-id: 71fc7e6d-cd28-47c6-aa1e-5d673d88c28e
-List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
- <https://groups.google.com/group/jailhouse-dev/subscribe>
-x-beehiiv-ids: =?us-ascii?Q?{=22account=5Fname=22=3A=22https=3A=2F=2Fseed-conference-valencia=2Ebeehiiv=2Ecom=2F?=
- =?us-ascii?Q?=22=2C=22campaign=5Fid=22=3A=224cc55ca3-913a-4bde-92c?=
- =?us-ascii?Q?0-d644f2bbb6c0=22=2C=22category=22=3A=22newsletter=22?=
- =?us-ascii?Q?=2C=22email=5Fgenerated=5Fat=22=3A1704801906=2C=22user=5F?=
- =?us-ascii?Q?id=22=3A=2271fc7e6d-cd28-47c6-aa1e-5d673d88c2?=
- =?us-ascii?Q?8e=22}?=
-x-list-owner: <mailto:seedconf@upv.es>
-X-SG-EID: =?us-ascii?Q?N+FhySnck2RAqxf=2F2q+C0uCc9fID1mnX8DhIspt9DLygZifxTuRvqLjGIeGhBg?=
- =?us-ascii?Q?nvSEhtOibigEoTcVHHcI3ySI=2F5PpSjSRjFmXEV1?=
- =?us-ascii?Q?0RhmX5rg8nyPu0jHlmihGAD3az2cgNzlb0RVCgc?=
- =?us-ascii?Q?SSsZBJnkaIQWQPY=2F9wKggYwl+DVWORzqfr4Uryo?=
- =?us-ascii?Q?32eV9BDgrlhfmED5hdy3gYqbatzbJLwUqEJFNAB?=
- =?us-ascii?Q?BgDyk9yDRuQn8uR2H7BRf+RzFl4r20A92vWSSWf?=
- =?us-ascii?Q?OG4=2Fo6ChacnLGJLijtcRwqajw+5E3XhTr0rVU8m?=
- =?us-ascii?Q?U=2FE=3D?=
-X-SG-ID: =?us-ascii?Q?N2C25iY2uzGMFz6rgvQsb8raWjw0ZPf1VmjsCkspi=2FLxVM69ceEc1HIRn6NgiB?=
- =?us-ascii?Q?p7h0Pwaa55YDbiyHI7Am+1K4djEKFWUfJ9AVe8l?=
- =?us-ascii?Q?K7PiTJsUuskXRc2Q7LHNZ96V9FF40vmbTjDBlpm?=
- =?us-ascii?Q?rLJGcogMO3HPx9YObp5kVPoCIGdnUmvCuQsADI2?=
- =?us-ascii?Q?mhO8o2PPDHM8mOf+d=2FRdEAVECfijsT0lHE3GZsv?=
- =?us-ascii?Q?r3RCZoeRItbwItSG8MnBIKaDxDbp31LyWCXneic?=
- =?us-ascii?Q?on0dUVLdFRKhAlSnmlpsA=3D=3D?=
-To: "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>
-X-Entity-ID: 8Q8jjVs1FPKkJmddSUaV3Q==
-X-Original-Sender: seed-conference-valencia@mail.beehiiv.com
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@mail.beehiiv.com header.s=s1 header.b=k2RmMqGT;       spf=pass
- (google.com: domain of bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com
- designates 159.183.141.192 as permitted sender) smtp.mailfrom="bounces+40343296-d1dd-jailhouse-dev=googlegroups.com@em2003.mail.beehiiv.com";
-       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=beehiiv.com
-X-Original-From: SEED Conference <seed-conference-valencia@mail.beehiiv.com>
+Received: by 2002:a25:e093:0:b0:dbd:4632:de3 with SMTP id x141-20020a25e093000000b00dbd46320de3ls21118ybg.0.-pod-prod-06-us;
+ Tue, 09 Jan 2024 04:20:01 -0800 (PST)
+X-Received: by 2002:a05:690c:a94:b0:5f0:d791:c965 with SMTP id ci20-20020a05690c0a9400b005f0d791c965mr2876854ywb.3.1704802800477;
+        Tue, 09 Jan 2024 04:20:00 -0800 (PST)
+Date: Tue, 9 Jan 2024 04:19:59 -0800 (PST)
+From: wheatfox <enkerewpo@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <412a6c64-3a4d-4151-9293-05b9881f3418n@googlegroups.com>
+In-Reply-To: <f42f3913-11ea-4b78-86cb-ab4fe76db882@oth-regensburg.de>
+References: <f81eedab-debe-4d19-954a-06b55f2fa4a9n@googlegroups.com>
+ <f42f3913-11ea-4b78-86cb-ab4fe76db882@oth-regensburg.de>
+Subject: Re: i.MX8MP jailhouse load image stuck at copy_from_user
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_47252_1032528870.1704802799739"
+X-Original-Sender: Enkerewpo@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -162,344 +78,231 @@ List-Post: <https://groups.google.com/group/jailhouse-dev/post>, <mailto:jailhou
 List-Help: <https://groups.google.com/support/>, <mailto:jailhouse-dev+help@googlegroups.com>
 List-Archive: <https://groups.google.com/group/jailhouse-dev
 List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mailto:jailhouse-dev+subscribe@googlegroups.com>
+List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
+ <https://groups.google.com/group/jailhouse-dev/subscribe>
 
---4323bd09bc02649a01c0238bf3dff5fe5db5d46c59ef6d7234fafeb40f74
-Content-Transfer-Encoding: quoted-printable
+------=_Part_47252_1032528870.1704802799739
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_47253_2027045630.1704802799739"
+
+------=_Part_47253_2027045630.1704802799739
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-
-View image: (https://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,forma=
-t=3Dauto,onerror=3Dredirect,quality=3D80/uploads/asset/file/dcbc0422-e91e-4=
-be2-9044-0744bbc94e07/6543f3704bcc1407f3339baf.png?t=3D1702884418)
-Follow image link: (https://www.seedconference.eu/)
-Caption:=20
-
-# International Conference on Sustainable Energy Education
-
-### July 3 - 5, 2024. Valencia, Spain
-
-Visit seedconference.eu (https://www.seedconference.eu/)
-
-View image: (https://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,forma=
-t=3Dauto,onerror=3Dredirect,quality=3D80/uploads/asset/file/0f5d962c-9f40-4=
-340-99e7-eee934672118/hero-new3.jpg?t=3D1704789373)
-Follow image link: (https://www.seedconference.eu/registration/)
-Caption:=20
-
-----------
-# In this newsletter:
-
-
---------------------
-Click on the section below to read more:
-
-
---------------------
-**Call for Papers**
-[Scope](#scope)
-[Topics of interest](#topicsofinterest)
-[Important dates](#importantdates)
-[Publications and Awards](#publicationsaward)
-[Submission guidelines](#submissionguidelines)
-
-
-
-**Call for Workshops**
-[Review criteria](#reviewcriteria)
-[Proposals guidelines](#proposalguidelines)
-[Important dates](#importantdates-2)
-
-
-
---------------------
-# SEED 2024: Call for Papers
-
-
-----------## Scope
-
-The** First International Conference on Sustainable Energy Education (SEED)=
-** aims to become a forum for researchers, academics, and practitioners to =
-exchange ideas, experiences, opinions, and research results relating to the=
- preparation of students, teaching/learning methodologies, the organization=
- of educational systems, partnerships and funding and governance related to=
- Sustainable Energy Education.
-
-The **SEED** conference will be held on **July 3-5, 2024**, at the **Facult=
-y of Business Administration and Management of the Universitat Polit=C3=A8c=
-nica de Val=C3=A8ncia (UPV)**, which has been ranked as the best technical =
-university in Spain by the Academic Ranking of World Universities since 201=
-4.
-
-----------
-## Topics of interest
-
-
---------------------
-The Program Committee encourages the submission of extended abstracts that =
-communicate applied and empirical findings of interest to higher education =
-and vocational education & training professionals, researchers, and practit=
-ioners.
-Key topics include, but are not limited to, the following subjects:
-
-
---------------------
-**Track 1: Teaching and Learning on Sustainable Energy Education.**
-_Good practices related to:_
-
-* Renewable energy sources and their development, use, and impact
-
-* Development and use of electric vehicles and the connection to the econom=
-y and the environment
-
-* Efficient use of energy technologies for conservation and reduction of wa=
-ste
-
-* Nature-Based Solutions (NBS)
-
-* Circular Economy models
-
-
-
-**Track 2: Partnerships, Collaboration on Sustainable Energy Education **
-_Good practices related to:_
-
-* Traineeships & apprenticeships
-
-* Energy career and workforce development in the energy industry
-
-* Synthesis of energy information
-
-* HUBS in sustainable energy
-
-* Skill needs of the labor market
-
-
-
---------------------
-**Track 3: Governance & Funding for Sustainable Energy Education**
-_Good practices related to:_
-
-* Financing models
-
-* Financial tools=20
-
-* Financing partnerships in energy
-
-* Business models for energy education
-
-* University spin-offs
-
-
-
-**Track 4: Sustainable Education **
-_Good practices related to:_
-
-* Competency-based learning and skill assessment
-
-* Education accreditation, quality, and assessment
-
-* Innovative materials and new tools for teaching
-
-* Teaching and learning experiences
-
-* Educational technology (e.g., virtual labs, e-learning)=20
-
-
-
---------------------
-Read More (https://www.seedconference.eu/call-for-papers/)
-
-
---------------------
-## Important dates
-
-
---------------------
-View image: (https://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,forma=
-t=3Dauto,onerror=3Dredirect,quality=3D80/uploads/asset/file/78a793ec-823a-4=
-cfa-a827-6da26cf59def/Schermata_2023-12-21_alle_00.07.10.png?t=3D1703113645=
-)
-Caption:=20
-
-
-----------## Publications
-
-**All accepted extended abstracts will appear in the conference proceedings=
- book, which will be assigned a=C2=A0DOI=C2=A0and=C2=A0ISBN.** They will be=
- published in open access by=C2=A0UPV Press and submitted to be indexed in =
-major international bibliographic databases. In previous conferences we org=
-anized, proceedings were indexed in Scopus and the=C2=A0Thomson-Reuters Con=
-ference Proceedings Citation Index =E2=80=93 Web of Science Core Collection=
-=C2=A0(former ISI Proceedings).
-
-## Award
-
-To the=C2=A0Best Paper=C2=A0and=C2=A0Best Practice.
-
-----------
-## Submission guidelines
-
-
---------------------
-Authors worldwide are invited to submit original and unpublished extended a=
-bstracts not under review in any other conference or journal.=C2=A0
-All extended abstracts will be peer-reviewed by the Program Committee based=
- on their significance, methodological soundness, originality, and clarity =
-of exposition.
-
-
---------------------
-See the template (https://www.seedconference.eu/wp-content/uploads/2023/12/=
-sheet-seed-2024.docx)
-
-
---------------------
-Submissions must be between 4 and 9 pages (A4 size), including 1 title page=
- + 8 pages with the main text, figures, tables, and references. Submissions=
- imply the willingness of at least one author to register, attend the confe=
-rence, and present their contribution.
-
-
---------------------
-Read more (https://www.seedconference.eu/submissions/)
-
-
---------------------
-SEED is using the EasyChair platform to manage the submissions. The submiss=
-ion website is **EASY CHAIR SEED 2024**
-
-
---------------------
-Submit on Easy Chair Platform (https://easychair.org/conferences/?conf=3Dse=
-ed2024)
-
-
---------------------
-If you have not previously used the platform, you must register first.
-
-
---------------------
-# SEED 2024: Call for Workshops
-
-
-----------Researchers, academics, and practitioners are invited to submit p=
-roposals for workshops at the=C2=A0**SEED conference**. The purpose of work=
-shops is to give room for presenting ideas and discussing preliminary resul=
-ts in an interactive atmosphere while focusing on a specific topic. Worksho=
-ps may be proposed for=C2=A0**a minimum of 1.5 hours and a maximum of 3 hou=
-rs in length**. It should encourage lively debates and stimulate the produc=
-tion of new ideas and the discussion of controversial issues.
-
-## Review criteria
-
-The decision on acceptance or rejection of a workshop proposal will be made=
-** based on the overall quality**=C2=A0of the proposal and its potential to=
- attract a sufficiently broad community.=C2=A0
-
-----------
-## Proposal guidelines
-
-
---------------------
-**All workshop proposals should be sent to=C2=A0****[seedconf@upv.es](mailt=
-o:seedconf@upv.es)** **in English** as a single PDF file (2-6 pages) contai=
-ning the following sections:
-
-* Title and acronym.
-
-* Abstract: 150-200 word abstract describing the workshop purpose.
-
-  * Objectives: a clear description of the workshop objectives.=C2=A0
-
-* Description of the topics and scope of the workshop.
-
-* Organizer: a short biographical sketch of the workshop organizer, describ=
-ing relevant experience and qualifications.
-
-* Intended audience: description of the anticipated audience, including exp=
-erience level and prerequisites, the expected number of participants to the=
- workshop and how the workshop organizer will call for participation.
-
-* Rough agenda: 1-page outline of the workshop content describing the works=
-hop dynamics, including tentative speakers, format (panels, call for extend=
-ed abstracts, etc).
-
-  * If the workshops consist of the selection & publication of =E2=80=9Cext=
-ended abstracts=E2=80=9D (this is only a possibility):
-
-    * Tentative dates
-
-* Review process=C2=A0
-
-* Publication opportunities=C2=A0
-
-* Infrastructure: Description of the infrastructure needed to carry out the=
- workshop.
-
-* Statement from the organizers willing to publish an extended abstract of =
-the findings of the workshop (Final version submission deadline July 28, 20=
-24)
-
-* Maximum capacity of attendees=C2=A0
-
-* Other information: For instance, information that will let attendees know=
- more about your workshop.
-
-
---------------------
-Read more (https://www.seedconference.eu/call-for-workshops/)
-
-
---------------------
-**Resources provided by the SEED organizing committee:**
-
-* A link on the SEED website.
-
-* Management of registration for participants.
-
-* Setup of meeting space and related equipment.
-
-
-
-**The workshop organizer must take care of the following:**
-
-* Coordinating schedules and deadlines with the SEED organizing committee.
-
-* Provide a brief description of the workshop for inclusion in the SEED web=
-site and the workshop program when it is final.=C2=A0
-
-
-
---------------------
-Read more (https://www.seedconference.eu/call-for-workshops/)
-
-
---------------------
-## Important dates
-
-
---------------------
-View image: (https://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,forma=
-t=3Dauto,onerror=3Dredirect,quality=3D80/uploads/asset/file/e0cd1559-3afa-4=
-178-95fa-cf6bae4f034b/Schermata_2023-12-21_alle_00.06.14.png?t=3D1703113598=
-)
-Caption:=20
-
-
---------------------
-**Remember, your workshop proposal should be sent by e-mail=C2=A0**
-**by February 2, 2024 to =C2=A0****[seedconf@upv.es](mailto:seedconf@upv.es=
-)****.**
-
-
-----------
-
-
-=E2=80=94=E2=80=94=E2=80=94
-
-You are reading a plain text version of this post. For the best experience,=
- copy and paste this link in your browser to view the post online:
-https://seed-conference-valencia.beehiiv.com/p/seed-conference-0901204
+Content-Transfer-Encoding: quoted-printable
+
+Thanks for your instruction! I tried to edit the linux inmate cell=20
+configuration file (imx8mp-linux-demo.c) and I finally get the linux inmate=
+=20
+to boot, so I think it was mainly a memory region misconfiguration problem.=
+=20
+(However, the boot progress failed due to VFS fatal error, which I will=20
+investigate later...)
+The current full output log is attached as attachment.
+
+On Monday, January 8, 2024 at 7:12:46=E2=80=AFPM UTC+8 Ralf Ramsauer wrote:
+
+> Hi,
+>
+> On 08/01/2024 09:26, wheatfox wrote:
+> > I'm using OK8MP board with i.MX8MP CPU. I have already started jailhous=
+e=20
+> > with imx8mp.cell configuration, and the example gic-demo works fine.=20
+> > However, when I try to start a linux inmate using=20
+> > imx8mp-linux-demo.cell, the jailhouse's load progress seems stuck.
+> >=20
+> > After adding some debug print in jailhouse's python script, firmware=20
+> > code and kernel module code, I found out that the *copy_from_user* call=
+=20
+> > in *load_image* function (driver/cell.c) doesn't return and halt=20
+> forever: >
+> > jailhouse commands:
+> > ./tools/jailhouse enable ./imx8mp.cell
+> > ./tools/jailhouse cell linux \
+> > ./imx8mp-linux-demo.cell \
+> > ./kernel/Image \
+> > -i ./kernel/ramdisk.img \
+>
+> For testing, try to not load the ramdisk. The kernel should at least=20
+> boot and crash. If that works, we know that there's something odd with=20
+> the ramdisk.
+>
+> Second, double and triple check addresses where things get loaded.=20
+> What's in your non-root cell configuration, and where does the=20
+> linux-loader try to load stuff? Does that match?
+>
+> Thanks,
+> Ralf
+>
+> > -d ./kernel/imx8mp-evk-inmate-wheatfox.dtb \
+> > -c "clk_ignore_unused console=3Dttymxc1,0x30890000,115200=20
+> > earlycon=3Dec_imx6q,0x30890000,115200"
+> >=20
+> > start linux cell output(with the string 'wheatfox' means it's my custom=
+=20
+> > debug print):
+> > root@OK8MP:/mnt# ./start-linux.sh
+> > [wheatfox|python] Jailhouse Linux Cell Boot Helper
+> > [wheatfox|python] linux_loader=3D/m[  129.965933] [wheatfox]=20
+> > (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244744
+> > nt/tools/../inmates/tools/arm64/l[  129.975611] [wheatfox]=20
+> > (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244728
+> > inux-loader.bin
+> > [  129.988033] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40100002=20
+> > arg=3D281474720244800
+> > [  129.995192] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_CREATE
+> > [  130.001072] [wheatfox] (jailhouse_cmd_cell_create) start
+> > [  130.006404] [wheatfox] (jailhouse_cmd_cell_create) copy_from_user do=
+ne
+> > [  130.012960] [wheatfox] (jailhouse_cmd_cell_create) copy_from_user do=
+ne
+> > [  130.019507] [wheatfox] (jailhouse_cmd_cell_create) cell_id.id =3D -1
+> > [  130.095151] IRQ 6: no longer affine to CPU2
+> > [  130.095333] CPU2: shutdown
+> > [  130.102251] psci: CPU2 killed (polled 0 ms)
+> > [  130.155283] CPU3: shutdown
+> > [  130.157999] psci: CPU3 killed (polled 0 ms)
+> > [wheatfox] in hypercall, code =3D 1, arg1 =3D 2955416576, arg2 =3D 2
+> > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_CREATE
+> > Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
+> > Shared memory connection established, peer cells:
+> >  "imx8mp"
+> > Adding virtual PCI device 00:01.0 to cell "linux-inmate-demo"
+> > Shared memory connection established, peer cells:
+> >  "imx8mp"
+> > [wheatfox] in resume_cpu, cpu_id =3D 2
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [wheatfox] in resume_cpu, cpu_id =3D 3
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > Created cell "linux-inmate-demo"
+> > Page pool usage after cell creation: mem 82/992, remap 144/131072
+> > [wheatfox] in resume_cpu, cpu_id =3D 0
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [  130.231800] [wheatfox] (jailhouse_cmd_cell_create) Created cell=20
+> > "linux-inmate-demo"
+> > [wheatfox|python] cell created,=20
+> >=20
+> name=3Db'linux-inmate-demo\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0=
+0\x00\x00\x00'
+> > [wheatf[  130.249264] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40300003=
+=20
+> > arg=3D281474720245360
+> > ox|python] trying to load linux_l[  130.257905] [wheatfox]=20
+> > (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+> > oader.bin into cell, addr=3D0x0
+> > [  130.266684] [wheatfox] (jailhouse_cmd_cell_load) start
+> > [  130.274322] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > cell_management_prologue(&cell_load.cell_id, &cell) done
+> > [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 4308871775073=
+466112
+> > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+> > [wheatfox] in cell_set_loadable, id =3D 1
+> > [wheatfox] cell_management_prologue finished
+> > [wheatfox] in resume_cpu, cpu_id =3D 2
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [wheatfox] in resume_cpu, cpu_id =3D 3
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [wheatfox] finished arch_park_cpu
+> > [wheatfox] cell->loadable =3D 0
+> > [wheatfox] not jumped to out_resume
+> > Cell "linux-inmate-demo" can be loaded
+> > [wheatfox] in out_resume
+> > [wheatfox] in resume_cpu, cpu_id =3D 1
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [  130.342417] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+> > [  130.353079] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > cell_load.num_preload_images =3D 1
+> > [  130.360584] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell,=20
+> > image) start, n =3D 1
+> > [  130.368444] [wheatfox] (load_image) start
+> > [  130.372468] [wheatfox] (load_image) copy_from_user done
+> > [  130.377712] [wheatfox] (load_image) image.size =3D 34b0
+> > [  130.382776] [wheatfox] (load_image) found suitable memory region,=20
+> > mem->virt_start =3D 0, mem->size =3D 10000
+> > [  130.392280] [wheatfox] (load_image) image load mem region found
+> > [  130.398228] [wheatfox] (load_image) phys_start =3D fdb00000
+> > [  130.403653] [wheatfox] (load_image) page_offs =3D 0
+> > [  130.408373] [wheatfox] (load_image) image_mem =3D 0000000079dd6ce3
+> > [  130.414405] [wheatfox] (load_image) copy_from_user params:
+> > [  130.419905] [wheatfox] (load_image) to =3D 0000000079dd6ce3
+> > [  130.425329] [wheatfox] (load_image) from =3D 00000000c239ec71
+> > [  130.430915] [wheatfox] (load_image) n =3D 34b0
+> > [  130.435220] [wheatfox] (load_image) copy_from_user start
+> > [  130.440563] [wheatfox] (load_image) copy_from_user done
+> > [  130.445822] [wheatfox] (load_image) flush_icache_range done
+> > [  130.451429] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell,=20
+> > image) done, n =3D 1
+> > [  130.459186] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done,=20
+> > exiting jailhouse_cmd_cell_load
+> > [wheatfox|python] linux_loader.bin loaded
+> > [wheatfox|python] trying to load kernel into cell, addr=3D0xc0280000
+> > [  130.500262] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40300003=20
+> > arg=3D281474720245360
+> > [  130.507454] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+> > [  130.513165] [wheatfox] (jailhouse_cmd_cell_load) start
+> > [  130.518321] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > cell_management_prologue(&cell_load.cell_id, &cell) done
+> > [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 4308871775073=
+466112
+> > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+> > [wheatfox] in cell_set_loadable, id =3D 1
+> > [wheatfox] cell_management_prologue finished
+> > [wheatfox] in resume_cpu, cpu_id =3D 2
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [wheatfox] in resume_cpu, cpu_id =3D 3
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [wheatfox] finished arch_park_cpu
+> > [wheatfox] cell->loadable =3D 1
+> > [wheatfox] in out_resume
+> > [wheatfox] in resume_cpu, cpu_id =3D 1
+> > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+> > [  130.579626] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+> > [  130.590182] [wheatfox] (jailhouse_cmd_cell_load)=20
+> > cell_load.num_preload_images =3D 1
+> > [  130.597678] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell,=20
+> > image) start, n =3D 1
+> > [  130.605532] [wheatfox] (load_image) start
+> > [  130.609557] [wheatfox] (load_image) copy_from_user done
+> > [  130.614795] [wheatfox] (load_image) image.size =3D 1ab7200
+> > [  130.620131] [wheatfox] (load_image) found suitable memory region,=20
+> > mem->virt_start =3D c0000000, mem->size =3D 3d700000
+> > [  130.630505] [wheatfox] (load_image) image load mem region found
+> > [  130.636699] [wheatfox] (load_image) phys_start =3D c0280000
+> > [  130.642128] [wheatfox] (load_image) page_offs =3D 0
+> > [  130.646853] [wheatfox] (load_image) image_mem =3D 000000007135b443
+> > [  130.652883] [wheatfox] (load_image) copy_from_user params:
+> > [  130.658387] [wheatfox] (load_image) to =3D 000000007135b443
+> > [  130.663808] [wheatfox] (load_image) from =3D 00000000ebdde5d4
+> > [  130.669399] [wheatfox] (load_image) n =3D 1ab7200
+> > [  130.673952] [wheatfox] (load_image) copy_from_user start
+> >=20
+> > then nothing happens after this 'copy_from_user start`, the source code=
+=20
+> is:
+> > printk("[wheatfox] (load_image) copy_from_user start\n");
+> > if (copy_from_user(image_mem + page_offs,
+> > (void __user *)(unsigned long)image.source_address,
+> > image.size))
+> > err =3D -EFAULT;
+> > printk("[wheatfox] (load_image) copy_from_user done\n");
+> >=20
+> >=20
+> > --=20
+> > You received this message because you are subscribed to the Google=20
+> > Groups "Jailhouse" group.
+> > To unsubscribe from this group and stop receiving emails from it, send=
+=20
+> > an email to jailhouse-de...@googlegroups.com=20
+> > <mailto:jailhouse-de...@googlegroups.com>.
+> > To view this discussion on the web visit=20
+> >=20
+> https://groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-0=
+6b55f2fa4a9n%40googlegroups.com=20
+> <
+> https://groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-0=
+6b55f2fa4a9n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
+> >.
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -507,1146 +310,271 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/HnPfpTHvRTGZ5O1G_SIDZg%40geopod-ismtpd-13.
+jailhouse-dev/412a6c64-3a4d-4151-9293-05b9881f3418n%40googlegroups.com.
 
---4323bd09bc02649a01c0238bf3dff5fe5db5d46c59ef6d7234fafeb40f74
-Content-Transfer-Encoding: quoted-printable
+------=_Part_47253_2027045630.1704802799739
 Content-Type: text/html; charset="UTF-8"
-Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE html><html lang=3D"en" xmlns=3D"http://www.w3.org/1999/xhtml" xml=
-ns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com=
-:office:office" style=3D"font-size:16px;"><head><meta charset=3D"utf-8"/><!=
---[if !mso]><!--><meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge"=
-/><!--<![endif]--><meta name=3D"viewport" content=3D"width=3Ddevice-width,i=
-nitial-scale=3D1"/><meta name=3D"x-apple-disable-message-reformatting"/><me=
-ta name=3D"format-detection" content=3D"telephone=3Dno,address=3Dno,email=
-=3Dno,date=3Dno,url=3Dno"/><meta name=3D"color-scheme" content=3D"light"/><=
-meta name=3D"supported-color-schemes" content=3D"light"/><title>Registratio=
-n is open - SEED &#39;24 Valencia</title><!--[if mso]><xml><o:OfficeDocumen=
-tSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocum=
-entSettings></xml><![endif]--><style>
-  :root { color-scheme: light; supported-color-schemes: light; }
-  body { margin: 0; padding: 0; min-width: 100%!important; -ms-text-size-ad=
-just: 100% !important; -webkit-transform: scale(1) !important; -webkit-text=
--size-adjust: 100% !important; -webkit-font-smoothing: antialiased !importa=
-nt; }
-  .body { word-wrap: normal; word-spacing:normal; }
-  table.mso { width: 100%; border-collapse: collapse; padding: 0; table-lay=
-out: fixed; }
-  img { border: 0; outline: none; }
-  table {  mso-table-lspace: 0px; mso-table-rspace: 0px; }
-  td, a, span {  mso-line-height-rule: exactly; }
-  #root [x-apple-data-detectors=3Dtrue],
-  a[x-apple-data-detectors=3Dtrue],
-  #MessageViewBody a { color: inherit !important; text-decoration: inherit =
-!important; font-size: inherit !important; font-family: inherit !important;=
- font-weight: inherit !important; line-height: inherit !important; }
-  span.MsoHyperlink { color: inherit !important; mso-style-priority: 99 !im=
-portant; }
-  span.MsoHyperlinkFollowed { color: inherit !important; mso-style-priority=
-: 99 !important; }
-  .a { background-color:#f5f5f5; }
-  .b { background-color:#438ac9; }
-  .c  { background-color:#ffffff; }
-  .d { background-color:#FFFCDD; }
-  .d2 { background-color:#FFFFFF; }
-  .d3 { background-color:#FFFFFF; }
-  h1 { color:#e8195a; }
-  h2 { color:#438ac9; }
-  h3 { color:#2A2A2A; }
-  h4 { color:#2A2A2A; }
-  h5 { color:#2A2A2A; }
-  h6 { color:#2A2A2A; }
-  h1 a { text-decoration:underline;color:#e8195a !important; }
-  h2 a { text-decoration:underline;color:#438ac9 !important; }
-  h3 a { text-decoration:underline;color:#2A2A2A !important; }
-  h4 a { text-decoration:underline;color:#2A2A2A !important; }
-  h5 a { text-decoration:underline;color:#2A2A2A !important; }
-  h6 a { text-decoration:underline;color:#2A2A2A !important; }
-  h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a, ul, li, ol, p=
-, p a { margin: 0;padding: 0; }
-  h1 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-36px;line-height:54px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h2 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-24px;line-height:36px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h3 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-20px;line-height:30px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h4 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:Bold;font-size:18px;line-height:27px;padding-bottom:4px;padding-top:16=
-px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  h5 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:normal;font-size:16px;line-height:24px;padding-bottom:4px;padding-top:=
-16px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  h6 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:normal;font-size:14px;line-height:21px;padding-bottom:4px;padding-top:=
-16px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  p { font-family:'Helvetica',Arial,sans-serif;color:#2D2D2D;font-size:16px=
-;line-height:24px;padding-bottom:12px;padding-top:12px;mso-margin-top-alt:1=
-2px;mso-margin-bottom-alt:12px; }
-  p a, .e a, ul a, li a  { word-break:break-word;color:#e8195a !important;t=
-ext-decoration:underline;text-decoration-color:#e8195a;font-style:italic; }
-  p .bold { font-weight:bold;color:#2D2D2D; }
-  p span[style*=3D"font-size"] { line-height: 1.6; }
-  .f p { font-size:12px;line-height:15px;color:#2D2D2D;padding:0; }
-  .f p a { text-decoration:underline;color:#2D2D2D !important; }
-  .g p { font-family:'Helvetica',Arial,sans-serif;font-size:14px;line-heigh=
-t:20px;font-weight:normal;margin:0; }
-  .g p a  { text-decoration: underline; }
-  .i p { font-family:'Helvetica',Arial,sans-serif;line-height:23px;font-siz=
-e:15px;color:#2D2D2D; }
-  .i p a { text-decoration:underline;color:#2D2D2D !important; }
-  .i2 p { font-family:'Helvetica',Arial,sans-serif;line-height:23px;font-si=
-ze:15px;color:#2D2D2D; }
-  .i2 p a { text-decoration:underline;color:#2D2D2D !important; }
-  .i3 p { font-family:'Helvetica',Arial,sans-serif;line-height:43px;font-si=
-ze:24px;color:#2D2D2D; }
-  .i3 p a { text-decoration:underline;color:#2D2D2D !important; }
-  .h p a { text-decoration:underline;color:#595959 !important; }
-  .h2 p a { text-decoration:underline;color:#595959 !important; }
-  .h3 p a { text-decoration:underline;color:#595959 !important; }
-  .j { border-top:3px solid #DFD150; }
-  .k p { padding-left:15px;padding-bottom:0px;padding-top:6px;mso-margin-to=
-p-alt:6px;mso-margin-bottom-alt:0px;mso-margin-left-alt:15px; }
-  .o { background-color:#FFFFFF;border:1px solid #F1F1F1;border-radius:5px;=
- }
-  .o p { font-family:'Helvetica',Arial,sans-serif;padding:0px;margin:0px; }
-  .l p,
-  .l p a { font-size:14px;line-height:20px;font-weight: bold;color:#2D2D2D;=
-padding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .m p,
-  .m p a { font-size:13px;line-height:18px;font-weight:400;color:#2D2D2D;pa=
-dding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .n p,
-  .n p a { font-size:12px;line-height:17px;font-weight:400;color:#2D2D2D;pa=
-dding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .p { background-color:#FFFFFF;max-width:520px;border:1px solid #E1E8ED;bo=
-rder:1px solid rgba(80, 80, 80, 0.3);border-radius:5px; }
-  .q { font-size:16px;font-family:Helvetica,Roboto,Calibri,sans-serif !impo=
-rtant;border:1px solid #e1e8ed;border:1px solid rgba(80, 80, 80, 0.3);borde=
-r-radius:5px;background-color:#FFFFFF; }
-  .q p { font-size:16px;font-family:Helvetica,Roboto,Calibri,sans-serif !im=
-portant;color:#222222; }
-  .r { border:1px solid #E1E8ED !important;border-radius:5px; }
-  .s p { font-size: 14px; line-height: 17px; font-weight: 400; color: #6978=
-82; text-decoration: none; }
-  .t p { font-family:'Helvetica',Arial,sans-serif;font-size:12px;line-heigh=
-t:18px;font-weight:400;color:#000000;font-style:italic;padding:4px 0px 0px;=
-}
-  .v { border-radius:10px;border:solid 0px #438ac9;background-color:#438ac9=
-;font-family:'Arial',Helvetica,sans-serif;color:#FFFFFF; }
-  .v a { text-decoration:none;display:block;color:#FFFFFF; }
-  .w p { font-size:12px;line-height:15px;font-weight:400;color:#FFFFFF; }
-  .w p a { text-decoration: underline !important;color:#FFFFFF !important; =
-}
-  ul { font-family:'Helvetica',Arial,sans-serif;margin:0px 0px 0px 25px !im=
-portant;padding:0px !important;color:#2D2D2D;line-height:24px;list-style:di=
-sc;font-size:16px; }
-  ul li { font-family:'Helvetica',Arial,sans-serif;margin:10px 0px 0px 0px =
-!important;padding: 0px 0px 0px 0px !important; color: #2D2D2D; list-style:=
-disc; }
-  ol { font-family:'Helvetica',Arial,sans-serif;margin: 0px 0px 0px 25px !i=
-mportant;padding:0px !important;color:#2D2D2D;line-height:24px;list-style:d=
-ecimal;font-size:16px; }
-  ol li { font-family:'Helvetica',Arial,sans-serif;margin:10px 0px 0px 0px =
-!important;padding: 0px 0px 0px 0px !important; color: #2D2D2D; list-style:=
-decimal; }
-  .e h3,
-  .e p,
-  .e span { padding-bottom:0px;padding-top:0px;mso-margin-top-alt:0px;mso-m=
-argin-bottom-alt:0px; }
-  .e span,
-  .e li { font-family:'Helvetica',Arial,sans-serif;font-size:16px;color:#2D=
-2D2D;line-height:24px; }
-  .rec { font-family:  ui-sans-serif, system-ui, -apple-system, BlinkMacSys=
-temFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-ser=
-if, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color E=
-moji" !important; }
-  .rec__button:hover { background-color: #f9fafb !important; }
-  .copyright a {color: inherit !important; text-decoration: none !important=
-; font-size: inherit !important; font-family: inherit !important; font-weig=
-ht: inherit !important; line-height: inherit !important;}
-  .txt_social p { padding: 0; }
-  @media only screen and (max-width:667px) {
-    .aa { width: 100% !important; }
-    .bb img { width: 100% !important; height: auto !important; max-width: n=
-one !important; }
-    .cc { padding: 0px 8px !important; }
-    .ee { padding-top:10px !important;padding-bottom:10px !important; }
-    .ff ul, .ff ol { margin: 0px 0px 0px 10px !important;padding: 0px !impo=
-rtant; }
-    .ff li { margin:10px 0px 0px 10px !important; }
-    .r {height:140px !important;}
-    .s p { font-size:13px !important;line-height:15px !important; }
-    .mob-hide {display:none !important;}
-    .mob-stack {display:block !important;width:100% !important;}
-    .mob-block {display:block !important;}
-    .embed-img {padding:0px 0px 12px 0px !important;}
-    .socialShare {padding-top:15px !important;}
-    .rec { padding-left:15px!important;padding-right:15px!important; }
-    .bodyWrapper { padding:10px 4px 10px 4px !important; }
-  }
-  @media screen and (max-width: 480px) {
-    u + .a .gg { width: 100% !important; width: 100vw !important; }
-    .tok-heart { padding-top:75% !important; }
-    .tok-play { padding-top: 250px !important; }
-  }
-  @media screen and (max-width: 320px) {
-    .tok-heart { padding-top:65% !important; }
-  }
-  .u { border: 1px solid #CACACA !important; border-radius: 2px !important;=
- background-color: #ffffff !important; padding: 0px 13px 0px 13px !importan=
-t; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Se=
-goe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif !important;fon=
-t-size: 12px !important; color: #767676 !important; }
-  .u a { text-decoration: none; display: block !important; color: #767676 !=
-important; margin: 0px !important; }
-  .u span, .u img { color: #767676 !important;margin:0px !important; max-he=
-ight:32px !important;background-color:#ffffff !important; }
-</style><!--[if mso]><style type=3D"text/css">
-    sup { font-size: 100% !important;vertical-align: .5em !important;mso-te=
-xt-raise: -1.5% !important;line-height: 0 !important; }
-    ul { margin-left:0px !important; margin-right:10px !important; margin-t=
-op:20px !important; margin-bottom:20px !important; }
-    ul li { margin-left: 0px !important; mso-special-format: decimal; }
-    ol { margin-left:0px !important; margin-right:10px !important; margin-t=
-op:20px !important; margin-bottom:20px !important; }
-    ol li { margin-left: 0px !important; mso-special-format: decimal; }
-    li.listItem { margin-left:15px !important; margin-top:0px !important; }
-    .paddingDesktop { padding: 10px 0 !important; }
-    .edm_outlooklist { margin-left: -20px !important; }
-    .embedImage { display:none !important; }
-  </style><![endif]--></head><head><meta charset=3D"utf-8"/><!--[if !mso]><=
-!--><meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge"/><!--<![endi=
-f]--><meta name=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=
-=3D1"/><meta name=3D"x-apple-disable-message-reformatting"/><meta name=3D"f=
-ormat-detection" content=3D"telephone=3Dno,address=3Dno,email=3Dno,date=3Dn=
-o,url=3Dno"/><meta name=3D"color-scheme" content=3D"light"/><meta name=3D"s=
-upported-color-schemes" content=3D"light"/><title>Registration is open - SE=
-ED &#39;24 Valencia</title><!--[if mso]><xml><o:OfficeDocumentSettings><o:A=
-llowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></=
-xml><![endif]--><style>
-  :root { color-scheme: light; supported-color-schemes: light; }
-  body { margin: 0; padding: 0; min-width: 100%!important; -ms-text-size-ad=
-just: 100% !important; -webkit-transform: scale(1) !important; -webkit-text=
--size-adjust: 100% !important; -webkit-font-smoothing: antialiased !importa=
-nt; }
-  .body { word-wrap: normal; word-spacing:normal; }
-  table.mso { width: 100%; border-collapse: collapse; padding: 0; table-lay=
-out: fixed; }
-  img { border: 0; outline: none; }
-  table {  mso-table-lspace: 0px; mso-table-rspace: 0px; }
-  td, a, span {  mso-line-height-rule: exactly; }
-  #root [x-apple-data-detectors=3Dtrue],
-  a[x-apple-data-detectors=3Dtrue],
-  #MessageViewBody a { color: inherit !important; text-decoration: inherit =
-!important; font-size: inherit !important; font-family: inherit !important;=
- font-weight: inherit !important; line-height: inherit !important; }
-  span.MsoHyperlink { color: inherit !important; mso-style-priority: 99 !im=
-portant; }
-  span.MsoHyperlinkFollowed { color: inherit !important; mso-style-priority=
-: 99 !important; }
-  .a { background-color:#f5f5f5; }
-  .b { background-color:#438ac9; }
-  .c  { background-color:#ffffff; }
-  .d { background-color:#FFFCDD; }
-  .d2 { background-color:#FFFFFF; }
-  .d3 { background-color:#FFFFFF; }
-  h1 { color:#e8195a; }
-  h2 { color:#438ac9; }
-  h3 { color:#2A2A2A; }
-  h4 { color:#2A2A2A; }
-  h5 { color:#2A2A2A; }
-  h6 { color:#2A2A2A; }
-  h1 a { text-decoration:underline;color:#e8195a !important; }
-  h2 a { text-decoration:underline;color:#438ac9 !important; }
-  h3 a { text-decoration:underline;color:#2A2A2A !important; }
-  h4 a { text-decoration:underline;color:#2A2A2A !important; }
-  h5 a { text-decoration:underline;color:#2A2A2A !important; }
-  h6 a { text-decoration:underline;color:#2A2A2A !important; }
-  h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a, ul, li, ol, p=
-, p a { margin: 0;padding: 0; }
-  h1 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-36px;line-height:54px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h2 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-24px;line-height:36px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h3 { font-family:'Arial',Helvetica,sans-serif;font-weight:Bold;font-size:=
-20px;line-height:30px;padding-bottom:4px;padding-top:16px;mso-margin-top-al=
-t:16px;mso-margin-bottom-alt:4px }
-  h4 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:Bold;font-size:18px;line-height:27px;padding-bottom:4px;padding-top:16=
-px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  h5 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:normal;font-size:16px;line-height:24px;padding-bottom:4px;padding-top:=
-16px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  h6 { font-family:'Trebuchet MS','Lucida Grande',Tahoma,sans-serif;font-we=
-ight:normal;font-size:14px;line-height:21px;padding-bottom:4px;padding-top:=
-16px;mso-margin-top-alt:16px;mso-margin-bottom-alt:4px }
-  p { font-family:'Helvetica',Arial,sans-serif;color:#2D2D2D;font-size:16px=
-;line-height:24px;padding-bottom:12px;padding-top:12px;mso-margin-top-alt:1=
-2px;mso-margin-bottom-alt:12px; }
-  p a, .e a, ul a, li a  { word-break:break-word;color:#e8195a !important;t=
-ext-decoration:underline;text-decoration-color:#e8195a;font-style:italic; }
-  p .bold { font-weight:bold;color:#2D2D2D; }
-  p span[style*=3D"font-size"] { line-height: 1.6; }
-  .f p { font-size:12px;line-height:15px;color:#2D2D2D;padding:0; }
-  .f p a { text-decoration:underline;color:#2D2D2D !important; }
-  .g p { font-family:'Helvetica',Arial,sans-serif;font-size:14px;line-heigh=
-t:20px;font-weight:normal;margin:0; }
-  .g p a  { text-decoration: underline; }
-  .i p { font-family:'Helvetica',Arial,sans-serif;line-height:23px;font-siz=
-e:15px;color:#2D2D2D; }
-  .i p a { text-decoration:underline;color:#2D2D2D !important; }
-  .i2 p { font-family:'Helvetica',Arial,sans-serif;line-height:23px;font-si=
-ze:15px;color:#2D2D2D; }
-  .i2 p a { text-decoration:underline;color:#2D2D2D !important; }
-  .i3 p { font-family:'Helvetica',Arial,sans-serif;line-height:43px;font-si=
-ze:24px;color:#2D2D2D; }
-  .i3 p a { text-decoration:underline;color:#2D2D2D !important; }
-  .h p a { text-decoration:underline;color:#595959 !important; }
-  .h2 p a { text-decoration:underline;color:#595959 !important; }
-  .h3 p a { text-decoration:underline;color:#595959 !important; }
-  .j { border-top:3px solid #DFD150; }
-  .k p { padding-left:15px;padding-bottom:0px;padding-top:6px;mso-margin-to=
-p-alt:6px;mso-margin-bottom-alt:0px;mso-margin-left-alt:15px; }
-  .o { background-color:#FFFFFF;border:1px solid #F1F1F1;border-radius:5px;=
- }
-  .o p { font-family:'Helvetica',Arial,sans-serif;padding:0px;margin:0px; }
-  .l p,
-  .l p a { font-size:14px;line-height:20px;font-weight: bold;color:#2D2D2D;=
-padding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .m p,
-  .m p a { font-size:13px;line-height:18px;font-weight:400;color:#2D2D2D;pa=
-dding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .n p,
-  .n p a { font-size:12px;line-height:17px;font-weight:400;color:#2D2D2D;pa=
-dding-bottom:6px;mso-margin-bottom-alt:6px;text-decoration:none; }
-  .p { background-color:#FFFFFF;max-width:520px;border:1px solid #E1E8ED;bo=
-rder:1px solid rgba(80, 80, 80, 0.3);border-radius:5px; }
-  .q { font-size:16px;font-family:Helvetica,Roboto,Calibri,sans-serif !impo=
-rtant;border:1px solid #e1e8ed;border:1px solid rgba(80, 80, 80, 0.3);borde=
-r-radius:5px;background-color:#FFFFFF; }
-  .q p { font-size:16px;font-family:Helvetica,Roboto,Calibri,sans-serif !im=
-portant;color:#222222; }
-  .r { border:1px solid #E1E8ED !important;border-radius:5px; }
-  .s p { font-size: 14px; line-height: 17px; font-weight: 400; color: #6978=
-82; text-decoration: none; }
-  .t p { font-family:'Helvetica',Arial,sans-serif;font-size:12px;line-heigh=
-t:18px;font-weight:400;color:#000000;font-style:italic;padding:4px 0px 0px;=
-}
-  .v { border-radius:10px;border:solid 0px #438ac9;background-color:#438ac9=
-;font-family:'Arial',Helvetica,sans-serif;color:#FFFFFF; }
-  .v a { text-decoration:none;display:block;color:#FFFFFF; }
-  .w p { font-size:12px;line-height:15px;font-weight:400;color:#FFFFFF; }
-  .w p a { text-decoration: underline !important;color:#FFFFFF !important; =
-}
-  ul { font-family:'Helvetica',Arial,sans-serif;margin:0px 0px 0px 25px !im=
-portant;padding:0px !important;color:#2D2D2D;line-height:24px;list-style:di=
-sc;font-size:16px; }
-  ul li { font-family:'Helvetica',Arial,sans-serif;margin:10px 0px 0px 0px =
-!important;padding: 0px 0px 0px 0px !important; color: #2D2D2D; list-style:=
-disc; }
-  ol { font-family:'Helvetica',Arial,sans-serif;margin: 0px 0px 0px 25px !i=
-mportant;padding:0px !important;color:#2D2D2D;line-height:24px;list-style:d=
-ecimal;font-size:16px; }
-  ol li { font-family:'Helvetica',Arial,sans-serif;margin:10px 0px 0px 0px =
-!important;padding: 0px 0px 0px 0px !important; color: #2D2D2D; list-style:=
-decimal; }
-  .e h3,
-  .e p,
-  .e span { padding-bottom:0px;padding-top:0px;mso-margin-top-alt:0px;mso-m=
-argin-bottom-alt:0px; }
-  .e span,
-  .e li { font-family:'Helvetica',Arial,sans-serif;font-size:16px;color:#2D=
-2D2D;line-height:24px; }
-  .rec { font-family:  ui-sans-serif, system-ui, -apple-system, BlinkMacSys=
-temFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-ser=
-if, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color E=
-moji" !important; }
-  .rec__button:hover { background-color: #f9fafb !important; }
-  .copyright a {color: inherit !important; text-decoration: none !important=
-; font-size: inherit !important; font-family: inherit !important; font-weig=
-ht: inherit !important; line-height: inherit !important;}
-  .txt_social p { padding: 0; }
-  @media only screen and (max-width:667px) {
-    .aa { width: 100% !important; }
-    .bb img { width: 100% !important; height: auto !important; max-width: n=
-one !important; }
-    .cc { padding: 0px 8px !important; }
-    .ee { padding-top:10px !important;padding-bottom:10px !important; }
-    .ff ul, .ff ol { margin: 0px 0px 0px 10px !important;padding: 0px !impo=
-rtant; }
-    .ff li { margin:10px 0px 0px 10px !important; }
-    .r {height:140px !important;}
-    .s p { font-size:13px !important;line-height:15px !important; }
-    .mob-hide {display:none !important;}
-    .mob-stack {display:block !important;width:100% !important;}
-    .mob-block {display:block !important;}
-    .embed-img {padding:0px 0px 12px 0px !important;}
-    .socialShare {padding-top:15px !important;}
-    .rec { padding-left:15px!important;padding-right:15px!important; }
-    .bodyWrapper { padding:10px 4px 10px 4px !important; }
-  }
-  @media screen and (max-width: 480px) {
-    u + .a .gg { width: 100% !important; width: 100vw !important; }
-    .tok-heart { padding-top:75% !important; }
-    .tok-play { padding-top: 250px !important; }
-  }
-  @media screen and (max-width: 320px) {
-    .tok-heart { padding-top:65% !important; }
-  }
-  .u { border: 1px solid #CACACA !important; border-radius: 2px !important;=
- background-color: #ffffff !important; padding: 0px 13px 0px 13px !importan=
-t; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Se=
-goe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif !important;fon=
-t-size: 12px !important; color: #767676 !important; }
-  .u a { text-decoration: none; display: block !important; color: #767676 !=
-important; margin: 0px !important; }
-  .u span, .u img { color: #767676 !important;margin:0px !important; max-he=
-ight:32px !important;background-color:#ffffff !important; }
-</style><!--[if mso]><style type=3D"text/css">
-    sup { font-size: 100% !important;vertical-align: .5em !important;mso-te=
-xt-raise: -1.5% !important;line-height: 0 !important; }
-    ul { margin-left:0px !important; margin-right:10px !important; margin-t=
-op:20px !important; margin-bottom:20px !important; }
-    ul li { margin-left: 0px !important; mso-special-format: decimal; }
-    ol { margin-left:0px !important; margin-right:10px !important; margin-t=
-op:20px !important; margin-bottom:20px !important; }
-    ol li { margin-left: 0px !important; mso-special-format: decimal; }
-    li.listItem { margin-left:15px !important; margin-top:0px !important; }
-    .paddingDesktop { padding: 10px 0 !important; }
-    .edm_outlooklist { margin-left: -20px !important; }
-    .embedImage { display:none !important; }
-  </style><![endif]--></head><body class=3D"a" style=3D"margin:0px auto;pad=
-ding:0px;word-wrap:normal;word-spacing:normal;background-color:#f5f5f5;"><d=
-iv role=3D"article" aria-roledescription=3D"email" aria-label=3D"email_name=
-" lang=3Den style=3D"font-size:1rem"><div style=3D"display:none;max-height:=
-0px;overflow:hidden;"> International Conference on Sustainable Energy Educa=
-tion &#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160=
-;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#=
-160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204=
-;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8=
-204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;=
-&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#1=
-60;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;=
-&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#82=
-04;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&=
-#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#16=
-0;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&=
-#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#820=
-4;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#=
-8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160=
-;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#=
-160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204=
-;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8=
-204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;=
-&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#1=
-60;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;=
-&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#82=
-04;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&=
-#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#16=
-0;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&=
-#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#820=
-4;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#=
-8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160=
-;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#=
-160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204=
-;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8=
-204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;=
-&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#1=
-60;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;=
-&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#82=
-04;&#160;&#8204;&#160;&#8204;&#160;&#8204;&#160;&#8204; </div><table role=
-=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" align=3D"center" ce=
-llpadding=3D"0" class=3D"gg"><tr><td align=3D"center" valign=3D"top"><table=
- role=3D"none" width=3D"670" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
-0" class=3D"aa" style=3D"width:670px;table-layout:fixed;"><tr><td class=3D"=
-bodyWrapper" align=3D"center" valign=3D"top" style=3D"padding:10px 5px 10px=
- 5px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" c=
-ellpadding=3D"0" align=3D"center"><tr><td align=3D"center" valign=3D"top" s=
-tyle=3D"border:0px solid #FFFFFF;border-radius:10px;background-color:#fffff=
-f;" class=3D"c"><table role=3D"none" width=3D"100%" border=3D"0" cellspacin=
-g=3D"0" cellpadding=3D"0" align=3D"center"><tr><td class=3D"f" align=3D"rig=
-ht" valign=3D"top" style=3D"padding:20px 15px;"><p> January 09, 2024 &nbsp;=
- | &nbsp; <a href=3D"https://link.mail.beehiiv.com/ss/c/ZwWm8Yeov1Rezmf_f_A=
-jv99hyTBbuWNd24QqCn-b19AhOZMy-FPVkE1ycemZtXW-dgfz7LEB-Q9pyQHbb20KbLdZ2d-vkn=
-HeMyQWnFqK64Alr6gCTgRQCTSL7QYhh0LxRDKuqtSJA_A4FS5xlKOkaEAcmmYNK4YJN2o2bbk0n=
-XDf5DUgDGthLQjKAjfo3J5LcsNMFVB0jO4gA3TAHkOZOFt-k4WyvMxcm9QHqm7tCYowarbddgJn=
-IfZVqMeNoDp0DQNJtFSc3oRpMYQV-G2i9BmAObgwaYG_AQdNPOB3UV11fkHetPQKJ_4IN9r6Fzc=
-k5ngXRpLab-pvqnstP0dorD7nGDF9XsuCaXbNSqqkUi6YdHYcfX5kn2iax68eq_mL4pBl3TKIUe=
-64OcjGjR4ROP20LoxQNpwtuKa6nSaLoWMM7Sozx7MpNBOEgJa15rAo7T_-_oNLEqDuz_FiucPQk=
-WeB1irZk_fvxoObZ9wrgbSLxA1SukIC-DfR4SJHfxVhQQuUceWEPlAGcCEseIs81GbJeuy5A9wD=
-FcqSzqYfBE7OwWv6Jwx_rNhD38fwCkWKp6BYQgnPZGdv-_ADAoOXP0Aesg8VPO-az1GkZKk36Gk=
-uhXTsvBMObtTjhCs9sjihyHe2pyH4IpJUwUrps_15rdA6h8uaJwWdMpVT3AQC9q4/42u/ibow9b=
-uJQAmGcG5wL9pMmw/h0/gZ0rMKOvvU5LiMtQ0DW4HKY4z7ZBkrtEXgE0TN_ia-A">Read Onlin=
-e</a></p></td></tr><tr><td style=3D"height:0px;width:0px;"><div style=3D"he=
-ight:1px;" data-open-tracking=3D"true"> <img src=3D"https://link.mail.beehi=
-iv.com/ss/o/hZ_JlIqIIa_woP0TRrumGA/42u/ibow9buJQAmGcG5wL9pMmw/ho.gif" alt=
-=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"height:1px !important;=
-width:1px !important;border-width:0 !important;margin-top:0 !important;marg=
-in-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;p=
-adding-top:0 !important;padding-bottom:0 !important;padding-right:0 !import=
-ant;padding-left:0 !important;"/> </div></td></tr><tr id=3D"content-blocks"=
-><td class=3D"email-card-body" align=3D"center" valign=3D"top" style=3D"pad=
-ding-bottom:15px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspa=
-cing=3D"0" cellpadding=3D"0" align=3D"center"><tr><td class=3D"dd" align=3D=
-"center" style=3D"padding:0px 15px;text-align:center;word-break:break-word;=
-"><p></p></td></tr><tr><td align=3D"center" valign=3D"top" style=3D"padding=
-: 0px 15px 0px; " class=3D"dd"><table role=3D"none" border=3D"0" cellspacin=
-g=3D"0" cellpadding=3D"0" style=3D"margin:0 auto 0 auto;"><tr><td align=3D"=
-center" valign=3D"top" style=3D"width:252px;"><a href=3D"https://link.mail.=
-beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooVUgQpQHcjoAkkAh3L9m5MmJ5O45XXPsR9R=
-Ku4epSYGkYa9qgU2Ndg7t04PyfTj1Vt18KDmIl-NsD22YBXfo4eMrOLnvxKY8J9vW8q8qo9alof=
-QGTlZ6nL6_pzi1m2retIuYI2iqY4pqcTb3SIY0HxdYRQ0szHM8Mpw96fdy5rJdtf9I6P3cI8YuD=
-uzwCLA/42u/ibow9buJQAmGcG5wL9pMmw/h1/NRFlJNhEvKVZISpUBYCIskquqFS25HjHhv78nk=
-u7gy0" rel=3D"noopener noreferrer nofollow" style=3D"text-decoration:none;"=
- target=3D"_blank"><img src=3D"https://media.beehiiv.com/cdn-cgi/image/fit=
-=3Dscale-down,format=3Dauto,onerror=3Dredirect,quality=3D80/uploads/asset/f=
-ile/dcbc0422-e91e-4be2-9044-0744bbc94e07/6543f3704bcc1407f3339baf.png?t=3D1=
-702884418" alt=3D"" height=3D"auto" width=3D"252" style=3D"display:block;wi=
-dth:100%;" border=3D"0"/></a></td></tr></table></td></tr><tr><td class=3D"d=
-d" align=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:cen=
-ter;"><h1><span style=3D"color:rgb(232, 25, 90);font-family:Arial;font-size=
-:36px;">International Conference on Sustainable Energy Education</span></h1=
-></td></tr><tr><td id=3D"july-3-5-2024-valencia-spain" class=3D"dd" align=
-=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:center;"><h=
-3><span style=3D"color:rgb(67, 138, 201);font-family:Arial;font-size:24px;"=
->July 3 - 5, 2024. Valencia, Spain</span></h3></td></tr><tr><td align=3D"ce=
-nter" valign=3D"top" style=3D"padding-bottom:14px;padding-left:15px;padding=
--right:15px;padding-top:14px;text-align:center;width:100%;word-break:break-=
-word;" class=3D"dd"><table role=3D"none" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" align=3D"center"><tr><td class=3D"v" align=3D"center" valign=
-=3D"middle" height=3D"52" style=3D"height:52px;"><a href=3D"https://link.ma=
-il.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooVUgQpQHcjoAkkAh3L9m5MmJ5O45XXPs=
-R9RKu4epSYGkYa9qgU2Ndg7t04PyfTj1Vt18KDmIl-NsD22YBXfo4eMrOLnvxKY8J9vW8q8qo9a=
-lofQGTlZ6nL6_pzi1m2retIuYI2iqY4pqcTb3SIY0HxdYRQ0szHM8Mpw96fdy5rJdtf9I6P3cI8=
-YuDuzwCLA/42u/ibow9buJQAmGcG5wL9pMmw/h2/VJn0zEL0pDNUz4AGTgbi4dd-aQGDR3RKJxM=
-xmRwrJ-c" target=3D"_blank" rel=3D"noopener noreferrer nofollow" style=3D"c=
-olor:#FFFFFF;font-size:18px;padding:0px 22px;text-decoration:none;"> Visit =
-seedconference.eu </a></td></tr></table></td></tr><tr><td align=3D"center" =
-valign=3D"top" style=3D"padding: 0px 15px 0px; " class=3D"dd"><table role=
-=3D"none" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"margin:=
-0 auto 0 auto;"><tr><td align=3D"center" valign=3D"top" style=3D"width:630p=
-x;"><a href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooV=
-UgQpQHcjoAkkAh3L9koN2XpmVENK4uKEKAKwZBSipGt4Rp3uhCJ84A0kbO5bLub9USqpFMOCs2C=
-1JVetpG8y-PdpbIgnAb_cWMkk_iPCn5kXSkrKgTF3qNWmODWsfg3Pm3weyh7TgLMj1uTy_mSBi8=
-eQM_MyPpQ3PZeNs_lm723ZZ2mBz35t25j6GVhQQ/42u/ibow9buJQAmGcG5wL9pMmw/h3/07pDi=
-wQEKcfTIyNb6Svrdeeqq16ZoUNESVnt7Z98Kq8" rel=3D"noopener noreferrer nofollow=
-" style=3D"text-decoration:none;" target=3D"_blank"><img src=3D"https://med=
-ia.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,format=3Dauto,onerror=3Dredir=
-ect,quality=3D80/uploads/asset/file/0f5d962c-9f40-4340-99e7-eee934672118/he=
-ro-new3.jpg?t=3D1704789373" alt=3D"" height=3D"auto" width=3D"630" style=3D=
-"display:block;width:100%;" border=3D"0"/></a></td></tr></table></td></tr><=
-tr><td><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" c=
-ellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#E8BEC7" style=3D"background=
--color:#E8BEC7;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%=
-" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" ali=
-gn=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:center;">=
-<h1><span style=3D"color:#e8195a;">In this newsletter:</span></h1></td></tr=
-></table></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"=
-100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td b=
-gcolor=3D"#E8BEC7" style=3D"background-color:#E8BEC7;padding:0px 0px 0px 0p=
-x;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cell=
-padding=3D"0"><tr><td class=3D"dd" align=3D"center" style=3D"padding:0px 15=
-px;text-align:center;word-break:break-word;"><p><span style=3D"color:#e8195=
-a;">Click on the section below to read more:</span></p></td></tr></table></=
-td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%" borde=
-r=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#=
-E8BEC7" style=3D"background-color:#E8BEC7;padding:0px 0px 0px 0px;"><table =
-role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"=
-0"><tr><td width=3D"100%"><table role=3D"none" width=3D"100%" border=3D"0" =
-cellspacing=3D"0" cellpadding=3D"0"><tr><td width=3D"50%" style=3D"vertical=
--align:top;" class=3D"mob-stack"><table role=3D"none" width=3D"100%" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tbody><tr><td class=3D"dd" alig=
-n=3D"center" style=3D"padding:0px 15px;text-align:center;word-break:break-w=
-ord;"><p><span style=3D"color:#e8195a;"><b>Call for Papers</b></span><br><s=
-pan style=3D"color:#e8195a;"><a class=3D"link" href=3D"#scope" rel=3D"noope=
-ner noreferrer nofollow" clicktracking=3D"off">Scope</a></span><br><span st=
-yle=3D"color:#e8195a;"><a class=3D"link" href=3D"#topicsofinterest" rel=3D"=
-noopener noreferrer nofollow" clicktracking=3D"off">Topics of interest</a><=
-/span><br><span style=3D"color:#e8195a;"><a class=3D"link" href=3D"#importa=
-ntdates" rel=3D"noopener noreferrer nofollow" clicktracking=3D"off">Importa=
-nt dates</a></span><br><span style=3D"color:#e8195a;"><a class=3D"link" hre=
-f=3D"#publicationsaward" rel=3D"noopener noreferrer nofollow" clicktracking=
-=3D"off">Publications and Awards</a></span><br><span style=3D"color:#e8195a=
-;"><a class=3D"link" href=3D"#submissionguidelines" rel=3D"noopener norefer=
-rer nofollow" clicktracking=3D"off">Submission guidelines</a></span></p></t=
-d></tr></tbody></table></td><td width=3D"50%" style=3D"vertical-align:top;"=
- class=3D"mob-stack"><table role=3D"none" width=3D"100%" border=3D"0" cells=
-pacing=3D"0" cellpadding=3D"0"><tbody><tr><td class=3D"dd" align=3D"center"=
- style=3D"padding:0px 15px;text-align:center;word-break:break-word;"><p><sp=
-an style=3D"color:#e8195a;"><b>Call for Workshops</b></span><br><span style=
-=3D"color:#e8195a;"><a class=3D"link" href=3D"#reviewcriteria" rel=3D"noope=
-ner noreferrer nofollow" clicktracking=3D"off">Review criteria</a></span><b=
-r><span style=3D"color:#e8195a;"><a class=3D"link" href=3D"#proposalguideli=
-nes" rel=3D"noopener noreferrer nofollow" clicktracking=3D"off">Proposals g=
-uidelines</a></span><br><span style=3D"color:#e8195a;"><a class=3D"link" hr=
-ef=3D"#importantdates-2" rel=3D"noopener noreferrer nofollow" clicktracking=
-=3D"off">Important dates</a></span></p></td></tr></tbody></table></td></tr>=
-</table></td></tr></table></td></tr></table></td></tr><tr><td><table role=
-=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" s=
-tyle=3D""><tr><td bgcolor=3D"transparent" style=3D"background-color:transpa=
-rent;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=3D"ce=
-nter" valign=3D"top" style=3D"padding:0px 15px;text-align:center;"><h1><spa=
-n style=3D"color:#438ac9;">SEED 2024: Call for Papers</span></h1></td></tr>=
-</table></td></tr></table></td></tr><tr><td id=3D"scope" class=3D"dd" align=
-=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:center;"><h=
-2>Scope</h2></td></tr><tr><td class=3D"dd" align=3D"left" style=3D"padding:=
-0px 15px;text-align:left;word-break:break-word;"><p> The<b> First Internati=
-onal Conference on Sustainable Energy Education (SEED)</b> aims to become a=
- forum for researchers, academics, and practitioners to exchange ideas, exp=
-eriences, opinions, and research results relating to the preparation of stu=
-dents, teaching/learning methodologies, the organization of educational sys=
-tems, partnerships and funding and governance related to Sustainable Energy=
- Education. </p></td></tr><tr><td class=3D"dd" align=3D"left" style=3D"padd=
-ing:0px 15px;text-align:left;word-break:break-word;"><p> The <b>SEED</b> co=
-nference will be held on <b>July 3-5, 2024</b>, at the <b>Faculty of Busine=
-ss Administration and Management of the Universitat Polit=C3=A8cnica de Val=
-=C3=A8ncia (UPV)</b>, which has been ranked as the best technical universit=
-y in Spain by the Academic Ranking of World Universities since 2014. </p></=
-td></tr><tr><td><table id=3D"topicsofinterest" role=3D"none" width=3D"100%"=
- border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolo=
-r=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><=
-table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpaddi=
-ng=3D"0"><tr><td class=3D"dd" align=3D"center" valign=3D"top" style=3D"padd=
-ing:0px 15px;text-align:center;"><h2><span style=3D"">Topics of interest</s=
-pan></h2></td></tr></table></td></tr></table></td></tr><tr><td><table role=
-=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" s=
-tyle=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;pad=
-ding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cel=
-lspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=3D"left" style=
-=3D"padding:0px 15px;text-align:left;word-break:break-word;"><p><span style=
-=3D"">The Program Committee encourages the submission of extended abstracts=
- that communicate applied and empirical findings of interest to higher educ=
-ation and vocational education & training professionals, researchers, and p=
-ractitioners.</span><br><span style=3D"">Key topics include, but are not li=
-mited to, the following subjects:</span></p></td></tr></table></td></tr></t=
-able></td></tr><tr><td><table role=3D"none" width=3D"100%" border=3D"0" cel=
-lspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" sty=
-le=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"non=
-e" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td =
-width=3D"100%"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=
-=3D"0" cellpadding=3D"0"><tr><td width=3D"50%" style=3D"vertical-align:top;=
-" class=3D"mob-stack"><table role=3D"none" width=3D"100%" border=3D"0" cell=
-spacing=3D"0" cellpadding=3D"0"><tbody><tr><td class=3D"dd" align=3D"left" =
-style=3D"padding:0px 15px;text-align:left;word-break:break-word;"><p><span =
-style=3D""><b>Track 1: Teaching and Learning on Sustainable Energy Educatio=
-n.</b></span><br><span style=3D""><i>Good practices related to:</i></span><=
-/p></td></tr><tr><td style=3D"padding-bottom:12px;padding-left:37px;padding=
--right:27px;padding-top:12px;" class=3D"ee"><div style=3D"margin-left:0px;"=
- class=3D"edm_outlooklist"><ul style=3D"list-style-type:disc;margin:0px 0px=
-;padding:0px 0px 0px 0px;"><li class=3D"listItem ultext"><p style=3D"paddin=
-g:0px;text-align:left;word-break:break-word;"><span style=3D"">Renewable en=
-ergy sources and their development, use, and impact</span></p></li><li clas=
-s=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word-break:br=
-eak-word;"><span style=3D"">Development and use of electric vehicles and th=
-e connection to the economy and the environment</span></p></li><li class=3D=
-"listItem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-=
-word;"><span style=3D"">Efficient use of energy technologies for conservati=
-on and reduction of waste</span></p></li><li class=3D"listItem ultext"><p s=
-tyle=3D"padding:0px;text-align:left;word-break:break-word;"><span style=3D"=
-">Nature-Based Solutions (NBS)</span></p></li><li class=3D"listItem ultext"=
-><p style=3D"padding:0px;text-align:left;word-break:break-word;"><span styl=
-e=3D"">Circular Economy models</span></p></li></ul></div></td></tr></tbody>=
-</table></td><td width=3D"50%" style=3D"vertical-align:top;" class=3D"mob-s=
-tack"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" ce=
-llpadding=3D"0"><tbody><tr><td class=3D"dd" align=3D"left" style=3D"padding=
-:0px 15px;text-align:left;word-break:break-word;"><p><span style=3D""><b>Tr=
-ack 2: Partnerships, Collaboration on Sustainable Energy Education </b></sp=
-an><br><span style=3D""><i>Good practices related to:</i></span></p></td></=
-tr><tr><td style=3D"padding-bottom:12px;padding-left:37px;padding-right:27p=
-x;padding-top:12px;" class=3D"ee"><div style=3D"margin-left:0px;" class=3D"=
-edm_outlooklist"><ul style=3D"list-style-type:disc;margin:0px 0px;padding:0=
-px 0px 0px 0px;"><li class=3D"listItem ultext"><p style=3D"padding:0px;text=
--align:left;word-break:break-word;"><span style=3D"">Traineeships & apprent=
-iceships</span></p></li><li class=3D"listItem ultext"><p style=3D"padding:0=
-px;text-align:left;word-break:break-word;"><span style=3D"">Energy career a=
-nd workforce development in the energy industry</span></p></li><li class=3D=
-"listItem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-=
-word;"><span style=3D"">Synthesis of energy information</span></p></li><li =
-class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word-brea=
-k:break-word;"><span style=3D"">HUBS in sustainable energy</span></p></li><=
-li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word-b=
-reak:break-word;"><span style=3D"">Skill needs of the labor market</span></=
-p></li></ul></div></td></tr></tbody></table></td></tr></table></td></tr></t=
-able></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%=
-" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcol=
-or=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;">=
-<table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadd=
-ing=3D"0"><tr><td width=3D"100%"><table role=3D"none" width=3D"100%" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td width=3D"50%" style=3D"v=
-ertical-align:top;" class=3D"mob-stack"><table role=3D"none" width=3D"100%"=
- border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tbody><tr><td class=3D"d=
-d" align=3D"left" style=3D"padding:0px 15px;text-align:left;word-break:brea=
-k-word;"><p><span style=3D""><b>Track 3: Governance & Funding for Sustainab=
-le Energy Education</b></span><br><span style=3D""><i>Good practices relate=
-d to:</i></span></p></td></tr><tr><td style=3D"padding-bottom:12px;padding-=
-left:37px;padding-right:27px;padding-top:12px;" class=3D"ee"><div style=3D"=
-margin-left:0px;" class=3D"edm_outlooklist"><ul style=3D"list-style-type:di=
-sc;margin:0px 0px;padding:0px 0px 0px 0px;"><li class=3D"listItem ultext"><=
-p style=3D"padding:0px;text-align:left;word-break:break-word;"><span style=
-=3D"">Financing models</span></p></li><li class=3D"listItem ultext"><p styl=
-e=3D"padding:0px;text-align:left;word-break:break-word;"><span style=3D"">F=
-inancial tools </span></p></li><li class=3D"listItem ultext"><p style=3D"pa=
-dding:0px;text-align:left;word-break:break-word;"><span style=3D"">Financin=
-g partnerships in energy</span></p></li><li class=3D"listItem ultext"><p st=
-yle=3D"padding:0px;text-align:left;word-break:break-word;"><span style=3D""=
->Business models for energy education</span></p></li><li class=3D"listItem =
-ultext"><p style=3D"padding:0px;text-align:left;word-break:break-word;"><sp=
-an style=3D"">University spin-offs</span></p></li></ul></div></td></tr></tb=
-ody></table></td><td width=3D"50%" style=3D"vertical-align:top;" class=3D"m=
-ob-stack"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0=
-" cellpadding=3D"0"><tbody><tr><td class=3D"dd" align=3D"left" style=3D"pad=
-ding:0px 15px;text-align:left;word-break:break-word;"><p><span style=3D""><=
-b>Track 4: Sustainable Education </b></span><br><span style=3D""><i>Good pr=
-actices related to:</i></span></p></td></tr><tr><td style=3D"padding-bottom=
-:12px;padding-left:37px;padding-right:27px;padding-top:12px;" class=3D"ee">=
-<div style=3D"margin-left:0px;" class=3D"edm_outlooklist"><ul style=3D"list=
--style-type:disc;margin:0px 0px;padding:0px 0px 0px 0px;"><li class=3D"list=
-Item ultext"><p style=3D"padding:0px;text-align:left;word-break:break-word;=
-"><span style=3D"">Competency-based learning and skill assessment</span></p=
-></li><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left=
-;word-break:break-word;"><span style=3D"">Education accreditation, quality,=
- and assessment</span></p></li><li class=3D"listItem ultext"><p style=3D"pa=
-dding:0px;text-align:left;word-break:break-word;"><span style=3D"">Innovati=
-ve materials and new tools for teaching</span></p></li><li class=3D"listIte=
-m ultext"><p style=3D"padding:0px;text-align:left;word-break:break-word;"><=
-span style=3D"">Teaching and learning experiences</span></p></li><li class=
-=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word-break:bre=
-ak-word;"><span style=3D"">Educational technology (e.g., virtual labs, e-le=
-arning) </span></p></li></ul></div></td></tr></tbody></table></td></tr></ta=
-ble></td></tr></table></td></tr></table></td></tr><tr><td><table role=3D"no=
-ne" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
-=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding=
-:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspa=
-cing=3D"0" cellpadding=3D"0"><tr><td align=3D"center" valign=3D"top" style=
-=3D"padding-bottom:14px;padding-left:15px;padding-right:15px;padding-top:14=
-px;text-align:center;width:100%;word-break:break-word;" class=3D"dd"><table=
- role=3D"none" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"ce=
-nter"><tr><td class=3D"v" align=3D"center" valign=3D"middle" height=3D"52" =
-style=3D"height:52px;"><a href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ=
-7aZvovpc0Duh6W17ooVUgQpQHcjoAkkAh3L9mszuoN1yA3Jgho2bXfGfrQUhLLKabviJfrip-rY=
-P96kA-VBSI8kiBGDdpfbj01i8em0e2HYj3ycF7PU6trmWjBhVAnpTTJZHHNA3NPQ-qBaTCE8AYU=
--3UNsujR0_ju2grTEiENyJE5OihvGbIwMq89UOJjUkOCQ1ExY2TEVowViic3_l3x6I2gon6YGT8=
-9xZg/42u/ibow9buJQAmGcG5wL9pMmw/h4/55KW-Kotn-rCifk8pQ0xH1siF4Aims8KVAGQKO4K=
-T4k" target=3D"_blank" rel=3D"noopener noreferrer nofollow" style=3D"color:=
-#FFFFFF;font-size:18px;padding:0px 22px;text-decoration:none;"> Read More <=
-/a></td></tr></table></td></tr></table></td></tr></table></td></tr><tr><td>=
-<table id=3D"importantdates" role=3D"none" width=3D"100%" border=3D"0" cell=
-spacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#E8BEC7" styl=
-e=3D"background-color:#E8BEC7;padding:0px 0px 0px 0px;"><table role=3D"none=
-" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td c=
-lass=3D"dd" align=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-=
-align:center;"><h2><span style=3D"color:#e8195a;">Important dates</span></h=
-2></td></tr></table></td></tr></table></td></tr><tr><td><table role=3D"none=
-" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"=
-"><tr><td bgcolor=3D"#E8BEC7" style=3D"background-color:#E8BEC7;padding:0px=
- 0px 0px 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=
-=3D"0" cellpadding=3D"0"><tr><td align=3D"center" valign=3D"top" style=3D"p=
-adding: 0px 15px 0px; " class=3D"dd"><table role=3D"none" border=3D"0" cell=
-spacing=3D"0" cellpadding=3D"0" style=3D"margin:0 auto 0 auto;"><tr><td ali=
-gn=3D"center" valign=3D"top" style=3D"width:567px;"><img src=3D"https://med=
-ia.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,format=3Dauto,onerror=3Dredir=
-ect,quality=3D80/uploads/asset/file/78a793ec-823a-4cfa-a827-6da26cf59def/Sc=
-hermata_2023-12-21_alle_00.07.10.png?t=3D1703113645" alt=3D"" height=3D"aut=
-o" width=3D"567" style=3D"display:block;width:100%;" border=3D"0"/></td></t=
-r></table></td></tr></table></td></tr></table></td></tr><tr><td id=3D"publi=
-cationsaward" class=3D"dd" align=3D"center" valign=3D"top" style=3D"padding=
-:0px 15px;text-align:center;"><h2>Publications</h2></td></tr><tr><td class=
-=3D"dd" align=3D"left" style=3D"padding:0px 15px;text-align:left;word-break=
-:break-word;"><p><b>All accepted extended abstracts will appear in the conf=
-erence proceedings book, which will be assigned a=C2=A0DOI=C2=A0and=C2=A0IS=
-BN.</b> They will be published in open access by=C2=A0UPV Press and submitt=
-ed to be indexed in major international bibliographic databases. In previou=
-s conferences we organized, proceedings were indexed in Scopus and the=C2=
-=A0Thomson-Reuters Conference Proceedings Citation Index =E2=80=93 Web of S=
-cience Core Collection=C2=A0(former ISI Proceedings). </p></td></tr><tr><td=
- class=3D"dd" align=3D"center" valign=3D"top" style=3D"padding:0px 15px;tex=
-t-align:center;"><h2>Award</h2></td></tr><tr><td class=3D"dd" align=3D"left=
-" style=3D"padding:0px 15px;text-align:left;word-break:break-word;"><p> To =
-the=C2=A0Best Paper=C2=A0and=C2=A0Best Practice. </p></td></tr><tr><td><tab=
-le id=3D"submissionguidelines" role=3D"none" width=3D"100%" border=3D"0" ce=
-llspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" st=
-yle=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"no=
-ne" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td=
- class=3D"dd" align=3D"center" valign=3D"top" style=3D"padding:0px 15px;tex=
-t-align:center;"><h2><span style=3D"">Submission guidelines</span></h2></td=
-></tr></table></td></tr></table></td></tr><tr><td><table role=3D"none" widt=
-h=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr>=
-<td bgcolor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0=
-px 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0"=
- cellpadding=3D"0"><tr><td class=3D"dd" align=3D"left" style=3D"padding:0px=
- 15px;text-align:left;word-break:break-word;"><p><span style=3D"">Authors w=
-orldwide are invited to submit original and unpublished extended abstracts =
-not under review in any other conference or journal.=C2=A0</span><br><span =
-style=3D"">All extended abstracts will be peer-reviewed by the Program Comm=
-ittee based on their significance, methodological soundness, originality, a=
-nd clarity of exposition.</span></p></td></tr></table></td></tr></table></t=
-d></tr><tr><td><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=
-=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"ba=
-ckground-color:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"none" width=
-=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td align=3D=
-"center" valign=3D"top" style=3D"padding-bottom:14px;padding-left:15px;padd=
-ing-right:15px;padding-top:14px;text-align:center;width:100%;word-break:bre=
-ak-word;" class=3D"dd"><table role=3D"none" border=3D"0" cellspacing=3D"0" =
-cellpadding=3D"0" align=3D"center"><tr><td class=3D"v" align=3D"center" val=
-ign=3D"middle" height=3D"52" style=3D"height:52px;"><a href=3D"https://link=
-.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooVUgQpQHcjoAkkAh3L9kQlP9QpGOx=
-82cyawC83eMelUai2WiV9CTT5coYb3lilWY9eU5I1x3zefT5HCTwZyGOdkLSOsOSboTqBGItstK=
-pD2DC0pWdQZPwbLSM85I148wNn5htnpgMDfzxnC2gOHs_JbNRGznfG1NEfS_K8XN5Xj77Ud-QW0=
-HcndzQcbIt6XNlg-J644kUZiGKSPGxIDhFhX3yuNuuYljrYznKZy4Z8vbrnqcazA6CbHEsKYc1N=
-A/42u/ibow9buJQAmGcG5wL9pMmw/h5/L1b7aHIt4DwxelCPKh_Pni6RiFcZrt3xQWjU6_9w1EU=
-" target=3D"_blank" rel=3D"noopener noreferrer nofollow" style=3D"color:#FF=
-FFFF;font-size:18px;padding:0px 22px;text-decoration:none;"> See the templa=
-te </a></td></tr></table></td></tr></table></td></tr></table></td></tr><tr>=
-<td><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cell=
-padding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"background-co=
-lor:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" b=
-order=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=
-=3D"left" style=3D"padding:0px 15px;text-align:left;word-break:break-word;"=
-><p><span style=3D"">Submissions must be between 4 and 9 pages (A4 size), i=
-ncluding 1 title page + 8 pages with the main text, figures, tables, and re=
-ferences. Submissions imply the willingness of at least one author to regis=
-ter, attend the conference, and present their contribution.</span></p></td>=
-</tr></table></td></tr></table></td></tr><tr><td><table role=3D"none" width=
-=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><=
-td bgcolor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0p=
-x 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" =
-cellpadding=3D"0"><tr><td align=3D"center" valign=3D"top" style=3D"padding-=
-bottom:14px;padding-left:15px;padding-right:15px;padding-top:14px;text-alig=
-n:center;width:100%;word-break:break-word;" class=3D"dd"><table role=3D"non=
-e" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center"><tr><t=
-d class=3D"v" align=3D"center" valign=3D"middle" height=3D"52" style=3D"hei=
-ght:52px;"><a href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh=
-6W17ooVUgQpQHcjoAkkAh3L9kRwuR9B71gtRmZkiE5Fb7FmfI9tMAhBptscSO1xOBx4y-tDRBQC=
-zrpIL5Cxo7XQaDKGwnFYn_ofnW7CPeLYoUtKxTOptnEJrObdN-4rO8hr8fyyWTpeOhfWoPjUs7p=
-F1SMPhUt6aNZv3t7fD_Hlj_DIjOVkYrLzeuQ8LuyKQVn8A/42u/ibow9buJQAmGcG5wL9pMmw/h=
-6/zltjZw8uGaaG-oIOYptMnAyM88IyTY5-Jg6yEmaaH_s" target=3D"_blank" rel=3D"noo=
-pener noreferrer nofollow" style=3D"color:#FFFFFF;font-size:18px;padding:0p=
-x 22px;text-decoration:none;"> Read more </a></td></tr></table></td></tr></=
-table></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100=
-%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgco=
-lor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"=
-><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpad=
-ding=3D"0"><tr><td class=3D"dd" align=3D"left" style=3D"padding:0px 15px;te=
-xt-align:left;word-break:break-word;"><p><span style=3D"">SEED is using the=
- EasyChair platform to manage the submissions. The submission website is </=
-span><span style=3D""><b>EASY CHAIR SEED 2024</b></span></p></td></tr></tab=
-le></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%" =
-border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=
-=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><t=
-able role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpaddin=
-g=3D"0"><tr><td align=3D"center" valign=3D"top" style=3D"padding-bottom:14p=
-x;padding-left:15px;padding-right:15px;padding-top:14px;text-align:center;w=
-idth:100%;word-break:break-word;" class=3D"dd"><table role=3D"none" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center"><tr><td class=
-=3D"v" align=3D"center" valign=3D"middle" height=3D"52" style=3D"height:52p=
-x;"><a href=3D"https://link.mail.beehiiv.com/ss/c/mI7BQRoctVTIGHO43x85D0IyY=
-HUvJ7fPUgDznev73L38PDgyfgzkQmM_MHGbRoyseYIC3OXxrejG_W2du5Evlp7IQT5bKjw35eZA=
-SG0VFoLYeuXeKuFnOQHdf48fth9QuRCLMi0p53qHr4-hjAQjhaOQe_fhCke2xMUDDU3msmn7P95=
-v3YnXJr8H7DqCFNW0x2UVgjRgwUsxG6b1riWoXSsxh7RiW9njdYh_3cO0lCs/42u/ibow9buJQA=
-mGcG5wL9pMmw/h7/OnV3Cf0AIxU4QPBNnBq7_LWKIaewYyTwY9rw0Q67x4w" target=3D"_bla=
-nk" rel=3D"noopener noreferrer nofollow" style=3D"color:#FFFFFF;font-size:1=
-8px;padding:0px 22px;text-decoration:none;"> Submit on Easy Chair Platform =
-</a></td></tr></table></td></tr></table></td></tr></table></td></tr><tr><td=
-><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpad=
-ding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"background-color=
-:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" bord=
-er=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=3D"=
-left" style=3D"padding:0px 15px;text-align:left;word-break:break-word;"><p>=
-<span style=3D"">If you have not previously used the platform, you must reg=
-ister first.</span></p></td></tr></table></td></tr></table></td></tr><tr><t=
-d><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpa=
-dding=3D"0" style=3D""><tr><td bgcolor=3D"transparent" style=3D"background-=
-color:transparent;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"1=
-00%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" =
-align=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:center=
-;"><h1><span style=3D"color:#438ac9;">SEED 2024: Call for Workshops</span><=
-/h1></td></tr></table></td></tr></table></td></tr><tr><td class=3D"dd" alig=
-n=3D"left" style=3D"padding:0px 15px;text-align:left;word-break:break-word;=
-"><p><span style=3D"font-size:16px;">Researchers, academics, and practition=
-ers are invited to submit proposals for workshops at the=C2=A0</span><span =
-style=3D"font-size:16px;"><b>SEED conference</b></span><span style=3D"font-=
-size:16px;">. The purpose of workshops is to give room for presenting ideas=
- and discussing preliminary results in an interactive atmosphere while focu=
-sing on a specific topic. Workshops may be proposed for=C2=A0</span><span s=
-tyle=3D"font-size:16px;"><b>a minimum of 1.5 hours and a maximum of 3 hours=
- in length</b></span><span style=3D"font-size:16px;">. It should encourage =
-lively debates and stimulate the production of new ideas and the discussion=
- of controversial issues.</span></p></td></tr><tr><td id=3D"reviewcriteria"=
- class=3D"dd" align=3D"center" valign=3D"top" style=3D"padding:0px 15px;tex=
-t-align:center;"><h2>Review criteria</h2></td></tr><tr><td class=3D"dd" ali=
-gn=3D"left" style=3D"padding:0px 15px;text-align:left;word-break:break-word=
-;"><p><span style=3D"font-size:16px;">The decision on acceptance or rejecti=
-on of a workshop proposal will be made</span><span style=3D"font-size:16px;=
-"><b> based on the overall quality</b></span><span style=3D"font-size:16px;=
-">=C2=A0of the proposal and its potential to attract a sufficiently broad c=
-ommunity.=C2=A0</span></p></td></tr><tr><td><table id=3D"proposalguidelines=
-" role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=
-=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" style=3D"background-color:#EF=
-F2F7;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=3D"ce=
-nter" valign=3D"top" style=3D"padding:0px 15px;text-align:center;"><h2><spa=
-n style=3D"">Proposal guidelines</span></h2></td></tr></table></td></tr></t=
-able></td></tr><tr><td><table role=3D"none" width=3D"100%" border=3D"0" cel=
-lspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"#EFF2F7" sty=
-le=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><table role=3D"non=
-e" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td =
-class=3D"dd" align=3D"left" style=3D"padding:0px 15px;text-align:left;word-=
-break:break-word;"><p><span style=3D""><b>All workshop proposals should be =
-sent to=C2=A0</b></span><span style=3D""><b><a class=3D"link" href=3D"mailt=
-o:seedconf@upv.es" target=3D"_blank" rel=3D"noopener noreferrer nofollow" c=
-licktracking=3D"off">seedconf@upv.es</a></b></span><span style=3D"">=C2=A0<=
-/span><span style=3D""><b>in English</b></span><span style=3D""> as a singl=
-e PDF file (2-6 pages) containing the following sections:</span></p></td></=
-tr><tr><td style=3D"padding-bottom:12px;padding-left:37px;padding-right:27p=
-x;padding-top:12px;" class=3D"ee"><div style=3D"margin-left:0px;" class=3D"=
-edm_outlooklist"><ul style=3D"list-style-type:disc;margin:0px 0px;padding:0=
-px 0px 0px 0px;"><li class=3D"listItem ultext"><p style=3D"padding:0px;text=
--align:left;word-break:break-word;"><span style=3D"font-size:12px;">Title a=
-nd acronym.</span></p></li><li class=3D"listItem ultext"><p style=3D"paddin=
-g:0px;text-align:left;word-break:break-word;"><span style=3D"font-size:12px=
-;">Abstract: 150-200 word abstract describing the workshop purpose.</span><=
-/p><ul style=3D"list-style-type:disc;margin:0px 0px;padding:0px 0px 0px 0px=
-;"><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;wo=
-rd-break:break-word;"><span style=3D"font-size:12px;">Objectives: a clear d=
-escription of the workshop objectives.=C2=A0</span></p></li><li class=3D"li=
-stItem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-wor=
-d;"><span style=3D"font-size:12px;">Description of the topics and scope of =
-the workshop.</span></p></li></ul></li><li class=3D"listItem ultext"><p sty=
-le=3D"padding:0px;text-align:left;word-break:break-word;"><span style=3D"fo=
-nt-size:12px;">Organizer: a short biographical sketch of the workshop organ=
-izer, describing relevant experience and qualifications.</span></p></li><li=
- class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word-bre=
-ak:break-word;"><span style=3D"font-size:12px;">Intended audience: descript=
-ion of the anticipated audience, including experience level and prerequisit=
-es, the expected number of participants to the workshop and how the worksho=
-p organizer will call for participation.</span></p></li><li class=3D"listIt=
-em ultext"><p style=3D"padding:0px;text-align:left;word-break:break-word;">=
-<span style=3D"font-size:12px;">Rough agenda: 1-page outline of the worksho=
-p content describing the workshop dynamics, including tentative speakers, f=
-ormat (panels, call for extended abstracts, etc).</span></p><ul style=3D"li=
-st-style-type:disc;margin:0px 0px;padding:0px 0px 0px 0px;"><li class=3D"li=
-stItem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-wor=
-d;"><span style=3D"font-size:12px;">If the workshops consist of the selecti=
-on & publication of =E2=80=9Cextended abstracts=E2=80=9D (this is only a po=
-ssibility):</span></p><ul style=3D"list-style-type:disc;margin:0px 0px;padd=
-ing:0px 0px 0px 0px;"><li class=3D"listItem ultext"><p style=3D"padding:0px=
-;text-align:left;word-break:break-word;"><span style=3D"font-size:12px;">Te=
-ntative dates</span></p></li><li class=3D"listItem ultext"><p style=3D"padd=
-ing:0px;text-align:left;word-break:break-word;"><span style=3D"font-size:12=
-px;">Review process=C2=A0</span></p></li><li class=3D"listItem ultext"><p s=
-tyle=3D"padding:0px;text-align:left;word-break:break-word;"><span style=3D"=
-font-size:12px;">Publication opportunities=C2=A0</span></p></li></ul></li><=
-/ul></li><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:l=
-eft;word-break:break-word;"><span style=3D"font-size:12px;">Infrastructure:=
- Description of the infrastructure needed to carry out the workshop.</span>=
-</p></li><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:l=
-eft;word-break:break-word;"><span style=3D"font-size:12px;">Statement from =
-the organizers willing to publish an extended abstract of the findings of t=
-he workshop (Final version submission deadline July 28, 2024)</span></p></l=
-i><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;wor=
-d-break:break-word;"><span style=3D"font-size:12px;">Maximum capacity of at=
-tendees=C2=A0</span></p></li><li class=3D"listItem ultext"><p style=3D"padd=
-ing:0px;text-align:left;word-break:break-word;"><span style=3D"font-size:12=
-px;">Other information: For instance, information that will let attendees k=
-now more about your workshop.</span></p></li></ul></div></td></tr></table><=
-/td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%" bord=
-er=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=3D"=
-#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><table=
- role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D=
-"0"><tr><td align=3D"center" valign=3D"top" style=3D"padding-bottom:14px;pa=
-dding-left:15px;padding-right:15px;padding-top:14px;text-align:center;width=
-:100%;word-break:break-word;" class=3D"dd"><table role=3D"none" border=3D"0=
-" cellspacing=3D"0" cellpadding=3D"0" align=3D"center"><tr><td class=3D"v" =
-align=3D"center" valign=3D"middle" height=3D"52" style=3D"height:52px;"><a =
-href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooVUgQpQHc=
-joAkkAh3L9mu_b5nHr6UwtK1UoRgJPAdwajK7IMkyN31EXNCwsn_knxyOtnrfyKdrc51cmgsHyd=
-7LjMsdzpOMwenjWNNfNBoPwLn738WYMqvKm_fW2MuDgeFo0zkPN-1fb7eLfgnK6xLG-X6bQK9ws=
-79zXOXhPaMLi2dVHQPRWDgwgYYYXwbG2VZpCjaQJmxdhEYTO4PHaY/42u/ibow9buJQAmGcG5wL=
-9pMmw/h8/ujE_vns4kD--ivO2skQAUTkyprVHX5VwFc82BQqWwkU" target=3D"_blank" rel=
-=3D"noopener noreferrer nofollow" style=3D"color:#FFFFFF;font-size:18px;pad=
-ding:0px 22px;text-decoration:none;"> Read more </a></td></tr></table></td>=
-</tr></table></td></tr></table></td></tr><tr><td><table role=3D"none" width=
-=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><=
-td bgcolor=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0p=
-x 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" =
-cellpadding=3D"0"><tr><td width=3D"100%"><table role=3D"none" width=3D"100%=
-" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td width=3D"50%" st=
-yle=3D"vertical-align:top;" class=3D"mob-stack"><table role=3D"none" width=
-=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tbody><tr><td c=
-lass=3D"dd" align=3D"left" style=3D"padding:0px 15px;text-align:left;word-b=
-reak:break-word;"><p><span style=3D""><b>Resources provided by the SEED org=
-anizing committee:</b></span></p></td></tr><tr><td style=3D"padding-bottom:=
-12px;padding-left:37px;padding-right:27px;padding-top:12px;" class=3D"ee"><=
-div style=3D"margin-left:0px;" class=3D"edm_outlooklist"><ul style=3D"list-=
-style-type:disc;margin:0px 0px;padding:0px 0px 0px 0px;"><li class=3D"listI=
-tem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-word;"=
-><span style=3D"">A link on the SEED website.</span></p></li><li class=3D"l=
-istItem ultext"><p style=3D"padding:0px;text-align:left;word-break:break-wo=
-rd;"><span style=3D"">Management of registration for participants.</span></=
-p></li><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:lef=
-t;word-break:break-word;"><span style=3D"">Setup of meeting space and relat=
-ed equipment.</span></p></li></ul></div></td></tr></tbody></table></td><td =
-width=3D"50%" style=3D"vertical-align:top;" class=3D"mob-stack"><table role=
-=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><=
-tbody><tr><td class=3D"dd" align=3D"left" style=3D"padding:0px 15px;text-al=
-ign:left;word-break:break-word;"><p><span style=3D""><b>The workshop organi=
-zer must take care of the following:</b></span></p></td></tr><tr><td style=
-=3D"padding-bottom:12px;padding-left:37px;padding-right:27px;padding-top:12=
-px;" class=3D"ee"><div style=3D"margin-left:0px;" class=3D"edm_outlooklist"=
-><ul style=3D"list-style-type:disc;margin:0px 0px;padding:0px 0px 0px 0px;"=
-><li class=3D"listItem ultext"><p style=3D"padding:0px;text-align:left;word=
--break:break-word;"><span style=3D"">Coordinating schedules and deadlines w=
-ith the SEED organizing committee.</span></p></li><li class=3D"listItem ult=
-ext"><p style=3D"padding:0px;text-align:left;word-break:break-word;"><span =
-style=3D"">Provide a brief description of the workshop for inclusion in the=
- SEED website and the workshop program when it is final.=C2=A0</span></p></=
-li></ul></div></td></tr></tbody></table></td></tr></table></td></tr></table=
-></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%" bo=
-rder=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=
-=3D"#EFF2F7" style=3D"background-color:#EFF2F7;padding:0px 0px 0px 0px;"><t=
-able role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpaddin=
-g=3D"0"><tr><td align=3D"center" valign=3D"top" style=3D"padding-bottom:14p=
-x;padding-left:15px;padding-right:15px;padding-top:14px;text-align:center;w=
-idth:100%;word-break:break-word;" class=3D"dd"><table role=3D"none" border=
-=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center"><tr><td class=
-=3D"v" align=3D"center" valign=3D"middle" height=3D"52" style=3D"height:52p=
-x;"><a href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W17ooV=
-UgQpQHcjoAkkAh3L9mu_b5nHr6UwtK1UoRgJPAdwajK7IMkyN31EXNCwsn_knxyOtnrfyKdrc51=
-cmgsHyd7LjMsdzpOMwenjWNNfNBoPwLn738WYMqvKm_fW2MuDgeFo0zkPN-1fb7eLfgnK6xLG-X=
-6bQK9ws79zXOXhPaMLi2dVHQPRWDgwgYYYXwbG2VZpCjaQJmxdhEYTO4PHaY/42u/ibow9buJQA=
-mGcG5wL9pMmw/h9/w85Yyg-ZYHLr0skwI3rSv85s8j15PJUeQWCZbz2OWF8" target=3D"_bla=
-nk" rel=3D"noopener noreferrer nofollow" style=3D"color:#FFFFFF;font-size:1=
-8px;padding:0px 22px;text-decoration:none;"> Read more </a></td></tr></tabl=
-e></td></tr></table></td></tr></table></td></tr><tr><td><table id=3D"import=
-antdates-2" role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D""><tr><td bgcolor=3D"#E8BEC7" style=3D"background-c=
-olor:#E8BEC7;padding:0px 0px 0px 0px;"><table role=3D"none" width=3D"100%" =
-border=3D"0" cellspacing=3D"0" cellpadding=3D"0"><tr><td class=3D"dd" align=
-=3D"center" valign=3D"top" style=3D"padding:0px 15px;text-align:center;"><h=
-2><span style=3D"color:#e8195a;">Important dates</span></h2></td></tr></tab=
-le></td></tr></table></td></tr><tr><td><table role=3D"none" width=3D"100%" =
-border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><td bgcolor=
-=3D"#E8BEC7" style=3D"background-color:#E8BEC7;padding:0px 0px 0px 0px;"><t=
-able role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpaddin=
-g=3D"0"><tr><td align=3D"center" valign=3D"top" style=3D"padding: 0px 15px =
-0px; " class=3D"dd"><table role=3D"none" border=3D"0" cellspacing=3D"0" cel=
-lpadding=3D"0" style=3D"margin:0 auto 0 auto;"><tr><td align=3D"center" val=
-ign=3D"top" style=3D"width:567px;"><img src=3D"https://media.beehiiv.com/cd=
-n-cgi/image/fit=3Dscale-down,format=3Dauto,onerror=3Dredirect,quality=3D80/=
-uploads/asset/file/e0cd1559-3afa-4178-95fa-cf6bae4f034b/Schermata_2023-12-2=
-1_alle_00.06.14.png?t=3D1703113598" alt=3D"" height=3D"auto" width=3D"567" =
-style=3D"display:block;width:100%;" border=3D"0"/></td></tr></table></td></=
-tr></table></td></tr></table></td></tr><tr><td><table role=3D"none" width=
-=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D""><tr><=
-td bgcolor=3D"#2466A1" style=3D"background-color:#2466A1;padding:20px 0px 3=
-0px 0px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0=
-" cellpadding=3D"0"><tr><td class=3D"dd" align=3D"center" style=3D"padding:=
-0px 15px;text-align:center;word-break:break-word;"><p><span style=3D"color:=
-rgb(255, 255, 255);font-size:14px;"><b>Remember, your workshop proposal sho=
-uld be sent by e-mail=C2=A0</b></span><br><span style=3D"color:rgb(255, 255=
-, 255);font-size:14px;"><b>by February 2, 2024 to =C2=A0</b></span><span st=
-yle=3D"color:rgb(255, 255, 255);font-size:14px;"><b><a class=3D"link" href=
-=3D"mailto:seedconf@upv.es" target=3D"_blank" rel=3D"noopener noreferrer no=
-follow" clicktracking=3D"off">seedconf@upv.es</a></b></span><span style=3D"=
-color:rgb(255, 255, 255);font-size:14px;"><b>.</b></span></p></td></tr></ta=
-ble></td></tr></table></td></tr><tr><td class=3D"dd" align=3D"left" style=
-=3D"padding:0px 15px;text-align:left;word-break:break-word;"><p></p></td></=
-tr></table></td></tr><tr><td class=3D"b" align=3D"center" valign=3D"top" bg=
-color=3D"#438ac9" style=3D"padding:0px;border-bottom-left-radius:10px;borde=
-r-bottom-right-radius:10px;"><table role=3D"none" width=3D"100%" border=3D"=
-0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center"><tr><td align=3D"ce=
-nter" valign=3D"top" bgcolor=3D"#fbbb16" style=3D"padding:12px"><table role=
-=3D"none" width=3D"100%" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" a=
-lign=3D"center"><tr><td><span style=3D"padding-left:1px;"></span></td><td a=
-lign=3D"center" valign=3D"middle" width=3D"75" style=3D"width:75px;"><a hre=
-f=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W19n_meO0wke5FKB=
-zflRFc2B1AjZJ0VosL0wujpGzZ8xujKbjlJXUDPCB6z8vhEMnt0zgr_0xSB8mCA7I4_IzXxUL0B=
-xvwowFr7KqKxUek2Yd4SXK0g0CgOE92Srqvc0VoOTWsxhjeXzv6N0rcNwQKxEIDje94i_A07SYh=
-bJ8C0ZFIF9dinskejayF9qkVBe1yw/42u/ibow9buJQAmGcG5wL9pMmw/h10/Y7I64xGolG3fLV=
-zrdBtmE4yHXZFBYZd9OBg7IndOLBU" style=3D"text-decoration:none;"><img width=
-=3D"22" alt=3D"fb" border=3D"0" style=3D"display:block;max-width:22px;" src=
-=3D"https://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,format=3Dauto,=
-onerror=3Dredirect,quality=3D80/static_assets/facebook_light.png"/></a></td=
-><td align=3D"center" valign=3D"middle" width=3D"75" style=3D"width:75px;">=
-<a href=3D"https://link.mail.beehiiv.com/ss/c/PUGs6rgGaD04BJ7-U5njEzF7ylz2n=
-MaTnkJ55jYEaSNckuOLy1HWqVTtOa7ci589JYeyvoDF3UUkfADhmXcEQIt7GsnrP-q47S7c_m5j=
-7f7sIGH2rNjuyYfAVxa1PsoplgL1wuMjaH9bQkGkb0STxzJgv1rBJsK3GTYe6_7kov3y2eSnWSp=
-Wd3zEBVTFR08EilFukyJ2VEnymcq5II-8xcGaFizAwad0SqXYw0sSyw1otlOjhtHH0BwXrfyhuO=
-uT/42u/ibow9buJQAmGcG5wL9pMmw/h11/uJ3CvcUgm7C_BhFh4FglXAdT1zdoBnfgVeqFJbBvl=
-U0" style=3D"text-decoration:none;"><img width=3D"22" alt=3D"tw" border=3D"=
-0" style=3D"display:block;max-width:22px;" src=3D"https://media.beehiiv.com=
-/cdn-cgi/image/fit=3Dscale-down,format=3Dauto,onerror=3Dredirect,quality=3D=
-80/static_assets/x_light.png"/></a></td><td align=3D"center" valign=3D"midd=
-le" width=3D"75" style=3D"width:75px;"><a href=3D"https://link.mail.beehiiv=
-.com/ss/c/9F_3DQ7aZvovpc0Duh6W19-oP22J3WocJyEIqlEBs30mdFwj7rvgg8GJtdPH65-M9=
-mwqiG-vvmwaV9DVnHpUEAKtXByiNzks-sZep-mXhtzqiiDFVl6Yc-pzSZE0GtIWAKdXnvdmQaXf=
-eRGZNcfrRDKc7G3t7Nqn0zn2al0tT8c5m5gwuznVQ3mwgGhRQyVl12AMLtNmy7K2GmITIAVvMQ/=
-42u/ibow9buJQAmGcG5wL9pMmw/h12/fACMZps9rIC-pT5O2xwsChu8OOlCCy98bLtmnDSmTKI"=
- style=3D"text-decoration:none;"><img width=3D"22" alt=3D"ig" border=3D"0" =
-style=3D"display:block;max-width:22px;" src=3D"https://media.beehiiv.com/cd=
-n-cgi/image/fit=3Dscale-down,format=3Dauto,onerror=3Dredirect,quality=3D80/=
-static_assets/instagram_light.png"/></a></td><td align=3D"center" valign=3D=
-"middle" width=3D"75" style=3D"width:75px;"><a href=3D"https://link.mail.be=
-ehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W16-6j7KA6P29TklrPSmgGRK74cEOs7Myre-gzzHj=
-UdIlLDmhYyvXDVW6PLoay57VNP_TGaBrBfuggCTGVahbUKb5D0_XH4o1UZo-t6INhxP3gdAhU4t=
-jDhIlBnadN3kC8Awlc198kkfb2pf-aE5mEC1d3chgG_aj8iZKAiDdaEEgsOwVa1zg_SE0Bn8HtK=
-sKxIKceN_E4nFm3CoWu43hj4c/42u/ibow9buJQAmGcG5wL9pMmw/h13/MXrSLskRUYZvCMFoMC=
-l3Jrg2Heu7KNQkjdyqED-EZNI" style=3D"text-decoration:none;"><img width=3D"22=
-" alt=3D"in" border=3D"0" style=3D"display:block;max-width:22px;" src=3D"ht=
-tps://media.beehiiv.com/cdn-cgi/image/fit=3Dscale-down,format=3Dauto,onerro=
-r=3Dredirect,quality=3D80/static_assets/linkedin_light.png"/></a></td><td><=
-span style=3D"padding-left:1px;"></span></td></tr></table></td></tr><tr><td=
- height=3D"10" style=3D"line-height:1px;font-size:1px;height:10px;"> &nbsp;=
- </td></tr><tr><td class=3D"w" align=3D"center" valign=3D"top" style=3D"pad=
-ding:15px;"><table role=3D"none" width=3D"100%" border=3D"0" cellspacing=3D=
-"0" cellpadding=3D"0" align=3D"center"><tr><td align=3D"center" valign=3D"t=
-op"><p style=3D"font-family:'Arial',Helvetica,sans-serif;color:#FFFFFF!impo=
-rtant;"> Update your email preferences or unsubscribe <a class=3D"link" hre=
-f=3D"https://link.mail.beehiiv.com/ss/c/ZwWm8Yeov1Rezmf_f_Ajv99hyTBbuWNd24Q=
-qCn-b19AhOZMy-FPVkE1ycemZtXW-Q53-MX7gHe7Fihm7L0SoRCvu1P1AjQJtLJVsB5CgUuKfaW=
--E9LTlRWORMLctKCw9DPd6QSE43Se_YtNfJxQkLyZIGdZw-mQZmBJHQBjjdaBfLnYqeodhnbcd4=
-VV76uSihRdPCouOfCc_FthWzKIZ0rTHCd3dHlAlWxuv2Ovn8U9ikEb1843pZUyDX9qFYkhg-7Om=
-YzWeBEoZO2T08Io6NCrr6jaUZ2irAM53qa6Nj3vVVz4xT7Fbmas44KhqqG10p-m5schHT5ba55U=
-vfW-bJUX6rpypjFYp2Qi5abbnRa49WdGiib1EV7x8pl82y-YyZux1DvgBeVtDIwvssavHCQJ1eQ=
-iCBlwwmYTtu3kDfXJeEU8MHKdeAoTxoW1tK3RjqJaPpzTQGmCJ4u_w1jSv25CgRX57jUk8mVNuC=
-5fIgDETTun3MzXByT7x3dyYU04ppxpTwQMsELemxjF7w8QMwXU0oN-Kmf2EA2CMQiUilpUtRcQf=
-w59SBqC_-CIIlRYbLR0h3aKTlCAEKWKfi3U2G3eYXWebPoximTUhmgHWKpR5-6wdrAVojVpZ3GT=
-tXzS0thChANM_LiFwB2s5I_47oeDlWp2fRhEWyNxNJP3sVmW0YDzEhVH8YLfmXnmMQcj0S8I-Zn=
-Vhp9Ja0xNb7I5C6w/42u/ibow9buJQAmGcG5wL9pMmw/h14/33SAIN5fiWmKrix4fPsGqnmGOQi=
-nTAymCBWHPyw0Pbw" style=3D"text-decoration:underline;text-decoration-color:=
-#FFFFFF!important;color:#FFFFFF!important;"> here</a></p><p class=3D"copyri=
-ght" style=3D"font-family:'Arial',Helvetica,sans-serif;color:#FFFFFF!import=
-ant;"> &copy; 2024 SEED Conference 2024 - Valencia </p><p style=3D"font-fam=
-ily:'Arial',Helvetica,sans-serif;color:#FFFFFF!important;"> Universitat Pol=
-it=C3=A8cnica de Val=C3=A8ncia Camino de Vera<br>Valencia, Comunidad Valenc=
-iana 46022 , Spain </p></td></tr><tr style=3D"display: table-row !important=
-;"><td align=3D"center" valign=3D"top" style=3D"padding-top:20px;" style=3D=
-"display:table-cell !important;"><table role=3D"none" border=3D"0" cellspac=
-ing=3D"0" cellpadding=3D"0" align=3D"center" style=3D"display:table !import=
-ant;"><tr style=3D"display:table-row !important;"><td class=3D"u" align=3D"=
-center" valign=3D"middle" height=3D"32" style=3D"height:32px;display:table-=
-cell !important; max-height: 32px !important;margin:0px !important;"><a sty=
-le=3D"line-height:32px !important;text-decoration:none;display:block !impor=
-tant;" href=3D"https://link.mail.beehiiv.com/ss/c/9F_3DQ7aZvovpc0Duh6W13i1J=
-VnHfTV-osXzaRbZV7_Rl1FzZwiJSW4hY_gEewf3rHZ8vMB9N1-EDL0J1hWTJlRr3ZPAcJEE1ZqF=
-rnAbXEEpPPjAt6cG2zwjJfWuXKD5FBYaluY5OnLqrQEL2k5h3TIeMukXbdNoR9iQyQGDCzGSRAf=
-AnwcdKQilI4J-0y3SnDLGNfRdlTxBxBl0r8iq5w/42u/ibow9buJQAmGcG5wL9pMmw/h15/l-GF=
-9tbvH2q4QM6Kcn8fznzZSPcwyP3DM59HCQRso6Y"><img src=3D"https://media.beehiiv.=
-com/output-onlinepngtools.png" width=3D"16" alt=3D"beehiiv logo" style=3D"d=
-isplay:inline-block !important;max-width:16px !important; vertical-align:-3=
-px !important;width: 16px !important;" border=3D"0"/><span style=3D"padding=
--left:11px !important;display: inline-block !important;">Powered by beehiiv=
-</span></a></td></tr></table></td></tr></table></td></tr></table></td></tr>=
-</table></td></tr></table></td></tr></table></td></tr></table></div></body>=
-</html>
+Thanks for your instruction! I tried to edit the linux inmate cell configur=
+ation file (imx8mp-linux-demo.c) and I finally get the linux inmate to boot=
+, so I think it was mainly a memory region misconfiguration problem. (Howev=
+er, the boot progress failed due to VFS fatal error, which I will investiga=
+te later...)<div>The current full output log is attached as attachment.<br =
+/><br /></div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_a=
+ttr">On Monday, January 8, 2024 at 7:12:46=E2=80=AFPM UTC+8 Ralf Ramsauer w=
+rote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.=
+8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi,
+<br>
+<br>On 08/01/2024 09:26, wheatfox wrote:
+<br>&gt; I&#39;m using OK8MP board with=C2=A0i.MX8MP CPU. I have already st=
+arted jailhouse=20
+<br>&gt; with imx8mp.cell configuration, and the example gic-demo works fin=
+e.=20
+<br>&gt; However, when I try to start a linux inmate using=20
+<br>&gt; imx8mp-linux-demo.cell, the jailhouse&#39;s load progress seems st=
+uck.
+<br>&gt;=20
+<br>&gt; After adding some debug print in jailhouse&#39;s python script, fi=
+rmware=20
+<br>&gt; code and kernel module code, I found out that the *copy_from_user*=
+ call=20
+<br>&gt; in *load_image*=C2=A0function (driver/cell.c) doesn&#39;t return a=
+nd halt forever: &gt;
+<br>&gt; jailhouse commands:
+<br>&gt; ./tools/jailhouse enable ./imx8mp.cell
+<br>&gt; ./tools/jailhouse cell linux \
+<br>&gt; ./imx8mp-linux-demo.cell \
+<br>&gt; ./kernel/Image \
+<br>&gt; -i ./kernel/ramdisk.img \
+<br>
+<br>For testing, try to not load the ramdisk. The kernel should at least=20
+<br>boot and crash. If that works, we know that there&#39;s something odd w=
+ith=20
+<br>the ramdisk.
+<br>
+<br>Second, double and triple check addresses where things get loaded.=20
+<br>What&#39;s in your non-root cell configuration, and where does the=20
+<br>linux-loader try to load stuff? Does that match?
+<br>
+<br>Thanks,
+<br>   Ralf
+<br>
+<br>&gt; -d ./kernel/imx8mp-evk-inmate-wheatfox.dtb \
+<br>&gt; -c &quot;clk_ignore_unused console=3Dttymxc1,0x30890000,115200=20
+<br>&gt; earlycon=3Dec_imx6q,0x30890000,115200&quot;
+<br>&gt;=20
+<br>&gt; start linux cell output(with the string &#39;wheatfox&#39; means i=
+t&#39;s my custom=20
+<br>&gt; debug print):
+<br>&gt; root@OK8MP:/mnt# ./start-linux.sh
+<br>&gt; [wheatfox|python] Jailhouse Linux Cell Boot Helper
+<br>&gt; [wheatfox|python] linux_loader=3D/m[ =C2=A0129.965933] [wheatfox]=
+=20
+<br>&gt; (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244744
+<br>&gt; nt/tools/../inmates/tools/arm64/l[ =C2=A0129.975611] [wheatfox]=20
+<br>&gt; (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244728
+<br>&gt; inux-loader.bin
+<br>&gt; [ =C2=A0129.988033] [wheatfox] (jailhouse_ioctl) ioctl=3D0x4010000=
+2=20
+<br>&gt; arg=3D281474720244800
+<br>&gt; [ =C2=A0129.995192] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_CR=
+EATE
+<br>&gt; [ =C2=A0130.001072] [wheatfox] (jailhouse_cmd_cell_create) start
+<br>&gt; [ =C2=A0130.006404] [wheatfox] (jailhouse_cmd_cell_create) copy_fr=
+om_user done
+<br>&gt; [ =C2=A0130.012960] [wheatfox] (jailhouse_cmd_cell_create) copy_fr=
+om_user done
+<br>&gt; [ =C2=A0130.019507] [wheatfox] (jailhouse_cmd_cell_create) <a href=
+=3D"http://cell_id.id" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://cell_id.id&amp;sou=
+rce=3Dgmail&amp;ust=3D1704888983025000&amp;usg=3DAOvVaw2aCPoQw9O03dfu4MjLMQ=
+QP">cell_id.id</a> =3D -1
+<br>&gt; [ =C2=A0130.095151] IRQ 6: no longer affine to CPU2
+<br>&gt; [ =C2=A0130.095333] CPU2: shutdown
+<br>&gt; [ =C2=A0130.102251] psci: CPU2 killed (polled 0 ms)
+<br>&gt; [ =C2=A0130.155283] CPU3: shutdown
+<br>&gt; [ =C2=A0130.157999] psci: CPU3 killed (polled 0 ms)
+<br>&gt; [wheatfox] in hypercall, code =3D 1, arg1 =3D 2955416576, arg2 =3D=
+ 2
+<br>&gt; [wheatfox] in hypercall, JAILHOUSE_HC_CELL_CREATE
+<br>&gt; Adding virtual PCI device 00:00.0 to cell &quot;linux-inmate-demo&=
+quot;
+<br>&gt; Shared memory connection established, peer cells:
+<br>&gt;  =C2=A0&quot;imx8mp&quot;
+<br>&gt; Adding virtual PCI device 00:01.0 to cell &quot;linux-inmate-demo&=
+quot;
+<br>&gt; Shared memory connection established, peer cells:
+<br>&gt;  =C2=A0&quot;imx8mp&quot;
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 2
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 3
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; Created cell &quot;linux-inmate-demo&quot;
+<br>&gt; Page pool usage after cell creation: mem 82/992, remap 144/131072
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 0
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [ =C2=A0130.231800] [wheatfox] (jailhouse_cmd_cell_create) Created=
+ cell=20
+<br>&gt; &quot;linux-inmate-demo&quot;
+<br>&gt; [wheatfox|python] cell created,=20
+<br>&gt; name=3Db&#39;linux-inmate-demo\x00\x00\x00\x00\x00\x00\x00\x00\x00=
+\x00\x00\x00\x00\x00\x00&#39;
+<br>&gt; [wheatf[ =C2=A0130.249264] [wheatfox] (jailhouse_ioctl) ioctl=3D0x=
+40300003=20
+<br>&gt; arg=3D281474720245360
+<br>&gt; ox|python] trying to load linux_l[ =C2=A0130.257905] [wheatfox]=20
+<br>&gt; (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+<br>&gt; oader.bin into cell, addr=3D0x0
+<br>&gt; [ =C2=A0130.266684] [wheatfox] (jailhouse_cmd_cell_load) start
+<br>&gt; [ =C2=A0130.274322] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; cell_management_prologue(&amp;cell_load.cell_id, &amp;cell) done
+<br>&gt; [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 43088717=
+75073466112
+<br>&gt; [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+<br>&gt; [wheatfox] in cell_set_loadable, id =3D 1
+<br>&gt; [wheatfox] cell_management_prologue finished
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 2
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 3
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [wheatfox] finished arch_park_cpu
+<br>&gt; [wheatfox] cell-&gt;loadable =3D 0
+<br>&gt; [wheatfox] not jumped to out_resume
+<br>&gt; Cell &quot;linux-inmate-demo&quot; can be loaded
+<br>&gt; [wheatfox] in out_resume
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 1
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [ =C2=A0130.342417] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell-&gt;id) d=
+one
+<br>&gt; [ =C2=A0130.353079] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; cell_load.num_preload_images =3D 1
+<br>&gt; [ =C2=A0130.360584] [wheatfox] (jailhouse_cmd_cell_load) load_imag=
+e(cell,=20
+<br>&gt; image) start, n =3D 1
+<br>&gt; [ =C2=A0130.368444] [wheatfox] (load_image) start
+<br>&gt; [ =C2=A0130.372468] [wheatfox] (load_image) copy_from_user done
+<br>&gt; [ =C2=A0130.377712] [wheatfox] (load_image) image.size =3D 34b0
+<br>&gt; [ =C2=A0130.382776] [wheatfox] (load_image) found suitable memory =
+region,=20
+<br>&gt; mem-&gt;virt_start =3D 0, mem-&gt;size =3D 10000
+<br>&gt; [ =C2=A0130.392280] [wheatfox] (load_image) image load mem region =
+found
+<br>&gt; [ =C2=A0130.398228] [wheatfox] (load_image) phys_start =3D fdb0000=
+0
+<br>&gt; [ =C2=A0130.403653] [wheatfox] (load_image) page_offs =3D 0
+<br>&gt; [ =C2=A0130.408373] [wheatfox] (load_image) image_mem =3D 00000000=
+79dd6ce3
+<br>&gt; [ =C2=A0130.414405] [wheatfox] (load_image) copy_from_user params:
+<br>&gt; [ =C2=A0130.419905] [wheatfox] (load_image) to =3D 0000000079dd6ce=
+3
+<br>&gt; [ =C2=A0130.425329] [wheatfox] (load_image) from =3D 00000000c239e=
+c71
+<br>&gt; [ =C2=A0130.430915] [wheatfox] (load_image) n =3D 34b0
+<br>&gt; [ =C2=A0130.435220] [wheatfox] (load_image) copy_from_user start
+<br>&gt; [ =C2=A0130.440563] [wheatfox] (load_image) copy_from_user done
+<br>&gt; [ =C2=A0130.445822] [wheatfox] (load_image) flush_icache_range don=
+e
+<br>&gt; [ =C2=A0130.451429] [wheatfox] (jailhouse_cmd_cell_load) load_imag=
+e(cell,=20
+<br>&gt; image) done, n =3D 1
+<br>&gt; [ =C2=A0130.459186] [wheatfox] (jailhouse_cmd_cell_load) unlock_ou=
+t done,=20
+<br>&gt; exiting jailhouse_cmd_cell_load
+<br>&gt; [wheatfox|python] linux_loader.bin loaded
+<br>&gt; [wheatfox|python] trying to load kernel into cell, addr=3D0xc02800=
+00
+<br>&gt; [ =C2=A0130.500262] [wheatfox] (jailhouse_ioctl) ioctl=3D0x4030000=
+3=20
+<br>&gt; arg=3D281474720245360
+<br>&gt; [ =C2=A0130.507454] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LO=
+AD
+<br>&gt; [ =C2=A0130.513165] [wheatfox] (jailhouse_cmd_cell_load) start
+<br>&gt; [ =C2=A0130.518321] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; cell_management_prologue(&amp;cell_load.cell_id, &amp;cell) done
+<br>&gt; [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 43088717=
+75073466112
+<br>&gt; [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+<br>&gt; [wheatfox] in cell_set_loadable, id =3D 1
+<br>&gt; [wheatfox] cell_management_prologue finished
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 2
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 3
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [wheatfox] finished arch_park_cpu
+<br>&gt; [wheatfox] cell-&gt;loadable =3D 1
+<br>&gt; [wheatfox] in out_resume
+<br>&gt; [wheatfox] in resume_cpu, cpu_id =3D 1
+<br>&gt; [wheatfox] in resume_cpu, target_data-&gt;cpu_suspended =3D 1
+<br>&gt; [ =C2=A0130.579626] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell-&gt;id) d=
+one
+<br>&gt; [ =C2=A0130.590182] [wheatfox] (jailhouse_cmd_cell_load)=20
+<br>&gt; cell_load.num_preload_images =3D 1
+<br>&gt; [ =C2=A0130.597678] [wheatfox] (jailhouse_cmd_cell_load) load_imag=
+e(cell,=20
+<br>&gt; image) start, n =3D 1
+<br>&gt; [ =C2=A0130.605532] [wheatfox] (load_image) start
+<br>&gt; [ =C2=A0130.609557] [wheatfox] (load_image) copy_from_user done
+<br>&gt; [ =C2=A0130.614795] [wheatfox] (load_image) image.size =3D 1ab7200
+<br>&gt; [ =C2=A0130.620131] [wheatfox] (load_image) found suitable memory =
+region,=20
+<br>&gt; mem-&gt;virt_start =3D c0000000, mem-&gt;size =3D 3d700000
+<br>&gt; [ =C2=A0130.630505] [wheatfox] (load_image) image load mem region =
+found
+<br>&gt; [ =C2=A0130.636699] [wheatfox] (load_image) phys_start =3D c028000=
+0
+<br>&gt; [ =C2=A0130.642128] [wheatfox] (load_image) page_offs =3D 0
+<br>&gt; [ =C2=A0130.646853] [wheatfox] (load_image) image_mem =3D 00000000=
+7135b443
+<br>&gt; [ =C2=A0130.652883] [wheatfox] (load_image) copy_from_user params:
+<br>&gt; [ =C2=A0130.658387] [wheatfox] (load_image) to =3D 000000007135b44=
+3
+<br>&gt; [ =C2=A0130.663808] [wheatfox] (load_image) from =3D 00000000ebdde=
+5d4
+<br>&gt; [ =C2=A0130.669399] [wheatfox] (load_image) n =3D 1ab7200
+<br>&gt; [ =C2=A0130.673952] [wheatfox] (load_image) copy_from_user start
+<br>&gt;=20
+<br>&gt; then nothing happens after this &#39;copy_from_user start`, the so=
+urce code is:
+<br>&gt; printk(&quot;[wheatfox] (load_image) copy_from_user start\n&quot;)=
+;
+<br>&gt; if (copy_from_user(image_mem + page_offs,
+<br>&gt; (void __user *)(unsigned long)image.source_address,
+<br>&gt; image.size))
+<br>&gt; err =3D -EFAULT;
+<br>&gt; printk(&quot;[wheatfox] (load_image) copy_from_user done\n&quot;);
+<br>&gt;=20
+<br>&gt;=20
+<br>&gt; --=20
+<br>&gt; You received this message because you are subscribed to the Google=
+=20
+<br>&gt; Groups &quot;Jailhouse&quot; group.
+<br>&gt; To unsubscribe from this group and stop receiving emails from it, =
+send=20
+<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
+e...@googlegroups.com</a>=20
+<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
+...@googlegroups.com</a>&gt;.
+<br>&gt; To view this discussion on the web visit=20
+<br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/f81eeda=
+b-debe-4d19-954a-06b55f2fa4a9n%40googlegroups.com" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-=
+06b55f2fa4a9n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17048889830=
+26000&amp;usg=3DAOvVaw0PA15vdy81arHdV3jblqGK">https://groups.google.com/d/m=
+sgid/jailhouse-dev/f81eedab-debe-4d19-954a-06b55f2fa4a9n%40googlegroups.com=
+</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/f81eeda=
+b-debe-4d19-954a-06b55f2fa4a9n%40googlegroups.com?utm_medium=3Demail&amp;ut=
+m_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://groups.google.com/d/=
+msgid/jailhouse-dev/f81eedab-debe-4d19-954a-06b55f2fa4a9n%2540googlegroups.=
+com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1=
+704888983026000&amp;usg=3DAOvVaw3BhoRgzluy7hA0xaln41Ds">https://groups.goog=
+le.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-06b55f2fa4a9n%40google=
+groups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
+<br></blockquote></div>
 
 <p></p>
 
@@ -1657,8 +585,789 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/HnPfpTHvRTGZ5O1G_SIDZg%40geopod-ismtpd-13?utm_medi=
-um=3Demail&utm_source=3Dfooter">https://groups.google.com/d/msgid/jailhouse=
--dev/HnPfpTHvRTGZ5O1G_SIDZg%40geopod-ismtpd-13</a>.<br />
+om/d/msgid/jailhouse-dev/412a6c64-3a4d-4151-9293-05b9881f3418n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/412a6c64-3a4d-4151-9293-05b9881f3418n%40googlegroups.co=
+m</a>.<br />
 
---4323bd09bc02649a01c0238bf3dff5fe5db5d46c59ef6d7234fafeb40f74--
+------=_Part_47253_2027045630.1704802799739--
+
+------=_Part_47252_1032528870.1704802799739
+Content-Type: text/x-log; charset=UTF-8; name=output_20240109_2015.log
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename=output_20240109_2015.log
+X-Attachment-Id: 793cf4ce-bb5b-4d2c-918e-9f524f9e8810
+Content-ID: <793cf4ce-bb5b-4d2c-918e-9f524f9e8810>
+
+root@OK8MP:~/tmp# ./init.sh
+[   42.973036] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40080000 arg=3D300421=
+792
+[   42.979675] [wheatfox] (jailhouse_ioctl) JAILHOUSE_ENABLE
+[   42.985103] [wheatfox] Loading hypervisor image jailhouse.bin
+
+[wheatfox debug version] printk test
+
+Initializing Jailhouse hypervisor  on CPU 1
+Code location: 0x0000ffffc0200800
+Page pool usage after early setup: mem 39/992, remap 0/131072
+Initializing processors:
+ CPU 1... OK
+ CPU 0... OK
+ CPU 3... OK
+ CPU 2... OK
+Initializing unit: irqchip
+Initializing unit: ARM SMMU v3
+Initializing unit: ARM SMMU
+No SMMU
+Initializing unit: PVU IOMMU
+Initializing unit: PCI
+Adding virtual PCI device 00:00.0 to cell "imx8mp"
+Adding virtual PCI device 00:01.0 to cell "imx8mp"
+Page pool usage after late setup: mem 65/992, remap 144/131072
+Activating hypervisor
+[   43.047438] pci-host-generic fd700000.pci: host bridge /pci@0 ranges:
+[   43.053936] pci-host-generic fd700000.pci:   MEM 0xfd800000..0xfd803fff =
+-> 0xfd800000
+[   43.061850] pci-host-generic fd700000.pci: ECAM at [mem 0xfd700000-0xfd7=
+fffff] for [bus 00]
+[   43.070365] pci-host-generic fd700000.pci: PCI host bridge to bus 0000:0=
+0
+[   43.077186] pci_bus 0000:00: root bus resource [bus 00]
+[   43.082439] pci_bus 0000:00: root bus resource [mem 0xfd800000-0xfd803ff=
+f]
+[   43.089352] pci 0000:00:00.0: [110a:4106] type 00 class 0xff0000
+[   43.095396] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[   43.102173] pci 0000:00:01.0: [110a:4106] type 00 class 0xff0001
+[   43.108226] pci 0000:00:01.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[   43.117396] pci 0000:00:00.0: BAR 0: assigned [mem 0xfd800000-0xfd800fff=
+]
+[   43.124226] pci 0000:00:01.0: BAR 0: assigned [mem 0xfd801000-0xfd801fff=
+]
+[   43.131393] uio_ivshmem 0000:00:00.0: enabling device (0000 -> 0002)
+[   43.137866] uio_ivshmem 0000:00:00.0: state_table at 0x00000000fd900000,=
+ size 0x0000000000001000
+[   43.146684] uio_ivshmem 0000:00:00.0: rw_section at 0x00000000fd901000, =
+size 0x0000000000009000
+[   43.155442] uio_ivshmem 0000:00:00.0: input_sections at 0x00000000fd90a0=
+00, size 0x0000000000006000
+[   43.164511] uio_ivshmem 0000:00:00.0: output_section at 0x00000000fd90a0=
+00, size 0x0000000000002000
+[   43.174134] ivshmem-net 0000:00:01.0: enabling device (0000 -> 0002)
+[   43.180598] ivshmem-net 0000:00:01.0: TX memory at 0x00000000fda01000, s=
+ize 0x000000000007f000
+[   43.189260] ivshmem-net 0000:00:01.0: RX memory at 0x00000000fda80000, s=
+ize 0x000000000007f000
+[   43.198756] [wheatfox] The Jailhouse is opening.
+root@OK8MP:~/tmp# ./start-linux.sh
+[wheatfox|python] Jailhouse Linux Cell Boot Helper
+[wheatfox|python] ARMCommon setup
+[wheatfox|python] kernel_size=3D0x1ab8000
+[wheatfox|python] kernel_load_offset=3D0x80000
+[wheatfo[   49.898660] [wheatfox] (jailhouse_ioctl) ioctl=3D0x5401 arg=3D28=
+1474660921000
+x|python] image_size=3D0x1d38000
+[[   49.908345] [wheatfox] (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474660=
+920984
+wheatfox|python] initrd found, size=3D0x87e6d9
+[wheatfox|python] [   49.920730] [wheatfox] (jailhouse_ioctl) ioctl=3D0x401=
+00002 arg=3D281474660921056
+dtb found, size=3D0x2000
+[wheatfox[   49.930572] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_CREATE
+|python] ram_regions=3D[<__main__.M[   49.939264] [wheatfox] (jailhouse_cmd=
+_cell_create) start
+emoryRegion object at 0xffff88e85[   49.947430] [wheatfox] (jailhouse_cmd_c=
+ell_create) copy_from_user done
+810>]
+[wheatfox|python] dtb_addr[   49.956833] [wheatfox] (jailhouse_cmd_cell_cre=
+ate) copy_from_user done
+=3D0x60000000
+[wheatfox|python] ke[   49.966208] [wheatfox] (jailhouse_cmd_cell_create) c=
+ell_id.id =3D -1
+rnel_addr=3D0x60280000
+[wheatfox|python] ramdisk_addr=3D0x637f0000
+[wheatfox|python] linux_loader=3D/home/root/tmp/tools/../inmates/tools/arm6=
+4/linux-loader.bin
+[   50.026238] IRQ 6: no longer affine to CPU2
+[   50.026416] CPU2: shutdown
+[   50.033328] psci: CPU2 killed (polled 0 ms)
+[   50.074367] CPU3: shutdown
+[   50.077083] psci: CPU3 killed (polled 0 ms)
+[wheatfox] in hypercall, code =3D 1, arg1 =3D 2984322048, arg2 =3D 2
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_CREATE
+Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
+Shared memory connection established, peer cells:
+ "imx8mp"
+Adding virtual PCI device 00:01.0 to cell "linux-inmate-demo"
+Shared memory connection established, peer cells:
+ "imx8mp"
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+Created cell "linux-inmate-demo"
+Page pool usage after cell creation: mem 83/992, remap 144/131072
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[   50.150268] [wheatfox] (jailhouse_cmd_cell_create) Created cell "linux-i=
+nmate-demo"
+[wheatfox|python] cell created, n[   50.159234] [wheatfox] (jailhouse_ioctl=
+) ioctl=3D0x40300003 arg=3D281474660921616
+ame=3Db'linux-inmate-demo\x00\x00\x[   50.168656] [wheatfox] (jailhouse_ioc=
+tl) JAILHOUSE_CELL_LOAD
+00\x00\x00\x00\x00\x00\x00\x00\x0[   50.176999] [wheatfox] (jailhouse_cmd_c=
+ell_load) start
+0\x00\x00\x00\x00'
+[wheatfox|pyt[   50.184997] [wheatfox] (jailhouse_cmd_cell_load) cell_manag=
+ement_prologue(&cell_load.cell_id, &cell) done
+hon] trying to load linux_loader.[wheatfox] in hypercall, code =3D 3, arg1 =
+=3D 1, arg2 =3D 8987777853597658112
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+[wheatfox] in cell_set_loadable, id =3D 1
+[wheatfox] cell_management_prologue finished
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] finished arch_park_cpu
+[wheatfox] cell->loadable =3D 0
+[wheatfox] not jumped to out_resume
+Cell "linux-inmate-demo" can be loaded
+[wheatfox] in out_resume
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+bin into cell, addr=3D0x0
+[   50.258628] [wheatfox] (jailhouse_cmd_cell_load) jailhouse_call_arg1(JAI=
+LHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+[   50.271377] [wheatfox] (jailhouse_cmd_cell_load) cell_load.num_preload_i=
+mages =3D 1
+[   50.278898] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ start, n =3D 1
+[   50.286767] [wheatfox] (load_image) start
+[   50.290812] [wheatfox] (load_image) copy_from_user done
+[   50.296075] [wheatfox] (load_image) image.size =3D 34b0
+[   50.301184] [wheatfox] (load_image) found suitable memory region, mem->v=
+irt_start =3D 0, mem->size =3D 10000
+[   50.310699] [wheatfox] (load_image) image load mem region found
+[   50.316670] [wheatfox] (load_image) phys_start =3D fdb00000
+[   50.322104] [wheatfox] (load_image) page_offs =3D 0
+[   50.326954] [wheatfox] (load_image) image_mem =3D 00000000fbe2f860
+[   50.332978] [wheatfox] (load_image) copy_from_user params:
+[   50.338490] [wheatfox] (load_image) to =3D 00000000fbe2f860
+[   50.343903] [wheatfox] (load_image) from =3D 00000000582f0b69
+[   50.349502] [wheatfox] (load_image) n =3D 34b0
+[   50.353786] [wheatfox] (load_image) copy_from_user start
+[   50.359118] [wheatfox] (load_image) copy_from_user done
+[   50.364373] [wheatfox] (load_image) flush_icache_range done
+[   50.369968] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ done, n =3D 1
+[   50.377727] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done, exitin=
+g jailhouse_cmd_cell_load
+[wheatfox|python] linux_loader.bin loaded
+[wheatfox|python] trying to load kernel into cell, addr=3D0x60280000
+[   50.418355] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40300003 arg=3D281474=
+660921616
+[   50.425560] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+[   50.431241] [wheatfox] (jailhouse_cmd_cell_load) start
+[   50.436411] [wheatfox] (jailhouse_cmd_cell_load) cell_management_prologu=
+e(&cell_load.cell_id, &cell) done
+[wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 89877778535976581=
+12
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+[wheatfox] in cell_set_loadable, id =3D 1
+[wheatfox] cell_management_prologue finished
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] finished arch_park_cpu
+[wheatfox] cell->loadable =3D 1
+[wheatfox] in out_resume
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[   50.497694] [wheatfox] (jailhouse_cmd_cell_load) jailhouse_call_arg1(JAI=
+LHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+[   50.508269] [wheatfox] (jailhouse_cmd_cell_load) cell_load.num_preload_i=
+mages =3D 1
+[   50.515765] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ start, n =3D 1
+[   50.523619] [wheatfox] (load_image) start
+[   50.527650] [wheatfox] (load_image) copy_from_user done
+[   50.532890] [wheatfox] (load_image) image.size =3D 1ab7200
+[   50.538214] [wheatfox] (load_image) found suitable memory region, mem->v=
+irt_start =3D 60000000, mem->size =3D 10000000
+[   50.548585] [wheatfox] (load_image) image load mem region found
+[   50.554755] [wheatfox] (load_image) phys_start =3D 60280000
+[   50.560184] [wheatfox] (load_image) page_offs =3D 0
+[   50.564911] [wheatfox] (load_image) image_mem =3D 00000000dfe20d52
+[   50.570939] [wheatfox] (load_image) copy_from_user params:
+[   50.576444] [wheatfox] (load_image) to =3D 00000000dfe20d52
+[   50.581865] [wheatfox] (load_image) from =3D 0000000093db11e4
+[   50.587456] [wheatfox] (load_image) n =3D 1ab7200
+[   50.592007] [wheatfox] (load_image) copy_from_user start
+[   50.610034] [wheatfox] (load_image) copy_from_user done
+[   50.619022] [wheatfox] (load_image) flush_icache_range done
+[   50.624706] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ done, n =3D 1
+[   50.632464] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done, exitin=
+g jailhouse_cmd_cell_load
+[wheatfox|python] kernel loaded[   50.649828] [wheatfox] (jailhouse_ioctl) =
+ioctl=3D0x40300003 arg=3D281474660921616
+
+[   50.658267] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+[   50.664083] [wheatfox] (jailhouse_cmd_cell_load) start
+[   50.669257] [wheatfox] (jailhouse_cmd_cell_load) cell_management_prologu=
+e(&cell_load.cell_id, &cell) done
+[wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 89877778535976581=
+12
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+[wheatfox] in cell_set_loadable, id =3D 1
+[wheatfox] cell_management_prologue finished
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] finished arch_park_cpu
+[wheatfox] cell->loadable =3D 1
+[wheatfox] in out_resume
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[   50.730637] [wheatfox] (jailhouse_cmd_cell_load) jailhouse_call_arg1(JAI=
+LHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+[   50.741123] [wheatfox] (jailhouse_cmd_cell_load) cell_load.num_preload_i=
+mages =3D 1
+[   50.748618] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ start, n =3D 1
+[   50.756479] [wheatfox] (load_image) start
+[   50.760515] [wheatfox] (load_image) copy_from_user done
+[   50.765760] [wheatfox] (load_image) image.size =3D c75
+[   50.770784] [wheatfox] (load_image) found suitable memory region, mem->v=
+irt_start =3D 60000000, mem->size =3D 10000000
+[   50.781160] [wheatfox] (load_image) image load mem region found
+[   50.787133] [wheatfox] (load_image) phys_start =3D 60000000
+[   50.792559] [wheatfox] (load_image) page_offs =3D 0
+[   50.797285] [wheatfox] (load_image) image_mem =3D 00000000d74796e2
+[   50.803314] [wheatfox] (load_image) copy_from_user params:
+[   50.808819] [wheatfox] (load_image) to =3D 00000000d74796e2
+[   50.814239] [wheatfox] (load_image) from =3D 00000000edac54f0
+[   50.819830] [wheatfox] (load_image) n =3D c75
+[   50.824025] [wheatfox] (load_image) copy_from_user start
+[   50.829352] [wheatfox] (load_image) copy_from_user done
+[   50.834611] [wheatfox] (load_image) flush_icache_range done
+[   50.840209] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ done, n =3D 1
+[   50.847987] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done, exitin=
+g jailhouse_cmd_cell_load
+[   50.881058] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40300003 arg=3D281474=
+660921616
+[   50.888279] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+[   50.893960] [wheatfox] (jailhouse_cmd_cell_load) start
+[   50.899131] [wheatfox] (jailhouse_cmd_cell_load) cell_management_prologu=
+e(&cell_load.cell_id, &cell) done
+[wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 89877778535976581=
+12
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+[wheatfox] in cell_set_loadable, id =3D 1
+[wheatfox] cell_management_prologue finished
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] finished arch_park_cpu
+[wheatfox] cell->loadable =3D 1
+[wheatfox] in out_resume
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[   50.960426] [wheatfox] (jailhouse_cmd_cell_load) jailhouse_call_arg1(JAI=
+LHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+[   50.970990] [wheatfox] (jailhouse_cmd_cell_load) cell_load.num_preload_i=
+mages =3D 1
+[   50.978485] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ start, n =3D 1
+[   50.986328] [wheatfox] (load_image) start
+[   50.990348] [wheatfox] (load_image) copy_from_user done
+[   50.995585] [wheatfox] (load_image) image.size =3D 87e6d9
+[   51.000823] [wheatfox] (load_image) found suitable memory region, mem->v=
+irt_start =3D 60000000, mem->size =3D 10000000
+[   51.011195] [wheatfox] (load_image) image load mem region found
+[   51.017221] [wheatfox] (load_image) phys_start =3D 637f0000
+[   51.022649] [wheatfox] (load_image) page_offs =3D 0
+[   51.027376] [wheatfox] (load_image) image_mem =3D 00000000ef2f48be
+[   51.033405] [wheatfox] (load_image) copy_from_user params:
+[   51.038913] [wheatfox] (load_image) to =3D 00000000ef2f48be
+[   51.044334] [wheatfox] (load_image) from =3D 00000000b13a69f3
+[   51.049925] [wheatfox] (load_image) n =3D 87e6d9
+[   51.054390] [wheatfox] (load_image) copy_from_user start
+[   51.063600] [wheatfox] (load_image) copy_from_user done
+[   51.070095] [wheatfox] (load_image) flush_icache_range done
+[   51.075710] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ done, n =3D 1
+[   51.083480] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done, exitin=
+g jailhouse_cmd_cell_load
+[   51.092751] [wheatfox] (jailhouse_ioctl) ioctl=3D0x40300003 arg=3D281474=
+660921616
+[   51.099912] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
+[   51.105605] [wheatfox] (jailhouse_cmd_cell_load) start
+[   51.110764] [wheatfox] (jailhouse_cmd_cell_load) cell_management_prologu=
+e(&cell_load.cell_id, &cell) done
+[wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D 89877778535976581=
+12
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
+[wheatfox] in cell_set_loadable, id =3D 1
+[wheatfox] cell_management_prologue finished
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] finished arch_park_cpu
+[wheatfox] cell->loadable =3D 1
+[wheatfox] in out_resume
+[wheatfox] in resume_cpu, cpu_id =3D 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[   51.171973] [wheatfox] (jailhouse_cmd_cell_load) jailhouse_call_arg1(JAI=
+LHOUSE_HC_CELL_SET_LOADABLE, cell->id) done
+[   51.182628] [wheatfox] (jailhouse_cmd_cell_load) cell_load.num_preload_i=
+mages =3D 1
+[   51.190127] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ start, n =3D 1
+[   51.198056] [wheatfox] (load_image) start
+[   51.202084] [wheatfox] (load_image) copy_from_user done
+[   51.207326] [wheatfox] (load_image) image.size =3D 20
+[   51.212216] [wheatfox] (load_image) found suitable memory region, mem->v=
+irt_start =3D 0, mem->size =3D 10000
+[   51.221725] [wheatfox] (load_image) image load mem region found
+[   51.227678] [wheatfox] (load_image) phys_start =3D fdb01000
+[   51.233107] [wheatfox] (load_image) page_offs =3D 0
+[   51.237829] [wheatfox] (load_image) image_mem =3D 00000000769f235a
+[   51.243860] [wheatfox] (load_image) copy_from_user params:
+[   51.249362] [wheatfox] (load_image) to =3D 00000000769f235a
+[   51.254785] [wheatfox] (load_image) from =3D 00000000b780afaa
+[   51.260373] [wheatfox] (load_image) n =3D 20
+[   51.264484] [wheatfox] (load_image) copy_from_user start
+[   51.269808] [wheatfox] (load_image) copy_from_user done
+[   51.275062] [wheatfox] (load_image) flush_icache_range done
+[   51.280656] [wheatfox] (jailhouse_cmd_cell_load) load_image(cell, image)=
+ done, n =3D 1
+[   51.288427] [wheatfox] (jailhouse_cmd_cell_load) unlock_out done, exitin=
+g jailhouse_cmd_cell_load
+[wheatfox|python] trying to start[   51.297542] [wheatfox] (jailhouse_ioctl=
+) ioctl=3D0x40280004 arg=3D281474660921616
+ cell
+[   51.307482] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CELL_START
+[   51.313829] [wheatfox] (jailhouse_cmd_cell_start) start
+[   51.319078] [wheatfox] (jailhouse_cmd_cell_start) copy_from_user(&cell_i=
+d, arg, sizeof(cell_id)) done
+[   51.328317] [wheatfox] (jailhouse_cmd_cell_start) cell_management_prolog=
+ue(&cell_id, &cell) done
+[wheatfox] in hypercall, code =3D 2, arg1 =3D 1, arg2 =3D 89877778535976581=
+12
+[wheatfox] in hypercall, JAILHOUSE_HC_CELL_START
+[wheatfox] in cell_start, id =3D 1
+[wheatfox] in cell_start, cell->loadable =3D 1
+[wheatfox] cell is loadable
+[wheatfox] finished unmap all loadable memory regions from the root cell
+[wheatfox] system_config->platform_info.pci_mmconfig_base =3D 4251975680
+[wheatfox] finished setting comm_region
+[wheatfox] finished pci_cell_reset and arch_cell_reset
+[wheatfox] in resume_cpu, cpu_id =3D 2
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox] in resume_cpu, cpu_id =3D 3
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[wheatfox][    0.000000] Booting Linux on physical CPU 0x0000000002 [0x410f=
+d034]
+[    0.000000] Linux version 5.4.70-2.3.0+g4f2631b022d8 (oe-user@oe-host) (=
+gcc version 9.2.0 (GCC)) #1 SMP PREEMPT Tue Jul 13 14:02:45 UTC 2021
+[    0.000000] Machine model: Freescale i.MX8MP EVK
+[    0.000000] earlycon: ec_imx6q0 at MMIO 0x0000000030890000 (options '115=
+200')
+[    0.000000] printk: bootconsole [ec_imx6q0] enabled
+[    0.000000] efi: Getting EFI parameters from FDT:
+[    0.000000] efi: UEFI not found.
+[    0.000000] cma: Failed to reserve 320 MiB
+ finished arch[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000060000000-0x000000006ff=
+fffff]
+[    0.000000] NUMA: NODE_DATA [mem 0x6ff7c500-0x6ff7dfff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000060000000-0x000000006fffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000060000000-0x000000006fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000060000000-0x000000006ffff=
+fff]
+_r[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.1
+[    0.000000] percpu: Embedded 24 pages/cpu s58904 r8192 d31208 u98304
+[    0.000000] Detected VIPT I-cache on CPU0
+[    0.000000] CPU features: detected: ARM erratum 845719
+[    0.000000] CPU features: detected: GIC system register CPU interface
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 64512
+[    0.000000] Policy zone: DMA32
+[    0.000000] Kernel command line: clk_ignore_unused console=3Dttymxc1,0x3=
+0890000,115200 earlycon=3Dec_imx6q,0x30890000,115200
+[    0.000000] Dentry cache hash table entries: 32768 (order: 6, 262144 byt=
+es, linear)
+[    0.000000] Inode-cache hash table entries: 16384 (order: 5, 131072 byte=
+s, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+eset_cpu
+[wheatfox] Started cell "linu[    0.000000] Memory: 207552K/262144K availab=
+le (16636K kernel code, 1244K rwdata, 6556K rodata, 2880K init, 1017K bss, =
+54592K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=3D64, Order=3D0-3, MinObjects=3D0, CPUs=3D2, N=
+odes=3D1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: =09RCU restricting CPUs from NR_CPUS=3D256 to nr_cpu_id=
+s=3D2.
+[    0.000000] =09Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 2=
+5 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=3D16, nr_cpu_ids=
+=3D2
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv3: 160 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] GICv3: Distributor has no Range Selector support
+[    0.000000] GICv3: 16 PPIs implemented
+[    0.000000] GICv3: no VLPI support, no direct LPI support
+[    0.000000] GICv3: CPU0: found redistributor 2 region 0:0x00000000388c00=
+00
+[    0.000000] ITS: No ITS available, not enabling LPIs
+[    0.000000] random: get_random_bytes called from start_kernel+0x2b8/0x44=
+c with crng_init=3D0
+[    0.000000] arch_timer: cp15 timer(s) running at 8.33MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cy=
+cles: 0x1ec0311ec, max_idle_ns: 440795202152 ns
+[    0.000002] sched_clock: 56 bits at 8MHz, resolution 120ns, wraps every =
+2199023255541ns
+[    0.007757] Console: colour dummy device 80x25
+[    0.011956] Calibrating delay loop (skipped), value calculated using tim=
+er frequency.. 16.66 BogoMIPS (lpj=3D33333)
+[    0.021754] pid_max: default: 32768 minimum: 301
+[    0.026216] LSM: Security Framework initializing
+[    0.030618] Mount-cache hash table entries: 512 (order: 0, 4096 bytes, l=
+inear)
+[    0.037505] Mountpoint-cache hash table entries: 512 (order: 0, 4096 byt=
+es, linear)
+[    0.045653] ASID allocator initialised with 32768 entries
+[    0.050060] rcu: Hierarchical SRCU implementation.
+[    0.054734] EFI services will not be available.
+[    0.058999] smp: Bringing up secondary CPUs ...
+[    0.063489] Detected VIPT I-cache on CPU1
+[    0.063513] GICv3: CPU1: found redistributor 3 region 0:0x00000000388e00=
+00
+[    0.063544] CPU1: Booted secondary processor 0x0000000003 [0x410fd034]
+[    0.063605] smp: Brought up 1 node, 2 CPUs
+[    0.083838] SMP: Total of 2 processors activated.
+[    0.088338] CPU features: detected: 32-bit EL0 Support
+[    0.093263] CPU features: detected: CRC32 instructions
+x-inmate-demo"
+[wheatfox] in resume_cpu, cpu_id =3D[    0.104920] CPU: All CPU(s) started =
+at EL1
+[    0.106263] alternatives: patching kernel code
+[    0.111213] devtmpfs: initialized
+[    0.114572] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xfffffff=
+f, max_idle_ns: 7645041785100000 ns
+[    0.123015] futex hash table entries: 512 (order: 3, 32768 bytes, linear=
+)
+[    0.129626] pinctrl core: initialized pinctrl subsystem
+[    0.134833] DMI not present or invalid.
+[    0.138312] NET: Registered protocol family 16
+[    0.142636] DMA: preallocated 256 KiB pool for atomic allocations
+[    0.148259] audit: initializing netlink subsys (disabled)
+[    0.153511] audit: type=3D2000 audit(0.100:1): state=3Dinitialized audit=
+_enabled=3D0 res=3D1
+[    0.160895] cpuidle: using governor menu
+[    0.164734] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers=
+.
+[    0.171296] Serial: AMBA PL011 UART driver
+[    0.175036] imx mu driver is registered.
+[    0.178766] imx rpmsg driver is registered.
+ 1
+[wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
+[    0.192826] HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.196569] HugeTLB registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.202983] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.209365] HugeTLB registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.216605] cryptd: max_cpu_qlen set to 1000
+[    0.221791] ACPI: Interpreter disabled.
+[    0.223957] iommu: Default domain type: Translated
+[    0.228371] vgaarb: loaded
+[    0.231074] SCSI subsystem initialized
+[    0.234718] usbcore: registered new interface driver usbfs
+[    0.239746] usbcore: registered new interface driver hub
+[    0.244736] usbcore: registered new device driver usb
+[    0.249753] mc: Linux media interface: v0.10
+[    0.253618] videodev: Linux video capture interface: v2.00
+[    0.258902] pps_core: LinuxPPS API ver. 1 registered
+[    0.263599] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo =
+Giometti <giometti@linux.it>
+[    0.272361] PTP clock support registered
+[    0.276144] EDAC MC: Ver: 3.0.0
+[    0.279476] No BMan portals available!
+[    0.282818] QMan: Allocated lookup table at (____ptrval____), entry coun=
+t 65537
+[    0.289722] No QMan portals available!
+[    0.293290] No USDPAA memory, no 'fsl,usdpaa-mem' in device-tree
+[    0.299226] FPGA manager framework
+[    0.302342] Advanced Linux Sound Architecture Driver Initialized.
+[    0.308417] Bluetooth: Core ver 2.22
+[    0.311535] NET: Registered protocol family 31
+[    0.315768] Bluetooth: HCI device and connection manager initialized
+[    0.321853] Bluetooth: HCI socket layer initialized
+[    0.326518] Bluetooth: L2CAP socket layer initialized
+[    0.331356] Bluetooth: SCO socket layer initialized
+[    0.336338] clocksource: Switched to clocksource arch_sys_counter
+[    0.341986] VFS: Disk quotas dquot_6.6.0
+[    0.345637] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 byte=
+s)
+[    0.352307] pnp: PnP ACPI: disabled
+Unhandled data read at 0x6209[    0.360575] thermal_sys: Registered thermal=
+ governor 'step_wise'
+[    0.360578] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.363817] NET: Registered protocol family 2
+[    0.374385] tcp_listen_portaddr_hash hash table entries: 256 (order: 0, =
+4096 bytes, linear)
+[    0.382153] TCP established hash table entries: 2048 (order: 2, 16384 by=
+tes, linear)
+[    0.389544] TCP bind hash table entries: 2048 (order: 3, 32768 bytes, li=
+near)
+[    0.396375] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.402485] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[    0.408696] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, line=
+ar)
+[    0.415440] NET: Registered protocol family 1
+[    0.419829] RPC: Registered named UNIX socket transport module.
+[    0.425194] RPC: Registered udp transport module.
+[    0.429685] RPC: Registered tcp transport module.
+[    0.434182] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.440668] PCI: CLS 0 bytes, default 64
+[    0.444215] Unpacking initramfs...
+[    0.447384] Initramfs unpacking failed: invalid magic at start of compre=
+ssed archive
+9[    0.457471] Freeing initrd memory: 8696K
+[    0.458846] kvm [1]: HYP mode not available
+[    0.464897] Initialise system trusted keyrings
+[    0.466941] workingset: timestamp_bits=3D44 max_order=3D16 bucket_order=
+=3D0
+abc(4)
+
+FATAL: unhandled tra[    0.478108] squashfs: version 4.0 (2009/01/31) Phill=
+ip Lougher
+[    0.481654] NFS: Registering the id_resolver key type
+[    0.485958] Key type id_resolver registered
+[    0.489934] Key type id_legacy registered
+[    0.493772] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.500199] jffs2: version 2.2. (NAND) =C2=A9 2001-2006 Red Hat, Inc.
+[    0.506352] 9p: Installing v9fs 9p2000 file system support
+p (exception class 0x24)
+Cell state before exception:
+ pc: ffff800010a5dbd8   lr: ffff800010a50f38 spsr: 20000005     EL1[    0.5=
+24145] Key type asymmetric registered
+[    0.525437] Asymmetric key parser 'x509' registered
+[    0.530122] Block layer SCSI generic (bsg) driver version 0.4 loaded (ma=
+jor 244)
+[    0.537184] io scheduler mq-deadline registered
+[    0.541516] io scheduler kyber registered
+[    0.546333] pci-host-generic fd700000.pci: host bridge /pci@fd700000 ran=
+ges:
+[    0.552117] pci-host-generic fd700000.pci:   MEM 0x10000000..0x1000ffff =
+-> 0x10000000
+[    0.559635] pci-host-generic fd700000.pci: ECAM at [mem 0xfd700000-0xfd7=
+fffff] for [bus 00]
+[    0.567696] pci-host-generic fd700000.pci: PCI host bridge to bus 0000:0=
+0
+[    0.574112] pci_bus 0000:00: root bus resource [bus 00]
+[    0.579102] pci_bus 0000:00: root bus resource [mem 0x10000000-0x1000fff=
+f]
+[    0.585709] pci 0000:00:00.0: [110a:4106] type 00 class 0xff0000
+[    0.591455] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[    0.597601] pci 0000:00:01.0: [110a:4106] type 00 class 0xff0001
+[    0.603201] pci 0000:00:01.0: reg 0x10: [mem 0x00000000-0x00000fff]
+[    0.609472] pci 0000:00:00.0: BAR 0: assigned [mem 0x10000000-0x10000fff=
+]
+[    0.615691] pci 0000:00:01.0: BAR 0: assigned [mem 0x10001000-0x10001fff=
+]
+[    0.622721] EINJ: ACPI disabled.
+[    0.625873] Bus freq driver module loaded
+[    0.631680] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.636267] 30a60000.serial: ttymxc3 at MMIO 0x30a60000 (irq =3D 5, base=
+_baud =3D 1500000) is a IMX
+
+ sp: ffff800010003d50  esr: 24 1 1830006
+ [    0.649785] loop: module loaded
+[    0.651289] imx ahci driver is registered.
+[    0.655200] libphy: Fixed MDIO Bus: probed
+[    0.658643] tun: Universal TUN/TAP device driver, 1.6
+[    0.663096] thunder_xcv, ver 1.0
+[    0.665980] thunder_bgx, ver 1.0
+[    0.669043] nicpf, ver 1.0
+[    0.671723] Freescale FM module, FMD API version 21.1.0
+[    0.676637] Freescale FM Ports module
+[    0.680093] fsl_mac: fsl_mac: FSL FMan MAC API based driver
+[    0.685466] fsl_dpa: FSL DPAA Ethernet driver
+[    0.689628] fsl_advanced: FSL DPAA Advanced drivers:
+[    0.694349] fsl_proxy: FSL DPAA Proxy initialization driver
+[    0.699709] fsl_oh: FSL FMan Offline Parsing port driver
+[    0.705059] hclge is initializing
+[    0.707928] hns3: Hisilicon Ethernet Network Driver for Hip08 Family - v=
+ersion
+[    0.714850] hns3: Copyright (c) 2017 Huawei Corporation.
+[    0.719971] e1000: Intel(R) PRO/1000 Network Driver - version 7.3.21-k8-=
+NAPI
+[    0.726683] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    0.732209] e1000e: Intel(R) PRO/1000 Network Driver - 3.2.6-k
+[    0.737765] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+[    0.743467] igb: Intel(R) Gigabit Ethernet Network Driver - version 5.6.=
+0-k
+[    0.750099] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    0.755459] igbvf: Intel(R) Gigabit Virtual Function Network Driver - ve=
+rsion 2.4.0-k
+[    0.762932] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
+[    0.768660] sky2: driver version 1.30
+[    0.772391] ivshmem-net 0000:00:01.0: enabling device (0000 -> 0002)
+[    0.778243] ivshmem-net 0000:00:01.0: TX memory at 0x00000000fda80000, s=
+ize 0x000000000007f000
+[    0.786444] ivshmem-net 0000:00:01.0: RX memory at 0x00000000fda01000, s=
+ize 0x000000000007f000
+[    0.795237] uio_ivshmem 0000:00:00.0: enabling device (0000 -> 0002)
+[    0.800797] uio_ivshmem 0000:00:00.0: state_table at 0x00000000fd900000,=
+ size 0x0000000000001000
+[    0.809192] uio_ivshmem 0000:00:00.0: rw_section at 0x00000000fd901000, =
+size 0x0000000000009000
+[    0.817523] uio_ivshmem 0000:00:00.0: input_sections at 0x00000000fd90a0=
+00, size 0x0000000000006000
+[    0.826185] uio_ivshmem 0000:00:00.0: output_section at 0x00000000fd90e0=
+00, size 0x0000000000002000
+[    0.835173] VFIO - User Level meta-driver version: 0.3
+[    0.840452] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.846019] ehci-pci: EHCI PCI platform driver
+[    0.850294] ehci-platform: EHCI generic platform driver
+[    0.855301] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.861198] ohci-pci: OHCI PCI platform driver
+[    0.865460] ohci-platform: OHCI generic platform driver
+[    0.870671] usbcore: registered new interface driver uas
+[    0.875556] usbcore: registered new interface driver usb-storage
+[    0.881321] usbcore: registered new interface driver usbserial_generic
+[    0.887535] usbserial: USB Serial support registered for generic
+[    0.893288] usbcore: registered new interface driver ftdi_sio
+[    0.898808] usbserial: USB Serial support registered for FTDI USB Serial=
+ Device
+[    0.905794] usbcore: registered new interface driver usb_serial_simple
+[    0.912030] usbserial: USB Serial support registered for carelink
+[    0.917868] usbserial: USB Serial support registered for zio
+[    0.923278] usbserial: USB Serial support registered for funsoft
+[    0.929031] usbserial: USB Serial support registered for flashloader
+[    0.935115] usbserial: USB Serial support registered for google
+[    0.940778] usbserial: USB Serial support registered for libtransistor
+[    0.947028] usbserial: USB Serial support registered for vivopay
+[    0.952779] usbserial: USB Serial support registered for moto_modem
+[    0.958778] usbserial: USB Serial support registered for motorola_tetra
+[    0.965112] usbserial: USB Serial support registered for novatel_gps
+[    0.971197] usbserial: USB Serial support registered for hp4x
+[    0.976695] usbserial: USB Serial support registered for suunto
+[    0.982361] usbserial: USB Serial support registered for siemens_mpi
+[    0.988464] usbcore: registered new interface driver usb_ehset_test
+[    0.995478] i2c /dev entries driver
+[    0.998493] Bluetooth: HCI UART driver ver 2.3
+[    1.002023] Bluetooth: HCI UART protocol H4 registered
+[    1.006934] Bluetooth: HCI UART protocol BCSP registered
+[    1.012031] Bluetooth: HCI UART protocol LL registered
+[    1.016934] Bluetooth: HCI UART protocol ATH3K registered
+[    1.022112] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[    1.028139] Bluetooth: HCI UART protocol Broadcom registered
+[    1.033536] Bluetooth: HCI UART protocol QCA registered
+[    1.038657] imx-cpufreq-dt: probe of imx-cpufreq-dt failed with error -2
+[    1.045162] sdhci: Secure Digital Host Controller Interface driver
+[    1.050851] sdhci: Copyright(c) Pierre Ossman
+[    1.055083] Synopsys Designware Multimedia Card Interface Driver
+[    1.060892] sdhci-pltfm: SDHCI platform and OF driver helper
+[    1.066364] sdhci-esdhc-imx 30b60000.mmc: could not get pinctrl
+[    1.071860] mmc2: CQHCI version 5.10
+x0: ffff00007823c110   x1: ffff00007823e[    1.081221] mmc2: 3.3V regulator=
+ output did not became stable
+b80   x2: ffff800011fb8ab0
+ x3: ffff800010a5dbd8   x4: 0000000000000000   x5: ffff80006e349000
+ x6: 0000000002db9815   x7: ffff00007a0003e0   x8: ffff800011a51ff8
+ x9: ffff800011a52000  x10: 0000000000000040  x11: 0000000000000001
+x12: 0000000000000009  x13: 0000000[    1.109155] mmc2: SDHCI controller on=
+ 30b60000.mmc [30b60000.mmc] using ADMA
+[    1.113661] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.119755] usbcore: registered new interface driver usbhid
+[    1.124436] usbhid: USB HID core driver
+[    1.128534] No fsl,qman node
+[    1.130844] Freescale USDPAA process driver
+[    1.134858] fsl-usdpaa: no region found
+[    1.138517] Freescale USDPAA process IRQ driver
+000000[    1.145906] pktgen: Packet Generator for packet performance testin=
+g. Version: 2.75
+[    1.150832] NET: Registered protocol family 26
+[    1.155362] NET: Registered protocol family 10
+[    1.159687] Segment Routing with IPv6
+[    1.162648] NET: Registered protocol family 17
+[    1.166929] Bluetooth: RFCOMM TTY layer initialized
+[    1.171524] Bluetooth: RFCOMM socket layer initialized
+[    1.176450] Bluetooth: RFCOMM ver 1.11
+[    1.180015] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    1.185099] Bluetooth: BNEP filters: protocol multicast
+[    1.190102] Bluetooth: BNEP socket layer initialized
+[    1.194849] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    1.200518] Bluetooth: HIDP socket layer initialized
+[    1.205296] 8021q: 802.1Q VLAN Support v1.8
+[    1.209278] lib80211: common routines for IEEE802.11 drivers
+[    1.214774] 9pnet: Installing 9P2000 support
+[    1.218789] tsn generic netlink module v1 init...
+[    1.223313] Key type dns_resolver registered
+[    1.227648] registered taskstats version 1
+[    1.231277] Loading compiled-in X.509 certificates
+[    1.237052] hctosys: unable to open rtc device (rtc0)
+[    1.240785] cfg80211: Loading compiled-in X.509 certificates for regulat=
+ory database
+[    1.249343] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[    1.254432] platform regulatory.0: Direct firmware load for regulatory.d=
+b failed with error -2
+[    1.256367] clk: Not disabling unused clocks
+[    1.262614] platform regulatory.0: Falling back to sysfs fallback for: r=
+egulatory.db
+[    1.266688] ALSA device list:
+[    1.266692]   No soundcards found.
+[    1.280199] Warning: unable to open an initial console.
+[    1.285305] VFS: Cannot open root device "(null)" or unknown-block(0,0):=
+ error -6
+[    1.292357] Please append a correct "root=3D" boot option; here are the =
+available partitions:
+[    1.300368] Kernel panic - not syncing: VFS: Unable to mount root fs on =
+unknown-block(0,0)
+[    1.308263] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.4.70-2.3.0+g4f26=
+31b022d8 #1
+[    1.315593] Hardware name: Freescale i.MX8MP EVK (DT)
+[    1.320426] Call trace:
+[    1.322766]  dump_backtrace+0x0/0x140
+[    1.326262]  show_stack+0x14/0x20
+[    1.329431]  dump_stack+0xb4/0x114
+[    1.332679]  panic+0x158/0x324
+[    1.335596]  mount_block_root+0x1d0/0x284
+[    1.339428]  mount_root+0x124/0x158
+[    1.342761]  prepare_namespace+0x12c/0x18c
+[    1.346678]  kernel_init_freeable+0x210/0x23c
+[    1.350845]  kernel_init+0x10/0x100
+[    1.354179]  ret_from_fork+0x10/0x1c
+[    1.357596] SMP: stopping secondary CPUs
+[    1.361349] Kernel Offset: disabled
+[    1.364677] CPU features: 0x0002,2000200c
+[    1.368509] Memory Limit: none
+[    1.371431] ---[ end Kernel panic - not syncing: VFS: Unable to mount ro=
+ot fs on unknown-block(0,0) ]---
+002  x14: 0000000000000000
+x15: 0000000000000009  x16: 0000000000000000  x17: 0000000000000000
+x18: 0000000000000000  x19: 0000000000000000  x20: 0000000000000000
+x21: ffff00007823c840  x22: ffff800011fb8ab0  x23: 0000000000003560
+x24: ffff00007713f560  x25: 000000000000012c  x26: ffff00007713c000
+x27: ffff00007823eb80  x28: ffff00007823c840  x29: ffff800010003d50
+
+Parking CPU 0 (Cell: "imx8mp")
+
+------=_Part_47252_1032528870.1704802799739--
