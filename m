@@ -1,52 +1,52 @@
-Return-Path: <jailhouse-dev+bncBDUOFW62WYFBB4MK6WWAMGQEOCRI6KI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBOMN6WWAMGQEHZ47ZQA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x140.google.com (mail-lf1-x140.google.com [IPv6:2a00:1450:4864:20::140])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2939F8286D6
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jan 2024 14:09:08 +0100 (CET)
-Received: by mail-lf1-x140.google.com with SMTP id 2adb3069b0e04-50e91f9d422sf2229411e87.2
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jan 2024 05:09:08 -0800 (PST)
-ARC-Seal: i=2; a=rsa-sha256; t=1704805747; cv=pass;
+Received: from mail-wm1-x33a.google.com (mail-wm1-x33a.google.com [IPv6:2a00:1450:4864:20::33a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BAE8286E7
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jan 2024 14:14:35 +0100 (CET)
+Received: by mail-wm1-x33a.google.com with SMTP id 5b1f17b1804b1-40e4caa37f5sf7695305e9.0
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jan 2024 05:14:35 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1704806074; cv=pass;
         d=google.com; s=arc-20160816;
-        b=I02QmB2K2k+zvU9XZfyDuzHgldFFmoVwg1H1pLfk4PSGgnIN/PG46S38JLHhX4ExJQ
-         5yEF6/0ElugSwUhbO99AG6GML7Jo77nBR84TpxJN3DxLOKhIDYlKLmf27OXlllffMRg+
-         Z+ms+AtzQ1kae6jFOrSgsud01Ru1bEdvAENaXZNSrbVRE5mTfCBS5cSQ5g2bLUALVLlG
-         Lq+6NiX5EBeKAuZAzebkXw5gIAtx4GrOiU4rJb6s29oBMVfsvqHO4qNIQEzcxobD71Cq
-         6HirLvND8MKZ5i0j6SaNG5CEhBGYxF9EmpDdiPYD9eRbbb7SivQHULQgUvMBsIqzTe0x
-         SYbw==
+        b=0XKKkug9Yed+GU+CtFrTHf27f27lgHdGX4KkRIa9GhG6AJyCnGUvU16JcMeANMvcLo
+         Fq+UXpFonuTr5NiAkEzVYmY0geBd0w9YhJya1RaqgCmPwUBWSvVkDUDOZjvCtYkhGKUv
+         E/AuARw5CsjL1q+D81iDiZtacGp8iFnUBaxB8RUcu6iqCWJnizi9vVvDyFouz/enOQ7u
+         xIeMRk/j+56C00Kta39QEGqrBLV5jLpDaaD1IeHVFJJpOmAhuPG0ZAjDqp6uoILLPbiT
+         nUu5TYIucWveya7+XnNI1iPPUMBVJ6bkw7KENbsQElL6sk/58ONhdCV7WTluUx1A7PrA
+         LGmg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:content-transfer-encoding
          :in-reply-to:from:references:to:content-language:subject:user-agent
          :mime-version:date:message-id:sender:dkim-signature;
-        bh=YrwF1pytOBBz4Vx5V8wM0nJGBCtIHUHdoC2gx9bcdh0=;
-        fh=AmrO4dgiJcsriEKGfeYUx9aYBonJEBZZGKJohXjIX6o=;
-        b=qBBYHZyFESrGlr9garSPmGwirF911ZSKav+dGtjq9ZRY6/Efciv42I1JAu2X4JC8a9
-         /FZLnzCPJ0m0pROCT8dez6Yzhq3dkYQQucMFlizSW6uyGP6WBgE3O/fQP/Ts89uzwcjC
-         pIYk59JDSHNZ3Ez86Y/xusfq2o2dL2RpyXtv9O9sJB6eWAYBPupKkGb3qFCdVisWpmjw
-         W+VBXgTXPPNv2d378cDtAGm2ZqFmX8L5yF8diGDbfeliIbCjVVXw228wh2PRoKEB349p
-         77l+dmeMMqzObk0QVIkGRZUl6CWXmf7oxhFEoU0hGZvPRTnrnoSCf3yyI6AYk8/sA+de
-         5geg==
+        bh=rFiuSwL7gKJI+PNQ/Ulgh7DcUpVaucT7d2bNuXarwUQ=;
+        fh=xV0wa0Mgs5ocIf1n2t9ZgMFJEALBdodouLvqFRUuVHA=;
+        b=sayQD8NnRUDpK3fFFA0A9qesaIOisKv+m67qYD56Rmg1Tk9qROQkbu6H+tNQdK2dcs
+         3qZpcohOKO6ql3akjEQMdu5tUhxWr+9gkx6QVdHGovIOPb8KP9NcgsKmMGzJA1i+WBJj
+         og5j8/2wJke3XsQXg7TlPLQZhELivVFjnYbg4ullExYAgI2HVJBaK5zH43yE82yc0r0Z
+         pH6JtwfaJdLIr3yih9cBqohgXiyXCQvG1uQOC/9d/ACCYrXYrL3SmO7u5jWlYHgAtFSF
+         aWU5BN9PfPiK0w6Y1dIhsJBIUp9HaTmLUmN3ijcfvSHzqFUj+85tt7iMb4xczRjgKt8C
+         3uRg==
 ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=L3RAUnnh;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=djWqBUkF;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1704805747; x=1705410547; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1704806074; x=1705410874; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-authentication-results
          :x-original-sender:content-transfer-encoding:in-reply-to:from
          :references:to:content-language:subject:user-agent:mime-version:date
          :message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=YrwF1pytOBBz4Vx5V8wM0nJGBCtIHUHdoC2gx9bcdh0=;
-        b=WC8ES2KR2NWkhzALgq1hSJWvxMf7JOeSORVztOnMieEq2yY3MKz9p5UYCsc1EFoIRp
-         S/StqAJqIr8KfwqHaljiXP4t1mNn0k1Q1zhbYyPNAbil+eksfZW5DBZxJndQ+WkDNbh3
-         40OIrEypHCIgq7S1NhvkiG0nUPLk7QXV78v3319XrS9feeSmgZkTMVFjwfVi5UkPjs6Q
-         DhwdjJlMPTU60gHDKPc0Fzog212HCJeKfajliyou8O+SwMqTPfgQ3NpqTD3b4iExumzD
-         p/hmKvmelisfGCwkUhyuUfNbC7IfcP9REh9swi/vj35QZ0t6rnk3mFSf4idTEUcvZEvp
-         SrUQ==
+        bh=rFiuSwL7gKJI+PNQ/Ulgh7DcUpVaucT7d2bNuXarwUQ=;
+        b=K+bSPgxDiU6r0DMnqtGhTRK7BjXUxdhKDJIdvFb0jbLJwIq3iXHrBDAMp0/arL5W6c
+         KrE+vk9SknilVnY+VoMhxyBp3LSYzv/xas8iv7DbQv4lpQzNfReF8ALi0dfIkQO8mS1W
+         UvO5WFan41f+zVC1WtalYCj6fbrWfVtewkPLVXOO29TJ7F2yEVkm6bcn0fOtqxCxuAHd
+         gNctqWv2/fIKaIh9AgW7x8hCdCQljKwkT3mh7G6dpNqN280cJtodjvLfhZVVP9bjAZi4
+         niGIIe7A1dE+SuroAp81A91wL9MrTL0T+IgvOywCcRjp96zT35kd1p+Cmov9xhrEfaWc
+         yKDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704805747; x=1705410547;
+        d=1e100.net; s=20230601; t=1704806074; x=1705410874;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-authentication-results:x-original-sender
@@ -54,92 +54,91 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YrwF1pytOBBz4Vx5V8wM0nJGBCtIHUHdoC2gx9bcdh0=;
-        b=npyhI92PBfRfPzZSqldyt9yCghGuHKjtM4I2+wKyHVIuWs6UyAix6nTuisV4n4fUrF
-         3C3NYX5e4Zbbdnwsy97HJj6yXMV5y6iezJOQ/Weyk5HSDEaiKhoXJEMHUy+lI2q5i1Gr
-         EsPl1y09lp137pj0IrGAzUAD97YZXB1+vNbzMkH8FiDMYEbVkvUot0Xt+DZ3IQO2zkJE
-         djsN2wMXcHSZ2eecNZUuqCqTKDQsddNVLSpSmDz4Jv/u2a+tdFVmW1fcwGckApM/zVST
-         xyiE8V9dtcHjNWcGK+U0qRWCeB9sv0I8QR3j7DGu2/CHZafb1COUf9NSIbADBqttIpXl
-         +m0Q==
+        bh=rFiuSwL7gKJI+PNQ/Ulgh7DcUpVaucT7d2bNuXarwUQ=;
+        b=fEKzc+esIjTT11NjhbCGQNVQYpvEfolQAYHlkjRwmeJipcofwT3tjWpiWd9ze5wBfg
+         qIGIdCV4uIa+8IsmSk4aljU8vDJLOOjhs4yh1vZmY85VmdcK/Hps2AESuyzBkAaKNYgU
+         efw7QdPRWC9KcunW/xLD77VmXBhwPiC3ZWNUOOvDbY6W5PQj3X9VhE+LjWsHJsCQQOp/
+         3LoRtKVgS+hUBE/CWcs3Lk79WJGG7eRw3WLi6xbgV7Gdjfmhxol3OcXaNb1sJYOKc4UF
+         TF7BRUzaesaEe6ox2JuWiiqKvI11dv/RO5HTF3nkb0Z8QWdjTdtaEbFumNmR0aR1PyCG
+         iUOw==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0Yzg1Fs4pmwFzuZLU8S1IyxfsVHQ/qQknveQFvGLqmwFYA3LxEa+
-	mkYsQZhUBy6jxr0vTBR3EOM=
-X-Google-Smtp-Source: AGHT+IHtlrwAnJvefx2iV4oHriFeIQatww20XQow43YKV7gJ6F9G8jqNvkNREcCWasWakRUtlmdybg==
-X-Received: by 2002:ac2:47f0:0:b0:50e:7b28:4573 with SMTP id b16-20020ac247f0000000b0050e7b284573mr1965620lfp.30.1704805745957;
-        Tue, 09 Jan 2024 05:09:05 -0800 (PST)
+X-Gm-Message-State: AOJu0Ywu9DFYI6FSydblSDO6lD1Fyens6/qCExZ/wSVx4CMRdxdGn9rE
+	sfHjLPSd9s2AMMmV6Lvsu7s=
+X-Google-Smtp-Source: AGHT+IHnn7ZJJzfIpfD3NAEy3OOzxFW4il97YNk9sGB5j66DeMt2m9mUARmkJ/dqSpwMopW8pNlvgQ==
+X-Received: by 2002:a05:600c:a04:b0:40d:7b73:68d0 with SMTP id z4-20020a05600c0a0400b0040d7b7368d0mr2627519wmp.88.1704806073835;
+        Tue, 09 Jan 2024 05:14:33 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:b94:b0:50e:7b0c:1610 with SMTP id
- b20-20020a0565120b9400b0050e7b0c1610ls760085lfv.2.-pod-prod-04-eu; Tue, 09
- Jan 2024 05:09:03 -0800 (PST)
-X-Received: by 2002:a05:6512:3d07:b0:50e:b3dc:3ea5 with SMTP id d7-20020a0565123d0700b0050eb3dc3ea5mr3023718lfv.66.1704805743327;
-        Tue, 09 Jan 2024 05:09:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1704805743; cv=none;
+Received: by 2002:a05:600c:3544:b0:40c:6935:2d19 with SMTP id
+ i4-20020a05600c354400b0040c69352d19ls2519854wmq.2.-pod-prod-07-eu; Tue, 09
+ Jan 2024 05:14:31 -0800 (PST)
+X-Received: by 2002:a05:600c:5405:b0:40d:87b7:24c7 with SMTP id he5-20020a05600c540500b0040d87b724c7mr2572413wmb.125.1704806071565;
+        Tue, 09 Jan 2024 05:14:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1704806071; cv=none;
         d=google.com; s=arc-20160816;
-        b=ayyh2ZNLLgogPFQZvJK2GxvM4i6rNueqq8JYllyCVRYawNmxna7pNEm+RrRCPzI+8h
-         0mGHWfGJhqr/tdi4WKGcTuHTYt8J2VZ4ReYIXEo+MLGeB7ZpZ+lw+mCOq6u3h2KEq/St
-         IUqZQ/vI5XTwSbVXAsQ7IB56IQoXqpdD6+BKbsFYQbVDbknaiy7rcAdp2mAl72BHI53E
-         mjml+g2M0XfQLG9gfR13v+80f8TK5PN27eksutv0Ck4PsK3hZ5z302f3Pzf8zj+xz7Vq
-         NRMfEnw3WnkFOvPBysDu3jNUzO6mynvFPBdn2GQv6y0wAFdsvU6OVApE8QjW2lQUhcSZ
-         YgOw==
+        b=jxTMkj5BjpKdJGI6OmchUJ0MZIqNT1gj4Mm+AaWz+SCOgcSe9pmPVKE1pGqS8B3RAi
+         Ca1B7W6MvzsztQ3CdIgmnSzJq6m1jO/IIAIPcfJkXBWj66s287kFdONhleJDB47OXyo5
+         p7w6P5AOspvezLUQ+Wc8O3GcysBtGxn0+ydEP8T9s413VRYyhohFmliU/uGp+SahCjNp
+         m7pXbZiA1PS15cZujKzrRtEpanPxARTCngehC9xmOYgcYa1NgkyCotLfCQxuI3PqCfZs
+         gwNu1bqh0H27YWOyc0t0+9rGMXpiXtB5jPLdadyzz3LJI89QEhpAXtnaE3WIZVNgEXgg
+         t/rQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :dkim-signature;
-        bh=4y/kEg+DKUktHebsq0pMnXNHc1QJAyZ1xmct1g8vac0=;
-        fh=AmrO4dgiJcsriEKGfeYUx9aYBonJEBZZGKJohXjIX6o=;
-        b=Bz0Z9lZmzqG0xYdQ9M6x9IPIMhOJfhl7WP6ypApKCbFFSuHXFfo8iHOGLjdrRUwBgZ
-         pS18Wkl+pjeGHRrZJRIQTCNtwX8z3oFx3IVmJ2qfhyna3J02z45bgnGp50Rud0+Yh+jW
-         TAA3cwxct9z3FBAZ7OI+sqd6l6ilroK5VPD0L0doH7uUyVlM5qUBwLwFfkls/M9Jz9JC
-         ciBHeuL0bc+kTOiG9Rb99apbTvGqxvy7+K3jShUHEMK1l84UPlBIrHpIgzt8aOvTtfum
-         ZScV0h7hcmQb3q1DNG5kxgMqz8h/7oFbJ+NWJ/xSvBswGxcLx02wNu2iKH1k2d8e7Big
-         a7Zw==
+        bh=Q7R79uM/vY6OzCJ39VIKUtXZl4H2rqQHXTYgUZK/tNk=;
+        fh=xV0wa0Mgs5ocIf1n2t9ZgMFJEALBdodouLvqFRUuVHA=;
+        b=qGNz1Bvm714Dz3zxnzjA8dMz8BM3RZI75jxp1BD/LWdCDZp6yoB0b8Rn/hL2cKuP+I
+         SJ7BzErXb9ptAYslSi18mOtuXAobBYSTh0JMO2Wqm5raIU0T1eSwtt3cpZlyZg0rA/qn
+         rz8z5/oXpmJ5mwMsfq9S7SXnSaJwwIybNVJKALt8i5s1mPuXjKufDBWfqgjfRjK9Pwx0
+         XGdZ8tKeMZ8p1IzJfWUWuhWg9tPpYH/AB0eD/qGPJHqOl0AZMNONISCu2ZP0HQ99Gei4
+         8SzfNlioR5qHvfHwFutdIbelTqi/rWSMnJtOwOKB0kWqUfmvJJlFfEISBLrR3E+h9FXs
+         acuQ==
 ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=L3RAUnnh;
-       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=djWqBUkF;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
        dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
-Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [194.95.239.60])
-        by gmr-mx.google.com with ESMTPS id k20-20020ac24f14000000b0050e7a179cf3si44503lfr.2.2024.01.09.05.09.03
+Received: from c2752.mx.srv.dfn.de (c2752.mx.srv.dfn.de. [2001:638:d:c303:acdc:1979:2:f4])
+        by gmr-mx.google.com with ESMTPS id p17-20020a05600c469100b0040d91b9a94csi318694wmo.0.2024.01.09.05.14.31
         for <jailhouse-dev@googlegroups.com>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jan 2024 05:09:03 -0800 (PST)
-Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 194.95.239.60 as permitted sender) client-ip=194.95.239.60;
-Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [IPv6:2001:638:a01:1096::12])
-	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id 93F3E2A0287;
-	Tue,  9 Jan 2024 14:09:01 +0100 (CET)
+        Tue, 09 Jan 2024 05:14:31 -0800 (PST)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c303:acdc:1979:2:f4;
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
+	by c2752.mx.srv.dfn.de (Postfix) with ESMTPS id BC7562A03C2;
+	Tue,  9 Jan 2024 14:14:30 +0100 (CET)
 Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(Client CN "E16S03", Issuer "E16S03" (not verified))
-	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4T8WTn1WlJzxsC;
-	Tue,  9 Jan 2024 14:09:01 +0100 (CET)
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4T8Wc63xMXzxrs;
+	Tue,  9 Jan 2024 14:14:30 +0100 (CET)
 Received: from [IPV6:2001:638:a01:8068:f8d9:f11a:f164:a35a]
  (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 9 Jan
- 2024 14:09:00 +0100
-Message-ID: <cfa0c6a3-854f-4619-8e60-384823fb634e@oth-regensburg.de>
-Date: Tue, 9 Jan 2024 14:09:00 +0100
+ 2024 14:14:30 +0100
+Message-ID: <d36e18a4-dd64-4f9c-b2cf-89b02b1a0469@oth-regensburg.de>
+Date: Tue, 9 Jan 2024 14:14:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: i.MX8MP jailhouse load image stuck at copy_from_user
+Subject: Re: Unable to start non root linux cell
 Content-Language: en-US
-To: wheatfox <enkerewpo@gmail.com>, Jailhouse <jailhouse-dev@googlegroups.com>
-References: <f81eedab-debe-4d19-954a-06b55f2fa4a9n@googlegroups.com>
- <f42f3913-11ea-4b78-86cb-ab4fe76db882@oth-regensburg.de>
- <412a6c64-3a4d-4151-9293-05b9881f3418n@googlegroups.com>
- <91a64cf9-a3b4-419b-b030-fc3d295e577en@googlegroups.com>
+To: =?UTF-8?Q?Michele_Pescap=C3=A8?= <mic.pescape@gmail.com>, Jailhouse
+	<jailhouse-dev@googlegroups.com>
+References: <824bacc4-b7ae-47c9-878e-7203214b4fc3n@googlegroups.com>
 From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
-In-Reply-To: <91a64cf9-a3b4-419b-b030-fc3d295e577en@googlegroups.com>
+In-Reply-To: <824bacc4-b7ae-47c9-878e-7203214b4fc3n@googlegroups.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: quoted-printable
 X-Originating-IP: [2001:638:a01:8013::226]
-X-ClientProxiedBy: E16S04.hs-regensburg.de (2001:638:a01:8013::94) To
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
  E16S03.hs-regensburg.de (2001:638:a01:8013::93)
 X-Original-Sender: ralf.ramsauer@oth-regensburg.de
 X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
- header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=L3RAUnnh;
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=djWqBUkF;
        spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
- designates 194.95.239.60 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
-       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+ designates 2001:638:d:c303:acdc:1979:2:f4 as permitted sender)
+ smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -154,303 +153,84 @@ List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegro
 
 Hi,
 
-On 09/01/2024 13:33, wheatfox wrote:
-> Here is my current linux inmate cell configuration for my OK8MP=20
-> board(imx8mp CPU, 2G RAM + 16G eMMC version), I didn't change the=20
-> imx8mp.c for now.
+On 08/01/2024 23:56, Michele Pescap=C3=A8 wrote:
+> Hi all,
+>=20
+> I have an AMD Ryzen 2600 on a b450 motherboard. My goal is to run two=20
+> non root linux cells, however, as of right now, I'm not able to start=20
+> any non root linux cells.
+> First of all I don't receive an output from the cell (I do get output=20
+> from the apic-demo though), therefore I don't really know if they're=20
+> even crashing or not; this is the output I get from the hypervisor after=
+=20
+> enabling the root cell and issuing the following command:
+>=20
+> sudo jailhouse cell linux configs/x86/linux_guest1.cell=20
+> ../buildroot-2023.11/output/images/bzImage -i=20
+> ../buildroot-2023.11/output/images/rootfs.cpio
 
-I don't understand what you're trying to tell.
+for the first few tries, simply don't load a ramdisk. Try to get the=20
+kernel booting. It will crash with "cannot mount rootfs". If we get so=20
+far, then you can continue specifying the ramdisk. But first, we have to=20
+get that far.
 
-> I edited the RAM region as:
-> /* RAM */ {
-> /*
->  =C2=A0* We could not use 0x80000000 which conflicts with
->  =C2=A0* COMM_REGION_BASE
+>=20
+> Adding PCI device ff:1f.7 to cell "linux-x86-demo"
+> Created cell "linux-x86-demo"
+> Page pool usage after cell creation: mem 336/32211, remap 16392/131072
+> Cell "linux-x86-demo" can be loaded
+> CPU 4 received SIPI, vector 100
+> CPU 3 received SIPI, vector 100
+> Started cell "linux-x86-demo"
+>=20
+> After this the cell appears to be running in cell list, however I can't=
+=20
+> seem to get any output to confirm that (I even set=20
+> JAILHOUSE_CELL_VIRTUAL_CONSOLE_ACTIVE, but nothing appears on the vrtual=
+=20
+> console accessed via "jailhouse console -f"). I also tried adding -c=20
+> "console=3DttyS0,115200".
 
-And I don't understand this comment.
+ttyS0, i.e., x86 Port 0x3f8 is whitelisted in the cell configuration?=20
+Actually, your cmdline is correct.
 
->  =C2=A0*/
-> .phys_start =3D 0x60000000,
-> .virt_start =3D 0x60000000,
+> At this point if I try to disable/shutdown the cell, the system freezes=
+=20
+> requiring a hard reset.
 
-For non-root cells, host physical and guest physical memory doesn't=20
-necessarily have to be identity mapped.
+Okay, is the guest Linux compiled with Jailhouse guest support? Please=20
+ensure that non-root Linux is compiled with CONFIG_JAILHOUSE_GUEST and=20
+CONFIG_JAILHOUSE_DBCON. The first one is mandatory for x86 Linux guests.
+
+>=20
+> Also, there seems to be a mismatch between the PCI bdf value in the log=
+=20
+> above and the one in the cell's configuration. In both root and non root=
+=20
+> cells i set .bdf =3D (0x0f << 3) for the IVSHMEM net device and the Root=
+=20
+> cell correctly reports that ("Adding virtual PCI device 00:0f.0 to cell=
+=20
+> "RootCell"").
+
+First things first. Let's try to get Linux kicked off before diving into=20
+PCI. Comment it out for the moment, let's do that later.
 
    Ralf
 
-> .size =3D 0x10000000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_EXECUTE | JAILHOUSE_MEM_DMA |
-> JAILHOUSE_MEM_LOADABLE,
-> },
-> On Tuesday, January 9, 2024 at 8:19:59=E2=80=AFPM UTC+8 wheatfox wrote:
 >=20
->     Thanks for your instruction! I tried to edit the linux inmate cell
->     configuration file (imx8mp-linux-demo.c) and I finally get the linux
->     inmate to boot, so I think it was mainly a memory region
->     misconfiguration problem. (However, the boot progress failed due to
->     VFS fatal error, which I will investigate later...)
->     The current full output log is attached as attachment.
+> If I understood correctly, once the cell works properly I won't need to=
+=20
+> set the console anymore as I can assign an ip (-c "ip x.x.x.x" in the=20
+> cell linux command) and ssh to the cell, right?
 >=20
->     On Monday, January 8, 2024 at 7:12:46=E2=80=AFPM UTC+8 Ralf Ramsauer =
-wrote:
+> I attach the root and non root cells' configurations in case they're=20
+> needed. I can provide both the root and non root cell's kernel .conf and=
+=20
+> the buildroot configuration I used if needed.
 >=20
->         Hi,
->=20
->         On 08/01/2024 09:26, wheatfox wrote:
->          > I'm using OK8MP board with=C2=A0i.MX8MP CPU. I have already
->         started jailhouse
->          > with imx8mp.cell configuration, and the example gic-demo
->         works fine.
->          > However, when I try to start a linux inmate using
->          > imx8mp-linux-demo.cell, the jailhouse's load progress seems
->         stuck.
->          >
->          > After adding some debug print in jailhouse's python script,
->         firmware
->          > code and kernel module code, I found out that the
->         *copy_from_user* call
->          > in *load_image*=C2=A0function (driver/cell.c) doesn't return a=
-nd
->         halt forever: >
->          > jailhouse commands:
->          > ./tools/jailhouse enable ./imx8mp.cell
->          > ./tools/jailhouse cell linux \
->          > ./imx8mp-linux-demo.cell \
->          > ./kernel/Image \
->          > -i ./kernel/ramdisk.img \
->=20
->         For testing, try to not load the ramdisk. The kernel should at
->         least
->         boot and crash. If that works, we know that there's something
->         odd with
->         the ramdisk.
->=20
->         Second, double and triple check addresses where things get loaded=
-.
->         What's in your non-root cell configuration, and where does the
->         linux-loader try to load stuff? Does that match?
->=20
->         Thanks,
->         Ralf
->=20
->          > -d ./kernel/imx8mp-evk-inmate-wheatfox.dtb \
->          > -c "clk_ignore_unused console=3Dttymxc1,0x30890000,115200
->          > earlycon=3Dec_imx6q,0x30890000,115200"
->          >
->          > start linux cell output(with the string 'wheatfox' means it's
->         my custom
->          > debug print):
->          > root@OK8MP:/mnt# ./start-linux.sh
->          > [wheatfox|python] Jailhouse Linux Cell Boot Helper
->          > [wheatfox|python] linux_loader=3D/m[ =C2=A0129.965933] [wheatf=
-ox]
->          > (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244744
->          > nt/tools/../inmates/tools/arm64/l[ =C2=A0129.975611] [wheatfox=
-]
->          > (jailhouse_ioctl) ioctl=3D0x5401 arg=3D281474720244728
->          > inux-loader.bin
->          > [ =C2=A0129.988033] [wheatfox] (jailhouse_ioctl) ioctl=3D0x401=
-00002
->          > arg=3D281474720244800
->          > [ =C2=A0129.995192] [wheatfox] (jailhouse_ioctl)
->         JAILHOUSE_CELL_CREATE
->          > [ =C2=A0130.001072] [wheatfox] (jailhouse_cmd_cell_create) sta=
-rt
->          > [ =C2=A0130.006404] [wheatfox] (jailhouse_cmd_cell_create)
->         copy_from_user done
->          > [ =C2=A0130.012960] [wheatfox] (jailhouse_cmd_cell_create)
->         copy_from_user done
->          > [ =C2=A0130.019507] [wheatfox] (jailhouse_cmd_cell_create)
->         cell_id.id <http://cell_id.id> =3D -1
->          > [ =C2=A0130.095151] IRQ 6: no longer affine to CPU2
->          > [ =C2=A0130.095333] CPU2: shutdown
->          > [ =C2=A0130.102251] psci: CPU2 killed (polled 0 ms)
->          > [ =C2=A0130.155283] CPU3: shutdown
->          > [ =C2=A0130.157999] psci: CPU3 killed (polled 0 ms)
->          > [wheatfox] in hypercall, code =3D 1, arg1 =3D 2955416576, arg2=
- =3D 2
->          > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_CREATE
->          > Adding virtual PCI device 00:00.0 to cell "linux-inmate-demo"
->          > Shared memory connection established, peer cells:
->          > =C2=A0"imx8mp"
->          > Adding virtual PCI device 00:01.0 to cell "linux-inmate-demo"
->          > Shared memory connection established, peer cells:
->          > =C2=A0"imx8mp"
->          > [wheatfox] in resume_cpu, cpu_id =3D 2
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [wheatfox] in resume_cpu, cpu_id =3D 3
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > Created cell "linux-inmate-demo"
->          > Page pool usage after cell creation: mem 82/992, remap
->         144/131072
->          > [wheatfox] in resume_cpu, cpu_id =3D 0
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [ =C2=A0130.231800] [wheatfox] (jailhouse_cmd_cell_create) Cre=
-ated
->         cell
->          > "linux-inmate-demo"
->          > [wheatfox|python] cell created,
->          >
->         name=3Db'linux-inmate-demo\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0=
-0\x00\x00\x00\x00\x00'
->          > [wheatf[ =C2=A0130.249264] [wheatfox] (jailhouse_ioctl)
->         ioctl=3D0x40300003
->          > arg=3D281474720245360
->          > ox|python] trying to load linux_l[ =C2=A0130.257905] [wheatfox=
-]
->          > (jailhouse_ioctl) JAILHOUSE_CELL_LOAD
->          > oader.bin into cell, addr=3D0x0
->          > [ =C2=A0130.266684] [wheatfox] (jailhouse_cmd_cell_load) start
->          > [ =C2=A0130.274322] [wheatfox] (jailhouse_cmd_cell_load)
->          > cell_management_prologue(&cell_load.cell_id, &cell) done
->          > [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D
->         4308871775073466112
->          > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
->          > [wheatfox] in cell_set_loadable, id =3D 1
->          > [wheatfox] cell_management_prologue finished
->          > [wheatfox] in resume_cpu, cpu_id =3D 2
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [wheatfox] in resume_cpu, cpu_id =3D 3
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [wheatfox] finished arch_park_cpu
->          > [wheatfox] cell->loadable =3D 0
->          > [wheatfox] not jumped to out_resume
->          > Cell "linux-inmate-demo" can be loaded
->          > [wheatfox] in out_resume
->          > [wheatfox] in resume_cpu, cpu_id =3D 1
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [ =C2=A0130.342417] [wheatfox] (jailhouse_cmd_cell_load)
->          > jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell->id)
->         done
->          > [ =C2=A0130.353079] [wheatfox] (jailhouse_cmd_cell_load)
->          > cell_load.num_preload_images =3D 1
->          > [ =C2=A0130.360584] [wheatfox] (jailhouse_cmd_cell_load)
->         load_image(cell,
->          > image) start, n =3D 1
->          > [ =C2=A0130.368444] [wheatfox] (load_image) start
->          > [ =C2=A0130.372468] [wheatfox] (load_image) copy_from_user don=
-e
->          > [ =C2=A0130.377712] [wheatfox] (load_image) image.size =3D 34b=
-0
->          > [ =C2=A0130.382776] [wheatfox] (load_image) found suitable mem=
-ory
->         region,
->          > mem->virt_start =3D 0, mem->size =3D 10000
->          > [ =C2=A0130.392280] [wheatfox] (load_image) image load mem reg=
-ion
->         found
->          > [ =C2=A0130.398228] [wheatfox] (load_image) phys_start =3D fdb=
-00000
->          > [ =C2=A0130.403653] [wheatfox] (load_image) page_offs =3D 0
->          > [ =C2=A0130.408373] [wheatfox] (load_image) image_mem =3D
->         0000000079dd6ce3
->          > [ =C2=A0130.414405] [wheatfox] (load_image) copy_from_user par=
-ams:
->          > [ =C2=A0130.419905] [wheatfox] (load_image) to =3D 0000000079d=
-d6ce3
->          > [ =C2=A0130.425329] [wheatfox] (load_image) from =3D 00000000c=
-239ec71
->          > [ =C2=A0130.430915] [wheatfox] (load_image) n =3D 34b0
->          > [ =C2=A0130.435220] [wheatfox] (load_image) copy_from_user sta=
-rt
->          > [ =C2=A0130.440563] [wheatfox] (load_image) copy_from_user don=
-e
->          > [ =C2=A0130.445822] [wheatfox] (load_image) flush_icache_range=
- done
->          > [ =C2=A0130.451429] [wheatfox] (jailhouse_cmd_cell_load)
->         load_image(cell,
->          > image) done, n =3D 1
->          > [ =C2=A0130.459186] [wheatfox] (jailhouse_cmd_cell_load)
->         unlock_out done,
->          > exiting jailhouse_cmd_cell_load
->          > [wheatfox|python] linux_loader.bin loaded
->          > [wheatfox|python] trying to load kernel into cell,
->         addr=3D0xc0280000
->          > [ =C2=A0130.500262] [wheatfox] (jailhouse_ioctl) ioctl=3D0x403=
-00003
->          > arg=3D281474720245360
->          > [ =C2=A0130.507454] [wheatfox] (jailhouse_ioctl) JAILHOUSE_CEL=
-L_LOAD
->          > [ =C2=A0130.513165] [wheatfox] (jailhouse_cmd_cell_load) start
->          > [ =C2=A0130.518321] [wheatfox] (jailhouse_cmd_cell_load)
->          > cell_management_prologue(&cell_load.cell_id, &cell) done
->          > [wheatfox] in hypercall, code =3D 3, arg1 =3D 1, arg2 =3D
->         4308871775073466112
->          > [wheatfox] in hypercall, JAILHOUSE_HC_CELL_SET_LOADABLE
->          > [wheatfox] in cell_set_loadable, id =3D 1
->          > [wheatfox] cell_management_prologue finished
->          > [wheatfox] in resume_cpu, cpu_id =3D 2
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [wheatfox] in resume_cpu, cpu_id =3D 3
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [wheatfox] finished arch_park_cpu
->          > [wheatfox] cell->loadable =3D 1
->          > [wheatfox] in out_resume
->          > [wheatfox] in resume_cpu, cpu_id =3D 1
->          > [wheatfox] in resume_cpu, target_data->cpu_suspended =3D 1
->          > [ =C2=A0130.579626] [wheatfox] (jailhouse_cmd_cell_load)
->          > jailhouse_call_arg1(JAILHOUSE_HC_CELL_SET_LOADABLE, cell->id)
->         done
->          > [ =C2=A0130.590182] [wheatfox] (jailhouse_cmd_cell_load)
->          > cell_load.num_preload_images =3D 1
->          > [ =C2=A0130.597678] [wheatfox] (jailhouse_cmd_cell_load)
->         load_image(cell,
->          > image) start, n =3D 1
->          > [ =C2=A0130.605532] [wheatfox] (load_image) start
->          > [ =C2=A0130.609557] [wheatfox] (load_image) copy_from_user don=
-e
->          > [ =C2=A0130.614795] [wheatfox] (load_image) image.size =3D 1ab=
-7200
->          > [ =C2=A0130.620131] [wheatfox] (load_image) found suitable mem=
-ory
->         region,
->          > mem->virt_start =3D c0000000, mem->size =3D 3d700000
->          > [ =C2=A0130.630505] [wheatfox] (load_image) image load mem reg=
-ion
->         found
->          > [ =C2=A0130.636699] [wheatfox] (load_image) phys_start =3D c02=
-80000
->          > [ =C2=A0130.642128] [wheatfox] (load_image) page_offs =3D 0
->          > [ =C2=A0130.646853] [wheatfox] (load_image) image_mem =3D
->         000000007135b443
->          > [ =C2=A0130.652883] [wheatfox] (load_image) copy_from_user par=
-ams:
->          > [ =C2=A0130.658387] [wheatfox] (load_image) to =3D 00000000713=
-5b443
->          > [ =C2=A0130.663808] [wheatfox] (load_image) from =3D 00000000e=
-bdde5d4
->          > [ =C2=A0130.669399] [wheatfox] (load_image) n =3D 1ab7200
->          > [ =C2=A0130.673952] [wheatfox] (load_image) copy_from_user sta=
-rt
->          >
->          > then nothing happens after this 'copy_from_user start`, the
->         source code is:
->          > printk("[wheatfox] (load_image) copy_from_user start\n");
->          > if (copy_from_user(image_mem + page_offs,
->          > (void __user *)(unsigned long)image.source_address,
->          > image.size))
->          > err =3D -EFAULT;
->          > printk("[wheatfox] (load_image) copy_from_user done\n");
->          >
->          >
->          > --
->          > You received this message because you are subscribed to the
->         Google
->          > Groups "Jailhouse" group.
->          > To unsubscribe from this group and stop receiving emails from
->         it, send
->          > an email to jailhouse-de...@googlegroups.com
->          > <mailto:jailhouse-de...@googlegroups.com>.
->          > To view this discussion on the web visit
->          >
->         https://groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d1=
-9-954a-06b55f2fa4a9n%40googlegroups.com <https://groups.google.com/d/msgid/=
-jailhouse-dev/f81eedab-debe-4d19-954a-06b55f2fa4a9n%40googlegroups.com> <ht=
-tps://groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-06b55=
-f2fa4a9n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter <https:/=
-/groups.google.com/d/msgid/jailhouse-dev/f81eedab-debe-4d19-954a-06b55f2fa4=
-a9n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>.
+> Thank you for your time,
+> Michele
 >=20
 > --=20
 > You received this message because you are subscribed to the Google=20
@@ -459,9 +239,9 @@ a9n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>.
 > an email to jailhouse-dev+unsubscribe@googlegroups.com=20
 > <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
 > To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/91a64cf9-a3b4-419b-b030-f=
-c3d295e577en%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/91a64cf9-a3b4-419b-b030-fc3d295e577en%40googlegroups.com?utm_medium=
+> https://groups.google.com/d/msgid/jailhouse-dev/824bacc4-b7ae-47c9-878e-7=
+203214b4fc3n%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
+e-dev/824bacc4-b7ae-47c9-878e-7203214b4fc3n%40googlegroups.com?utm_medium=
 =3Demail&utm_source=3Dfooter>.
 
 --=20
@@ -470,4 +250,4 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/cfa0c6a3-854f-4619-8e60-384823fb634e%40oth-regensburg.de.
+jailhouse-dev/d36e18a4-dd64-4f9c-b2cf-89b02b1a0469%40oth-regensburg.de.
