@@ -1,67 +1,67 @@
-Return-Path: <jailhouse-dev+bncBDIJ36FET4JRBTXMRSWQMGQELE2UCRI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDIJ36FET4JRBGOVR2WQMGQE7UUURMY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-qt1-x83d.google.com (mail-qt1-x83d.google.com [IPv6:2607:f8b0:4864:20::83d])
-	by mail.lfdr.de (Postfix) with ESMTPS id C042982CF70
-	for <lists+jailhouse-dev@lfdr.de>; Sun, 14 Jan 2024 02:18:08 +0100 (CET)
-Received: by mail-qt1-x83d.google.com with SMTP id d75a77b69052e-429c7bfb94bsf44237941cf.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 13 Jan 2024 17:18:08 -0800 (PST)
+Received: from mail-yw1-x113f.google.com (mail-yw1-x113f.google.com [IPv6:2607:f8b0:4864:20::113f])
+	by mail.lfdr.de (Postfix) with ESMTPS id D300282D023
+	for <lists+jailhouse-dev@lfdr.de>; Sun, 14 Jan 2024 10:34:19 +0100 (CET)
+Received: by mail-yw1-x113f.google.com with SMTP id 00721157ae682-5e744f7ca3bsf122748027b3.2
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 14 Jan 2024 01:34:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1705195087; x=1705799887; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1705224858; x=1705829658; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=TdOSHk9TaDpdB12bzKWRmXuAFVpd7F96k2Z5bvb+UL8=;
-        b=YkcDzqjJirWgVPN8QCTUW/olVib3Qy1ohpMUqlNWBK47VDpVmme0t0GZUVIQ+aFwsv
-         S1Z+3+tAshO/w39akwmBQu1Dkz0JqemGCXjQq7vDPRDSbR9c2Qk/Vp3Z/WObZUCLpYPf
-         +c99OykM3fjl7QpCOZsIKf1XA9SCb2zvtNK/Tc3AxOwv2zowUKyPXOvy5beoc3A6sPYA
-         GywKwfCPA5Ob7tBEcIkaN/muxZWoVCvW3IFduY/jno2SB7FcJQas6P1WjEi8aPZvVX29
-         x6moUx64RrIx0tOKAiraalV5UDb5M2Brt0gd+Nnq5T2hxAGuKYYzh2LzwX8+9S9XCZ+5
-         BX/w==
+        bh=EUKv5JeOpUKwEVoG3L2hTjtcI3EiYUD5C8qsrqyaktk=;
+        b=JF+CRvzrd11SwA7w091UAXmhcfUfKzrWCScC39PxdUIaWK43sCzN+UpF35s3eHmilt
+         mdkUcKWbL7AipmhFeC+TrHXHGQa3qNWvb3oTiszbwh7sb62JjddEQDzrnzGfFVVuXW5I
+         BWD1cNXhwIpjLU0s6nTmUAMlRsOvGDqVZ0e/luMVH1Vwnl3FNj/m9iaba2VJGgjQYDFC
+         qocrovzRQW0jbOPKAy1Z0eSGmw6dlfmSFy//ST4W0Mack4T4cgmPLFqj1mrSSFLvWg8c
+         UffBmLV4EI6nIsjycdEsD/fyW9AK3EVhCLxJinuD7uzmfx/txV0lgFrHyVQ1VRB+pTej
+         UmfA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705195087; x=1705799887; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1705224858; x=1705829658; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=TdOSHk9TaDpdB12bzKWRmXuAFVpd7F96k2Z5bvb+UL8=;
-        b=crB7JnPL+2HHdIxCeF86f4l2a+TqLHNSgvwrwztZbANqVkd+bby6ufagbSSHx1GuS1
-         xx3N/pL5F/8REHQ3rbBFXT/dwy0LfhMZdAvkClZVb79rfpxP0XnDXZIhOvSIS0CQDaK5
-         0zslnuEnbzbPKqTIWrIM+x/zo/mEBh4p5ZtoMQfAxuGY/5Ya9rbc+ubs8EDzyDY+jxxP
-         wn5dMz6dC52sjwVyRc+mP5o8ENwwK5INPWsVOGLs7s0cp0WsCFF5eP5Pl3C6eiLNExwg
-         /1Ks9iGrfceyuvrFw+kpE8s9wrA05oEQdU0bWS+kRpdomuiDpviC2Iy3HI3IEAWTODfE
-         t+ig==
+        bh=EUKv5JeOpUKwEVoG3L2hTjtcI3EiYUD5C8qsrqyaktk=;
+        b=Box068x4y+Qo/rZLi0UONbHoxhGujk9fRj+4Q7iSZ+Mt16zXC3VgI7g/ftsfAYNnig
+         QaMmL4zvpbo3uoAT/UuoUakWc4EWYyGKZSnDKQJkB7Crf08DLimkuEz36ssm9DBlydbO
+         1OlBlWd3oDKTFgBlYoH6HfX1K/ZDa8LFqVuHikJ2Uv/Exi2Zd2ZlQM7k90WSeFN2JYA2
+         6S6dOL2Lf+osOyOSX2Q09y2ViOlaZ4rXxTibeowu5xq+RT/hOLAdMslQgBbLAI7t108x
+         ea3zklB1BvUQo5gTYJ6l9L6CEleOppgt91LMkE4hBSZS0VxNSfzpSPhxpMBFzT6R2MNK
+         1hng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705195087; x=1705799887;
+        d=1e100.net; s=20230601; t=1705224858; x=1705829658;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=TdOSHk9TaDpdB12bzKWRmXuAFVpd7F96k2Z5bvb+UL8=;
-        b=fE+rWZ3tIUSVdR2ueCBTgK5PS5RntfTeejRyj+Zz2pjTrbw0PQCZFv0CskSUq0FCbG
-         mvf8bg1GlH13vLHc2MAJpaHuQlhBJtmnXtReu3m/8iszRLoc18/K1VYCGHo3aFHWSnqY
-         ZSM7/jdCQaOrVw3KAz40XefBBkUnaDgFWsfvErElgjeFr6ZMItQkwzN7NgxZkYCjBTsE
-         xSQJl1g7/mUztdcGLOJGEdRzQGMqP1gA56MBa8mKjPuAv0A+pDep3VbuKKyEHpLEmk+n
-         Bu81RnKz2QgaiWKP3/3aYKzqowsRwMEZYePur44+YS8F9mPUbQmSH+tupnZPYHgqnlAD
-         a1/g==
+        bh=EUKv5JeOpUKwEVoG3L2hTjtcI3EiYUD5C8qsrqyaktk=;
+        b=sLQAsrDF2ODFvUN83S5E11NN5W8ybl4zbiLShgGz/1rdYElumXNXT8sARRFtrWEBYv
+         gAGB3RL2ReQ86KvZ1KSv6XgX3ftqQ44nPBmJp0FDev6zrC/RM0HtUnqKBDgWhVaiS6l1
+         4oaT2mXwLsQF2o00i0weBymZkAaHY29ZxGQQnB7zkQbPj+q8H1BN9Td91DcGjVqFhyc/
+         IoC3gdTn+Nc4sykgtXK2EA2UWyxw5uGeVcWDpvipWPVvJVBepNRxAE2FEY/L+dTNqgps
+         vlkmH/aVpk6bAFGu2kGHP8gLDiv7/iURB+1xq6n70vimij8efDzeELQ+68LfPjwmdN3T
+         8SWg==
 Sender: jailhouse-dev@googlegroups.com
-X-Gm-Message-State: AOJu0YyUblwN+ALO3EEN+jmqo9IV6GihJjYIUA5DdKR8vjUJR84O4pwY
-	thKslf90ZVotjgF2OOifMO8=
-X-Google-Smtp-Source: AGHT+IEFCQyWzEIHBF8gGfW2tUDBUE8DK+SYwDAxYmj2MAH7JPiu69GQa4cmuLsUYGUhIGvsq+yoOg==
-X-Received: by 2002:a05:622a:1a10:b0:429:7ca6:5b32 with SMTP id f16-20020a05622a1a1000b004297ca65b32mr4959513qtb.95.1705195087423;
-        Sat, 13 Jan 2024 17:18:07 -0800 (PST)
+X-Gm-Message-State: AOJu0YyB8O3sgi4ntLdzUm32+tdqGzqDNY/0K5dDS7G5Chk/VEH75rGt
+	883iPPcDW3MbrFiy8qlxoeM=
+X-Google-Smtp-Source: AGHT+IEsTynKXDRN6PmMsCE661jrgqukEluzl1AOkAnEKDoNth0zK0XqTkeDzioO9rqrmxF6AwEVaw==
+X-Received: by 2002:a25:d0d1:0:b0:db3:9a0b:d4 with SMTP id h200-20020a25d0d1000000b00db39a0b00d4mr1962810ybg.49.1705224858489;
+        Sun, 14 Jan 2024 01:34:18 -0800 (PST)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:e015:0:b0:dbd:4bb9:7eaa with SMTP id x21-20020a25e015000000b00dbd4bb97eaals2142826ybg.0.-pod-prod-09-us;
- Sat, 13 Jan 2024 17:18:06 -0800 (PST)
-X-Received: by 2002:a25:d688:0:b0:dbd:f0c7:8926 with SMTP id n130-20020a25d688000000b00dbdf0c78926mr1396445ybg.7.1705195085948;
-        Sat, 13 Jan 2024 17:18:05 -0800 (PST)
-Date: Sat, 13 Jan 2024 17:18:05 -0800 (PST)
+Received: by 2002:a25:d7cc:0:b0:dbd:c1d9:dbc0 with SMTP id o195-20020a25d7cc000000b00dbdc1d9dbc0ls213235ybg.2.-pod-prod-00-us;
+ Sun, 14 Jan 2024 01:34:17 -0800 (PST)
+X-Received: by 2002:a25:20d7:0:b0:dbe:d5b3:89dc with SMTP id g206-20020a2520d7000000b00dbed5b389dcmr1376978ybg.0.1705224857017;
+        Sun, 14 Jan 2024 01:34:17 -0800 (PST)
+Date: Sun, 14 Jan 2024 01:34:16 -0800 (PST)
 From: =?UTF-8?Q?Michele_Pescap=C3=A8?= <mic.pescape@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <6146e208-1e8c-4335-abaf-9a2be8c85be5n@googlegroups.com>
-In-Reply-To: <b13f671c-b870-48b1-8f39-d5eae43c7a5b@oth-regensburg.de>
+Message-Id: <644902ef-0987-47d7-af4e-e9efce735cc0n@googlegroups.com>
+In-Reply-To: <6146e208-1e8c-4335-abaf-9a2be8c85be5n@googlegroups.com>
 References: <824bacc4-b7ae-47c9-878e-7203214b4fc3n@googlegroups.com>
  <d36e18a4-dd64-4f9c-b2cf-89b02b1a0469@oth-regensburg.de>
  <c9dad4f3-f856-4f25-b6ad-41ec63cf2c64n@googlegroups.com>
@@ -78,10 +78,11 @@ References: <824bacc4-b7ae-47c9-878e-7203214b4fc3n@googlegroups.com>
  <b4520b71-86ba-48e7-b9ad-c720c4f6cb42@oth-regensburg.de>
  <860c1e75-c28f-4157-9212-a3d87ad25b27n@googlegroups.com>
  <b13f671c-b870-48b1-8f39-d5eae43c7a5b@oth-regensburg.de>
+ <6146e208-1e8c-4335-abaf-9a2be8c85be5n@googlegroups.com>
 Subject: Re: Unable to start non root linux cell
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_65710_172135626.1705195085223"
+	boundary="----=_Part_75627_728902954.1705224856218"
 X-Original-Sender: mic.pescape@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -95,341 +96,378 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_65710_172135626.1705195085223
+------=_Part_75627_728902954.1705224856218
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_65711_821933419.1705195085223"
+	boundary="----=_Part_75628_2127816539.1705224856218"
 
-------=_Part_65711_821933419.1705195085223
+------=_Part_75628_2127816539.1705224856218
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-There were PIO writes to ports 4e,4f,2e and 2f, each of size 1 and each one=
+I just wanted to give a small update about the irqchip situation. I=20
+realised that I only needed to pass (1<<4) in the pin_bitmap to intercept=
 =20
-on subsequent restarts. I'm not sure how to figure out what they belong to.
-
-CONFIG_ISA_DMA_API is already disabled.
-
-I missed the irqchip for the uart. However as of right now I just copied=20
-the whole fragment from the root configuration which means I could be=20
-taking away other interrupts from the root cell, I still have to figure out=
-=20
-how to tune that
-
-/* IOAPIC 13, GSI base 0 */
-{
-.address =3D 0xfec00000,
-.id =3D 0xa0,
-.pin_bitmap =3D {
-0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
-},
-},
-
-Still, now I can finally login into the non root linux.
+the uart's interrupt as the first serial port has irq=3D4.
 
 Thanks,
 Michele
-
-Il giorno sabato 13 gennaio 2024 alle 21:09:28 UTC+1 Ralf Ramsauer ha=20
+Il giorno domenica 14 gennaio 2024 alle 02:18:05 UTC+1 Michele Pescap=C3=A8=
+ ha=20
 scritto:
 
-> Hi Michele,
+> Hi,
 >
-> On 13/01/2024 18:08, Michele Pescap=C3=A8 wrote:
-> > Hi,
-> >=20
-> > The problem was that the ram regions in the non root configuration=20
-> > weren't detected as such because of the missing JAILHOUSE_MEM_DMA flag.=
+> There were PIO writes to ports 4e,4f,2e and 2f, each of size 1 and each=
 =20
+> one on subsequent restarts. I'm not sure how to figure out what they belo=
+ng=20
+> to.
 >
-> Yikes, makes sense.
+> CONFIG_ISA_DMA_API is already disabled.
 >
-> > After adding that, I also had to add two pio_regions because the non=20
-> > root linux was crashing because of two ports which aren't present in=20
-> > /proc/ioports.
->
-> Uhm - which PIO ports? Don't simply assign PIO ports. There must be a=20
-> reason for them. What ports did crash?
->
-> Did you disable(!) CONFIG_ISA_DMA_API? Please disable it. Therefore, you=
+> I missed the irqchip for the uart. However as of right now I just copied=
 =20
-> have to activate CONFIG_EXPERT first.
+> the whole fragment from the root configuration which means I could be=20
+> taking away other interrupts from the root cell, I still have to figure o=
+ut=20
+> how to tune that
 >
-> I *bet* it was i8237=E2=80=A6
+> /* IOAPIC 13, GSI base 0 */
+> {
+> .address =3D 0xfec00000,
+> .id =3D 0xa0,
+> .pin_bitmap =3D {
+> 0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff
+> },
+> },
 >
-> > I also had to add mce=3Doff to the command line because i had an unhand=
-led=20
+> Still, now I can finally login into the non root linux.
 >
-> or disable CONFIG_X86_MCE.
+> Thanks,
+> Michele
 >
-> > MSR error, I'll have to disable that in the kernel config.
-> > At this point the non root linux seems to start, I see the boot log. No=
+> Il giorno sabato 13 gennaio 2024 alle 21:09:28 UTC+1 Ralf Ramsauer ha=20
+> scritto:
+>
+>> Hi Michele,=20
+>>
+>> On 13/01/2024 18:08, Michele Pescap=C3=A8 wrote:=20
+>> > Hi,=20
+>> >=20
+>> > The problem was that the ram regions in the non root configuration=20
+>> > weren't detected as such because of the missing JAILHOUSE_MEM_DMA flag=
+.=20
+>>
+>> Yikes, makes sense.=20
+>>
+>> > After adding that, I also had to add two pio_regions because the non=
 =20
->
-> Excellent!
->
-> > way of interacting with it as there is not a login prompt or anything, =
-I=20
-> > think I need to ssh to the cell at this point, right?
->
-> Was the initramdisk loaded correctly?
->
-> Did you assign - in your non-root cell config - the irqchip and the=20
-> corresponding interrupts of the uart?
->
-> > That means I'll now need to work on those ivshmem net devices.
->
-> If you need ivshmem, then this would be the next step.
->
-> Ralf
->
-> >=20
-> > Thanks,
-> > Michele
-> >=20
-> > Il giorno sabato 13 gennaio 2024 alle 15:13:12 UTC+1 Ralf Ramsauer ha=
+>> > root linux was crashing because of two ports which aren't present in=
 =20
-> > scritto:
-> >=20
-> > Hi,
-> >=20
-> > On 13/01/2024 12:28, Michele Pescap=C3=A8 wrote:
-> > > Hi,
-> > >
-> > > You are right, I got confused about those addresses, my bad. At
-> > least
-> > > now I know that config is the correct one and I don't have to tinker
-> > > with it.
-> > > I'm back to a kernel panic from the inmate when booting the cell.
-> > It's
-> > > similar to the one I had earlier, not sure yet of what the
-> > problem may be.
-> >=20
-> > Great, we're a step further.
-> >=20
-> > >
-> > > Created cell "linux-2"
-> > > Page pool usage after cell creation: mem 406/32211, remap
-> > 16392/131072
-> > > Cell "linux-2" can be loaded
-> > > CPU 9 received SIPI, vector 100
-> > > Started cell "linux-2"
-> > > CPU 8 received SIPI, vector 100
-> > > No EFI environment detected.
-> > > early console in extract_kernel
-> > > input_data: 0x000000000275c308
-> > > input_len: 0x00000000008b0981
-> > > output: 0x0000000001000000
-> > > output_len: 0x0000000001fccb30
-> > > kernel_total_size: 0x0000000001e28000
-> > > needed_size: 0x0000000002000000
-> > > trampoline_32bit: 0x000000000009d000
-> > >
-> > > Decompressing Linux... Parsing ELF... done.
-> > > Booting the kernel.
-> > > [    0.000000] Linux version 6.2.0-rc3 (root@mp-LINUX-DESKTOP)
-> > > (x86_64-buildroot       -linux-gnu-gcc.br_real (Buildroot 2023.11)
-> > > 12.3.0, GNU ld (GNU Binutils) 2.40) #       2 SMP PREEMPT_DYNAMIC
-> > Fri
-> > > Jan 12 17:36:57 CET 2024
-> > > [    0.000000] Command line: earlyprintk=3DttyS0,115200
-> > > [    0.000000] KERNEL supported cpus:
-> > > [    0.000000]   Intel GenuineIntel
-> > > [    0.000000]   AMD AuthenticAMD
-> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87
-> > floating
-> > > point regi       sters'
-> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE
-> > registers'
-> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX
-> > registers'
-> > > [    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:
-> >  256
-> > > [    0.000000] x86/fpu: Enabled xstate features 0x7, context size
-> > is 832
-> > > bytes,        using 'compacted' format.
-> > > [    0.000000] signal: max sigframe size: 1360
-> > > [    0.000000] BIOS-provided physical RAM map:
-> > > [    0.000000] BIOS-e801: [mem
-> > 0x0000000000000000-0x000000000009efff] usable
-> >=20
-> > Okay, here should be all memory regions listed. My non-root Linux in my
-> > Qemu VM, for example, shows here:
-> >=20
-> > [ 0.000000] BIOS-provided physical RAM map:
-> > [ 0.000000] BIOS-e820: [mem 0x0000000000000000-0x00000000000fffff]
-> > usable
-> > [ 0.000000] BIOS-e820: [mem 0x0000000000100000-0x0000000000100fff]
-> > reserved
-> > [ 0.000000] BIOS-e820: [mem 0x0000000000200000-0x00000000048fffff]
-> > usable
-> >=20
-> > Are you absolutely sure, that you have no further modifications in
-> > Jailhouse or the Linux loader?
-> >=20
-> > Actually, in your case, there should be e820 as well (instead of e801).
-> > Go to the Linux kernel sources, have a look at
-> > arch/x86/kernel/e820.c:1279
-> >=20
-> > and Jailhouse's jailhouse-cell-linux:638.
-> >=20
-> > jailhouse-cell-linux fills information of all memory regions into the
-> > zero page. Would you please instrument code (Linux/Jailhouse) to see
-> > where those regions are not parsed?
-> >=20
-> > > [    0.000000] printk: bootconsole [earlyser0] enabled
-> > > [    0.000000] NX (Execute Disable) protection: active
-> > > [    0.000000] extended physical RAM map:
-> > > [    0.000000] reserve setup_data: [mem
-> > > 0x0000000000000000-0x0000000000001fff] u       sable
-> > > [    0.000000] reserve setup_data: [mem
-> > > 0x0000000000002000-0x000000000000212b] u       sable
-> > > [    0.000000] reserve setup_data: [mem
-> > > 0x000000000000212c-0x000000000009efff] u       sable
-> > > [    0.000000] DMI not present or invalid.
-> > > [    0.000000] Hypervisor detected: Jailhouse
-> >=20
-> > Just guessing loud: Hmm, you have guest support enabled, that's not the
-> > issue.
-> >=20
-> > > [    0.000000] tsc: Detected 3393.624 MHz processor
-> > > [    0.000017] .text .data .bss are not marked as E820_TYPE_RAM!
-> >=20
-> > Here's the next error that makes me curious, why you system falls back
-> > to E801...
-> >=20
-> > > [    0.005745] last_pfn =3D 0x2e28 max_arch_pfn =3D 0x400000000
-> > > [    0.011025] x86/PAT: PAT support disabled because
-> > CONFIG_X86_PAT is
-> > > disabled        in the kernel.
-> >=20
-> > Please enable CONFIG_X86_PAT and MTRR in your kernel.
-> >=20
-> > > [    0.019362] x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WB
-> >  WT  UC- UC
-> > > [    0.034867] Using GB pages for direct mapping
-> > > [    0.039193] Kernel panic - not syncing: alloc_low_pages: can not
-> > > alloc memory
-> >=20
-> > Yeah, that's the logical aftereffect after the errors above.
-> >=20
-> > Thanks,
-> > Ralf
-> >=20
-> > > [    0.046183] CPU: 0 PID: 0 Comm: swapper Not tainted 6.2.0-rc3 #2
-> > > [    0.052176] Call Trace:
-> > > [    0.054606]  <TASK>
-> > > [    0.056691]  ? dump_stack_lvl+0x33/0x4e
-> > > [    0.060510]  ? panic+0x157/0x303
-> > > [    0.063723]  ? sprintf+0x56/0x80
-> > > [    0.066936]  ? alloc_low_pages+0x70/0x1a0
-> > > [    0.070930]  ? phys_pmd_init+0x1fc/0x2eb
-> > > [    0.074839]  ? phys_pud_init+0x116/0x2d3
-> > > [    0.078744]  ? __kernel_physical_mapping_init+0x11a/0x290
-> > > [    0.084128]  ? init_memory_mapping+0x25e/0x3b0
-> > > [    0.088558]  ? init_range_memory_mapping+0xe7/0x145
-> > > [    0.093417]  ? init_mem_mapping+0x242/0x298
-> > > [    0.097585]  ? setup_arch+0x74e/0xcbd
-> > > [    0.101231]  ? start_kernel+0x66/0x8b7
-> > > [    0.104965]  ? load_ucode_bsp+0x43/0x11b
-> > > [    0.108873]  ? secondary_startup_64_no_verify+0xe0/0xeb
-> > > [    0.114085]  </TASK>
-> > > [    0.116255] ---[ end Kernel panic - not syncing:
-> > alloc_low_pages: can
-> > > not all       oc memory ]---
-> > >
-> > >
-> > > Thank you for your continuous support,
-> > > Michele
-> > >
-> > > Il giorno sabato 13 gennaio 2024 alle 00:05:43 UTC+1 Ralf
-> > Ramsauer ha
-> > > scritto:
-> > >
-> > > Hi Michele,
-> > >
-> > > On 12/01/2024 14:07, Michele Pescap=C3=A8 wrote:
-> > > > jailhouse cell load linux-2 linux-loader.bin -a 0x0
-> > > > ../buildroot-2023.11/output/images/bzImage -a 0xffbe00 parameters
-> > > -a 0x1000
-> > > > jailhouse cell start linux-2
-> > > >
-> > > > I take it the kernel is loaded at 0xffbe00 which is right at the
-> > > edge of
-> > > > the low ram region. In fact after issuing the cell load command
-> > and
-> > > > adjusting the path for the loader I get JAILHOUSE_CELL_LOAD:
-> > Invalid
-> > > > argument.
-> > >
-> > > Just tested cell-linux in a qemu machine, there it works, with
-> > pretty
-> > > similar addresses, which got me confused.
-> > >
-> > > After double-checking it: 0xffb.e00 is *not* at the edge of low mem:
-> > >
-> > > Low mem is 0x000.000 -- 0x0ff.fff
-> > > Comm region is 0x100.000 -- 0x100.fff
-> > >
-> > > 0xffb.e00 is (obviously) way above.
-> > >
-> > > Please try to set your high mem's .virt_start to 0x200000. Then,
-> > > 0xffbe00 is offsetted ~16MB inside your highmem, and it should work!
-> > >
-> > > IOW:
-> > >
-> > > /* high RAM */
-> > > {
-> > > .phys_start =3D 0x42300000,
-> > > .virt_start =3D 0x200000,
-> > > .size =3D 0x11000000,
-> > > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> > > JAILHOUSE_MEM_EXECUTE |
-> > > JAILHOUSE_MEM_LOADABLE,
-> > > },
-> > >
-> > > Thanks
-> > > Ralf
-> > >
-> > > --
-> > > You received this message because you are subscribed to the Google
-> > > Groups "Jailhouse" group.
-> > > To unsubscribe from this group and stop receiving emails from it,
-> > send
-> > > an email to jailhouse-de...@googlegroups.com
-> > > <mailto:jailhouse-de...@googlegroups.com>.
-> > > To view this discussion on the web visit
-> > >
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-7=
-9da2c434169n%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-7=
-9da2c434169n%40googlegroups.com>=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-7=
-9da2c434169n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-7=
-9da2c434169n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >>.
-> >=20
-> > --=20
-> > You received this message because you are subscribed to the Google=20
-> > Groups "Jailhouse" group.
-> > To unsubscribe from this group and stop receiving emails from it, send=
+>> > /proc/ioports.=20
+>>
+>> Uhm - which PIO ports? Don't simply assign PIO ports. There must be a=20
+>> reason for them. What ports did crash?=20
+>>
+>> Did you disable(!) CONFIG_ISA_DMA_API? Please disable it. Therefore, you=
 =20
-> > an email to jailhouse-de...@googlegroups.com=20
-> > <mailto:jailhouse-de...@googlegroups.com>.
-> > To view this discussion on the web visit=20
-> >=20
-> https://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-a=
-3d87ad25b27n%40googlegroups.com=20
-> <
-> https://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-a=
-3d87ad25b27n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter
-> >.
+>> have to activate CONFIG_EXPERT first.=20
+>>
+>> I *bet* it was i8237=E2=80=A6=20
+>>
+>> > I also had to add mce=3Doff to the command line because i had an=20
+>> unhandled=20
+>>
+>> or disable CONFIG_X86_MCE.=20
+>>
+>> > MSR error, I'll have to disable that in the kernel config.=20
+>> > At this point the non root linux seems to start, I see the boot log. N=
+o=20
+>>
+>> Excellent!=20
+>>
+>> > way of interacting with it as there is not a login prompt or anything,=
+=20
+>> I=20
+>> > think I need to ssh to the cell at this point, right?=20
+>>
+>> Was the initramdisk loaded correctly?=20
+>>
+>> Did you assign - in your non-root cell config - the irqchip and the=20
+>> corresponding interrupts of the uart?=20
+>>
+>> > That means I'll now need to work on those ivshmem net devices.=20
+>>
+>> If you need ivshmem, then this would be the next step.=20
+>>
+>> Ralf=20
+>>
+>> >=20
+>> > Thanks,=20
+>> > Michele=20
+>> >=20
+>> > Il giorno sabato 13 gennaio 2024 alle 15:13:12 UTC+1 Ralf Ramsauer ha=
+=20
+>> > scritto:=20
+>> >=20
+>> > Hi,=20
+>> >=20
+>> > On 13/01/2024 12:28, Michele Pescap=C3=A8 wrote:=20
+>> > > Hi,=20
+>> > >=20
+>> > > You are right, I got confused about those addresses, my bad. At=20
+>> > least=20
+>> > > now I know that config is the correct one and I don't have to tinker=
+=20
+>> > > with it.=20
+>> > > I'm back to a kernel panic from the inmate when booting the cell.=20
+>> > It's=20
+>> > > similar to the one I had earlier, not sure yet of what the=20
+>> > problem may be.=20
+>> >=20
+>> > Great, we're a step further.=20
+>> >=20
+>> > >=20
+>> > > Created cell "linux-2"=20
+>> > > Page pool usage after cell creation: mem 406/32211, remap=20
+>> > 16392/131072=20
+>> > > Cell "linux-2" can be loaded=20
+>> > > CPU 9 received SIPI, vector 100=20
+>> > > Started cell "linux-2"=20
+>> > > CPU 8 received SIPI, vector 100=20
+>> > > No EFI environment detected.=20
+>> > > early console in extract_kernel=20
+>> > > input_data: 0x000000000275c308=20
+>> > > input_len: 0x00000000008b0981=20
+>> > > output: 0x0000000001000000=20
+>> > > output_len: 0x0000000001fccb30=20
+>> > > kernel_total_size: 0x0000000001e28000=20
+>> > > needed_size: 0x0000000002000000=20
+>> > > trampoline_32bit: 0x000000000009d000=20
+>> > >=20
+>> > > Decompressing Linux... Parsing ELF... done.=20
+>> > > Booting the kernel.=20
+>> > > [    0.000000] Linux version 6.2.0-rc3 (root@mp-LINUX-DESKTOP)=20
+>> > > (x86_64-buildroot       -linux-gnu-gcc.br_real (Buildroot 2023.11)=
+=20
+>> > > 12.3.0, GNU ld (GNU Binutils) 2.40) #       2 SMP PREEMPT_DYNAMIC=20
+>> > Fri=20
+>> > > Jan 12 17:36:57 CET 2024=20
+>> > > [    0.000000] Command line: earlyprintk=3DttyS0,115200=20
+>> > > [    0.000000] KERNEL supported cpus:=20
+>> > > [    0.000000]   Intel GenuineIntel=20
+>> > > [    0.000000]   AMD AuthenticAMD=20
+>> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87=20
+>> > floating=20
+>> > > point regi       sters'=20
+>> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE=20
+>> > registers'=20
+>> > > [    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX=20
+>> > registers'=20
+>> > > [    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:=20
+>> >  256=20
+>> > > [    0.000000] x86/fpu: Enabled xstate features 0x7, context size=20
+>> > is 832=20
+>> > > bytes,        using 'compacted' format.=20
+>> > > [    0.000000] signal: max sigframe size: 1360=20
+>> > > [    0.000000] BIOS-provided physical RAM map:=20
+>> > > [    0.000000] BIOS-e801: [mem=20
+>> > 0x0000000000000000-0x000000000009efff] usable=20
+>> >=20
+>> > Okay, here should be all memory regions listed. My non-root Linux in m=
+y=20
+>> > Qemu VM, for example, shows here:=20
+>> >=20
+>> > [ 0.000000] BIOS-provided physical RAM map:=20
+>> > [ 0.000000] BIOS-e820: [mem 0x0000000000000000-0x00000000000fffff]=20
+>> > usable=20
+>> > [ 0.000000] BIOS-e820: [mem 0x0000000000100000-0x0000000000100fff]=20
+>> > reserved=20
+>> > [ 0.000000] BIOS-e820: [mem 0x0000000000200000-0x00000000048fffff]=20
+>> > usable=20
+>> >=20
+>> > Are you absolutely sure, that you have no further modifications in=20
+>> > Jailhouse or the Linux loader?=20
+>> >=20
+>> > Actually, in your case, there should be e820 as well (instead of e801)=
+.=20
+>> > Go to the Linux kernel sources, have a look at=20
+>> > arch/x86/kernel/e820.c:1279=20
+>> >=20
+>> > and Jailhouse's jailhouse-cell-linux:638.=20
+>> >=20
+>> > jailhouse-cell-linux fills information of all memory regions into the=
+=20
+>> > zero page. Would you please instrument code (Linux/Jailhouse) to see=
+=20
+>> > where those regions are not parsed?=20
+>> >=20
+>> > > [    0.000000] printk: bootconsole [earlyser0] enabled=20
+>> > > [    0.000000] NX (Execute Disable) protection: active=20
+>> > > [    0.000000] extended physical RAM map:=20
+>> > > [    0.000000] reserve setup_data: [mem=20
+>> > > 0x0000000000000000-0x0000000000001fff] u       sable=20
+>> > > [    0.000000] reserve setup_data: [mem=20
+>> > > 0x0000000000002000-0x000000000000212b] u       sable=20
+>> > > [    0.000000] reserve setup_data: [mem=20
+>> > > 0x000000000000212c-0x000000000009efff] u       sable=20
+>> > > [    0.000000] DMI not present or invalid.=20
+>> > > [    0.000000] Hypervisor detected: Jailhouse=20
+>> >=20
+>> > Just guessing loud: Hmm, you have guest support enabled, that's not th=
+e=20
+>> > issue.=20
+>> >=20
+>> > > [    0.000000] tsc: Detected 3393.624 MHz processor=20
+>> > > [    0.000017] .text .data .bss are not marked as E820_TYPE_RAM!=20
+>> >=20
+>> > Here's the next error that makes me curious, why you system falls back=
+=20
+>> > to E801...=20
+>> >=20
+>> > > [    0.005745] last_pfn =3D 0x2e28 max_arch_pfn =3D 0x400000000=20
+>> > > [    0.011025] x86/PAT: PAT support disabled because=20
+>> > CONFIG_X86_PAT is=20
+>> > > disabled        in the kernel.=20
+>> >=20
+>> > Please enable CONFIG_X86_PAT and MTRR in your kernel.=20
+>> >=20
+>> > > [    0.019362] x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WB=20
+>> >  WT  UC- UC=20
+>> > > [    0.034867] Using GB pages for direct mapping=20
+>> > > [    0.039193] Kernel panic - not syncing: alloc_low_pages: can not=
+=20
+>> > > alloc memory=20
+>> >=20
+>> > Yeah, that's the logical aftereffect after the errors above.=20
+>> >=20
+>> > Thanks,=20
+>> > Ralf=20
+>> >=20
+>> > > [    0.046183] CPU: 0 PID: 0 Comm: swapper Not tainted 6.2.0-rc3 #2=
+=20
+>> > > [    0.052176] Call Trace:=20
+>> > > [    0.054606]  <TASK>=20
+>> > > [    0.056691]  ? dump_stack_lvl+0x33/0x4e=20
+>> > > [    0.060510]  ? panic+0x157/0x303=20
+>> > > [    0.063723]  ? sprintf+0x56/0x80=20
+>> > > [    0.066936]  ? alloc_low_pages+0x70/0x1a0=20
+>> > > [    0.070930]  ? phys_pmd_init+0x1fc/0x2eb=20
+>> > > [    0.074839]  ? phys_pud_init+0x116/0x2d3=20
+>> > > [    0.078744]  ? __kernel_physical_mapping_init+0x11a/0x290=20
+>> > > [    0.084128]  ? init_memory_mapping+0x25e/0x3b0=20
+>> > > [    0.088558]  ? init_range_memory_mapping+0xe7/0x145=20
+>> > > [    0.093417]  ? init_mem_mapping+0x242/0x298=20
+>> > > [    0.097585]  ? setup_arch+0x74e/0xcbd=20
+>> > > [    0.101231]  ? start_kernel+0x66/0x8b7=20
+>> > > [    0.104965]  ? load_ucode_bsp+0x43/0x11b=20
+>> > > [    0.108873]  ? secondary_startup_64_no_verify+0xe0/0xeb=20
+>> > > [    0.114085]  </TASK>=20
+>> > > [    0.116255] ---[ end Kernel panic - not syncing:=20
+>> > alloc_low_pages: can=20
+>> > > not all       oc memory ]---=20
+>> > >=20
+>> > >=20
+>> > > Thank you for your continuous support,=20
+>> > > Michele=20
+>> > >=20
+>> > > Il giorno sabato 13 gennaio 2024 alle 00:05:43 UTC+1 Ralf=20
+>> > Ramsauer ha=20
+>> > > scritto:=20
+>> > >=20
+>> > > Hi Michele,=20
+>> > >=20
+>> > > On 12/01/2024 14:07, Michele Pescap=C3=A8 wrote:=20
+>> > > > jailhouse cell load linux-2 linux-loader.bin -a 0x0=20
+>> > > > ../buildroot-2023.11/output/images/bzImage -a 0xffbe00 parameters=
+=20
+>> > > -a 0x1000=20
+>> > > > jailhouse cell start linux-2=20
+>> > > >=20
+>> > > > I take it the kernel is loaded at 0xffbe00 which is right at the=
+=20
+>> > > edge of=20
+>> > > > the low ram region. In fact after issuing the cell load command=20
+>> > and=20
+>> > > > adjusting the path for the loader I get JAILHOUSE_CELL_LOAD:=20
+>> > Invalid=20
+>> > > > argument.=20
+>> > >=20
+>> > > Just tested cell-linux in a qemu machine, there it works, with=20
+>> > pretty=20
+>> > > similar addresses, which got me confused.=20
+>> > >=20
+>> > > After double-checking it: 0xffb.e00 is *not* at the edge of low mem:=
+=20
+>> > >=20
+>> > > Low mem is 0x000.000 -- 0x0ff.fff=20
+>> > > Comm region is 0x100.000 -- 0x100.fff=20
+>> > >=20
+>> > > 0xffb.e00 is (obviously) way above.=20
+>> > >=20
+>> > > Please try to set your high mem's .virt_start to 0x200000. Then,=20
+>> > > 0xffbe00 is offsetted ~16MB inside your highmem, and it should work!=
+=20
+>> > >=20
+>> > > IOW:=20
+>> > >=20
+>> > > /* high RAM */=20
+>> > > {=20
+>> > > .phys_start =3D 0x42300000,=20
+>> > > .virt_start =3D 0x200000,=20
+>> > > .size =3D 0x11000000,=20
+>> > > .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |=20
+>> > > JAILHOUSE_MEM_EXECUTE |=20
+>> > > JAILHOUSE_MEM_LOADABLE,=20
+>> > > },=20
+>> > >=20
+>> > > Thanks=20
+>> > > Ralf=20
+>> > >=20
+>> > > --=20
+>> > > You received this message because you are subscribed to the Google=
+=20
+>> > > Groups "Jailhouse" group.=20
+>> > > To unsubscribe from this group and stop receiving emails from it,=20
+>> > send=20
+>> > > an email to jailhouse-de...@googlegroups.com=20
+>> > > <mailto:jailhouse-de...@googlegroups.com>.=20
+>> > > To view this discussion on the web visit=20
+>> > >=20
+>> >=20
+>> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-=
+79da2c434169n%40googlegroups.com=20
+>> <
+>> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-=
+79da2c434169n%40googlegroups.com>=20
+>> <
+>> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-=
+79da2c434169n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter=20
+>> <
+>> https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-=
+79da2c434169n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>>.=
+=20
+>>
+>> >=20
+>> > --=20
+>> > You received this message because you are subscribed to the Google=20
+>> > Groups "Jailhouse" group.=20
+>> > To unsubscribe from this group and stop receiving emails from it, send=
+=20
+>> > an email to jailhouse-de...@googlegroups.com=20
+>> > <mailto:jailhouse-de...@googlegroups.com>.=20
+>> > To view this discussion on the web visit=20
+>> >=20
+>> https://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-=
+a3d87ad25b27n%40googlegroups.com=20
+>> <
+>> https://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-=
+a3d87ad25b27n%40googlegroups.com?utm_medium=3Demail&utm_source=3Dfooter>.=
+=20
+>>
+>>
 >
 
 --=20
@@ -438,29 +476,36 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/6146e208-1e8c-4335-abaf-9a2be8c85be5n%40googlegroups.com.
+jailhouse-dev/644902ef-0987-47d7-af4e-e9efce735cc0n%40googlegroups.com.
 
-------=_Part_65711_821933419.1705195085223
+------=_Part_75628_2127816539.1705224856218
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,<br /><br />There were PIO writes to ports 4e,4f,2e and 2f, each of size=
- 1 and each one on subsequent restarts. I'm not sure how to figure out what=
- they belong to.<br /><br />CONFIG_ISA_DMA_API is already disabled.<br /><b=
-r />I missed the irqchip for the uart. However as of right now I just copie=
-d the whole fragment from the root configuration which means I could be tak=
-ing away other interrupts from the root cell, I still have to figure out ho=
-w to tune that<br /><br />/* IOAPIC 13, GSI base 0 */<br />{<br /><span sty=
-le=3D"white-space: pre;">	</span>.address =3D 0xfec00000,<br /><span style=
-=3D"white-space: pre;">	</span>.id =3D 0xa0,<br /><span style=3D"white-spac=
-e: pre;">	</span>.pin_bitmap =3D {<br /><span style=3D"white-space: pre;">	=
-	</span>0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff<br /><span style=3D"=
-white-space: pre;">	</span>},<br />},<br /><br />Still, now I can finally l=
-ogin into the non root linux.<br /><br />Thanks,<br />Michele<br /><br /><d=
-iv class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">Il giorno s=
-abato 13 gennaio 2024 alle 21:09:28 UTC+1 Ralf Ramsauer ha scritto:<br/></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-l=
-eft: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi Michele,
+Hi,<br /><br />I just wanted to give a small update about the irqchip situa=
+tion. I realised that I only needed to pass (1&lt;&lt;4) in the pin_bitmap =
+to intercept the uart's interrupt as the first serial port has irq=3D4.<br =
+/><br />Thanks,<br />Michele<br /><div class=3D"gmail_quote"><div dir=3D"au=
+to" class=3D"gmail_attr">Il giorno domenica 14 gennaio 2024 alle 02:18:05 U=
+TC+1 Michele Pescap=C3=A8 ha scritto:<br/></div><blockquote class=3D"gmail_=
+quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 2=
+04); padding-left: 1ex;">Hi,<br><br>There were PIO writes to ports 4e,4f,2e=
+ and 2f, each of size 1 and each one on subsequent restarts. I&#39;m not su=
+re how to figure out what they belong to.<br><br>CONFIG_ISA_DMA_API is alre=
+ady disabled.<br><br>I missed the irqchip for the uart. However as of right=
+ now I just copied the whole fragment from the root configuration which mea=
+ns I could be taking away other interrupts from the root cell, I still have=
+ to figure out how to tune that<br><br>/* IOAPIC 13, GSI base 0 */<br>{<br>=
+<span style=3D"white-space:pre">	</span>.address =3D 0xfec00000,<br><span s=
+tyle=3D"white-space:pre">	</span>.id =3D 0xa0,<br><span style=3D"white-spac=
+e:pre">	</span>.pin_bitmap =3D {<br><span style=3D"white-space:pre">		</spa=
+n>0xffffffff, 0xffffffff, 0xffffffff, 0xffffffff<br><span style=3D"white-sp=
+ace:pre">	</span>},<br>},<br><br>Still, now I can finally login into the no=
+n root linux.<br><br>Thanks,<br>Michele<br><br><div class=3D"gmail_quote"><=
+div dir=3D"auto" class=3D"gmail_attr">Il giorno sabato 13 gennaio 2024 alle=
+ 21:09:28 UTC+1 Ralf Ramsauer ha scritto:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">Hi Michele,
 <br>
 <br>On 13/01/2024 18:08, Michele Pescap=C3=A8 wrote:
 <br>&gt; Hi,
@@ -788,42 +833,42 @@ the Google
 <br>&gt;      &gt; To unsubscribe from this group and stop receiving emails=
  from it,
 <br>&gt;     send
-<br>&gt;      &gt; an email to <a href data-email-masked rel=3D"nofollow">j=
-ailhouse-de...@googlegroups.com</a>
-<br>&gt;      &gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">ja=
-ilhouse-de...@googlegroups.com</a>&gt;.
+<br>&gt;      &gt; an email to <a rel=3D"nofollow">jailhouse-de...@googlegr=
+oups.com</a>
+<br>&gt;      &gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...@googlegro=
+ups.com</a>&gt;.
 <br>&gt;      &gt; To view this discussion on the web visit
 <br>&gt;      &gt;
 <br>&gt;     <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/671=
-2361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com" target=3D"_blank" re=
-l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&a=
+2361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com" rel=3D"nofollow" tar=
+get=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&a=
 mp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8=
-a72-79da2c434169n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1705270=
-308836000&amp;usg=3DAOvVaw1riurtSWSoi6S32fTJhLpA">https://groups.google.com=
+a72-79da2c434169n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1705309=
+825396000&amp;usg=3DAOvVaw3PUgIeGCCF_7gU-ADe74sq">https://groups.google.com=
 /d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-79da2c434169n%40googlegroups=
 .com</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/671=
-2361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com" target=3D"_blank" re=
-l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&a=
+2361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com" rel=3D"nofollow" tar=
+get=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&a=
 mp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8=
-a72-79da2c434169n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1705270=
-308836000&amp;usg=3DAOvVaw1riurtSWSoi6S32fTJhLpA">https://groups.google.com=
+a72-79da2c434169n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1705309=
+825396000&amp;usg=3DAOvVaw3PUgIeGCCF_7gU-ADe74sq">https://groups.google.com=
 /d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-79da2c434169n%40googlegroups=
 .com</a>&gt; &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev=
 /6712361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com?utm_medium=3Demai=
-l&amp;utm_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedi=
+l&amp;utm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank" data-saferedi=
 recturl=3D"https://www.google.com/url?hl=3Dit&amp;q=3Dhttps://groups.google=
 .com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-79da2c434169n%2540google=
 groups.com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;=
-ust=3D1705270308837000&amp;usg=3DAOvVaw3GVm2Cnfc6OEpT6WNOcw6c">https://grou=
+ust=3D1705309825396000&amp;usg=3DAOvVaw3qfOpUtlHKHUPE7w0mjuGQ">https://grou=
 ps.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a72-79da2c434169n%4=
 0googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a> &lt;<a hre=
 f=3D"https://groups.google.com/d/msgid/jailhouse-dev/6712361a-eaef-49cc-8a7=
 2-79da2c434169n%40googlegroups.com?utm_medium=3Demail&amp;utm_source=3Dfoot=
-er" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.=
+er" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.=
 google.com/url?hl=3Dit&amp;q=3Dhttps://groups.google.com/d/msgid/jailhouse-=
 dev/6712361a-eaef-49cc-8a72-79da2c434169n%2540googlegroups.com?utm_medium%3=
-Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1705270308837000&=
-amp;usg=3DAOvVaw3GVm2Cnfc6OEpT6WNOcw6c">https://groups.google.com/d/msgid/j=
+Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1705309825396000&=
+amp;usg=3DAOvVaw3qfOpUtlHKHUPE7w0mjuGQ">https://groups.google.com/d/msgid/j=
 ailhouse-dev/6712361a-eaef-49cc-8a72-79da2c434169n%40googlegroups.com?utm_m=
 edium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt;.
 <br>&gt;=20
@@ -833,28 +878,28 @@ edium=3Demail&amp;utm_source=3Dfooter</a>&gt;&gt;.
 <br>&gt; Groups &quot;Jailhouse&quot; group.
 <br>&gt; To unsubscribe from this group and stop receiving emails from it, =
 send=20
-<br>&gt; an email to <a href data-email-masked rel=3D"nofollow">jailhouse-d=
-e...@googlegroups.com</a>=20
-<br>&gt; &lt;mailto:<a href data-email-masked rel=3D"nofollow">jailhouse-de=
-...@googlegroups.com</a>&gt;.
+<br>&gt; an email to <a rel=3D"nofollow">jailhouse-de...@googlegroups.com</=
+a>=20
+<br>&gt; &lt;mailto:<a rel=3D"nofollow">jailhouse-de...@googlegroups.com</a=
+>&gt;.
 <br>&gt; To view this discussion on the web visit=20
 <br>&gt; <a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/860c1e7=
-5-c28f-4157-9212-a3d87ad25b27n%40googlegroups.com" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&amp;q=
-=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-=
-a3d87ad25b27n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D17052703088=
-37000&amp;usg=3DAOvVaw2jjEFJs2YXUOl6_sQ3NZgV">https://groups.google.com/d/m=
-sgid/jailhouse-dev/860c1e75-c28f-4157-9212-a3d87ad25b27n%40googlegroups.com=
-</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/860c1e7=
-5-c28f-4157-9212-a3d87ad25b27n%40googlegroups.com?utm_medium=3Demail&amp;ut=
-m_source=3Dfooter" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+5-c28f-4157-9212-a3d87ad25b27n%40googlegroups.com" rel=3D"nofollow" target=
+=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Dit&amp;=
+q=3Dhttps://groups.google.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212=
+-a3d87ad25b27n%2540googlegroups.com&amp;source=3Dgmail&amp;ust=3D1705309825=
+396000&amp;usg=3DAOvVaw22Ai6CDf1jcpk5vowJNqWk">https://groups.google.com/d/=
+msgid/jailhouse-dev/860c1e75-c28f-4157-9212-a3d87ad25b27n%40googlegroups.co=
+m</a> &lt;<a href=3D"https://groups.google.com/d/msgid/jailhouse-dev/860c1e=
+75-c28f-4157-9212-a3d87ad25b27n%40googlegroups.com?utm_medium=3Demail&amp;u=
+tm_source=3Dfooter" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
 =3D"https://www.google.com/url?hl=3Dit&amp;q=3Dhttps://groups.google.com/d/=
 msgid/jailhouse-dev/860c1e75-c28f-4157-9212-a3d87ad25b27n%2540googlegroups.=
 com?utm_medium%3Demail%26utm_source%3Dfooter&amp;source=3Dgmail&amp;ust=3D1=
-705270308837000&amp;usg=3DAOvVaw1JpVdhFAQLs5xqbk5_qqTy">https://groups.goog=
+705309825396000&amp;usg=3DAOvVaw07W3nO2MRv8zGyiQvuBWeF">https://groups.goog=
 le.com/d/msgid/jailhouse-dev/860c1e75-c28f-4157-9212-a3d87ad25b27n%40google=
 groups.com?utm_medium=3Demail&amp;utm_source=3Dfooter</a>&gt;.
-<br></blockquote></div>
+<br></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -865,11 +910,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/6146e208-1e8c-4335-abaf-9a2be8c85be5n%40googlegrou=
+om/d/msgid/jailhouse-dev/644902ef-0987-47d7-af4e-e9efce735cc0n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/6146e208-1e8c-4335-abaf-9a2be8c85be5n%40googlegroups.co=
+msgid/jailhouse-dev/644902ef-0987-47d7-af4e-e9efce735cc0n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_65711_821933419.1705195085223--
+------=_Part_75628_2127816539.1705224856218--
 
-------=_Part_65710_172135626.1705195085223--
+------=_Part_75627_728902954.1705224856218--
