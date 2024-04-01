@@ -1,72 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCAYF6GBVYFBBRXYSSYAMGQEAQCJ5DQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBCGXVKYAMGQEY3M446Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3e.google.com (mail-yb1-xb3e.google.com [IPv6:2607:f8b0:4864:20::b3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C12288FBEF
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 28 Mar 2024 10:45:44 +0100 (CET)
-Received: by mail-yb1-xb3e.google.com with SMTP id 3f1490d57ef6-ddad4fab252sf49274276.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 28 Mar 2024 02:45:44 -0700 (PDT)
+Received: from mail-yw1-x1139.google.com (mail-yw1-x1139.google.com [IPv6:2607:f8b0:4864:20::1139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A865893B0B
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  1 Apr 2024 14:41:47 +0200 (CEST)
+Received: by mail-yw1-x1139.google.com with SMTP id 00721157ae682-6144244c60csf34505187b3.2
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Apr 2024 05:41:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1711619143; x=1712223943; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1711975305; x=1712580105; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jg6mrz6yVm7R0GXWbxrWx3tiQAwBfCgsaRH0twyByFU=;
-        b=DTFWxtFSxrT5QKuh1kzXFilQgxJBIEki4+XtFQLXxD0wAxjbPtHN0ZJvKUDIz10nx9
-         Ef3RnagKm1DwkLakiAyRRCRzP9eAjaoa887yWa8dhGWDVEakEBDqrYfDngxAWSvcCd+T
-         T+qf16PQgHo0F/Pf1fkk8977X39oqSomJ35Jau2t2/OxzuHHfm5irtRhiAZmE1NyuTIX
-         xgs1MWg0DxM1bZeGRCYxJZBXJ1cH1lmoQDTfeniQboaazF+iprgdy0ZEnNA97HESShzE
-         /NuMQEt1dmyEHsYu4o10T2nqiYrfni07LIgNF8XIMLgprVsTyvEjKMhDbF4yXysHIuws
-         OH/Q==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KSnyBOQD56bBMT+2IsiU+uO23Utue02Kn9L+KM7ouFE=;
+        b=Pspm/HOteFPDd2G+GZd7jQywvRZCwZ3i0DWGrRl8h/qKYfzGHZ9u1nhvbli7o2oyjX
+         sINVQZQkIr3ltpKYG62HnIDzFm86ajnkwU5gDRkrXCfYmgnXzWWAWvL8YIQJqTAEvmbw
+         2Q/g8UnlZo5gXMy+R4sTGhJE5jovVxiWTMyx08X4BvPe6Ukoj+CK2Bl6XcnilgdWgmRI
+         y3++IA9uhhBsGOxkPGq+c8uipz4uLt4G1fXoWFr/4i+s8eLZSHNjPqh/hpfifWU2OAPH
+         dnk4pJp2+16/2AJlMIj24NVWeZJAjDxaH7w6y/sQ/Ew3/PwNCkmxnGpTqSFsG1MpQKng
+         9UnA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711619143; x=1712223943; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1711975305; x=1712580105; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jg6mrz6yVm7R0GXWbxrWx3tiQAwBfCgsaRH0twyByFU=;
-        b=D7VEY5ICZipMbDA1v3k6wsoN2QMicX4VfdsLcq+L9xSkqyAYV1BY7nVnoMFUDnyZvc
-         rMbW1VsxVLUzpSHHNOjaT9qBnmDVHIK+/xbaEHFVj9rP/BhZo1I9vgLuWy2W/fsEuq4S
-         1smGBUVyMxzsBjx0LReasEBzdkSVIzyTEZB7jwr6sR6Nh5/Iq8H8eaoiuhHqTN7j/Cu0
-         ZuUGuQAReAfmLdpGQJ7Wx1LE8K9ck+rlV1F7Q/zHLRO+fPkkVHFlGc3gp819eAmQsfFM
-         6Ds+OsSD+E1Uz/IcnWbP6EszWxlsHuqy7bDdq1xasDUD/TUJfgurd1qKCSg22Me+mz0l
-         oNtw==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=KSnyBOQD56bBMT+2IsiU+uO23Utue02Kn9L+KM7ouFE=;
+        b=NEHFt+tmuIn1QSpc7Y0g77ldYFarSIs0bNjIIoMpc3lmXngGfbWPoAOmoOzXCprh1I
+         BhUr49qVo9RkfxOvce6SPoKKC49e7WU0wAQN/o4YnyApvCTbiOIe1Y8UA6j/SF0UqEYh
+         vjG1AP23ROE6uvpaiaEBfWdiaJYS1nMCxmGqZFrNyBaMxow9im381Gm9pJ1Dgy+vuszH
+         GC3o5z8X3UOGpNfpVq14tVSawILhuVXWpTjF4BN6X3tSlIJup52zpFmEFO60Bi4PRoz/
+         ylxF+LICJCx7ubn92UzJiSTOdZHCffsnhoYsWybv/afnMxb8kZDSg54Wh2yfAhkQlGpX
+         ejBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711619143; x=1712223943;
+        d=1e100.net; s=20230601; t=1711975305; x=1712580105;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jg6mrz6yVm7R0GXWbxrWx3tiQAwBfCgsaRH0twyByFU=;
-        b=D7OG/K66l86vLMXy8RsWyxGCFFo/drzkt2GgO2r4Qy5nGJdTugkm6Nh9t3DVHvJGFC
-         LcTKzRKpNkPYem8HEwh8d4GxvNVUF+5BJ6fGOrCMJIzaaGH1/+AiMBfRCm3LhtIh9IW4
-         oKQAeHM4wwOapKkIkzy8G2xIlUHMEHNUJx1c5rv/b2nAL6rPUc+1JFT1J32dn96OQUxQ
-         QFTzX2pW/MKQ5KVEkTUJUzxE0YJoV7/SoQnZujL8LgAvkRRzd0sSKvHefDimIiphGeA2
-         S0QM8Yh4aEIXSJkRmyPXr28z4baUV5WEJODuGHds4PmlDQEgAZojGmAc7zlL5hkrl1GM
-         6BUA==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KSnyBOQD56bBMT+2IsiU+uO23Utue02Kn9L+KM7ouFE=;
+        b=n3uP0OL8HZDk9OSdCn2CogGkoku27HHbX1vK2pi9P+AHWCcNLFjdx0nPQkL+5ZBnJS
+         zCHtaX0BO+66DTfHQ3h/YR57PsfBI0iFEptgfjQFBtCgld1saXR1IDlAhBEFiaxR0ZBy
+         gYYxH/8Zemqwq23Svxh7MAfdy3DsH3iZTHq6BwXQ7laQJYHdxlzJ3z6sLx/SMawfUcBr
+         ku75mUKBIDPNPY2ldovaqliMeU6mafDJ7EUArV91luMPOzAjyPzBwGplaF9vArs8ZOWX
+         NAJseXXozLH+doCYP2EirkjVBNvnctxxSQauq6H92Hn+yDGeomuzaPQGbkB6Tiq7ZcIr
+         qYEQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUpfjVR0s+m4/Fgm9IjV/gX0QFDW3xltIj0jDbFCqmVqiDLubBISd7uOrLikhLc8DFMtgpb61puuJEdy4FxDazGGn7FwBmfYusch8Y=
-X-Gm-Message-State: AOJu0YwLkpZBQNQTe3YTqaNezJpKi5GaclLN1d2+rmjXq9spEGVFpRAT
-	UtlXu3P4jIpuIbICjyRo+U8GUsRCBi3mkFya0qfJo7ZI54OQ2VIM
-X-Google-Smtp-Source: AGHT+IEekHPjr2rgOEIm8Ni2XR0pEQohSBJZrIBsJWprTzxnXi0eFlgztuJuGshtVhzuLf/cYo8X8g==
-X-Received: by 2002:a25:9f07:0:b0:dcb:cdbd:6594 with SMTP id n7-20020a259f07000000b00dcbcdbd6594mr1601200ybq.3.1711619142752;
-        Thu, 28 Mar 2024 02:45:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCW8f4y9NJU+I0J8eBw4yhQ8Du9vc2Gm38B3GkwJNW3kG8dtgsXQgKf23fdA8xj5C7J075DxRHFobLU/VXgOLNa+w21y852czNp+SyA=
+X-Gm-Message-State: AOJu0YwYcWCUahR7RFHWmpOQMQGi9KTh4YzOx0geesNRXAvpi0a/dGWk
+	jQuXSxww91+aYmwOOXC0mUhRZ6KBudunHa7+YTw8DOqiq+NZkb4n
+X-Google-Smtp-Source: AGHT+IH3z7T/wNaymE193/qo0NsUQKkcbvjPVq8YFA4S+TATAcws3Bio6ovibkejfOM23RvQJfDrhQ==
+X-Received: by 2002:a5b:c81:0:b0:dcd:30f9:eb6d with SMTP id i1-20020a5b0c81000000b00dcd30f9eb6dmr6301401ybq.57.1711975305507;
+        Mon, 01 Apr 2024 05:41:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:c3:0:b0:dcd:a08f:c83f with SMTP id 186-20020a2500c3000000b00dcda08fc83fls114656yba.1.-pod-prod-08-us;
- Thu, 28 Mar 2024 02:45:41 -0700 (PDT)
-X-Received: by 2002:a05:6902:248f:b0:dcd:b431:7f5b with SMTP id ds15-20020a056902248f00b00dcdb4317f5bmr750029ybb.0.1711619140974;
-        Thu, 28 Mar 2024 02:45:40 -0700 (PDT)
-Date: Thu, 28 Mar 2024 02:45:40 -0700 (PDT)
-From: Yulon Liao <lylguagn@gmail.com>
+Received: by 2002:a25:6907:0:b0:dcb:b370:7d0c with SMTP id e7-20020a256907000000b00dcbb3707d0cls2743947ybc.1.-pod-prod-02-us;
+ Mon, 01 Apr 2024 05:41:44 -0700 (PDT)
+X-Received: by 2002:a81:4ed6:0:b0:614:23a4:7b98 with SMTP id c205-20020a814ed6000000b0061423a47b98mr2217983ywb.4.1711975303844;
+        Mon, 01 Apr 2024 05:41:43 -0700 (PDT)
+Date: Mon, 1 Apr 2024 05:41:42 -0700 (PDT)
+From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <eaddfc4b-a44e-433e-9c7d-cb9bbbe4351en@googlegroups.com>
-Subject: IRQ way for virtual pci
+Message-Id: <efd29197-11fa-466c-9d65-57cddc65c104n@googlegroups.com>
+In-Reply-To: <CAKwKV225wXqQy1Z=kR4wPib6m9xreB+=H4kQFTfaJPydUxuDSg@mail.gmail.com>
+References: <CAKwKV225wXqQy1Z=kR4wPib6m9xreB+=H4kQFTfaJPydUxuDSg@mail.gmail.com>
+Subject: Re: Join
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_89582_1408369841.1711619140487"
-X-Original-Sender: lylguagn@gmail.com
+	boundary="----=_Part_13372_839739658.1711975302920"
+X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,45 +81,76 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_89582_1408369841.1711619140487
+------=_Part_13372_839739658.1711975302920
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_89583_1390344456.1711619140487"
+	boundary="----=_Part_13373_894848287.1711975302920"
 
-------=_Part_89583_1390344456.1711619140487
+------=_Part_13373_894848287.1711975302920
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-In qemu-arm 
-While running the ivshmem-demo example in 64, I found that inmate-cell 
-program reading the [.pci_mmconfig_base = 0x08e00000] address will cause an 
-interrupt. The hypervisor finally calls arch_handle_dabt for processing. I 
-don't understand the reason for this interrupt. How is it configured?
+MT103/202 DIRECT WIRE TRANSFER
+PAYPAL TRANSFER
+CASHAPP TRANSFER
+ZELLE TRANSFER
+LOAN DEAL
+TRANSFER WISE
+WESTERN UNION TRANSFER
+BITCOIN FLASHING
+BANK ACCOUNT LOADING/FLASHING
+IBAN TO IBAN TRANSFER
+MONEYGRAM TRANSFER
+IPIP/DTC
+SLBC PROVIDER
+CREDIT CARD TOP UP
+DUMPS/ PINS
+SEPA TRANSFER
+WIRE TRANSFER
+BITCOIN TOP UP
+GLOBALPAY INC US
+SKRILL USA
+UNIONPAY RECEIVER
 
-Kind regrards,
-Yulong
+Thanks.
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/eaddfc4b-a44e-433e-9c7d-cb9bbbe4351en%40googlegroups.com.
 
-------=_Part_89583_1390344456.1711619140487
+NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
+
+DM ME ON WHATSAPP
++44 7529 555638
+
+On Sunday, March 10, 2024 at 7:45:09=E2=80=AFPM UTC+1 Stefan Brendjes wrote=
+:
+
+> Subscribe
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/efd29197-11fa-466c-9d65-57cddc65c104n%40googlegroups.com.
+
+------=_Part_13373_894848287.1711975302920
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div><span lang=3D"en"><span><span>Hi,<br /></span></span></span></div><div=
-><span lang=3D"en"><span><span>In qemu-arm</span></span><span><span>
-</span></span><span><span><br /></span></span></span></div><div><span lang=
-=3D"en"><span><span>While running the ivshmem-demo example in 64, I found t=
-hat inmate-cell program reading the <span style=3D"background-color: rgb(12=
-8, 128, 128);">[.pci_mmconfig_base =3D 0x08e00000</span>] address will caus=
-e an interrupt. The hypervisor finally calls <span style=3D"background-colo=
-r: rgb(128, 128, 128);">arch_handle_dabt </span>for processing. I don't und=
-erstand the reason for this interrupt. How is it configured?</span></span><=
-/span></div><div><span lang=3D"en"><span><span><br /></span></span></span><=
-/div><div><span lang=3D"en"><span><span>Kind regrards,</span></span></span>=
-</div><div><span lang=3D"en"><span><span>Yulong<br /><span style=3D"backgro=
-und-color: rgb(128, 128, 128);"></span></span></span></span></div>
+MT103/202 DIRECT WIRE TRANSFER<br />PAYPAL TRANSFER<br />CASHAPP TRANSFER<b=
+r />ZELLE TRANSFER<br />LOAN DEAL<br />TRANSFER WISE<br />WESTERN UNION TRA=
+NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
+ IBAN TRANSFER<br />MONEYGRAM TRANSFER<br />IPIP/DTC<br />SLBC PROVIDER<br =
+/>CREDIT CARD TOP UP<br />DUMPS/ PINS<br />SEPA TRANSFER<br />WIRE TRANSFER=
+<br />BITCOIN TOP UP<br />GLOBALPAY INC US<br />SKRILL USA<br />UNIONPAY RE=
+CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
+CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
+><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
+ Sunday, March 10, 2024 at 7:45:09=E2=80=AFPM UTC+1 Stefan Brendjes wrote:<=
+br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; b=
+order-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div dir=3D"a=
+uto">Subscribe</div>
+</blockquote></div>
 
 <p></p>
 
@@ -128,11 +161,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/eaddfc4b-a44e-433e-9c7d-cb9bbbe4351en%40googlegrou=
+om/d/msgid/jailhouse-dev/efd29197-11fa-466c-9d65-57cddc65c104n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/eaddfc4b-a44e-433e-9c7d-cb9bbbe4351en%40googlegroups.co=
+msgid/jailhouse-dev/efd29197-11fa-466c-9d65-57cddc65c104n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_89583_1390344456.1711619140487--
+------=_Part_13373_894848287.1711975302920--
 
-------=_Part_89582_1408369841.1711619140487--
+------=_Part_13372_839739658.1711975302920--
