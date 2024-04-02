@@ -1,78 +1,72 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBPG5VKYAMGQE5MCFYCA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDGNPLXR4ICBBPNLWGYAMGQEOO4I4SQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113c.google.com (mail-yw1-x113c.google.com [IPv6:2607:f8b0:4864:20::113c])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB302893B27
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  1 Apr 2024 14:55:26 +0200 (CEST)
-Received: by mail-yw1-x113c.google.com with SMTP id 00721157ae682-61460f335bcsf5620067b3.0
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 01 Apr 2024 05:55:26 -0700 (PDT)
+Received: from mail-yw1-x113f.google.com (mail-yw1-x113f.google.com [IPv6:2607:f8b0:4864:20::113f])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F169895C1B
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  2 Apr 2024 21:00:15 +0200 (CEST)
+Received: by mail-yw1-x113f.google.com with SMTP id 00721157ae682-6150e36ca0dsf23932587b3.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 02 Apr 2024 12:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1711976125; x=1712580925; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712084414; x=1712689214; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HZUuymlyPuVRaOxtw7l5EAnFhQIfjMLcuRw+n6sqS/k=;
-        b=qo2scz4GZnFjgsKAtXiUYMc10UeQJ74PbfctDc1Ji7CXtkrbbNAInGunh+fiYV/qeu
-         C05ltyzANfjOnirTKTYvL310C6kRyhzCO+Z+SUmguw44mjtZI1O1jrDUmEZe1efY7nI/
-         wNV6pu9BUVEbygH7IbN3joQ0r4NEjNs5/Cz8vZtyeWXX5XTtzjS7P+59rT/BzXdS2shQ
-         UllYFYXi0c2wWupBGy+YRrjuyRxCCMe/Hlt754ulxZQLmS4Pzs+4e1creWySqiME12PM
-         FCMKKXT31MkUbpcumH4wILvVy0PsDibNkhAtR+vq3cORPzpwvEaqjGWVQkfvEWK3spoA
-         IAWA==
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dd9VOINDuP6e8OEC4kN0MNgCjg6fX60eJES3CkqgNwM=;
+        b=tOCTayIjJ27Nl4FdR0mZxOIliUen9caY/hchp3sQpp9NmRn+1pSPddQab7GN3Tb6FC
+         tiCF41H4MCNFjMB6S8IjhMeibc9S4UFVxu3h7SuiV+OdedjCsNTP4Ch2Hz5I9We9RjgE
+         DItlsBDfdFDsbr164y5DZFA+8p0PL618Dz8r0IQWjhvqlT4jVSpXZltos9bfzLbU6APL
+         clNatd9fywOKipAr2xIul4q6eUdkVROOIDT3np8DLgzMsY7WYxfNpyw+mPHgg9ivHwu0
+         IMYEb60HJVoDbP8MM/4RNOHDm7oQs/iqrAftMv4dVyIClYp6XSDdQgwD8G2YAdHmsyPK
+         AchA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711976125; x=1712580925; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712084414; x=1712689214; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HZUuymlyPuVRaOxtw7l5EAnFhQIfjMLcuRw+n6sqS/k=;
-        b=N9mknTD1/tII/HVEYJWfaLibeA0uwTqW0mp06ooYqMKP76cadPq2/y4JKVDiSCgqJw
-         IpqEcouYCAatumdfbf9rAyfApNyZNMX1ETmfbwvBjue3toKrEqSwIuhJbV/lEZWFMFHm
-         XAloxQpYbx3CeJYVU1Jn9uPaumpDGRSm9PaHWY1K2RCMLVra53m9FoGRp3m2NNgkcs7U
-         lLlR4Joim07+soyc/pXphkv5sgbDsGc7CvBa1sJjfksDTe1i5c2p8yTdxZO6hFoViLg3
-         FBS6knaKaKKDo0YCqING/nQW4TIeGzx0WeDhbUV8RSkxU6WndG7VuvAKrBlaVPuhD/af
-         rRPA==
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dd9VOINDuP6e8OEC4kN0MNgCjg6fX60eJES3CkqgNwM=;
+        b=TxWGjCn9IpErWAJf31+wZrfyovmoqnDYMY8HkOMJ196AzPRCV9RxgknJPCoPEwk84R
+         gfWJtgrxYeNMUmuJt7uVa6dATfghiI6OsVFJuLsXvo6zzXtzqQSw3Aea6iMPPmxe3Wp+
+         2jc9vVWKR+yxxYVAKAZwVAOHgPO07P8lFYsQh/AK3GrNnuu06wM5ghTwXDX/5AJI2RBv
+         Z29f4bx8ZtpzDn1zlsbfHbhlJoc+TmCVxUD4we4xujOddVvu+brJzaaayVTpttqebkSr
+         51HYi/aBa6w5QTaQlYhNCQx+WP1qXa7G+LDFZzl/iwSoxfqlZsotumdr4xf6LJc0Xmza
+         gEqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711976125; x=1712580925;
+        d=1e100.net; s=20230601; t=1712084414; x=1712689214;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HZUuymlyPuVRaOxtw7l5EAnFhQIfjMLcuRw+n6sqS/k=;
-        b=Hic1JxJuWVEcKG2xwTc5dVsEr4y5jcRSqQJyfoIR8F4KN3vZ/UY8F/sDcY63BhjXdo
-         8rWUPy830aL/z4wlaA42YM3XYoWp1JJ/GKLx940bCdQC2PHaUiCFLy6KOMdVxHjEoA9s
-         WrXAyDPQskQZwasfVS06FruZMSOY4TSGgAocGevoFHN/N4+CBe8mDfP53nqWjqafEUoU
-         eAc5INnbMoSVtNWgD7IxRHC4OhAL38UZ637DgDB0h19sjrdf49dQOQGJ+aMBDhfjMvtE
-         +eqfvNPXmrNud9Ml8TXupw1JC6yiowetoCFqBukXpX5afwaJt0iBoPyPUYbNEmyrDn0G
-         9nyA==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dd9VOINDuP6e8OEC4kN0MNgCjg6fX60eJES3CkqgNwM=;
+        b=enIMCNApO1t3XcdJsoaLSjRHvycLLHyUhY/zV8QwxoA0Y+fQHguFpjZR/nU9gbaDEy
+         WMdIW9ALDtoDQCZtZ22eTYWINFiE4DKSYiElOzPCCxU4ag/pc/OLibc4Koh9QHPQmBIj
+         6Q7DlSqjHGZMsf66hgbk9wKIYdfSAiRk+35mHLxGe14zlX5S9MCXHHj36g/Rdn1EsKTF
+         nNVAJoqb2FiALu1cEAYFp+u2wowM5u17Nk+lT96QeoHpSoJeWVX4nMB74haKALu+z4qV
+         VA+10CHbIFZ3lfKM4QAyOPyVSaW28IwJcP4qXQkPR4tnEtlEGuyeNDsHhIuUacvxt8RQ
+         H05A==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWiWUPBXvw8hxHPQn2Ecyu+V8nkxem4tGC0PME9zEP7Lhk8sPFjO9ZccXXVonc0PAdXvn02o3gOU+xiHVuOG8Iykb+aSWpZPDR+KH0=
-X-Gm-Message-State: AOJu0Yy65kTcvTFkUvtuqkZhQ4TGpP6iLBzBLynBUa8CEjurrvl7vAmt
-	KIYkYc+w04fkUxMpkMVbCQEKwDKFeyecaUctnGQ/owBLclKkxDfG
-X-Google-Smtp-Source: AGHT+IE4JvFdaiDcnvKVj4ug8SxJgEPfkbbMDhZ9gwcDRKKj1BRDs8+r7ezpNQGxxOJwg2164OsEPg==
-X-Received: by 2002:a25:7446:0:b0:dc7:45fd:b454 with SMTP id p67-20020a257446000000b00dc745fdb454mr5309017ybc.1.1711976125352;
-        Mon, 01 Apr 2024 05:55:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCV+7VPFlFTWcafgWvd/1wkGY0RCcAAnGS7YDgthpYAJGqvWQ6z9fSqHIx7BoJjdKgGyVEJxHya8XuqwOEb+fdciqTsKOkk3T4YuJBU=
+X-Gm-Message-State: AOJu0YzILSR83NI30bMViTV5ZCpvblRzhNLnFw0o4fJ4LQB0ln1p2rLe
+	mSxns8edieX+XbeFkYy4facbo8TfeOMOakimK+Ntqbys7MZeq86k
+X-Google-Smtp-Source: AGHT+IHk/ChUTwSoyhOluaHtR1Yx47rf824q9avRmV6tZ6oOfD/f9vM9M3YeJruqAJQ+fS5Uy3iadg==
+X-Received: by 2002:a5b:889:0:b0:dcd:a28e:e5e0 with SMTP id e9-20020a5b0889000000b00dcda28ee5e0mr431411ybq.25.1712084414117;
+        Tue, 02 Apr 2024 12:00:14 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:abef:0:b0:dcd:a08f:c840 with SMTP id v102-20020a25abef000000b00dcda08fc840ls435543ybi.1.-pod-prod-09-us;
- Mon, 01 Apr 2024 05:55:24 -0700 (PDT)
-X-Received: by 2002:a05:6902:1586:b0:dcb:b9d7:2760 with SMTP id k6-20020a056902158600b00dcbb9d72760mr3122059ybu.13.1711976123833;
-        Mon, 01 Apr 2024 05:55:23 -0700 (PDT)
-Date: Mon, 1 Apr 2024 05:55:23 -0700 (PDT)
-From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
+Received: by 2002:a25:ab2c:0:b0:dcc:4b24:c0df with SMTP id u41-20020a25ab2c000000b00dcc4b24c0dfls38231ybi.0.-pod-prod-03-us;
+ Tue, 02 Apr 2024 12:00:12 -0700 (PDT)
+X-Received: by 2002:a05:690c:dc2:b0:614:ad33:3980 with SMTP id db2-20020a05690c0dc200b00614ad333980mr1739358ywb.7.1712084412255;
+        Tue, 02 Apr 2024 12:00:12 -0700 (PDT)
+Date: Tue, 2 Apr 2024 12:00:11 -0700 (PDT)
+From: xy dallas <dallas.xyf@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <b3c29b14-71da-43bd-88a2-438e6ca5180dn@googlegroups.com>
-In-Reply-To: <cfa0c6a3-854f-4619-8e60-384823fb634e@oth-regensburg.de>
-References: <f81eedab-debe-4d19-954a-06b55f2fa4a9n@googlegroups.com>
- <f42f3913-11ea-4b78-86cb-ab4fe76db882@oth-regensburg.de>
- <412a6c64-3a4d-4151-9293-05b9881f3418n@googlegroups.com>
- <91a64cf9-a3b4-419b-b030-fc3d295e577en@googlegroups.com>
- <cfa0c6a3-854f-4619-8e60-384823fb634e@oth-regensburg.de>
-Subject: Re: i.MX8MP jailhouse load image stuck at copy_from_user
+Message-Id: <0034e1a2-a439-45de-8c25-e090cdf199b5n@googlegroups.com>
+Subject: How to allocate QEMU simulated PCI devices to non-root Linux.
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_265710_1424523564.1711976123124"
-X-Original-Sender: massimilianodimajo097@gmail.com
+	boundary="----=_Part_14342_2032753399.1712084411541"
+X-Original-Sender: dallas.xyf@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -85,61 +79,137 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_265710_1424523564.1711976123124
+------=_Part_14342_2032753399.1712084411541
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_265711_190590114.1711976123124"
+	boundary="----=_Part_14343_1102258939.1712084411541"
 
-------=_Part_265711_190590114.1711976123124
+------=_Part_14343_1102258939.1712084411541
 Content-Type: text/plain; charset="UTF-8"
 
-MT103/202 DIRECT WIRE TRANSFER
-PAYPAL TRANSFER
-CASHAPP TRANSFER
-ZELLE TRANSFER
-LOAN DEAL
-TRANSFER WISE
-WESTERN UNION TRANSFER
-BITCOIN FLASHING
-BANK ACCOUNT LOADING/FLASHING
-IBAN TO IBAN TRANSFER
-MONEYGRAM TRANSFER
-IPIP/DTC
-SLBC PROVIDER
-CREDIT CARD TOP UP
-DUMPS/ PINS
-SEPA TRANSFER
-WIRE TRANSFER
-BITCOIN TOP UP
-GLOBALPAY INC US
-SKRILL USA
-UNIONPAY RECEIVER
+Hello everyone,
 
-Thanks.
+I'm trying to provide QEMU simulated PCI devices to a non-root Linux 
+environment. However, I haven't found any JAILHOUSE_PCI_TYPE_DEVICE type of 
+PCI devices to reference in the arm64 config. Instead, I only found virtual 
+devices of type JAILHOUSE_PCI_TYPE_IVSHMEM. These devices are mounted on a 
+simple bus created by Jailhouse, unlike the devices I added using "-device 
+xyfdev-pci,id=t0,addr=0x18" on QEMU, which are in two separate domains. 
 
+I attempted to add the content of JAILHOUSE_PCI_TYPE_DEVICE to the cell 
+config:
 
-NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
+{
+    .type = JAILHOUSE_PCI_TYPE_DEVICE,
+    .domain = 0,
+    .bdf = 0x18,
+    .bar_mask = JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+    .shmem_regions_start = 14,
+    .shmem_dev_id = 1,
+    .shmem_peers = 2,
+    .shmem_protocol = JAILHOUSE_SHMEM_PROTO_UNDEFINED,
+}
 
-DM ME ON WHATSAPP
-+44 7529 555638
+But I'm unsure how to modify the device tree file to expose this device to 
+non-root. If I don't modify the device tree, non-root Linux will report the 
+following error during startup:
+
+FATAL: Unhandled HYP exception: synchronous abort from EL2
+pc: 0000ffffc020b27c lr: 0000ffffc020bc84 spsr: 800003c9 EL2
+sp: 0000ff0000010e30 esr: 25 1 1800005
+x0: 0000000000000000 x1: 0000ff0000010eb8 x2: 0000000000018000
+x3: 0000ffffc020b260 x4: 0000ffffc020b27c x5: 0000000000000003
+x6: 0000000000000018 x7: 0000000000000000 x8: 0000ffffc02b32b0
+x9: 0000ff0000010e6c x10: 0000ffffc02b02fc x11: 0000000000000000
+x12: 0000000000000000 x13: 0000000000000028 x14: 0000ff0000010eb8
+x15: ffff00003482691c x16: 0000ffffc020bbd8 x17: 00000000af5879f2
+x18: ffffffffffffffff x19: 0000ff0000010eb8 x20: 0000000000000018
+x21: 0000000000000000 x22: 0000000000000002 x23: 0000000000000004
+x24: 0000000000000000 x25: 0000000000000018 x26: ffff8000112c0530
+x27: 0000000000000000 x28: 0000000000000000 x29: 0000ff0000010e30
+
+I'd like to know how I can allocate QEMU simulated PCI devices to non-root 
+Linux. I'm working based on qemu-arm64.c and qemu-arm64-linux-demo.c.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/b3c29b14-71da-43bd-88a2-438e6ca5180dn%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0034e1a2-a439-45de-8c25-e090cdf199b5n%40googlegroups.com.
 
-------=_Part_265711_190590114.1711976123124
+------=_Part_14343_1102258939.1712084411541
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-MT103/202 DIRECT WIRE TRANSFER<br />PAYPAL TRANSFER<br />CASHAPP TRANSFER<b=
-r />ZELLE TRANSFER<br />LOAN DEAL<br />TRANSFER WISE<br />WESTERN UNION TRA=
-NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
- IBAN TRANSFER<br />MONEYGRAM TRANSFER<br />IPIP/DTC<br />SLBC PROVIDER<br =
-/>CREDIT CARD TOP UP<br />DUMPS/ PINS<br />SEPA TRANSFER<br />WIRE TRANSFER=
-<br />BITCOIN TOP UP<br />GLOBALPAY INC US<br />SKRILL USA<br />UNIONPAY RE=
-CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
-CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
-><br />
+Hello everyone,<br /><br />I'm trying to provide QEMU simulated PCI devices=
+ to a non-root Linux environment. However, I haven't found any JAILHOUSE_PC=
+I_TYPE_DEVICE type of PCI devices to reference in the arm64 config. Instead=
+, I only found virtual devices of type JAILHOUSE_PCI_TYPE_IVSHMEM. These de=
+vices are mounted on a simple bus created by Jailhouse, unlike the devices =
+I added using "-device xyfdev-pci,id=3Dt0,addr=3D0x18" on QEMU, which are i=
+n two separate domains. <br /><br />I attempted to add the content of JAILH=
+OUSE_PCI_TYPE_DEVICE to the cell config:<br /><br />{<br />=C2=A0 =C2=A0 .t=
+ype =3D JAILHOUSE_PCI_TYPE_DEVICE,<br />=C2=A0 =C2=A0 .domain =3D 0,<br />=
+=C2=A0 =C2=A0 .bdf =3D 0x18,<br />=C2=A0 =C2=A0 .bar_mask =3D JAILHOUSE_IVS=
+HMEM_BAR_MASK_INTX,<br />=C2=A0 =C2=A0 .shmem_regions_start =3D 14,<br />=
+=C2=A0 =C2=A0 .shmem_dev_id =3D 1,<br />=C2=A0 =C2=A0 .shmem_peers =3D 2,<b=
+r />=C2=A0 =C2=A0 .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFINED,<br /=
+>}<br /><br />But I'm unsure how to modify the device tree file to expose t=
+his device to non-root. If I don't modify the device tree, non-root Linux w=
+ill report the following error during startup:<br /><br /><div style=3D"col=
+or: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Men=
+lo, Monaco, &quot;Courier New&quot;, monospace; font-size: 12px; line-heigh=
+t: 18px; white-space: pre;"><div><span style=3D"color: rgb(220, 220, 170);"=
+>FATAL:</span> Unhandled HYP <span style=3D"color: rgb(220, 220, 170);">exc=
+eption:</span> synchronous abort from EL2</div><div> <span style=3D"color: =
+rgb(220, 220, 170);">pc:</span> 0000ffffc020b27c   <span style=3D"color: rg=
+b(220, 220, 170);">lr:</span> 0000ffffc020bc84 <span style=3D"color: rgb(22=
+0, 220, 170);">spsr:</span> 800003c9     EL2</div><div> <span style=3D"colo=
+r: rgb(86, 156, 214);">sp</span>: 0000ff0000010e30  <span style=3D"color: r=
+gb(220, 220, 170);">esr:</span> <span style=3D"color: rgb(181, 206, 168);">=
+25</span> <span style=3D"color: rgb(181, 206, 168);">1</span> <span style=
+=3D"color: rgb(181, 206, 168);">1800005</span></div><div> <span style=3D"co=
+lor: rgb(220, 220, 170);">x0:</span> <span style=3D"color: rgb(181, 206, 16=
+8);">0000000000000000</span>   <span style=3D"color: rgb(220, 220, 170);">x=
+1:</span> 0000ff0000010eb8   <span style=3D"color: rgb(220, 220, 170);">x2:=
+</span> <span style=3D"color: rgb(181, 206, 168);">0000000000018000</span><=
+/div><div> <span style=3D"color: rgb(220, 220, 170);">x3:</span> 0000ffffc0=
+20b260   <span style=3D"color: rgb(220, 220, 170);">x4:</span> 0000ffffc020=
+b27c   <span style=3D"color: rgb(220, 220, 170);">x5:</span> <span style=3D=
+"color: rgb(181, 206, 168);">0000000000000003</span></div><div> <span style=
+=3D"color: rgb(220, 220, 170);">x6:</span> <span style=3D"color: rgb(181, 2=
+06, 168);">0000000000000018</span>   <span style=3D"color: rgb(220, 220, 17=
+0);">x7:</span> <span style=3D"color: rgb(181, 206, 168);">0000000000000000=
+</span>   <span style=3D"color: rgb(220, 220, 170);">x8:</span> 0000ffffc02=
+b32b0</div><div> <span style=3D"color: rgb(220, 220, 170);">x9:</span> 0000=
+ff0000010e6c  <span style=3D"color: rgb(220, 220, 170);">x10:</span> 0000ff=
+ffc02b02fc  <span style=3D"color: rgb(220, 220, 170);">x11:</span> <span st=
+yle=3D"color: rgb(181, 206, 168);">0000000000000000</span></div><div><span =
+style=3D"color: rgb(220, 220, 170);">x12:</span> <span style=3D"color: rgb(=
+181, 206, 168);">0000000000000000</span>  <span style=3D"color: rgb(220, 22=
+0, 170);">x13:</span> <span style=3D"color: rgb(181, 206, 168);">0000000000=
+000028</span>  <span style=3D"color: rgb(220, 220, 170);">x14:</span> 0000f=
+f0000010eb8</div><div><span style=3D"color: rgb(220, 220, 170);">x15:</span=
+> ffff00003482691c  <span style=3D"color: rgb(220, 220, 170);">x16:</span> =
+0000ffffc020bbd8  <span style=3D"color: rgb(220, 220, 170);">x17:</span> 00=
+000000af5879f2</div><div><span style=3D"color: rgb(220, 220, 170);">x18:</s=
+pan> ffffffffffffffff  <span style=3D"color: rgb(220, 220, 170);">x19:</spa=
+n> 0000ff0000010eb8  <span style=3D"color: rgb(220, 220, 170);">x20:</span>=
+ <span style=3D"color: rgb(181, 206, 168);">0000000000000018</span></div><d=
+iv><span style=3D"color: rgb(220, 220, 170);">x21:</span> <span style=3D"co=
+lor: rgb(181, 206, 168);">0000000000000000</span>  <span style=3D"color: rg=
+b(220, 220, 170);">x22:</span> <span style=3D"color: rgb(181, 206, 168);">0=
+000000000000002</span>  <span style=3D"color: rgb(220, 220, 170);">x23:</sp=
+an> <span style=3D"color: rgb(181, 206, 168);">0000000000000004</span></div=
+><div><span style=3D"color: rgb(220, 220, 170);">x24:</span> <span style=3D=
+"color: rgb(181, 206, 168);">0000000000000000</span>  <span style=3D"color:=
+ rgb(220, 220, 170);">x25:</span> <span style=3D"color: rgb(181, 206, 168);=
+">0000000000000018</span>  <span style=3D"color: rgb(220, 220, 170);">x26:<=
+/span> ffff8000112c0530</div><div><span style=3D"color: rgb(220, 220, 170);=
+">x27:</span> <span style=3D"color: rgb(181, 206, 168);">0000000000000000</=
+span>  <span style=3D"color: rgb(220, 220, 170);">x28:</span> <span style=
+=3D"color: rgb(181, 206, 168);">0000000000000000</span>  <span style=3D"col=
+or: rgb(220, 220, 170);">x29:</span> 0000ff0000010e30</div></div><br />I'd =
+like to know how I can allocate QEMU simulated PCI devices to non-root Linu=
+x. I'm working based on qemu-arm64.c and qemu-arm64-linux-demo.c.<br />
 
 <p></p>
 
@@ -150,11 +220,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/b3c29b14-71da-43bd-88a2-438e6ca5180dn%40googlegrou=
+om/d/msgid/jailhouse-dev/0034e1a2-a439-45de-8c25-e090cdf199b5n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/b3c29b14-71da-43bd-88a2-438e6ca5180dn%40googlegroups.co=
+msgid/jailhouse-dev/0034e1a2-a439-45de-8c25-e090cdf199b5n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_265711_190590114.1711976123124--
+------=_Part_14343_1102258939.1712084411541--
 
-------=_Part_265710_1424523564.1711976123124--
+------=_Part_14342_2032753399.1712084411541--
