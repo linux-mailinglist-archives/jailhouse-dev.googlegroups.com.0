@@ -1,73 +1,73 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBQVLY6YAMGQE6TWO26Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBO5MY6YAMGQEHTKMQTQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730F489AD9A
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Apr 2024 01:07:48 +0200 (CEST)
-Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-dc743cc50a6sf4603946276.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 06 Apr 2024 16:07:48 -0700 (PDT)
+Received: from mail-yw1-x1139.google.com (mail-yw1-x1139.google.com [IPv6:2607:f8b0:4864:20::1139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34CE889AD9B
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  7 Apr 2024 01:09:49 +0200 (CEST)
+Received: by mail-yw1-x1139.google.com with SMTP id 00721157ae682-61575fc6d1csf52550037b3.1
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 06 Apr 2024 16:09:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712444867; x=1713049667; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712444988; x=1713049788; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oXnHCIzZgtrmO4M/6kqXHDeWNE+790dAgKwfPzQFxKg=;
-        b=TIhofIaBLcCXX7ptChg1GtbkD1o5BVrZwj9C1cQWAgk6gZbe5HVX3B1BtX67zlkIRy
-         RmhN9X80XwMaVH+3acx5vng3mPRPxvWq4DLA626cNcBTlsO02kAUiKsgIJWoFuW1/gTU
-         buUSkItuVEV32z73CNrfkdxb/1357hWd5ZG+iBHVKvk3NfPo9jKfY8jobVZG7tvUHinF
-         01lLpKxOCKaYNQksOj3aNlQCh02qmrSZtNlupA0H6mgagR8akgwrON+agoADsPNzv4o6
-         wns8KHrloNu/NioTOklFrOywdIteDsqo7N3jLwgln0HCPP3J+/3iM/M1ZDRwsy+AbMsV
-         3FjQ==
+        bh=zAxJFaHHreNb3J0SmkVGEUv8oUYHAsCMHEeaZ+PlxCo=;
+        b=feohsPItajwbibRqBwqhKNIMdj3NQx65Bxqx2/UNCDf1AM9WOCLVbMyK2aVAFQzqHX
+         179MAb5PgqYL4dncaWIgkTf08Jqkg4FARZOg/RLKVwmFpncfFHy8ukt5MVZdKPX+rhzx
+         77A5Ale1t6Ci9nw/lS9G9wE40wRgs5q4ZmH1SxRWAxr6iZLjRPzMZGhMjDOpZP/MBEKQ
+         zOT8whszONux68wVg+lfnKmX5uUNQSjDsOBXIf6Yywt7KUI06tHLbYjRWLGJ52MtTuRO
+         +JemxzLhEfc7lVJbt9IB2ni27qnZxxTYYJ9hgrqrEPG6gmkxfU57IlbEZv4aHY5mVJGG
+         8IHA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712444867; x=1713049667; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712444988; x=1713049788; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=oXnHCIzZgtrmO4M/6kqXHDeWNE+790dAgKwfPzQFxKg=;
-        b=ejXKoRI38ObwYwWWlZtnk2sKNTqUGL3Qn0GLPAiTJ1WAXYVFfCYsxEcuHrmXNtpHwU
-         yAKySstjtwb3rqE29XtaKITcapN/Qv8LFdXEpzRL5RBD1vzjcTIhzi0WIz3DaJslkXxn
-         Us8H9QBlLeOF/G1pmRzci3pn4VsLIN1oYJF5XmHB2MJFHtoBsQCQtGGDv3NanQ5BuiJj
-         SiC8aFoYKQVh1uE1Q7UltwQof+l42NNXTb6IAgGoX0PVw6kme4YjTCE2iivgcF94As7k
-         wYL+p2gr90rdMr8LnEuiGY+L1bz65tw/hqxQ0oH7V+ahLecw/otFy4+SaOFkIHA+bhvU
-         FHRA==
+        bh=zAxJFaHHreNb3J0SmkVGEUv8oUYHAsCMHEeaZ+PlxCo=;
+        b=CPT9HsimjJneE1G/FSgjOZC5UgoDj/W7OnBN0ELDcc2N+o1vZi14opLwqWB05A3Ik+
+         pzqIcive4C3SQNuKigNgnWWCGjcH6QA3GE2fHBVpkxDaeXGuDKmf/0k214NKcFM4F5yE
+         8PuNSB9z1jZpSS1OA9f0ScOQqZyxv/+FCTQJzd0OAqPs3NfgLcnzpC5vJ+1LVIrDEQkv
+         J5R42RODtjeEOeCaOJ6clnKLLRh/UEYSC0zcGLG2kz0wbIQ85IaXeqJDnKlJ6nvZxgr6
+         +7Se1qIt1zNAHZdRjGqiDRMtCzDDGC29jmXr/uJH538NpDyAmwecwGGOwxLl5bVg8CtN
+         VDvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712444867; x=1713049667;
+        d=1e100.net; s=20230601; t=1712444988; x=1713049788;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oXnHCIzZgtrmO4M/6kqXHDeWNE+790dAgKwfPzQFxKg=;
-        b=OuRUQrc6hU1dOaegv4zTbxlf6LM82304gT9hDW/GeDGyho3z5Sz8YRUf/t7rE/HhD0
-         spOOBKThR4nrhrirkPqkYWGkoQfA+PKOmIJrwkIhm7Xfw5BMmusVco8AB7UemK5oQpXk
-         qYfJ0Lo6kdgX3Dx1bxWUsJlYFacbPgr9ppOCn1OEb9hoJi/sK1CSrCkO+J2Yo4QGBNeZ
-         nYkm93um3QKkmhKFzbjUxCNm7Z3Hqo0ZxEJv6rdXbXc9WxnaQdsb3Iu0mDK1PUcxeRU/
-         teFEqtqaM5eBG6bXlVCWG5F7J0P0q8072lK20VqcKvTmtTpxDSkb7p2EsF1PX5zZAgBs
-         Px/Q==
+        bh=zAxJFaHHreNb3J0SmkVGEUv8oUYHAsCMHEeaZ+PlxCo=;
+        b=o+gcKHaHMAo/b9KKt4V+R/mzZHKlVNTIJqbnMLrPhHaBrmsq9E3UevYTGNtYLN4al6
+         YA7Lx33KuIYfCDSgBb5oXNwfwnZ4I8ujbO2NvmZY8rkKRmzHvxMkU555ywQy7QTvGgYy
+         FLShnfVqoNYJi8dSecBTGl7K/S7oM72qmAaNrb1urQwPVX88FAH9rxp2AzSYpf7K/DbO
+         uTkHBLQPMQo3BM5kKly4mof76YUzPHXokB30yYZbI6EjjkccycixzrRljNhlPeGkumL5
+         LYKb9UxVWcGGdYhoOej4YNBNe6HQrfiRRFIF2UxbdAFkaHjY7VNxWqqRu3QpqerO7dyC
+         63Rg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWl1FUcHih1D+KbUk5/k3rtqpRYmsaxopYYp/VmmOCrhRo30NZOp7TMdIt743Ft91GH95P/k9Tw+J8k3D6bF37q6mSngt/3y+u2I14=
-X-Gm-Message-State: AOJu0YzrB+frw+/QxYfQqv3Rd0UyZ4NRbc5W7eLckVIrpXNvX+uQF6BJ
-	CpzaeQWAaHw/dpGOe8Af8vGd3cp1kePklBqxJIUdLzPmhAj9/6kD
-X-Google-Smtp-Source: AGHT+IGaf7PXna3Z3hj+0ou8uNTlavKSLe4rVgN+ASNteghu0rq6oajiWri1m42+gFTyZFaKyod/0w==
-X-Received: by 2002:a05:6902:2b04:b0:dc7:443d:d9da with SMTP id fi4-20020a0569022b0400b00dc7443dd9damr5396514ybb.4.1712444867301;
-        Sat, 06 Apr 2024 16:07:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXw9gY9OFFTmFm/JkVtl7wY6rZ3RuXTdwvzsUbL+2bBXgrmyhQRx+S4SaO780VsqkQZ39rHvh26hzjU7+ZHpGxKUS7xvvR88Yf9Zjc=
+X-Gm-Message-State: AOJu0Yydqgho//4EzHH7ZeX1am9SVBNDJa5ax//9xSLjsqCsiJhoTR7V
+	RbacjYRVyh+Y7JU4EcUYrdnR+XbQMhdpa2C7yqNB7wjjteMTgLy9
+X-Google-Smtp-Source: AGHT+IEsDBK5THL2s/9TU8uMbvDq5/nEasLA/gnAGuOCDOzUt3mVygGqAeFBwHwyP0+CmpwQUrfuFQ==
+X-Received: by 2002:a0d:d809:0:b0:615:8029:49f8 with SMTP id a9-20020a0dd809000000b00615802949f8mr4347277ywe.23.1712444987935;
+        Sat, 06 Apr 2024 16:09:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:af04:0:b0:dcc:37ed:efb1 with SMTP id a4-20020a25af04000000b00dcc37edefb1ls629313ybh.2.-pod-prod-00-us;
- Sat, 06 Apr 2024 16:07:45 -0700 (PDT)
-X-Received: by 2002:a05:6902:2b8e:b0:dd9:2782:d1c6 with SMTP id fj14-20020a0569022b8e00b00dd92782d1c6mr1938230ybb.1.1712444865563;
-        Sat, 06 Apr 2024 16:07:45 -0700 (PDT)
-Date: Sat, 6 Apr 2024 16:07:44 -0700 (PDT)
+Received: by 2002:a25:c4c5:0:b0:dcd:202d:6be8 with SMTP id u188-20020a25c4c5000000b00dcd202d6be8ls1585976ybf.2.-pod-prod-08-us;
+ Sat, 06 Apr 2024 16:09:46 -0700 (PDT)
+X-Received: by 2002:a05:6902:2b13:b0:dc6:f877:ea7b with SMTP id fi19-20020a0569022b1300b00dc6f877ea7bmr1640053ybb.9.1712444986311;
+        Sat, 06 Apr 2024 16:09:46 -0700 (PDT)
+Date: Sat, 6 Apr 2024 16:09:45 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <9c951e2c-fc16-4d3c-bf9e-40ceb8186216n@googlegroups.com>
-In-Reply-To: <1e3e8948-26c5-47b3-82e3-61be84a517c3n@googlegroups.com>
-References: <1e3e8948-26c5-47b3-82e3-61be84a517c3n@googlegroups.com>
-Subject: Re: Problem running Jailhouse using prebuilt qemu images
+Message-Id: <0b698fd3-961d-4dcd-836d-6f740b44e70bn@googlegroups.com>
+In-Reply-To: <CAHakC1+9=B3JmhbG8WRgcJ__saMPkPd8U5qNK16CFU4ZgCvUxg@mail.gmail.com>
+References: <CAHakC1+9=B3JmhbG8WRgcJ__saMPkPd8U5qNK16CFU4ZgCvUxg@mail.gmail.com>
+Subject: Re: Enable smmu-V3
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_185724_1865400595.1712444864813"
+	boundary="----=_Part_156608_496206965.1712444985606"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,12 +81,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_185724_1865400595.1712444864813
+------=_Part_156608_496206965.1712444985606
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_185725_1955455861.1712444864813"
+	boundary="----=_Part_156609_1367806523.1712444985606"
 
-------=_Part_185725_1955455861.1712444864813
+------=_Part_156609_1367806523.1712444985606
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 MT103/202 DIRECT WIRE TRANSFER
 PAYPAL TRANSFER
@@ -118,12 +119,34 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/9c951e2c-fc16-4d3c-bf9e-40ceb8186216n%40googlegroups.com.
+On Wednesday, January 31, 2024 at 2:44:27=E2=80=AFPM UTC+1 Laurent Corbin w=
+rote:
 
-------=_Part_185725_1955455861.1712444864813
+> Hi,
+>
+> I'm building a Jailhouse demo on LX2160a.
+> I boot a root cell and now, I'm trying to boot a Linux in a non root cell=
+=20
+> and I'd like to enable smmuV3.
+> But I found some "ToDo" in the arm64/smmu-v3.c file.
+>
+> Does smmuV3 work?
+> What else needs to be done to complete smmu-V3 support?
+>
+> Thanks in advance,
+>
+> Laurent
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/0b698fd3-961d-4dcd-836d-6f740b44e70bn%40googlegroups.com.
+
+------=_Part_156609_1367806523.1712444985606
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -135,7 +158,17 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 <br />BITCOIN TOP UP<br />GLOBALPAY INC US<br />SKRILL USA<br />UNIONPAY RE=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
-><br />
+><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
+ Wednesday, January 31, 2024 at 2:44:27=E2=80=AFPM UTC+1 Laurent Corbin wro=
+te:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8e=
+x; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div dir=
+=3D"ltr">Hi,<br><br>I&#39;m building a Jailhouse demo on LX2160a.<br>I boot=
+ a root cell and now, I&#39;m trying to boot a Linux in a non root cell and=
+ I&#39;d like to enable smmuV3.<br>But I found some &quot;ToDo&quot; in the=
+ arm64/smmu-v3.c file.<br><br>Does smmuV3 work?<br>What else needs to be do=
+ne to complete smmu-V3 support?<br><br><div>Thanks in advance,</div><div><b=
+r></div><div>Laurent<br></div></div>
+</blockquote></div>
 
 <p></p>
 
@@ -146,11 +179,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/9c951e2c-fc16-4d3c-bf9e-40ceb8186216n%40googlegrou=
+om/d/msgid/jailhouse-dev/0b698fd3-961d-4dcd-836d-6f740b44e70bn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/9c951e2c-fc16-4d3c-bf9e-40ceb8186216n%40googlegroups.co=
+msgid/jailhouse-dev/0b698fd3-961d-4dcd-836d-6f740b44e70bn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_185725_1955455861.1712444864813--
+------=_Part_156609_1367806523.1712444985606--
 
-------=_Part_185724_1865400595.1712444864813--
+------=_Part_156608_496206965.1712444985606--
