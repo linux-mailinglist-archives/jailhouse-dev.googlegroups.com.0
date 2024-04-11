@@ -1,73 +1,78 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBBWK4GYAMGQECZNAIYQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBCWN4GYAMGQEPRNM3EI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40AFE8A21BF
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 00:32:40 +0200 (CEST)
-Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dc6ceade361sf597409276.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 15:32:40 -0700 (PDT)
+Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A19F8A21CC
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 00:39:08 +0200 (CEST)
+Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-dcc58cddb50sf539241276.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 15:39:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712874759; x=1713479559; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712875147; x=1713479947; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=eN59y6PRXou4c4v2yP3TVckallZ75CjdQEVc6dwhDKU=;
-        b=cehDmO/XmY39jJvwI0nyzBSUBPdOC5mPn+mwGBTBluyFIrDMP1IoDbTeiEPN0LA3D8
-         IgHwrx+uaVZ8ySaVhsXX73OuuG25P10Mi/J9wS6jyN9efACjgoYXIQEadD5b23WIfkQ5
-         pdytuRARFVIlrja3iFsMkOOFhaWaWBogA6oxqa1T6J/D0BqHbyXpz0Wj4pIRnzzYvWD1
-         krGIzFP0fpGgh/n9MEw4SAPOdu5Wp0UUshIlPnnvyikuUpnlR9lOiuRQSU6wgBKSQg5j
-         1SwKW9roLJg5rJ7rMmF8ieNaaC6VZ5wavGaY/h4oaH6P7P4eHofWRIa/xbiGG5bEEUT+
-         Xipg==
+        bh=8L3PcvggC/R5B7+C6iq6wKyZkcIBMSnop5DFTgbh0Ck=;
+        b=BFTmW3rm//LnvL5MRmsAP7PXBuHXsrrcROP6xV4ctsc5nzPsDlRb1mZes6rJCgdFlg
+         YnhhaIOiatMmAqka9a03iPzkHMxY9CGALCnBpcoZR0N3yW/1xu5r+jXvmgk5EzjroJRU
+         5KKLVoZsAqD1YsAA6grkFcS+/U8wfOSYJeP+SpPEU9WKq1RYdBdt1Aweo67iC+bHUPol
+         r6Zx/9exOaLP2LCa+Xv1wOINJmomU6+5KuAOZ5zQYauNS76xMT/i/zjkIiZmkNUAjbm6
+         f//sev/XLsc+7WW2Fh0XkkveS1LJg7EUXBZLU5q6LU5xV9GkGCICSDJ6WGQyO5NaHKFF
+         zapg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712874759; x=1713479559; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712875147; x=1713479947; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=eN59y6PRXou4c4v2yP3TVckallZ75CjdQEVc6dwhDKU=;
-        b=EkSNWfVMT5f5KxtUITAoukzUId6wXgkSJfBJ3eruCKcdGTBAgREdVkcfLp6zDpP6In
-         oCult5IunYV21+BLJXhmSOvDxygnQcbIfEV622HUa22rDlLSp4gc+Wd7OqQizyVsk7NW
-         V+m4Oq/ofI6AOkL2KjJXDz22dqNfxIALDQpChisbj1lRQhdG6motTea2WjXex4i0SMm4
-         y0Bv7lZY1nomsdXV3IJBThXzu8XAlfrvB/ydOAub0b3DT3tO2Xom3SM8cAqlZjbm0COo
-         eCqj2KK2LHzRkZWZSzlARm7tlkWCoKKc1qZZoWxnKDO0qlvG2Up/WrM3a72+M7GTCqMu
-         PuTA==
+        bh=8L3PcvggC/R5B7+C6iq6wKyZkcIBMSnop5DFTgbh0Ck=;
+        b=IbRMncT101Po1+crzunDpksM5eea6LdFGOxPAI+1TuTsnO9/uSTv/hy3K+3+CVChFT
+         XB7CUnXs0v2PlJE4568KYauTdoXwOu6TKSCW537k4BlGv6qJylexUxyIZnRMmm4grlGA
+         2aWlQX0Bcmfnf6batlMfFWq3yil4710O1TmwwTkCSqYSlyPRvtlbKDwANT7Ln44EmPzH
+         Kn5lEfCg3kUy9exg//VhyCOVuyThAD3Ied6wqrEigbHjysatggXcousTyYoTKJUssnYH
+         PZXf7jecE2pXK7dFTz6RJOCJFC2nn2psXBIjN12gfDhegc6jrMFbGDeIWZB9f/2vTV6N
+         wACg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712874759; x=1713479559;
+        d=1e100.net; s=20230601; t=1712875147; x=1713479947;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=eN59y6PRXou4c4v2yP3TVckallZ75CjdQEVc6dwhDKU=;
-        b=nDipJTfyPSzhxBseQ3uozqqflm/ie/5iRU+G48MThu/vupaxRyzwVLvD6bkhy5wRQ8
-         8yOd3OBOoW/MCQ1SNRqnS9HLsn+2sXEkUaym7JUWqhHyEJy3NnJ8Hc3fKa+I7xOiRgHm
-         v4IL8LbWGsxkURM1sW49gB0ZlBjrppprrw+idD+9M1kBUqJNAndP7jLSHVVSQNTHTaxV
-         ZSlwVoNJ5LaVr1ZgsabAS10HMChU6kTxm+w3UygdvjcLl0P4wGYWjGu6RjqNnk7Dj+1z
-         Zp1dFcoxGItUnsTyKDGwM10Bf06yR1mzvjP4fxIafBVLZYr3kv1B54jyDUqjBITEDwwC
-         vpJg==
+        bh=8L3PcvggC/R5B7+C6iq6wKyZkcIBMSnop5DFTgbh0Ck=;
+        b=VVavJOLJJF/VPUdMNPfjC1wl96pfbZKtmAfiF3Zg8el0TsSOg6zFnrp4QqvYAmDHXE
+         ovl7QtB1M6Vtvt8R3KYAauRP0YIYVmoZjijJEb1PFWFFPb6MP1cTTY+bavCXHceW7iKK
+         VyThnjElgQ+QZxpkSe6GLaCU9XCNpQzm25Zy6sWQK3PWpkS5MmTc1eIwJftxStjeEPh/
+         nyENbyb4f6Rzm0hpBbxdqzddmGNUe3DjwazI6iOIywRkKulcdcAhmoZJF6mKpy7ysVsZ
+         WOHVsq27zj/zFcuuiBLw/H1gIy0kMXcWH4tZk051asl39fnYSwxazuMAEE6nMHiC6bQU
+         vFHg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXNeAcgGx9LX63oXFSpF8dTxsQqgHkQ/CtO68ZC+iFSEZXPHQ6efe1jHxIgEIlhN054osImII1aOV9w0yd/UBH3tLcrqM491X2KRFs=
-X-Gm-Message-State: AOJu0YyKnnmJt9tVUUwIXY4Rl6I+h5WUxvJVuxzI58aDeeaiM7ScEAXN
-	tW7JVM8OKP2rinrJxxcBN2UI+mjt5vjF7D1dpUvXUL1NdA0ZCOEN
-X-Google-Smtp-Source: AGHT+IFohtSWlMjqGjiuc5hfzRnqJcYwmsmm37OmcYMRPDBuUm8zu2/3XVSd62mYg+yapcwTvXn3dg==
-X-Received: by 2002:a25:d6c4:0:b0:dc2:3f75:1f79 with SMTP id n187-20020a25d6c4000000b00dc23f751f79mr889238ybg.23.1712874759163;
-        Thu, 11 Apr 2024 15:32:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUFq7065IKrGaNDXWo6RlXhOIaRhROTqX0hq59zuhWGN8tMFDhvk8BYsNXencE8WouUN0pOhIk+i288ovJNOSVl+1wXe9PX37I4svc=
+X-Gm-Message-State: AOJu0YyHp8IE4LtCaSS8mu74AoimVD1jbwAxEsCBbhzYunxqZZlqlxRL
+	2WY42rOTeN+d+Ys+SAFyYhnQ4DqFvFu5FV3Cjd8uRRS/7xrpizfR
+X-Google-Smtp-Source: AGHT+IGPKVXHYLBM33upgLLAZqlrkOdzrdniRqDwRNY/2F9TwxZ1wt1DKVAQL9us61+RqNQNZ5ToAg==
+X-Received: by 2002:a25:ef52:0:b0:dc2:2d75:5fde with SMTP id w18-20020a25ef52000000b00dc22d755fdemr1037351ybm.29.1712875146951;
+        Thu, 11 Apr 2024 15:39:06 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:74c3:0:b0:dcc:717f:41b7 with SMTP id p186-20020a2574c3000000b00dcc717f41b7ls676909ybc.0.-pod-prod-07-us;
- Thu, 11 Apr 2024 15:32:37 -0700 (PDT)
-X-Received: by 2002:a25:9886:0:b0:dd9:4ad1:a1f7 with SMTP id l6-20020a259886000000b00dd94ad1a1f7mr214328ybo.9.1712874757378;
-        Thu, 11 Apr 2024 15:32:37 -0700 (PDT)
-Date: Thu, 11 Apr 2024 15:32:36 -0700 (PDT)
+Received: by 2002:a25:d696:0:b0:dcb:b370:7d12 with SMTP id n144-20020a25d696000000b00dcbb3707d12ls482923ybg.1.-pod-prod-00-us;
+ Thu, 11 Apr 2024 15:39:04 -0700 (PDT)
+X-Received: by 2002:a05:6902:1889:b0:dc2:2e5c:a21d with SMTP id cj9-20020a056902188900b00dc22e5ca21dmr349650ybb.6.1712875144351;
+        Thu, 11 Apr 2024 15:39:04 -0700 (PDT)
+Date: Thu, 11 Apr 2024 15:39:03 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <5ff8d82f-2de5-4c53-b8bf-05e42e0fb128n@googlegroups.com>
-In-Reply-To: <ZdgYI3dIQ0q6uSyyGMl3YA@geopod-ismtpd-0>
-References: <ZdgYI3dIQ0q6uSyyGMl3YA@geopod-ismtpd-0>
-Subject: Re: F1 Paddock Club - British Grand Prix 2024 - Cancellation
+Message-Id: <938803bd-a8ab-452f-9027-29954f57e53an@googlegroups.com>
+In-Reply-To: <ce8a9fdf-1316-41d3-be24-d3ab2dbabb95n@googlegroups.com>
+References: <e630d89c-45ab-40c1-ab9e-222fbbe26f30n@googlegroups.com>
+ <20220111103848.5abbc20e@md1za8fc.ad001.siemens.net>
+ <84ebb12e-49ba-49ed-9719-063064e3c8e6n@googlegroups.com>
+ <8fc34409-ec7f-4306-9f97-3bb380f7c08dn@googlegroups.com>
+ <850100c3-90eb-4a87-82c7-9bd84a8fecd9n@googlegroups.com>
+ <ce8a9fdf-1316-41d3-be24-d3ab2dbabb95n@googlegroups.com>
+Subject: Re: Adding another vpci
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_92930_1906138619.1712874756516"
+	boundary="----=_Part_165512_1770155613.1712875143412"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,11 +86,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_92930_1906138619.1712874756516
+------=_Part_165512_1770155613.1712875143412
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_92931_673765517.1712874756516"
+	boundary="----=_Part_165513_1415615952.1712875143412"
 
-------=_Part_92931_673765517.1712874756516
+------=_Part_165513_1415615952.1712875143412
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -119,165 +124,84 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
-On Thursday, November 2, 2023 at 7:30:01=E2=80=AFAM UTC+1 Priv=C3=A8 Global=
- wrote:
+On Monday, October 30, 2023 at 1:23:36=E2=80=AFPM UTC+1 Bharathiraja Nallat=
+hambi=20
+wrote:
 
-> Access the Red Bull suite at a discounted rate!=E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F=20
-> =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD=20
-> =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD=20
-> =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD=20
-> =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD=20
-> =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD=20
->
-> Existing news for F1 fans, we've just had a cancellation on a private=20
-> table for 8 guests for the F1 Paddock Club at the British Grand Prix taki=
-ng=20
-> place at Silverstone between 4th-7th July 2024.
->
-> Typically, 3 days passes for the Paddock Club (with pit lane passes=20
-> included) are priced at =C2=A33k per person. However, we can offer these =
-8=20
-> places at a discounted rate of just =C2=A31,495 per person +VAT.=20
->
-> Package Inclusions:
->
-> - Entry to the Red Bull Racing hospitality suite in the Formula 1 Paddock=
+> Hi  Moustafa Nofal,
+>    I am trying to run two Linux inmate on Raspberry Pi 4, Can you please=
 =20
-> Club=E2=84=A2 with excellent on-track views
-> =20
-> - All-day hospitality in the Red Bull Racing hospitality suite with=20
-> gourmet cuisine and an open bar serving premium drinks.
-> =20
-> - Appearances by key team personnel, including race drivers Max Verstappe=
-n=20
-> and Sergio P=C3=A9rez.
-> =20
-> - Guided tour of the Red Bull Racing garage where you can get=20
-> behind-the-scenes access to the team's operational strategies throughout=
-=20
-> the weekend.
-> =20
-> - Daily walks in the pit lane, where you can get an up-close view as the=
-=20
-> mechanics prepare the cars for racing.
-> =20
-> - Prime viewing from above the pit lane and team garages, looking over th=
-e=20
-> start/finish line, with free grandstand seating available as well.
-> =20
-> - All day open bar serving Champagne, fine wines, premium spirits, beers,=
-=20
-> soft drinks, tea & coffee.
-> =20
-> - Gourmet luncheon starting with a plated starter, followed by a sumptuou=
+> help me with the root cell configuration, and two Linux inmate cell=20
+> configuration ?
+>
+> Thanks and Regards,
+> Bharathiraja Nallathambi
+>
+> On Wednesday, 12 January 2022 at 01:31:49 UTC+5:30 Moustafa Nofal wrote:
+>
+>> Almost everything went well, but when I started the fourth cell=20
+>> (bare-metal), I got this error, and jailhouse hangs, so I am able to
+>> 1- create two linux non-root cells and inter-cell communication works=20
+>> fine, and(including ethernet)
+>> 2- one bare-metal and linux non-root cell.(inter-cell communication work=
 s=20
-> buffet.
->
-> =20
->
-> This is a huge opportunity to attend the F1 next year at Silverstone and=
+>> fine (also ethernet)
+>> I added one region for the newly created cell in all files with taking=
 =20
-> these places will be sold on a first come, first serve basis.=20
->
-> If you do wish to make a reservation, reply to this email or give me a=20
-> call on 0203 576 4529 and I will be happy to assist you further.
->
-> Kind regards,=20
->
-> =20
->
-> Daniel De'Russo=20
->
-> Head of Global Corporate Sales=20
->
-> *Priv=C3=A8 Global Events*
-> *To reserve this table, please do not hesitate to call me or reply to thi=
+>> care of correct flags, enlarged the state memory region and the all-cell=
 s=20
-> email and I be happy to assist you further.*
->
-> *Daniel De'Russo*=20
->
-> Head of Global Corporate Sales=20
->
-> *Priv=C3=A8 Global Events*=20
->
->   t:  +44 203 576 4529 <(203)%20576-4529>
->
-> The content of this email is confidential and intended for the recipient=
+>> R/W memory region, and here is what I edited in the root cell:
+>>
+>> Adding virtual PCI device 00:00.0 to cell "rpi4-linux-demo-2"
+>> Shared memory connection established, peer cells:
+>>                          /* IVSHMEM 0001:00:00.0 (demo) */
+>>                         .type =3D JAILHOUSE_PCI_TYPE_IVSHMEM,
+>>                         .domain =3D 1,
+>>                         .bdf =3D 0 << 3,
+>>                         .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,
+>>                         .shmem_regions_start =3D 0,
+>>                         .shmem_dev_id =3D 0,
+>>                         .shmem_peers =3D 4,
+>>                         .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEFI=
+NED,
+>>                 },
+>>
+>> And in any other cell i change only the dev_id, so I have 0,1,2,3, the=
 =20
-> specified in message only. It is strictly forbidden to share any part of=
+>> second PCI is an VETH and is working fine for both linux cells together,=
 =20
-> this message with any third party, without a written consent of the sende=
-r.=20
-> If you received this message by mistake, please reply to this message and=
+>> the problem only comes if I created the baremetal cell.
+>>
+>>
+>>
+>>
+>> On Tuesday, 11 January 2022 at 13:54:17 UTC+1 Moustafa Nofal wrote:
+>>
+>>> Hi,=20
+>>> Everything is working smoothly now. I have now only question regarding=
 =20
-> follow with its deletion, so that we can ensure such a mistake does not=
-=20
-> occur in the future. =20
->
-> Registered Company Name - Prive Global Sports. Company no. - 12537476 =20
-> No longer want to receive these emails? Unsubscribe=20
-> <https://trk.klclick1.com/ls/click?upn=3D7ZpdBophAwrZEeo9o6yKdFTuapAr443S=
-X9b-2FWtUFY0aQ4EDdKqo0cmaycS-2BCtCLV5lfwrFIQxHjYlWsE5ySLc9-2FdBUBtRJsr27VQQ=
--2Fz2a2d4AkfkL-2BMZH7UQqWV7ziARPaRzUpFRcLJwjvwpnNMW-2BUlP3QjSSasktOdLqRPhfe=
-JfqNbPcKu943-2F7PdLH2cFpEFDj7neNeElcdUrrVd9z7V-2FGzOyQGP1JwZX8S6lKF-2BN8gVN=
-KVWtrMkI6HGskhnMbVKTR_yxe3hxlEKZLb36qs-2BKApVr7ZX4aFxpSJbhjNkBlCEPRTGIvXkRp=
-tALDz9gXFwao88ZUyCDoej4CkYev8v0LAm5TojJRoEDhUFtWSRQKYSjtHzDAvCvmBvIlxxincGH=
-AfjDnutWg7K5dU1YcS0PHiKMbd3Y-2FGFwaxkK-2B2IYgFSRdmHnpwsA3MIWK1zN4966rDtbi4Q=
-i6snE1GBwQIxCZb9eDKtznsj4X2mxdrXzjLlhc-2BDdf1PNd3MYNtGTB-2B-2BUtrPsQUXUIcS8=
-wfSelgmyEoEBT6sYkdSE5R2M7Ei2dfkqTNftA6wnzKbsuLgk0S-2Fc0NUsx6ogQD-2BdEUe1Rex=
-j-2FlIN-2BKJeMELk9e544zkHPXFhTBFXHcQTlQqmX4FmGLnmMU2l7iwCv3rjnVa-2BkY80u65i=
-PgNPhEVnz6O4Dqr0YGXfdqVqoKVuHeYonbUyUyByn4gSFR-2BfJ-2FN9ZWVbJQwOJ6Yw-3D-3D>
-> .
->
->
+>>> these two memory regions:
+>>>
+>>>                 /* MMIO 1 (permissive) */ {
+>>>                         .phys_start =3D 0xfd500000,
+>>>                         .virt_start =3D 0xfd500000,
+>>>                         .size =3D        0x1b00000,
+>>>                         .flags =3D JAILHOUSE_MEM_READ |=20
+>>> JAILHOUSE_MEM_WRITE |
+>>>                                 JAILHOUSE_MEM_IO,
+>>>                 },
+>>>                 /* MMIO 2 (permissive) */{
+>>>                         .phys_start =3D 0x600000000,
+>>>                         .virt_start =3D 0x600000000,
+>>>                         .size =3D         0x4000000,
+>>>                         .flags =3D JAILHOUSE_MEM_READ |=20
+>>> JAILHOUSE_MEM_WRITE |
+>>>                                 JAILHOUSE_MEM_IO,
+>>>                 }, =20
+>>>
+>>>>
+>>>>>
+>>>>>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -285,9 +209,9 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/5ff8d82f-2de5-4c53-b8bf-05e42e0fb128n%40googlegroups.com.
+jailhouse-dev/938803bd-a8ab-452f-9027-29954f57e53an%40googlegroups.com.
 
-------=_Part_92931_673765517.1712874756516
+------=_Part_165513_1415615952.1712875143412
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -300,798 +224,79 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
 ><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
- Thursday, November 2, 2023 at 7:30:01=E2=80=AFAM UTC+1 Priv=C3=A8 Global w=
-rote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.=
-8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><u></u>
-
-
-
-
-
-
-
-
-
-<div style=3D"word-spacing:normal;background-color:#f7f7f7">
-<div style=3D"display:none;font-size:1px;color:#ffffff;line-height:1px;max-=
-height:0px;max-width:0px;opacity:0;overflow:hidden">
-      Access the Red Bull suite at a discounted rate!=E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=
-=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=
-=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=
-=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =
-=E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=CD=8F =E2=80=87=
-=CD=8F =E2=80=87=CD=8F =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=
-=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =
-=C2=AD =C2=AD =C2=AD =C2=AD =C2=AD =C2=AD
-    </div>
-<div style=3D"background-color:#f7f7f7">
-<div>
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"width:100%">
-<tbody>
-<tr>
-<td>
-
-<div style=3D"margin:0px auto;max-width:600px">
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"width:100%">
-<tbody>
-<tr>
-<td style=3D"direction:ltr;font-size:0px;padding:0px;text-align:center">
-
-<div style=3D"background:#ffffff;background-color:#ffffff;margin:0px auto;b=
-order-radius:0px 0px 0px 0px;max-width:600px">
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"background:#ffffff;background-color:#ffffff;wi=
-dth:100%;border-radius:0px 0px 0px 0px">
-<tbody>
-<tr>
-<td style=3D"direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;=
-padding-left:0px;padding-right:0px;padding-top:0px;text-align:center">
-
-<div>
-
-<div style=3D"display:table;table-layout:fixed;width:100%">
-
-<div style=3D"display:table-cell;vertical-align:top;width:100%">
-</div>
-
-</div>
-
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"width:100%">
-<tbody>
-<tr>
-<td>
-
-<div style=3D"margin:0px auto;max-width:600px">
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"width:100%">
-<tbody>
-<tr>
-<td style=3D"direction:ltr;font-size:0px;padding:0px;text-align:center">
-
-<div style=3D"background:#ffffff;background-color:#ffffff;margin:0px auto;b=
-order-radius:0px 0px 0px 0px;max-width:600px">
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation" style=3D"background:#ffffff;background-color:#ffffff;wi=
-dth:100%;border-radius:0px 0px 0px 0px">
-<tbody>
-<tr>
-<td style=3D"direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;=
-padding-left:0px;padding-right:0px;padding-top:0px;text-align:center">
-
-<div>
-
-<div style=3D"display:table;table-layout:fixed;width:100%">
-
-<div style=3D"display:table-cell;vertical-align:top;width:100%">
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci3.googleusercontent.com/proxy/f2Xxtu6Pk1AcRad-7YpwSbK=
-CDeHIsebV2z1RzOlkWJ4Fm-sF0VB88gjwN232JEqEBa2E8aQhOEMiQ4FJmBxjrEv8CMr-N1Pvex=
-NV76tsdGYvkID3myiDr2jpo1vnHONC1exQupc6fT8HEpW_nOl0SzOCmITFoj0=3Ds0-d-e1-ft#=
-https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/02f249a1-3df8-4=
-bda-ac3e-07acbc209574.png" style=3D"display:block;outline:none;text-decorat=
-ion:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:9px;padding-right:18px;padding-=
-bottom:9px;padding-left:18px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"left" style=3D"font-size:0px;padding:0px;padding-top:0px;paddi=
-ng-right:0px;padding-bottom:0px;padding-left:0px;word-break:break-word">
-<div style=3D"font-family:&#39;Helvetica Neue&#39;,Arial;font-size:14px;fon=
-t-style:normal;font-weight:400;letter-spacing:0px;line-height:1.3;text-alig=
-n:left;color:#222427"><p><span><span>Existing news for F1 fans, we&#39;ve j=
-ust had a cancellation on a private table for 8 guests for the F1 Paddock C=
-lub at the British Grand Prix taking place at Silverstone between 4th-7th J=
-uly 2024.</span></span></p>
-<p><span><span>Typically, 3 days passes for the Paddock Club (with pit lane=
- passes included) are priced at =C2=A33k per person. However, we can offer =
-these 8 places at a discounted rate of just <span style=3D"font-weight:bold=
-">=C2=A31,495</span>=C2=A0<span style=3D"font-weight:bold">per person +VAT<=
-/span>.=C2=A0</span></span></p>
-<div>
-<div dir=3D"ltr">
-<div></div>
-</div>
-</div>
-<p style=3D"text-align:center"><span style=3D"text-decoration:underline"><s=
-pan>Package Inclusions:</span></span></p>
-<blockquote>
-<div dir=3D"ltr">
-<div>
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation">
-<tbody>
-<tr>
-<td>
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation">
-<tbody>
-<tr>
-<td>
-<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
-le=3D"presentation">
-<tbody>
-<tr>
-<td>
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td>
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"left">
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold">- <span>Entry to the Red Bull Racing hospitality suite in the Form=
-ula 1 Paddock Club</span><sup>=E2=84=A2</sup><span>=C2=A0with excellent on-=
-track views</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>=C2=A0</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>- All-day hospitality in the Red Bull Racing hospitality sui=
-te with gourmet cuisine and an open bar serving premium drinks.</span></spa=
-n></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>=C2=A0</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>- Appearances by key team personnel, including race drivers =
-Max Verstappen and Sergio P=C3=A9rez.</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>=C2=A0</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>- Guided tour of the Red Bull Racing garage where you can ge=
-t behind-the-scenes access to the team&#39;s operational strategies through=
-out the weekend.</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>=C2=A0</span></span></div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold"><span>- Daily walks in the pit lane, where you can get an up-close=
- view as the mechanics prepare the cars for racing.</span></span></div>
-<div style=3D"text-align:center">=C2=A0</div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold">- Prime viewing from above the pit lane and team garages, looking =
-over the start/finish line, with free grandstand seating available as well.=
-</span></div>
-<div style=3D"text-align:center">=C2=A0</div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold">- All day open bar serving Champagne, fine wines, premium spirits,=
- beers, soft drinks, tea &amp; coffee.</span></div>
-<div style=3D"text-align:center">=C2=A0</div>
-<div style=3D"text-align:center"><span style=3D"font-style:italic;font-weig=
-ht:bold">- Gourmet luncheon starting with a plated starter, followed by a s=
-umptuous buffet.</span></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</blockquote>
-<p style=3D"padding-bottom:0">=C2=A0</p></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci4.googleusercontent.com/proxy/6qg45X2LU0syqdytSqKRb5f=
-BpXSZMmW3kxn1p8EQEGCXBeD64rktdQkGSdO_or4tOm2_MoVE-Xp2dpLU6pbRvQLrD0a8ul5TV_=
-SOgkM9-Vgp2fL6ZGFR7kEVorxX077qGPWbemc7K5tG9f88ktoQ43CABocUQWc=3Ds0-d-e1-ft#=
-https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/bbc186af-cceb-4=
-6a1-87df-aac3cb179ff5.png" style=3D"display:block;outline:none;text-decorat=
-ion:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci5.googleusercontent.com/proxy/9mNERBwRLw03arIYGKi-70F=
-NLlXQpJV8wKo2U-8zgtFKkhwU5-W7sEPbysNS0rlZN3E3zgGgcWPxekfPA8BWBJ225Wbf_jLBKB=
-_1BA5x3ODbc-xBxEZKJWFjA9svuHUF5neZe0-zhADWEN0_81ygHy5529EJe0w=3Ds0-d-e1-ft#=
-https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/92b5c00e-e251-4=
-2c0-bf66-a2ca79f5495c.png" style=3D"display:block;outline:none;text-decorat=
-ion:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci4.googleusercontent.com/proxy/Hmnrpk8gvry5abmwfuudN9I=
-vzGaHnySFkQeMKjAh6cEa3vW1jsqWtpD40MokUyTiAGXFvJ5hXqzISBmZE7FxyBk77icZnrQ3f8=
-w2aUfo92sed9oWvDiwPhQxQZvQSd6XmCXzxWGmF2fxGCVG_IQUQSgLN3R1Stg=3Ds0-d-e1-ft#=
-https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/0aa1dde5-72b7-4=
-8c4-ac20-4f7ebe7da27a.png" style=3D"display:block;outline:none;text-decorat=
-ion:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci3.googleusercontent.com/proxy/Iu4ksEqihmuGPZ_0CSdC8GE=
-W_et2DKzj1M3emxoz8Szi-ubWiCx-gAucmLu1CaPQi9wS-kbvaG64YrR-P-BI1MSX20X7zykrZ7=
-1eTqpWfhntDJGV715sM07pwtfDztEnz6YgD0CAnvIIsdvyODMxrnmpPuW6Nhux=3Ds0-d-e1-ft=
-#https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/6ddf9296-4fd7-=
-4980-8cac-f3e280225e69.jpeg" style=3D"display:block;outline:none;text-decor=
-ation:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci3.googleusercontent.com/proxy/tQtVk8t9o3YeSABDIGzKDma=
-LKltqyoGkyXq9mFkFEfSs81eN_0T4pHwuJkQBJtG0Zl5rowQvHVZN3G2BEhUJuhJ_jXZfMMlo-s=
-nh87lsylIxHAUQQLau41axtrt5KrDRGtWTQXogejbsfAT6Im81C8I60PH-NwRv=3Ds0-d-e1-ft=
-#https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/f90bd904-3e69-=
-4cbc-bb75-ebb8f1a9b73b.jpeg" style=3D"display:block;outline:none;text-decor=
-ation:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:600px" valign=3D"top">
-<img src=3D"https://ci3.googleusercontent.com/proxy/0SXX3yLV57imGl8nTXaEFBZ=
-Jo3qPRzNiXq8tqYXIYjWByetoNpdJVA5qdvZDn40gXtUH5KxzaXGmCcpt6LNNSKKv2QFH_orvRL=
-hSvcUrMyvQM9mWi0CSgmVBv0B7y9YTCLJQ6mvtSPfAaxgM4ZnWucFyKedrZ8ds=3Ds0-d-e1-ft=
-#https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/f305b926-0784-=
-4803-a628-d1074b01dd50.jpeg" style=3D"display:block;outline:none;text-decor=
-ation:none;min-height:auto;font-size:13px;width:100%" width=3D"600">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:9px;padding-right:18px;padding-=
-bottom:9px;padding-left:18px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"left" style=3D"font-size:0px;padding:0px;padding-top:0px;paddi=
-ng-right:0px;padding-bottom:0px;padding-left:0px;word-break:break-word">
-<div style=3D"font-family:&#39;Helvetica Neue&#39;,Arial;font-size:14px;fon=
-t-style:normal;font-weight:400;letter-spacing:0px;line-height:1.3;text-alig=
-n:left;color:#222427"><p><span><span>This is a huge opportunity to attend t=
-he F1 next year at Silverstone and these places will be sold on a first com=
-e, first serve basis. </span></span></p>
-<p><span><span>If you do wish to make a reservation, reply to this email or=
- give me a call on </span>0203 576 4529 <span>and I will be happy to assist=
- you further.</span></span></p>
-<p><span><span>Kind regards,</span></span><span>=C2=A0</span></p>
-<p><span>=C2=A0</span></p>
-<p><span><span>Daniel De&#39;Russo</span></span><span>=C2=A0</span></p>
-<p><span><span>Head of Global Corporate Sales</span></span><span>=C2=A0</sp=
-an></p>
-<p style=3D"padding-bottom:0"><span><strong><span>Priv=C3=A8 Global Events<=
-/span></strong></span></p></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:9px;padding-right:18px;padding-=
-bottom:9px;padding-left:18px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"left" style=3D"font-size:0px;padding:0px;padding-top:0px;paddi=
-ng-right:0px;padding-bottom:0px;padding-left:0px;word-break:break-word">
-<div style=3D"font-family:&#39;Helvetica Neue&#39;,Arial;font-size:14px;fon=
-t-style:normal;font-weight:400;letter-spacing:0px;line-height:1.3;text-alig=
-n:left;color:#222427"><div><span style=3D"font-weight:400"><strong>To reser=
-ve this table, please do not hesitate to call me or reply to this email and=
- I be happy to assist you further.</strong></span></div></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;word-break:break-word">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
-lapse:collapse;border-spacing:0px">
-<tbody>
-<tr>
-<td style=3D"border:0;padding:0px 0px 0px 0px;width:200px" valign=3D"top">
-<img src=3D"https://ci5.googleusercontent.com/proxy/B3c6PgXHcCwxCkVOK9Ozbsv=
-xgHJsPbCuEcPvfxPr_ueVgKCrsWZtR7NkEJvyVFn2p00UufGd4of3np8NdNc2jiC7qA35nLzih6=
-0BdYhIgvbJUOg3r5Ibmu76UXYoXXx8ekM82gEzh9FYnsueqGEzildBqHCzO9Y=3Ds0-d-e1-ft#=
-https://d3k81ch9hvuctc.cloudfront.net/company/W7Aufs/images/d09953c4-b4ad-4=
-31a-974e-c7880a406e97.png" style=3D"display:block;outline:none;text-decorat=
-ion:none;min-height:auto;font-size:13px;width:100%" width=3D"200">
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:9px;padding-right:18px;padding-=
-bottom:9px;padding-left:18px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"left" style=3D"font-size:0px;padding:0px;padding-top:0px;paddi=
-ng-right:0px;padding-bottom:0px;padding-left:0px;word-break:break-word">
-<div style=3D"font-family:&#39;Helvetica Neue&#39;,Arial;font-size:14px;fon=
-t-style:normal;font-weight:400;letter-spacing:0px;line-height:1.3;text-alig=
-n:left;color:#222427"><p align=3D"center"><span><strong><span>Daniel=C2=A0D=
-e&#39;Russo</span></strong></span><span>=C2=A0</span></p>
-<p align=3D"center"><span><span>Head of Global Corporate Sales</span></span=
-><span>=C2=A0</span></p>
-<p align=3D"center"><span><strong><span>Priv=C3=A8 Global Events</span></st=
-rong></span><span>=C2=A0</span></p>
-<p align=3D"center"><span><span>=C2=A0</span></span><span>=C2=A0</span><spa=
-n><span>t: </span></span><span>=C2=A0+44 </span><span style=3D"text-align:l=
-eft"><a href=3D"tel:(203)%20576-4529" value=3D"+12035764529" target=3D"_bla=
-nk" rel=3D"nofollow">203 576 4529</a></span></p>
-<p align=3D"center"><span style=3D"font-size:10px"><span>The content of thi=
-s email is confidential and intended for the recipient specified in message=
- only. It is strictly forbidden to share any part of this message with any =
-third party, without a written consent of the sender. If you received this =
-message by mistake, please reply to this message and follow with its deleti=
-on, so that we can ensure such a mistake does not occur in the future.=C2=
-=A0</span>=C2=A0</span></p>
-<p align=3D"center" style=3D"padding-bottom:0"><span style=3D"font-size:10p=
-x"><span>Registered Company Name - Prive Global Sports. Company no. - 12537=
-476=C2=A0</span>=C2=A0</span></p></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-
-<div style=3D"display:table;table-layout:fixed;width:100%">
-
-<div style=3D"display:table-cell;vertical-align:top;width:100%">
-<div style=3D"font-size:0px;text-align:left;direction:ltr;vertical-align:to=
-p;width:100%">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" style=3D"width:100%" width=3D"100%">
-<tbody>
-<tr>
-<td style=3D"vertical-align:top;padding-top:0px;padding-right:0px;padding-b=
-ottom:0px;padding-left:0px">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
-n" width=3D"100%">
-<tbody>
-<tr>
-<td align=3D"center" style=3D"font-size:0px;padding:0px;padding-top:9px;pad=
-ding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word"=
->
-<div style=3D"font-family:&#39;Helvetica Neue&#39;,Arial;font-size:12px;fon=
-t-style:normal;font-weight:400;letter-spacing:0px;line-height:1.3;text-alig=
-n:center;color:#727272"><div>No longer want to receive these emails? <a sty=
-le=3D"color:#197bbd;font-weight:normal;text-decoration:underline" href=3D"h=
-ttps://trk.klclick1.com/ls/click?upn=3D7ZpdBophAwrZEeo9o6yKdFTuapAr443SX9b-=
-2FWtUFY0aQ4EDdKqo0cmaycS-2BCtCLV5lfwrFIQxHjYlWsE5ySLc9-2FdBUBtRJsr27VQQ-2Fz=
-2a2d4AkfkL-2BMZH7UQqWV7ziARPaRzUpFRcLJwjvwpnNMW-2BUlP3QjSSasktOdLqRPhfeJfqN=
-bPcKu943-2F7PdLH2cFpEFDj7neNeElcdUrrVd9z7V-2FGzOyQGP1JwZX8S6lKF-2BN8gVNKVWt=
-rMkI6HGskhnMbVKTR_yxe3hxlEKZLb36qs-2BKApVr7ZX4aFxpSJbhjNkBlCEPRTGIvXkRptALD=
-z9gXFwao88ZUyCDoej4CkYev8v0LAm5TojJRoEDhUFtWSRQKYSjtHzDAvCvmBvIlxxincGHAfjD=
-nutWg7K5dU1YcS0PHiKMbd3Y-2FGFwaxkK-2B2IYgFSRdmHnpwsA3MIWK1zN4966rDtbi4Qi6sn=
-E1GBwQIxCZb9eDKtznsj4X2mxdrXzjLlhc-2BDdf1PNd3MYNtGTB-2B-2BUtrPsQUXUIcS8wfSe=
-lgmyEoEBT6sYkdSE5R2M7Ei2dfkqTNftA6wnzKbsuLgk0S-2Fc0NUsx6ogQD-2BdEUe1Rexj-2F=
-lIN-2BKJeMELk9e544zkHPXFhTBFXHcQTlQqmX4FmGLnmMU2l7iwCv3rjnVa-2BkY80u65iPgNP=
-hEVnz6O4Dqr0YGXfdqVqoKVuHeYonbUyUyByn4gSFR-2BfJ-2FN9ZWVbJQwOJ6Yw-3D-3D" tar=
-get=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.=
-com/url?hl=3Den&amp;q=3Dhttps://trk.klclick1.com/ls/click?upn%3D7ZpdBophAwr=
-ZEeo9o6yKdFTuapAr443SX9b-2FWtUFY0aQ4EDdKqo0cmaycS-2BCtCLV5lfwrFIQxHjYlWsE5y=
-SLc9-2FdBUBtRJsr27VQQ-2Fz2a2d4AkfkL-2BMZH7UQqWV7ziARPaRzUpFRcLJwjvwpnNMW-2B=
-UlP3QjSSasktOdLqRPhfeJfqNbPcKu943-2F7PdLH2cFpEFDj7neNeElcdUrrVd9z7V-2FGzOyQ=
-GP1JwZX8S6lKF-2BN8gVNKVWtrMkI6HGskhnMbVKTR_yxe3hxlEKZLb36qs-2BKApVr7ZX4aFxp=
-SJbhjNkBlCEPRTGIvXkRptALDz9gXFwao88ZUyCDoej4CkYev8v0LAm5TojJRoEDhUFtWSRQKYS=
-jtHzDAvCvmBvIlxxincGHAfjDnutWg7K5dU1YcS0PHiKMbd3Y-2FGFwaxkK-2B2IYgFSRdmHnpw=
-sA3MIWK1zN4966rDtbi4Qi6snE1GBwQIxCZb9eDKtznsj4X2mxdrXzjLlhc-2BDdf1PNd3MYNtG=
-TB-2B-2BUtrPsQUXUIcS8wfSelgmyEoEBT6sYkdSE5R2M7Ei2dfkqTNftA6wnzKbsuLgk0S-2Fc=
-0NUsx6ogQD-2BdEUe1Rexj-2FlIN-2BKJeMELk9e544zkHPXFhTBFXHcQTlQqmX4FmGLnmMU2l7=
-iwCv3rjnVa-2BkY80u65iPgNPhEVnz6O4Dqr0YGXfdqVqoKVuHeYonbUyUyByn4gSFR-2BfJ-2F=
-N9ZWVbJQwOJ6Yw-3D-3D&amp;source=3Dgmail&amp;ust=3D1712960896338000&amp;usg=
-=3DAOvVaw2MoYHh_8q2sKXEcZvVfI_e">Unsubscribe</a>.<br><br></div></div>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-
-<img src=3D"https://ci4.googleusercontent.com/proxy/ynEUVGKgQEz5ndczPDl86-1=
-D7zsm3DkjJdHNHyyJ22FSqX0AQYBk2OirlBm0J92ZordtA8E4AMOHzdGahBk65QvDuCry-V_W7E=
-NZTUGaGwVz1whpCqnxv5Jil0evXYFLV7v5T_ieFccx6Guf5LcENKsHJqepwadryvYJuoct10QAY=
-XTodwcP9b_v0Y4cEJgI_MoIh56vp8ZYe6XgZnrRg4jNA6Afx_aRZR9w24_YZN2_mdJboLNyIPTW=
-PK1ufHNDFzrGNRLEIC9fZqW3lwXVy9XRtIKGXSBxpR_OaOrDEYGv3rJMRYyqGXyQGPeCy23zSpa=
-HD1-GbOBuV8mKm0e2IfKp3AGMOv7dVEVBNo3bJNI19OuisjeD4CW4F0uarx_hhDdo9AUZ3dCWoj=
-YJ3YQXieMClQnN3AWDgFyKuqsj3r70PIQhPqQKWn2gwrQ4SOinSvlCeCYzsAJ5Jeyq4Q5Ix0Ve6=
-dgmyT2_VaUj1v2kaj_zfIodAp8H0vpZf0gDjEInhjJOt_6AcGW94iri5KfPpo7VW8B0W35gK2Cc=
-Mi24syrWTwIHRogVAhAjLKR92DJC9-sDgnYoidDxxextHeaYnxuI3Ib8Cw_CTIhxFMIRs0SCo3w=
-LBtPriWY-sU8eoWCrxYGfbrGGnpERsUkRR3njMdUsjvstIVfxAxY7vSSi4UjZn0Hzb7YoqOo9x5=
-Y8q-sSYjaZSXlvhoHhz7DAiZf-iN57PfoVHxIbCagbbT8GKH0I7PFDHQ=3Ds0-d-e1-ft#https=
-://trk.klclick1.com/wf/open?upn=3DVU2koNEWgSKMLPFeqEdbNI9jCap0gyh-2FlSpXi9q=
-CyhTBcX6PA5-2FoCvlZEaOPsPJfZOdCiZZeabIGzW73Ztb9K459lgoJkMZLysyMhWGIoYNFpH75=
--2F8FXl69y5xhrVvnvuPaESOJLt8TXy0mcvho0KD4RNu1-2FzIO-2FHdAJdMti0tNSpIfRtfy8x=
-ns8s7G095vDUKlgh6u8Njk0CGCA3XQt6QCjADrRIURWJqjJUbuB6RBlbd9ib8m5cVnHEEr6inhB=
-cPpg4TEcR6vs38yYHmOUzZ3ZNmbqaee7yy1OFxxLUHWJwXsmrz5PfEN6cl0OUbUTPN8prIACiv0=
-VGtLHoFIpjH8Oy9ikINP9Uwslqyzi7sj2296yQSxEld-2FqVh1MOcM2remt7guRvUjci9-2BPlN=
-AkyYGXjsTP2znbs9kPnwWK061A4u8Tdkty4XonkXKMdkCIabFJKWwVD5mo91sla5hE4NZq2kBhU=
-FWS30EzUiIpNJw-3D" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"=
-min-height:1px!important;width:1px!important;border-width:0!important;margi=
-n-top:0!important;margin-bottom:0!important;margin-right:0!important;margin=
--left:0!important;padding-top:0!important;padding-bottom:0!important;paddin=
-g-right:0!important;padding-left:0!important"></div></blockquote></div>
+ Monday, October 30, 2023 at 1:23:36=E2=80=AFPM UTC+1 Bharathiraja Nallatha=
+mbi wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0=
+ 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi=
+=C2=A0=C2=A0<span style=3D"color:rgb(32,33,36);font-family:Roboto,Arial,san=
+s-serif;letter-spacing:0.25px">Moustafa Nofal,</span><div><font color=3D"#2=
+02124" face=3D"Roboto, Arial, sans-serif"><span style=3D"letter-spacing:0.2=
+5px">=C2=A0 =C2=A0I am trying to run two Linux inmate on=C2=A0</span></font=
+>Raspberry Pi 4, Can you please help me with the root cell configuration, a=
+nd two Linux inmate cell configuration ?</div><div><br></div><div>Thanks an=
+d Regards,</div><div>Bharathiraja Nallathambi<br><br></div><div class=3D"gm=
+ail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Wednesday, 12 January =
+2022 at 01:31:49 UTC+5:30 Moustafa Nofal wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex"><div>Almost everything went well, but when I sta=
+rted the fourth cell (bare-metal), I got this error, and jailhouse hangs, s=
+o I am able to<br>1- create two linux non-root cells and inter-cell communi=
+cation works fine, and(including ethernet)</div><div>2- one bare-metal and =
+linux non-root cell.(inter-cell communication works fine (also ethernet)</d=
+iv><div>I added one region for the newly created cell in all files with tak=
+ing care of correct flags, enlarged the state memory region and the all-cel=
+ls R/W memory region, and here is what I edited in the root cell:<br><br></=
+div>Adding virtual PCI device 00:00.0 to cell &quot;rpi4-linux-demo-2&quot;=
+<br>Shared memory connection established, peer cells:<br>=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*=
+ IVSHMEM 0001:00:00.0 (demo) */<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .type =3D JAILHOUSE_PCI_TYPE_=
+IVSHMEM,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 .domain =3D 1,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .bdf =3D 0 &lt;&lt; 3,<br>=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 .bar_mask =3D JAILHOUSE_IVSHMEM_BAR_MASK_INTX,<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .shme=
+m_regions_start =3D 0,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .shmem_dev_id =3D 0,<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .shme=
+m_peers =3D 4,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .shmem_protocol =3D JAILHOUSE_SHMEM_PROTO_UNDEF=
+INED,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br><br>=
+And in any other cell i change only the dev_id, so I have 0,1,2,3, the seco=
+nd PCI is an VETH and is working fine for both linux cells together, the pr=
+oblem only comes if I created the baremetal cell.<br><br><div><br><br><br><=
+/div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On T=
+uesday, 11 January 2022 at 13:54:17 UTC+1 Moustafa Nofal wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">Hi,=C2=A0<br>Everything is workin=
+g smoothly now. I have now only question regarding these two memory regions=
+:<br><br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* MMIO 1 =
+(permissive) */ {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .phys_start =3D 0xfd500000,<br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .=
+virt_start =3D 0xfd500000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .size =3D =C2=A0 =C2=A0 =C2=A0 =C2=
+=A00x1b00000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_W=
+RITE |<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 JAILHOUSE_MEM_IO,<br>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* MMIO 2 (permissive) */{<br>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 .phys_start =3D 0x600000000,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .virt_start =3D 0x60000000=
+0,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 .size =3D =C2=A0 =C2=A0 =C2=A0 =C2=A0 0x4000000,<br>=C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br>=C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 JAILHOUSE_MEM_IO,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 },=C2=A0=C2=A0<br><div class=3D"gmail_quote"><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex"><div class=3D"gmail_quote"><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex"><br><br></blockquote></div></blockquo=
+te></div></blockquote></div></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -1102,11 +307,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/5ff8d82f-2de5-4c53-b8bf-05e42e0fb128n%40googlegrou=
+om/d/msgid/jailhouse-dev/938803bd-a8ab-452f-9027-29954f57e53an%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/5ff8d82f-2de5-4c53-b8bf-05e42e0fb128n%40googlegroups.co=
+msgid/jailhouse-dev/938803bd-a8ab-452f-9027-29954f57e53an%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_92931_673765517.1712874756516--
+------=_Part_165513_1415615952.1712875143412--
 
-------=_Part_92930_1906138619.1712874756516--
+------=_Part_165512_1770155613.1712875143412--
