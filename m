@@ -1,90 +1,74 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBEVP4GYAMGQEODIJQVQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBLVQ4GYAMGQEGNHALOA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
 Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id B293B8A20F6
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 23:35:16 +0200 (CEST)
-Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-dcdc3db67f0sf1802082276.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 14:35:16 -0700 (PDT)
+	by mail.lfdr.de (Postfix) with ESMTPS id 341F88A2101
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 23:37:52 +0200 (CEST)
+Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-ddaf2f115f2sf399557276.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 14:37:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712871315; x=1713476115; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712871471; x=1713476271; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=aYmw4/4mi+NuhBxo9QZgjVJW0/mgtoRk4SvDAa/jkSw=;
-        b=R35daLZ4ZjjNQ6SaqPqUkWi95gZ1AKp23pyvM7YgW8dChNCk++XUwOuLBbEn+ESw53
-         UmYOhphLiNmnzlo7VxTX2wOaVc/uKeUNfMkt74f2cTP1Jx0b8w6vbz+K6Xcs5bCSrIT3
-         3JuBUjYo+MwdxLMWUVDJxPKAR0jVxDMW26Wm4+tTYTJ2Zn7qSlybXkABv6WL019YQhf4
-         rNtsBKoeJeg+FckJKrfnK5NJERaf5lCz/if4CXYWa8txfjQSdY6TrjGHrM214bs7F0+o
-         GL5f2aIFL6pLuJSZMDM/pBB23W2glv6FtKLutX6oLVbPTKok/h61ur//RQk33h/oShQr
-         6F/w==
+        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
+        b=GYzSm4vtIzEOyIHUZ4jfDnuyGv6jIudk/ppMHJo+5oS3zhd11OGXGHWHw5bK6yVjmT
+         j27XUCxmbHL7J9wH/PzHu8eHrPQ2js4uVv2jb7mKxlPsvmQzre4/ybU9a/TqamUylHKN
+         oaVB4Ldo7dteV7R4IF9OaRdtTH8afL8Vjii6aSrRyGaYAJzyk4UJzzLBJvG85koKax+4
+         GbW8Nfxa85tJPWp5OPIOv0Ji+mFkRzqiyWh31yFSNiAXD3xHPhf1ml26lx9K872K81TY
+         zqYrLSC1jydKQbsudjowNwjmEFNunG04Riw8c0qs34x3W33IP9w+xZVCQdogHffJCeIn
+         TdJw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712871315; x=1713476115; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712871471; x=1713476271; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=aYmw4/4mi+NuhBxo9QZgjVJW0/mgtoRk4SvDAa/jkSw=;
-        b=EKKPJEDBOu3oGBqH8ftyk8DTMvraeEgu0pRONtivmZSYN2LHpSDbQr9ccOymBtXeXj
-         7/bPIDjtvoHt12lIJrKhopKY297nrWqh/S5eWs1ZZvEEMhQgpAIzG12kEUxg7X63hI9E
-         XPQRPWx7kWE2PFUEk8h/tTxr8HgC6JIPH/vC3tx2wIH0xc7jrNC7gx1ycaknd3iltoAz
-         ejTGPSpUBS4AsQf/E3R3Ks6Is0o4fsShHFyDbRVtQZDRfVrIt8DDZtK0ZjWRxHqdNx4p
-         B2vQ+NcxI30jERfUS8Nd3qjEa314afyQaJ+j3WVSieBYVXszTXqccY6d7IieEn9MC9Dp
-         PdtQ==
+        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
+        b=XgVBW+ouJUJ+0Il1G7nrcFrudtcnna/Q7zrGxH0TAU8S58gh/sjhmICiWyzYojd/IQ
+         uS2yfx9z6LHuLDX6NciBnkeAUQhoua5oCFL8xQlhtIYEcVBrQjv6h5v9QfrhCY3Ji8L3
+         1ivDOz877nfmtX66GW02cg1JcerKDmwm6ru9BQBW5pGkxFYUk+qVn7DL/1f1/krU1bxY
+         kAyifkEbwQ3/DY2wKnLCrHIf1jihwDJ7sklEZgzGSslCOrs3Yy0/0ZlR8dpDMftvWueG
+         co6Xa0+m8FVa+lNkuzznCA3JHnNfCe+X5grXDvWt2H3Iy6VnJMzdEzFogOnUAkVZEEQV
+         g7DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712871315; x=1713476115;
+        d=1e100.net; s=20230601; t=1712871471; x=1713476271;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=aYmw4/4mi+NuhBxo9QZgjVJW0/mgtoRk4SvDAa/jkSw=;
-        b=T849JXSgrd80SJ2sBNl5erE0xMphhdahtxbXNj7PJnTVm39NsQHbTP1ozOFxFXz18V
-         Uu8Yng4wIPczvBmUy1LSJJoRWwCG9qdbkUTHnt1EA0mes7wyyCVntm9wXrsrcOVncpC5
-         msVtadkBRbSB8yzPZ43tPNPiZE+4KMzlxNyVru+HS+sXzGYHWtAjafrEljr1YuTdfU6Q
-         o/Ulc1kHu+YNfCtL1oG4Hl5TZuVJMzbcOX8RtVWFvIXwOW54I6flODdbUrU+pEg4eAQq
-         OCFERVo6uxIp3qVdrsZWDottA68J6a/UYrKYNRU5mWf/HTYwToCAIeWaE/Li5W7V4Fd1
-         r+8w==
+        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
+        b=SLOuWvzPEWXemjc1c1VpdgcxGR4WLjvUMJQgE/03RgmlXrYUepxnQN+/yHbmn6wt6c
+         z4XOK2gqFAzZDEPv31DWL4FAHDCFcckiwboHtBtFsRpYuMURiPGSA+S7+IIUcU2E5Zl5
+         M4pU3LoYVOqdPkGCNwBh2BBuSrseavK7Q3JWZo2CSZldWMQUSf/dC2TNNVYoPgQiWo1E
+         Q+ntJEYr2npVm0/PvpBn0LUoIUYLtK4r5jNeGUqKNSLv7BcdUo59+fJ8/PoasQlrbQCv
+         g4dnV57W+swA+pd+uqVxA5m3q19jbO4pWgfnY5HZFRjFGWdpxvsXII15fcDO/hgw4ZL0
+         aavg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVGBPv6QICJQTDTLb7xqlHClfps/sBBvPjlM16XflfzzZH2nq8rHlBZVZLQCGKE9dbG7dfeyNKzsZZxKRZgD7TGgxMlNdTPcp/E14A=
-X-Gm-Message-State: AOJu0Yz7KYoCpAUFgouCp7UO2s+Gdw7V2R+3l4I1qSiBPcCxZ92gTXzw
-	o8KXm9IgHrsGLOgLkFPyRDUlzZfzeToa8WVR/4ZN1tZJyLCvxhCQ
-X-Google-Smtp-Source: AGHT+IFW7fCHsoWoju6S14HgrXr+1bfsoDCi4/9U8ZYP+X4UG1cIptau5dMsbE3w0I8O4v09JBTkRg==
-X-Received: by 2002:a25:1143:0:b0:ddd:7ade:bd45 with SMTP id 64-20020a251143000000b00ddd7adebd45mr2671285ybr.30.1712871315475;
-        Thu, 11 Apr 2024 14:35:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUs9gQWpbTrYy5fUUEbW+lCtNL+Z5eOnfCPZ3fjqdR9Hkjp1Qt7ZuNfCSC0wTWCroSihUwzO+UFDSYvT3gHfq5+ojKvKwmgPywzNLI=
+X-Gm-Message-State: AOJu0Yyn5afTwoU6ylN0TvavM8qsVZ3q9YOKltZfFRZbdGTHFXxXbl03
+	AMsMndFUiqrUJOiu+MZw/T3Bek4ly0TlWtwxxYB7q2qPCYZPsCgY
+X-Google-Smtp-Source: AGHT+IFd0QdaNL1TLeLDZYOTAUcoMFB35JC8Yl3UG56XkBZCZv4qG14BywFsqOKE1yVkuMEaGfoD+Q==
+X-Received: by 2002:a25:abc5:0:b0:dcd:6a02:c111 with SMTP id v63-20020a25abc5000000b00dcd6a02c111mr728515ybi.11.1712871471061;
+        Thu, 11 Apr 2024 14:37:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:74c3:0:b0:dcc:717f:41b7 with SMTP id p186-20020a2574c3000000b00dcc717f41b7ls617190ybc.0.-pod-prod-07-us;
- Thu, 11 Apr 2024 14:35:14 -0700 (PDT)
-X-Received: by 2002:a0d:eacb:0:b0:615:2b57:35ea with SMTP id t194-20020a0deacb000000b006152b5735eamr173305ywe.2.1712871313642;
-        Thu, 11 Apr 2024 14:35:13 -0700 (PDT)
-Date: Thu, 11 Apr 2024 14:35:12 -0700 (PDT)
+Received: by 2002:a25:d892:0:b0:dcd:a08f:c83f with SMTP id p140-20020a25d892000000b00dcda08fc83fls450515ybg.1.-pod-prod-08-us;
+ Thu, 11 Apr 2024 14:37:49 -0700 (PDT)
+X-Received: by 2002:a25:addf:0:b0:dd9:1db5:8348 with SMTP id d31-20020a25addf000000b00dd91db58348mr212633ybe.8.1712871469084;
+        Thu, 11 Apr 2024 14:37:49 -0700 (PDT)
+Date: Thu, 11 Apr 2024 14:37:48 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <097b5cb5-9a1b-44b7-b9d8-9a947007f4d4n@googlegroups.com>
-In-Reply-To: <e22563ea-abb2-4d80-b988-6bed42ab51a9@oth-regensburg.de>
-References: <824bacc4-b7ae-47c9-878e-7203214b4fc3n@googlegroups.com>
- <0431cb6c-c2ca-4417-97d4-f0dc9bc3f389@oth-regensburg.de>
- <9a021e3f-caca-4ebe-9351-be2c3e999446n@googlegroups.com>
- <e4aef5c1-45fa-49f2-8b6c-04f36d7f556d@oth-regensburg.de>
- <23a9c30e-5507-449e-9589-697904becac4n@googlegroups.com>
- <81df336d-a7bb-49e2-8762-a1294aef67e9@oth-regensburg.de>
- <bbd32aa2-053e-40a2-b4d5-2326238d0793n@googlegroups.com>
- <0aa4c10d-a635-4a37-bf51-2b9863beb2a0@oth-regensburg.de>
- <6712361a-eaef-49cc-8a72-79da2c434169n@googlegroups.com>
- <b4520b71-86ba-48e7-b9ad-c720c4f6cb42@oth-regensburg.de>
- <860c1e75-c28f-4157-9212-a3d87ad25b27n@googlegroups.com>
- <b13f671c-b870-48b1-8f39-d5eae43c7a5b@oth-regensburg.de>
- <6146e208-1e8c-4335-abaf-9a2be8c85be5n@googlegroups.com>
- <78750023-1199-41e6-bee9-549c185d160c@oth-regensburg.de>
- <6fb04e63-2f4a-4d5b-9139-c11e9a9fc461n@googlegroups.com>
- <5fc9ef1f-e7ca-496f-aab5-c085c4586326@oth-regensburg.de>
- <0f1154fe-f680-47e6-a3da-9e1a37fd1f55n@googlegroups.com>
- <e22563ea-abb2-4d80-b988-6bed42ab51a9@oth-regensburg.de>
-Subject: Re: Unable to start non root linux cell
+Message-Id: <1942af53-2fef-48e3-8d6e-ddf30a40d059n@googlegroups.com>
+In-Reply-To: <df468a43-ecdf-46a4-bf02-31681d3ce799@oth-regensburg.de>
+References: <TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A@TY2PR01MB3788.jpnprd01.prod.outlook.com>
+ <df468a43-ecdf-46a4-bf02-31681d3ce799@oth-regensburg.de>
+Subject: Re: Development status
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_118866_1150591066.1712871312946"
+	boundary="----=_Part_142338_1408242648.1712871468384"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -98,12 +82,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_118866_1150591066.1712871312946
+------=_Part_142338_1408242648.1712871468384
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_118867_1114777678.1712871312946"
+	boundary="----=_Part_142339_706912760.1712871468384"
 
-------=_Part_118867_1114777678.1712871312946
+------=_Part_142339_706912760.1712871468384
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 MT103/202 DIRECT WIRE TRANSFER
 PAYPAL TRANSFER
@@ -135,12 +120,51 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/097b5cb5-9a1b-44b7-b9d8-9a947007f4d4n%40googlegroups.com.
+On Monday, November 20, 2023 at 3:11:21=E2=80=AFPM UTC+1 Ralf Ramsauer wrot=
+e:
 
-------=_Part_118867_1114777678.1712871312946
+> Hi Chris,
+>
+> On 20/11/2023 14:37, Chris Paterson wrote:
+> > Hello Jailhouse maintainers,
+> >=20
+> > I was just looking at Jailhouse GitHub repo [0] and it looks like the=
+=20
+> master branch hasn't been updated for a while (10 months).
+> > Is this project still active?
+>
+> Yes, we're currently still working on the RISC-V Port of Jailhouse, and=
+=20
+> we're almost ready for integration. Therefore, we also have a bunch of=20
+> auxiliary patches in the queue. They'll soon land on the list.
+>
+> >=20
+> > On a side note, are there any plans to merge the latest patches from th=
+e=20
+> next branch [1] into master?
+>
+> @Jan: Ping :)
+>
+> Thanks,
+> Ralf
+>
+> >=20
+> > [0] https://github.com/siemens/jailhouse
+> > [1] https://github.com/siemens/jailhouse/compare/master...next
+> >=20
+> > Kind regards, Chris
+> >=20
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegroups.com.
+
+------=_Part_142339_706912760.1712871468384
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -152,7 +176,49 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 <br />BITCOIN TOP UP<br />GLOBALPAY INC US<br />SKRILL USA<br />UNIONPAY RE=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
-><br />
+><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
+ Monday, November 20, 2023 at 3:11:21=E2=80=AFPM UTC+1 Ralf Ramsauer wrote:=
+<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; =
+border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi Chris,
+<br>
+<br>On 20/11/2023 14:37, Chris Paterson wrote:
+<br>&gt; Hello Jailhouse maintainers,
+<br>&gt;=20
+<br>&gt; I was just looking at Jailhouse GitHub repo [0] and it looks like =
+the master branch hasn&#39;t been updated for a while (10 months).
+<br>&gt; Is this project still active?
+<br>
+<br>Yes, we&#39;re currently still working on the RISC-V Port of Jailhouse,=
+ and=20
+<br>we&#39;re almost ready for integration. Therefore, we also have a bunch=
+ of=20
+<br>auxiliary patches in the queue. They&#39;ll soon land on the list.
+<br>
+<br>&gt;=20
+<br>&gt; On a side note, are there any plans to merge the latest patches fr=
+om the next branch [1] into master?
+<br>
+<br>@Jan: Ping :)
+<br>
+<br>Thanks,
+<br>   Ralf
+<br>
+<br>&gt;=20
+<br>&gt; [0] <a href=3D"https://github.com/siemens/jailhouse" target=3D"_bl=
+ank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse&amp;source=3Dgmail&amp;u=
+st=3D1712957843619000&amp;usg=3DAOvVaw1Bk-KfsgREtiCZ-vrNaTdy">https://githu=
+b.com/siemens/jailhouse</a>
+<br>&gt; [1] <a href=3D"https://github.com/siemens/jailhouse/compare/master=
+...next" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https:/=
+/www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse/co=
+mpare/master...next&amp;source=3Dgmail&amp;ust=3D1712957843619000&amp;usg=
+=3DAOvVaw1oZF9I9zCihkKGeHqFPf8l">https://github.com/siemens/jailhouse/compa=
+re/master...next</a>
+<br>&gt;=20
+<br>&gt; Kind regards, Chris
+<br>&gt;=20
+<br></blockquote></div>
 
 <p></p>
 
@@ -163,11 +229,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/097b5cb5-9a1b-44b7-b9d8-9a947007f4d4n%40googlegrou=
+om/d/msgid/jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/097b5cb5-9a1b-44b7-b9d8-9a947007f4d4n%40googlegroups.co=
+msgid/jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_118867_1114777678.1712871312946--
+------=_Part_142339_706912760.1712871468384--
 
-------=_Part_118866_1150591066.1712871312946--
+------=_Part_142338_1408242648.1712871468384--
