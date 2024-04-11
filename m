@@ -1,74 +1,74 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBQW64GYAMGQEE6WJDEQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBB2G64GYAMGQEEJNVV3A@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3f.google.com (mail-yb1-xb3f.google.com [IPv6:2607:f8b0:4864:20::b3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40B88A2227
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:16:20 +0200 (CEST)
-Received: by mail-yb1-xb3f.google.com with SMTP id 3f1490d57ef6-dced704f17csf543538276.1
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:16:20 -0700 (PDT)
+Received: from mail-yw1-x1139.google.com (mail-yw1-x1139.google.com [IPv6:2607:f8b0:4864:20::1139])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4D28A2229
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:16:58 +0200 (CEST)
+Received: by mail-yw1-x1139.google.com with SMTP id 00721157ae682-61869a4320bsf11026797b3.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:16:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712877379; x=1713482179; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712877417; x=1713482217; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=YV1mbAJcjRqXukKF4hgdahZOL493WSHcNqFlUKoTLGY=;
-        b=g30vFTJssEwLz9d2GIS0nfhdSw6XJgoEMaNUTtCD/ILbwtu65LnbwtkAev3/MoZ2N3
-         GE8v4LIvLZyTCDfMFVWJboFeR2paz1z4Hh5f8IQuhIb5hQXm8foE4yT20WirshTMf7ZU
-         pnq67I7a+A5TaEz7S79u4E29vW1myL9OFTMK48qcNkJoXsbfIw0YqlHWZ0Vy8pIVARMj
-         8z9AzBu58wEAXDQrwDYNUpP/63lJdq4yoRxSro44oSwUXQt2uFVqJHaa6cKTeCjdVkg3
-         4793AQWT9ULfUokUETAZnmr5QZZLvnkkhzs+EB2OJRYwniz50oOS0+lI11G6TWWyKof2
-         fDtA==
+        bh=yCuIFqC6NAfV2Rin2l2OTEcLee/MeiHxL24lPubSFR8=;
+        b=xQ01z4Z5CamnyKR14YUhMwVKPCj9SpEDVrJ327fBcUzTJihrvYL7e6cUreLWvA3xo/
+         DWV8ql9XHN8Xi3LhDANInBKFVPwp5Ssx+tBGFJWEG9qtCQMyOBE5ne0U36q60OymJ7dJ
+         QvtS/Qt0JHkO4ZA8kNxApoqFcX3azT0Byphokvl8AS1xasaIi+6fYJ0Odl3LGk9M4g13
+         g+QaTtiMQRfv8IYdmp9W7QDfSazvn0qTi8SzUvnKuoyHOQgxedJohFBdiHTy66lnes+K
+         KKHNv6Z+GvVOoUfd0myyGrO39lPy+hkLR5aS6RaKQklawMlw1qjNVuhvi0XQbeZ0DPLC
+         rgVA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712877379; x=1713482179; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712877417; x=1713482217; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=YV1mbAJcjRqXukKF4hgdahZOL493WSHcNqFlUKoTLGY=;
-        b=UCd14kTrNwdzLIrDrwAha+MSHDVrxJ6x4Y0EjRP2EKJDMsJ+UNU8jKW8S/z8BCL/gk
-         eWUcy07Ct+0uaslNEnl5bW9BDpxob/ud2YaeY0hNroPHNSuu9IsPZGuH4n4cfl69YFX4
-         RZP2CHgNE8dT1gh1FGf/8X8ayk6QP5y0WU01FgxAd7xHDr4lnxxkOxf4KKeOGQcs2dKP
-         59E5nCAB+52pX2OoQ8Gcqf/hbnAqBTKNm8q/6bgX1iub0umRbxjEN2bdkScOXCyIKRuG
-         6gcDdNQDh9GTvXlFkVtC+2uktI5pKpDMyJ0BoC+R8jJ+KlxPanJG9WdEtnTeuT0F5hqz
-         1oQA==
+        bh=yCuIFqC6NAfV2Rin2l2OTEcLee/MeiHxL24lPubSFR8=;
+        b=fVTXBjT4v56i/EjbY4LaSA9Gu4ypyRkHAK/K3OHKZRJGjtCAOto64Ox5SB249+SZqL
+         w/WoSmJMbWZVSlTzcwYK6C1AKzUBvCD97D2ChG+j6MPy7En6yJuttAPHXGl4Q917rb+i
+         KQseerGRkPfsIjpy3IZ1Sk2Md4uo3QdP/dHH0Du0elDLe02ZSiCZ51kt8BDGqMuSFuui
+         zYGd6sN/BRfBZH8OJ/hbaYISwuURnN+GPrlHdVQxK0OAiqFtVnS2kkkVUpIjtmksI007
+         LFbaYIGoigKHJGvJUc2DbEAu1/8j9iGi7Vv0x/T6nIdz5/uMcNnAdzsKkoNRjs4rgv7L
+         N0XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712877379; x=1713482179;
+        d=1e100.net; s=20230601; t=1712877417; x=1713482217;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=YV1mbAJcjRqXukKF4hgdahZOL493WSHcNqFlUKoTLGY=;
-        b=mDnpN7ZmuSKDtvQDthgd/MBnohC+n1moYtmXVWRgRxzozJ4cYFYrPvH/5yae0NThKQ
-         7I+hYAyGxIID152tYCS//KqlpY6pmILIrqVJmeOej0PxWQQeZ5GJRFiDYvm+4Oeuhh9X
-         pdsOHdP9h6wGyT49tUzx8O3B2R0251ONn26vgoZqp/Zk9EAzRDeY1PWpf7754QXXbd1I
-         RtQuc87xxcN2pGT9ls2F7HLkz/Bmi7yLZLmDlN+0Enrls+QteJiwtrV0ZlgnYu1xEXuP
-         aMNfQc/eheNkCWSIKjAVGBl5yeT2QNsMvd+oplCFRiyZL3esAHQsKVPTNXvkb2Q6l5l+
-         7pkg==
+        bh=yCuIFqC6NAfV2Rin2l2OTEcLee/MeiHxL24lPubSFR8=;
+        b=oyjpDNLpx95jj3YOQWZGtWwxlhj7W2viwNw+W2GbE/cc9OE+dlzklkW4ej+yx1ROGZ
+         7EidCTfC5CIsWOooZqCFvZ0+8oOIX6qK73xJJx/yJaCI+EDawft+wtHdH6/RuMrWtrKf
+         pujSywsT19Pnv5DviWVtdjGrS4xXrVqWWEh1LqKzoUXQIZ4Lvlo1NSe8Pqrw7NXC0eu8
+         qIWlVHcljYFndXMlLpM1VO1ODPzjrQXSINrlWPu107NUmNmA+26+INR2MXYkmRe7UZYm
+         IUokWazuhtZ1kh3ZDFNI1saGi7gM7VAZE+jQBEERoLjTCB6fOg07cohuzyN8st9ypfGx
+         fO/g==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCViJ5PzhTC/AKyNmvjIQ9m57/tGrNJH4ytDS/zC0DE7RzpZgpTx5TqzHI6/LK4nNXr1x5abSLLkKGupycOeovCswVdFob5Lg6VXC9I=
-X-Gm-Message-State: AOJu0Yx6cMmxxT8bvrDOPpQHsRmvEloMOatpe1O5/X2xy8fftCQV60wO
-	AuMFSiiaCdxPDpQkZF+3uBJVtUBdcdFMH6P9R5c4rELk2QYVCUgM
-X-Google-Smtp-Source: AGHT+IEzk/w8TG5v+gprgkHz5kXEN9sIDhjVEZNg5anPjvV7hHBX6AGsHOCzaMoWv68+6IWg+wJcxg==
-X-Received: by 2002:a25:af48:0:b0:dce:53c9:4d9f with SMTP id c8-20020a25af48000000b00dce53c94d9fmr901720ybj.58.1712877379592;
-        Thu, 11 Apr 2024 16:16:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVGa+mq/9d+K8VFxfK/B1VFMFpZ295FX7m3r7Hxuwn8HFFmew+Nkv3uU7vlPK+zSCaps2kxZ0doCUEjaIhkWPGKlaj/54f+Ej5zDRo=
+X-Gm-Message-State: AOJu0YyT2S/I+lsUD6QvYp8f6oaF8VeVfh26+satoHxkEs6KE3XtOib5
+	c44QqQ+7tZaasy7QbC3o2C6gXexHRPskFPEcGe1wggox0rhAxBiE
+X-Google-Smtp-Source: AGHT+IGwVvIdbE1jiOk6tkKGcSicnPcTBo4hWAiaJ5W3iEXqRVCUa7ogcwGqZyo71CzytqBf7iruhw==
+X-Received: by 2002:a05:6902:1342:b0:dcf:a4a8:5fb3 with SMTP id g2-20020a056902134200b00dcfa4a85fb3mr1029372ybu.11.1712877417193;
+        Thu, 11 Apr 2024 16:16:57 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:d009:0:b0:dcb:b370:7d0c with SMTP id h9-20020a25d009000000b00dcbb3707d0cls478131ybg.1.-pod-prod-02-us;
- Thu, 11 Apr 2024 16:16:18 -0700 (PDT)
-X-Received: by 2002:a0d:ca07:0:b0:615:27b6:7624 with SMTP id m7-20020a0dca07000000b0061527b67624mr211056ywd.6.1712877377960;
-        Thu, 11 Apr 2024 16:16:17 -0700 (PDT)
-Date: Thu, 11 Apr 2024 16:16:17 -0700 (PDT)
+Received: by 2002:a25:6e56:0:b0:dcc:37ed:efb1 with SMTP id j83-20020a256e56000000b00dcc37edefb1ls158536ybc.2.-pod-prod-00-us;
+ Thu, 11 Apr 2024 16:16:55 -0700 (PDT)
+X-Received: by 2002:a81:4e82:0:b0:611:66e0:8dd4 with SMTP id c124-20020a814e82000000b0061166e08dd4mr958044ywb.5.1712877415581;
+        Thu, 11 Apr 2024 16:16:55 -0700 (PDT)
+Date: Thu, 11 Apr 2024 16:16:54 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <38566a76-8dfa-4bfb-8fb3-5f365e891c61n@googlegroups.com>
-In-Reply-To: <c54d2322-fd4a-4568-bc01-8d96e83845f0n@googlegroups.com>
-References: <c54d2322-fd4a-4568-bc01-8d96e83845f0n@googlegroups.com>
-Subject: Re: How the root cell access virtqueue memory created by Linux
- inmate
+Message-Id: <e9f27bdf-bc04-4f65-8578-d350bed75e69n@googlegroups.com>
+In-Reply-To: <CAEfxd-_dzFAhL1wTkCAPyZKQVWNWaSXX6daAKCuiwARGZK8u-Q@mail.gmail.com>
+References: <23a847d5-6d75-4ed0-986e-6d58405abb83n@googlegroups.com>
+ <CAEfxd-_dzFAhL1wTkCAPyZKQVWNWaSXX6daAKCuiwARGZK8u-Q@mail.gmail.com>
+Subject: Re: run non-root cell by SD card in RPI4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_145954_1849504107.1712877377340"
+	boundary="----=_Part_116300_1993714540.1712877414366"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,13 +82,12 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_145954_1849504107.1712877377340
+------=_Part_116300_1993714540.1712877414366
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_145955_1792193666.1712877377340"
+	boundary="----=_Part_116301_128465010.1712877414366"
 
-------=_Part_145955_1792193666.1712877377340
+------=_Part_116301_128465010.1712877414366
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 MT103/202 DIRECT WIRE TRANSFER
 PAYPAL TRANSFER
@@ -120,57 +119,12 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
-On Friday, July 14, 2023 at 7:29:31=E2=80=AFAM UTC+1 Johnson Wang wrote:
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/e9f27bdf-bc04-4f65-8578-d350bed75e69n%40googlegroups.com.
 
-> Hi all,
->
-> Recently I am working on porting jailhouse hypervisor onto arm64 platform=
-s.
-> I've brought up the root-cell and also linux non-root cell.
->
-> Now I want to make virtio-console work, I started to write my virtio B/E=
-=20
-> framework by reference the demo code[1]. I'm pretty sure that the ivshmem=
-=20
-> region is working
-> as virtio_ivshmem.c finishes its .probe() callback, and virtio_console.c=
-=20
-> has registered a hvc0 node. My virtio B/E can R/W the ivshmem region=20
-> properly.
->
-> However, I noticed that when virtio_ivshmem.c calls=20
-> vring_create_virtqueue() to allocate virtqueue structure, it uses inmate=
-=20
-> private memory to allocate it, which is inaccessible for root-cell. For=
-=20
-> example, the inmate memory is starting from 0x1d0c00000 and virtqueue=20
-> structure is starting from 0x1d29be000. The virtqueue structure is=20
-> allocated inside the inmate memory, not shared memory. This means that=20
-> virtio B/E fails to retrieve the vring infomations.
->
-> Is it possible for root-cell to access inmate memory?
-> or create virtqueue in the ivshemem region that is accessible for=20
-> root-cell?
-> Does jailhouse have any MMU translation mechanism?
->
-> Please give me some suggestion. Thanks for watching this.
->
->
-> [1]=20
-> https://git.kiszka.org/?p=3Dlinux.git;a=3Dcommit;h=3Db6a3ec1cee44b986b556=
-b60ed2368d0da1faca51
->
->
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/38566a76-8dfa-4bfb-8fb3-5f365e891c61n%40googlegroups.com.
-
-------=_Part_145955_1792193666.1712877377340
+------=_Part_116301_128465010.1712877414366
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -182,36 +136,7 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 <br />BITCOIN TOP UP<br />GLOBALPAY INC US<br />SKRILL USA<br />UNIONPAY RE=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
-><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
- Friday, July 14, 2023 at 7:29:31=E2=80=AFAM UTC+1 Johnson Wang wrote:<br/>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi all,<div><br><=
-/div><div>Recently I am working on porting jailhouse hypervisor onto arm64 =
-platforms.</div><div>I&#39;ve brought up the root-cell and also linux non-r=
-oot cell.</div><div><br></div><div>Now I want to make virtio-console work, =
-I started to write my virtio B/E framework by reference the demo code[1]. I=
-&#39;m pretty sure that the ivshmem region is working</div><div>as virtio_i=
-vshmem.c finishes its .probe() callback, and virtio_console.c has registere=
-d a hvc0 node. My virtio B/E can R/W the ivshmem region properly.</div><div=
-><br></div><div>However, I noticed that when virtio_ivshmem.c calls vring_c=
-reate_virtqueue() to allocate virtqueue structure, it uses inmate private m=
-emory to allocate it, which is=C2=A0inaccessible for root-cell. For example=
-, the inmate memory is starting from 0x1d0c00000 and virtqueue structure is=
- starting from 0x1d29be000. The virtqueue structure is allocated inside the=
- inmate memory, not shared memory. This means that virtio B/E fails to retr=
-ieve the vring infomations.</div><div><br></div><div>Is it possible for roo=
-t-cell to access inmate memory?</div><div>or create virtqueue in the ivshem=
-em region that is accessible for root-cell?</div><div>Does jailhouse have a=
-ny MMU translation=C2=A0mechanism?</div><div><br></div><div>Please give me =
-some suggestion. Thanks for watching this.</div><div><br></div><div><br></d=
-iv><div>[1]=C2=A0<a href=3D"https://git.kiszka.org/?p=3Dlinux.git;a=3Dcommi=
-t;h=3Db6a3ec1cee44b986b556b60ed2368d0da1faca51" target=3D"_blank" rel=3D"no=
-follow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3D=
-https://git.kiszka.org/?p%3Dlinux.git;a%3Dcommit;h%3Db6a3ec1cee44b986b556b6=
-0ed2368d0da1faca51&amp;source=3Dgmail&amp;ust=3D1712963411311000&amp;usg=3D=
-AOvVaw2PYT89-RBd6XKKAir_BUyX">https://git.kiszka.org/?p=3Dlinux.git;a=3Dcom=
-mit;h=3Db6a3ec1cee44b986b556b60ed2368d0da1faca51</a></div><div><br></div></=
-blockquote></div>
+><br />
 
 <p></p>
 
@@ -222,11 +147,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/38566a76-8dfa-4bfb-8fb3-5f365e891c61n%40googlegrou=
+om/d/msgid/jailhouse-dev/e9f27bdf-bc04-4f65-8578-d350bed75e69n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/38566a76-8dfa-4bfb-8fb3-5f365e891c61n%40googlegroups.co=
+msgid/jailhouse-dev/e9f27bdf-bc04-4f65-8578-d350bed75e69n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_145955_1792193666.1712877377340--
+------=_Part_116301_128465010.1712877414366--
 
-------=_Part_145954_1849504107.1712877377340--
+------=_Part_116300_1993714540.1712877414366--
