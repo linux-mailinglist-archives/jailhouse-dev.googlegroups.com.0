@@ -1,74 +1,75 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBT7F4GYAMGQEVIRYOZY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBEPG4GYAMGQERVAV5RA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113c.google.com (mail-yw1-x113c.google.com [IPv6:2607:f8b0:4864:20::113c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95CDD8A224D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:31:29 +0200 (CEST)
-Received: by mail-yw1-x113c.google.com with SMTP id 00721157ae682-61807bac417sf5635437b3.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:31:29 -0700 (PDT)
+Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A8EA8A2250
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:32:35 +0200 (CEST)
+Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-dcdc3db67f0sf1907309276.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:32:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712878288; x=1713483088; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712878354; x=1713483154; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Oj7I7r28kdIr1OWfVl48cAmX0WqZ2iItVkr9Ilz4RkY=;
-        b=RTrpdO2ZC+S0PhjkB4OpE3h74bCObSUxzw5m5bCH38TOxSe/p0RdW6qLyaP5jWxOUi
-         YECYuH+iXGLkDpi9gW99QC4SUIROoaQl2XY/YO93qmPxKx1PbWFsaAekulDWfsg/3oOQ
-         966XN13U1CmD37jSzZxrbTTlyDN6nmklGWGqpI2t1BiI2yCdTiMjBCVAQOY4Ht8pygG5
-         fUSVVie+EEaQPDtqPjDrxa/0UAhCbXWToMLaRMIcL0F8NdZNHCEPUd8pDmHqN/K3p4gA
-         riEma61VK4Qxz/Qb+S9Y+tgQb/zY69f2fsbceEUG/jAp8B9diIwuDrh4zqpidxIBep+D
-         huTw==
+        bh=7BkHjmL81Cn88xwBoBNs4ZrCwV795C3KOX1Qvm7fpYM=;
+        b=HdXX4VBNfotZI1TUtJcuGZR0FKXjuN2AXbaX3KMgU081BH92TKXaAY4btpLabsyzHT
+         Ql913YMQr1e5X/srZANzvz4eIOLIxDg+4grVa6gfgFRdqDitc7gKmIO6dARjKmeiq3gD
+         beFa8Pi6SE6wriO5fAi0M9RVDmZ59E47C0XzxP2B4SoA4cSVaUpeDd+fAxUXqSAr7NJy
+         xKA4VirukPMVTcgbRk7L8ZTERRlnfvuUq47YZDfJyC/hnKsfHpZV0+2ykfS68jqzvCgM
+         DheHuZLtZHYC2aCx0haiFdmbXIO4YDA+9XNCMb3dAkusCTeWapyz3L74uBds2iaPEFje
+         OJpg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712878288; x=1713483088; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712878354; x=1713483154; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Oj7I7r28kdIr1OWfVl48cAmX0WqZ2iItVkr9Ilz4RkY=;
-        b=N1mrA+34+VPFEYrYCET3IkpiVOsslDcjB+mtlEoRksg5fqF80JCAXPJoQ0ePZF1HQH
-         VU7QrQQIqO5wJKy1qS8znIGF18Hp3XUeCIVFFDTafQIBcE4PVVAZagn3OZKG15GMucyd
-         q1PHcN25bubTQ03fqLCH/2SUxMC77yLzYPjubI/Gk9cR8ygsVfh/IiCkQQGnsKdXZA/h
-         n9LQoyArvlCje+zz5TOTwIaDeyj/YhhHKsbIJAbcjr+7HPmsyAuomUvYZeqdUPzd8LCL
-         gvHWoEvZeexWrrmnPlan2xVhFPCUErByoMLqScQsa5naRC0cyk4F7v3sMDOvyBJd1sGo
-         rQCw==
+        bh=7BkHjmL81Cn88xwBoBNs4ZrCwV795C3KOX1Qvm7fpYM=;
+        b=HFv6QYojVYBeo5qhRexnuKmWn/tvX58rCYv1ML4Fc+x9eXbf/XlAFzBMuu2vXkTFvi
+         txCXyT9vqnwEEqF189clAN+7a1JpIklsHq9cwhbAcdyRdLI9p//EWJ2l7xzQhoIsuUjC
+         iQX5FnOtqFNFldez69vkOvdS/ZpV2fWvVUh2AF36ngpH2r+9vJdU39uysPygUhtk59Jx
+         2P/iEdjTvHv63VaGCehnDOoxfxNt0gFp4+AD1WtbnrTsBRD9kzSiyjDA2mqLoeZR4NqP
+         bRVC254GFbue87apmsLHdFrP3waySmgUuWfxQQQQ4o0+APGUk+DlH6c41YJoSxdtyWia
+         ZSnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712878288; x=1713483088;
+        d=1e100.net; s=20230601; t=1712878354; x=1713483154;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Oj7I7r28kdIr1OWfVl48cAmX0WqZ2iItVkr9Ilz4RkY=;
-        b=Pe9/EC8pwBOeNkTShfW2vca6/mHq3a0yiOrFGrgWN2Wc24jwkqkXMXHds9rFgTpRlf
-         NdNc3DnPcvdcickACnMIuRBKn4DJvZyw83Y65jwNfnVKV9Q4dKEdXoAoD80CIQtFPIsa
-         b1JDoQStxndUCdB59X1O8MhOQ+By/v9Q6MlvJVaJUoZwl5JU3GwqeSnueMYKRvIs4R0t
-         U+G60J/G5lhEIoqLPetcYRUyzJZc0YeG5WsmlxEVpSXiCkJoVhV9agl0xztCKeSRmlv4
-         zKtpMW4/sDLGnQZbC+C3Qr1s917djwTCR2mIIl5ReDTJDrfvrsIso/6q2QD97jPMrPld
-         2kwg==
+        bh=7BkHjmL81Cn88xwBoBNs4ZrCwV795C3KOX1Qvm7fpYM=;
+        b=hAxPDdTdEYVJqjvD7f5S233a9uB7d54wPK4XSvF3rqU5f6ybS5URRkfqx/uq/X6mJh
+         pOoEGdmD24mCAxjyFD7qrhNzd7BJcWSfCxAu54hWt7FRqkpflSfZlFVtwXjV6FAlmT0Y
+         fOiajE7LzcPbzYKVsJiod49axLFFlmIMVfn73f10L5+6NxSmVAsuV6wj2MegAKvjlnKR
+         dfmJiP5ScvR10vNAKYxD7bx7whWi8x1k6JzFl6WLSSikorW/fBvPSgtu4+9+g4vC6M78
+         060vtSD+MlgoWMC63LbE/LKyuW9Slvj/DsMLmEnNGIiK0IFGUG/evbF5V6Hh/5Djo4x4
+         TQLg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVR3huE5Dkpl6xDrri6/gG/NhyqfaJOPvOm/Uu28OqngG5MJEMo+PRd7cOnFM0yKeBYOyc+SSz2oaN3pHLC6fQSuP0hFJZSQo9rFsg=
-X-Gm-Message-State: AOJu0YwBY2CiViEWfFHwfb9A/FSsO1sipvW7cDfi9RhaFEYSBd7ChoLe
-	WkTLsqsndyxyzrlq9WAdRyLetV4FlRA6SoNddLLrNoq1uqfSl5dW
-X-Google-Smtp-Source: AGHT+IGEUXLXY/PeUbSaZZGunnanJdM6m5BDLL0Etkeqs9oNj7xEXpWwANchgmoRAoF2tPpGWNnGhg==
-X-Received: by 2002:a05:6902:260d:b0:de1:1b73:6f05 with SMTP id dw13-20020a056902260d00b00de11b736f05mr1194176ybb.61.1712878288530;
-        Thu, 11 Apr 2024 16:31:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUO0GmoO+NWL48lk0h9oRIBPWLjkKrOPUz9jaT2iUbCPbCOSTUtWkWRVYyHFjgkEssrnl3GZIrlVPagvGjHxxs/jU0SeHzAHKakmu0=
+X-Gm-Message-State: AOJu0YyjczJBmCsNmg1jxvY5TXAMOllXU2w2TUOf6xaKaAv3+1QLSqlz
+	4M5HdrTIdSgeypQwuYn7uOgBXRRGoitndpjvQLpnDor0tVMHNpxm
+X-Google-Smtp-Source: AGHT+IFp5FGtYnEzqN5hbFm4ZOlgednYESaGNrNrsPd0DWbkQGMWhqD8L3weiWmJfDW0+iVckmgHVw==
+X-Received: by 2002:a25:bdc9:0:b0:de0:ff05:d512 with SMTP id g9-20020a25bdc9000000b00de0ff05d512mr873359ybk.30.1712878354563;
+        Thu, 11 Apr 2024 16:32:34 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:e0c2:0:b0:dcc:4b24:c0e3 with SMTP id x185-20020a25e0c2000000b00dcc4b24c0e3ls773636ybg.1.-pod-prod-07-us;
- Thu, 11 Apr 2024 16:31:27 -0700 (PDT)
-X-Received: by 2002:a05:6902:18d2:b0:dc6:fec4:1c26 with SMTP id ck18-20020a05690218d200b00dc6fec41c26mr289689ybb.1.1712878287152;
-        Thu, 11 Apr 2024 16:31:27 -0700 (PDT)
-Date: Thu, 11 Apr 2024 16:31:26 -0700 (PDT)
+Received: by 2002:a25:808f:0:b0:dcc:4b24:c0dd with SMTP id n15-20020a25808f000000b00dcc4b24c0ddls513942ybk.0.-pod-prod-08-us;
+ Thu, 11 Apr 2024 16:32:33 -0700 (PDT)
+X-Received: by 2002:a25:addf:0:b0:dd9:1db5:8348 with SMTP id d31-20020a25addf000000b00dd91db58348mr285182ybe.8.1712878352734;
+        Thu, 11 Apr 2024 16:32:32 -0700 (PDT)
+Date: Thu, 11 Apr 2024 16:32:32 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3b233d96-6ddd-4fe0-9b81-f469d435bdb9n@googlegroups.com>
-In-Reply-To: <716a8a07-3a7f-f20f-d08a-a9cb4ee607c2@siemens.com>
-References: <CAKM86uE4n7wWu2UZYr+hGOBrZ4d5eHsJhOND7pmd4apNZzhLBA@mail.gmail.com>
- <716a8a07-3a7f-f20f-d08a-a9cb4ee607c2@siemens.com>
-Subject: Re: Jailhouse and optee interaction
+Message-Id: <c3a09c46-8046-4b99-8076-14de91712306n@googlegroups.com>
+In-Reply-To: <CAC5TEnHad5oZoP3H2TxVKPmeJ1pW=BAMQJFRGwZTrST2oQh7KQ@mail.gmail.com>
+References: <CAC5TEnFx_TOr7ktks4qNSqL_bhv2P7r+fMOpbuz9B217jZNn5g@mail.gmail.com>
+ <09045e94-f35b-53a6-93e4-8a1edd8e099e@siemens.com>
+ <CAC5TEnHad5oZoP3H2TxVKPmeJ1pW=BAMQJFRGwZTrST2oQh7KQ@mail.gmail.com>
+Subject: Re: ARM: ivshmem virtual PCI device doesn't show up
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_95648_146892022.1712878286568"
+	boundary="----=_Part_128760_967179928.1712878352147"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,11 +83,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_95648_146892022.1712878286568
+------=_Part_128760_967179928.1712878352147
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_95649_235638391.1712878286568"
+	boundary="----=_Part_128761_586407530.1712878352147"
 
-------=_Part_95649_235638391.1712878286568
+------=_Part_128761_586407530.1712878352147
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -120,49 +121,75 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
-On Wednesday, May 10, 2023 at 4:37:11=E2=80=AFPM UTC+1 Jan Kiszka wrote:
+On Sunday, May 14, 2023 at 1:17:53=E2=80=AFAM UTC+1 Kurt Zou wrote:
 
-> On 10.05.23 16:21, 'Vladimir Neyelov' via Jailhouse wrote:
-> > HI all,
-> > We use jailhouse hypervisor on our platforms. Standard configuration is=
+> Hi Jan
+> Yes the kernel support CONFIG_PCI_HOST_GENERIC=3Dy option
+>
+> I added some other options in the kernel config and now it works fine. To=
 =20
-> > root cell - linux, secondary cell - ThreadX. But now we want to add
-> > optee os support. How jailhouse can interact with optee os. What is the
-> > common way to run optee os in jailhouse.  =20
+> be more specific:  CONFIG_USELIB=3Dy  and CONFIG_ARM_PSCI=3Dy
+> not sure how they are related but anyway the pci devices show up fine.
 >
-> OP-TEE OS runs in secure word, Jailhouse runs in non-secure EL2. All
-> what Jailhouse has to deal with are service calls from EL1 and above to
-> EL3 and, eventually, to the secure world. Jailhouse traps all SMC calls
-> and only handles or forwards a view of them, see
->
-> https://github.com/siemens/jailhouse/blob/e57d1eff6d55aeed5f977fe4e2acfb6=
-ccbdd7560/hypervisor/arch/arm-common/smccc.c#L117
-> .
->
-> Now, simply allowing all calls to OP-TEE is likely no option as those
-> may either have side effects on the platform. If they follow a standard
-> calling convention, maybe a permission list could be created and then
-> enforced by Jailhouse according to a cell configuration. I vaguely
-> recall similar thoughts about other EL3-targeting calls. Key issue, also
-> there, is that you can police access just based on service call IDs or so=
-.
->
-> But the situation may be even more complicated when a TEE service or the
-> OS itself are not aware of partitioning and not keeping requests from
-> different instances (which could be different cells in Jailhouse) separat=
-e.
->
-> Obviously: Anything that is harmless by design and across all boards and
-> TEE implementations could be allowed by default in Jailhouse, but I'm
-> not expecting to find much of that.
->
-> Jan
->
-> --=20
-> Siemens AG, Technology
-> Competence Center Embedded Linux
+> Thanks for the help
 >
 >
+>
+> On Wed, May 10, 2023 at 7:32=E2=80=AFAM Jan Kiszka <jan.k...@siemens.com>=
+ wrote:
+>
+>> On 08.05.23 03:53, Kurt Zou wrote:
+>> > Hi All,
+>> > I'm trying to bring up a ivshmem net device on a cortex-A7 platform.
+>> >=20
+>> > After enabling jailhouse, virtual PCI devices seem to be added
+>> > successfully, but with "lspci" or "/sys/bus/pci/devices", I didn't see
+>> > anything there. Am I missing something? I assume that pci devices (eve=
+n
+>> > virtual) should be able to show up in system.
+>> >=20
+>> > Here's the debug information:
+>> >=20
+>> > root@demo:~# jailhouse enable /etc/jailhouse/demo.cell
+>> >=20
+>> > Initializing Jailhouse hypervisor v0.12 on CPU 0
+>> > Code location: 0xf0000040
+>> > Page pool usage after early setup: mem 37/1770, remap 0/131072
+>> > Initializing processors:
+>> >  CPU 0... OK
+>> >  CPU 1... OK
+>> >  CPU 2... OK
+>> >  CPU 3... OK
+>> > Initializing unit: irqchip
+>> > Initializing unit: PCI
+>> > Adding virtual PCI device 00:00.0 to cell "demo"
+>> > Adding virtual PCI device 00:01.0 to cell "demo"
+>> > Page pool usage after late setup: mem 57/1770, remap 5/131072
+>> > Activating hypervisor
+>> > root@demo:~# lspci
+>> > root@demo:~# ifconfig
+>> > lo: flags=3D73<UP,LOOPBACK,RUNNING>  mtu 65536
+>> >         inet 127.0.0.1  netmask 255.0.0.0
+>> >         loop  txqueuelen 1000  (Local Loopback)
+>> >         RX packets 0  bytes 0 (0.0 B)
+>> >         RX errors 0  dropped 0  overruns 0  frame 0
+>> >         TX packets 0  bytes 0 (0.0 B)
+>> >         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+>> >=20
+>>
+>> Is the virtual PCI host controller visible in the root cell's device
+>> tree (/sys/firmware/devicetree/...)? Does the root Linux kernel support
+>> it (CONFIG_PCI_HOST_GENERIC=3Dy, IIRC)? Do you have any error reporting =
+on
+>> the kernel log of the root cell?
+>>
+>> Jan
+>>
+>> --=20
+>> Siemens AG, Technology
+>> Competence Center Embedded Linux
+>>
+>>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -170,9 +197,9 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3b233d96-6ddd-4fe0-9b81-f469d435bdb9n%40googlegroups.com.
+jailhouse-dev/c3a09c46-8046-4b99-8076-14de91712306n%40googlegroups.com.
 
-------=_Part_95649_235638391.1712878286568
+------=_Part_128761_586407530.1712878352147
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -185,60 +212,78 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
 ><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
- Wednesday, May 10, 2023 at 4:37:11=E2=80=AFPM UTC+1 Jan Kiszka wrote:<br/>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">On 10.05.23 16:21=
-, &#39;Vladimir Neyelov&#39; via Jailhouse wrote:
-<br>&gt; HI all,
-<br>&gt; We use jailhouse=C2=A0hypervisor on our platforms. Standard config=
-uration is=C2=A0
-<br>&gt; root cell - linux, secondary=C2=A0cell - ThreadX. But now we want =
-to add
-<br>&gt; optee os support. How jailhouse can interact with optee os. What i=
-s the
-<br>&gt; common way to run optee os in jailhouse.=C2=A0 =C2=A0
+ Sunday, May 14, 2023 at 1:17:53=E2=80=AFAM UTC+1 Kurt Zou wrote:<br/></div=
+><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-lef=
+t: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div dir=3D"ltr">Hi Ja=
+n<div>Yes the kernel support CONFIG_PCI_HOST_GENERIC=3Dy option</div><div><=
+br></div><div>I added some other options in the kernel config and now it wo=
+rks fine. To be more specific:=C2=A0 CONFIG_USELIB=3Dy=C2=A0 and CONFIG_ARM=
+_PSCI=3Dy</div><div>not sure how they are related but anyway the pci device=
+s show up fine.</div><div><br></div><div>Thanks for the help</div><div><br>=
+</div><div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Wed, May 10, 2023 at 7:32=E2=80=AFAM Jan Kiszka &lt=
+;<a href data-email-masked rel=3D"nofollow">jan.k...@siemens.com</a>&gt; wr=
+ote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 08.05.23=
+ 03:53, Kurt Zou wrote:<br>
+&gt; Hi All,<br>
+&gt; I&#39;m trying to bring up a ivshmem net device on a cortex-A7 platfor=
+m.<br>
+&gt; <br>
+&gt; After enabling jailhouse, virtual PCI devices seem to be added<br>
+&gt; successfully, but with &quot;lspci&quot; or &quot;/sys/bus/pci/devices=
+&quot;, I didn&#39;t see<br>
+&gt; anything there. Am I missing something? I assume that pci devices (eve=
+n<br>
+&gt; virtual) should be able to show up in system.<br>
+&gt; <br>
+&gt; Here&#39;s the debug information:<br>
+&gt; <br>
+&gt; root@demo:~# jailhouse enable /etc/jailhouse/demo.cell<br>
+&gt; <br>
+&gt; Initializing Jailhouse hypervisor v0.12 on CPU 0<br>
+&gt; Code location: 0xf0000040<br>
+&gt; Page pool usage after early setup: mem 37/1770, remap 0/131072<br>
+&gt; Initializing processors:<br>
+&gt; =C2=A0CPU 0... OK<br>
+&gt; =C2=A0CPU 1... OK<br>
+&gt; =C2=A0CPU 2... OK<br>
+&gt; =C2=A0CPU 3... OK<br>
+&gt; Initializing unit: irqchip<br>
+&gt; Initializing unit: PCI<br>
+&gt; Adding virtual PCI device 00:00.0 to cell &quot;demo&quot;<br>
+&gt; Adding virtual PCI device 00:01.0 to cell &quot;demo&quot;<br>
+&gt; Page pool usage after late setup: mem 57/1770, remap 5/131072<br>
+&gt; Activating hypervisor<br>
+&gt; root@demo:~# lspci<br>
+&gt; root@demo:~# ifconfig<br>
+&gt; lo: flags=3D73&lt;UP,LOOPBACK,RUNNING&gt; =C2=A0mtu 65536<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 inet 127.0.0.1 =C2=A0netmask 255.0.0.0<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 loop =C2=A0txqueuelen 1000 =C2=A0(Local Lo=
+opback)<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 RX packets 0 =C2=A0bytes 0 (0.0 B)<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 RX errors 0 =C2=A0dropped 0 =C2=A0overruns=
+ 0 =C2=A0frame 0<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 TX packets 0 =C2=A0bytes 0 (0.0 B)<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 TX errors 0 =C2=A0dropped 0 overruns 0 =C2=
+=A0carrier 0 =C2=A0collisions 0<br>
+&gt; <br>
 <br>
-<br>OP-TEE OS runs in secure word, Jailhouse runs in non-secure EL2. All
-<br>what Jailhouse has to deal with are service calls from EL1 and above to
-<br>EL3 and, eventually, to the secure world. Jailhouse traps all SMC calls
-<br>and only handles or forwards a view of them, see
-<br><a href=3D"https://github.com/siemens/jailhouse/blob/e57d1eff6d55aeed5f=
-977fe4e2acfb6ccbdd7560/hypervisor/arch/arm-common/smccc.c#L117" target=3D"_=
-blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?=
-hl=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse/blob/e57d1eff6d55aeed5=
-f977fe4e2acfb6ccbdd7560/hypervisor/arch/arm-common/smccc.c%23L117&amp;sourc=
-e=3Dgmail&amp;ust=3D1712964605083000&amp;usg=3DAOvVaw08VhDNUGRfMMG50Dn10mAa=
-">https://github.com/siemens/jailhouse/blob/e57d1eff6d55aeed5f977fe4e2acfb6=
-ccbdd7560/hypervisor/arch/arm-common/smccc.c#L117</a>.
+Is the virtual PCI host controller visible in the root cell&#39;s device<br=
+>
+tree (/sys/firmware/devicetree/...)? Does the root Linux kernel support<br>
+it (CONFIG_PCI_HOST_GENERIC=3Dy, IIRC)? Do you have any error reporting on<=
+br>
+the kernel log of the root cell?<br>
 <br>
-<br>Now, simply allowing all calls to OP-TEE is likely no option as those
-<br>may either have side effects on the platform. If they follow a standard
-<br>calling convention, maybe a permission list could be created and then
-<br>enforced by Jailhouse according to a cell configuration. I vaguely
-<br>recall similar thoughts about other EL3-targeting calls. Key issue, als=
-o
-<br>there, is that you can police access just based on service call IDs or =
-so.
+Jan<br>
 <br>
-<br>But the situation may be even more complicated when a TEE service or th=
-e
-<br>OS itself are not aware of partitioning and not keeping requests from
-<br>different instances (which could be different cells in Jailhouse) separ=
-ate.
+-- <br>
+Siemens AG, Technology<br>
+Competence Center Embedded Linux<br>
 <br>
-<br>Obviously: Anything that is harmless by design and across all boards an=
-d
-<br>TEE implementations could be allowed by default in Jailhouse, but I&#39=
-;m
-<br>not expecting to find much of that.
-<br>
-<br>Jan
-<br>
-<br>--=20
-<br>Siemens AG, Technology
-<br>Competence Center Embedded Linux
-<br>
-<br></blockquote></div>
+</blockquote></div>
+</blockquote></div>
 
 <p></p>
 
@@ -249,11 +294,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3b233d96-6ddd-4fe0-9b81-f469d435bdb9n%40googlegrou=
+om/d/msgid/jailhouse-dev/c3a09c46-8046-4b99-8076-14de91712306n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3b233d96-6ddd-4fe0-9b81-f469d435bdb9n%40googlegroups.co=
+msgid/jailhouse-dev/c3a09c46-8046-4b99-8076-14de91712306n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_95649_235638391.1712878286568--
+------=_Part_128761_586407530.1712878352147--
 
-------=_Part_95648_146892022.1712878286568--
+------=_Part_128760_967179928.1712878352147--
