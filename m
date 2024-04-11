@@ -1,73 +1,73 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBHPB4GYAMGQEK477MYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBRXD4GYAMGQE7GPMIIQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353C28A223B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:22:07 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-dc6b26845cdsf557395276.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:22:07 -0700 (PDT)
+Received: from mail-yw1-x1140.google.com (mail-yw1-x1140.google.com [IPv6:2607:f8b0:4864:20::1140])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E72D8A2247
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 12 Apr 2024 01:27:04 +0200 (CEST)
+Received: by mail-yw1-x1140.google.com with SMTP id 00721157ae682-609fe93b5cfsf5354997b3.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 16:27:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712877726; x=1713482526; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712878023; x=1713482823; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DYsdtbLydLICiXMaEmUBHmqmi5/X67l6s17m3obI0YQ=;
-        b=mub90B5xTcpJ/h0RketeO4YDjUvumlaqtoOOWmsC1RsXOhC36kgr/7XBdWD4wOXE+j
-         p+lHYQVuEx28Fs/EDB/d8VeEjG6+68I0gBJYRZ8w/cE0voGEekp1rDxhL+tpOvxjk8jh
-         +3sC2pmCv7EaiXkq/0pUP1RKq9aUCKwTnksinw3GRzoPiIK5OnQP9Jv9tU4rOqNpEtN4
-         gqjZXVhNTdd/ohZ9tERz75DHjA1FJjjFb4wPChsrZ3Fuxyh6UOqq3cI7/Hf24Xyu5QR9
-         RqtylmWk7KHRX6QXU7wgy6V+48lmA9VnVnFzrhZ1f0/67JElz2aZM77v5KaUQe6MA6u1
-         fHgw==
+        bh=IDgtffLZ79UHSTcwiOxxHWVVwDkcRhCFVhZaLYAk15w=;
+        b=tRluHRl/5K+9FC1TpUMXMnTqMEkheFKEnSJWvAqYSUZugzxXFHC1rBUx/4xtQmfov+
+         uZu0pu0VfIDtQ4iYCo0ZemUIIBntg7MR0IO5+zTebhJKbMef5mWBMZ0jXuQfikuyIAeK
+         AcMerB+R4xcI0e4zrY8oB0YkewZwx1ZMrHAiiIa3M1G5vqhHfKcBPUNuRCdMl4URqDbI
+         B7ivsNnWzofXmR5mvc+YYQr069vXDpvSviV4SIKxO6Ouad38Hcy+O4Dd0f5YMUGNQGZu
+         3PJVuChJjMbDSyAFbn7zCJkkWjJWufs0RnXPG9yLAy9x/ZzsT2TBcpT1NQDg4KVoH0+Q
+         uMmg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712877726; x=1713482526; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712878023; x=1713482823; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=DYsdtbLydLICiXMaEmUBHmqmi5/X67l6s17m3obI0YQ=;
-        b=HulrPLQUNqowmzpyb/9PllcatbgrKylRT8EhyaYm5QpHyhO/6cptj6MrI6VDb6mo8r
-         cG4XMkus35hos1w/ietV4dE9WLzv8u7WUTru9qv3Tu5zsjkl2Vf/v59XBk9p6DHW5nEI
-         x44qMci0ofsTlXtuaXir7Fr5RvFKc98iiMZUkoGbQbDmQEW/cYBP/GS/OuM26r4wTdk2
-         QqrBaL/FSvMBexTb58ghjCVFWqS53HW+1nSMWY9JY1HrxwRaZZPAjftSKwYPDLn+zeCm
-         Qdo3CO1lBNZewrm9cHCxmWoyuWZI5njRgG+CtNfcyrsuYQ2JFJ4r2PtmgId3W40wfhyB
-         hKeA==
+        bh=IDgtffLZ79UHSTcwiOxxHWVVwDkcRhCFVhZaLYAk15w=;
+        b=Ie7NdAzmaQ77yddY4BOVyWvzeOsv6alg50ezimVIO/X4Mv4AuMj3TRvtc43wgEv0jy
+         EmN170IgA5qN1mCEwnWLhYaHutdyG8yfkmJMyNIoC7G4dD7YS7zk5Z/u7138MCFeav5v
+         dm6+So4BGccBm2k5gKeCDnkdGqqhVy3yybGn6L3V0mDumWAqzZa2MAcYNB3Xp7ks8bDL
+         d4fthJz56W/D4hCqMXdJITyboKZIxgTN/5uROKSnt30jcVP6mIDwBf4pZfQ+iEvhJLZ9
+         1CXaIIjCRnaHsE+kcv87xjAFXkEpSa3d1UzRhKKoX8imTh+zFHOwiLFX9SuXk1RovA3u
+         VNDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712877726; x=1713482526;
+        d=1e100.net; s=20230601; t=1712878023; x=1713482823;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DYsdtbLydLICiXMaEmUBHmqmi5/X67l6s17m3obI0YQ=;
-        b=LYSGPH2/e+sp28Ybn300L1CnPQQwX7zsYM3vNykcIfsKhwqhhOoUX2QdoW0IbaXPSq
-         HyRAelooKuPMKtPKRuOYRBG61ynsKsAl/9jCuT/Vl07gS+UV/bFjEp/ym/r3nGPu49gg
-         NAsNxiJecwImhJQHf4M6Nr4QTrauDQWQfBc8kbJ2AVaOw5HGeA5ZvS2hwiB44nJXd5+C
-         dvXz6epDCYa6OQBmYPxNGGnBvFx++hT8XHpX4oSQRI5Sd3y+4D3fs4YfrSSiviLDQFlj
-         SFHalw0/cXiyttihrkwbuFoGWylM6KoFtuxADtTM7HBnkRP6AjfI8tqrWpCVddqOO3Ok
-         n1zQ==
+        bh=IDgtffLZ79UHSTcwiOxxHWVVwDkcRhCFVhZaLYAk15w=;
+        b=mfbRFBJ9HNshi9tde4yUCfphYpPZNyTURPHHaddhUyINsqzTEVjIRWE4pjcwvHI4v1
+         l+ajXRA5//yMDA6K+7Wv94+5iEuMz0Yf44xVKbOGVwe1Vwb+3AdUMf0xFeGbqULkqRro
+         Sqnz33KLy0ABqqikyke1quDiZuU3wyvT0mbLf53bB3jydyltROIOfGrSVHCdcj03/F2k
+         ELt0BXos9AErl7OuVjfztkjBwKv1KBODj9SOCRyjjCofP3stExzSI9pwbBbSzOvit9US
+         7uCSBQhqnemNYKBb1h74dczifCv/ZislnwR37RC6qcDUwOtmhtgD5cEHDgm9S+xwcQNk
+         8O+w==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUx40FONb4Gn+h3koKcJVqKacYXkmJ0sG2KlH82HcmhupbudZbSs4bNd0hj0qjXospbhol9ZAyFGRuue+gnao33Z+av5Ct5tXst04w=
-X-Gm-Message-State: AOJu0YyzL5v8dqK/pz2SMGR4gdjLETqli7ZgCWD4NEeXkq6pHyGWDvhv
-	xUCWVuhTGESuT+6/avbe5y4shcOn9FdRngtJi59Weq19RzFbTxpO
-X-Google-Smtp-Source: AGHT+IHeMKjAfF6O9KXgkfPjhi0SYqHLu4h6qiZTqagkwIEEj+pt1zHWrxqrGhlwBzUoAPl3iVrN1g==
-X-Received: by 2002:a5b:2c5:0:b0:dcc:383b:e48d with SMTP id h5-20020a5b02c5000000b00dcc383be48dmr1033438ybp.26.1712877726104;
-        Thu, 11 Apr 2024 16:22:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWq6bTUz+tQlCJ+w3ubZl9Qn7XWMQ8T/fLkgR3N7ZJQf/8fK8k4UurJMO3lCW4ER3CNdU2IQhJg0m/9jT9j9c9qhAq/grNiKsisv5c=
+X-Gm-Message-State: AOJu0YywipLxei4WwC0m4Mnc5fLhYLBaUamobokw/2JnjlICLR42ZzwD
+	e7Y/5jgzf1JTymo8JlpyW/hvGqi5/WecEM6PT5ULAfa35PhgeY/E
+X-Google-Smtp-Source: AGHT+IGEVAHvl+clw1BPd1GdxJGuGcVDWr6boI0QZ5tDwsl3u5qg1gzqJs+L53C8SbImXVBSpoGhpg==
+X-Received: by 2002:a25:ba4f:0:b0:dcc:96db:fc0d with SMTP id z15-20020a25ba4f000000b00dcc96dbfc0dmr935033ybj.25.1712878023345;
+        Thu, 11 Apr 2024 16:27:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:d055:0:b0:dc7:4363:dc02 with SMTP id h82-20020a25d055000000b00dc74363dc02ls302193ybg.1.-pod-prod-06-us;
- Thu, 11 Apr 2024 16:22:05 -0700 (PDT)
-X-Received: by 2002:a0d:cc52:0:b0:618:6d0d:b369 with SMTP id o79-20020a0dcc52000000b006186d0db369mr225005ywd.5.1712877724692;
-        Thu, 11 Apr 2024 16:22:04 -0700 (PDT)
-Date: Thu, 11 Apr 2024 16:22:04 -0700 (PDT)
+Received: by 2002:a25:7e87:0:b0:dcc:279c:e5c9 with SMTP id z129-20020a257e87000000b00dcc279ce5c9ls699729ybc.1.-pod-prod-01-us;
+ Thu, 11 Apr 2024 16:27:01 -0700 (PDT)
+X-Received: by 2002:a0d:d806:0:b0:615:5c4:1d17 with SMTP id a6-20020a0dd806000000b0061505c41d17mr217875ywe.5.1712878019799;
+        Thu, 11 Apr 2024 16:26:59 -0700 (PDT)
+Date: Thu, 11 Apr 2024 16:26:59 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <4d0add7c-1d26-4ff4-a836-d7e7b154d310n@googlegroups.com>
-In-Reply-To: <CAA4doa+SP+AtbLJ4u14qkaCxiKHj5DG=qTBy6F3U7xMcEJ2j-A@mail.gmail.com>
-References: <CAA4doa+SP+AtbLJ4u14qkaCxiKHj5DG=qTBy6F3U7xMcEJ2j-A@mail.gmail.com>
-Subject: Re: Re; May the grace of God be with you
+Message-Id: <e35b563f-ba4e-4df5-addb-cb111dd899a5n@googlegroups.com>
+In-Reply-To: <c87d6aa0-ef6d-419d-911c-59bcfeaf0a2cn@googlegroups.com>
+References: <c87d6aa0-ef6d-419d-911c-59bcfeaf0a2cn@googlegroups.com>
+Subject: Re: Zephyr RTOS now supports Jailhouse ivshmem Ethernet
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_146182_281947700.1712877724112"
+	boundary="----=_Part_95500_1179582828.1712878019214"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,11 +81,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_146182_281947700.1712877724112
+------=_Part_95500_1179582828.1712878019214
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_146183_909424169.1712877724112"
+	boundary="----=_Part_95501_2090251765.1712878019214"
 
-------=_Part_146183_909424169.1712877724112
+------=_Part_95501_2090251765.1712878019214
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -119,21 +119,19 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
-On Monday, May 22, 2023 at 5:44:06=E2=80=AFPM UTC+1 Monika Herzon wrote:
+On Thursday, May 18, 2023 at 7:05:07=E2=80=AFAM UTC+1 Grant Ramsay wrote:
 
-> God bless you.
+> Hi, I thought people here might be interested that Zephyr RTOS has added=
+=20
+> support for Jailhouse ivshmem-v2 Ethernet.
 >
-> May the grace of God be with you, My name is Monika Herzog, I want to kno=
-w=20
-> if you received the email I sent you,
+> PR:
+> https://github.com/zephyrproject-rtos/zephyr/pull/55202
 >
-> If you didn't receive the email, reply to me so I can resend it, because =
-I=20
-> have something very important to discuss with you, which will be very=20
-> meaningful for you and for the people around you.
+> QEMU sample:
 >
-> stay blessed
-> Mrs. Monika Herzog
+> https://docs.zephyrproject.org/latest/samples/drivers/ethernet/eth_ivshme=
+m/README.html
 >
 
 --=20
@@ -142,9 +140,9 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4d0add7c-1d26-4ff4-a836-d7e7b154d310n%40googlegroups.com.
+jailhouse-dev/e35b563f-ba4e-4df5-addb-cb111dd899a5n%40googlegroups.com.
 
-------=_Part_146183_909424169.1712877724112
+------=_Part_95501_2090251765.1712878019214
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -157,16 +155,24 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
 ><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
- Monday, May 22, 2023 at 5:44:06=E2=80=AFPM UTC+1 Monika Herzon wrote:<br/>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; borde=
-r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div dir=3D"ltr">=
-God bless you.<br><br>May the grace of God be with you, My name is Monika H=
-erzog, I want to know if you received the email I sent you,<br><br>If you d=
-idn&#39;t receive the email, reply to me so I can resend it, because I have=
- something very important to discuss with you, which will be very meaningfu=
-l for you and for the people around you.<br><br>stay blessed<br>Mrs. Monika=
- Herzog<br></div>
-</blockquote></div>
+ Thursday, May 18, 2023 at 7:05:07=E2=80=AFAM UTC+1 Grant Ramsay wrote:<br/=
+></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; bord=
+er-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div>Hi, I thoug=
+ht people here might be interested that Zephyr RTOS has added support for J=
+ailhouse ivshmem-v2 Ethernet.</div><div><br></div><div>PR:<br></div><div><a=
+ href=3D"https://github.com/zephyrproject-rtos/zephyr/pull/55202" target=3D=
+"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/ur=
+l?hl=3Den&amp;q=3Dhttps://github.com/zephyrproject-rtos/zephyr/pull/55202&a=
+mp;source=3Dgmail&amp;ust=3D1712964150093000&amp;usg=3DAOvVaw37PERXa6rTOLc_=
+YvY09Zm8">https://github.com/zephyrproject-rtos/zephyr/pull/55202</a></div>=
+<div><br></div><div>QEMU sample:<br></div><div><a href=3D"https://docs.zeph=
+yrproject.org/latest/samples/drivers/ethernet/eth_ivshmem/README.html" targ=
+et=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.c=
+om/url?hl=3Den&amp;q=3Dhttps://docs.zephyrproject.org/latest/samples/driver=
+s/ethernet/eth_ivshmem/README.html&amp;source=3Dgmail&amp;ust=3D17129641500=
+93000&amp;usg=3DAOvVaw0hTrdp7tyVusgJCrKnTOYT">https://docs.zephyrproject.or=
+g/latest/samples/drivers/ethernet/eth_ivshmem/README.html</a></div></blockq=
+uote></div>
 
 <p></p>
 
@@ -177,11 +183,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/4d0add7c-1d26-4ff4-a836-d7e7b154d310n%40googlegrou=
+om/d/msgid/jailhouse-dev/e35b563f-ba4e-4df5-addb-cb111dd899a5n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/4d0add7c-1d26-4ff4-a836-d7e7b154d310n%40googlegroups.co=
+msgid/jailhouse-dev/e35b563f-ba4e-4df5-addb-cb111dd899a5n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_146183_909424169.1712877724112--
+------=_Part_95501_2090251765.1712878019214--
 
-------=_Part_146182_281947700.1712877724112--
+------=_Part_95500_1179582828.1712878019214--
