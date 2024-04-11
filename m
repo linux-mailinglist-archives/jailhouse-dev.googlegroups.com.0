@@ -1,74 +1,73 @@
-Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBLVQ4GYAMGQEGNHALOA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDFMXFHWY4HBBYVR4GYAMGQEFLVZITY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 341F88A2101
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 23:37:52 +0200 (CEST)
-Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-ddaf2f115f2sf399557276.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 14:37:52 -0700 (PDT)
+Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D23E8A2106
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 23:40:52 +0200 (CEST)
+Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-dced704f17csf432605276.1
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 11 Apr 2024 14:40:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1712871471; x=1713476271; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1712871651; x=1713476451; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
-        b=GYzSm4vtIzEOyIHUZ4jfDnuyGv6jIudk/ppMHJo+5oS3zhd11OGXGHWHw5bK6yVjmT
-         j27XUCxmbHL7J9wH/PzHu8eHrPQ2js4uVv2jb7mKxlPsvmQzre4/ybU9a/TqamUylHKN
-         oaVB4Ldo7dteV7R4IF9OaRdtTH8afL8Vjii6aSrRyGaYAJzyk4UJzzLBJvG85koKax+4
-         GbW8Nfxa85tJPWp5OPIOv0Ji+mFkRzqiyWh31yFSNiAXD3xHPhf1ml26lx9K872K81TY
-         zqYrLSC1jydKQbsudjowNwjmEFNunG04Riw8c0qs34x3W33IP9w+xZVCQdogHffJCeIn
-         TdJw==
+        bh=P7gKsl/CuXa8WIZGfbcpMyEeltKQRPjrracZXpaaUmo=;
+        b=eMjkMLFSZlhtmOn8oi+bZOw+tbrnYKEWGO3YqTvA0Q8fXI/vxZZWBl7OVKo/xXaN6P
+         pTNt/IQ0PC+9xCDf4zELHt0KqTbMHVb+JphH/SHQfsfbxYgt79sS9WTB5Set8xzu8tjF
+         a+1I91FXFRdqQYtGfW2cG8R0Saaj01gtyGeQ5Ch2OkYvE+OMTMjxuaG9/jxsSMNX3aVy
+         lV8GvctJoVl4/qWf/6IL2+0/nNTmjRAulmlBNYcitdbFfQXJiIkOUBmnYEmtwiTIzylj
+         dBND+czysbgwURa2AoH7Hv8fyFwwFgK6UoNFV0YDwU57AVDPNWDAzCZ3oY+Hr4U8UrLP
+         zKHg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712871471; x=1713476271; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1712871651; x=1713476451; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
-        b=XgVBW+ouJUJ+0Il1G7nrcFrudtcnna/Q7zrGxH0TAU8S58gh/sjhmICiWyzYojd/IQ
-         uS2yfx9z6LHuLDX6NciBnkeAUQhoua5oCFL8xQlhtIYEcVBrQjv6h5v9QfrhCY3Ji8L3
-         1ivDOz877nfmtX66GW02cg1JcerKDmwm6ru9BQBW5pGkxFYUk+qVn7DL/1f1/krU1bxY
-         kAyifkEbwQ3/DY2wKnLCrHIf1jihwDJ7sklEZgzGSslCOrs3Yy0/0ZlR8dpDMftvWueG
-         co6Xa0+m8FVa+lNkuzznCA3JHnNfCe+X5grXDvWt2H3Iy6VnJMzdEzFogOnUAkVZEEQV
-         g7DQ==
+        bh=P7gKsl/CuXa8WIZGfbcpMyEeltKQRPjrracZXpaaUmo=;
+        b=ZL9JntDznLcVQKYzyyYzr+PjmO+LDvdzcCNFUHrOl+j7BDpKnOgDLTcHa7/pjdznft
+         GKVQ0/TaHgDaBhMS9e6S+XGXAz+Ox8UduDgbxGDTXtWcEWzJSXN/G0Rf5toa7uSyQPG0
+         XEnlY43Yzp3gpPhqtImGA0CC1RkMBBwx4+sKjSWwXdW7x3J9N5XRcjWkyxRf+4AqwPX7
+         hPMTj7Vj6rfg2T2NuelKv6jTDT1kYs7jX40gxp2wXS3xuapsH7ae0vGKddSdCsdlOtnI
+         iSAW7+cyTZYU6SXWNAWLr+3USn2Ledq55qny6Guc+ils+Ga+OJE8lmee+iCbbQOqZi8J
+         LT1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712871471; x=1713476271;
+        d=1e100.net; s=20230601; t=1712871651; x=1713476451;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=6KgRf/+6dFx5kPILB87HVVrm+PdozV5WMuxEX7VGqVk=;
-        b=SLOuWvzPEWXemjc1c1VpdgcxGR4WLjvUMJQgE/03RgmlXrYUepxnQN+/yHbmn6wt6c
-         z4XOK2gqFAzZDEPv31DWL4FAHDCFcckiwboHtBtFsRpYuMURiPGSA+S7+IIUcU2E5Zl5
-         M4pU3LoYVOqdPkGCNwBh2BBuSrseavK7Q3JWZo2CSZldWMQUSf/dC2TNNVYoPgQiWo1E
-         Q+ntJEYr2npVm0/PvpBn0LUoIUYLtK4r5jNeGUqKNSLv7BcdUo59+fJ8/PoasQlrbQCv
-         g4dnV57W+swA+pd+uqVxA5m3q19jbO4pWgfnY5HZFRjFGWdpxvsXII15fcDO/hgw4ZL0
-         aavg==
+        bh=P7gKsl/CuXa8WIZGfbcpMyEeltKQRPjrracZXpaaUmo=;
+        b=q5zFCUHDK6RDqtFwGUod0ZpkiT3L5vusrARa+71WZVjp0el7UZznM76nVDvVgK80xc
+         Ec6w5DZujLq+C38J9r146+/Aba9B3wdeezwCym2umKPqoT6J7r9OlVKHsITNwHTy78vg
+         URh6uwD1e7lNa3kBazy0Y8xpklauQmXDlnsU6BZN3xezNEBlnyUJrym5qBNSgPPcUWHj
+         Am7deanZH/FeEa/DrfQKUFkiDL8yoHePqP9DW/UWRUWMztnEovvSId+7mSDIZ6qgNtzK
+         W7oz0DaT8kvOLoCc/SK81nNHOC1FIcObabn5Lvb2qZhX/2DesgiSDXIwfOFV4+9oNXsE
+         n4Tg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUs9gQWpbTrYy5fUUEbW+lCtNL+Z5eOnfCPZ3fjqdR9Hkjp1Qt7ZuNfCSC0wTWCroSihUwzO+UFDSYvT3gHfq5+ojKvKwmgPywzNLI=
-X-Gm-Message-State: AOJu0Yyn5afTwoU6ylN0TvavM8qsVZ3q9YOKltZfFRZbdGTHFXxXbl03
-	AMsMndFUiqrUJOiu+MZw/T3Bek4ly0TlWtwxxYB7q2qPCYZPsCgY
-X-Google-Smtp-Source: AGHT+IFd0QdaNL1TLeLDZYOTAUcoMFB35JC8Yl3UG56XkBZCZv4qG14BywFsqOKE1yVkuMEaGfoD+Q==
-X-Received: by 2002:a25:abc5:0:b0:dcd:6a02:c111 with SMTP id v63-20020a25abc5000000b00dcd6a02c111mr728515ybi.11.1712871471061;
-        Thu, 11 Apr 2024 14:37:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCW8cZQrcFG0TYdqr+deu2ndIIKq8JSnWQ+kKGE+/yLRDluek2YA9hQzue3V/Jtm6RjtnWkwi1FphCfAhFZXKN3fO0yWLvfJTmKJpRw=
+X-Gm-Message-State: AOJu0YwyD/QPSoCvRUJy5fhQqe4bDHP/RSk/JDyWdR6QjQUxlymbnMpx
+	95W+G80DNCCNcTcyZNChHkpgnyH/FHDLgw9x8BsDqOnH1rVbEFms
+X-Google-Smtp-Source: AGHT+IFK3kze0iEz7oMK63620HlkafpfShEa/AvB5VrJai617Ej04vV5DziQJg78vHstashzw0fVAQ==
+X-Received: by 2002:a25:ace1:0:b0:de0:f737:95f with SMTP id x33-20020a25ace1000000b00de0f737095fmr787332ybd.7.1712871651128;
+        Thu, 11 Apr 2024 14:40:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:d892:0:b0:dcd:a08f:c83f with SMTP id p140-20020a25d892000000b00dcda08fc83fls450515ybg.1.-pod-prod-08-us;
- Thu, 11 Apr 2024 14:37:49 -0700 (PDT)
-X-Received: by 2002:a25:addf:0:b0:dd9:1db5:8348 with SMTP id d31-20020a25addf000000b00dd91db58348mr212633ybe.8.1712871469084;
-        Thu, 11 Apr 2024 14:37:49 -0700 (PDT)
-Date: Thu, 11 Apr 2024 14:37:48 -0700 (PDT)
+Received: by 2002:a25:70c1:0:b0:dcd:a08f:c840 with SMTP id l184-20020a2570c1000000b00dcda08fc840ls535422ybc.1.-pod-prod-09-us;
+ Thu, 11 Apr 2024 14:40:50 -0700 (PDT)
+X-Received: by 2002:a25:b002:0:b0:dca:33b8:38d7 with SMTP id q2-20020a25b002000000b00dca33b838d7mr204975ybf.11.1712871649760;
+        Thu, 11 Apr 2024 14:40:49 -0700 (PDT)
+Date: Thu, 11 Apr 2024 14:40:49 -0700 (PDT)
 From: Di Majo Massimiliano <massimilianodimajo097@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <1942af53-2fef-48e3-8d6e-ddf30a40d059n@googlegroups.com>
-In-Reply-To: <df468a43-ecdf-46a4-bf02-31681d3ce799@oth-regensburg.de>
-References: <TY2PR01MB3788FD2A0D643FD2E3930CAAB7B4A@TY2PR01MB3788.jpnprd01.prod.outlook.com>
- <df468a43-ecdf-46a4-bf02-31681d3ce799@oth-regensburg.de>
-Subject: Re: Development status
+Message-Id: <03fe3aa2-e957-463f-b394-08bc85dc3df2n@googlegroups.com>
+In-Reply-To: <4746a52e-c635-4142-85c9-c7fe21bc4e84n@googlegroups.com>
+References: <4746a52e-c635-4142-85c9-c7fe21bc4e84n@googlegroups.com>
+Subject: Re: Journey Steve Perry Discography 19752011torrent
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_142338_1408242648.1712871468384"
+	boundary="----=_Part_193318_211342510.1712871649086"
 X-Original-Sender: massimilianodimajo097@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,11 +81,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_142338_1408242648.1712871468384
+------=_Part_193318_211342510.1712871649086
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_142339_706912760.1712871468384"
+	boundary="----=_Part_193319_1351827094.1712871649086"
 
-------=_Part_142339_706912760.1712871468384
+------=_Part_193319_1351827094.1712871649086
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -120,40 +119,68 @@ NOTE; ONLY SERIOUS / RELIABLE RECEIVERS CAN CONTACT.
 DM ME ON WHATSAPP
 +44 7529 555638
 
-On Monday, November 20, 2023 at 3:11:21=E2=80=AFPM UTC+1 Ralf Ramsauer wrot=
-e:
+On Saturday, November 25, 2023 at 1:12:52=E2=80=AFPM UTC+1 Yvone Brem wrote=
+:
 
-> Hi Chris,
->
-> On 20/11/2023 14:37, Chris Paterson wrote:
-> > Hello Jailhouse maintainers,
-> >=20
-> > I was just looking at Jailhouse GitHub repo [0] and it looks like the=
+> Journey and Steve Perry: A Rock LegacyJourney is one of the most=20
+> successful and influential rock bands of all time, with over 75 million=
 =20
-> master branch hasn't been updated for a while (10 months).
-> > Is this project still active?
->
-> Yes, we're currently still working on the RISC-V Port of Jailhouse, and=
+> records sold worldwide. The band's classic lineup, featuring vocalist Ste=
+ve=20
+> Perry, guitarist Neal Schon, keyboardist Jonathan Cain, bassist Ross Valo=
+ry=20
+> and drummer Steve Smith, created some of the most memorable songs of the=
 =20
-> we're almost ready for integration. Therefore, we also have a bunch of=20
-> auxiliary patches in the queue. They'll soon land on the list.
+> 1970s and 1980s, such as "Don't Stop Believin'", "Faithfully", "Open Arms=
+",=20
+> "Separate Ways" and "Any Way You Want It".
 >
-> >=20
-> > On a side note, are there any plans to merge the latest patches from th=
-e=20
-> next branch [1] into master?
+> Journey Steve Perry Discography 19752011torrent
+> Download Zip https://t.co/Zbss8GMbOh
 >
-> @Jan: Ping :)
 >
-> Thanks,
-> Ralf
->
-> >=20
-> > [0] https://github.com/siemens/jailhouse
-> > [1] https://github.com/siemens/jailhouse/compare/master...next
-> >=20
-> > Kind regards, Chris
-> >=20
+> Steve Perry joined Journey in 1977, replacing original singer Gregg Rolie=
+.=20
+> His powerful and distinctive voice helped the band achieve a new level of=
+=20
+> popularity and recognition. He also co-wrote most of the band's hits with=
+=20
+> Schon and Cain. Perry left Journey in 1987, after the release of their=20
+> ninth studio album Raised on Radio, due to health issues and creative=20
+> differences. He pursued a solo career, releasing two albums: Street Talk =
+in=20
+> 1984 and For the Love of Strange Medicine in 1994. He also collaborated=
+=20
+> with other artists, such as Kenny Loggins, Randy Jackson and David Foster=
+.
+> In 1996, Perry reunited with Journey for their tenth studio album Trial b=
+y=20
+> Fire, which was a commercial and critical success. However, he suffered a=
+=20
+> hip injury that prevented him from touring with the band. In 1998, he was=
+=20
+> replaced by Steve Augeri, who sang with Journey until 2006. Perry has not=
+=20
+> performed with Journey since then, although he has expressed his=20
+> appreciation and respect for the band and their fans. He released his thi=
+rd=20
+> solo album Traces in 2018, after a long hiatus from music.
+> Journey's discography spans over four decades and includes 14 studio=20
+> albums, four live albums, eight compilation albums and 59 singles. The ba=
+nd=20
+> has been inducted into the Rock and Roll Hall of Fame in 2017 and has=20
+> received numerous awards and honors. Their music has been featured in=20
+> various movies, TV shows, video games and musicals. They have also=20
+> influenced many artists from different genres, such as Mariah Carey, Bon=
+=20
+> Jovi, Metallica and Glee.
+> If you are a fan of Journey and Steve Perry, you might be interested in=
+=20
+> downloading their discography from torrent sites. However, you should be=
+=20
+> aware of the risks and legal issues involved in doing so. Torrenting is a=
+=20
+> form of file-sharing that involves downloading and uploading files fro
 >
 
 --=20
@@ -162,9 +189,9 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegroups.com.
+jailhouse-dev/03fe3aa2-e957-463f-b394-08bc85dc3df2n%40googlegroups.com.
 
-------=_Part_142339_706912760.1712871468384
+------=_Part_193319_1351827094.1712871649086
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -177,48 +204,47 @@ NSFER<br />BITCOIN FLASHING<br />BANK ACCOUNT LOADING/FLASHING<br />IBAN TO=
 CEIVER<br /><br />Thanks.<br /><br /><br />NOTE; ONLY SERIOUS / RELIABLE RE=
 CEIVERS CAN CONTACT.<br /><br />DM ME ON WHATSAPP<br />+44 7529 555638<br /=
 ><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On=
- Monday, November 20, 2023 at 3:11:21=E2=80=AFPM UTC+1 Ralf Ramsauer wrote:=
-<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; =
-border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Hi Chris,
-<br>
-<br>On 20/11/2023 14:37, Chris Paterson wrote:
-<br>&gt; Hello Jailhouse maintainers,
-<br>&gt;=20
-<br>&gt; I was just looking at Jailhouse GitHub repo [0] and it looks like =
-the master branch hasn&#39;t been updated for a while (10 months).
-<br>&gt; Is this project still active?
-<br>
-<br>Yes, we&#39;re currently still working on the RISC-V Port of Jailhouse,=
- and=20
-<br>we&#39;re almost ready for integration. Therefore, we also have a bunch=
- of=20
-<br>auxiliary patches in the queue. They&#39;ll soon land on the list.
-<br>
-<br>&gt;=20
-<br>&gt; On a side note, are there any plans to merge the latest patches fr=
-om the next branch [1] into master?
-<br>
-<br>@Jan: Ping :)
-<br>
-<br>Thanks,
-<br>   Ralf
-<br>
-<br>&gt;=20
-<br>&gt; [0] <a href=3D"https://github.com/siemens/jailhouse" target=3D"_bl=
-ank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
-=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse&amp;source=3Dgmail&amp;u=
-st=3D1712957843619000&amp;usg=3DAOvVaw1Bk-KfsgREtiCZ-vrNaTdy">https://githu=
-b.com/siemens/jailhouse</a>
-<br>&gt; [1] <a href=3D"https://github.com/siemens/jailhouse/compare/master=
-...next" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https:/=
-/www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse/co=
-mpare/master...next&amp;source=3Dgmail&amp;ust=3D1712957843619000&amp;usg=
-=3DAOvVaw1oZF9I9zCihkKGeHqFPf8l">https://github.com/siemens/jailhouse/compa=
-re/master...next</a>
-<br>&gt;=20
-<br>&gt; Kind regards, Chris
-<br>&gt;=20
-<br></blockquote></div>
+ Saturday, November 25, 2023 at 1:12:52=E2=80=AFPM UTC+1 Yvone Brem wrote:<=
+br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; b=
+order-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Journey and S=
+teve Perry: A Rock LegacyJourney is one of the most successful and influent=
+ial rock bands of all time, with over 75 million records sold worldwide. Th=
+e band&#39;s classic lineup, featuring vocalist Steve Perry, guitarist Neal=
+ Schon, keyboardist Jonathan Cain, bassist Ross Valory and drummer Steve Sm=
+ith, created some of the most memorable songs of the 1970s and 1980s, such =
+as &quot;Don&#39;t Stop Believin&#39;&quot;, &quot;Faithfully&quot;, &quot;=
+Open Arms&quot;, &quot;Separate Ways&quot; and &quot;Any Way You Want It&qu=
+ot;.<div><br></div><div>Journey Steve Perry Discography 19752011torrent</di=
+v><div>Download Zip <a href=3D"https://t.co/Zbss8GMbOh" target=3D"_blank" r=
+el=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&=
+amp;q=3Dhttps://t.co/Zbss8GMbOh&amp;source=3Dgmail&amp;ust=3D17129578775410=
+00&amp;usg=3DAOvVaw1U7lDlmiyH0Vg5fFrKxrm6">https://t.co/Zbss8GMbOh</a></div=
+><div><br></div><div><br></div><div>Steve Perry joined Journey in 1977, rep=
+lacing original singer Gregg Rolie. His powerful and distinctive voice help=
+ed the band achieve a new level of popularity and recognition. He also co-w=
+rote most of the band&#39;s hits with Schon and Cain. Perry left Journey in=
+ 1987, after the release of their ninth studio album Raised on Radio, due t=
+o health issues and creative differences. He pursued a solo career, releasi=
+ng two albums: Street Talk in 1984 and For the Love of Strange Medicine in =
+1994. He also collaborated with other artists, such as Kenny Loggins, Randy=
+ Jackson and David Foster.</div><div>In 1996, Perry reunited with Journey f=
+or their tenth studio album Trial by Fire, which was a commercial and criti=
+cal success. However, he suffered a hip injury that prevented him from tour=
+ing with the band. In 1998, he was replaced by Steve Augeri, who sang with =
+Journey until 2006. Perry has not performed with Journey since then, althou=
+gh he has expressed his appreciation and respect for the band and their fan=
+s. He released his third solo album Traces in 2018, after a long hiatus fro=
+m music.</div><div>Journey&#39;s discography spans over four decades and in=
+cludes 14 studio albums, four live albums, eight compilation albums and 59 =
+singles. The band has been inducted into the Rock and Roll Hall of Fame in =
+2017 and has received numerous awards and honors. Their music has been feat=
+ured in various movies, TV shows, video games and musicals. They have also =
+influenced many artists from different genres, such as Mariah Carey, Bon Jo=
+vi, Metallica and Glee.</div><div>If you are a fan of Journey and Steve Per=
+ry, you might be interested in downloading their discography from torrent s=
+ites. However, you should be aware of the risks and legal issues involved i=
+n doing so. Torrenting is a form of file-sharing that involves downloading =
+and uploading files fro</div></blockquote></div>
 
 <p></p>
 
@@ -229,11 +255,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegrou=
+om/d/msgid/jailhouse-dev/03fe3aa2-e957-463f-b394-08bc85dc3df2n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/1942af53-2fef-48e3-8d6e-ddf30a40d059n%40googlegroups.co=
+msgid/jailhouse-dev/03fe3aa2-e957-463f-b394-08bc85dc3df2n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_142339_706912760.1712871468384--
+------=_Part_193319_1351827094.1712871649086--
 
-------=_Part_142338_1408242648.1712871468384--
+------=_Part_193318_211342510.1712871649086--
