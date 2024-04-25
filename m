@@ -1,73 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCMZLOEWZYNBBTFJUOYQMGQEAZ7XOYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCAYF6GBVYFBBH6SVCYQMGQEKEIAF7Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0158B064D
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Apr 2024 11:45:50 +0200 (CEST)
-Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-de45daf49desf14363056276.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 24 Apr 2024 02:45:50 -0700 (PDT)
+Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31B018B1E95
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Apr 2024 11:57:53 +0200 (CEST)
+Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-dc6ceade361sf2150293276.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 25 Apr 2024 02:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1713951949; x=1714556749; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1714039072; x=1714643872; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ODURQpcf5mZPZmlyVscGo3SS0K0sK6FUUP0n9EUjEQk=;
-        b=i+qW0NjAS68+tgNvtGNUtS593VlsRHYm+1F1x4P2nCGwheu6jbCGVXWgRPVez/sZTo
-         AI2Nn6iH/+Xd4TvgjqLUufX93U0PpBHzW67LZrvX0KYC/JKoLuPWIBELkpXJbau8Ua7R
-         Pu+l0sIDS+bIqQiulwarh3rO7jRjNb4odVVjpSPz40hBRoORe1Re7zJ3HoRSOG1hdicm
-         aOTHOc5/df2+AI3u0oonJxLueE7BOpp9XTZfnHzC7xtvEMDSn3G1xyxS7iTFDvdGNoLK
-         9W5bNcm4PMb+N0HEs8sDZs3ceGhPOjiQHyWiprqptUiOxcMeBOgyEZQgQDqMcpK0i1Ga
-         gMNA==
+        bh=V1vwWv4ERp/COC2Bj4nZgZEhb7bsuk6veLcHvNML+AE=;
+        b=oXu0rKU/H9Td1EhFkCzB4Fd2X1LIPLZ8vhjr85Zm3b7wpZ2oUFm8QOwytuXXa/r9dZ
+         CNO8+IeQmfS1H0zyatDhIYZ1RH1qTEJcToj3LDQuRAEyQKQ3/M8K/nnUQiXCKvLBwLfV
+         yeqSpf/hfAn7C4wHMwzZprZ29jKyqifCQm/+L+nJ+MTDLgnG2MnD6XpV74EuILyHI8JF
+         F+IQP4WEN9ZB3K3TXxPCoE+21Eyx0O6GEDgIUy8sjeKRr/N7Mvpmqp5gKrEItFDfqbKi
+         j40EIPnIufXpTc6ewDEXbYW1aVaDfhpPN7NLSFwRWdMUwVrlvPycS+rFZ6AzMELOxBG2
+         B7gA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1713951949; x=1714556749; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1714039072; x=1714643872; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ODURQpcf5mZPZmlyVscGo3SS0K0sK6FUUP0n9EUjEQk=;
-        b=bJgS4gmsn8S5L8KON8RqFmR9aqMBq9Cw8WEAEFwBSMlfKDJ0ndQOj3Wg0n1grK56Zx
-         i3pwdOYey2v8DBXa4QplBPlGjkyE0LT3F0wjSqxSzHbdR/6mkoOu+IpzPEX9BWj8vRH+
-         W6MuEVmobjRZEL3m5Ei2Mn2RwNarrJjUZXNTdIYJ7lSGcjNTrOdwZDjVL7VMiTMfkz3w
-         T6e6K8GoG9Q2ez+U7tYXF0hpA8vCEnz471guvFxvMpm0+ppSscC87in/PqZqXFkKcVm2
-         tNgi1LEehy9u8G3eD63v/NTWiZVJ3eCPYbJ6mOILbMx46fOXAe4CxWo6ZtHkc9OaPrbV
-         9Bqg==
+        bh=V1vwWv4ERp/COC2Bj4nZgZEhb7bsuk6veLcHvNML+AE=;
+        b=mVlutKYReZA/etSx5lxM2Kx2tC0btgR5bpAbVDnbF50LG2a6u9eayY5OQ+AtuZEG8x
+         uESR38AnY7ugO2gwer9NSXGg+0kOlcBhkdCwP7CMwADD34nrYhShKbbTCR11v++6yWpR
+         UJ7H8ZGkaoG0pEXyiS1ky/8fvnJTPCRNtBUY3aGanSkK/9kKk4D/G8MmoS4QanCSazsV
+         fdqFl+q9+4iZJTr/P1MB2XIud9/26gaSDVJtxg69vOP5o16KZQxlty3m9NdV5xYrKUWN
+         cHpI8GEBzKVxdJMYntFldm4zAcNhuoXebS9DaGGMaudY2fBvJsxtzM/CNrYzOKbRqdCr
+         0A5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1713951949; x=1714556749;
+        d=1e100.net; s=20230601; t=1714039072; x=1714643872;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ODURQpcf5mZPZmlyVscGo3SS0K0sK6FUUP0n9EUjEQk=;
-        b=sdoK5OkJhy++5ZizsyQPJYNDSzDTwjmpWpqPPWivtTWEwuvg+b4g/HBUuFSB0cNmqm
-         OxNnjkO7BC3xiiihBUtZjqTHdjrEuX1RYsZorf9727fP35oHGzkjL8JPxAe7k75LOmby
-         9m8R4XUqHbOIXfO252EEvLCqPAfQQnSh3dv3lueQU7ScBbKRp57whwjSsXsk1dBvDK+m
-         PAIk66vp67d6uteWNJZVpE1TsE1Tpq9FBF+Q0oeakGzbIN/+9tKcnTzT1H4EJXntSKOA
-         q4gcbbOA0nVd0J8HfnBhUKM8Em2c8mHTTRjB5GXw6Qzx81WD4xgRd20OBvhTHdEvHQkI
-         rq+Q==
+        bh=V1vwWv4ERp/COC2Bj4nZgZEhb7bsuk6veLcHvNML+AE=;
+        b=GLNHx3VfRFw77nxSV+omkYAkBhDAo6E8QAkh/6aR7mYQUU5A7/dYBh1VhOPcZc83JE
+         vvu5R2DXYIYJFExRMrD49DYB/Ms3Dpjo3t6N0qCiF77bOhdPHNqSMWFVXwWDWoxPl6Kk
+         kzMtmQWr8nhghNrMolzi56gaoY5mPTML7Z+ak3E4LJOZ3oKiU5FPjDxCWrmo/v2D6Myt
+         UgTIFE+1ijqWAr9UmfQ1+JXtGDo8bFNXp2Op65XEuA1l/Wzz4bJ6K2Op5ENCo7CmtJ8O
+         3dCQOaijC20W70+ktYAc2VyhpGKuwhZyHH4ZlfnJgr1TSyrnRkKRYTVVykn9GY5m61LP
+         DKVg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXx1/ixWMbR+cNe9ItbpOakEzIuybiA7L4mgoMhcNFSnaUl1eo6EWW87CofZMExkATLJGlIr0SDSutNBkqwFYo2ALqvSX63NoTRkUg=
-X-Gm-Message-State: AOJu0YyQQVKMRvV5YXf3MBYeRmOVTWjsqbCAXXPJjCzdNqBNh8GfbS+5
-	Lf+DVZvibqzrCvX8zrXh/EbrO89ybDGsXMdeCW8rmX6xo/DGL/8c
-X-Google-Smtp-Source: AGHT+IHvGrDCIyDqJD4j/Vbiiq2zK2eKKPxpTMkdlVlKxdH4laasmgOUcQ4xA+7QjI3SqLfvMbQRyg==
-X-Received: by 2002:a25:6b0e:0:b0:de5:51dd:87da with SMTP id g14-20020a256b0e000000b00de551dd87damr2284095ybc.32.1713951949333;
-        Wed, 24 Apr 2024 02:45:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCV0/O2K/afA8g/iVdYn+7iB6BrOIY8fiReNNds0U1i3mywgJGj6XhS3doK3uFOQ8LtoFoGJCIAvlMCi6oZACKPZDeNccnHGv+s2/Qo=
+X-Gm-Message-State: AOJu0YxO+U4++fr8XHFEq2ImR6Kul/n0yT6Ardx3r3T6mI2U8RaCrhhG
+	c1RMaoxQ9ndMcH/jmL8ZDGlDV7AfiEfnLdz/1jtlM/mZ8OwQ0wZo
+X-Google-Smtp-Source: AGHT+IHCJp5zAq0NVN8wrEAsJwd26SQ8efB9ZQr1R7khTdKsrW3KfhqFXCim8jVh9CRog7lRcR6J0A==
+X-Received: by 2002:a05:6902:20c6:b0:dc2:3f75:1f79 with SMTP id dj6-20020a05690220c600b00dc23f751f79mr6261730ybb.23.1714039071720;
+        Thu, 25 Apr 2024 02:57:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:2b0f:b0:de5:520c:21bc with SMTP id
- 3f1490d57ef6-de5520c267els2059644276.0.-pod-prod-08-us; Wed, 24 Apr 2024
- 02:45:47 -0700 (PDT)
-X-Received: by 2002:a05:6902:2d05:b0:dd9:1db5:8348 with SMTP id fo5-20020a0569022d0500b00dd91db58348mr653725ybb.8.1713951947535;
-        Wed, 24 Apr 2024 02:45:47 -0700 (PDT)
-Date: Wed, 24 Apr 2024 02:45:46 -0700 (PDT)
-From: Syed Aftab Rashid <saftab.rashid@gmail.com>
+Received: by 2002:a25:2748:0:b0:dcc:4b24:c0da with SMTP id 3f1490d57ef6-de586134826ls1160143276.2.-pod-prod-02-us;
+ Thu, 25 Apr 2024 02:57:50 -0700 (PDT)
+X-Received: by 2002:a81:a252:0:b0:61a:dcd0:5a61 with SMTP id z18-20020a81a252000000b0061adcd05a61mr1022152ywg.7.1714039070155;
+        Thu, 25 Apr 2024 02:57:50 -0700 (PDT)
+Date: Thu, 25 Apr 2024 02:57:49 -0700 (PDT)
+From: Yulon Liao <lylguagn@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <1e39fb3a-f017-480d-aef7-2522a4735df0n@googlegroups.com>
-Subject: Direct Interrupt Injection for x86
+Message-Id: <04066d75-c4b6-4450-9986-47d2df5ad939n@googlegroups.com>
+Subject: non-root cell cpu clock always 24M
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_37792_1390426206.1713951946779"
-X-Original-Sender: saftab.rashid@gmail.com
+	boundary="----=_Part_13140_1543085474.1714039069331"
+X-Original-Sender: lylguagn@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,41 +79,34 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_37792_1390426206.1713951946779
+------=_Part_13140_1543085474.1714039069331
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_37793_1823108255.1713951946780"
+	boundary="----=_Part_13141_1964302037.1714039069332"
 
-------=_Part_37793_1823108255.1713951946780
+------=_Part_13141_1964302037.1714039069332
 Content-Type: text/plain; charset="UTF-8"
 
-Hi all, 
+Hi, everyone,
+I use chip: arm64 a55x4(rk3568)
+After jailhouse start non-root cell, I found that the non-root cpu 
+frequency alway 24M, I don't know how to change it, any ideas?
 
-I am working on a project to analyze Jailhouse performance on x86 
-platforms. I have managed to set it up on an x86 machine and I am able to 
-run the basic APIC demo that comes with Jailhouse. 
-
-I wanted to know if Jailhouse also supports something like Direct Interrupt 
-Injection for x86 platforms? or is it something specific to ARM 
-architecture only? 
-
-Thanks in advance for the response. 
+I change some cru/pmu registers , nothing happened.
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/1e39fb3a-f017-480d-aef7-2522a4735df0n%40googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/04066d75-c4b6-4450-9986-47d2df5ad939n%40googlegroups.com.
 
-------=_Part_37793_1823108255.1713951946780
+------=_Part_13141_1964302037.1714039069332
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,=C2=A0<div><br /></div><div>I am working on a project to analyze Jai=
-lhouse performance on x86 platforms. I have managed to set it up on an x86 =
-machine and I am able to run the basic APIC demo that comes with Jailhouse.=
-=C2=A0</div><div><br /></div><div>I wanted to know if Jailhouse also suppor=
-ts something like Direct Interrupt Injection for x86 platforms? or is it so=
-mething specific to ARM architecture only?=C2=A0</div><div><br /></div><div=
->Thanks in advance for the response.=C2=A0</div>
+<div><font color=3D"#000000">Hi, everyone,</font><br /></div><div>I use chi=
+p: arm64 a55x4(rk3568)</div><div>After jailhouse start non-root cell, I fou=
+nd that the non-root cpu frequency alway 24M, I don't know how to change it=
+, any ideas?</div><div><br /></div><div>I change some cru/pmu registers , n=
+othing happened.</div>
 
 <p></p>
 
@@ -125,11 +117,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/1e39fb3a-f017-480d-aef7-2522a4735df0n%40googlegrou=
+om/d/msgid/jailhouse-dev/04066d75-c4b6-4450-9986-47d2df5ad939n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/1e39fb3a-f017-480d-aef7-2522a4735df0n%40googlegroups.co=
+msgid/jailhouse-dev/04066d75-c4b6-4450-9986-47d2df5ad939n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_37793_1823108255.1713951946780--
+------=_Part_13141_1964302037.1714039069332--
 
-------=_Part_37792_1390426206.1713951946779--
+------=_Part_13140_1543085474.1714039069331--
