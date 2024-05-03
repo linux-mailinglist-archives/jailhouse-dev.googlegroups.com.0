@@ -1,74 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCP3NJOK7IORBH442SYQMGQEEVXUHLQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCP3NJOK7IORBTE42SYQMGQE3RPWAVI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3e.google.com (mail-yb1-xb3e.google.com [IPv6:2607:f8b0:4864:20::b3e])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D40C8BB0BA
-	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 May 2024 18:17:37 +0200 (CEST)
-Received: by mail-yb1-xb3e.google.com with SMTP id 3f1490d57ef6-dc691f1f83asf1400905276.1
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 May 2024 09:17:37 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C2E08BB0BB
+	for <lists+jailhouse-dev@lfdr.de>; Fri,  3 May 2024 18:18:22 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dc64f63d768sf17586724276.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 03 May 2024 09:18:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1714753056; x=1715357856; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1714753101; x=1715357901; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bUV+AztuviIJjzI+f9izZrruG/zyCM4fExvzs94XouQ=;
-        b=nnGxyXlvQQ6JHUoLylQ6EXnhdMMZxOY5Gyb81N9nyIsEMTXbDebZoPjZcFb88unqsc
-         7lTgKzJ7IhjVR3lvncpUc68e3HxhBRiS1OqRTm0Cw4XbX5IPBbZadge6zgQTDd78qZrq
-         fyth6X/QBKNL7YMmP+nLTmqtdT64mzFdU3bit88Vv14CTfc2ykJnsymcTQrPTN7JMHSm
-         XGz4TDt4X5Vdj6e/KmYhS1np40L3/dlPdcwc3pEFHZTYspEV8/2xdkkxWvMpveS1vAP8
-         XkIu8Nnp3n7n3854Ccl1UtwaUslPHOFWs0B6pZAQKwxgwauCkHwcanZdg8Qt/Qw9fY9H
-         3eWw==
+        bh=9BK099IIDWJU5TkXkJPoX5hZPjWPWBDZVPUlt7fFub8=;
+        b=mh3EQyj98gUWP+67L4deoh2koq8PscmSa0G7PhIO8tjROrfXTIhfv71YUQQyx9YMgg
+         4fOSghifGvPJMLZKh6DplappePXNFXsITXk90hS8HHeuhvIkaeZaY9lsdKNAr6D95FR2
+         /bElhb3MvCU6N84tUcPYifufbSiXlbQgYnpBjD2On6NJ5LvYIg+NOG+3lnvw9+4veEEA
+         pA3Vss5ubhEHtyGpML1OY+FGU+o4pp3f6jsOvZUEtmNt/bH+yVeh0PaR4VWaJTmU8TnQ
+         nFVrz0vX9fgLpaDrmW+iWqXFkAFvhxoIyM8nogRpBQqq3dZDQvLnbBfRqYlYLe7j/Ylz
+         8e/A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1714753056; x=1715357856; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1714753101; x=1715357901; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bUV+AztuviIJjzI+f9izZrruG/zyCM4fExvzs94XouQ=;
-        b=Jru6I92/TRkzuYP8fX4MI6C2C4KbAJWm/aq3lgta4PGyqZRbOAYpjhX69WhoYJZqgz
-         GeIQE5BUBD617Hoz9mbHg6n/ZyKVIqwqP/ZELIoU3ROV4bCMMh3Fj8h8y2rnMaT3a5X+
-         M0jLRRxIdABSbQuahqD1YEeGepxLL097P6QSGs4Z0Oxu9rko+63sUY9qt5x/rETJXMfp
-         0kS5OPloNMOeKc3CAGC4O4+D5d49LHkHX14Uad0qLi+iwB2ZuHqmXvfHifcgnDPBEFy6
-         zEabsLbX3K9gsbCisFFSc/fLIEOz78CB/9LXYZ7ObmkKsOIh7oczRroNfQiXAALzFK1L
-         f4+g==
+        bh=9BK099IIDWJU5TkXkJPoX5hZPjWPWBDZVPUlt7fFub8=;
+        b=HLH72sedlNL/fbaFkUOLZdPxW+/QDve3xMOU8SzxakrFho7vFMCXveHPJTP2lAIEpP
+         /pEnFEYFfXIIDDkIuuATay/ShXhW52QAG+KAmIVTmwfUb23+HbftaDP2LCwM2r9XZM/d
+         7q2RAkQY2ejjOt61pq55H0XzRQmG08h1h7wfPyxTqBW6d0Uuw/wnMB0rjj1MUxdTLgVM
+         D7K2O/b8+11mP0LrrpVBxJ72t6EUvdtfadtMlwAbtfd/wTjLvEeBe9g0YTKNRqOv5wUD
+         CiXlKkQ3WS/tL9NrdobdGYltVoMfdf0t3wqgRgceX6wafdHeAGdjFRA8+WLHtkBkmg3H
+         wC3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714753056; x=1715357856;
+        d=1e100.net; s=20230601; t=1714753101; x=1715357901;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bUV+AztuviIJjzI+f9izZrruG/zyCM4fExvzs94XouQ=;
-        b=je6CKJ0lvoO5125La1HYNhsZh7cxjRhQBvxGaGG73Wl1x+UC34bgaFTIQaGNkJ/5D0
-         KpideHxBxjKpSobQZeDy+TygjCZPkdT7mAbg5YWjH4Vt0rTmQr5oVrZUSlFmkZ/qFsrs
-         JtgHhdEz/Hfh9PLQIQ5qbvSfIStLogRc+zvNTDG1wXFdJGZ7M34uofo0pIIrN09v7Yqg
-         q4kVWexosH7SBhaFqDZfSo411OYgCuLbp/IsrAf+3LaLhdzW4BU2e4qbFnd7f0wwoy+j
-         nYVY35pR49bUuXZLqG109mFanJfRw6mIG7PKWQIL5bwXEkDbLg312HF2+5FL4JaluExH
-         ICHQ==
+        bh=9BK099IIDWJU5TkXkJPoX5hZPjWPWBDZVPUlt7fFub8=;
+        b=dS81/weoGrWD3x+k0Eiz2Nt67khjCxENk5Qp+nRkg6ptwC/AHddMPNHl9ONGrGAlRB
+         QxHuiclDFif09468yBalFhDedSzOdNKUAWdyocRRIIyvAiFpVEqBGKzw3CkgWUXlSwlh
+         1U/atiPCcRycQAudHtvBDLStWhHMim8rUNssStKm0zAKLWKsnRtiys6I0WfxL29H7qo/
+         p/AvquHUWK15NHtQ/RiryKAS6gVAfSKSXf8DlsjJb6GUcr+B3ewlBXT0krrF9AdI80Si
+         lUl7Oy2+T8KatfdkcBZzSnPP6bkUaIOCy4qNCJ50v9mFJnHusq4Inf+za8v4oSX7ZWkl
+         Nu3A==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXIJmK1fnhFBBgrOzL+7u9K1PmTDZqqjwh0zQgzRYYgsF/Z6UpPL9oTv9ShblpgTajICm4vJQSeh7Y4hTAOAkBFDBIFid7QSbe9wa4=
-X-Gm-Message-State: AOJu0Yw+NJ6FD28OIB/jstWHkI2QBRSCDsy/GccFwapOTprnOUEuKY0a
-	m9NGSBNfd3w54sSc+5ABm3ZJRQojMXqBi7xgaxOwCc/jfixY261P
-X-Google-Smtp-Source: AGHT+IElk0rpucpME41pYaBZ2wNqfCysk5mfe7x/GpgV8AedAYo7Xgu+wWEFok1buylTygNzXdCNvw==
-X-Received: by 2002:a25:250:0:b0:de8:a446:b35c with SMTP id 77-20020a250250000000b00de8a446b35cmr2332518ybc.16.1714753055982;
-        Fri, 03 May 2024 09:17:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVEtSnJQjy+o2fMjQY1f8QelwcojVxLfC+cu8oMnSOsvrd8EFkm4dp4949CE1+QY8ixJapDci3famyoEx4U61paWl7OPbhaHQlA0LY=
+X-Gm-Message-State: AOJu0YyswvNAIMQXQMT7NFv4TU5pVhcY5NBdOL8jn6vPPaJfAdcrXZMV
+	FJQVOcHu9fov703tOADhsvLt0LZwjaolEFJpbvvlCVdSi4cGSw0y
+X-Google-Smtp-Source: AGHT+IF/NcAVbQbQO46aeG0ujk4Scl+dRNez6gpl75m8lVmxzciRNe6rgpnNnTw4XTfc7wL4OTsKfA==
+X-Received: by 2002:a05:6902:1345:b0:dcf:ad31:57c9 with SMTP id g5-20020a056902134500b00dcfad3157c9mr3171315ybu.0.1714753100944;
+        Fri, 03 May 2024 09:18:20 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:c742:0:b0:de5:a004:beb with SMTP id 3f1490d57ef6-de8b54a7fcbls138777276.1.-pod-prod-01-us;
- Fri, 03 May 2024 09:17:34 -0700 (PDT)
-X-Received: by 2002:a25:ce4b:0:b0:de5:5304:3206 with SMTP id x72-20020a25ce4b000000b00de553043206mr383747ybe.11.1714753054359;
-        Fri, 03 May 2024 09:17:34 -0700 (PDT)
-Date: Fri, 3 May 2024 09:17:33 -0700 (PDT)
+Received: by 2002:a25:c583:0:b0:de5:a3ef:27b9 with SMTP id 3f1490d57ef6-de8b50529cfls158577276.0.-pod-prod-01-us;
+ Fri, 03 May 2024 09:18:19 -0700 (PDT)
+X-Received: by 2002:a0d:d817:0:b0:61b:e165:44ba with SMTP id a23-20020a0dd817000000b0061be16544bamr650438ywe.1.1714753099315;
+        Fri, 03 May 2024 09:18:19 -0700 (PDT)
+Date: Fri, 3 May 2024 09:18:18 -0700 (PDT)
 From: Maxwell Tyler <mt8067953@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <0a720ed1-6623-462c-ad4c-0b57cabe7c29n@googlegroups.com>
-In-Reply-To: <aeb5c4c3-f9da-438d-a0fa-02974b4397ean@googlegroups.com>
-References: <aeb5c4c3-f9da-438d-a0fa-02974b4397ean@googlegroups.com>
-Subject: Re: BUY PSILOCYBE GOLDEN TEACHER MAGIC MUSHROOMS ONLINE IN USA
- TODAY SAFELY
+Message-Id: <a7321cf9-01cb-4b2f-9bb6-d3001a51bb00n@googlegroups.com>
+In-Reply-To: <f05d49f7-8422-484b-aba3-d6ddbe705a30n@googlegroups.com>
+References: <f05d49f7-8422-484b-aba3-d6ddbe705a30n@googlegroups.com>
+Subject: Re: BUY LSD TABS WORLDWIDE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_68090_556565979.1714753053530"
+	boundary="----=_Part_138410_43050269.1714753098494"
 X-Original-Sender: mt8067953@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,11 +81,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_68090_556565979.1714753053530
+------=_Part_138410_43050269.1714753098494
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_68091_317096651.1714753053530"
+	boundary="----=_Part_138411_454892487.1714753098494"
 
-------=_Part_68091_317096651.1714753053530
+------=_Part_138411_454892487.1714753098494
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -207,76 +206,15 @@ scale to see how golden teacher mushrooms affect them before increasing in=
 =20
 dosage
 
-On Thursday, May 2, 2024 at 1:24:11=E2=80=AFAM UTC+1 Justin Baker wrote:
-
-> Golden Teacher mushrooms have a distinct appearance, with a long and=20
-> winding, hollow stipe that is quite thicker towards the base. As one woul=
-d=20
-> expect, they often have a more elegant appearance compared to their
->
-> The fruiting bodies have a golden or yellowish-colored center and a=20
-> partially covered cap which is often larger=E2=80=94around 3 inches in di=
-ameter.=20
-> This particular strain also has gills that may vary between white and=20
-> purplish brown, making it distinctive.
->
-> https://t.me/dannyw23official
->
->
->
-> https://t.me/dannyw23official
->
->
->
-> https://t.me/dannyw23official
->
->
->
-> As with any mushroom, it=E2=80=99s essential to correctly identify a stra=
-in before=20
-> attempting to collect spores, keep, or consume! When misidentified, they=
-=20
-> could be mistaken for poisonous fungi. Golden Teacher mushrooms fruit les=
-s=20
-> compared to other strains, but they also easily grow under optimal=20
-> conditions.
->
->
->
-> https://t.me/dannyw23official
->
->
->
-> According to a Golden Teacher mushrooms strain review, the distinctive=20
-> feature of a yellow or gold cap is what=E2=80=99s propelled its identific=
-ation=20
-> throughout the years. This species was first described in 1906 by Frankli=
-n,=20
-> found in Cuba, and named Stropharia Cubensis. Almost one year later,=20
-> Narcisse Theophile identified it as Naematoloma in Tonkin, Saskatchewan
->
->
->
-> https://t.me/dannyw23official
->
->
->
-> https://t.me/dannyw23official
->
->
->
-> https://t.me/dannyw23official
->
-
 --=20
 You received this message because you are subscribed to the Google Groups "=
 Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/0a720ed1-6623-462c-ad4c-0b57cabe7c29n%40googlegroups.com.
+jailhouse-dev/a7321cf9-01cb-4b2f-9bb6-d3001a51bb00n%40googlegroups.com.
 
-------=_Part_68091_317096651.1714753053530
+------=_Part_138411_454892487.1714753098494
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -338,56 +276,7 @@ m one mushroom to the next. Myriad factors can also affect the experience, =
 with dosage being just one part of the equation.<br /><br />https://t.me/Mu=
 shies_12<br /><br />Anyone inexperienced with psychedelics should start at =
 the lower end of the scale to see how golden teacher mushrooms affect them =
-before increasing in dosage<br /><br /><div class=3D"gmail_quote"><div dir=
-=3D"auto" class=3D"gmail_attr">On Thursday, May 2, 2024 at 1:24:11=E2=80=AF=
-AM UTC+1 Justin Baker wrote:<br/></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padd=
-ing-left: 1ex;">Golden Teacher mushrooms have a distinct appearance, with a=
- long and winding, hollow stipe that is quite thicker towards the base. As =
-one would expect, they often have a more elegant appearance compared to the=
-ir<br><br>The fruiting bodies have a golden or yellowish-colored center and=
- a partially covered cap which is often larger=E2=80=94around 3 inches in d=
-iameter. This particular strain also has gills that may vary between white =
-and purplish brown, making it distinctive.<br><br><a href=3D"https://t.me/d=
-annyw23official" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D=
-"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw23official&a=
-mp;source=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAOvVaw0qi9RKPks5JraQ=
-xpAwc7jU">https://t.me/dannyw23official</a><br><br><br><br><a href=3D"https=
-://t.me/dannyw23official" target=3D"_blank" rel=3D"nofollow" data-saferedir=
-ecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw23o=
-fficial&amp;source=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAOvVaw0qi9R=
-KPks5JraQxpAwc7jU">https://t.me/dannyw23official</a><br><br><br><br><a href=
-=3D"https://t.me/dannyw23official" target=3D"_blank" rel=3D"nofollow" data-=
-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/=
-dannyw23official&amp;source=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAO=
-vVaw0qi9RKPks5JraQxpAwc7jU">https://t.me/dannyw23official</a><br><br><br><b=
-r>As with any mushroom, it=E2=80=99s essential to correctly identify a stra=
-in before attempting to collect spores, keep, or consume! When misidentifie=
-d, they could be mistaken for poisonous fungi. Golden Teacher mushrooms fru=
-it less compared to other strains, but they also easily grow under optimal =
-conditions.<br><br><br><br><a href=3D"https://t.me/dannyw23official" target=
-=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
-/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw23official&amp;source=3Dgmail&amp;u=
-st=3D1714839433215000&amp;usg=3DAOvVaw0qi9RKPks5JraQxpAwc7jU">https://t.me/=
-dannyw23official</a><br><br><br><br>According to a Golden Teacher mushrooms=
- strain review, the distinctive feature of a yellow or gold cap is what=E2=
-=80=99s propelled its identification throughout the years. This species was=
- first described in 1906 by Franklin, found in Cuba, and named Stropharia C=
-ubensis. Almost one year later, Narcisse Theophile identified it as Naemato=
-loma in Tonkin, Saskatchewan<br><br><br><br><a href=3D"https://t.me/dannyw2=
-3official" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw23official&amp;sou=
-rce=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAOvVaw0qi9RKPks5JraQxpAwc7=
-jU">https://t.me/dannyw23official</a><br><br><br><br><a href=3D"https://t.m=
-e/dannyw23official" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw23officia=
-l&amp;source=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAOvVaw0qi9RKPks5J=
-raQxpAwc7jU">https://t.me/dannyw23official</a><br><br><br><br><a href=3D"ht=
-tps://t.me/dannyw23official" target=3D"_blank" rel=3D"nofollow" data-safere=
-directurl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/dannyw=
-23official&amp;source=3Dgmail&amp;ust=3D1714839433215000&amp;usg=3DAOvVaw0q=
-i9RKPks5JraQxpAwc7jU">https://t.me/dannyw23official</a><br></blockquote></d=
-iv>
+before increasing in dosage<br /><br />
 
 <p></p>
 
@@ -398,11 +287,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/0a720ed1-6623-462c-ad4c-0b57cabe7c29n%40googlegrou=
+om/d/msgid/jailhouse-dev/a7321cf9-01cb-4b2f-9bb6-d3001a51bb00n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/0a720ed1-6623-462c-ad4c-0b57cabe7c29n%40googlegroups.co=
+msgid/jailhouse-dev/a7321cf9-01cb-4b2f-9bb6-d3001a51bb00n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_68091_317096651.1714753053530--
+------=_Part_138411_454892487.1714753098494--
 
-------=_Part_68090_556565979.1714753053530--
+------=_Part_138410_43050269.1714753098494--
