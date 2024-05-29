@@ -1,71 +1,73 @@
-Return-Path: <jailhouse-dev+bncBC6PHVWAREERBNHV3WZAMGQEW2Z5ONQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBC6PHVWAREERBA4L32ZAMGQE75XZ4QI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x1140.google.com (mail-yw1-x1140.google.com [IPv6:2607:f8b0:4864:20::1140])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE3198D3EAA
-	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2024 20:57:58 +0200 (CEST)
-Received: by mail-yw1-x1140.google.com with SMTP id 00721157ae682-627e7734a29sf169187b3.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2024 11:57:58 -0700 (PDT)
+Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id D55428D3EFD
+	for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2024 21:44:04 +0200 (CEST)
+Received: by mail-yb1-xb3c.google.com with SMTP id 3f1490d57ef6-df773f9471fsf121389276.3
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 29 May 2024 12:44:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717009077; x=1717613877; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717011843; x=1717616643; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1/ObQzvxTFB0l1tcREAHovT0IM9RYyKYquemYIDMOOU=;
-        b=cduyRP5NC7VwGJUV4gSV1VzCsYm1LcnklEwopNoCZoXtV65bu6H5apK/KwKlsbL2GZ
-         an9+c/pZUyAJ2+Q1nKF5zYBcNDZ5xCY3NZf6CT6aFx1mNzxrRddzslfBYsFRFHhZXIKl
-         /WhV0R9TzZuYNVGfbJ8a8KSGtLuOox5hyWMjveylVGPDTVOZRnJoF7J2u3HPNFEcLijI
-         KVQ50yXw75peUzeCANxK2QTklsQmUmME0Tul7PvUolwqqCisfrOcZnzlw4C0Bn9CUE00
-         75wXAt2tt8mniAXNkgIlKN4Drk9DAwMpGRtnZl0SVcIeJaZccLIiUz4jEiWzLp47HP6K
-         AGEw==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0it0YmUJlze5Q7bD4XHTObA1bFO1nYk5JTwuRcTuQBA=;
+        b=u+4KAWpUn7PuCyTnERNsdx4Sdq1+CrIqJPYXDlQRU3CYzC9Vp5xu+bQAYKyUzeWeEy
+         DV0qXRHwPJ/yaloZyhWRtHv19UMstrsZc/ukiIwjQBAwFI/VLGtnkRlMXotPLPNbJsGB
+         zAyZKQ3llxUP92vpZM3xUvzhuKQCgU4ryEKsKGkC9M7ByApv74FljEijOFQGMZbOJJ8z
+         ge2B2EypNlwjt6wXryRigdmiric0eHJKvD1hj2Q2hlVCRDEg/T5LhovlcYcf+xVtUNQV
+         71fJMwk4K2EB7LTEQcRB2i6+l6QcBCc8hyVy60NX3c+sIaqCEMt1doCpMQkc2OrCa69d
+         mzqw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717009077; x=1717613877; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717011843; x=1717616643; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1/ObQzvxTFB0l1tcREAHovT0IM9RYyKYquemYIDMOOU=;
-        b=ifUcLyV3B689rOFKHvGi7f29YSMqd/YGyDK5S4RNtuUbDm6v+SEu5Q9N2JPIMndrMo
-         IuaxNS31VgVHZvtP2CuTWHBjUJLtSrqlFLYN6mCzan1tMWiwv/KBjulIrzH1SEynLWpd
-         MpfJMKRRBOE3z0VuUsjgxyjvd+Faxtzca+YRFFmqz0PSoxDfQauB7cINALarKU+fZi+N
-         0TSDzLEIG+e7XtKZoN93K+EyhnZJ/VP8ItpptoML8gEEv5wuMz4OiHb/HniIIxhirMDm
-         xUUnHnxP/N9tQFlM8NPf7+RuL491ULB6VIW/k4zegghsFGRvR2ngu2C9yRyuduD/iPMT
-         /aYw==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0it0YmUJlze5Q7bD4XHTObA1bFO1nYk5JTwuRcTuQBA=;
+        b=imCH8vJuY6YCGf/HOVyCgOhz8DDRQ4RUhX7F2r/MsX272yu1Hz56AaNM/s49CvfHJx
+         JXgeeexxFMP95Q3BpYRFhTpo7PUa4l0njEVTPUHYIGX1wGKi9A0lIu+ba8xWvYw0oA1Z
+         YPoRum+m6jncqMr0vjspUWQB2pR4n6tibUG0u0Qj6gDptvHhGIbii7IGUK4flqDYNfgp
+         oWVwRbIJ6RyvA3cqMbRs1pNonYmySxbSv1ODLkq9Q3UOfwb8w2lnEnWp19Fp0PyaNkOq
+         68JoQB4+2LPlBqvXYXNp5njh1+jIKNrOSTa9UC35TrnN/s0Pih2SS9s5YOjjWelwQMVH
+         DRmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717009077; x=1717613877;
+        d=1e100.net; s=20230601; t=1717011844; x=1717616644;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1/ObQzvxTFB0l1tcREAHovT0IM9RYyKYquemYIDMOOU=;
-        b=AYSvFblQ4AsOfpF5GU1t1SW4cfhsALQd1HJfR4cKWsutRmrwDY/nlayl7TOEEN22Q9
-         dFQSzYl2vnHUfxwMusP7j4E4dnLc+mweXyY8PukPi1tJL4I64AdAlFljXU7cqdhNugep
-         HWSUf6I2i8cdsx2HYEPL4iwnLzygSMTuGqeC74MBsXLjb4Bh+Yic8FEnmM7KDyGsTZN0
-         V464+qIa22gTiSqp00xE92sJqq+7WMfmOEfuPFFu1Kqu+YKQbPTCI2tKn20MEDg+aNLa
-         uLvGfsPxEm87ShlNUoRh0+uo76LbRKUWkFfLSPoGtrhq7z7YrQXlwXZWvm3V6HDEAiCm
-         CQlg==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0it0YmUJlze5Q7bD4XHTObA1bFO1nYk5JTwuRcTuQBA=;
+        b=XOoSxrziVJOZ2KRerOUo+cvzQLueu2osZdC7ybQbbLI4dAJGDeRGQbntXYyJONJGK8
+         25Fe+3cJetws2jOBv8uEDs8205owdBwPO8IMxtPxOYczojTq24otS9tKJgTz6s19quoy
+         c1Z0czTflTlfaYX9ltXlA4suXlzz3+7fXUKV2eIsywaGOhPYKp20ytXzuay1wwazytQ+
+         djGo76cCD+kH0NmZ9nDw56F0azUZ9/5cKPPUqUtUhpmL/nOTsxH+M1MQ+ryFHdPG+jRe
+         c31HtqOUijMTYWnMVtOhj+/obZvqPYhZYxd9IVmwEbVRg9iASbZwv3Q3gLfSa+FQHfYJ
+         vsjg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUJwWDkQIrr39N5r34ZyKkOU9qAXBPOoZde9Xosgh2BqgQXAqe66PS50+9w3g2AmVfrxYpRYzep250sKxzHa76DwV91mnKCMyZETx4=
-X-Gm-Message-State: AOJu0YxpHEV9r2F0QJSA+4dM6jc6pvXv0VjJmLOeUHRzaoQRXIx9gQnr
-	8U84xz5W9Q7a0bWkkB/+sdGx7R0lh5YElIjllDp34L3+B8xv0ED4
-X-Google-Smtp-Source: AGHT+IEt8/B9NrlocGWrP1g3c4MdND2PdbSs68ZY/dqcHJ3xp0Yo3GOVOnrCW0LHBt0JCNwRrimJ3A==
-X-Received: by 2002:a25:660e:0:b0:dfa:4e06:4c78 with SMTP id 3f1490d57ef6-dfa5a623a94mr126433276.39.1717009077525;
-        Wed, 29 May 2024 11:57:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWWtN/iFtfIIg+FT8Vpdlfu4uWSxKiprlWLc4gRoRikQNr+vV67Q8lmSqNRWT1Efy1BAiU8t591BKSPQrNHkSzkVXfqe/6rcAgC7U8=
+X-Gm-Message-State: AOJu0YymtkiDrr870icrVsJX7JgfMXp5/uabfdHlSXmbWFyL5d8McoDx
+	K0LHNnzotel94VW2vs8c7IKhVfFFNuAQd8jfM+yB4fU9LOHFAMMl
+X-Google-Smtp-Source: AGHT+IHOf9MJLyxhaY6N7+pzVNUoO3HfwFSVfv0S3uzQF9K/iijA6E+yaFqGhqmuklLBRC2uOdUXIQ==
+X-Received: by 2002:a25:84c6:0:b0:dee:6ffb:b3c2 with SMTP id 3f1490d57ef6-dfa5a7cad24mr212414276.54.1717011843723;
+        Wed, 29 May 2024 12:44:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:c5c7:0:b0:df7:8882:c017 with SMTP id 3f1490d57ef6-dfa59ac6924ls133735276.1.-pod-prod-06-us;
- Wed, 29 May 2024 11:57:56 -0700 (PDT)
-X-Received: by 2002:a05:6902:102d:b0:df7:8c1b:430a with SMTP id 3f1490d57ef6-dfa5a5ae224mr19929276.3.1717009075973;
-        Wed, 29 May 2024 11:57:55 -0700 (PDT)
-Date: Wed, 29 May 2024 11:57:55 -0700 (PDT)
+Received: by 2002:a25:8b92:0:b0:df7:69a2:f82b with SMTP id 3f1490d57ef6-dfa59b1ea57ls182025276.2.-pod-prod-00-us;
+ Wed, 29 May 2024 12:44:02 -0700 (PDT)
+X-Received: by 2002:a05:690c:893:b0:611:6f24:62b1 with SMTP id 00721157ae682-62c6bd5e358mr156167b3.1.1717011842089;
+        Wed, 29 May 2024 12:44:02 -0700 (PDT)
+Date: Wed, 29 May 2024 12:44:01 -0700 (PDT)
 From: ecstasyclinic pharmacy <ecstasyclinicpharmacy@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <50bf5aa7-7db9-4145-910f-a9bb5f99f200n@googlegroups.com>
-Subject: Acid tabs for sale online
+Message-Id: <0f3f959e-a840-4df1-8e6f-658df17c929cn@googlegroups.com>
+In-Reply-To: <3b4005f3-1358-4a8d-a1de-33b9d33af2b9n@googlegroups.com>
+References: <3b4005f3-1358-4a8d-a1de-33b9d33af2b9n@googlegroups.com>
+Subject: Re: Buy one up bars online in Houston Texas
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_104346_1005299263.1717009075249"
+	boundary="----=_Part_135677_1037560010.1717011841056"
 X-Original-Sender: ecstasyclinicpharmacy@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -79,146 +81,136 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_104346_1005299263.1717009075249
+------=_Part_135677_1037560010.1717011841056
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_104347_1315617716.1717009075249"
+	boundary="----=_Part_135678_877932916.1717011841056"
 
-------=_Part_104347_1315617716.1717009075249
+------=_Part_135678_877932916.1717011841056
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
- BUY LSD GEL TABS - LSD GEL TABS FOR SALE ONLINE
-> 1p lsd for sale usa-lsd sheets for sale LSD can have long-lasting impacts=
-=20
-on your brain and emotional state. This is true even if you use the drug=20
-only once.
-https://t.me/ukverifiedv
-https://t.me/ukverifiedv
-LSD is a potent hallucinogenic drug. It is made from lysergic acid, which=
-=20
-is found in a fungus that grows on rye and other grains.
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
-
->The only difference between LSD gel tablets and LSD blotters (also known=
-=20
-as "acid tablets") is that gel tablets contain the LSD in a gelatin base.=
-=20
-In contrast, gel tab acid, blotters have the LSD in a particular type of=20
-absorbent paper (called blotting paper).
-> https://t.me/ukverifiedv
- >https://t.me/ukverifiedv
-> 1P-LSD Blotters 150mcg are a research chemical. This means that 1P-LSD=20
-Blotters 150mcg is only used for research purposes and not for human=20
-consumption, but it can be sold. We from Koop3mmc deliver your 1P-LSD=20
-Blotters 150mcg to your home within one day after you have ordered it and=
-=20
-it is possible to pay with IDEAL.
-> https://t.me/ukverifiedv
->
-> What are 1P-LSD Blotters 150mcg? https://t.me/ukverifiedv
-> 1P-LSD Blotters 150mcg are used for various research and is recognized as=
-=20
-a designer drug/research chemical. This means that selling and buying=20
-1P-LSD Blotters is still legal now, but that could be different this year.
-> How should you store 1P-LSD Blotters 150mcg?
-> https://t.me/ukverifiedv
-> 1P-LSD Blotters 150mcg is best stored in a cool and dry place. In this=20
-way, the compounds of 1P-LSD Blotters 150mcg remain stable for two years.=
-=20
-So simply put, if you store 1P-LSD Blotters 150mcg in a cool and dry place=
-=20
-it will last for two years.
-> Did you also know that.....
-https://t.me/ukverifiedv
-> You can also buy other research chemicals at Koop3mmc.nl? View us in full=
-=20
-overview to see all our products.
-> Buy 1P-LSD Blotters 150mcg at Koop3mmc!
-> https://t.me/ukverifiedv
-> We at Koop3mmc have the most comprehensive service. Because if you're=20
-with us ordered today, do you have it tomorrow at home! Your order will=20
-then be delivered in discreet packaging by PostNL to the address you have=
-=20
-indicated.
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
->
-> You can also order 1mcg in bulk from 150P-LSD Blotters. Please contact=20
-our customer service for more information about this.
-> Finally, you can pay in many different ways at Koop3mmc. Namely with:
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
-> So buy your 1P-LSD Blotters 150mcg at koop3mmc.nl. We are the most=20
-reliable supplier with the best
-=E2=81=B6 and best prices! For questions you can always email or call us, l=
-ook at=20
-contact for our details.
->
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
->
-> 1P-LSD Blotters 150mcg may cause respiratory irritation.
-> 1P-LSD Blotters 150mcg may cause eye irritation.
-> https://t.me/ukverifiedv
-> heat / sparks / open flames / hot surfaces.
-> Keep research chemicals in a tightly closed container and out of the=20
-reach of children and animals!
->
->
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
-> https://t.me/ukverifiedv
-> buy lsd gel tabs online, acid gel tabs for sale, buy lsd online, acid=20
-tabs for sale online, best lsd gel tabs for sale online, acid tabs for sale=
+Su mejor tienda en l=C3=ADnea para obtener productos de calidad de plantinu=
+m en=20
+l=C3=ADnea, analg=C3=A9sicos, analg=C3=A9sicos y productos qu=C3=ADmicos de=
+ investigaci=C3=B3n.
+Tenga 100% seguridad sobre la calidad y autenticidad del producto, y=20
+tambi=C3=A9n podr=C3=A1 comprar alucin=C3=B3genos legales a un precio justo=
 .
->
-> The sale of LSD (lysergic acid diethylamide) gel tablets has not changed=
-=20
-since it was first introduced to the public. People are still using the LSD=
-=20
-blotters that Timothy Leary used in the early days.
->
-> However, times are changing, and new technologies are being developed to=
-=20
-accommodate more LSDs in a single container. Acid gel sheets are a novel=20
-method of preparing LSD with several advantages over traditional blotting=
-=20
-paper. LSD Gel tablets can contain three times more stimulants than dry=20
-ones.
-=20
-> https://t.me/ukverifiedv
 
-> Acid Gel Tabs and LSD Blotters: What's the Difference?
+PEDIR DIRECTAMENTE EN NUESTRO Telegram
+mensaje @Clackderby1
 
-> Gel tablets are the next generation of LSD administration. Lasting=20
-longer, Mescaline Powder, they can hold more LSDs per 1/4 square inch and=
-=20
-cure about 50% faster than regular blotters.
->
-> Are LSD Gel tabs the same as Blotters?
->
-> Yes, the equipment is the same for the standard blotting papers and the=
-=20
-new gel plates. Both types contain high LSD. The results' time frame may=20
-differ, but the overall experience is the same. Gel tabs are faster than=20
-blotters, and gel tabs drugs, so you may get a more substantial or spiked=
-=20
-effect, although most users won't notice the difference.
+Telegrama: https://t.me/ukverifiedv
+Telegrama: https://t.me/ukverifiedv
+Telegrama: https://t.me/ukverifiedv
+Telegrama: https://t.me/ukverifiedv
 
-https://t.me/ukverifiedv/2052
-https://t.me/ukverifiedv/2049
-https://t.me/ukverifiedv/2037
-https://t.me/ukverifiedv/2036?single
-https://t.me/ukverifiedv/2018
-https://t.me/ukverifiedv/1991?single
-https://t.me/ukverifiedv/1988
-https://t.me/ukverifiedv/1967
-https://t.me/ukverifiedv/1942
-https://t.me/ukverifiedv/1911
-https://t.me/ukverifiedv/1901
-https://t.me/ukverifiedv/1897
+
+-100% Discreto y Confidencial,
+-Tus datos personales son 100% SEGUROS.,
+-Tus pedidos son 100% Seguros y An=C3=B3nimos.,
+-Entrega r=C3=A1pida en todo el mundo (puede realizar un seguimiento y=20
+localizaci=C3=B3n con el n=C3=BAmero de seguimiento proporcionado).
+
+On Monday, April 22, 2024 at 10:51:02=E2=80=AFAM UTC-7 James Maria wrote:
+
+> The Golden Teacher mushroom is a popular strain of psilocybin mushrooms,=
+=20
+> scientifically known as Psilocybe cubensis. This strain is well-known and=
+=20
+> often sought after by cultivators and users in the psychedelic community=
+=20
+> due to its relatively easy cultivation and moderate potency.
+>
+> am a supplier of good top quality medicated cannabis , peyote, MDMA,=20
+> Ketamine carts,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, dabs,TH=
+C=20
+> gummies, codine, syrup,wax, crumble catrages,hash, chocolate bars, flower=
+s=20
+> and many more.
+> tapin our telegram for quick response.
+>
+> Some key characteristics of the Golden Teacher mushroom strain include:
+> Appearance: The Golden Teacher strain typically features large,=20
+> golden-capped mushrooms with a distinct appearance. When mature, the caps=
+=20
+> can take on a golden or caramel color, while the stem is usually thick an=
+d=20
+> white.
+> Potency: Golden Teachers are considered moderately potent among psilocybi=
+n=20
+> mushrooms. Their effects can vary depending on factors such as growing=20
+> conditions, individual tolerance, and dosage. Users generally report a=20
+> balance between visual and introspective effects.
+> Effects: Like other psilocybin-containing mushrooms, consuming Golden=20
+> Teacher mushrooms can lead to altered states of consciousness characteriz=
+ed=20
+> by visual and auditory hallucinations, changes in perception of time and=
+=20
+> space, introspection, and sometimes a sense of unity or connection with=
+=20
+> one's surroundings.
+> Cultivation: Golden Teachers are favored by cultivators due to their=20
+> relatively straightforward cultivation process. They are known for being=
+=20
+> resilient and adaptable, making them a suitable choice for beginners in=
+=20
+> mushroom cultivation.
+>
+> Buds=20
+> https://t.me/psychedelicvendor17/297
+> https://t.me/psychedelicvendor17/296
+> https://t.me/psychedelicvendor17/295
+> https://t.me/psychedelicvendor17/261
+> https://t.me/psychedelicvendor17/133
+> https://t.me/psychedelicvendor17/95
+> https://t.me/psychedelicvendor17/69
+>
+> Clone cards=20
+> https://t.me/psychedelicvendor17/291
+> https://t.me/psychedelicvendor17/267
+> https://t.me/psychedelicvendor17/263
+> https://t.me/psychedelicvendor17/166
+> https://t.me/psychedelicvendor17/164
+> https://t.me/psychedelicvendor17/88
+> https://t.me/psychedelicvendor17/11
+>
+> Mushrooms=20
+> https://t.me/psychedelicvendor17/235?single
+> https://t.me/psychedelicvendor17/169?single
+> https://t.me/psychedelicvendor17/235?single
+>
+> Vapes=20
+> https://t.me/psychedelicvendor17/4
+> https://t.me/psychedelicvendor17/6
+> https://t.me/psychedelicvendor17/26?single
+> https://t.me/psychedelicvendor17/30?single
+> https://t.me/psychedelicvendor17/440?single
+>
+> MDMA=20
+> https://t.me/psychedelicvendor17/280
+> https://t.me/psychedelicvendor17/293
+> https://t.me/psychedelicvendor17/157?single
+> https://t.me/psychedelicvendor17/441
+>
+> LSD=20
+> https://t.me/psychedelicvendor17/218?single
+> https://t.me/psychedelicvendor17/203?single
+> https://t.me/psychedelicvendor17/116
+> https://t.me/psychedelicvendor17/185
+>
+> DMT=20
+> https://t.me/psychedelicvendor17/26?single
+> https://t.me/psychedelicvendor17/44
+> https://t.me/psychedelicvendor17/45
+> https://t.me/psychedelicvendor17/193
+> https://t.me/psychedelicvendor17/228
+>
+> Pills=20
+> https://t.me/psychedelicvendor17/152
+> https://t.me/psychedelicvendor17/570
+> https://t.me/psychedelicvendor17/554
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -226,85 +218,216 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/50bf5aa7-7db9-4145-910f-a9bb5f99f200n%40googlegroups.com.
+jailhouse-dev/0f3f959e-a840-4df1-8e6f-658df17c929cn%40googlegroups.com.
 
-------=_Part_104347_1315617716.1717009075249
+------=_Part_135678_877932916.1717011841056
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=C2=A0BUY LSD GEL TABS - LSD GEL TABS FOR SALE ONLINE<br />&gt; 1p lsd for =
-sale usa-lsd sheets for sale LSD can have long-lasting impacts on your brai=
-n and emotional state. This is true even if you use the drug only once.<br =
-/>https://t.me/ukverifiedv<br />https://t.me/ukverifiedv<br />LSD is a pote=
-nt hallucinogenic drug. It is made from lysergic acid, which is found in a =
-fungus that grows on rye and other grains.<br />&gt; https://t.me/ukverifie=
-dv<br />&gt; https://t.me/ukverifiedv<br /><br />&gt;The only difference be=
-tween LSD gel tablets and LSD blotters (also known as "acid tablets") is th=
-at gel tablets contain the LSD in a gelatin base. In contrast, gel tab acid=
-, blotters have the LSD in a particular type of absorbent paper (called blo=
-tting paper).<br />&gt; https://t.me/ukverifiedv<br />=C2=A0&gt;https://t.m=
-e/ukverifiedv<br />&gt; 1P-LSD Blotters 150mcg are a research chemical. Thi=
-s means that 1P-LSD Blotters 150mcg is only used for research purposes and =
-not for human consumption, but it can be sold. We from Koop3mmc deliver you=
-r 1P-LSD Blotters 150mcg to your home within one day after you have ordered=
- it and it is possible to pay with IDEAL.<br />&gt; https://t.me/ukverified=
-v<br />&gt;<br />&gt; What are 1P-LSD Blotters 150mcg? https://t.me/ukverif=
-iedv<br />&gt; 1P-LSD Blotters 150mcg are used for various research and is =
-recognized as a designer drug/research chemical. This means that selling an=
-d buying 1P-LSD Blotters is still legal now, but that could be different th=
-is year.<br />&gt; How should you store 1P-LSD Blotters 150mcg?<br />&gt; h=
-ttps://t.me/ukverifiedv<br />&gt; 1P-LSD Blotters 150mcg is best stored in =
-a cool and dry place. In this way, the compounds of 1P-LSD Blotters 150mcg =
-remain stable for two years. So simply put, if you store 1P-LSD Blotters 15=
-0mcg in a cool and dry place it will last for two years.<br />&gt; Did you =
-also know that.....<br />https://t.me/ukverifiedv<br />&gt; You can also bu=
-y other research chemicals at Koop3mmc.nl? View us in full overview to see =
-all our products.<br />&gt; Buy 1P-LSD Blotters 150mcg at Koop3mmc!<br />&g=
-t; https://t.me/ukverifiedv<br />&gt; We at Koop3mmc have the most comprehe=
-nsive service. Because if you're with us ordered today, do you have it tomo=
-rrow at home! Your order will then be delivered in discreet packaging by Po=
-stNL to the address you have indicated.<br />&gt; https://t.me/ukverifiedv<=
-br />&gt; https://t.me/ukverifiedv<br />&gt;<br />&gt; You can also order 1=
-mcg in bulk from 150P-LSD Blotters. Please contact our customer service for=
- more information about this.<br />&gt; Finally, you can pay in many differ=
-ent ways at Koop3mmc. Namely with:<br />&gt; https://t.me/ukverifiedv<br />=
-&gt; https://t.me/ukverifiedv<br />&gt; So buy your 1P-LSD Blotters 150mcg =
-at koop3mmc.nl. We are the most reliable supplier with the best<br />=E2=81=
-=B6 and best prices! For questions you can always email or call us, look at=
- contact for our details.<br />&gt;<br />&gt; https://t.me/ukverifiedv<br /=
->&gt; https://t.me/ukverifiedv<br />&gt; https://t.me/ukverifiedv<br />&gt;=
-<br />&gt; 1P-LSD Blotters 150mcg may cause respiratory irritation.<br />&g=
-t; 1P-LSD Blotters 150mcg may cause eye irritation.<br />&gt; https://t.me/=
-ukverifiedv<br />&gt; heat / sparks / open flames / hot surfaces.<br />&gt;=
- Keep research chemicals in a tightly closed container and out of the reach=
- of children and animals!<br />&gt;<br />&gt;<br />&gt; https://t.me/ukveri=
-fiedv<br />&gt; https://t.me/ukverifiedv<br />&gt; https://t.me/ukverifiedv=
-<br />&gt; buy lsd gel tabs online, acid gel tabs for sale, buy lsd online,=
- acid tabs for sale online, best lsd gel tabs for sale online, acid tabs fo=
-r sale.<br />&gt;<br />&gt; The sale of LSD (lysergic acid diethylamide) ge=
-l tablets has not changed since it was first introduced to the public. Peop=
-le are still using the LSD blotters that Timothy Leary used in the early da=
-ys.<br />&gt;<br />&gt; However, times are changing, and new technologies a=
-re being developed to accommodate more LSDs in a single container. Acid gel=
- sheets are a novel method of preparing LSD with several advantages over tr=
-aditional blotting paper. LSD Gel tablets can contain three times more stim=
-ulants than dry ones.<br />=C2=A0<br />&gt; https://t.me/ukverifiedv<br /><=
-br />&gt; Acid Gel Tabs and LSD Blotters: What's the Difference?<br /><br /=
->&gt; Gel tablets are the next generation of LSD administration. Lasting lo=
-nger, Mescaline Powder, they can hold more LSDs per 1/4 square inch and cur=
-e about 50% faster than regular blotters.<br />&gt;<br />&gt; Are LSD Gel t=
-abs the same as Blotters?<br />&gt;<br />&gt; Yes, the equipment is the sam=
-e for the standard blotting papers and the new gel plates. Both types conta=
-in high LSD. The results' time frame may differ, but the overall experience=
- is the same. Gel tabs are faster than blotters, and gel tabs drugs, so you=
- may get a more substantial or spiked effect, although most users won't not=
-ice the difference.<br /><br />https://t.me/ukverifiedv/2052<br />https://t=
-.me/ukverifiedv/2049<br />https://t.me/ukverifiedv/2037<br />https://t.me/u=
-kverifiedv/2036?single<br />https://t.me/ukverifiedv/2018<br />https://t.me=
-/ukverifiedv/1991?single<br />https://t.me/ukverifiedv/1988<br />https://t.=
-me/ukverifiedv/1967<br />https://t.me/ukverifiedv/1942<br />https://t.me/uk=
-verifiedv/1911<br />https://t.me/ukverifiedv/1901<br />https://t.me/ukverif=
-iedv/1897<br />
+Su mejor tienda en l=C3=ADnea para obtener productos de calidad de plantinu=
+m en l=C3=ADnea, analg=C3=A9sicos, analg=C3=A9sicos y productos qu=C3=ADmic=
+os de investigaci=C3=B3n.<br />Tenga 100% seguridad sobre la calidad y aute=
+nticidad del producto, y tambi=C3=A9n podr=C3=A1 comprar alucin=C3=B3genos =
+legales a un precio justo.<br /><br />PEDIR DIRECTAMENTE EN NUESTRO Telegra=
+m<br />mensaje @Clackderby1<br /><br />Telegrama: https://t.me/ukverifiedv<=
+br />Telegrama: https://t.me/ukverifiedv<br />Telegrama: https://t.me/ukver=
+ifiedv<br />Telegrama: https://t.me/ukverifiedv<br /><br /><br />-100% Disc=
+reto y Confidencial,<br />-Tus datos personales son 100% SEGUROS.,<br />-Tu=
+s pedidos son 100% Seguros y An=C3=B3nimos.,<br />-Entrega r=C3=A1pida en t=
+odo el mundo (puede realizar un seguimiento y localizaci=C3=B3n con el n=C3=
+=BAmero de seguimiento proporcionado).<br /><br /><div class=3D"gmail_quote=
+"><div dir=3D"auto" class=3D"gmail_attr">On Monday, April 22, 2024 at 10:51=
+:02=E2=80=AFAM UTC-7 James Maria wrote:<br/></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204,=
+ 204); padding-left: 1ex;">The Golden Teacher mushroom is a popular strain =
+of psilocybin mushrooms, scientifically known as Psilocybe cubensis. This s=
+train is well-known and often sought after by cultivators and users in the =
+psychedelic community due to its relatively easy cultivation and moderate p=
+otency.<br><br>am a supplier of good top quality medicated cannabis , peyot=
+e, MDMA, Ketamine carts,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, =
+dabs,THC gummies, codine, syrup,wax, crumble catrages,hash, chocolate bars,=
+ flowers and many more.<br>tapin our telegram for quick response.<br><br>So=
+me key characteristics of the Golden Teacher mushroom strain include:<br>Ap=
+pearance: The Golden Teacher strain typically features large, golden-capped=
+ mushrooms with a distinct appearance. When mature, the caps can take on a =
+golden or caramel color, while the stem is usually thick and white.<br>Pote=
+ncy: Golden Teachers are considered moderately potent among psilocybin mush=
+rooms. Their effects can vary depending on factors such as growing conditio=
+ns, individual tolerance, and dosage. Users generally report a balance betw=
+een visual and introspective effects.<br>Effects: Like other psilocybin-con=
+taining mushrooms, consuming Golden Teacher mushrooms can lead to altered s=
+tates of consciousness characterized by visual and auditory hallucinations,=
+ changes in perception of time and space, introspection, and sometimes a se=
+nse of unity or connection with one&#39;s surroundings.<br>Cultivation: Gol=
+den Teachers are favored by cultivators due to their relatively straightfor=
+ward cultivation process. They are known for being resilient and adaptable,=
+ making them a suitable choice for beginners in mushroom cultivation.<br><b=
+r>Buds <br><a href=3D"https://t.me/psychedelicvendor17/297" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/297&amp;source=3Dgmail&amp;u=
+st=3D1717098204940000&amp;usg=3DAOvVaw1I50Rw61NIWmf90u3JYJfn">https://t.me/=
+psychedelicvendor17/297</a><br><a href=3D"https://t.me/psychedelicvendor17/=
+296" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
+.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/296&amp;so=
+urce=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw3-lTebKHOWd5J3pHN_R=
+l5b">https://t.me/psychedelicvendor17/296</a><br><a href=3D"https://t.me/ps=
+ychedelicvendor17/295" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicv=
+endor17/295&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw1=
+QEfP-zZ5LyVpsBSdwVZC2">https://t.me/psychedelicvendor17/295</a><br><a href=
+=3D"https://t.me/psychedelicvendor17/261" target=3D"_blank" rel=3D"nofollow=
+" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps:=
+//t.me/psychedelicvendor17/261&amp;source=3Dgmail&amp;ust=3D171709820494000=
+0&amp;usg=3DAOvVaw3IsETI6rqn2lMxl_LBglpO">https://t.me/psychedelicvendor17/=
+261</a><br><a href=3D"https://t.me/psychedelicvendor17/133" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/133&amp;source=3Dgmail&amp;u=
+st=3D1717098204940000&amp;usg=3DAOvVaw1TA3C0lxPpzYlhg1q_BrDE">https://t.me/=
+psychedelicvendor17/133</a><br><a href=3D"https://t.me/psychedelicvendor17/=
+95" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.=
+google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/95&amp;sour=
+ce=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw2acW9gTsUrVJVYsAejUsT=
+J">https://t.me/psychedelicvendor17/95</a><br><a href=3D"https://t.me/psych=
+edelicvendor17/69" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvend=
+or17/69&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw2mk9p=
+LAeTWAZRltsJTERXM">https://t.me/psychedelicvendor17/69</a><br><br>Clone car=
+ds <br><a href=3D"https://t.me/psychedelicvendor17/291" target=3D"_blank" r=
+el=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&=
+amp;q=3Dhttps://t.me/psychedelicvendor17/291&amp;source=3Dgmail&amp;ust=3D1=
+717098204940000&amp;usg=3DAOvVaw0tn67OnXv2_T5OiWyYBw3W">https://t.me/psyche=
+delicvendor17/291</a><br><a href=3D"https://t.me/psychedelicvendor17/267" t=
+arget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.googl=
+e.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/267&amp;source=
+=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw2H8g7ZNoLAgXRpC0WoCahZ"=
+>https://t.me/psychedelicvendor17/267</a><br><a href=3D"https://t.me/psyche=
+delicvendor17/263" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvend=
+or17/263&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw0oP6=
+xkLA02f_4zLSgtaTLS">https://t.me/psychedelicvendor17/263</a><br><a href=3D"=
+https://t.me/psychedelicvendor17/166" target=3D"_blank" rel=3D"nofollow" da=
+ta-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.=
+me/psychedelicvendor17/166&amp;source=3Dgmail&amp;ust=3D1717098204940000&am=
+p;usg=3DAOvVaw29s4E720kzIPYoXo1H6VV4">https://t.me/psychedelicvendor17/166<=
+/a><br><a href=3D"https://t.me/psychedelicvendor17/164" target=3D"_blank" r=
+el=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&=
+amp;q=3Dhttps://t.me/psychedelicvendor17/164&amp;source=3Dgmail&amp;ust=3D1=
+717098204940000&amp;usg=3DAOvVaw1nehz8b7hQSXqsfutEEU2B">https://t.me/psyche=
+delicvendor17/164</a><br><a href=3D"https://t.me/psychedelicvendor17/88" ta=
+rget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google=
+.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/88&amp;source=3Dg=
+mail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw3kWzSeQNbrSo7J6M4dxBV1">htt=
+ps://t.me/psychedelicvendor17/88</a><br><a href=3D"https://t.me/psychedelic=
+vendor17/11" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
+ps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/11=
+&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw0X2nKjY9oDKu=
+w5PzMtYP1P">https://t.me/psychedelicvendor17/11</a><br><br>Mushrooms <br><a=
+ href=3D"https://t.me/psychedelicvendor17/235?single" target=3D"_blank" rel=
+=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
+p;q=3Dhttps://t.me/psychedelicvendor17/235?single&amp;source=3Dgmail&amp;us=
+t=3D1717098204940000&amp;usg=3DAOvVaw2tUDsMpGBLk-3Yi0wuyVfG">https://t.me/p=
+sychedelicvendor17/235?single</a><br><a href=3D"https://t.me/psychedelicven=
+dor17/169?single" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvend=
+or17/169?single&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOv=
+Vaw1TocbiDXUlNNw8AZ1EtIEp">https://t.me/psychedelicvendor17/169?single</a><=
+br><a href=3D"https://t.me/psychedelicvendor17/235?single" target=3D"_blank=
+" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3D=
+en&amp;q=3Dhttps://t.me/psychedelicvendor17/235?single&amp;source=3Dgmail&a=
+mp;ust=3D1717098204940000&amp;usg=3DAOvVaw2tUDsMpGBLk-3Yi0wuyVfG">https://t=
+.me/psychedelicvendor17/235?single</a><br><br>Vapes <br><a href=3D"https://=
+t.me/psychedelicvendor17/4" target=3D"_blank" rel=3D"nofollow" data-safered=
+irecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psyched=
+elicvendor17/4&amp;source=3Dgmail&amp;ust=3D1717098204940000&amp;usg=3DAOvV=
+aw1yh3MzLUT7-wTivVV-ii3v">https://t.me/psychedelicvendor17/4</a><br><a href=
+=3D"https://t.me/psychedelicvendor17/6" target=3D"_blank" rel=3D"nofollow" =
+data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://=
+t.me/psychedelicvendor17/6&amp;source=3Dgmail&amp;ust=3D1717098204940000&am=
+p;usg=3DAOvVaw2Q16prTsGgmN-VESpIYfst">https://t.me/psychedelicvendor17/6</a=
+><br><a href=3D"https://t.me/psychedelicvendor17/26?single" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/26?single&amp;source=3Dgmail=
+&amp;ust=3D1717098204940000&amp;usg=3DAOvVaw3NLC1NhzWc8zBo6JNfAgOl">https:/=
+/t.me/psychedelicvendor17/26?single</a><br><a href=3D"https://t.me/psychede=
+licvendor17/30?single" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicv=
+endor17/30?single&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DA=
+OvVaw3yA5G5-NLOd4v5xK4uCTwS">https://t.me/psychedelicvendor17/30?single</a>=
+<br><a href=3D"https://t.me/psychedelicvendor17/440?single" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/440?single&amp;source=3Dgmai=
+l&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw3P4P0KDrI6FMly5900qXkA">https:=
+//t.me/psychedelicvendor17/440?single</a><br><br>MDMA <br><a href=3D"https:=
+//t.me/psychedelicvendor17/280" target=3D"_blank" rel=3D"nofollow" data-saf=
+eredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psy=
+chedelicvendor17/280&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=
+=3DAOvVaw3ewrSXjce4VZPk-a-OX5eV">https://t.me/psychedelicvendor17/280</a><b=
+r><a href=3D"https://t.me/psychedelicvendor17/293" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttps://t.me/psychedelicvendor17/293&amp;source=3Dgmail&amp;ust=3D171709=
+8204941000&amp;usg=3DAOvVaw3-2i7ZPVSpy5u9khZ9vyF1">https://t.me/psychedelic=
+vendor17/293</a><br><a href=3D"https://t.me/psychedelicvendor17/157?single"=
+ target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goo=
+gle.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/157?single&amp=
+;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw3ggecTyYW8G7JwY1=
+maXuBd">https://t.me/psychedelicvendor17/157?single</a><br><a href=3D"https=
+://t.me/psychedelicvendor17/441" target=3D"_blank" rel=3D"nofollow" data-sa=
+feredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/ps=
+ychedelicvendor17/441&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=
+=3DAOvVaw31HdD7MFrvTaJbLw4LWkIG">https://t.me/psychedelicvendor17/441</a><b=
+r><br>LSD <br><a href=3D"https://t.me/psychedelicvendor17/218?single" targe=
+t=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.co=
+m/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/218?single&amp;sourc=
+e=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw36q2KeG_MOBqQxpNLSF63x=
+">https://t.me/psychedelicvendor17/218?single</a><br><a href=3D"https://t.m=
+e/psychedelicvendor17/203?single" target=3D"_blank" rel=3D"nofollow" data-s=
+aferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/p=
+sychedelicvendor17/203?single&amp;source=3Dgmail&amp;ust=3D1717098204941000=
+&amp;usg=3DAOvVaw3p0pUeJHH81HVZ-4Fm28ZS">https://t.me/psychedelicvendor17/2=
+03?single</a><br><a href=3D"https://t.me/psychedelicvendor17/116" target=3D=
+"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/ur=
+l?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/116&amp;source=3Dgmail&a=
+mp;ust=3D1717098204941000&amp;usg=3DAOvVaw2N3gsBaMbJVE0RMe5gagSb">https://t=
+.me/psychedelicvendor17/116</a><br><a href=3D"https://t.me/psychedelicvendo=
+r17/185" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https:/=
+/www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/185&am=
+p;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw0YBMDX47HOuYymY=
+zVuuafk">https://t.me/psychedelicvendor17/185</a><br><br>DMT <br><a href=3D=
+"https://t.me/psychedelicvendor17/26?single" target=3D"_blank" rel=3D"nofol=
+low" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhtt=
+ps://t.me/psychedelicvendor17/26?single&amp;source=3Dgmail&amp;ust=3D171709=
+8204941000&amp;usg=3DAOvVaw3eoZDK_KObql5mcyJEW0TB">https://t.me/psychedelic=
+vendor17/26?single</a><br><a href=3D"https://t.me/psychedelicvendor17/44" t=
+arget=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.googl=
+e.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/44&amp;source=3D=
+gmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw2u9o7tOJhTW1ShRg42hFi7">ht=
+tps://t.me/psychedelicvendor17/44</a><br><a href=3D"https://t.me/psychedeli=
+cvendor17/45" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"ht=
+tps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/4=
+5&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw3bETRxLYmaP=
+BXSDx9bAoO9">https://t.me/psychedelicvendor17/45</a><br><a href=3D"https://=
+t.me/psychedelicvendor17/193" target=3D"_blank" rel=3D"nofollow" data-safer=
+edirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psych=
+edelicvendor17/193&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3D=
+AOvVaw2M4_8yD6FGg8jrBw2asmqU">https://t.me/psychedelicvendor17/193</a><br><=
+a href=3D"https://t.me/psychedelicvendor17/228" target=3D"_blank" rel=3D"no=
+follow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3D=
+https://t.me/psychedelicvendor17/228&amp;source=3Dgmail&amp;ust=3D171709820=
+4941000&amp;usg=3DAOvVaw1CGKcGaUhssxKOA3oY6ZFl">https://t.me/psychedelicven=
+dor17/228</a><br><br>Pills <br><a href=3D"https://t.me/psychedelicvendor17/=
+152" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
+.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicvendor17/152&amp;so=
+urce=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw3yYPPzrc2QuqwMcBfxn=
+zy5">https://t.me/psychedelicvendor17/152</a><br><a href=3D"https://t.me/ps=
+ychedelicvendor17/570" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/psychedelicv=
+endor17/570&amp;source=3Dgmail&amp;ust=3D1717098204941000&amp;usg=3DAOvVaw2=
+DkpOpoD4zlBdyI2QRoTY3">https://t.me/psychedelicvendor17/570</a><br><a href=
+=3D"https://t.me/psychedelicvendor17/554" target=3D"_blank" rel=3D"nofollow=
+" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps:=
+//t.me/psychedelicvendor17/554&amp;source=3Dgmail&amp;ust=3D171709820494100=
+0&amp;usg=3DAOvVaw32i9uzZigV18HL7mltZ4Bx">https://t.me/psychedelicvendor17/=
+554</a><br></blockquote></div>
 
 <p></p>
 
@@ -315,11 +438,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/50bf5aa7-7db9-4145-910f-a9bb5f99f200n%40googlegrou=
+om/d/msgid/jailhouse-dev/0f3f959e-a840-4df1-8e6f-658df17c929cn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/50bf5aa7-7db9-4145-910f-a9bb5f99f200n%40googlegroups.co=
+msgid/jailhouse-dev/0f3f959e-a840-4df1-8e6f-658df17c929cn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_104347_1315617716.1717009075249--
+------=_Part_135678_877932916.1717011841056--
 
-------=_Part_104346_1005299263.1717009075249--
+------=_Part_135677_1037560010.1717011841056--
