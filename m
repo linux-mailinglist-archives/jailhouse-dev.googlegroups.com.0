@@ -1,74 +1,76 @@
-Return-Path: <jailhouse-dev+bncBCOP7S4BXEKBBQUY4SZAMGQEU4SLWIQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCOP7S4BXEKBB2MY4SZAMGQERLKBUTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113a.google.com (mail-yw1-x113a.google.com [IPv6:2607:f8b0:4864:20::113a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5F38D564B
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 01:31:16 +0200 (CEST)
-Received: by mail-yw1-x113a.google.com with SMTP id 00721157ae682-629638f1cb0sf6673937b3.3
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 16:31:16 -0700 (PDT)
+Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C84F8D564C
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 01:31:55 +0200 (CEST)
+Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-df78b274073sf2413432276.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 16:31:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717111875; x=1717716675; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717111914; x=1717716714; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
-        b=HzrIgCu/NCWyWQfg6II7TpxDTRwrOQDyR23LXnY1njdDGTaRLNV/zjqrF2xjKScc9Y
-         adt0E+NgbcnwIpp0/An4OK0QRh6MJSZohWMvUxjgAKlMsi0aIgGl69epeSlwLWpFQoEV
-         Fw/n5fkDPRNkxb53ZhAjwo4Z0ByHwzZfT73WfcZIGV4FXl3+njE82pj4+ZALZvrKke/E
-         O3S6rpLA9d8FG6U3dS6LFB5DiskkFGqTcubkDI0nKlj/Xz6IXllg+3K8/80chU9k+qkT
-         ty5M6QtzFg/dAHgBSQgsvXUp3efQW3SPpML+u19AWMsqWO8f74v8gsxd97mv7l5KRxSl
-         pWPQ==
+        bh=8Tna5GN1s/Zj56ZOWhnIMh09CwrqHL4tyOB8kWoQlXg=;
+        b=bkJJ9EYZT8rSLA3NeVMbCmtadczadenTHIznR6Vv+1WwuKdgsyGxw8Ina9kUdA0Kdw
+         g1RuJHpTf+ZZQcdYiQSVZ78cLTXhWSKEjCX/UxDKBpY9nkKpYICJGZrN2quaOYeG1fVV
+         awisxUwpQRbTpGftQavbpC/GpTglVvRQqScO58ZarBgOD10QbZ7UT6TIQazR/7BHTorn
+         UKB96ScNXmSfhq2RdSUy/LTkLgtxZLsvVzR8RxUz6AZsKaQ1ECwuNkXyP58E0hCReQRg
+         f/17no/Gn5TNg/7LlZBbFS5skq12VyAiRoRa9eOV3RWbo79YzJXXc5bHP4U1zz59X9m1
+         nHSw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717111875; x=1717716675; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717111914; x=1717716714; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
-        b=Jsjc7vQsgZmRfSML4jzS8HG61gyRquJueGynaX5s8aU1Va525Q2ndDD/rFYUyA9U9f
-         JXQc2q1qw9TyADOLiRZGak3B3/LKijgWQIYJd9Lg+Ow3qIxG1+sKVmmcO3wU7YF1v76H
-         y5O1eKISgkjVpyMANeH9riBHzQXW1I9Vli5H3QMNBIYVIThz0zohCDC1mI4aOG6YvQdZ
-         2Eeho8OOKTEADYRvxYWn1M3VeY0lW7QfYohjIBhVnOrRw6/XgBvVEQTjyvTVqgfyo68/
-         L+LEr4wjk3JMeBtTA0u8Wby6J0ENggWVGN+I/4/p1QGn3znF4tpNUThDejZtKSKHEWy7
-         5jtg==
+        bh=8Tna5GN1s/Zj56ZOWhnIMh09CwrqHL4tyOB8kWoQlXg=;
+        b=ceG3HBkEmKNXL72uOLJ0CwgBTKOqabrCfz+VFC/XbxSs2lDY7EdEiOkbr/8Rt4p0v5
+         Sk3dItEvKmXaunGjP9abp0TcSDitAiGAndKPw1caVvOaaKEiL0qoYj2ztXz+dXW1zYLd
+         H4fPkoXek35zgayrYzRkveXXiGYCs0rcb2RM6Efxg4vcUJ3bJ7ZEYUDYkKy9/OEi6kKM
+         GSkFuHi9UvNwwBPK/oUjK3KlGHBqaX64vd+uttX0XlpF/ePYOYPO/jDnj5WQuuNyfKLL
+         KdBlZ6LWVhSVZEIwT4V60YQR3uRP1d0cXI6oaMVEwEBgXrzZgWwlLGImER0OIXkr3D+A
+         EvAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717111875; x=1717716675;
+        d=1e100.net; s=20230601; t=1717111914; x=1717716714;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
-        b=bSkzaCSdJMCKfpoFeRj08a313h/nFxcHfdqyA48EaPUdnKuxlRCM7jeISXayJtnP2L
-         Q+VXcB3Rb8h9H7JjoslTtr8qoYs/OeqOQV9JhvMKja2wC0fh7185HEIeh/kFaYKXVcgV
-         SQSbGA4AW0vDjz8fNXOHh2W3yQGGWLuylME3ajKlGOQi+/uPZpqzKILpj6XXdegh8XuB
-         6xvV75OCSzXrKP9vWFki7aD7tyVFXz8TCIJ35OvDAcV4u6yGmqa7ApzHsEcCR7un0EeX
-         SDf+Q3QALzGpKW5Pu6Aq/YP3QprOTffeg5knx+ZF95YZ+6tchGsuZb+bG7emBwEb5SJg
-         4lYQ==
+        bh=8Tna5GN1s/Zj56ZOWhnIMh09CwrqHL4tyOB8kWoQlXg=;
+        b=aoBm7MAzZEEZQPjOWPuEBLjLiQ/XcSa8QYrNTUt4iTKFTNfK7GT3GJgSv8xMl9HRma
+         8tY2pjZJyypO+ryjSpj8j6nz4JBwgxHW8Fqe+sCwFU6naULgnKh6yM+SLRWfUqirDZqD
+         An9UUff2NJMHUHuS9mpqMCDomhaj+dBVKQlvdDWcHJksMSboxlKgcUiFEy2CPPRcVdgN
+         syDyjYugXQROvjd1vkUWXaOtpyb1ST0jKov8h2VYiZD0Jy2zWI7MjUMeERcaJrhSkNnh
+         lZC6TQSzS+KMpKiWx/CMkEX4UWZjDgbYVMYJ7K+MnwW7wZ1v/L3sfOx4yFiL6+W7EJMr
+         7myQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCW4413pNJiNpgzZNJbiXdLd8EdeoSvsXKo4P33YiSVB4XmJ8qMGe9PCUyLVvEHHSbnv9EpJ5PGJRVNC6mGmLNeK5FncmB5ieWyYk4E=
-X-Gm-Message-State: AOJu0YxijhFmtep9deaWayOgkbMqJIdSL93qgNwSmyB8sYAbT9Vta12h
-	ZqlI+v6ajhye5UERaoyPTYFPKGECAD2qc3iwkxrQc0N97VkCL1zk
-X-Google-Smtp-Source: AGHT+IF3KE7Buss3ugu5gfYqJv5ZLIfjo0wVqT6AS29HgFXzuVvg6WjjagOWJ1dxwa8cC/gHSRZOHw==
-X-Received: by 2002:a25:bc85:0:b0:dee:6525:7424 with SMTP id 3f1490d57ef6-dfa73c13b4dmr304740276.25.1717111875289;
-        Thu, 30 May 2024 16:31:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXygfCFiYih2oLxDHEEzxBmRpLsf6BZEb5LzhZHVnq/WiPS4BDxBM0zFmRPyUiklCAySHoFNhSN7BvoH6z7JnIahuWMqIQqflHii90=
+X-Gm-Message-State: AOJu0YzA6O6lA3f2w3kw6QDIV4PM3CLnC1pbMR7sF+FHkg8Zprx4dB4r
+	zdCO1NzZ5TW9pbxe33SpWUankg1Y91nrDmPtHbiZfibkWKy+jBsn
+X-Google-Smtp-Source: AGHT+IFXZgks7Ls2Nu/YPLO3A6pqC7JqgJILSJr0d+UVKx81HqE2O70J/uNSnBxS4F0re/DeI7BK3w==
+X-Received: by 2002:a5b:e8b:0:b0:df6:d068:76d7 with SMTP id 3f1490d57ef6-dfa73ddc882mr276528276.57.1717111913871;
+        Thu, 30 May 2024 16:31:53 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:a447:0:b0:dfa:56ce:d390 with SMTP id 3f1490d57ef6-dfa595a7d93ls859957276.0.-pod-prod-08-us;
- Thu, 30 May 2024 16:31:14 -0700 (PDT)
-X-Received: by 2002:a05:690c:dd1:b0:61b:ea08:111f with SMTP id 00721157ae682-62c797f34e3mr452507b3.6.1717111873795;
-        Thu, 30 May 2024 16:31:13 -0700 (PDT)
-Date: Thu, 30 May 2024 16:31:13 -0700 (PDT)
+Received: by 2002:a25:1d4:0:b0:df4:d613:a1c9 with SMTP id 3f1490d57ef6-dfa59ae9b81ls1997411276.1.-pod-prod-02-us;
+ Thu, 30 May 2024 16:31:52 -0700 (PDT)
+X-Received: by 2002:a05:6902:110d:b0:df1:d00c:130c with SMTP id 3f1490d57ef6-dfa73bf59bcmr44521276.5.1717111912143;
+        Thu, 30 May 2024 16:31:52 -0700 (PDT)
+Date: Thu, 30 May 2024 16:31:51 -0700 (PDT)
 From: Will Smichel <willsmichel88@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <07b211ff-3c63-437b-8712-b8540d2e62b3n@googlegroups.com>
-In-Reply-To: <f7f9f86e-b878-4e08-ac83-eb974ef0ad07n@googlegroups.com>
-References: <f7f9f86e-b878-4e08-ac83-eb974ef0ad07n@googlegroups.com>
-Subject: Re: WHAT ARE GOLDEN TEACHER MUSHROOMS AND WHERE ARE THEY SOLD
- ONLINE?
+Message-Id: <242ec17b-87be-4542-b0df-8a9c2675d2c9n@googlegroups.com>
+In-Reply-To: <029f47ed-444c-49f7-9601-0e2cfb412d8en@googlegroups.com>
+References: <aeb5c4c3-f9da-438d-a0fa-02974b4397ean@googlegroups.com>
+ <0a720ed1-6623-462c-ad4c-0b57cabe7c29n@googlegroups.com>
+ <029f47ed-444c-49f7-9601-0e2cfb412d8en@googlegroups.com>
+Subject: Re: BUY PSILOCYBE GOLDEN TEACHER MAGIC MUSHROOMS ONLINE IN USA
+ TODAY SAFELY
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_149041_220761175.1717111873061"
+	boundary="----=_Part_80202_1002453190.1717111911304"
 X-Original-Sender: willsmichel88@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,14 +84,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_149041_220761175.1717111873061
+------=_Part_80202_1002453190.1717111911304
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_149042_208189355.1717111873061"
+	boundary="----=_Part_80203_593906991.1717111911304"
 
-------=_Part_149042_208189355.1717111873061
+------=_Part_80203_593906991.1717111911304
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-
 
 Golden Teachers are considered moderately potent among psilocybin=20
 mushrooms. Their effects can vary depending on factors such as growing=20
@@ -126,54 +127,29 @@ favored by cultivators due to their relatively straightforward cultivation=
 process. They are known for being resilient and adaptable, making them a=20
 suitable choice for beginners in mushroom cultivation. =20
 https;t.me/Ricko_swavy8
-On Thursday, May 30, 2024 at 9:11:51=E2=80=AFPM UTC+1 JOHN BRYIAN wrote:
 
-> Golden Teachers are considered moderately potent among psilocybin=20
-> mushrooms. Their effects can vary depending on factors such as growing=20
-> conditions, individual tolerance, and dosage. Users generally report a=20
-> balance between visual and introspective effects.
-> https;t.me/Ricko_swavy8
-> https;t.me/Ricko_swavy8
->      Effects: Like other psilocybin-containing mushrooms, consuming Golde=
-n=20
-> Teacher mushrooms can lead to altered states of consciousness characteriz=
-ed=20
-> by visual and auditory hallucinations, changes in perception of time and=
-=20
-> space, introspection, and sometimes a sense of unity or connection with=
-=20
-> one's surroundings
-> Some key characteristics of the Golden Teacher mushroom strain include:
->      Appearance: The Golden Teacher strain typically features large,=20
-> golden-capped mushrooms with a distinct appearance. When mature, the caps=
-=20
-> can take on a golden or caramel color, while the stem is usually thick an=
-d=20
-> white.
->      Potency: Golden Teachers are considered moderately potent among=20
-> psilocybin mushrooms. Their effects can vary depending on factors such as=
-=20
-> growing conditions, individual tolerance, and dosage. Users generally=20
-> report a balance between visual and introspective effects.
-> https;t.me/Ricko_swavy8
->      Effects: Like other psilocybin-containing mushrooms, consuming Golde=
-n=20
-> Teacher mushrooms can lead to altered states of consciousness characteriz=
-ed=20
-> by visual and auditory hallucinations, changes in perception of time and=
-=20
-> space, introspection, and sometimes a sense of unity or connection with=
-=20
-> one's surroundings.
-> https;t.me/Ricko_swavy8
->      Cultivation: Golden Teachers are favored by cultivators due to their=
-=20
-> relatively straightforward cultivation process. They are known for being=
-=20
-> resilient and adaptable, making them a suitable choice for beginners in=
-=20
-> mushroom cultivation.
->  https;t.me/Ricko_swavy8
+On Monday, May 13, 2024 at 12:12:05=E2=80=AFAM UTC+1 Harry Conor wrote:
+
+>
+> Buy your psychedelic products fast and safe delivery=20
+> https://t.me/highlandview=20
+> https://t.me/highlandview=20
+>
+> > =E2=9C=94US-US Delivery=20
+> > =E2=9C=94Fast Shipping=20
+> > =E2=9C=94Secure Payment Options=20
+> > =E2=9C=94100% Satisfaction Guaranteed=20
+> > =E2=9C=943 Days Refund Policy=20
+> > =E2=9C=94100% Money-Back if any issue with the product=20
+> > =E2=9C=94Shipping Service: Express/Standard/Economy=20
+> > =E2=9C=94Estimated Delivery Time: Express & 3-5 Days=20
+> > =E2=9C=94Discounts: Get up to 20% off=20
+>
+> https://t.me/highlandview=20
+> https://t.me/highlandview=20
+> https://t.me/highlandview=20
+> https://t.me/highlandview
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -181,16 +157,16 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegroups.com.
+jailhouse-dev/242ec17b-87be-4542-b0df-8a9c2675d2c9n%40googlegroups.com.
 
-------=_Part_149042_208189355.1717111873061
+------=_Part_80203_593906991.1717111911304
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Golden Teachers are considered moderately potent among psilocybin mus=
-hrooms. Their effects can vary depending on factors such as growing conditi=
-ons, individual tolerance, and dosage. Users generally report a balance bet=
-ween visual and introspective effects.
+Golden Teachers are considered moderately potent among psilocybin mushrooms=
+. Their effects can vary depending on factors such as growing conditions, i=
+ndividual tolerance, and dosage. Users generally report a balance between v=
+isual and introspective effects.
 https;t.me/Ricko_swavy8
 https;t.me/Ricko_swavy8=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Effects: Like other p=
 silocybin-containing mushrooms, consuming Golden Teacher mushrooms can lead=
@@ -215,54 +191,40 @@ https;t.me/Ricko_swavy8=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cultivation: Golden T=
 eachers are favored by cultivators due to their relatively straightforward =
 cultivation process. They are known for being resilient and adaptable, maki=
 ng them a suitable choice for beginners in mushroom cultivation.=C2=A0 http=
-s;t.me/Ricko_swavy8<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=
-=3D"gmail_attr">On Thursday, May 30, 2024 at 9:11:51=E2=80=AFPM UTC+1 JOHN =
-BRYIAN wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: =
-0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"=
->Golden Teachers are considered moderately potent among psilocybin mushroom=
-s. Their effects can vary depending on factors such as growing conditions, =
-individual tolerance, and dosage. Users generally report a balance between =
-visual and introspective effects.<br>https;<a href=3D"http://t.me/Ricko_swa=
-vy8" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
-.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail=
-&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ri=
-cko_swavy8</a><br>https;<a href=3D"http://t.me/Ricko_swavy8" target=3D"_bla=
-nk" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
-=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail&amp;ust=3D1717198=
-215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a><br>=
-=C2=A0 =C2=A0 =C2=A0Effects: Like other psilocybin-containing mushrooms, co=
-nsuming Golden Teacher mushrooms can lead to altered states of consciousnes=
-s characterized by visual and auditory hallucinations, changes in perceptio=
-n of time and space, introspection, and sometimes a sense of unity or conne=
-ction with one&#39;s surroundings<br>Some key characteristics of the Golden=
- Teacher mushroom strain include:<br>=C2=A0 =C2=A0 =C2=A0Appearance: The Go=
-lden Teacher strain typically features large, golden-capped mushrooms with =
-a distinct appearance. When mature, the caps can take on a golden or carame=
-l color, while the stem is usually thick and white.<br>=C2=A0 =C2=A0 =C2=A0=
-Potency: Golden Teachers are considered moderately potent among psilocybin =
-mushrooms. Their effects can vary depending on factors such as growing cond=
-itions, individual tolerance, and dosage. Users generally report a balance =
-between visual and introspective effects.<br>https;<a href=3D"http://t.me/R=
-icko_swavy8" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
-ps://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=
-=3Dgmail&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a"=
->t.me/Ricko_swavy8</a><br>=C2=A0 =C2=A0 =C2=A0Effects: Like other psilocybi=
-n-containing mushrooms, consuming Golden Teacher mushrooms can lead to alte=
-red states of consciousness characterized by visual and auditory hallucinat=
-ions, changes in perception of time and space, introspection, and sometimes=
- a sense of unity or connection with one&#39;s surroundings.<br>https;<a hr=
-ef=3D"http://t.me/Ricko_swavy8" target=3D"_blank" rel=3D"nofollow" data-saf=
-eredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Rick=
-o_swavy8&amp;source=3Dgmail&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjc=
-w_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a><br>=C2=A0 =C2=A0 =C2=A0Cultivatio=
-n: Golden Teachers are favored by cultivators due to their relatively strai=
-ghtforward cultivation process. They are known for being resilient and adap=
-table, making them a suitable choice for beginners in mushroom cultivation.=
-<br>=C2=A0https;<a href=3D"http://t.me/Ricko_swavy8" target=3D"_blank" rel=
+s;t.me/Ricko_swavy8<br /><br /><div class=3D"gmail_quote"><div dir=3D"auto"=
+ class=3D"gmail_attr">On Monday, May 13, 2024 at 12:12:05=E2=80=AFAM UTC+1 =
+Harry Conor wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: =
+1ex;"><br>Buy your psychedelic products fast and safe delivery <br><a href=
+=3D"https://t.me/highlandview" target=3D"_blank" rel=3D"nofollow" data-safe=
+redirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/high=
+landview&amp;source=3Dgmail&amp;ust=3D1717198294578000&amp;usg=3DAOvVaw1fp1=
+OozM6uklpgm_uGGjUS">https://t.me/highlandview</a> <br><a href=3D"https://t.=
+me/highlandview" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D=
+"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/highlandview&amp;s=
+ource=3Dgmail&amp;ust=3D1717198294578000&amp;usg=3DAOvVaw1fp1OozM6uklpgm_uG=
+GjUS">https://t.me/highlandview</a> <br><br>&gt; =E2=9C=94US-US Delivery <b=
+r>&gt; =E2=9C=94Fast Shipping <br>&gt; =E2=9C=94Secure Payment Options <br>=
+&gt; =E2=9C=94100% Satisfaction Guaranteed <br>&gt; =E2=9C=943 Days Refund =
+Policy <br>&gt; =E2=9C=94100% Money-Back if any issue with the product <br>=
+&gt; =E2=9C=94Shipping Service: Express/Standard/Economy <br>&gt; =E2=9C=94=
+Estimated Delivery Time: Express &amp; 3-5 Days <br>&gt; =E2=9C=94Discounts=
+: Get up to 20% off <br><br><a href=3D"https://t.me/highlandview" target=3D=
+"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/ur=
+l?hl=3Den&amp;q=3Dhttps://t.me/highlandview&amp;source=3Dgmail&amp;ust=3D17=
+17198294578000&amp;usg=3DAOvVaw1fp1OozM6uklpgm_uGGjUS">https://t.me/highlan=
+dview</a> <br><a href=3D"https://t.me/highlandview" target=3D"_blank" rel=
 =3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
-p;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail&amp;ust=3D171719821522100=
-0&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a></blockquote=
-></div>
+p;q=3Dhttps://t.me/highlandview&amp;source=3Dgmail&amp;ust=3D17171982945780=
+00&amp;usg=3DAOvVaw1fp1OozM6uklpgm_uGGjUS">https://t.me/highlandview</a> <b=
+r><a href=3D"https://t.me/highlandview" target=3D"_blank" rel=3D"nofollow" =
+data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://=
+t.me/highlandview&amp;source=3Dgmail&amp;ust=3D1717198294578000&amp;usg=3DA=
+OvVaw1fp1OozM6uklpgm_uGGjUS">https://t.me/highlandview</a> <br><a href=3D"h=
+ttps://t.me/highlandview" target=3D"_blank" rel=3D"nofollow" data-saferedir=
+ecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/highlandv=
+iew&amp;source=3Dgmail&amp;ust=3D1717198294578000&amp;usg=3DAOvVaw1fp1OozM6=
+uklpgm_uGGjUS">https://t.me/highlandview</a><br></blockquote></div>
 
 <p></p>
 
@@ -273,11 +235,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegrou=
+om/d/msgid/jailhouse-dev/242ec17b-87be-4542-b0df-8a9c2675d2c9n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegroups.co=
+msgid/jailhouse-dev/242ec17b-87be-4542-b0df-8a9c2675d2c9n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_149042_208189355.1717111873061--
+------=_Part_80203_593906991.1717111911304--
 
-------=_Part_149041_220761175.1717111873061--
+------=_Part_80202_1002453190.1717111911304--
