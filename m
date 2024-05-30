@@ -1,73 +1,74 @@
-Return-Path: <jailhouse-dev+bncBCOP7S4BXEKBBTMX4SZAMGQEHU3B73I@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCOP7S4BXEKBBQUY4SZAMGQEU4SLWIQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3f.google.com (mail-yb1-xb3f.google.com [IPv6:2607:f8b0:4864:20::b3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29198D5646
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 01:29:18 +0200 (CEST)
-Received: by mail-yb1-xb3f.google.com with SMTP id 3f1490d57ef6-df4d62ff39fsf2652001276.2
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 16:29:18 -0700 (PDT)
+Received: from mail-yw1-x113a.google.com (mail-yw1-x113a.google.com [IPv6:2607:f8b0:4864:20::113a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B5F38D564B
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 01:31:16 +0200 (CEST)
+Received: by mail-yw1-x113a.google.com with SMTP id 00721157ae682-629638f1cb0sf6673937b3.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 16:31:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717111758; x=1717716558; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717111875; x=1717716675; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gjh7wZGFMRz/unVthp/4eqrtbUftR8/QuIUaocn6bDk=;
-        b=Z4KgVb+S0EtRIoU7WUR22eaOYv1qwtqx7y9gpggalT8tIzWTru1JM1xPNJq5QQotXs
-         E47hIqNYnbTiZ7c47FXtNez789hP1Ygk0BP7F/QnaLKNJ30I35x69BrSzizGBDStY/zN
-         2VC0cDZtdHL4py6qUDqY/If2vuLEBgc6j8A9c/rWMeUeWBqA5+pxp8FFEcJbW/++zpuq
-         BPnVjr5rU1O+l0JwoDCek0zQh8mmzAxi1hqE45GMFENRpUFQ/rttQtsmqj4NfwnKOoO3
-         IAaAedojagG0v9DPhL/jqBCzZTBUA76oTzxzOWx0tHBW9QxSrE6BdfDIelR1hCrqkY1s
-         0xKw==
+        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
+        b=HzrIgCu/NCWyWQfg6II7TpxDTRwrOQDyR23LXnY1njdDGTaRLNV/zjqrF2xjKScc9Y
+         adt0E+NgbcnwIpp0/An4OK0QRh6MJSZohWMvUxjgAKlMsi0aIgGl69epeSlwLWpFQoEV
+         Fw/n5fkDPRNkxb53ZhAjwo4Z0ByHwzZfT73WfcZIGV4FXl3+njE82pj4+ZALZvrKke/E
+         O3S6rpLA9d8FG6U3dS6LFB5DiskkFGqTcubkDI0nKlj/Xz6IXllg+3K8/80chU9k+qkT
+         ty5M6QtzFg/dAHgBSQgsvXUp3efQW3SPpML+u19AWMsqWO8f74v8gsxd97mv7l5KRxSl
+         pWPQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717111758; x=1717716558; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717111875; x=1717716675; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=gjh7wZGFMRz/unVthp/4eqrtbUftR8/QuIUaocn6bDk=;
-        b=VbgwufCDsFDYRM6g+lcaQ0PNdZfiQeV4XdbGXDgOcKLrU+TNF/wNugTtgkXTYDB794
-         r2ewzPtM68LT19P0Nx1toEwlMYv/sFtWL76tmujvAN1fdFP1IZSeO7MzM6F6XF9uFh/H
-         VzA/F/D8Gop8Vsf5WfJCFZqmXV6pfiMRGluFVg/m2k+1DJDgtRZFV3RewqfyyhqvMYxB
-         oqpG0sQZKFqeD1jBm3uLP/SxMNAKKkrpRudoSt+aL+14BJvJPVuf+iEu8x2p/NfIcrwj
-         6QjHdLl/asg50Iuf0fukweAJqXZ/IBnZ637EuF/XsbiAQyquXRMvdfVmnUZ4xD+IBxgO
-         pGOA==
+        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
+        b=Jsjc7vQsgZmRfSML4jzS8HG61gyRquJueGynaX5s8aU1Va525Q2ndDD/rFYUyA9U9f
+         JXQc2q1qw9TyADOLiRZGak3B3/LKijgWQIYJd9Lg+Ow3qIxG1+sKVmmcO3wU7YF1v76H
+         y5O1eKISgkjVpyMANeH9riBHzQXW1I9Vli5H3QMNBIYVIThz0zohCDC1mI4aOG6YvQdZ
+         2Eeho8OOKTEADYRvxYWn1M3VeY0lW7QfYohjIBhVnOrRw6/XgBvVEQTjyvTVqgfyo68/
+         L+LEr4wjk3JMeBtTA0u8Wby6J0ENggWVGN+I/4/p1QGn3znF4tpNUThDejZtKSKHEWy7
+         5jtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717111758; x=1717716558;
+        d=1e100.net; s=20230601; t=1717111875; x=1717716675;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gjh7wZGFMRz/unVthp/4eqrtbUftR8/QuIUaocn6bDk=;
-        b=OsjsAo49oFyZZj7Xyu1FL9Czq8kgdDGHWY9fJgeGSrXmAxqGrsX7UgDPtusavLTgOq
-         Gsz4lZ5jIv9YkkqFlE8tQUTSFtwNUZeMyMCHFVu3uZyUEMv9neHpvJVtfs5Kjko4YBv0
-         J28tuuDMEh4mT11T4xTQTqDeE8BtrI/LmSVjK/UTHCKaXFtOEjPMp6A42ucBztQ2tcql
-         80AUhrS2onopQizXgnuWpNuoZ6SRyIW+a1z2tSlLEng+2LmYBrX4ySYRtuVk2rzMCgMX
-         dJ3MBo+bTnfKhN7CSUPu7Gy7hCk59vqeIWCucFhJPqgGnII5OKQso/veiLXN5hSXxyTg
-         2B1Q==
+        bh=hfUlCTKe3gnRAc1m6DiNknFfI5ux95l+Sk1nlFJToYE=;
+        b=bSkzaCSdJMCKfpoFeRj08a313h/nFxcHfdqyA48EaPUdnKuxlRCM7jeISXayJtnP2L
+         Q+VXcB3Rb8h9H7JjoslTtr8qoYs/OeqOQV9JhvMKja2wC0fh7185HEIeh/kFaYKXVcgV
+         SQSbGA4AW0vDjz8fNXOHh2W3yQGGWLuylME3ajKlGOQi+/uPZpqzKILpj6XXdegh8XuB
+         6xvV75OCSzXrKP9vWFki7aD7tyVFXz8TCIJ35OvDAcV4u6yGmqa7ApzHsEcCR7un0EeX
+         SDf+Q3QALzGpKW5Pu6Aq/YP3QprOTffeg5knx+ZF95YZ+6tchGsuZb+bG7emBwEb5SJg
+         4lYQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWRuB3CxEcp8DBogAPvC9uMO5T7PQoMi0diPu2j5tyTpCrk1aMQYIDFb3elze0pk81dvpBYPMDMm3GQqBA6SVQdzVKs03BbvjzB8GE=
-X-Gm-Message-State: AOJu0Yxme7v+8H1f8e96PijjwozCj2UGDAKu4oG94dIDoEIgd7pS78xe
-	cnjSM0iawIiiF+Jn3OtJDYXwm1ONS6RBO0PVDrJQhoTN07TuJptq
-X-Google-Smtp-Source: AGHT+IFYzs+GXZiI3XVc6O8cWeGA76vp5xV3PXs0267t1USqGjuncb8pGpSHT1PVB9q38vX6H0hORA==
-X-Received: by 2002:a25:8391:0:b0:de6:1057:c85f with SMTP id 3f1490d57ef6-dfa73bfb36amr304298276.22.1717111757861;
-        Thu, 30 May 2024 16:29:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCW4413pNJiNpgzZNJbiXdLd8EdeoSvsXKo4P33YiSVB4XmJ8qMGe9PCUyLVvEHHSbnv9EpJ5PGJRVNC6mGmLNeK5FncmB5ieWyYk4E=
+X-Gm-Message-State: AOJu0YxijhFmtep9deaWayOgkbMqJIdSL93qgNwSmyB8sYAbT9Vta12h
+	ZqlI+v6ajhye5UERaoyPTYFPKGECAD2qc3iwkxrQc0N97VkCL1zk
+X-Google-Smtp-Source: AGHT+IF3KE7Buss3ugu5gfYqJv5ZLIfjo0wVqT6AS29HgFXzuVvg6WjjagOWJ1dxwa8cC/gHSRZOHw==
+X-Received: by 2002:a25:bc85:0:b0:dee:6525:7424 with SMTP id 3f1490d57ef6-dfa73c13b4dmr304740276.25.1717111875289;
+        Thu, 30 May 2024 16:31:15 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:74cf:0:b0:dfa:739b:d8fb with SMTP id 3f1490d57ef6-dfa739bdb1dls150592276.0.-pod-prod-01-us;
- Thu, 30 May 2024 16:29:16 -0700 (PDT)
-X-Received: by 2002:a05:6902:1896:b0:df7:8889:4795 with SMTP id 3f1490d57ef6-dfa72ec3436mr36383276.0.1717111756121;
-        Thu, 30 May 2024 16:29:16 -0700 (PDT)
-Date: Thu, 30 May 2024 16:29:15 -0700 (PDT)
+Received: by 2002:a25:a447:0:b0:dfa:56ce:d390 with SMTP id 3f1490d57ef6-dfa595a7d93ls859957276.0.-pod-prod-08-us;
+ Thu, 30 May 2024 16:31:14 -0700 (PDT)
+X-Received: by 2002:a05:690c:dd1:b0:61b:ea08:111f with SMTP id 00721157ae682-62c797f34e3mr452507b3.6.1717111873795;
+        Thu, 30 May 2024 16:31:13 -0700 (PDT)
+Date: Thu, 30 May 2024 16:31:13 -0700 (PDT)
 From: Will Smichel <willsmichel88@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <cfc43845-9041-40e0-81f6-d71886acd878n@googlegroups.com>
-In-Reply-To: <c1903dda-39bd-4ef8-97e2-0c2c0864a962n@googlegroups.com>
-References: <c1903dda-39bd-4ef8-97e2-0c2c0864a962n@googlegroups.com>
-Subject: Re: ORDER CLONE CARDS ONLINE SWIFT CASHOUT FROM THE ATM MACHINE
+Message-Id: <07b211ff-3c63-437b-8712-b8540d2e62b3n@googlegroups.com>
+In-Reply-To: <f7f9f86e-b878-4e08-ac83-eb974ef0ad07n@googlegroups.com>
+References: <f7f9f86e-b878-4e08-ac83-eb974ef0ad07n@googlegroups.com>
+Subject: Re: WHAT ARE GOLDEN TEACHER MUSHROOMS AND WHERE ARE THEY SOLD
+ ONLINE?
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_11982_333202597.1717111755430"
+	boundary="----=_Part_149041_220761175.1717111873061"
 X-Original-Sender: willsmichel88@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,71 +82,98 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_11982_333202597.1717111755430
+------=_Part_149041_220761175.1717111873061
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_11983_1701828509.1717111755430"
+	boundary="----=_Part_149042_208189355.1717111873061"
 
-------=_Part_11983_1701828509.1717111755430
+------=_Part_149042_208189355.1717111873061
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Get at me for your low & high balance clone cards going for cool prices.=20
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
-=20
-Clone cards are spammed credit cards with clean funds. My clone cards are=
-=20
-available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F a=
-nd can be used for online=20
-purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F $300=20
-for balance $2k $400 for balance $5K $500for balance $7k $700 for balance=
-=20
-$10k=20
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/ =
-=20
-High balance $1k for balance $15k $3k for balance $30k $5k balance $50k $7k=
-=20
-for balance $ 75k=20
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
-=20
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/ =
-=E2=80=A2=20
-Shipping =F0=9F=9B=AB =F0=9F=9B=AB  =E2=80=A2 Swift Delivery On DHL & FedEx=
- express=20
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/ =
-=20
-Text me now and make your
 
-On Thursday, May 30, 2024 at 6:24:19=E2=80=AFPM UTC+1 Williams Baylor wrote=
-:
+Golden Teachers are considered moderately potent among psilocybin=20
+mushrooms. Their effects can vary depending on factors such as growing=20
+conditions, individual tolerance, and dosage. Users generally report a=20
+balance between visual and introspective effects. https;t.me/Ricko_swavy8=
+=20
+https;t.me/Ricko_swavy8      Effects: Like other psilocybin-containing=20
+mushrooms, consuming Golden Teacher mushrooms can lead to altered states of=
+=20
+consciousness characterized by visual and auditory hallucinations, changes=
+=20
+in perception of time and space, introspection, and sometimes a sense of=20
+unity or connection with one's surroundings Some key characteristics of the=
+=20
+Golden Teacher mushroom strain include:      Appearance: The Golden Teacher=
+=20
+strain typically features large, golden-capped mushrooms with a distinct=20
+appearance. When mature, the caps can take on a golden or caramel color,=20
+while the stem is usually thick and white.      Potency: Golden Teachers=20
+are considered moderately potent among psilocybin mushrooms. Their effects=
+=20
+can vary depending on factors such as growing conditions, individual=20
+tolerance, and dosage. Users generally report a balance between visual and=
+=20
+introspective effects. https;t.me/Ricko_swavy8      Effects: Like other=20
+psilocybin-containing mushrooms, consuming Golden Teacher mushrooms can=20
+lead to altered states of consciousness characterized by visual and=20
+auditory hallucinations, changes in perception of time and space,=20
+introspection, and sometimes a sense of unity or connection with one's=20
+surroundings. https;t.me/Ricko_swavy8      Cultivation: Golden Teachers are=
+=20
+favored by cultivators due to their relatively straightforward cultivation=
+=20
+process. They are known for being resilient and adaptable, making them a=20
+suitable choice for beginners in mushroom cultivation. =20
+https;t.me/Ricko_swavy8
+On Thursday, May 30, 2024 at 9:11:51=E2=80=AFPM UTC+1 JOHN BRYIAN wrote:
 
-> Get at me for your low & high balance clone cards going for cool prices.
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+> Golden Teachers are considered moderately potent among psilocybin=20
+> mushrooms. Their effects can vary depending on factors such as growing=20
+> conditions, individual tolerance, and dosage. Users generally report a=20
+> balance between visual and introspective effects.
+> https;t.me/Ricko_swavy8
+> https;t.me/Ricko_swavy8
+>      Effects: Like other psilocybin-containing mushrooms, consuming Golde=
+n=20
+> Teacher mushrooms can lead to altered states of consciousness characteriz=
+ed=20
+> by visual and auditory hallucinations, changes in perception of time and=
 =20
-> Clone cards are spammed credit cards with clean funds. My clone cards are=
+> space, introspection, and sometimes a sense of unity or connection with=
 =20
-> available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F=
- and can be used for online=20
-> purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F
-> $300 for balance $2k
-> $400 for balance $5K
-> $500for balance $7k
-> $700 for balance $10k
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
->
-> High balance
-> $1k for balance $15k
-> $3k for balance $30k
-> $5k balance $50k
-> $7k for balance $ 75k
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-> =E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB
->
-> =E2=80=A2 Swift Delivery On DHL & FedEx express
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
->
+> one's surroundings
+> Some key characteristics of the Golden Teacher mushroom strain include:
+>      Appearance: The Golden Teacher strain typically features large,=20
+> golden-capped mushrooms with a distinct appearance. When mature, the caps=
+=20
+> can take on a golden or caramel color, while the stem is usually thick an=
+d=20
+> white.
+>      Potency: Golden Teachers are considered moderately potent among=20
+> psilocybin mushrooms. Their effects can vary depending on factors such as=
+=20
+> growing conditions, individual tolerance, and dosage. Users generally=20
+> report a balance between visual and introspective effects.
+> https;t.me/Ricko_swavy8
+>      Effects: Like other psilocybin-containing mushrooms, consuming Golde=
+n=20
+> Teacher mushrooms can lead to altered states of consciousness characteriz=
+ed=20
+> by visual and auditory hallucinations, changes in perception of time and=
+=20
+> space, introspection, and sometimes a sense of unity or connection with=
+=20
+> one's surroundings.
+> https;t.me/Ricko_swavy8
+>      Cultivation: Golden Teachers are favored by cultivators due to their=
+=20
+> relatively straightforward cultivation process. They are known for being=
+=20
+> resilient and adaptable, making them a suitable choice for beginners in=
+=20
+> mushroom cultivation.
+>  https;t.me/Ricko_swavy8
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -153,78 +181,88 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/cfc43845-9041-40e0-81f6-d71886acd878n%40googlegroups.com.
+jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegroups.com.
 
-------=_Part_11983_1701828509.1717111755430
+------=_Part_149042_208189355.1717111873061
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Get at me for your low &amp; high balance clone cards going for cool prices=
-.
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/ C=
-lone cards are spammed credit cards with clean funds. My clone cards are av=
-ailable for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F and=
- can be used for online purchases. Our clone card comes with an ATM pin for=
- easy cash outs =E2=84=A2=EF=B8=8F
-$300 for balance $2k
-$400 for balance $5K
-$500for balance $7k
-$700 for balance $10k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
-=C2=A0
-High balance
-$1k for balance $15k
-$3k for balance $30k
-$5k balance $50k
-$7k for balance $ 75k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-=E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB=C2=A0
-=E2=80=A2 Swift Delivery On DHL &amp; FedEx express
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
-=C2=A0
-Text me now and make your<br /><br /><div class=3D"gmail_quote"><div dir=3D=
-"auto" class=3D"gmail_attr">On Thursday, May 30, 2024 at 6:24:19=E2=80=AFPM=
- UTC+1 Williams Baylor wrote:<br/></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); pad=
-ding-left: 1ex;">Get at me for your low &amp; high balance clone cards goin=
-g for cool prices.<br><a href=3D"https://t.me/Ricko_swavy8/product/good-tri=
-p-milk-chocolate-bars-for-sale/" target=3D"_blank" rel=3D"nofollow" data-sa=
-feredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ri=
-cko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgma=
-il&amp;ust=3D1717198143866000&amp;usg=3DAOvVaw3fSQqitgY7zoUCI5viy2Vx">https=
-://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</a> Cl=
-one cards are spammed credit cards with clean funds. My clone cards are ava=
-ilable for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F and =
-can be used for online purchases. Our clone card comes with an ATM pin for =
-easy cash outs =E2=84=A2=EF=B8=8F<br>$300 for balance $2k<br>$400 for balan=
-ce $5K<br>$500for balance $7k<br>$700 for balance $10k<br><a href=3D"https:=
-//t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" target=
-=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
-/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-choco=
-late-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717198143866000&amp;usg=
-=3DAOvVaw3fSQqitgY7zoUCI5viy2Vx">https://t.me/Ricko_swavy8/product/good-tri=
-p-milk-chocolate-bars-for-sale/</a><br><br>High balance<br>$1k for balance =
-$15k<br>$3k for balance $30k<br>$5k balance $50k<br>$7k for balance $ 75k<b=
-r><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bar=
-s-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
-ps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/g=
-ood-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717198=
-143866000&amp;usg=3DAOvVaw3fSQqitgY7zoUCI5viy2Vx">https://t.me/Ricko_swavy8=
-/product/good-trip-milk-chocolate-bars-for-sale/</a><br><a href=3D"https://=
-t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" target=
-=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
-/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-choco=
-late-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717198143866000&amp;usg=
-=3DAOvVaw3fSQqitgY7zoUCI5viy2Vx">https://t.me/Ricko_swavy8/product/good-tri=
-p-milk-chocolate-bars-for-sale/</a><br>=E2=80=A2 Shipping =F0=9F=9B=AB =F0=
-=9F=9B=AB<br><br>=E2=80=A2 Swift Delivery On DHL &amp; FedEx express<br><a =
-href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for=
--sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://=
-www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-t=
-rip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171719814386=
-6000&amp;usg=3DAOvVaw3fSQqitgY7zoUCI5viy2Vx">https://t.me/Ricko_swavy8/prod=
-uct/good-trip-milk-chocolate-bars-for-sale/</a><br></blockquote></div>
+<br />Golden Teachers are considered moderately potent among psilocybin mus=
+hrooms. Their effects can vary depending on factors such as growing conditi=
+ons, individual tolerance, and dosage. Users generally report a balance bet=
+ween visual and introspective effects.
+https;t.me/Ricko_swavy8
+https;t.me/Ricko_swavy8=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Effects: Like other p=
+silocybin-containing mushrooms, consuming Golden Teacher mushrooms can lead=
+ to altered states of consciousness characterized by visual and auditory ha=
+llucinations, changes in perception of time and space, introspection, and s=
+ometimes a sense of unity or connection with one's surroundings
+Some key characteristics of the Golden Teacher mushroom strain include:=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 Appearance: The Golden Teacher strain typically=
+ features large, golden-capped mushrooms with a distinct appearance. When m=
+ature, the caps can take on a golden or caramel color, while the stem is us=
+ually thick and white.=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Potency: Golden Teache=
+rs are considered moderately potent among psilocybin mushrooms. Their effec=
+ts can vary depending on factors such as growing conditions, individual tol=
+erance, and dosage. Users generally report a balance between visual and int=
+rospective effects.
+https;t.me/Ricko_swavy8=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Effects: Like other p=
+silocybin-containing mushrooms, consuming Golden Teacher mushrooms can lead=
+ to altered states of consciousness characterized by visual and auditory ha=
+llucinations, changes in perception of time and space, introspection, and s=
+ometimes a sense of unity or connection with one's surroundings.
+https;t.me/Ricko_swavy8=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cultivation: Golden T=
+eachers are favored by cultivators due to their relatively straightforward =
+cultivation process. They are known for being resilient and adaptable, maki=
+ng them a suitable choice for beginners in mushroom cultivation.=C2=A0 http=
+s;t.me/Ricko_swavy8<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=
+=3D"gmail_attr">On Thursday, May 30, 2024 at 9:11:51=E2=80=AFPM UTC+1 JOHN =
+BRYIAN wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: =
+0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"=
+>Golden Teachers are considered moderately potent among psilocybin mushroom=
+s. Their effects can vary depending on factors such as growing conditions, =
+individual tolerance, and dosage. Users generally report a balance between =
+visual and introspective effects.<br>https;<a href=3D"http://t.me/Ricko_swa=
+vy8" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
+.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail=
+&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ri=
+cko_swavy8</a><br>https;<a href=3D"http://t.me/Ricko_swavy8" target=3D"_bla=
+nk" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail&amp;ust=3D1717198=
+215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a><br>=
+=C2=A0 =C2=A0 =C2=A0Effects: Like other psilocybin-containing mushrooms, co=
+nsuming Golden Teacher mushrooms can lead to altered states of consciousnes=
+s characterized by visual and auditory hallucinations, changes in perceptio=
+n of time and space, introspection, and sometimes a sense of unity or conne=
+ction with one&#39;s surroundings<br>Some key characteristics of the Golden=
+ Teacher mushroom strain include:<br>=C2=A0 =C2=A0 =C2=A0Appearance: The Go=
+lden Teacher strain typically features large, golden-capped mushrooms with =
+a distinct appearance. When mature, the caps can take on a golden or carame=
+l color, while the stem is usually thick and white.<br>=C2=A0 =C2=A0 =C2=A0=
+Potency: Golden Teachers are considered moderately potent among psilocybin =
+mushrooms. Their effects can vary depending on factors such as growing cond=
+itions, individual tolerance, and dosage. Users generally report a balance =
+between visual and introspective effects.<br>https;<a href=3D"http://t.me/R=
+icko_swavy8" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
+ps://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=
+=3Dgmail&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a"=
+>t.me/Ricko_swavy8</a><br>=C2=A0 =C2=A0 =C2=A0Effects: Like other psilocybi=
+n-containing mushrooms, consuming Golden Teacher mushrooms can lead to alte=
+red states of consciousness characterized by visual and auditory hallucinat=
+ions, changes in perception of time and space, introspection, and sometimes=
+ a sense of unity or connection with one&#39;s surroundings.<br>https;<a hr=
+ef=3D"http://t.me/Ricko_swavy8" target=3D"_blank" rel=3D"nofollow" data-saf=
+eredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Rick=
+o_swavy8&amp;source=3Dgmail&amp;ust=3D1717198215221000&amp;usg=3DAOvVaw0jjc=
+w_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a><br>=C2=A0 =C2=A0 =C2=A0Cultivatio=
+n: Golden Teachers are favored by cultivators due to their relatively strai=
+ghtforward cultivation process. They are known for being resilient and adap=
+table, making them a suitable choice for beginners in mushroom cultivation.=
+<br>=C2=A0https;<a href=3D"http://t.me/Ricko_swavy8" target=3D"_blank" rel=
+=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
+p;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail&amp;ust=3D171719821522100=
+0&amp;usg=3DAOvVaw0jjcw_9UdzTXQ5YWxvtK2a">t.me/Ricko_swavy8</a></blockquote=
+></div>
 
 <p></p>
 
@@ -235,11 +273,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/cfc43845-9041-40e0-81f6-d71886acd878n%40googlegrou=
+om/d/msgid/jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/cfc43845-9041-40e0-81f6-d71886acd878n%40googlegroups.co=
+msgid/jailhouse-dev/07b211ff-3c63-437b-8712-b8540d2e62b3n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_11983_1701828509.1717111755430--
+------=_Part_149042_208189355.1717111873061--
 
-------=_Part_11982_333202597.1717111755430--
+------=_Part_149041_220761175.1717111873061--
