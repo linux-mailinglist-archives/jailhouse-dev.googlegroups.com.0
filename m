@@ -1,71 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCFOBSFJ6MNRBIGS4KZAMGQE4TGPADQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCFOBSFJ6MNRBK6T4KZAMGQE63PS72I@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb39.google.com (mail-yb1-xb39.google.com [IPv6:2607:f8b0:4864:20::b39])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7358D4FD4
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 18:28:18 +0200 (CEST)
-Received: by mail-yb1-xb39.google.com with SMTP id 3f1490d57ef6-df771b4eacbsf1739358276.2
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 09:28:18 -0700 (PDT)
+Received: from mail-yb1-xb3b.google.com (mail-yb1-xb3b.google.com [IPv6:2607:f8b0:4864:20::b3b])
+	by mail.lfdr.de (Postfix) with ESMTPS id 034E38D4FDB
+	for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 18:30:38 +0200 (CEST)
+Received: by mail-yb1-xb3b.google.com with SMTP id 3f1490d57ef6-dfa4b878450sf1616166276.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 30 May 2024 09:30:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717086497; x=1717691297; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717086637; x=1717691437; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hstWMULbzBdR8R8y7ipn8Y8lX/ytigya5NCDa8OLbiY=;
-        b=LeeSI9BT4oPdjV6IjZdJW5ctJ1ekUEt3sd8GSmuDJyJ4sVaJBVnuuDciwt3On7FeSE
-         mbNY2L1z3UTox3q9+6pnfcn/1mNmfLUPRWPVVRDr8CYy3DRMI5ivw45b8fZil6Z1K9H7
-         1bqKHNda9tHQObmOpdCTUXYImFKZJPOup0A7Go1Jv9FS575aXNIiu6jy/m5Msoo6jByc
-         C0wAq5AhOuuqZdXrTGIWdg5Xz/6hQOpK9AVo+LBFiEffcafIQyOHj8wLqVRcP7C3KkLG
-         TH1isIVMxfFhdoJZehKe1VTzwxkN7LJR4eXtC9mcvhV4r0z0Q0SHTebWNc2fldtor+oJ
-         w0Ig==
+        bh=eCR6hxPl43VH5UA4ArsMjpjiAFey+XyTjBYeuXzRPoc=;
+        b=L+rtgg9SxgICqF9CiporXBq16WA2HEGWEk+yU58bcCG5whdK8cRnQftbwP7gDhAwqT
+         UT9yrIiaco0TEv0dN2kksv3Cq+E5fRtlFaOyp2/8ICMRUjepVpZbCWr0oGooDWF9Nbvu
+         2dTdnO76Z1WjjmsFSUTKhfBArpjdnrf6BHtJ5ONkM3bEuRvtQ+m38seNbmbrUDVMLRDL
+         tUgAZ3Ybhf9pkRjUkprjV+ev7PtIbL1eHKXdjOJGWlwSeJEev+wODn+fsDu2lAvXoZ+d
+         SKjlfMo8aH6CiNUPI9oVILVTSTQ5Gk/XUHG0hMSCwWh7GG84kDVgBx1kphgVfyV170av
+         9GuQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717086497; x=1717691297; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717086637; x=1717691437; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hstWMULbzBdR8R8y7ipn8Y8lX/ytigya5NCDa8OLbiY=;
-        b=c51CJOhwjKCRE3vXFLOwTu7py6a54jecWxHtXLnpVIL7irXTRM6pXEJts89AqyVvns
-         7oJ8YJm4MfnX2IBTjUvaEUv8XP1sRC9JixYLvjrtiQ44W2zkS83uxeuKMtl5Gs1SUomc
-         4SipxLVJHzfjCFYDq9ZwBvvcXPCxwE7kCzfBnJ7DKMjmyC8G+k9w492u/ojBaiVFYjiz
-         QMqGyuV6SD36/ncsHuNjnQ6z6m4+zGBjyESJWrXq1jxCcPR69pdsCXftDbXsx++vtmkt
-         qyMIBS5QCPl3zaRkAjD3rFVeq6GoqolVVhA63ERTHivBCBVAdIsHW6Opt4XeIV6FBYc6
-         V2CA==
+        bh=eCR6hxPl43VH5UA4ArsMjpjiAFey+XyTjBYeuXzRPoc=;
+        b=UPRsf9AhN1s7rXJ6df9EIPEs5IubIaaROmK5FvJZXxshzGVR93zjDIHWE5ETH2ytKm
+         fPjKDbM+Yg+NJyB8VdDeKaijdUP9dhwdjDFgjnYbVENZ4S6jq5hs7QCPHHgivP4q0e+3
+         tdb5WOvAm3wJuhFtIPsbcdUhW2gfpqEL/UmZ012wNY/VXlqmFBfP+U32FjrklcqB0g8j
+         g7kCA7edHvqStzBgJed8cAgPb63KZkgDY0dY+bRTiKOE6u1h/McWWnDwms+MUa3cBumf
+         q9k0vK2ae2MXuyDeL25FM9NztBkU5cwM8h42KzwL5aUsuW53lzi4WkEdp9AujUG6aPoo
+         u64Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717086497; x=1717691297;
+        d=1e100.net; s=20230601; t=1717086637; x=1717691437;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hstWMULbzBdR8R8y7ipn8Y8lX/ytigya5NCDa8OLbiY=;
-        b=IScvRTwoiIwoYCIgFFIptUSOx+UW07uI9WEsj1aWRzZlLCe7yYEbK4rh+sWCofovYe
-         GqlS/fdMK8A6p2rpf6TQww2iVDJQ2Ei7LLMACgPLtoWpf0qvSsTfKyYJU9hg/k3H9Db0
-         qmgGcBCV3lhkOzQlygopnnqiRa50i9f7dUd4NZ+Ia2AR554myK0Nbzk7JIbykddazmjP
-         9FzfpLZt6LW+aQEi4DbH3/NMjxfB5bS1VmYhGybEowqUPoi1reyxyymlc2MD/9W95zpl
-         CteVSNQSpuB7LlllMuY1/qGYrF78sNUGezIc7SY6JR2XWv2hhl4Hb/odGKZhFGtBsnKI
-         uMZQ==
+        bh=eCR6hxPl43VH5UA4ArsMjpjiAFey+XyTjBYeuXzRPoc=;
+        b=QuGXFR6haexlffeV/W56MVcdPAZh31wBW+VHnwII99XcUSss/MEb3AuUnDeRSJDey9
+         zCAr11c1tNZ6gdkepsvglZAV6T7BzVR4JCIYWg3BCY58Rfn8A4sJmfANjUPuHLo6eT5P
+         AXCSgzBavLvRG9my8ztBXBdt2ouw+l+Byr/Z3kSk7f2iWGavefziPja755NAKKUcgW0d
+         LswjxhCoOM38OwiKrSQPSFCq1IUCGOD4sUOtXPAB4NnPY/ZugfTzB/tafJBT9jR6RxHG
+         n2nwW+2L8MFaACHud3/XYXL85j0VbZf0aQm4HZDttDlrIjXZlmGGiSrmDLRNzrNEaiuv
+         cY5g==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUtNI4+4K64YwtcjDnG6C8laPWjiLzBgDNY76zrQhtV2IfRTMTunCQMnUnoo0c5Hxtde9mig/w86lK5sBzj0OGCeza4HdlOweV1Wy0=
-X-Gm-Message-State: AOJu0Yz/erogrZmH05xE/UVYMr0IkbAAhY8p+pChR76XvuOZ+1w9BLUv
-	GdGpKNlQBV4Wz2qqbz3AoqOckAnuJ1eDIUKId3fAAne2RLt70sAX
-X-Google-Smtp-Source: AGHT+IFx18C50wz6GzKSudbZ27g2+7sIjpu53Rf8L9iWkNN5K6TcnvJcKrrKZrgb8l05fvMMghshAQ==
-X-Received: by 2002:a25:ac90:0:b0:de6:896:26f0 with SMTP id 3f1490d57ef6-dfa5a5bb17cmr3092283276.1.1717086497627;
-        Thu, 30 May 2024 09:28:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWu7sLHOAUqQCgu/TUpS638yC9Y/AnxXSuN5LU43iaRI9TJ3KkuOD7I0H9xcLePshNbUwPEyZ6H2IbC8Kc5FU0ipOG5417VS+83Dxo=
+X-Gm-Message-State: AOJu0Yx1H49hkzA0NF1G9XgXNJ/aqhs1GFQNapGv1ZU8BY3WtalLeMAB
+	P2cmOxmWeuQ0C6LuVf1wskpTwWJSJEVWdFlHpTSCdrpCq8hOBdDI
+X-Google-Smtp-Source: AGHT+IHP7Wtz0gb228pXZ1vCmEvA3Gf7eASX5Pnilg6IMQLqVuAZZlSEswo6+DMOnv2Ixu44L53img==
+X-Received: by 2002:a25:c746:0:b0:de4:27f:e335 with SMTP id 3f1490d57ef6-dfa5a802910mr2667690276.64.1717086636794;
+        Thu, 30 May 2024 09:30:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:c5ce:0:b0:df4:d7b7:ef22 with SMTP id 3f1490d57ef6-dfa59b87f0dls1515068276.2.-pod-prod-07-us;
- Thu, 30 May 2024 09:28:16 -0700 (PDT)
-X-Received: by 2002:a05:6902:1006:b0:dfa:5a23:379e with SMTP id 3f1490d57ef6-dfa5a5d5792mr686529276.4.1717086495982;
-        Thu, 30 May 2024 09:28:15 -0700 (PDT)
-Date: Thu, 30 May 2024 09:28:15 -0700 (PDT)
+Received: by 2002:a25:df91:0:b0:dcc:4b24:c0da with SMTP id 3f1490d57ef6-dfa59b1ceccls1731681276.2.-pod-prod-02-us;
+ Thu, 30 May 2024 09:30:34 -0700 (PDT)
+X-Received: by 2002:a05:6902:20c6:b0:de4:67d9:a2c6 with SMTP id 3f1490d57ef6-dfa5a5b6dd5mr237967276.2.1717086634500;
+        Thu, 30 May 2024 09:30:34 -0700 (PDT)
+Date: Thu, 30 May 2024 09:30:33 -0700 (PDT)
 From: Larry Cruz <atungang28@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <20386664-e1de-4554-a68e-cb40ec82036cn@googlegroups.com>
-Subject: BUY ONE UP MUSHROOM CHOCOLATE BARS ONLINE IN USA
+Message-Id: <6e83c25b-e585-47a6-ad58-3d352bf2665bn@googlegroups.com>
+Subject: ORDER BLUE MEANIE MUSHROOM/ BUY BLUE MEANIE MUSHROOM/ WHERE TO BUY
+ BLUE MEANIE MUSHROOM CHOCOLATE BARS ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_95720_549488134.1717086495171"
+	boundary="----=_Part_117121_909064568.1717086633852"
 X-Original-Sender: atungang28@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -79,79 +80,107 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_95720_549488134.1717086495171
+------=_Part_117121_909064568.1717086633852
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_95721_858870707.1717086495171"
+	boundary="----=_Part_117122_473381170.1717086633852"
 
-------=_Part_95721_858870707.1717086495171
+------=_Part_117122_473381170.1717086633852
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
-w could=20
-that not be the dream?
-Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
-gh that=20
-won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
-True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
-ooms=20
-doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
- drop in the quality of=20
-your trip, in fact, you may even decide to switch to edibles!
-Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=
-=E2=80=99t=20
-necessarily mean you want to be seen stuffing your face with them. For=20
-those who want to keep it classy and discrete, nibbling on some chocolate=
+Blue meanie mushrooms (Panaeolus cyanescens, formerly Copelandia=20
+cyanescens) =E2=80=94 also known as =E2=80=9Cblue meanies=E2=80=9D =E2=80=
+=94 are a highly potent species of=20
+psilocybin mushroom. You will notice, however, that the first part of its=
 =20
-is the way to go. shroom chocolate bar
-Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocolate=
- can be=20
-broken up for versatile dosage. Each square of this chocolate bar contains=
+scientific name (Panaeolus) is different from other species of magic=20
+mushrooms (e.g. Psilocybe cubensis, Psilocybe semilanceata). This is=20
+because it belongs to a different genus. Mushrooms from the genus Panaeolus=
 =20
-approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether=
+are common, and they grow all over the world in tropical and temperate=20
+environments.
+
+Yet while blue meanies mushroom do not belong to the genus Psilocybe (as=20
+most magic mushrooms do), they still contain the same psychedelic=20
+compounds: psilocybin and psilocin. Many users seek out blue meanies=20
+mushroom because they are one of the most potent magic mushrooms, so you=20
+don=E2=80=99t need to take as much to achieve desired effects.
+
+https://t.me/Ricko_swavy8/product/buy-blue-meanies-magic-mushrooms-online/
+
+Blue Meanie Mushroom Potency
+Are blue meanies mushrooms strong? The short answer is an emphatic =E2=80=
+=9Cyes=E2=80=9D.=20
+But you=E2=80=99ll likely want to know just how strong they are.
+
+Albert Hofmann (the Swiss chemist who first synthesized LSD) analyzed=20
+Panaeolus cyanescens in the 1960s (they were then known as Copelandia=20
+cyanescens). He found they had high concentrations of psilocin but only=20
+slight quantities of psilocybin.
+
+https://t.me/Ricko_swavy8/product/buy-blue-meanies-magic-mushrooms-online/
+
+High concentrations of psilocin mean that the effects of blue meanies may=
 =20
-it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got =
-you=20
-covered. shroom chocolate bar
-
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-Buy Good Trip Mushroom Chocolate Bars Online
-Have you ever wished mushrooms tasted better? We=E2=80=99re here to grant t=
-hat wish=20
-by bringing you our Good Trip Mushroom Chocolate Bar. This bar is tasty,=20
-irresistible also, contains a total of 3.5g of Magic Mushrooms ( 6 grams=20
-per chocolate square). And can be broken off into squares for flexible=20
-shroom dosage.
-
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-IT has an awesome taste and smells good too chocolate. Good Trip Mushroom=
+come on relatively quickly. This is because psilocin is the psychoactive=20
+chemical that causes psychedelic effects, whereas psilocybin is a prodrug=
 =20
-Chocolate Bars makes you trip your face off. So, how could that not be the=
-=20
-dream?. =E2=80=A2
+that the body metabolizes into psilocin after ingestion.
 
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
-gh that=20
-won=E2=80=99t leave you crashing after the initial peak.
-
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mushro=
-oms=20
-doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
- drop in the quality of=20
-your trip, in fact, you may even decide to switch to edibles!
-:Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=99t=
+It is often reported that blue meanies are two to three times the strength=
 =20
-necessarily mean you want to be seen stuffing your face with them For those=
+of Psilocybe cubensis. But there is little data to support such claims.=20
+T.C. Stivje, in 1992, found that they were variable in their potency. They=
 =20
-who want to keep it classy and discrete, nibbling on some chocolate is the=
+can contain 0.17 to 0.95 percent psilocin and 0.16 to 0.19 psilocybin.=20
+Psilocybe cubensis, for comparison, has been found to have concentrations=
 =20
-way to go. shroom chocolate bar =E2=80=A2
+of psilocin and psilocybin ranging from 0.14 and 0.42 percent and 0.37 and=
+=20
+1.30 percent, respectively.
+
+https://t.me/Ricko_swavy8/product/buy-blue-meanies-magic-mushrooms-online/
+
+However, research from 2010 =E2=80=94 based on commercially grown magic mus=
+hrooms=20
+seized by German customs authorities =E2=80=94 reveals that the highest tot=
+al=20
+amounts of psilocin were detected in dried Panaeolus cyanescens, reaching=
+=20
+up to 3.00+/-0.24 mg per 100 mg. This makes modern commercially cultivated=
+=20
+strains of this species the most potent psychedelic mushroom ever described=
+=20
+in published research.
+
+The above discussion shows that there may be some uncertainty regarding=20
+just how potent blue meanies are. Nonetheless, a good rule of thumb is that=
+=20
+they are generally quite potent. This means you should take a lower dosage=
+=20
+of them compared to less potent species of magic mushrooms (assuming you=20
+want a similar intensity of effects).
+
+https://Ricko_swavy8/product/buy-blue-meanies-magic-mushrooms-online/
+
+For example, Erowid lists the following dosages for Psilocybe cubensis, a=
+=20
+medium strength psilocybin mushroom:
+
+Light: 0.25-1 g
+Common: 1-2.5 g
+Strong: 2.5-5 g
+Heavy: 5+ g
+Based on the levels of potency that blue meanies can reach, it is generally=
+=20
+recommended to take half the normal dose of Psilocybe cubensis, and see=20
+what the effects are like.
+
+With this in mind, as well as Erowid=E2=80=99s dosage recommendations for P=
+silocybe=20
+cubensis, the following dosages for blue meanie mushrooms are a good rule=
+=20
+of thumb:
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -159,51 +188,66 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/20386664-e1de-4554-a68e-cb40ec82036cn%40googlegroups.com.
+jailhouse-dev/6e83c25b-e585-47a6-ad58-3d352bf2665bn%40googlegroups.com.
 
-------=_Part_95721_858870707.1717086495171
+------=_Part_117122_473381170.1717086633852
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
-w could that not be the dream?<div>Clean High =E2=80=93 We formulated this =
-chocolate bar to produce a clean high that won=E2=80=99t leave you crashing=
- after the initial peak. shroom chocolate</div><div>True Psychedelic Experi=
-ence -Just cause it doesn=E2=80=99t taste like mushrooms doesn=E2=80=99t me=
-an it=E2=80=99s not mushrooms. You won=E2=80=99t find any drop in the quali=
-ty of your trip, in fact, you may even decide to switch to edibles!</div><d=
-iv>Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doe=
-sn=E2=80=99t necessarily mean you want to be seen stuffing your face with t=
-hem. For those who want to keep it classy and discrete, nibbling on some ch=
-ocolate is the way to go. shroom chocolate bar</div><div>Versatile Dosage =
-=E2=80=93 The combined 3.5g of mushrooms in this chocolate can be broken up=
- for versatile dosage. Each square of this chocolate bar contains approxima=
-tely .6g of Magic Mushrooms, while each bar contains 3.5g. Whether it=E2=80=
-=99s a micro-dose or a full-on journey, this chocolate bar has got you cove=
-red. shroom chocolate bar</div><div><br /></div><div>https://t.me/Ricko_swa=
-vy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><br /></div><=
-div>Buy Good Trip Mushroom Chocolate Bars Online</div><div>Have you ever wi=
-shed mushrooms tasted better? We=E2=80=99re here to grant that wish by brin=
-ging you our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresisti=
-ble also, contains a total of 3.5g of Magic Mushrooms ( 6 grams per chocola=
-te square). And can be broken off into squares for flexible shroom dosage.<=
-/div><div><br /></div><div>https://t.me/Ricko_swavy8/product/good-trip-milk=
--chocolate-bars-for-sale/</div><div><br /></div><div>IT has an awesome tast=
-e and smells good too chocolate. Good Trip Mushroom Chocolate Bars makes yo=
-u trip your face off. So, how could that not be the dream?. =E2=80=A2</div>=
-<div><br /></div><div>https://t.me/Ricko_swavy8/product/good-trip-milk-choc=
-olate-bars-for-sale/</div><div><br /></div><div>Clean High =E2=80=93 We for=
-mulated this chocolate bar to produce a clean high that won=E2=80=99t leave=
- you crashing after the initial peak.</div><div><br /></div><div>https://t.=
-me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><=
-br /></div><div>True Psychedelic Experience Just cause it doesn=E2=80=99t t=
-aste like mushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You wo=
-n=E2=80=99t find any drop in the quality of your trip, in fact, you may eve=
-n decide to switch to edibles!</div><div>:Sneaky-Sure, Magic Mushrooms are =
-legal in Canada but that doesn=E2=80=99t necessarily mean you want to be se=
-en stuffing your face with them For those who want to keep it classy and di=
-screte, nibbling on some chocolate is the way to go. shroom chocolate bar =
-=E2=80=A2</div>
+Blue meanie mushrooms (Panaeolus cyanescens, formerly Copelandia cyanescens=
+) =E2=80=94 also known as =E2=80=9Cblue meanies=E2=80=9D =E2=80=94 are a hi=
+ghly potent species of psilocybin mushroom. You will notice, however, that =
+the first part of its scientific name (Panaeolus) is different from other s=
+pecies of magic mushrooms (e.g. Psilocybe cubensis, Psilocybe semilanceata)=
+. This is because it belongs to a different genus. Mushrooms from the genus=
+ Panaeolus are common, and they grow all over the world in tropical and tem=
+perate environments.<div><br /></div><div>Yet while blue meanies mushroom d=
+o not belong to the genus Psilocybe (as most magic mushrooms do), they stil=
+l contain the same psychedelic compounds: psilocybin and psilocin. Many use=
+rs seek out blue meanies mushroom because they are one of the most potent m=
+agic mushrooms, so you don=E2=80=99t need to take as much to achieve desire=
+d effects.</div><div><br /></div><div>https://t.me/Ricko_swavy8/product/buy=
+-blue-meanies-magic-mushrooms-online/</div><div><br /></div><div>Blue Meani=
+e Mushroom Potency</div><div>Are blue meanies mushrooms strong? The short a=
+nswer is an emphatic =E2=80=9Cyes=E2=80=9D. But you=E2=80=99ll likely want =
+to know just how strong they are.</div><div><br /></div><div>Albert Hofmann=
+ (the Swiss chemist who first synthesized LSD) analyzed Panaeolus cyanescen=
+s in the 1960s (they were then known as Copelandia cyanescens). He found th=
+ey had high concentrations of psilocin but only slight quantities of psiloc=
+ybin.</div><div><br /></div><div>https://t.me/Ricko_swavy8/product/buy-blue=
+-meanies-magic-mushrooms-online/</div><div><br /></div><div>High concentrat=
+ions of psilocin mean that the effects of blue meanies may come on relative=
+ly quickly. This is because psilocin is the psychoactive chemical that caus=
+es psychedelic effects, whereas psilocybin is a prodrug that the body metab=
+olizes into psilocin after ingestion.</div><div><br /></div><div>It is ofte=
+n reported that blue meanies are two to three times the strength of Psilocy=
+be cubensis. But there is little data to support such claims. T.C. Stivje, =
+in 1992, found that they were variable in their potency. They can contain 0=
+.17 to 0.95 percent psilocin and 0.16 to 0.19 psilocybin. Psilocybe cubensi=
+s, for comparison, has been found to have concentrations of psilocin and ps=
+ilocybin ranging from 0.14 and 0.42 percent and 0.37 and 1.30 percent, resp=
+ectively.</div><div><br /></div><div>https://t.me/Ricko_swavy8/product/buy-=
+blue-meanies-magic-mushrooms-online/</div><div><br /></div><div>However, re=
+search from 2010 =E2=80=94 based on commercially grown magic mushrooms seiz=
+ed by German customs authorities =E2=80=94 reveals that the highest total a=
+mounts of psilocin were detected in dried Panaeolus cyanescens, reaching up=
+ to 3.00+/-0.24 mg per 100 mg. This makes modern commercially cultivated st=
+rains of this species the most potent psychedelic mushroom ever described i=
+n published research.</div><div><br /></div><div>The above discussion shows=
+ that there may be some uncertainty regarding just how potent blue meanies =
+are. Nonetheless, a good rule of thumb is that they are generally quite pot=
+ent. This means you should take a lower dosage of them compared to less pot=
+ent species of magic mushrooms (assuming you want a similar intensity of ef=
+fects).</div><div><br /></div><div>https://Ricko_swavy8/product/buy-blue-me=
+anies-magic-mushrooms-online/</div><div><br /></div><div>For example, Erowi=
+d lists the following dosages for Psilocybe cubensis, a medium strength psi=
+locybin mushroom:</div><div><br /></div><div>Light: 0.25-1 g</div><div>Comm=
+on: 1-2.5 g</div><div>Strong: 2.5-5 g</div><div>Heavy: 5+ g</div><div>Based=
+ on the levels of potency that blue meanies can reach, it is generally reco=
+mmended to take half the normal dose of Psilocybe cubensis, and see what th=
+e effects are like.</div><div><br /></div><div>With this in mind, as well a=
+s Erowid=E2=80=99s dosage recommendations for Psilocybe cubensis, the follo=
+wing dosages for blue meanie mushrooms are a good rule of thumb:</div>
 
 <p></p>
 
@@ -214,11 +258,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/20386664-e1de-4554-a68e-cb40ec82036cn%40googlegrou=
+om/d/msgid/jailhouse-dev/6e83c25b-e585-47a6-ad58-3d352bf2665bn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/20386664-e1de-4554-a68e-cb40ec82036cn%40googlegroups.co=
+msgid/jailhouse-dev/6e83c25b-e585-47a6-ad58-3d352bf2665bn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_95721_858870707.1717086495171--
+------=_Part_117122_473381170.1717086633852--
 
-------=_Part_95720_549488134.1717086495171--
+------=_Part_117121_909064568.1717086633852--
