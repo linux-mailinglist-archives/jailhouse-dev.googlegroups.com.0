@@ -1,74 +1,75 @@
-Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBG575OZAMGQEVQQZSSI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBNWA5OZAMGQE5PDL7TI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113b.google.com (mail-yw1-x113b.google.com [IPv6:2607:f8b0:4864:20::113b])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB2128D6EF4
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Jun 2024 10:45:17 +0200 (CEST)
-Received: by mail-yw1-x113b.google.com with SMTP id 00721157ae682-629f8a71413sf46603137b3.1
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Jun 2024 01:45:17 -0700 (PDT)
+Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8D18D6F08
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Jun 2024 10:47:52 +0200 (CEST)
+Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-df7bdb0455bsf4313668276.2
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Jun 2024 01:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717231516; x=1717836316; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717231671; x=1717836471; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oBmfHa9M1cqzqr47B9feupHWHVwTjdOAudhz1hIQKeA=;
-        b=PKMSYGiGHDJWxOVVQb1r4QpR20C5UgWg7BO+RtTag1sWrkJq8Xgq7+qnRQt70DdYqt
-         kfY0VfsrwpXGr3A84cgH1jatjIU4qB+C4qgLfAXwySLV5jU0z75sp1D3ZevtjOJmGP4Q
-         bMnY4AIJmT4Xu0qIF83oYlzlSN2HJ5WHanAkC/6V3qxasb7MdHV7XDPqCNfGf6aRgRIc
-         IPs5nbnHHp/KkTFyLoYZGewwGX/SU+GukKYhXMWKD23JvDoL/H88CjMMI9UyHnUm0N5v
-         uf27IQXgD21awcWln/8mVTVO4Jm7qaU1p4RiZLKguqAJdA6y2hVgbMAgAJh5+FtGqdBy
-         x8dA==
+        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
+        b=wcxuuQUu3GzrycSW1JnlpTeSF7dN+teMiQpgu8zZhJrWkUUP+VflzbyNnPeuX+MsQD
+         CS3DD7C+WUd1MvmmbQdd44vXmuNupoPMuCZyiewXAnV78oFmBa0Fp2EU4IkFFgO3Ttxb
+         oUC1VK3ZAfEjJ9LcVlhpJkpDCz6sMNfb7TnJJ9wMgKRlgtKxoR0xmJ8Wv3g3ofEXLyTa
+         59ffFaemwBKW5TSB15M6bSifc/WVxRuosk1JQ7Jxkphl5A0etdiqrHhOGpgeidncBiU9
+         E9r2GwwO3TsybMslTfG8YEn+EDyPAp42fjCvM62zAXKRylV/gISl00tkNkJZ6FWDocYL
+         Tsvw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717231516; x=1717836316; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717231671; x=1717836471; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=oBmfHa9M1cqzqr47B9feupHWHVwTjdOAudhz1hIQKeA=;
-        b=N2IUe6o3VhM1tpvOxRxwyA8/1tw/w9NXk+O2RXZmrVnHH4R0Le9qxuhUPzX0OwpTCR
-         3hmcz6E9tWFVffwFeN+AqqeV8T14Lgw39EaPGWJEaiF3n2IvkpIsX9NNSpXtYMhG0uN8
-         +fYCDlkjk1tKz31jDlKfehl/XxMfJzNuHfB/ODeKtZAmWJzhVIy4f2sOViGh9A7LmyPH
-         LlTKVh6DUmdlyNtPh1daCLEb4qgaeDJIB1RuW377b6FgRtuDnEKFFhZFPlvteqsqM/5l
-         dgXZubjbDIiYmg9MMN+BkVB4HaYZZdm7YHmHuf6d4luGuzgkEmvxxFSF63p0GjGL60uN
-         0j4A==
+        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
+        b=Iy42I+0P6YJS73uelF4xZQmmCwrOL1U8r1mc/s2eCkIracYbFQD9OCZrRykgWT6Jaj
+         inW68VnZAbJ7g54vrCG/pwfmmicwg7Qy0xOaX5JpGxeSdEzwQHlgzkMHQ5+JKtcecQNK
+         WbNcE5xyGZxRyJADVRHxA4gm/2pLbI9wlzZLiCoiKDbqcduaYlzRUsCRyNfVMbjnQXG9
+         r7wvVfhPontdHNBQ3hIU0GePL6UwUkDLHIg4RMEimTsBg6DBRQZlfWK8+nIVGQuBa2zj
+         1ew6HTnuJ+uktHEfTq3xdgeIJHbt343GpVczygf35sgULyYWaQnAQunnt7OzUcYe7IS0
+         dq8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717231516; x=1717836316;
+        d=1e100.net; s=20230601; t=1717231671; x=1717836471;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=oBmfHa9M1cqzqr47B9feupHWHVwTjdOAudhz1hIQKeA=;
-        b=dejUyV9GGX13ON/AGHy9wSYzmVxqMBINAGNXIbvgWosmeiReLtWyt7ZpUUegYRgyoQ
-         EIQkKykqiqVHUUwvRxueixMWQI0+GtMXG0hi/rQ8+mtzMUy0rgNGmZ87D0TtWuU4FbdX
-         8nZStWv92I21qPcJC6xvsmf+WHLXw8K9m1o41y00qIlkwHN5Xd2gp8PpI/1LqQmgBGLz
-         7Or6eJOm5IuaboLd8rHqotuigZPi6ToDbgucqVa23ebdYri6hxH7Om6t0M9FwJh4tavh
-         ru5ZbzOW4bs1hpPbgZ3tuYvPgl3AdeheprWNBc8rED6Atr7RvjJmC6IokTUAssG6tPoS
-         fvfg==
+        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
+        b=Ga/DR4KmO2ccgSMWbvn11B33lYXUM7ErOTEapF5lClofkAJaD/0RyzQqJkHuA0Dyf1
+         fd7ROxMav4G2zKEEzfh0kqmaoiQJ95NRNMTdmRpVPetu16mkZV0QDqdKjEBz7qhNZOix
+         2ZAYOVnCbzt6RRecmfczdDP8DleixENPiDpsKAXdnc3Iedg1Je96jZKxlyfmLmIiTSzT
+         LIgvsDuBcGWcEH4QESDmh0aBXzSSa9GNMZCyxFxuZvUYSQJMV4VwHARVnrU5YPOWfaTJ
+         IWl+ewZx+kUTg/gA7KcoFNkkCRONA2bty0RHPVG6eAN4Cny3lhlE2HZzVRty5q22chu7
+         U+0A==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXcvsqyRueI5suN0iv5ZRr34TRrAa2ml6KsIvyYn0XZEJOy2Z+1nOKRoRLEUiGPPuMSI0/1cdGn3ZSYUFdxzq4UTxEAqdlxcYpu2Ug=
-X-Gm-Message-State: AOJu0YzaTDnl1m5Bbc843aYMvDeh7loY/oWKJL5r6+4Cs8xdugIALLd/
-	CrbxOtx//KppBujO6elqP3YgKf6oYcuFXw8zPbwq0rs2FF1EjJU0
-X-Google-Smtp-Source: AGHT+IHkW37Fr/j9+4e9dL3DeSFq/iJXCeJ1rZQdkMDXcz3u0QHGZ3ZWYzgEfRCXYrCYjDd1d9EL+g==
-X-Received: by 2002:a25:ac95:0:b0:df4:ab39:8c1f with SMTP id 3f1490d57ef6-dfa73dd2735mr4172835276.53.1717231516414;
-        Sat, 01 Jun 2024 01:45:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWSc4EmZEjqKe8ew6d+QDUfWG2zg9cz5SCY6qArFMAjS6sOw9xp+kjFtCPnxgzAP4+scMUwbFK+JJWuzh+g53DT7gB7uxlI9OcsCN4=
+X-Gm-Message-State: AOJu0YxRBcV8xk423Zx8TMw4P5/RMy/V6m9wNFVLQMK+qi1R3FvCFN2K
+	EtHJg4tHr8I1gVq3iU2VQWULOAKYa9V74UzDSL27CaseqDxHRSqd
+X-Google-Smtp-Source: AGHT+IEsMMx/uHuDfikgbi9ClbrEwn6j3YXw0OBmwQofTUuUVnXALKde1Mg0vdMz/5Ol9N3KQcTGfw==
+X-Received: by 2002:a25:b192:0:b0:de4:8c46:e7f9 with SMTP id 3f1490d57ef6-dfa73c4e6acmr4221795276.31.1717231671395;
+        Sat, 01 Jun 2024 01:47:51 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:b324:0:b0:df4:e1a7:3170 with SMTP id 3f1490d57ef6-dfa59b0029dls2421678276.2.-pod-prod-03-us;
- Sat, 01 Jun 2024 01:45:15 -0700 (PDT)
-X-Received: by 2002:a05:690c:4b07:b0:627:a961:caee with SMTP id 00721157ae682-62c796b1075mr8822027b3.4.1717231514459;
-        Sat, 01 Jun 2024 01:45:14 -0700 (PDT)
-Date: Sat, 1 Jun 2024 01:45:13 -0700 (PDT)
+Received: by 2002:a25:a447:0:b0:dfa:56ce:d390 with SMTP id 3f1490d57ef6-dfa595a7d94ls1071107276.0.-pod-prod-08-us;
+ Sat, 01 Jun 2024 01:47:50 -0700 (PDT)
+X-Received: by 2002:a05:690c:6d0d:b0:627:e228:e72f with SMTP id 00721157ae682-62c7985e81bmr10410367b3.9.1717231669650;
+        Sat, 01 Jun 2024 01:47:49 -0700 (PDT)
+Date: Sat, 1 Jun 2024 01:47:48 -0700 (PDT)
 From: Dwayne Mickey <dwnmickey@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3a2fedea-7608-4eef-9b1d-ec5efe8ae518n@googlegroups.com>
-In-Reply-To: <cfc43845-9041-40e0-81f6-d71886acd878n@googlegroups.com>
-References: <c1903dda-39bd-4ef8-97e2-0c2c0864a962n@googlegroups.com>
- <cfc43845-9041-40e0-81f6-d71886acd878n@googlegroups.com>
-Subject: Re: ORDER CLONE CARDS ONLINE SWIFT CASHOUT FROM THE ATM MACHINE
+Message-Id: <3d207a08-0b5e-445a-bb57-56e4822bc388n@googlegroups.com>
+In-Reply-To: <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
+References: <795dc3b1-be89-41c7-9671-d30f85711eaan@googlegroups.com>
+ <0f3f8043-7aa0-4029-a9cc-8bf645291972n@googlegroups.com>
+ <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
+Subject: Re: BUY MAGIC MUSHROOM ONLINE AUSTRALIA
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_128506_1641409774.1717231513798"
+	boundary="----=_Part_305512_1866166430.1717231668966"
 X-Original-Sender: dwnmickey@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,108 +83,88 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_128506_1641409774.1717231513798
+------=_Part_305512_1866166430.1717231668966
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_128507_346535190.1717231513799"
+	boundary="----=_Part_305513_710280214.1717231668966"
 
-------=_Part_128507_346535190.1717231513799
+------=_Part_305513_710280214.1717231668966
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Penis Envy magic mushrooms are three times more potent than other=20
+mushrooms. The effects of Penis Envy magic mushrooms may come on quickly=20
+due to higher levels of psilocin than psilocybin.
+About Penis Envy
+Penis Envy magic mushrooms can impact you differently based upon a variety=
+=20
+of factors, like your size, weight, your state of health, whether you have=
+=20
+taken them before, the amount you take, and more. The setting in which you=
+=20
+are taking them and who you are with are critical factors. Being in nature,=
+=20
+in a safe, calm and tranquil setting, with no pending pressures or=20
+obligations is ideal for the user.=20
 
-Get at me for your low & high balance clone cards going for cool prices.
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+Trip Level 0: Microdosing
+Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushrooms =E2=80=93 A micro-=
+dose is a=20
+sub-perceptual amount of mushrooms. Take this every 2-3 days to boost=20
+creativity or feel less anxious. Microdosing trip levels capsules. Added as=
 =20
-Clone cards are spammed credit cards with clean funds. My clone cards are=
+level 0, it=E2=80=99s meant to be taken along with your day-to-day routine.
+Trip Level 1: Happy go lucky
+Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effect=
+s are mild and=20
+similar to being high on weed. Music starts to feel better, strangers seem=
 =20
-available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F a=
-nd can be used for online=20
-purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F
-$300 for balance $2k
-$400 for balance $5K
-$500for balance $7k
-$700 for balance $10k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-High balance
-$1k for balance $15k
-$3k for balance $30k
-$5k balance $50k
-$7k for balance $ 75k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-=E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB
-
-=E2=80=A2 Swift Delivery On DHL & FedEx express
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-
-Text me now and make your
-On Friday, May 31, 2024 at 12:29:15=E2=80=AFAM UTC+1 Will Smichel wrote:
-
-> Get at me for your low & high balance clone cards going for cool prices.=
+more friendly and the mind is able to lose some control. You could have=20
+mild visual enhancements or some sound distortion, but these will be subtle=
+.
+Trip Level 2: Beginner=E2=80=99s paradise
+Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consistent=
+ sensorial=20
+accentuation, colors becoming brighter and a light body high. Level 2 can=
 =20
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+be a more intense form of Trip Level 1, but with the right dosage it can be=
 =20
-> Clone cards are spammed credit cards with clean funds. My clone cards are=
+something more. Be prepared for the beginnings of visual and auditory=20
+hallucinations: objects moving and coming to life along with geometrical=20
+forms when you close your eyes. It will be harder to concentrate and=20
+communicate and you will notice an increase in creativity along with an=20
+enhanced sensation, lightness and euphoria.
+Trip Level 3: Classic psychedelic trip
+Recommended dosage: 1.5 =E2=80=93 3 g. dried mushrooms =E2=80=93 Trip Level=
+ 3 is great for=20
+beginners who want to jump in the =E2=80=9Creal=E2=80=9D psychedelic experi=
+ence, without=20
+overdoing the dosage. This level is where visual hallucinations along with=
 =20
-> available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F=
- and can be used for online=20
-> purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F $300=20
-> for balance $2k $400 for balance $5K $500for balance $7k $700 for balance=
+the appearance of patterns and fractals will be evident. No more hinting or=
 =20
-> $10k=20
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
- =20
-> High balance $1k for balance $15k $3k for balance $30k $5k balance $50k $=
-7k=20
-> for balance $ 75k=20
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+subtle flashes of visuals, it=E2=80=99s happening for real. The surface of =
+the=20
+object you=E2=80=99re observing will become shiny and moving, as your field=
+ of=20
+depth is altered. Distortions in the aptitude to measure the passage of=20
+time, might cause an 1 hour to feel like an eternity.
+Level 4: Flying with the stars https:t.me/Ricko_swavy8
+Recommended dosage: 3 =E2=80=93 4 g. dried mushrooms =E2=80=93 Strong hallu=
+cinations take=20
+over: a psychedelic flood of shapes, contours and colors will blend=20
+together and hit the shores of your consciousness. There=E2=80=99s no stopp=
+ing the=20
+waves in Level 4. There will be some moments when you will lose touch=20
+reality. Random, non-existent objects will appear and the concept of time=
 =20
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+will fade away to the background. Intriguing to some, scary to others, this=
 =20
-> =E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB  =E2=80=A2 Swift Delivery On=
- DHL & FedEx express=20
-> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
- =20
-> Text me now and make your
->
-> On Thursday, May 30, 2024 at 6:24:19=E2=80=AFPM UTC+1 Williams Baylor wro=
-te:
->
->> Get at me for your low & high balance clone cards going for cool prices.
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/=20
->> Clone cards are spammed credit cards with clean funds. My clone cards ar=
-e=20
->> available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=
-=8F and can be used for online=20
->> purchases. Our clone card comes with an ATM pin for easy cash outs =E2=
-=84=A2=EF=B8=8F
->> $300 for balance $2k
->> $400 for balance $5K
->> $500for balance $7k
->> $700 for balance $10k
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->> High balance
->> $1k for balance $15k
->> $3k for balance $30k
->> $5k balance $50k
->> $7k for balance $ 75k
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->> =E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB
->>
->> =E2=80=A2 Swift Delivery On DHL & FedEx express
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->
+is the level where psychedelics can really be powerful, life-altering and=
+=20
+mind expanding. Keep in mind that this dosage is only recommend for=20
+experience users.
+Level 5
+:https:t.me/Ricko_swavy8
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -191,121 +172,58 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3a2fedea-7608-4eef-9b1d-ec5efe8ae518n%40googlegroups.com.
+jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegroups.com.
 
-------=_Part_128507_346535190.1717231513799
+------=_Part_305513_710280214.1717231668966
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Get at me for your low &amp; high balance clone cards going for cool =
-prices.<div>https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars=
--for-sale/ Clone cards are spammed credit cards with clean funds. My clone =
-cards are available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=
-=EF=B8=8F and can be used for online purchases. Our clone card comes with a=
-n ATM pin for easy cash outs =E2=84=A2=EF=B8=8F</div><div>$300 for balance =
-$2k</div><div>$400 for balance $5K</div><div>$500for balance $7k</div><div>=
-$700 for balance $10k</div><div>https://t.me/Ricko_swavy8/product/good-trip=
--milk-chocolate-bars-for-sale/</div><div><br /></div><div>High balance</div=
-><div>$1k for balance $15k</div><div>$3k for balance $30k</div><div>$5k bal=
-ance $50k</div><div>$7k for balance $ 75k</div><div>https://t.me/Ricko_swav=
-y8/product/good-trip-milk-chocolate-bars-for-sale/</div><div>https://t.me/R=
-icko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div>=E2=
-=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB</div><div><br /></div><div>=E2=80=
-=A2 Swift Delivery On DHL &amp; FedEx express</div><div>https://t.me/Ricko_=
-swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><br /></di=
-v><div>Text me now and make your</div><div class=3D"gmail_quote"><div dir=
-=3D"auto" class=3D"gmail_attr">On Friday, May 31, 2024 at 12:29:15=E2=80=AF=
-AM UTC+1 Will Smichel wrote:<br/></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padd=
-ing-left: 1ex;">Get at me for your low &amp; high balance clone cards going=
- for cool prices.
-<a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171731787=
-0270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/</a> Clone cards are spammed =
-credit cards with clean funds. My clone cards are available for cash out in=
- ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F and can be used for online=
- purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F
-$300 for balance $2k
-$400 for balance $5K
-$500for balance $7k
-$700 for balance $10k
-<a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171731787=
-0270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/</a>=C2=A0
-High balance
-$1k for balance $15k
-$3k for balance $30k
-$5k balance $50k
-$7k for balance $ 75k
-<a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171731787=
-0270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/</a>
-<a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171731787=
-0270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/</a>
-=E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB=C2=A0
-=E2=80=A2 Swift Delivery On DHL &amp; FedEx express
-<a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D171731787=
-0270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/</a>=C2=A0
-Text me now and make your<br><br><div class=3D"gmail_quote"><div dir=3D"aut=
-o" class=3D"gmail_attr">On Thursday, May 30, 2024 at 6:24:19=E2=80=AFPM UTC=
-+1 Williams Baylor wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
-1ex">Get at me for your low &amp; high balance clone cards going for cool p=
-rices.<br><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-choco=
-late-bars-for-sale/" rel=3D"nofollow" target=3D"_blank" data-saferedirectur=
-l=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/p=
-roduct/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=
-=3D1717317870270000&amp;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ri=
-cko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</a> Clone cards =
-are spammed credit cards with clean funds. My clone cards are available for=
- cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F and can be use=
-d for online purchases. Our clone card comes with an ATM pin for easy cash =
-outs =E2=84=A2=EF=B8=8F<br>$300 for balance $2k<br>$400 for balance $5K<br>=
-$500for balance $7k<br>$700 for balance $10k<br><a href=3D"https://t.me/Ric=
-ko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" rel=3D"nofollow"=
- target=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3D=
-en&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-=
-for-sale/&amp;source=3Dgmail&amp;ust=3D1717317870270000&amp;usg=3DAOvVaw1QQ=
-iv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/product/good-trip-milk-choco=
-late-bars-for-sale/</a><br><br>High balance<br>$1k for balance $15k<br>$3k =
-for balance $30k<br>$5k balance $50k<br>$7k for balance $ 75k<br><a href=3D=
-"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/"=
- rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.goo=
-gle.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-mil=
-k-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717317870270000&am=
-p;usg=3DAOvVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/product/goo=
-d-trip-milk-chocolate-bars-for-sale/</a><br><a href=3D"https://t.me/Ricko_s=
-wavy8/product/good-trip-milk-chocolate-bars-for-sale/" rel=3D"nofollow" tar=
-get=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&a=
-mp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-=
-sale/&amp;source=3Dgmail&amp;ust=3D1717317870270000&amp;usg=3DAOvVaw1QQiv1K=
-UmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate=
--bars-for-sale/</a><br>=E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB<br><br>=
-=E2=80=A2 Swift Delivery On DHL &amp; FedEx express<br><a href=3D"https://t=
-.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" rel=3D"no=
-follow" target=3D"_blank" data-saferedirecturl=3D"https://www.google.com/ur=
-l?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-chocolat=
-e-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717317870270000&amp;usg=3DAO=
-vVaw1QQiv1KUmQYNhMrDmyFQ-0">https://t.me/Ricko_swavy8/product/good-trip-mil=
-k-chocolate-bars-for-sale/</a><br></blockquote></div></blockquote></div>
+Penis Envy magic mushrooms are three times more potent than other mushrooms=
+.  The effects of Penis Envy magic mushrooms may come on quickly due to hig=
+her levels of psilocin than psilocybin.<div>About Penis Envy</div><div>Peni=
+s Envy magic mushrooms can impact you differently based upon a variety of f=
+actors, like your size, weight, your state of health, whether you have take=
+n them before, the amount you take, and more.  The setting in which you are=
+ taking them and who you are with are critical factors.  Being in nature, i=
+n a safe, calm and tranquil setting, with no pending pressures or obligatio=
+ns is ideal for the user.=C2=A0</div><div><br /></div><div>Trip Level 0: Mi=
+crodosing</div><div>Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushroom=
+s =E2=80=93 A micro-dose is a sub-perceptual amount of mushrooms. Take this=
+ every 2-3 days to boost creativity or feel less anxious. Microdosing trip =
+levels capsules. Added as level 0, it=E2=80=99s meant to be taken along wit=
+h your day-to-day routine.</div><div>Trip Level 1: Happy go lucky</div><div=
+>Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effec=
+ts are mild and similar to being high on weed. Music starts to feel better,=
+ strangers seem more friendly and the mind is able to lose some control. Yo=
+u could have mild visual enhancements or some sound distortion, but these w=
+ill be subtle.</div><div>Trip Level 2: Beginner=E2=80=99s paradise</div><di=
+v>Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consiste=
+nt sensorial accentuation, colors becoming brighter and a light body high. =
+Level 2 can be a more intense form of Trip Level 1, but with the right dosa=
+ge it can be something more. Be prepared for the beginnings of visual and a=
+uditory hallucinations: objects moving and coming to life along with geomet=
+rical forms when you close your eyes. It will be harder to concentrate and =
+communicate and you will notice an increase in creativity along with an enh=
+anced sensation, lightness and euphoria.</div><div>Trip Level 3: Classic ps=
+ychedelic trip</div><div>Recommended dosage: 1.5 =E2=80=93 3 g. dried mushr=
+ooms =E2=80=93 Trip Level 3 is great for beginners who want to jump in the =
+=E2=80=9Creal=E2=80=9D psychedelic experience, without overdoing the dosage=
+. This level is where visual hallucinations along with the appearance of pa=
+tterns and fractals will be evident. No more hinting or subtle flashes of v=
+isuals, it=E2=80=99s happening for real. The surface of the object you=E2=
+=80=99re observing will become shiny and moving, as your field of depth is =
+altered. Distortions in the aptitude to measure the passage of time, might =
+cause an 1 hour to feel like an eternity.</div><div>Level 4: Flying with th=
+e stars https:t.me/Ricko_swavy8</div><div>Recommended dosage: 3 =E2=80=93 4=
+ g. dried mushrooms =E2=80=93 Strong hallucinations take over: a psychedeli=
+c flood of shapes, contours and colors will blend together and hit the shor=
+es of your consciousness. There=E2=80=99s no stopping the waves in Level 4.=
+ There will be some moments when you will lose touch reality. Random, non-e=
+xistent objects will appear and the concept of time will fade away to the b=
+ackground. Intriguing to some, scary to others, this is the level where psy=
+chedelics can really be powerful, life-altering and mind expanding. Keep in=
+ mind that this dosage is only recommend for experience users.</div><div>Le=
+vel 5</div><div>:https:t.me/Ricko_swavy8<br /><br /></div>
 
 <p></p>
 
@@ -316,11 +234,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3a2fedea-7608-4eef-9b1d-ec5efe8ae518n%40googlegrou=
+om/d/msgid/jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3a2fedea-7608-4eef-9b1d-ec5efe8ae518n%40googlegroups.co=
+msgid/jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_128507_346535190.1717231513799--
+------=_Part_305513_710280214.1717231668966--
 
-------=_Part_128506_1641409774.1717231513798--
+------=_Part_305512_1866166430.1717231668966--
