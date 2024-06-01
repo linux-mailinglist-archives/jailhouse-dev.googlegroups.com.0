@@ -1,72 +1,76 @@
-Return-Path: <jailhouse-dev+bncBDP6NU6J6UIRBMPC5CZAMGQEDVVXQFY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBNVW5OZAMGQEHIOHLCY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3b.google.com (mail-yb1-xb3b.google.com [IPv6:2607:f8b0:4864:20::b3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8688D6A9D
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 22:21:07 +0200 (CEST)
-Received: by mail-yb1-xb3b.google.com with SMTP id 3f1490d57ef6-dfa74b25755sf1880507276.1
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 31 May 2024 13:21:07 -0700 (PDT)
+Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
+	by mail.lfdr.de (Postfix) with ESMTPS id 045188D6EDE
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Jun 2024 10:26:32 +0200 (CEST)
+Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-dfa84f6a603sf885707276.3
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Jun 2024 01:26:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717186866; x=1717791666; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717230391; x=1717835191; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rqPSuEcLxQwtS5yM2NWL9Zxev9RYS9v/t2ayAG6v29M=;
-        b=D/NxLp1lMfnysb27bHzNhS2goTOd6tXzAUSVR9Bp3gzaKgxv/QYheS5P9dNs6XjX/C
-         UzdbdcZR8OwlA/B7xuWooCc6aDrjfp3QZk6bslwtccdACaxPbS2afjUfbBJyX7bVxDOF
-         KwAmT0eroISr8lzc4Zw0oJNFxUVZD3fxHZ+waUK/sVXBwLQvD53BveSe57tlAZCqspdC
-         bGRzBCwlVtRHrNSfGrgd09Tz93aggkP2FTOWBixNg1JcnmG9CmhCIJKz9KaQbpC5T3M6
-         PYw76rC5VyNUe1/uJIdvAdSnpBcPNs5qLgetlzQ7mfDjy77vbRkq0SJDOSxJ0iTQb8ci
-         CmeQ==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ielmu99nWcSQnEq8XEcwyn0kfw1Jyo5n2l8ZKk6vh48=;
+        b=PmhKzcxpyhkWp597+80EzrKwYz246SDg8uzvQwOasy7t4pDVhxNnepe4HmCnajF1d+
+         6qoDtX4nqljrbKzvjWDgfPyxjr+g+J+nvkBZHsoZI7hHkHXUunds4710rj47VbGvzSSy
+         BcU1hTJifTvynsAls3Z2RQm6CrlB8/SbuYj+nQoS0kqTFJTk6gtAETXRvqn0Jv/6qzmF
+         ZeGXDuY+wyO+N5hms909BGOnB/sgslpKMGZ1Sk9m9h208m2rU1OT28d+PkQhTjeyXSmk
+         2iHFy3S6C3VhW4wwyA2OvAby3f8n9qywXuD5Lnbbn1krbjAVlbex57C2QODu7mBB9aJE
+         RimA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717186866; x=1717791666; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717230391; x=1717835191; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rqPSuEcLxQwtS5yM2NWL9Zxev9RYS9v/t2ayAG6v29M=;
-        b=Oywo9YZ4mRy3OjBDbyml5k/qsfKnIp2GR6gJYYAXUzePnLbZjgVFGNOvIJOubSQvvJ
-         toisAyw7B+l1eJKcFYNEjUerAh8SGUYasL6g+Lne9C626JnV+7b0LU6uhKrmJmoulJVK
-         naU7E5XpzXSMWD5/cUvrdule+cTjCT6Iv4wf+vOiO4eQlDZ40lakrixPpGwIn/4caFhi
-         RHkjB8BDNbocaVUwLkqINe3xWWPLiCPhCcMP0Vj+rdmDVg3sATuD5G0AyxU8O0Ockap1
-         7dflXtj2VuUJzp4lS0U71ORyFtN4hTOj5R/EguQZFhTRJHlJr0TSAO47fFlQdGV8vVXG
-         SyWA==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ielmu99nWcSQnEq8XEcwyn0kfw1Jyo5n2l8ZKk6vh48=;
+        b=Wk0S9RBNAY+19Ls/wp01BCVbaflQLoppFyZft26b5MVtOyeJ4byM5byC+2fjQ+xSbM
+         ZcsMy38mejgHZHxtLhztEc/j7kLMCKOcDAz16Cc9zCDiEGmL4u8iEnZUWJv4vaUg/M+S
+         wYX0GEh4/TGes1hDIzziWHbbMXrKPiwnpr6MKTdD4VD3jHyhHL4DalbCfEUzD1iVJDeQ
+         oAY75TUbAxdD18tkqZD5VHJWd3qzHDj/OBEmKPgpznmaIIDvlN6DKKDx1fPueXPj/4Xs
+         k7FTHscX5W2ejRb0YkpvwE1IuuWbiGvP6n2uHPXmgDKOYCc+0gGbXe/R8tN6IFlwPVkO
+         Ujtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717186866; x=1717791666;
+        d=1e100.net; s=20230601; t=1717230391; x=1717835191;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rqPSuEcLxQwtS5yM2NWL9Zxev9RYS9v/t2ayAG6v29M=;
-        b=g334c3n5tnYkf7gM6rNOIkG7xibvmEDk299GmzqiIPfbgyC4J6qEXovJuFCkBkGbss
-         U9QKJYpjkdF9OZOPQdZyVng28Ls0EpGSE0q84Ph8kFTS90LSDnb91036wNTxGOOEiUxU
-         IF/IQ/sHbj6gWGb7A1VpWvVt0wCZgrZj+tL+6zUd7BU+r5fFaGsqIiY/o97EyNm/qFFk
-         HyQXiz+6xwcG3E6PO+eBmkujUkcYWkLCgxFAQRa/eIf2XE+txuVwd+VxKl4ZtJBf9zqO
-         omFnxlpn54b6/r3XlbpNg6Lburq+RAdrLkNpM0Hv9RTL3VSfZS2NYKMi/p242uDQ/ErH
-         G7Bg==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ielmu99nWcSQnEq8XEcwyn0kfw1Jyo5n2l8ZKk6vh48=;
+        b=QXykzIGZ6yMNHDO2J5Yv7cCGCkd9+vQXM/SsE0ae3m/G8/l2yxKZOJL2gR9qrH0JIO
+         AJ2Spj4dTp6g29G+ncth+eh8tkdUSopf2qFaxWJLmncNa1bmv7oIfSLy5XHXF3xNZlMh
+         ab1N2oZik9kl8TMipjQrt2+C538AHUtSlErdZIfYKVJLBOZzHZq7RhOrVgR4aDO5pfJK
+         jZCpMjrM13OOQJDeqALE5/o23JO3FESpm3Bp+NUY/uzomrCC4XpM6nO8NI/uvk9yJ420
+         Ny47RuePYBa13kBjtshcJu7AEt58sYiq87U81eAfWwkHzVaQ1V4duiAAFcqvXgEkQqpP
+         4kVQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVDQEwzd/33cEh1bYVOmvyYqCYqI4D0T8CXTSvPM+ecKlEdBc+XRvayr5dqONYXOXJ2ojV9k9Rnzo5OA/H3ipBHA8a+07YLtix7NRU=
-X-Gm-Message-State: AOJu0Ywwq7L4aSjbCxTFAiekrPSXub1bomjOc3346UgcBZFTeUP/SsBz
-	YYVjaloBZOtZCmBeyLPP+US/z+7X78U8M5L4XNTUiko54t+zgGug
-X-Google-Smtp-Source: AGHT+IEWK3G83GWl9ivA14l+gb21TzL0CevJjdypEbAvtCo7px4g8BfhiZ2kmvCd6KOXi/8fc0sNsQ==
-X-Received: by 2002:a25:5546:0:b0:df6:889:a79c with SMTP id 3f1490d57ef6-dfa73ddada3mr2775829276.54.1717186866332;
-        Fri, 31 May 2024 13:21:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUmjOTe/SFSRLjkcsTeBUNIWD0Pk5bm38VBj0z9KqEw7odTIlt9bEVilWYrk0ZD6FMACdK7VeRgQ6Eth9cl+c3JvvoEYtaAeB3WGbA=
+X-Gm-Message-State: AOJu0YyWLQGmVrdYGdfheng2KVEQTE3vdnOtQBqs2O6OBABIeYn7iBvt
+	hHZawIz05J7/2zJ9djRJlNMuv+WkvX4S+nMkARDgEL6DPhRQMeQs
+X-Google-Smtp-Source: AGHT+IEIGlM5N38RCEYUccL3O9kGVkqOAyCYtfgePme+l3E9UEQI0KJ/sdNYIl00CUfJNasu/iMCGg==
+X-Received: by 2002:a25:bc85:0:b0:dee:6525:7424 with SMTP id 3f1490d57ef6-dfa73c13b4dmr3863994276.25.1717230391623;
+        Sat, 01 Jun 2024 01:26:31 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:a405:0:b0:df4:dbdd:41f5 with SMTP id 3f1490d57ef6-dfa595a5b55ls587682276.0.-pod-prod-05-us;
- Fri, 31 May 2024 13:21:05 -0700 (PDT)
-X-Received: by 2002:a05:6902:1103:b0:df7:a340:45e5 with SMTP id 3f1490d57ef6-dfa73d85d7emr403129276.9.1717186864848;
-        Fri, 31 May 2024 13:21:04 -0700 (PDT)
-Date: Fri, 31 May 2024 13:21:04 -0700 (PDT)
-From: James Maria <mariaborn90@gmail.com>
+Received: by 2002:a25:8e08:0:b0:df4:dad1:987f with SMTP id 3f1490d57ef6-dfa59ad44d5ls570060276.1.-pod-prod-09-us;
+ Sat, 01 Jun 2024 01:26:30 -0700 (PDT)
+X-Received: by 2002:a05:6902:18d4:b0:dfa:6e39:95c6 with SMTP id 3f1490d57ef6-dfa73e312ccmr1009501276.8.1717230390066;
+        Sat, 01 Jun 2024 01:26:30 -0700 (PDT)
+Date: Sat, 1 Jun 2024 01:26:28 -0700 (PDT)
+From: Dwayne Mickey <dwnmickey@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <0d5bcadd-3632-4f7d-999d-15f9c8486ab0n@googlegroups.com>
-Subject: BEST PLACE TO BUY MDMA, LSD, WAX, MUSHROOMS GUMMIES ONLINE IN MIAMI
+Message-Id: <aa79214c-06f5-482d-9b3a-18cdfd9a1909n@googlegroups.com>
+In-Reply-To: <b233e3c5-c126-4ff1-a109-8d2862e939ee@googlegroups.com>
+References: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
+ <b233e3c5-c126-4ff1-a109-8d2862e939ee@googlegroups.com>
+Subject: Re: jailhouse + ZCU102 V1.0 + second UART problem + petalinux
+ 2017.4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_48142_1063806716.1717186864287"
-X-Original-Sender: mariaborn90@gmail.com
+	boundary="----=_Part_269470_967507538.1717230388868"
+X-Original-Sender: dwnmickey@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,164 +83,214 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_48142_1063806716.1717186864287
+------=_Part_269470_967507538.1717230388868
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_48143_1728174030.1717186864287"
+	boundary="----=_Part_269471_2005836325.1717230388868"
 
-------=_Part_48143_1728174030.1717186864287
+------=_Part_269471_2005836325.1717230388868
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Golden Teacher mushroom is a popular strain of psilocybin mushrooms, 
-scientifically known as Psilocybe cubensis. This strain is well-known and 
-often sought after by cultivators and users in the psychedelic community 
-due to its relatively easy cultivation and moderate potency.
+Penis Envy magic mushrooms are three times more potent than other=20
+mushrooms. The effects of Penis Envy magic mushrooms may come on quickly=20
+due to higher levels of psilocin than psilocybin.
+About Penis Envy
+Penis Envy magic mushrooms can impact you differently based upon a variety=
+=20
+of factors, like your size, weight, your state of health, whether you have=
+=20
+taken them before, the amount you take, and more. The setting in which you=
+=20
+are taking them and who you are with are critical factors. Being in nature,=
+=20
+in a safe, calm and tranquil setting, with no pending pressures or=20
+obligations is ideal for the user.=20
 
-am a supplier of good top quality medicated cannabis , peyote, MDMA, 
-Ketamine carts,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, dabs,THC 
-gummies, codine, syrup,wax, crumble catrages,hash, chocolate bars, flowers 
-and many more.
-tapin our telegram for quick response.
+Trip Level 0: Microdosing
+Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushrooms =E2=80=93 A micro-=
+dose is a=20
+sub-perceptual amount of mushrooms. Take this every 2-3 days to boost=20
+creativity or feel less anxious. Microdosing trip levels capsules. Added as=
+=20
+level 0, it=E2=80=99s meant to be taken along with your day-to-day routine.
+Trip Level 1: Happy go lucky
+Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effect=
+s are mild and=20
+similar to being high on weed. Music starts to feel better, strangers seem=
+=20
+more friendly and the mind is able to lose some control. You could have=20
+mild visual enhancements or some sound distortion, but these will be subtle=
+.
+Trip Level 2: Beginner=E2=80=99s paradise
+Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consistent=
+ sensorial=20
+accentuation, colors becoming brighter and a light body high. Level 2 can=
+=20
+be a more intense form of Trip Level 1, but with the right dosage it can be=
+=20
+something more. Be prepared for the beginnings of visual and auditory=20
+hallucinations: objects moving and coming to life along with geometrical=20
+forms when you close your eyes. It will be harder to concentrate and=20
+communicate and you will notice an increase in creativity along with an=20
+enhanced sensation, lightness and euphoria.
+Trip Level 3: Classic psychedelic trip
+Recommended dosage: 1.5 =E2=80=93 3 g. dried mushrooms =E2=80=93 Trip Level=
+ 3 is great for=20
+beginners who want to jump in the =E2=80=9Creal=E2=80=9D psychedelic experi=
+ence, without=20
+overdoing the dosage. This level is where visual hallucinations along with=
+=20
+the appearance of patterns and fractals will be evident. No more hinting or=
+=20
+subtle flashes of visuals, it=E2=80=99s happening for real. The surface of =
+the=20
+object you=E2=80=99re observing will become shiny and moving, as your field=
+ of=20
+depth is altered. Distortions in the aptitude to measure the passage of=20
+time, might cause an 1 hour to feel like an eternity.
+Level 4: Flying with the stars https:t.me/Ricko_swavy8
+Recommended dosage: 3 =E2=80=93 4 g. dried mushrooms =E2=80=93 Strong hallu=
+cinations take=20
+over: a psychedelic flood of shapes, contours and colors will blend=20
+together and hit the shores of your consciousness. There=E2=80=99s no stopp=
+ing the=20
+waves in Level 4. There will be some moments when you will lose touch=20
+reality. Random, non-existent objects will appear and the concept of time=
+=20
+will fade away to the background. Intriguing to some, scary to others, this=
+=20
+is the level where psychedelics can really be powerful, life-altering and=
+=20
+mind expanding. Keep in mind that this dosage is only recommend for=20
+experience users.
+Level 5
+:https:t.me/Ricko_swavy8
 
-Some key characteristics of the Golden Teacher mushroom strain include:
-Appearance: The Golden Teacher strain typically features large, 
-golden-capped mushrooms with a distinct appearance. When mature, the caps 
-can take on a golden or caramel color, while the stem is usually thick and 
-white.
-Potency: Golden Teachers are considered moderately potent among psilocybin 
-mushrooms. Their effects can vary depending on factors such as growing 
-conditions, individual tolerance, and dosage. Users generally report a 
-balance between visual and introspective effects.
-Effects: Like other psilocybin-containing mushrooms, consuming Golden 
-Teacher mushrooms can lead to altered states of consciousness characterized 
-by visual and auditory hallucinations, changes in perception of time and 
-space, introspection, and sometimes a sense of unity or connection with 
-one's surroundings.
-Cultivation: Golden Teachers are favored by cultivators due to their 
-relatively straightforward cultivation process. They are known for being 
-resilient and adaptable, making them a suitable choice for beginners in 
-mushroom cultivation.
+On Thursday, June 28, 2018 at 12:49:45=E2=80=AFPM UTC+1 christophe...@gmail=
+.com=20
+wrote:
 
-Buds, flowers, carts 
-https://t.me/psychedelicvendor17/297
-https://t.me/psychedelicvendor17/296
-https://t.me/psychedelicvendor17/295
-https://t.me/psychedelicvendor17/261
-https://t.me/psychedelicvendor17/133
-https://t.me/psychedelicvendor17/95
-https://t.me/psychedelicvendor17/69
+> hi all,
+>
+> now i can see the output of the console and monitor the linux boot.
+> And of course, linux doesn't boot and stop with a kernel panic :=20
+>
+> [ 9.148409] NET: Registered protocol family 1
+> [ 9.200596] RPC: Registered named UNIX socket transport module.
+> [ 9.271265] RPC: Registered udp transport module.
+> [ 9.327501] RPC: Registered tcp transport module.
+> [ 9.383752] RPC: Registered tcp NFSv4.1 backchannel transport module.
+> [ 9.814860] Kernel panic - not syncing: write error
+> [ 9.872207] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 4.9.0-xilinx-v2017.=
+4=20
+> #2
+> [ 9.957622] Hardware name: Jailhouse cell on ZynqMP ZCU102 (DT)
+> [ 10.028458] Call trace:
+> [ 10.057635] [<ffffff8008088138>] dump_backtrace+0x0/0x198
+> [ 10.122215] [<ffffff80080882e4>] show_stack+0x14/0x20
+> [ 10.182634] [<ffffff80083de594>] dump_stack+0x94/0xb8
+> [ 10.243054] [<ffffff800812e9f8>] panic+0x114/0x25c
+> [ 10.300347] [<ffffff8008cc2d8c>] populate_rootfs+0x40/0x110
+> [ 10.367014] [<ffffff80080830b8>] do_one_initcall+0x38/0x128
+> [ 10.433683] [<ffffff8008cc0c94>] kernel_init_freeable+0x140/0x1e0
+> [ 10.506604] [<ffffff80089494e0>] kernel_init+0x10/0x100
+> [ 10.569104] [<ffffff8008082e80>] ret_from_fork+0x10/0x50
+> [ 10.632647] SMP: stopping secondary CPUs
+> [ 10.679537] ---[ end Kernel panic - not syncing: write error
+>
+> i can see a write error, but i don't know why.
+> i have attached the boot log file.
+>
+> Any hints ?
+>
+> Regards=20
+> C.Alexandre=20
+>
 
-Clone cards 
-https://t.me/psychedelicvendor17/291
-https://t.me/psychedelicvendor17/267
-https://t.me/psychedelicvendor17/263
-https://t.me/psychedelicvendor17/166
-https://t.me/psychedelicvendor17/164
-https://t.me/psychedelicvendor17/88
-https://t.me/psychedelicvendor17/11
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/aa79214c-06f5-482d-9b3a-18cdfd9a1909n%40googlegroups.com.
 
-Mushrooms, penis envy 
-https://t.me/psychedelicvendor17/235?single
-https://t.me/psychedelicvendor17/169?single
-https://t.me/psychedelicvendor17/235?single
-
-Vapes DMT, catrages 
-https://t.me/psychedelicvendor17/4
-https://t.me/psychedelicvendor17/6
-https://t.me/psychedelicvendor17/26?single
-https://t.me/psychedelicvendor17/30?single
-https://t.me/psychedelicvendor17/440?single
-
-MDMA molly 
-https://t.me/psychedelicvendor17/280
-https://t.me/psychedelicvendor17/293
-https://t.me/psychedelicvendor17/157?single
-https://t.me/psychedelicvendor17/441
-
-LSD sheets, blotter 
-https://t.me/psychedelicvendor17/218?single
-https://t.me/psychedelicvendor17/203?single
-https://t.me/psychedelicvendor17/116
-https://t.me/psychedelicvendor17/185
-
-DMT acid, vapes 
-https://t.me/psychedelicvendor17/26?single
-https://t.me/psychedelicvendor17/44
-https://t.me/psychedelicvendor17/45
-https://t.me/psychedelicvendor17/193
-https://t.me/psychedelicvendor17/228
-
-Pills, Xanax edibles 
-https://t.me/psychedelicvendor17/152
-https://t.me/psychedelicvendor17/570
-https://t.me/psychedelicvendor17/554
-
-Hash rosin 
-https://t.me/psychedelicvendor17/576?single
-https://t.me/psychedelicvendor17/337
-
-Gummies 
-https://t.me/dmtcartforsale/276 
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0d5bcadd-3632-4f7d-999d-15f9c8486ab0n%40googlegroups.com.
-
-------=_Part_48143_1728174030.1717186864287
+------=_Part_269471_2005836325.1717230388868
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The Golden Teacher mushroom is a popular strain of psilocybin mushrooms, sc=
-ientifically known as Psilocybe cubensis. This strain is well-known and oft=
-en sought after by cultivators and users in the psychedelic community due t=
-o its relatively easy cultivation and moderate potency.<br /><br />am a sup=
-plier of good top quality medicated cannabis , peyote, MDMA, Ketamine carts=
-,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, dabs,THC gummies, codin=
-e, syrup,wax, crumble catrages,hash, chocolate bars, flowers and many more.=
-<br />tapin our telegram for quick response.<br /><br />Some key characteri=
-stics of the Golden Teacher mushroom strain include:<br />Appearance: The G=
-olden Teacher strain typically features large, golden-capped mushrooms with=
- a distinct appearance. When mature, the caps can take on a golden or caram=
-el color, while the stem is usually thick and white.<br />Potency: Golden T=
-eachers are considered moderately potent among psilocybin mushrooms. Their =
-effects can vary depending on factors such as growing conditions, individua=
-l tolerance, and dosage. Users generally report a balance between visual an=
-d introspective effects.<br />Effects: Like other psilocybin-containing mus=
-hrooms, consuming Golden Teacher mushrooms can lead to altered states of co=
-nsciousness characterized by visual and auditory hallucinations, changes in=
- perception of time and space, introspection, and sometimes a sense of unit=
-y or connection with one's surroundings.<br />Cultivation: Golden Teachers =
-are favored by cultivators due to their relatively straightforward cultivat=
-ion process. They are known for being resilient and adaptable, making them =
-a suitable choice for beginners in mushroom cultivation.<br /><br />Buds, f=
-lowers, carts <br />https://t.me/psychedelicvendor17/297<br />https://t.me/=
-psychedelicvendor17/296<br />https://t.me/psychedelicvendor17/295<br />http=
-s://t.me/psychedelicvendor17/261<br />https://t.me/psychedelicvendor17/133<=
-br />https://t.me/psychedelicvendor17/95<br />https://t.me/psychedelicvendo=
-r17/69<br /><br />Clone cards <br />https://t.me/psychedelicvendor17/291<br=
- />https://t.me/psychedelicvendor17/267<br />https://t.me/psychedelicvendor=
-17/263<br />https://t.me/psychedelicvendor17/166<br />https://t.me/psychede=
-licvendor17/164<br />https://t.me/psychedelicvendor17/88<br />https://t.me/=
-psychedelicvendor17/11<br /><br />Mushrooms, penis envy <br />https://t.me/=
-psychedelicvendor17/235?single<br />https://t.me/psychedelicvendor17/169?si=
-ngle<br />https://t.me/psychedelicvendor17/235?single<br /><br />Vapes DMT,=
- catrages <br />https://t.me/psychedelicvendor17/4<br />https://t.me/psyche=
-delicvendor17/6<br />https://t.me/psychedelicvendor17/26?single<br />https:=
-//t.me/psychedelicvendor17/30?single<br />https://t.me/psychedelicvendor17/=
-440?single<br /><br />MDMA molly <br />https://t.me/psychedelicvendor17/280=
-<br />https://t.me/psychedelicvendor17/293<br />https://t.me/psychedelicven=
-dor17/157?single<br />https://t.me/psychedelicvendor17/441<br /><br />LSD s=
-heets, blotter <br />https://t.me/psychedelicvendor17/218?single<br />https=
-://t.me/psychedelicvendor17/203?single<br />https://t.me/psychedelicvendor1=
-7/116<br />https://t.me/psychedelicvendor17/185<br /><br />DMT acid, vapes =
-<br />https://t.me/psychedelicvendor17/26?single<br />https://t.me/psychede=
-licvendor17/44<br />https://t.me/psychedelicvendor17/45<br />https://t.me/p=
-sychedelicvendor17/193<br />https://t.me/psychedelicvendor17/228<br /><br /=
->Pills, Xanax edibles <br />https://t.me/psychedelicvendor17/152<br />https=
-://t.me/psychedelicvendor17/570<br />https://t.me/psychedelicvendor17/554<b=
-r /><br />Hash rosin <br />https://t.me/psychedelicvendor17/576?single<br /=
->https://t.me/psychedelicvendor17/337<br /><br />Gummies <br />https://t.me=
-/dmtcartforsale/276=C2=A0
+Penis Envy magic mushrooms are three times more potent than other mushrooms=
+.  The effects of Penis Envy magic mushrooms may come on quickly due to hig=
+her levels of psilocin than psilocybin.<div>About Penis Envy</div><div>Peni=
+s Envy magic mushrooms can impact you differently based upon a variety of f=
+actors, like your size, weight, your state of health, whether you have take=
+n them before, the amount you take, and more.  The setting in which you are=
+ taking them and who you are with are critical factors.  Being in nature, i=
+n a safe, calm and tranquil setting, with no pending pressures or obligatio=
+ns is ideal for the user.=C2=A0</div><div><br /></div><div>Trip Level 0: Mi=
+crodosing</div><div>Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushroom=
+s =E2=80=93 A micro-dose is a sub-perceptual amount of mushrooms. Take this=
+ every 2-3 days to boost creativity or feel less anxious. Microdosing trip =
+levels capsules. Added as level 0, it=E2=80=99s meant to be taken along wit=
+h your day-to-day routine.</div><div>Trip Level 1: Happy go lucky</div><div=
+>Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effec=
+ts are mild and similar to being high on weed. Music starts to feel better,=
+ strangers seem more friendly and the mind is able to lose some control. Yo=
+u could have mild visual enhancements or some sound distortion, but these w=
+ill be subtle.</div><div>Trip Level 2: Beginner=E2=80=99s paradise</div><di=
+v>Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consiste=
+nt sensorial accentuation, colors becoming brighter and a light body high. =
+Level 2 can be a more intense form of Trip Level 1, but with the right dosa=
+ge it can be something more. Be prepared for the beginnings of visual and a=
+uditory hallucinations: objects moving and coming to life along with geomet=
+rical forms when you close your eyes. It will be harder to concentrate and =
+communicate and you will notice an increase in creativity along with an enh=
+anced sensation, lightness and euphoria.</div><div>Trip Level 3: Classic ps=
+ychedelic trip</div><div>Recommended dosage: 1.5 =E2=80=93 3 g. dried mushr=
+ooms =E2=80=93 Trip Level 3 is great for beginners who want to jump in the =
+=E2=80=9Creal=E2=80=9D psychedelic experience, without overdoing the dosage=
+. This level is where visual hallucinations along with the appearance of pa=
+tterns and fractals will be evident. No more hinting or subtle flashes of v=
+isuals, it=E2=80=99s happening for real. The surface of the object you=E2=
+=80=99re observing will become shiny and moving, as your field of depth is =
+altered. Distortions in the aptitude to measure the passage of time, might =
+cause an 1 hour to feel like an eternity.</div><div>Level 4: Flying with th=
+e stars https:t.me/Ricko_swavy8</div><div>Recommended dosage: 3 =E2=80=93 4=
+ g. dried mushrooms =E2=80=93 Strong hallucinations take over: a psychedeli=
+c flood of shapes, contours and colors will blend together and hit the shor=
+es of your consciousness. There=E2=80=99s no stopping the waves in Level 4.=
+ There will be some moments when you will lose touch reality. Random, non-e=
+xistent objects will appear and the concept of time will fade away to the b=
+ackground. Intriguing to some, scary to others, this is the level where psy=
+chedelics can really be powerful, life-altering and mind expanding. Keep in=
+ mind that this dosage is only recommend for experience users.</div><div>Le=
+vel 5</div><div>:https:t.me/Ricko_swavy8<br /><br /></div><div class=3D"gma=
+il_quote"><div dir=3D"auto" class=3D"gmail_attr">On Thursday, June 28, 2018=
+ at 12:49:45=E2=80=AFPM UTC+1 christophe...@gmail.com wrote:<br/></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1p=
+x solid rgb(204, 204, 204); padding-left: 1ex;">hi all,<p>now i can see the=
+ output of the console and monitor the linux boot.<br>And of course, linux =
+doesn&#39;t boot and stop with a kernel panic : <p>[    9.148409] NET: Regi=
+stered protocol family 1<br>[    9.200596] RPC: Registered named UNIX socke=
+t transport module.<br>[    9.271265] RPC: Registered udp transport module.=
+<br>[    9.327501] RPC: Registered tcp transport module.<br>[    9.383752] =
+RPC: Registered tcp NFSv4.1 backchannel transport module.<br>[    9.814860]=
+ Kernel panic - not syncing: write error<br>[    9.872207] CPU: 0 PID: 1 Co=
+mm: swapper/0 Not tainted 4.9.0-xilinx-v2017.4 #2<br>[    9.957622] Hardwar=
+e name: Jailhouse cell on ZynqMP ZCU102 (DT)<br>[   10.028458] Call trace:<=
+br>[   10.057635] [&lt;ffffff8008088138&gt;] dump_backtrace+0x0/0x198<br>[ =
+  10.122215] [&lt;ffffff80080882e4&gt;] show_stack+0x14/0x20<br>[   10.1826=
+34] [&lt;ffffff80083de594&gt;] dump_stack+0x94/0xb8<br>[   10.243054] [&lt;=
+ffffff800812e9f8&gt;] panic+0x114/0x25c<br>[   10.300347] [&lt;ffffff8008cc=
+2d8c&gt;] populate_rootfs+0x40/0x110<br>[   10.367014] [&lt;ffffff80080830b=
+8&gt;] do_one_initcall+0x38/0x128<br>[   10.433683] [&lt;ffffff8008cc0c94&g=
+t;] kernel_init_freeable+0x140/0x1e0<br>[   10.506604] [&lt;ffffff80089494e=
+0&gt;] kernel_init+0x10/0x100<br>[   10.569104] [&lt;ffffff8008082e80&gt;] =
+ret_from_fork+0x10/0x50<br>[   10.632647] SMP: stopping secondary CPUs<br>[=
+   10.679537] ---[ end Kernel panic - not syncing: write error<p>i can see =
+a write error, but i don&#39;t know why.<br>i have attached the boot log fi=
+le.<p>Any hints ?<p>Regards <br>C.Alexandre </p></p></p></p></p></blockquot=
+e></div>
 
 <p></p>
 
@@ -247,11 +301,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/0d5bcadd-3632-4f7d-999d-15f9c8486ab0n%40googlegrou=
+om/d/msgid/jailhouse-dev/aa79214c-06f5-482d-9b3a-18cdfd9a1909n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/0d5bcadd-3632-4f7d-999d-15f9c8486ab0n%40googlegroups.co=
+msgid/jailhouse-dev/aa79214c-06f5-482d-9b3a-18cdfd9a1909n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_48143_1728174030.1717186864287--
+------=_Part_269471_2005836325.1717230388868--
 
-------=_Part_48142_1063806716.1717186864287--
+------=_Part_269470_967507538.1717230388868--
