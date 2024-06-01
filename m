@@ -1,75 +1,75 @@
-Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBNWA5OZAMGQE5PDL7TI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRB2OA5OZAMGQEF2XMCIY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B8D18D6F08
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Jun 2024 10:47:52 +0200 (CEST)
-Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-df7bdb0455bsf4313668276.2
-        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Jun 2024 01:47:52 -0700 (PDT)
+Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29F7F8D6F09
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  1 Jun 2024 10:48:43 +0200 (CEST)
+Received: by mail-yb1-xb3c.google.com with SMTP id 3f1490d57ef6-df7a6530373sf5266922276.0
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 01 Jun 2024 01:48:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717231671; x=1717836471; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717231722; x=1717836522; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
-        b=wcxuuQUu3GzrycSW1JnlpTeSF7dN+teMiQpgu8zZhJrWkUUP+VflzbyNnPeuX+MsQD
-         CS3DD7C+WUd1MvmmbQdd44vXmuNupoPMuCZyiewXAnV78oFmBa0Fp2EU4IkFFgO3Ttxb
-         oUC1VK3ZAfEjJ9LcVlhpJkpDCz6sMNfb7TnJJ9wMgKRlgtKxoR0xmJ8Wv3g3ofEXLyTa
-         59ffFaemwBKW5TSB15M6bSifc/WVxRuosk1JQ7Jxkphl5A0etdiqrHhOGpgeidncBiU9
-         E9r2GwwO3TsybMslTfG8YEn+EDyPAp42fjCvM62zAXKRylV/gISl00tkNkJZ6FWDocYL
-         Tsvw==
+        bh=nm5hGXFlAXTNGNQ7fAdJrkGWa9KqiNapNHPNBZSNbjw=;
+        b=D/aIxUq2J0vV/SQL8aTecd0iCeVWuICaXusQu2AtUmhVJkQMSJ6gtPDLtms8fc7BE1
+         pKcVaSafiMHHK/HagF7YNhUAOU0SBpZ+0EMiiu+GgRd4CAkZVHBPkhGajG7loewodljS
+         iEc4X0Acfw0DFSoVBqpdovBMLXLX8L4/vmm0iZAAZmh8Q/a6Tfy1HO7oSkIjKa08+ghn
+         yjbuYpt1wjUdVUxy9+CcWDwHmuqVj5yoiccgE5Xly6dXXE6dcCWIL2a6ZOhpcJIN9ogd
+         r9OENhN8yBRqmIftwJXK0R4hP0+BYm9IyqkYQegeD7FLpqckw9ixQHvBpHF7lOEN0efY
+         19+g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717231671; x=1717836471; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717231722; x=1717836522; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
-        b=Iy42I+0P6YJS73uelF4xZQmmCwrOL1U8r1mc/s2eCkIracYbFQD9OCZrRykgWT6Jaj
-         inW68VnZAbJ7g54vrCG/pwfmmicwg7Qy0xOaX5JpGxeSdEzwQHlgzkMHQ5+JKtcecQNK
-         WbNcE5xyGZxRyJADVRHxA4gm/2pLbI9wlzZLiCoiKDbqcduaYlzRUsCRyNfVMbjnQXG9
-         r7wvVfhPontdHNBQ3hIU0GePL6UwUkDLHIg4RMEimTsBg6DBRQZlfWK8+nIVGQuBa2zj
-         1ew6HTnuJ+uktHEfTq3xdgeIJHbt343GpVczygf35sgULyYWaQnAQunnt7OzUcYe7IS0
-         dq8Q==
+        bh=nm5hGXFlAXTNGNQ7fAdJrkGWa9KqiNapNHPNBZSNbjw=;
+        b=VaVeykNL4Y3529KaqhIODMUtE/2cvTNvrUZ0eSGYADi3jBdjG2csLiuFrkFS7D2rX7
+         EEQ5z8czXeovFS2MPI9tVrHo7QMe+G0khFUKHkz73k7PtfHDV3GIu/hTrI0Ug04ND1Y9
+         Srg3uJ7WyfVNWZs6l2ap+O0kMbPg8dnrh4jhZB2T+WAVJRv+Q6cznLW2urr/SrHmW+0l
+         ZgedePsDnBAzBqj5RLWzO0q7KPVM6N8f2PyWsxuG47T2jfwKd9cAExym9sTxtUoGVzGd
+         CB0iW8clSFqx9dHIz2FgHitSWjEqMYUi7xR9BCN4wL764kdaZqGFgnZAn0p5Fu4mUz1d
+         D/fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717231671; x=1717836471;
+        d=1e100.net; s=20230601; t=1717231722; x=1717836522;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=LQdfx+rNl0Ke62djdnuS9RwZ6VSZV8ckozb3VABVyMY=;
-        b=Ga/DR4KmO2ccgSMWbvn11B33lYXUM7ErOTEapF5lClofkAJaD/0RyzQqJkHuA0Dyf1
-         fd7ROxMav4G2zKEEzfh0kqmaoiQJ95NRNMTdmRpVPetu16mkZV0QDqdKjEBz7qhNZOix
-         2ZAYOVnCbzt6RRecmfczdDP8DleixENPiDpsKAXdnc3Iedg1Je96jZKxlyfmLmIiTSzT
-         LIgvsDuBcGWcEH4QESDmh0aBXzSSa9GNMZCyxFxuZvUYSQJMV4VwHARVnrU5YPOWfaTJ
-         IWl+ewZx+kUTg/gA7KcoFNkkCRONA2bty0RHPVG6eAN4Cny3lhlE2HZzVRty5q22chu7
-         U+0A==
+        bh=nm5hGXFlAXTNGNQ7fAdJrkGWa9KqiNapNHPNBZSNbjw=;
+        b=nQLLsyjwg6uPAOoLNNQB84CkYktvMx3gvzH5znxKvhSeocfwy9bTeoncCq0sOwqZKb
+         gZmYvgESXfd4813J+u75wCK4LVcnI9wzLmvyxT9nIG8g3Q5h54gHrmY3vi5PLkpZXYkg
+         aMPn0mSOS3JlPcX2uLh+HXcCNwqH1r2EDis6FcK3rGUt0/ESixGOVPOrS4+KFIsOAjkq
+         DSS9C645pb/pChAaHvqITVmq1y2/ug7QcITkXG1hEYLS8Ww8c5m2LofaxpOIb7Nn/V90
+         fuxqXVT7U/13j/CJpHwj9qWc4RZcQqP5dbz7uiHWmY+Ur2aY0X3hP08cjvNlu6Yf0d5e
+         Xh7Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWSc4EmZEjqKe8ew6d+QDUfWG2zg9cz5SCY6qArFMAjS6sOw9xp+kjFtCPnxgzAP4+scMUwbFK+JJWuzh+g53DT7gB7uxlI9OcsCN4=
-X-Gm-Message-State: AOJu0YxRBcV8xk423Zx8TMw4P5/RMy/V6m9wNFVLQMK+qi1R3FvCFN2K
-	EtHJg4tHr8I1gVq3iU2VQWULOAKYa9V74UzDSL27CaseqDxHRSqd
-X-Google-Smtp-Source: AGHT+IEsMMx/uHuDfikgbi9ClbrEwn6j3YXw0OBmwQofTUuUVnXALKde1Mg0vdMz/5Ol9N3KQcTGfw==
-X-Received: by 2002:a25:b192:0:b0:de4:8c46:e7f9 with SMTP id 3f1490d57ef6-dfa73c4e6acmr4221795276.31.1717231671395;
-        Sat, 01 Jun 2024 01:47:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWPjyhjrzaMzV/D7lzxe9lZ/7rlhk85L4y+RHzHgeTVJn7DbVZnTf1uk3QAuBrD7086k0p+0i3Da8AkMPOYMKOXWZCAxJta0R1LdOQ=
+X-Gm-Message-State: AOJu0YxIrvdEWES/S8HWkup8mbvWh4q6ClH0A4b42MttjOcaqXOl0lI8
+	/fut7ilNU/JQSb4XDYYOLINdM6t+K2jRI5B8hQmwpRRXbwpER00W
+X-Google-Smtp-Source: AGHT+IEt/ENxJLq0gxpOt0thVkQI948MSA/RnTRhb/YRFWxypoTa/UcEpBFlb+B0uyweJKv3ljlruw==
+X-Received: by 2002:a25:ac9e:0:b0:dfa:4730:ee7e with SMTP id 3f1490d57ef6-dfa7187d906mr3998608276.6.1717231722020;
+        Sat, 01 Jun 2024 01:48:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:a447:0:b0:dfa:56ce:d390 with SMTP id 3f1490d57ef6-dfa595a7d94ls1071107276.0.-pod-prod-08-us;
- Sat, 01 Jun 2024 01:47:50 -0700 (PDT)
-X-Received: by 2002:a05:690c:6d0d:b0:627:e228:e72f with SMTP id 00721157ae682-62c7985e81bmr10410367b3.9.1717231669650;
-        Sat, 01 Jun 2024 01:47:49 -0700 (PDT)
-Date: Sat, 1 Jun 2024 01:47:48 -0700 (PDT)
+Received: by 2002:a05:6902:a8d:b0:dfa:81ff:d907 with SMTP id
+ 3f1490d57ef6-dfa81ffed62ls837193276.2.-pod-prod-08-us; Sat, 01 Jun 2024
+ 01:48:40 -0700 (PDT)
+X-Received: by 2002:a05:690c:4c11:b0:61b:14af:df5 with SMTP id 00721157ae682-62c79860d6bmr9319617b3.10.1717231720242;
+        Sat, 01 Jun 2024 01:48:40 -0700 (PDT)
+Date: Sat, 1 Jun 2024 01:48:39 -0700 (PDT)
 From: Dwayne Mickey <dwnmickey@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3d207a08-0b5e-445a-bb57-56e4822bc388n@googlegroups.com>
-In-Reply-To: <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
-References: <795dc3b1-be89-41c7-9671-d30f85711eaan@googlegroups.com>
- <0f3f8043-7aa0-4029-a9cc-8bf645291972n@googlegroups.com>
- <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
-Subject: Re: BUY MAGIC MUSHROOM ONLINE AUSTRALIA
+Message-Id: <d5a1a6f4-91a8-462e-9750-3a0268433255n@googlegroups.com>
+In-Reply-To: <60398463-b922-46d6-8472-3259aa26b5d6n@googlegroups.com>
+References: <20386664-e1de-4554-a68e-cb40ec82036cn@googlegroups.com>
+ <60398463-b922-46d6-8472-3259aa26b5d6n@googlegroups.com>
+Subject: Re: BUY ONE UP MUSHROOM CHOCOLATE BARS ONLINE IN USA
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_305512_1866166430.1717231668966"
+	boundary="----=_Part_121042_1431378260.1717231719612"
 X-Original-Sender: dwnmickey@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -83,88 +83,188 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_305512_1866166430.1717231668966
+------=_Part_121042_1431378260.1717231719612
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_305513_710280214.1717231668966"
+	boundary="----=_Part_121043_1972493987.1717231719612"
 
-------=_Part_305513_710280214.1717231668966
+------=_Part_121043_1972493987.1717231719612
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Penis Envy magic mushrooms are three times more potent than other=20
-mushrooms. The effects of Penis Envy magic mushrooms may come on quickly=20
-due to higher levels of psilocin than psilocybin.
-About Penis Envy
-Penis Envy magic mushrooms can impact you differently based upon a variety=
+Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
+w could=20
+that not be the dream?
+Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
+gh that=20
+won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
+True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
+ooms=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality of=20
+your trip, in fact, you may even decide to switch to edibles!
+Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=
+=E2=80=99t=20
+necessarily mean you want to be seen stuffing your face with them. For=20
+those who want to keep it classy and discrete, nibbling on some chocolate=
 =20
-of factors, like your size, weight, your state of health, whether you have=
+is the way to go. shroom chocolate bar
+Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocolate=
+ can be=20
+broken up for versatile dosage. Each square of this chocolate bar contains=
 =20
-taken them before, the amount you take, and more. The setting in which you=
+approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether=
 =20
-are taking them and who you are with are critical factors. Being in nature,=
-=20
-in a safe, calm and tranquil setting, with no pending pressures or=20
-obligations is ideal for the user.=20
+it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got =
+you=20
+covered. shroom chocolate bar
 
-Trip Level 0: Microdosing
-Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushrooms =E2=80=93 A micro-=
-dose is a=20
-sub-perceptual amount of mushrooms. Take this every 2-3 days to boost=20
-creativity or feel less anxious. Microdosing trip levels capsules. Added as=
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+Buy Good Trip Mushroom Chocolate Bars Online
+Have you ever wished mushrooms tasted better? We=E2=80=99re here to grant t=
+hat wish=20
+by bringing you our Good Trip Mushroom Chocolate Bar. This bar is tasty,=20
+irresistible also, contains a total of 3.5g of Magic Mushrooms ( 6 grams=20
+per chocolate square). And can be broken off into squares for flexible=20
+shroom dosage.
+
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+IT has an awesome taste and smells good too chocolate. Good Trip Mushroom=
 =20
-level 0, it=E2=80=99s meant to be taken along with your day-to-day routine.
-Trip Level 1: Happy go lucky
-Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effect=
-s are mild and=20
-similar to being high on weed. Music starts to feel better, strangers seem=
+Chocolate Bars makes you trip your face off. So, how could that not be the=
 =20
-more friendly and the mind is able to lose some control. You could have=20
-mild visual enhancements or some sound distortion, but these will be subtle=
-.
-Trip Level 2: Beginner=E2=80=99s paradise
-Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consistent=
- sensorial=20
-accentuation, colors becoming brighter and a light body high. Level 2 can=
+dream?. =E2=80=A2
+
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
+gh that=20
+won=E2=80=99t leave you crashing after the initial peak.
+
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mushro=
+oms=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality of=20
+your trip, in fact, you may even decide to switch to edibles!
+:Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=99t=
 =20
-be a more intense form of Trip Level 1, but with the right dosage it can be=
+necessarily mean you want to be seen stuffing your face with them For those=
 =20
-something more. Be prepared for the beginnings of visual and auditory=20
-hallucinations: objects moving and coming to life along with geometrical=20
-forms when you close your eyes. It will be harder to concentrate and=20
-communicate and you will notice an increase in creativity along with an=20
-enhanced sensation, lightness and euphoria.
-Trip Level 3: Classic psychedelic trip
-Recommended dosage: 1.5 =E2=80=93 3 g. dried mushrooms =E2=80=93 Trip Level=
- 3 is great for=20
-beginners who want to jump in the =E2=80=9Creal=E2=80=9D psychedelic experi=
-ence, without=20
-overdoing the dosage. This level is where visual hallucinations along with=
+who want to keep it classy and discrete, nibbling on some chocolate is the=
 =20
-the appearance of patterns and fractals will be evident. No more hinting or=
+way to go. shroom chocolate bar =E2=80=A2
+
+On Friday, May 31, 2024 at 12:25:26=E2=80=AFAM UTC+1 Will Smichel wrote:
+
+> Buy Magic Mushrooms Online | Psychedelics For Sale USA | Mushroom=20
+> Chocolate Bars Online Buy Xanax 2mg bars, Hydrocodone, Diazepam, Dilaudid=
+,=20
+> Oxycotin, Roxycodone, Suboxone, Subutex, Klonpin, Soma, Ritalin Buy=20
+> microdosing psychedelics online | Buy magic mushrooms gummies online | bu=
+y=20
+> dmt carts online usa DMT for Sale | Order DMT Cartridges Online | Buy DMT=
 =20
-subtle flashes of visuals, it=E2=80=99s happening for real. The surface of =
-the=20
-object you=E2=80=99re observing will become shiny and moving, as your field=
- of=20
-depth is altered. Distortions in the aptitude to measure the passage of=20
-time, might cause an 1 hour to feel like an eternity.
-Level 4: Flying with the stars https:t.me/Ricko_swavy8
-Recommended dosage: 3 =E2=80=93 4 g. dried mushrooms =E2=80=93 Strong hallu=
-cinations take=20
-over: a psychedelic flood of shapes, contours and colors will blend=20
-together and hit the shores of your consciousness. There=E2=80=99s no stopp=
-ing the=20
-waves in Level 4. There will be some moments when you will lose touch=20
-reality. Random, non-existent objects will appear and the concept of time=
+> Online | WHere to Buy DMT in Australia NN DMT for Sale | Order DMT=20
+> Cartridges Online | Buy DMT Online Europe | WHere to Buy DMT Near Me |Buy=
 =20
-will fade away to the background. Intriguing to some, scary to others, this=
+> DMT USA     Your best online shop to get plantimum quality microdosing=20
+> psychedelics products online, pain,anxiety pills, and research  chemicals=
+.=20
+> Be 100% assured about the quality and genuineness of the product.  Buy DM=
+T=20
+> .5ml Purecybin =E2=80=93 300mg DMT Online: https:
+> t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-dmt-  online/  Buy=
 =20
-is the level where psychedelics can really be powerful, life-altering and=
+> Dmt Online: https:t.me/Ricko_swavy8/product-category/dmt/  Buy LSD=20
+> online:   Buy Magic Mushroom Online: https:
+> t.me/Ricko_swavy8/product-category/mushrooms/  Buy DeadHead Chemist DMT=
 =20
-mind expanding. Keep in mind that this dosage is only recommend for=20
-experience users.
-Level 5
-:https:t.me/Ricko_swavy8
+> Vape Cartridge: https:t.me/Ricko_swavy8/product-category/dmt/  Buy Exotic=
+=20
+> Marijuana Strains Online:  Buy 5-MEO DMT .5ml 150mg Mushrooms Canada=20
+> Online: https:t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg- =20
+> mushrooms-canada-online/=20
+>
+>
+> On Thursday, May 30, 2024 at 5:28:15=E2=80=AFPM UTC+1 Larry Cruz wrote:
+>
+>> Great Taste =E2=80=93 A chocolate bar that makes you trip your face off.=
+ How=20
+>> could that not be the dream?
+>> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean=
+ high=20
+>> that won=E2=80=99t leave you crashing after the initial peak. shroom cho=
+colate
+>> True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mu=
+shrooms=20
+>> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find =
+any drop in the quality of=20
+>> your trip, in fact, you may even decide to switch to edibles!
+>> Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doe=
+sn=E2=80=99t=20
+>> necessarily mean you want to be seen stuffing your face with them. For=
+=20
+>> those who want to keep it classy and discrete, nibbling on some chocolat=
+e=20
+>> is the way to go. shroom chocolate bar
+>> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocol=
+ate can=20
+>> be broken up for versatile dosage. Each square of this chocolate bar=20
+>> contains approximately .6g of Magic Mushrooms, while each bar contains=
+=20
+>> 3.5g. Whether it=E2=80=99s a micro-dose or a full-on journey, this choco=
+late bar=20
+>> has got you covered. shroom chocolate bar
+>>
+>> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
+/
+>>
+>> Buy Good Trip Mushroom Chocolate Bars Online
+>> Have you ever wished mushrooms tasted better? We=E2=80=99re here to gran=
+t that=20
+>> wish by bringing you our Good Trip Mushroom Chocolate Bar. This bar is=
+=20
+>> tasty, irresistible also, contains a total of 3.5g of Magic Mushrooms ( =
+6=20
+>> grams per chocolate square). And can be broken off into squares for=20
+>> flexible shroom dosage.
+>>
+>> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
+/
+>>
+>> IT has an awesome taste and smells good too chocolate. Good Trip Mushroo=
+m=20
+>> Chocolate Bars makes you trip your face off. So, how could that not be t=
+he=20
+>> dream?. =E2=80=A2
+>>
+>> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
+/
+>>
+>> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean=
+ high=20
+>> that won=E2=80=99t leave you crashing after the initial peak.
+>>
+>> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
+/
+>>
+>> True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mus=
+hrooms=20
+>> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find =
+any drop in the quality of=20
+>> your trip, in fact, you may even decide to switch to edibles!
+>> :Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=
+=99t=20
+>> necessarily mean you want to be seen stuffing your face with them For th=
+ose=20
+>> who want to keep it classy and discrete, nibbling on some chocolate is t=
+he=20
+>> way to go. shroom chocolate bar =E2=80=A2
+>>
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -172,58 +272,163 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegroups.com.
+jailhouse-dev/d5a1a6f4-91a8-462e-9750-3a0268433255n%40googlegroups.com.
 
-------=_Part_305513_710280214.1717231668966
+------=_Part_121043_1972493987.1717231719612
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Penis Envy magic mushrooms are three times more potent than other mushrooms=
-.  The effects of Penis Envy magic mushrooms may come on quickly due to hig=
-her levels of psilocin than psilocybin.<div>About Penis Envy</div><div>Peni=
-s Envy magic mushrooms can impact you differently based upon a variety of f=
-actors, like your size, weight, your state of health, whether you have take=
-n them before, the amount you take, and more.  The setting in which you are=
- taking them and who you are with are critical factors.  Being in nature, i=
-n a safe, calm and tranquil setting, with no pending pressures or obligatio=
-ns is ideal for the user.=C2=A0</div><div><br /></div><div>Trip Level 0: Mi=
-crodosing</div><div>Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushroom=
-s =E2=80=93 A micro-dose is a sub-perceptual amount of mushrooms. Take this=
- every 2-3 days to boost creativity or feel less anxious. Microdosing trip =
-levels capsules. Added as level 0, it=E2=80=99s meant to be taken along wit=
-h your day-to-day routine.</div><div>Trip Level 1: Happy go lucky</div><div=
->Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effec=
-ts are mild and similar to being high on weed. Music starts to feel better,=
- strangers seem more friendly and the mind is able to lose some control. Yo=
-u could have mild visual enhancements or some sound distortion, but these w=
-ill be subtle.</div><div>Trip Level 2: Beginner=E2=80=99s paradise</div><di=
-v>Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consiste=
-nt sensorial accentuation, colors becoming brighter and a light body high. =
-Level 2 can be a more intense form of Trip Level 1, but with the right dosa=
-ge it can be something more. Be prepared for the beginnings of visual and a=
-uditory hallucinations: objects moving and coming to life along with geomet=
-rical forms when you close your eyes. It will be harder to concentrate and =
-communicate and you will notice an increase in creativity along with an enh=
-anced sensation, lightness and euphoria.</div><div>Trip Level 3: Classic ps=
-ychedelic trip</div><div>Recommended dosage: 1.5 =E2=80=93 3 g. dried mushr=
-ooms =E2=80=93 Trip Level 3 is great for beginners who want to jump in the =
-=E2=80=9Creal=E2=80=9D psychedelic experience, without overdoing the dosage=
-. This level is where visual hallucinations along with the appearance of pa=
-tterns and fractals will be evident. No more hinting or subtle flashes of v=
-isuals, it=E2=80=99s happening for real. The surface of the object you=E2=
-=80=99re observing will become shiny and moving, as your field of depth is =
-altered. Distortions in the aptitude to measure the passage of time, might =
-cause an 1 hour to feel like an eternity.</div><div>Level 4: Flying with th=
-e stars https:t.me/Ricko_swavy8</div><div>Recommended dosage: 3 =E2=80=93 4=
- g. dried mushrooms =E2=80=93 Strong hallucinations take over: a psychedeli=
-c flood of shapes, contours and colors will blend together and hit the shor=
-es of your consciousness. There=E2=80=99s no stopping the waves in Level 4.=
- There will be some moments when you will lose touch reality. Random, non-e=
-xistent objects will appear and the concept of time will fade away to the b=
-ackground. Intriguing to some, scary to others, this is the level where psy=
-chedelics can really be powerful, life-altering and mind expanding. Keep in=
- mind that this dosage is only recommend for experience users.</div><div>Le=
-vel 5</div><div>:https:t.me/Ricko_swavy8<br /><br /></div>
+Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
+w could that not be the dream?<div>Clean High =E2=80=93 We formulated this =
+chocolate bar to produce a clean high that won=E2=80=99t leave you crashing=
+ after the initial peak. shroom chocolate</div><div>True Psychedelic Experi=
+ence -Just cause it doesn=E2=80=99t taste like mushrooms doesn=E2=80=99t me=
+an it=E2=80=99s not mushrooms. You won=E2=80=99t find any drop in the quali=
+ty of your trip, in fact, you may even decide to switch to edibles!</div><d=
+iv>Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doe=
+sn=E2=80=99t necessarily mean you want to be seen stuffing your face with t=
+hem. For those who want to keep it classy and discrete, nibbling on some ch=
+ocolate is the way to go. shroom chocolate bar</div><div>Versatile Dosage =
+=E2=80=93 The combined 3.5g of mushrooms in this chocolate can be broken up=
+ for versatile dosage. Each square of this chocolate bar contains approxima=
+tely .6g of Magic Mushrooms, while each bar contains 3.5g. Whether it=E2=80=
+=99s a micro-dose or a full-on journey, this chocolate bar has got you cove=
+red. shroom chocolate bar</div><div><br /></div><div>https://t.me/Ricko_swa=
+vy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><br /></div><=
+div>Buy Good Trip Mushroom Chocolate Bars Online</div><div>Have you ever wi=
+shed mushrooms tasted better? We=E2=80=99re here to grant that wish by brin=
+ging you our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresisti=
+ble also, contains a total of 3.5g of Magic Mushrooms ( 6 grams per chocola=
+te square). And can be broken off into squares for flexible shroom dosage.<=
+/div><div><br /></div><div>https://t.me/Ricko_swavy8/product/good-trip-milk=
+-chocolate-bars-for-sale/</div><div><br /></div><div>IT has an awesome tast=
+e and smells good too chocolate. Good Trip Mushroom Chocolate Bars makes yo=
+u trip your face off. So, how could that not be the dream?. =E2=80=A2</div>=
+<div><br /></div><div>https://t.me/Ricko_swavy8/product/good-trip-milk-choc=
+olate-bars-for-sale/</div><div><br /></div><div>Clean High =E2=80=93 We for=
+mulated this chocolate bar to produce a clean high that won=E2=80=99t leave=
+ you crashing after the initial peak.</div><div><br /></div><div>https://t.=
+me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><=
+br /></div><div>True Psychedelic Experience Just cause it doesn=E2=80=99t t=
+aste like mushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You wo=
+n=E2=80=99t find any drop in the quality of your trip, in fact, you may eve=
+n decide to switch to edibles!</div><div>:Sneaky-Sure, Magic Mushrooms are =
+legal in Canada but that doesn=E2=80=99t necessarily mean you want to be se=
+en stuffing your face with them For those who want to keep it classy and di=
+screte, nibbling on some chocolate is the way to go. shroom chocolate bar =
+=E2=80=A2<br /><br /></div><div class=3D"gmail_quote"><div dir=3D"auto" cla=
+ss=3D"gmail_attr">On Friday, May 31, 2024 at 12:25:26=E2=80=AFAM UTC+1 Will=
+ Smichel wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin=
+: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex=
+;"><div>Buy Magic Mushrooms Online | Psychedelics For Sale USA | Mushroom C=
+hocolate Bars Online
+Buy Xanax 2mg bars, Hydrocodone, Diazepam, Dilaudid, Oxycotin, Roxycodone, =
+Suboxone, Subutex, Klonpin, Soma, Ritalin
+Buy microdosing psychedelics online | Buy magic mushrooms gummies online | =
+buy dmt carts online usa
+DMT for Sale | Order DMT Cartridges Online | Buy DMT Online | WHere to Buy =
+DMT in Australia
+NN DMT for Sale | Order DMT Cartridges Online | Buy DMT Online Europe | WHe=
+re to Buy DMT Near Me |Buy DMT USA=C2=A0=C2=A0=C2=A0=C2=A0
+Your best online shop to get plantimum quality microdosing psychedelics pro=
+ducts online, pain,anxiety pills, and research=C2=A0
+chemicals.
+Be 100% assured about the quality and genuineness of the product.=C2=A0
+Buy DMT .5ml Purecybin =E2=80=93 300mg DMT Online: https:<a href=3D"http://=
+t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-dmt-" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-=
+dmt-&amp;source=3Dgmail&amp;ust=3D1717316871680000&amp;usg=3DAOvVaw3JTgAuGq=
+VtX1Gl8ftCMx21">t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-dmt-<=
+/a>=C2=A0
+online/=C2=A0
+Buy Dmt Online: https:<a href=3D"http://t.me/Ricko_swavy8/product-category/=
+dmt/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://ww=
+w.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product-category/=
+dmt/&amp;source=3Dgmail&amp;ust=3D1717316871680000&amp;usg=3DAOvVaw3yefLKsc=
+AqdmC1PvjXk-uh">t.me/Ricko_swavy8/product-category/dmt/</a>=C2=A0
+Buy LSD online:=C2=A0=C2=A0
+Buy Magic Mushroom Online: https:<a href=3D"http://t.me/Ricko_swavy8/produc=
+t-category/mushrooms/" target=3D"_blank" rel=3D"nofollow" data-saferedirect=
+url=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/=
+product-category/mushrooms/&amp;source=3Dgmail&amp;ust=3D1717316871680000&a=
+mp;usg=3DAOvVaw0jj2hxtSHBE7PgjLjbFcZL">t.me/Ricko_swavy8/product-category/m=
+ushrooms/</a>=C2=A0
+Buy DeadHead Chemist DMT Vape Cartridge: https:<a href=3D"http://t.me/Ricko=
+_swavy8/product-category/dmt/" target=3D"_blank" rel=3D"nofollow" data-safe=
+redirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko=
+_swavy8/product-category/dmt/&amp;source=3Dgmail&amp;ust=3D1717316871680000=
+&amp;usg=3DAOvVaw3yefLKscAqdmC1PvjXk-uh">t.me/Ricko_swavy8/product-category=
+/dmt/</a>=C2=A0
+Buy Exotic Marijuana Strains Online:=C2=A0
+Buy 5-MEO DMT .5ml 150mg Mushrooms Canada Online: https:<a href=3D"http://t=
+.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttp://t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-&amp;source=3Dg=
+mail&amp;ust=3D1717316871680000&amp;usg=3DAOvVaw1s2UxiCQiQ2qcIbxuaZPrL">t.m=
+e/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-</a>=C2=A0
+mushrooms-canada-online/ <br></div><div><br></div><br><div class=3D"gmail_q=
+uote"><div dir=3D"auto" class=3D"gmail_attr">On Thursday, May 30, 2024 at 5=
+:28:15=E2=80=AFPM UTC+1 Larry Cruz wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">Great Taste =E2=80=93 A chocolate bar that makes you tr=
+ip your face off. How could that not be the dream?<div>Clean High =E2=80=93=
+ We formulated this chocolate bar to produce a clean high that won=E2=80=99=
+t leave you crashing after the initial peak. shroom chocolate</div><div>Tru=
+e Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushroom=
+s doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find a=
+ny drop in the quality of your trip, in fact, you may even decide to switch=
+ to edibles!</div><div>Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal=
+ in USA but that doesn=E2=80=99t necessarily mean you want to be seen stuff=
+ing your face with them. For those who want to keep it classy and discrete,=
+ nibbling on some chocolate is the way to go. shroom chocolate bar</div><di=
+v>Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocola=
+te can be broken up for versatile dosage. Each square of this chocolate bar=
+ contains approximately .6g of Magic Mushrooms, while each bar contains 3.5=
+g. Whether it=E2=80=99s a micro-dose or a full-on journey, this chocolate b=
+ar has got you covered. shroom chocolate bar</div><div><br></div><div><a hr=
+ef=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-s=
+ale/" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://ww=
+w.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-tri=
+p-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D17173168716800=
+00&amp;usg=3DAOvVaw33jGQGc8Y9EjtZJRRlesqr">https://t.me/Ricko_swavy8/produc=
+t/good-trip-milk-chocolate-bars-for-sale/</a></div><div><br></div><div>Buy =
+Good Trip Mushroom Chocolate Bars Online</div><div>Have you ever wished mus=
+hrooms tasted better? We=E2=80=99re here to grant that wish by bringing you=
+ our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresistible also=
+, contains a total of 3.5g of Magic Mushrooms ( 6 grams per chocolate squar=
+e). And can be broken off into squares for flexible shroom dosage.</div><di=
+v><br></div><div><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-mil=
+k-chocolate-bars-for-sale/" rel=3D"nofollow" target=3D"_blank" data-safered=
+irecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_s=
+wavy8/product/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&am=
+p;ust=3D1717316871680000&amp;usg=3DAOvVaw33jGQGc8Y9EjtZJRRlesqr">https://t.=
+me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</a></div><d=
+iv><br></div><div>IT has an awesome taste and smells good too chocolate. Go=
+od Trip Mushroom Chocolate Bars makes you trip your face off. So, how could=
+ that not be the dream?. =E2=80=A2</div><div><br></div><div><a href=3D"http=
+s://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" rel=
+=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.google.=
+com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-ch=
+ocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717316871680000&amp;us=
+g=3DAOvVaw33jGQGc8Y9EjtZJRRlesqr">https://t.me/Ricko_swavy8/product/good-tr=
+ip-milk-chocolate-bars-for-sale/</a></div><div><br></div><div>Clean High =
+=E2=80=93 We formulated this chocolate bar to produce a clean high that won=
+=E2=80=99t leave you crashing after the initial peak.</div><div><br></div><=
+div><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-b=
+ars-for-sale/" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"h=
+ttps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product=
+/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D17173=
+16871680000&amp;usg=3DAOvVaw33jGQGc8Y9EjtZJRRlesqr">https://t.me/Ricko_swav=
+y8/product/good-trip-milk-chocolate-bars-for-sale/</a></div><div><br></div>=
+<div>True Psychedelic Experience Just cause it doesn=E2=80=99t taste like m=
+ushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t=
+ find any drop in the quality of your trip, in fact, you may even decide to=
+ switch to edibles!</div><div>:Sneaky-Sure, Magic Mushrooms are legal in Ca=
+nada but that doesn=E2=80=99t necessarily mean you want to be seen stuffing=
+ your face with them For those who want to keep it classy and discrete, nib=
+bling on some chocolate is the way to go. shroom chocolate bar =E2=80=A2</d=
+iv></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -234,11 +439,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegrou=
+om/d/msgid/jailhouse-dev/d5a1a6f4-91a8-462e-9750-3a0268433255n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3d207a08-0b5e-445a-bb57-56e4822bc388n%40googlegroups.co=
+msgid/jailhouse-dev/d5a1a6f4-91a8-462e-9750-3a0268433255n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_305513_710280214.1717231668966--
+------=_Part_121043_1972493987.1717231719612--
 
-------=_Part_305512_1866166430.1717231668966--
+------=_Part_121042_1431378260.1717231719612--
