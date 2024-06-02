@@ -1,73 +1,73 @@
-Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBTFH6OZAMGQER3AU6LI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBE5I6OZAMGQEDQ73KTI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb39.google.com (mail-yb1-xb39.google.com [IPv6:2607:f8b0:4864:20::b39])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E228D77D5
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  2 Jun 2024 22:19:26 +0200 (CEST)
-Received: by mail-yb1-xb39.google.com with SMTP id 3f1490d57ef6-df771b5e942sf6393940276.2
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 13:19:26 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A27E8D77E0
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  2 Jun 2024 22:20:37 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dfa56e1a163sf6326359276.3
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 13:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717359565; x=1717964365; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717359636; x=1717964436; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FpySEk6MaiZDjgamrVHn8USCp2EdthNGQxRUqqojA9k=;
-        b=GlKhNOoVgGcx6f3mpnSPMT/Knv2U69JFI5b+gJlsMW7V+ynz5o1dQ522iccklPkdDo
-         XQfk0i468qdulk800yMzQ7LvLACcxNs6twEyVjxeNUpbwugRxagaw0YJ1LdzmWtK+KbS
-         QZxBjUqiGnmV53Xtk793rXupcVxfEMyWGy4aXnH9sqoDSdTI4/GhOOxBHfqzpZDVMaK5
-         HXF7vAjZaB4qP6xP0GdARwsQfuzunhEjMTP5E8RcH3byTvATlC03p+5oALBi1xjfVqow
-         /ouY6lPvPORLm1Rx7m4VN9yg1cLtF/FrwKhMITF3ZoQZMWreiMYF+xG7YgGF8o0zN7lg
-         WlmQ==
+        bh=rZoq+9ARuF/D2slF7YfP9DtrDWQ4wTmNCapVS931ZDI=;
+        b=pDF8+J+S4rDuBDzLyGHwNqBimaaupUmwPx5KxVH+9PTEOAb8kjITWHopT6Yj9rVXSY
+         vAkPyTE1tq2mgDcxlwYzJZF+RD8a17XJUeL2NxsnDVejUH3RBi5PI+TBFS42JCITYmhH
+         oWIjATmj61PCi02WWeQ8GI1O+cXCApBDpGvDvti8Ol8her5bnzFwLG0VjvcIfY+ff70b
+         hfvLfU2h+Lkx2YDwimkRqFNDx2g5wh+HqhnjRsMSvPm59dckc6IkOtZQy1f0dpBAvoGj
+         eT0eGNAdVgobdxjGPePB0d7XgX3S0Kw+zTBvzQFVHukmwPg/sO3IxztvRBGUvVUiyNrb
+         TN3Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717359565; x=1717964365; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717359636; x=1717964436; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FpySEk6MaiZDjgamrVHn8USCp2EdthNGQxRUqqojA9k=;
-        b=XqiitLd7kaHWMMHIxJLvrF8NSww5Am6QmFGLNdSW82JnsPWr0xpc9XFODC1IFfIFsU
-         6ie2QdVh6NlEELThqSGb3NYA6gplCoFjrF4IAX6AnX9eMxrshH/39t86xdcHAbC8VFFt
-         x2Vprk28G+g+3r5Fob9WDtvyHR2LzlgxuOloS3Ow6HOq3oDevbnUHVcs3nFKuo+wuyx4
-         Pma+wNfWYLsRFcuZGsoGDA3X/jaJeRNLE5M2i2Mkdk0h+nE+QDuqJdkxsfdoBoRfyMGW
-         v6OiDA1jY1HM7LzREF26Y84BUOxxGyoI2Z5tUtFFz6mTaqqtsK5ETgszHt6HWWmISmsw
-         XBcQ==
+        bh=rZoq+9ARuF/D2slF7YfP9DtrDWQ4wTmNCapVS931ZDI=;
+        b=Uv471dIPwGKaCWaRqV6GAim8bYlLI4Svfn+zOoAf3DYZiNQaAXt2h7kv5Z1uyoverI
+         OpMV7XRX/lrayrM79OMSie9IWTTa8zVbJ6ops/zO7y/nX0g1AIZNkDoQjyv491B/uQev
+         IEHpg3sjZT0nhsNxhSbY7AQnLB8U/IlCP+E4ITwp+hzWo6BLuaFUu1EiW6e2dliWc8Kd
+         KYN0VujQBjFX1qgZ3TOsxwbL4NlgQDFE7M03TP6mXh0BtD6RMWeWX62/CWGTujcEnimG
+         QAJkNI3fmioSICtpKcsytZoydH1gwymoGwLvIeKr0A6OPu4rEK8aOzaIByY6VTVvl4Sp
+         av2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717359565; x=1717964365;
+        d=1e100.net; s=20230601; t=1717359636; x=1717964436;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FpySEk6MaiZDjgamrVHn8USCp2EdthNGQxRUqqojA9k=;
-        b=dh54z4ZV9u3QzEkPv7sd/0lpM/5Y31jaJNT28Y6ObTy0spwpq59PB8ifca4pn9kM7j
-         0Kp0IewvoSQ4JwqqioLLwTDYhXOMku4CorkPyq4BB0o/BdUUwKsepkB6TKRWoynZmEgz
-         3YkDZ69dbJwW65LNQ3JKx8Nw/dKj0hP6+tvWe/CPFEXN51qz72206MI/j61UR16MDv3h
-         GgK+6oB1Mf0tVdqgD9QCbrsn9vRLp0UvIWcsZwG8wIwQCxq2ZjuNS8Ob9KyZDdfzs6Id
-         Y4c4JbUzKxqzKz2nrB8maBn2S+MMAn7x78AHoPDb9S5l9fkcMMQM0biHgkvPnxzlzg4c
-         w/gg==
+        bh=rZoq+9ARuF/D2slF7YfP9DtrDWQ4wTmNCapVS931ZDI=;
+        b=IEhAHSfVY18Y6cNPwxHjqYscb9r1D6ghfBA33guLFfvZEG5RuQysC5Y68MbA/ieNBD
+         vHx0sARqcwx1oK2s6B2vPcFPoLcj4sIyxqG9OBPOAQZDa3lO9/hk0LgtgBnFAopC4Djc
+         NHB+hBTUgQRPBftWOscrG8Oyr4DH+2Mgi6yX2HMpbvu1KxfNjnzGCyyxfPmnr1nnbyKE
+         xw7fQdpKOckM/CrC2070Ze0jThNuHoy3Pse2kjZXiega1sLiPzSIgaYGM59AczFogWJ4
+         0y621yfqhh4BOgmkzt5OtyFoirOlkDopwqpya3EES+UuxC4WwIqqAOqkxcj4RGkU0VWt
+         +Q6Q==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUsGI6StQYIVeiYD5cikkrs5ksJ3FZ/fsLiU7M0qJsLw17HmPAGrzEdJ4cTR8M8ZYM1JpWEj238X86pjxdW9CcDIQf1k835bfEkuF4=
-X-Gm-Message-State: AOJu0YywM25CXfOk2wqEJbd6+2QCRDlc0tjEKm5VUaLJgqkAgeovxqZp
-	fnfNYSWZjLwF/EHEehhcvM7/jpgN5f/jD3s2Oqlyyf1qYqt+5sfH
-X-Google-Smtp-Source: AGHT+IEF8BlzxaOG3S/iAELZJMFfAhgQzE/3sPrynePZAeTUWwHO+vFMEZ0TaSAPs4dVU4JZBEIMXg==
-X-Received: by 2002:a25:d6d4:0:b0:df7:a75c:28e0 with SMTP id 3f1490d57ef6-dfa73c40be0mr6909101276.36.1717359565529;
-        Sun, 02 Jun 2024 13:19:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUYBtIY2CjpGfnYwZ00U9SvIMyN7iEQCfwNUsh9IDPNZmdpgeWhKN2y7wrmmeAGKpLdzNpLVq3GL9JJp8qNt36rRmynqG4jmTmOqG8=
+X-Gm-Message-State: AOJu0YyA+mKvKRQxcqQdXxmMaZnUf5ZRBeGFMcGZgO0IoZpKGuvnz4fk
+	moMLn3Eajnry+Cvd4G1bDGKsLPDezXYV4pgzOBnoMtN73N5jJBaH
+X-Google-Smtp-Source: AGHT+IGAHhJRAHddnK3v6MqjgPPO+oJunyOS8yXBsgabQ4GPzxmEwBxdec2wyIHNYpDpRVlQAcHeGg==
+X-Received: by 2002:a25:8d90:0:b0:df7:7065:24cc with SMTP id 3f1490d57ef6-dfa73dd31e9mr6634948276.61.1717359636086;
+        Sun, 02 Jun 2024 13:20:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:253:0:b0:de5:a5cb:9690 with SMTP id 3f1490d57ef6-dfa595d8a16ls240762276.0.-pod-prod-02-us;
- Sun, 02 Jun 2024 13:19:24 -0700 (PDT)
-X-Received: by 2002:a81:4c03:0:b0:62a:5309:57ed with SMTP id 00721157ae682-62c796b0f91mr18225117b3.2.1717359564013;
-        Sun, 02 Jun 2024 13:19:24 -0700 (PDT)
-Date: Sun, 2 Jun 2024 13:19:23 -0700 (PDT)
+Received: by 2002:a25:b02:0:b0:df7:7249:e32 with SMTP id 3f1490d57ef6-dfa62f459a1ls976447276.0.-pod-prod-09-us;
+ Sun, 02 Jun 2024 13:20:34 -0700 (PDT)
+X-Received: by 2002:a25:ae15:0:b0:df4:9d0c:5c60 with SMTP id 3f1490d57ef6-dfa73db9941mr1642366276.7.1717359634266;
+        Sun, 02 Jun 2024 13:20:34 -0700 (PDT)
+Date: Sun, 2 Jun 2024 13:20:33 -0700 (PDT)
 From: Dwayne Mickey <dwnmickey@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <bacb756a-78ac-4687-a33e-f7ab1f6ffc70n@googlegroups.com>
-In-Reply-To: <446876dc-adb4-4fdc-ba8e-ecae817ea8f4n@googlegroups.com>
-References: <446876dc-adb4-4fdc-ba8e-ecae817ea8f4n@googlegroups.com>
-Subject: Re: GET AT ME FOR YOUR LOW &HIGH BALANCE CLONE CARD FOR COOL PRICES
+Message-Id: <28787421-30d1-4cbd-9da2-da23c674bf25n@googlegroups.com>
+In-Reply-To: <23ea410a-e2c3-426c-8b7d-3d2a82d94dbfn@googlegroups.com>
+References: <23ea410a-e2c3-426c-8b7d-3d2a82d94dbfn@googlegroups.com>
+Subject: Re: WHAT ARE GOLDEN TEACHER MUSHROOM AND WERE ARE THEY SOLD ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_469678_346750365.1717359563338"
+	boundary="----=_Part_259750_1898609352.1717359633526"
 X-Original-Sender: dwnmickey@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,70 +81,102 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_469678_346750365.1717359563338
+------=_Part_259750_1898609352.1717359633526
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_469679_341439372.1717359563338"
+	boundary="----=_Part_259751_1420001925.1717359633526"
 
-------=_Part_469679_341439372.1717359563338
+------=_Part_259751_1420001925.1717359633526
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Your best online shop to get plantimum quality microdosing psychedelics=20
+products online, pain,anxiety pills, and research chemicals.
+Be 100% assurance=20
 
-Get at me for your low & high balance clone cards going for cool prices.
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
-=20
-Clone cards are spammed credit cards with clean funds. My clone cards are=
-=20
-available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F a=
-nd can be used for online=20
-purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F
-$300 for balance $2k
-$400 for balance $5K
-$500for balance $7k
-$700 for balance $10k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+Buy DMT .5ml Purecybin =E2=80=93 300mg DMT=20
+Online: https;t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-dmt-onl=
+ine/
 
-High balance
-$1k for balance $15k
-$3k for balance $30k
-$5k balance $50k
-$7k for balance $ 75k
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
-=E2=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB
+Buy Dmt Online: https:t.me/Ricko_swavy8/product-category/dmt/
 
-=E2=80=A2 Swift Delivery On DHL & FedEx express
-https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+Buy LSD online: https:t.me/Ricko_swavy8/product-category/lsd/
 
-Text me now and make your
-On Saturday, June 1, 2024 at 11:32:32=E2=80=AFAM UTC+1 Asah Randy wrote:
 
+Buy Magic Mushroom=20
+Online: https:t.me/Ricko_swavy8/product-category/mushrooms/
+
+Buy DeadHead Chemist DMT Vape=20
+Cartridge: https:t.me/Ricko_swavy8/product-category/dmt/
+
+Buy Exotic Marijuana Strains Online:
+
+Buy 5-MEO DMT .5ml 150mg Mushrooms Canada=20
+Online: https:t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-mushrooms-c=
+anada-online/
+
+Buy 5-Meo-DMT(Cartridge) 1mL Deadhead Chemist=20
+Online: https:t.me/Ricko_swavy8/product/buy-5-meo-dmtcartridge-1ml-deadhead=
+-chemist-online/
+
+Buy Microdose 4-AcO-DMT Deadhead Chemist=20
+Online:https:t.me/Ricko_swavy8/product/buy-microdose-4-aco-dmt-deadhead-che=
+mist-online/
+
+Buy Deadhead Chemist DMT 3 Cartridges Deal 1mL=20
+Online: https:t.me/Ricko_swavy8/product/buy-deadhead-chemist-dmt-3-cartridg=
+es-deal-1ml-online/
+
+Buy PolkaDot Magic Mushroom Belgian Chocolate 4G:
+
+Buy Penis Envy Magic=20
+Mushrooms: https://www.t.me/Ricko_swavy8/product/buy-new-penis-envy-mostly-=
+stems-online/
+
+Buy DMT 1ml Purecybin =E2=80=93 700mg DMT=20
+Online: https://www.t.me/Ricko_swavy8/product/buy-dmt-1ml-purecybin-700mg-d=
+mt-online/
+
+Buy NN-DMT(Cartridge) 1mL | 800MG | MMD Cosmo=20
+Online:https:t.me/Ricko_swavy8/product/buy-nn-dmtcartridge-1ml-800mg-mmd-co=
+smo-online/
+
+Golden Teacher Magic Mushrooms:
+
+Buy One Up =E2=80=93 Psilocybin Mushroom Chocolate Bar=20
+
+On Saturday, June 1, 2024 at 2:57:30=E2=80=AFPM UTC+1 Asah Randy wrote:
+
+> https://t.me/motionking_caliweed_psychedelics
 >
-> Get at me for your low & high balance clone cards going for cool prices.
->
+> Golden Teachers are considered moderately potent among psilocybin=20
+> mushrooms. Their effects can vary depending on factors such as growing=20
+> conditions, individual tolerance, and dosage. Users generally report a=20
+> balance between visual and introspective effects.
 >
 > https://t.me/motionking_caliweed_psychedelics
 >
 >
-> Clone cards are spammed credit cards with clean funds. My clone cards are=
+>      Effects: Like other psilocybin-containing mushrooms, consuming Golde=
+n=20
+> Teacher mushrooms can lead to altered states of consciousness characteriz=
+ed=20
+> by visual and auditory hallucinations, changes in perception of time and=
 =20
-> available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F=
- and can be used for online=20
-> purchases. Our clone card comes with an ATM pin for easy cash outs =E2=84=
-=A2=EF=B8=8F
-> $300 for balance $2k
-> $400 for balance $5K
-> $500for balance $7k
-> $700 for balance $10k
->
-> https://t.me/motionking_caliweed_psychedelics
->
-> High balance
-> $1k for balance $15k
-> $3k for balance $30k
-> $5k balance $50k
-> $7k for balance $ 75k
+> space, introspection, and sometimes a sense of unity or connection with=
+=20
+> one's surroundings
+> Some key characteristics of the Golden Teacher mushroom strain include:
+>      Appearance: The Golden Teacher strain typically features large,=20
+> golden-capped mushrooms with a distinct appearance. When mature, the caps=
+=20
+> can take on a golden or caramel color, while the stem is usually thick an=
+d=20
+> white.
+>      Potency: Golden Teachers are considered moderately potent among=20
+> psilocybin mushrooms. Their effects can vary depending on factors such as=
+=20
+> growing conditions, individual tolerance, and dosage. Users generally=20
+> report a balance between visual and introspective effects.
 >
 
 --=20
@@ -153,60 +185,71 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/bacb756a-78ac-4687-a33e-f7ab1f6ffc70n%40googlegroups.com.
+jailhouse-dev/28787421-30d1-4cbd-9da2-da23c674bf25n%40googlegroups.com.
 
-------=_Part_469679_341439372.1717359563338
+------=_Part_259751_1420001925.1717359633526
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Get at me for your low &amp; high balance clone cards going for cool =
-prices.<div>https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars=
--for-sale/ Clone cards are spammed credit cards with clean funds. My clone =
-cards are available for cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=
-=EF=B8=8F and can be used for online purchases. Our clone card comes with a=
-n ATM pin for easy cash outs =E2=84=A2=EF=B8=8F</div><div>$300 for balance =
-$2k</div><div>$400 for balance $5K</div><div>$500for balance $7k</div><div>=
-$700 for balance $10k</div><div>https://t.me/Ricko_swavy8/product/good-trip=
--milk-chocolate-bars-for-sale/</div><div><br /></div><div>High balance</div=
-><div>$1k for balance $15k</div><div>$3k for balance $30k</div><div>$5k bal=
-ance $50k</div><div>$7k for balance $ 75k</div><div>https://t.me/Ricko_swav=
-y8/product/good-trip-milk-chocolate-bars-for-sale/</div><div>https://t.me/R=
-icko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div>=E2=
-=80=A2 Shipping =F0=9F=9B=AB =F0=9F=9B=AB</div><div><br /></div><div>=E2=80=
-=A2 Swift Delivery On DHL &amp; FedEx express</div><div>https://t.me/Ricko_=
-swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><br /></di=
-v><div>Text me now and make your</div><div class=3D"gmail_quote"><div dir=
-=3D"auto" class=3D"gmail_attr">On Saturday, June 1, 2024 at 11:32:32=E2=80=
-=AFAM UTC+1 Asah Randy wrote:<br/></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); pad=
-ding-left: 1ex;"><br><div><span style=3D"color:rgb(80,0,80)">Get at me for =
-your low &amp; high balance clone cards going for cool prices.</span><div s=
-tyle=3D"color:rgb(80,0,80)"><br></div><div style=3D"color:rgb(80,0,80)"><br=
-></div><div style=3D"color:rgb(80,0,80)"><a href=3D"https://t.me/motionking=
-_caliweed_psychedelics" target=3D"_blank" rel=3D"nofollow" data-saferedirec=
-turl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_=
-caliweed_psychedelics&amp;source=3Dgmail&amp;ust=3D1717445919379000&amp;usg=
-=3DAOvVaw31lFNHSZ0k-KesPWgHodzA">https://t.me/motionking_caliweed_psychedel=
-ics</a><br></div><div style=3D"color:rgb(80,0,80)"><br></div><div style=3D"=
-color:rgb(80,0,80)"><br></div><div style=3D"color:rgb(80,0,80)">Clone cards=
- are spammed credit cards with clean funds. My clone cards are available fo=
-r cash out in ATMs=F0=9F=8F=A7,Gas stations=E2=9B=BD=EF=B8=8F and can be us=
-ed for online purchases. Our clone card comes with an ATM pin for easy cash=
- outs =E2=84=A2=EF=B8=8F</div><div style=3D"color:rgb(80,0,80)">$300 for ba=
-lance $2k</div><div style=3D"color:rgb(80,0,80)">$400 for balance $5K</div>=
-<div style=3D"color:rgb(80,0,80)">$500for balance $7k</div><div style=3D"co=
-lor:rgb(80,0,80)">$700 for balance $10k</div><div style=3D"color:rgb(80,0,8=
-0)"><br></div><div style=3D"color:rgb(80,0,80)"><a href=3D"https://t.me/mot=
-ionking_caliweed_psychedelics" target=3D"_blank" rel=3D"nofollow" data-safe=
-redirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/moti=
-onking_caliweed_psychedelics&amp;source=3Dgmail&amp;ust=3D1717445919379000&=
-amp;usg=3DAOvVaw31lFNHSZ0k-KesPWgHodzA">https://t.me/motionking_caliweed_ps=
-ychedelics</a><br></div><div style=3D"color:rgb(80,0,80)"><br></div><div st=
-yle=3D"color:rgb(80,0,80)">High balance</div><div style=3D"color:rgb(80,0,8=
-0)">$1k for balance $15k</div><div style=3D"color:rgb(80,0,80)">$3k for bal=
-ance $30k</div><div style=3D"color:rgb(80,0,80)">$5k balance $50k</div><div=
- style=3D"color:rgb(80,0,80)">$7k for balance $ 75k</div></div></blockquote=
-></div>
+Your best online shop to get plantimum quality microdosing psychedelics pro=
+ducts online, pain,anxiety pills, and research chemicals.<div>Be 100% assur=
+ance=C2=A0</div><div><br /></div><div>Buy DMT .5ml Purecybin =E2=80=93 300m=
+g DMT Online:=C2=A0https;t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-30=
+0mg-dmt-online/</div><div><br /></div><div>Buy Dmt Online:=C2=A0https:t.me/=
+Ricko_swavy8/product-category/dmt/</div><div><br /></div><div>Buy LSD onlin=
+e:=C2=A0https:t.me/Ricko_swavy8/product-category/lsd/</div><div><br /></div=
+><div><br /></div><div>Buy Magic Mushroom Online:=C2=A0https:t.me/Ricko_swa=
+vy8/product-category/mushrooms/</div><div><br /></div><div>Buy DeadHead Che=
+mist DMT Vape Cartridge:=C2=A0https:t.me/Ricko_swavy8/product-category/dmt/=
+</div><div><br /></div><div>Buy Exotic Marijuana Strains Online:</div><div>=
+<br /></div><div>Buy 5-MEO DMT .5ml 150mg Mushrooms Canada Online:=C2=A0htt=
+ps:t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-mushrooms-canada-onlin=
+e/</div><div><br /></div><div>Buy 5-Meo-DMT(Cartridge) 1mL Deadhead Chemist=
+ Online:=C2=A0https:t.me/Ricko_swavy8/product/buy-5-meo-dmtcartridge-1ml-de=
+adhead-chemist-online/</div><div><br /></div><div>Buy Microdose 4-AcO-DMT D=
+eadhead Chemist Online:https:t.me/Ricko_swavy8/product/buy-microdose-4-aco-=
+dmt-deadhead-chemist-online/</div><div><br /></div><div>Buy Deadhead Chemis=
+t DMT 3 Cartridges Deal 1mL Online:=C2=A0https:t.me/Ricko_swavy8/product/bu=
+y-deadhead-chemist-dmt-3-cartridges-deal-1ml-online/</div><div><br /></div>=
+<div>Buy PolkaDot Magic Mushroom Belgian Chocolate 4G:</div><div><br /></di=
+v><div>Buy Penis Envy Magic Mushrooms:=C2=A0https://www.t.me/Ricko_swavy8/p=
+roduct/buy-new-penis-envy-mostly-stems-online/</div><div><br /></div><div>B=
+uy DMT 1ml Purecybin =E2=80=93 700mg DMT Online:=C2=A0https://www.t.me/Rick=
+o_swavy8/product/buy-dmt-1ml-purecybin-700mg-dmt-online/</div><div><br /></=
+div><div>Buy NN-DMT(Cartridge) 1mL | 800MG | MMD Cosmo Online:https:t.me/Ri=
+cko_swavy8/product/buy-nn-dmtcartridge-1ml-800mg-mmd-cosmo-online/</div><di=
+v><br /></div><div>Golden Teacher Magic Mushrooms:</div><div><br /></div><d=
+iv>Buy One Up =E2=80=93 Psilocybin Mushroom Chocolate Bar=C2=A0<br /><br />=
+</div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On =
+Saturday, June 1, 2024 at 2:57:30=E2=80=AFPM UTC+1 Asah Randy wrote:<br/></=
+div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-=
+left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><a href=3D"https://=
+t.me/motionking_caliweed_psychedelics" target=3D"_blank" rel=3D"nofollow" d=
+ata-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t=
+.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&amp;ust=3D171744597=
+3710000&amp;usg=3DAOvVaw0AVvUqI9fAbuCzkUQkJf7F">https://t.me/motionking_cal=
+iweed_psychedelics</a><br><div><br></div><div>Golden Teachers are considere=
+d moderately potent among psilocybin mushrooms. Their effects can vary depe=
+nding on factors such as growing conditions, individual tolerance, and dosa=
+ge. Users generally report a balance between visual and introspective effec=
+ts.<br><br><a href=3D"https://t.me/motionking_caliweed_psychedelics" target=
+=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
+/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;sour=
+ce=3Dgmail&amp;ust=3D1717445973710000&amp;usg=3DAOvVaw0AVvUqI9fAbuCzkUQkJf7=
+F">https://t.me/motionking_caliweed_psychedelics</a></div><div><br><br>=C2=
+=A0 =C2=A0 =C2=A0Effects: Like other psilocybin-containing mushrooms, consu=
+ming Golden Teacher mushrooms can lead to altered states of consciousness c=
+haracterized by visual and auditory hallucinations, changes in perception o=
+f time and space, introspection, and sometimes a sense of unity or connecti=
+on with one&#39;s surroundings<br>Some key characteristics of the Golden Te=
+acher mushroom strain include:<br>=C2=A0 =C2=A0 =C2=A0Appearance: The Golde=
+n Teacher strain typically features large, golden-capped mushrooms with a d=
+istinct appearance. When mature, the caps can take on a golden or caramel c=
+olor, while the stem is usually thick and white.<br>=C2=A0 =C2=A0 =C2=A0Pot=
+ency: Golden Teachers are considered moderately potent among psilocybin mus=
+hrooms. Their effects can vary depending on factors such as growing conditi=
+ons, individual tolerance, and dosage. Users generally report a balance bet=
+ween visual and introspective effects.<br></div></blockquote></div>
 
 <p></p>
 
@@ -217,11 +260,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/bacb756a-78ac-4687-a33e-f7ab1f6ffc70n%40googlegrou=
+om/d/msgid/jailhouse-dev/28787421-30d1-4cbd-9da2-da23c674bf25n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/bacb756a-78ac-4687-a33e-f7ab1f6ffc70n%40googlegroups.co=
+msgid/jailhouse-dev/28787421-30d1-4cbd-9da2-da23c674bf25n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_469679_341439372.1717359563338--
+------=_Part_259751_1420001925.1717359633526--
 
-------=_Part_469678_346750365.1717359563338--
+------=_Part_259750_1898609352.1717359633526--
