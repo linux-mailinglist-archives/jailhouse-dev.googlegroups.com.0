@@ -1,73 +1,77 @@
-Return-Path: <jailhouse-dev+bncBDY4BJFJYAMBBKUR6KZAMGQELBAC5AA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDJ5VLND4MLRBZVG6OZAMGQEKT5JATA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yw1-x113b.google.com (mail-yw1-x113b.google.com [IPv6:2607:f8b0:4864:20::113b])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B638D767E
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  2 Jun 2024 16:58:52 +0200 (CEST)
-Received: by mail-yw1-x113b.google.com with SMTP id 00721157ae682-62a089511f9sf44326437b3.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 07:58:52 -0700 (PDT)
+Received: from mail-yb1-xb39.google.com (mail-yb1-xb39.google.com [IPv6:2607:f8b0:4864:20::b39])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FEF8D77CC
+	for <lists+jailhouse-dev@lfdr.de>; Sun,  2 Jun 2024 22:17:44 +0200 (CEST)
+Received: by mail-yb1-xb39.google.com with SMTP id 3f1490d57ef6-dfa73db88dcsf3623329276.0
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 13:17:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717340331; x=1717945131; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717359463; x=1717964263; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tPRKoccLxgcFm34FPr6EApfpJaxdjXdg9gykYK3D7mg=;
-        b=CSq6hN63cOrV/gNpmeCvryh4ASyVoEoKkqUoUhw1jp6OxEnER14g1cOhau3nFjKMtz
-         G76hBDX06yJgqlkev2bW6Y/hDuP6jAnnreD5iPJRcme/LfaQt+JsKYBRnTKhKc3Y7Wpw
-         vMKH9cu9qlUgocfcezRyLJwrWZvKZgjuQzjLnvTM8OGV4sB5ni24kZ5ahjFFJgTzxww7
-         Kwp82aXtIsZnnGO1lWV++fk6c6Vng/z1Z7nzMihMT1QupzLQMurp2YWgRcSFLoM18uhl
-         X6V6/S03mOX6hNTd0Pe5mvRxBHzKqAoFCzL4zJf1fhqTTbl0RPOOHWEDuMS/Pp/NyL/v
-         w8Cg==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YweqMnZukmqhgjNv/7veYNnYZEG/W0KsZdEwswKaqz4=;
+        b=V21wVf84fGOr48r/kxFbhnb3AFDReLG9hh69sjDEMdbSmf9DwQ+shtEGOz2VCKTx69
+         5DK4XoAacbd1GQFE7OcVhwR/42rXdQ+XlVb5bmE7LqoaGH7jqW/lv5KFLCiYLaRN4jUo
+         gsOl9E2Hfp8g3Z1Eb363gaao3AeQhthOQBKfVyZYt9P2vaN8zwsAJJ0E/3seJxmArJsM
+         sJnrfD2jIs0Ua88haGNqSwsCTl+GZRXFeuKhZxXDFbW+2zGEOzMDNBaVCieXdSVuyQpY
+         4/UPKtiKblcmr2et+McalPIdLsdXJLSyb6pTyDUS2IGk9jbcpUKeM9vlgOD+hYdLVU7y
+         MmZg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717340331; x=1717945131; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717359463; x=1717964263; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tPRKoccLxgcFm34FPr6EApfpJaxdjXdg9gykYK3D7mg=;
-        b=FrTctsbJgvgAK53SV+Pj763U5/BM239iuUunUEYrxMDl8XgjTycEtYsXRWfsuhV0ad
-         kBeGgbLct9PB7CHm+NvWOZ+6Oe7yCe45nt/9XKzpGt4jyc9sFLsF3ODXhyxfTd4GnULX
-         KXHj2ehcvQm507YjCB1UmxQKaWrVBa7Al2UuuRf7Pv6NSi+X7goJjxieB8SeeO/fXSua
-         2PBNTlJXm5iKLnQ8NK0g80/QOHTfLrV7ccVMnsolS0rZBO8OBI2hmTnHFgpXbU7QH1f3
-         tftod2Ys+2RSzwTXw8IweEhtXhBlWAckxY4UJS7cOeL1Z58En+CYKVJUKQvodibEnL0V
-         R7QA==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YweqMnZukmqhgjNv/7veYNnYZEG/W0KsZdEwswKaqz4=;
+        b=U/P4/0l83QMOZflX3rgryCTkBH9cYmYK5300m88krBpJiY0iba6qfnDWaxB3QRIYh+
+         KBi9Jwuj/PhxiSenTgXio0qgnoPhus//8Y7ZNgBRC9CvIWg3tbrdch5IgTaHDZUkgxxE
+         /OWieG5ahvJqBfq7g0wL642wuhTiHocOxZvvWSL3PzLoizpc9iRHzKiZ8Ps9gxmNq2YM
+         k6eGji2Q7R7ypncHb7KizkYktThvYsX4vpli2o/JuON1jU9tsjt6epjPaA934ynOVs6V
+         70n2qQW+XaEU9n5+bSJD3HycGwSobanRto8vvJibjg4ctPIC/Njantyr9UxxCupSpnWn
+         /58g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717340331; x=1717945131;
+        d=1e100.net; s=20230601; t=1717359463; x=1717964263;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tPRKoccLxgcFm34FPr6EApfpJaxdjXdg9gykYK3D7mg=;
-        b=D4yo+Qb8O4MUSydDtuPI5lKPF1d9Qes4XAHbR+xdlor3ZuG3j/mxbmddFGQqzzDUkl
-         zi6EpBMkBt3g26PR/UzPWfV8uP/iphO+y6meZceBdHaoM9MklML2/TubHwd28Vh7R76L
-         DCsakLyTPCkiVsjptuEISm+jMyAYpgFUb+O1qCAfUJteFd+u8BsnHE//8lwhaeW7TYZk
-         lZoxeK6M0QjdiaRBk52TX8UaKpSZa/6WOOW7p+WInPgDiED071m4oa8sf+xAgyFXt+6u
-         LWWyvlFwtKvyeGOTIcj03pMZI+YxjLWI+vuwd1cS73I5kv2hWJSbwa/0FOwTvM7MgNiW
-         8ZhQ==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YweqMnZukmqhgjNv/7veYNnYZEG/W0KsZdEwswKaqz4=;
+        b=e73tDRS9u86ouSjJeiTxKe5ltkkxEc+4nWf7ez0b1opw4uMUIL9T95Z7a4NofuBnmV
+         cOqd74JUSwqP+EJm5JauICFx9J8Du5wBBh4nSzLYyayiiBxGs3poiLd8x3Dd1jMndyev
+         ClUf4n5twZI7XH04Ai2i2S+KvRzw+8Xm95N1WxQNwExVi8DAhExI3uF6XOJ3NCgwUpyL
+         2kj/tTkElJ4jUvvPkplju6WV8tyrVWSvI8+FcW9R/p7K2Vgo35tRgNtXGLaW4fKvdEnY
+         pMrMVSBh/FZdOKPX4Wb/F6Pds1vr/A+AyFPCvoZaJ50uc+fmaA6hCJBY3ixpc+yjCIH/
+         PvZw==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWH5xfLpSVNEHXNKT6mgcU07SI7fkDIcG/1wyhQRQgDfLkNDN8pRODf5nvhK4Y8w4go/7vdneqYcyOIe0lkXV2bzSmcLnvoCFGkq7k=
-X-Gm-Message-State: AOJu0Yx0YzEIUqIFEyMFwU9izxq1mU6PwA+YoPFvOrZeeZ2kqzOIbhH2
-	VvKzZDYZkRpmNrg5H3KlLMqu+UK4aMwEe3YX5eV7OMA+P8xHBsJ2
-X-Google-Smtp-Source: AGHT+IEQ5SOsLILgusPkE2BJAkrnOEj/bHDVb1MMy/aTtjsbOZv1AGWlmme2feWu/v3HE6QyLsARtw==
-X-Received: by 2002:a05:690c:6681:b0:615:2fa1:c55d with SMTP id 00721157ae682-62c6cd4263amr76503577b3.19.1717340331533;
-        Sun, 02 Jun 2024 07:58:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCW/e2cUS3xyvbKL2TFwTOHRVtYOXSc8b6NP+RxLM+F88uyo6uiZ6xK4Z8iRaFFSHxyTFBRaXctCn5b297qmitR72gSJXTOC9y1Oh2w=
+X-Gm-Message-State: AOJu0YykFm5e1PHrOeVdKaH4aUyDsFcJHe7Ljmh2GOcvdOlWI572dHFS
+	uaOl22vFjdX96GfruDO21xC478Ehj4AZIWBH+0JE+P60Occei4fA
+X-Google-Smtp-Source: AGHT+IHasJ915uclmX3o0IA/j4KEAowM9mvAJx0eo/l1CPDt51dE2q5yOoipnR3wlat9BzYxJmMGQg==
+X-Received: by 2002:a25:8008:0:b0:df4:50a4:e21c with SMTP id 3f1490d57ef6-dfa73d9e7b5mr6982812276.46.1717359463433;
+        Sun, 02 Jun 2024 13:17:43 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:bc3:0:b0:dfa:7e23:93a1 with SMTP id 3f1490d57ef6-dfa7e23962fls427450276.0.-pod-prod-06-us;
- Sun, 02 Jun 2024 07:58:50 -0700 (PDT)
-X-Received: by 2002:a05:6902:1206:b0:df7:a340:4600 with SMTP id 3f1490d57ef6-dfa73d807fdmr2019291276.10.1717340329935;
-        Sun, 02 Jun 2024 07:58:49 -0700 (PDT)
-Date: Sun, 2 Jun 2024 07:58:49 -0700 (PDT)
-From: jakson Kelooscoponis <jaksonkelooscoponis@gmail.com>
+Received: by 2002:a25:253:0:b0:de5:a5cb:9690 with SMTP id 3f1490d57ef6-dfa595d8a16ls240228276.0.-pod-prod-02-us;
+ Sun, 02 Jun 2024 13:17:42 -0700 (PDT)
+X-Received: by 2002:a05:690c:dcf:b0:622:c8eb:6ffd with SMTP id 00721157ae682-62c794aa9a5mr23118847b3.0.1717359461882;
+        Sun, 02 Jun 2024 13:17:41 -0700 (PDT)
+Date: Sun, 2 Jun 2024 13:17:40 -0700 (PDT)
+From: Dwayne Mickey <dwnmickey@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <eef6f0b6-c76c-42ad-81bb-232279e5c35bn@googlegroups.com>
-Subject: WhatsApp +17754424473. Buy fake and real Passport, Buy Drivers
- license
+Message-Id: <d733ed98-17be-4029-b96b-407142be4901n@googlegroups.com>
+In-Reply-To: <f2ee268a-9788-4c77-a180-8384ff1a1b5cn@googlegroups.com>
+References: <ba978c38-a6be-4d27-ac21-31299ce61affn@googlegroups.com>
+ <cb3b68b2-1d11-4956-842e-9d1ec707936an@googlegroups.com>
+ <82a144e2-6359-4ef8-8919-a784e82897afn@googlegroups.com>
+ <f2ee268a-9788-4c77-a180-8384ff1a1b5cn@googlegroups.com>
+Subject: Re: BUY ONE UP MUSHROOM CHOCOLATE BARS ONLINE IN USA
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_102089_588076029.1717340329219"
-X-Original-Sender: jaksonkelooscoponis@gmail.com
+	boundary="----=_Part_403143_1765942555.1717359460880"
+X-Original-Sender: dwnmickey@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,196 +84,135 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_102089_588076029.1717340329219
+------=_Part_403143_1765942555.1717359460880
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_102090_1754582501.1717340329219"
+	boundary="----=_Part_403144_162819116.1717359460880"
 
-------=_Part_102090_1754582501.1717340329219
+------=_Part_403144_162819116.1717359460880
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 
-
-+1(775)442-4473.BUY FAKE-REAL DRIVERS LICENSE
-
-
-
-
-(+1-775-442-4473 Txt/call/watsapp).Buy fake-real drives license, passports,=
+Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
+w could=20
+that not be the dream?
+Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
+gh that=20
+won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
+True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
+ooms=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality of=20
+your trip, in fact, you may even decide to switch to edibles!
+Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=
+=E2=80=99t=20
+necessarily mean you want to be seen stuffing your face with them. For=20
+those who want to keep it classy and discrete, nibbling on some chocolate=
 =20
-ID cards ,birth certificate ,SSN. Get a  legit brand new identity.=20
-
-
-
-
-*+1(775)442-4473. Txt /call/watsapp.BUY FAKE-REAL DRIVERS LICENSE*
-
-
-
-(+1-775-442-4473 Txt/call/watsapp).Buy fake-real drives license, passports,=
+is the way to go. shroom chocolate bar
+Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocolate=
+ can be=20
+broken up for versatile dosage. Each square of this chocolate bar contains=
 =20
-ID cards ,birth certificate ,SSN. Get a legit brand new identity.=20
-
-To put it in layman's terms, a driver=E2=80=99s license or drivers license =
-or=20
-driving licence is a document that gives you permission to drive a car.=20
-There are different types (categories) of drivers licenses. The category of=
+approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether=
 =20
-your drivers license determines what size of car you are allowed to drive.=
+it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got =
+you=20
+covered. shroom chocolate bar
+
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+Buy Good Trip Mushroom Chocolate Bars Online
+Have you ever wished mushrooms tasted better? We=E2=80=99re here to grant t=
+hat wish=20
+by bringing you our Good Trip Mushroom Chocolate Bar. This bar is tasty,=20
+irresistible also, contains a total of 3.5g of Magic Mushrooms ( 6 grams=20
+per chocolate square). And can be broken off into squares for flexible=20
+shroom dosage.
+
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
+
+IT has an awesome taste and smells good too chocolate. Good Trip Mushroom=
 =20
-Your drivers license is legal proof that you have the skills required to=20
-safely drive a car on public roads. What this means is that, you would get=
+Chocolate Bars makes you trip your face off. So, how could that not be the=
 =20
-in trouble if you are caught driving a car on a public road without a=20
-drivers license. The words =E2=80=9Cdriving permit=E2=80=9D are used in mos=
-t international=20
-documents. It basically means the same thing as 'drivers license'.
+dream?. =E2=80=A2
 
-In most countries, a drivers license is plastic, and about the size of a=20
-credit card. Most jurisdictions here in the United States issue a permit=20
-with the words =E2=80=9Cdriver license=E2=80=9D printed on it. Others go wi=
-th =E2=80=9Cdriver=E2=80=99s=20
-license=E2=80=9D. In Canada, both =E2=80=9Cdriver=E2=80=99s licence=E2=80=
-=9D and =E2=80=9Cdriver licence=E2=80=9D are used.=20
-But the document serves the same purpose.
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
 
+Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
+gh that=20
+won=E2=80=99t leave you crashing after the initial peak.
 
-We offer bulletproof USA Drivers License passports + SSN and Birth=20
-Certificate.
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
 
-We offer bulletproof USA passports + SSN + Drivers License and Birth=20
-Certificate.UK Passports and German passports.
-
-How we do it? Trade secret! But we can assure you that you won=E2=80=99t ha=
-ve any=20
-problems with our papers.
-
-We are shipping documents from the USA, international shipping is no=20
-problem. You can use your own name or a new name.
-
-Information on how to send us required info (scanned signature, biometric=
+True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mushro=
+oms=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality of=20
+your trip, in fact, you may even decide to switch to edibles!
+:Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=99t=
 =20
-picture etc.) will be given after purchase.
+necessarily mean you want to be seen stuffing your face with them For those=
+=20
+who want to keep it classy and discrete, nibbling on some chocolate is the=
+=20
+way to go. shroom chocolate bar =E2=80=A2
+On Sunday, June 2, 2024 at 9:27:48=E2=80=AFAM UTC+1 Asah Randy wrote:
 
-For New Identity: Start fresh with the docs listed below.
-
-New identity packages include the following;
-
-Buy Birth Certificates*
-
-Buy Passport*
-
-Buy Driver license*
-
-Buy Social security*
-
-BUY Bank account* (newly created with your info)
-
-Buy Credit cards
-
-SUPPORT DOCUMENTS 24HRS or BUY DOCUMENTS ONLINE.Find out today how to buy=
+> https://t.me/prime_house00
+>
+> Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. =
+How could=20
+> that not be the dream?
+>
+> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean =
+high that=20
+> won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
+>
+> True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mus=
+hrooms=20
+> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find a=
+ny drop in the quality of=20
+> your trip, in fact, you may even decide to switch to edibles!
+>
+> Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that does=
+n=E2=80=99t=20
+> necessarily mean you want to be seen stuffing your face with them. For=20
+> those who want to keep it classy and discrete, nibbling on some chocolate=
 =20
-passport online without having any legal issues. If you choose to apply for=
+> is the way to go. shroom chocolate bar
+>
+> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocola=
+te can be=20
+> broken up for versatile dosage. Each square of this chocolate bar contain=
+s=20
+> approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Wheth=
+er=20
+> it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has go=
+t you=20
+> covered. shroom chocolate bar
+>
+> https://t.me/prime_house00
+>
+> On Sunday, June 2, 2024 at 2:25:35=E2=80=AFAM UTC-6 Asah Randy wrote:
+>
+> https://t.me/prime_house00
+>
+> Buy Good Trip Mushroom Chocolate Bars Online
+>
+> Have you ever wished mushrooms tasted better? We=E2=80=99re here to grant=
+ that=20
+> wish by bringing you our Good Trip Mushroom Chocolate Bar. This bar is=20
+> tasty, irresistible also, contains a total of 3.5g of Magic Mushrooms ( 6=
 =20
-passport online, we give you best quality passport which is made with high=
-=20
-quality. Get a passport that will bypass all the security checkpoints=20
-without any problems. Learn how we offer unique and untraceable travel=20
-documents to the whole world without a single problem. Contact Us to Buy=20
-passport online.(manalon(@)protonmail.com).
-
-Do you need a new identity you can use to travel without fear of being=20
-caught ?
-
-or do you just need something you can carry around for fancy ?
-
-Well I and my team have over 30000 thousand documents circulating round the=
-=20
-world.
-
-With the right amount of money you can get good paperwork done .
-
-American passports for sale online.
-
-If you're looking for an American passport, then you've come to the right=
-=20
-place. We have American passports for sale for all states of the United=20
-state and are valid for at least 5 years. We provide both fake and real.=20
-When we say fake, you don't need to worry about getting caught using it=20
-because they have all the necessary security features and look and feels=20
-like the original.
-
-The difference is that fake passports aren't found in the database of the=
-=20
-country. So, should anyone verify the passport, it won't be found in the=20
-database .
-
-As for Real passports, these a passports that are owned by real people and=
-=20
-issued by the state. The serial number is in the database and contains all=
-=20
-the information of the client. These are more expensive but the client has=
-=20
-no risk of using it.
-
-The last option for American passports are real too but these are stolen=20
-passport. Some clients don=E2=80=99t want to submit their information to th=
-e=20
-database for various security reasons but at the same time, they want a=20
-real passport. With this type, a stolen passport is carefully altered and=
-=20
-the client=E2=80=99s information is entered on the passport. With this, the=
-=20
-passport is quite real but the information in the database differs from the=
-=20
-one on the passport. This is perfect for traveling as airport authorities=
-=20
-are only concerned about verifying the authenticity of a passport. Stolen=
-=20
-passports are just as authentic as the real passports we sell, giving our=
-=20
-clients the convenience of going wherever and whenever they please. The=20
-only clients who have difficulties with our documents are those carrying=20
-contraband into another country.
-
-We provide; Passports Drivers license
-
-Permanent Residence Visas Social Security Work Permit Birth Certificate=20
-Death Certificates Diplomas Degrees Transcripts Pro Bank statements Bank=20
-transfers Driver records Credit cards Erase Criminal records in most=20
-jurisdictions For New Identity: Start afresh with the docs listed below.=20
-New identity packages include the following; Birth Certificates* Passport*=
-=20
-Driver license* Social security* Bank account* (newly created with your=20
-info) Credit cards Legit Business Documents??Buy Passport online,=20
-Diplomatic passport, Registered Passport, Real Passport... Passport of=20
-Types... Germany Passport, Australian Passport, British Passport, Mexico=20
-Passport, UAE Passport, United Arab Emirates Passport, Belgium Passport,=20
-France Passport, Brazil Passport, Malaysia Passport, Switzerland passport,=
-=20
-Ireland Passport ,Qatar Passport, Lebanon Passport,Germany Passport,=20
-Australian Passport, British Passport, Mexico Passport, UAE Passport,=20
-United Arab Emirates Passport, Belgium Passport, France Passport, Brazil=20
-Passport, Malaysia Passport, Switzerland passport, Ireland Passport ,Qatar=
-=20
-Passport, Lebanon Passport, Singapore Passport,United Nation Passport,Reach=
-=20
-us on. UN Passport , Order Passport Online, Buy Driver License online ,=20
-Driver?s License, Drivers License for sale online, ID Card, Military Card,=
-=20
-Identity Card,BUY TOEFL Certificate Online , BUY GRE Certificate Online Buy=
-=20
-IETLS Certificate online, Buy Diploma for sale online, Buy GMAT Certificate=
-=20
-Online, Buy Genuine IELTS certificate, Buy IELTS certificate without exam ,=
-=20
-IELTS Certificate for sale, BUY LSAT CERTIFICATE online, Adoption=20
-Papers,Utility Bills,Marijuana Card .You can contact me via:=20
-Email(@)_manalon(@)protonmail.com
-
-Telegram(@)supremebill
-
-Whatsapp +1(775)442-4473.
+> grams per chocolate square). And can be broken off into squares for=20
+> flexible shroom dosage.
+>
+>
+> https://t.me/prime_house00
+>
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -277,354 +220,105 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/eef6f0b6-c76c-42ad-81bb-232279e5c35bn%40googlegroups.com.
+jailhouse-dev/d733ed98-17be-4029-b96b-407142be4901n%40googlegroups.com.
 
-------=_Part_102090_1754582501.1717340329219
+------=_Part_403144_162819116.1717359460880
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<p style=3D"margin: 0px; text-align: center; font-stretch: normal; font-siz=
-e: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; font=
--size-adjust: none; font-kerning: auto; font-variant-alternates: normal; fo=
-nt-variant-ligatures: normal; font-variant-numeric: normal; font-variant-ea=
-st-asian: normal; font-variant-position: normal; font-feature-settings: nor=
-mal; font-optical-sizing: auto; font-variation-settings: normal;">+1(775)44=
-2-4473.BUY FAKE-REAL DRIVERS LICENSE</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">(+1-775-442-4473 Txt/call/wat=
-sapp).Buy fake-real drives license, passports, ID cards ,birth certificate =
-,SSN. Get a =C2=A0legit brand new identity.=C2=A0</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px 0px 2px; font-stretch: normal; font-size: 16px; lin=
-e-height: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust=
-: none; font-kerning: auto; font-variant-alternates: normal; font-variant-l=
-igatures: normal; font-variant-numeric: normal; font-variant-east-asian: no=
-rmal; font-variant-position: normal; font-feature-settings: normal; font-op=
-tical-sizing: auto; font-variation-settings: normal;"><b>+1(775)442-4473. T=
-xt /call/watsapp.BUY FAKE-REAL DRIVERS LICENSE</b></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">(+1-775-442-4473 Txt/call/wat=
-sapp).Buy fake-real drives license, passports, ID cards ,birth certificate =
-,SSN. Get a=C2=A0legit brand new identity.=C2=A0</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">To put it in layman's terms, =
-a driver=E2=80=99s license or drivers license or driving licence is a docum=
-ent that gives you permission to drive a car. There are different types (ca=
-tegories) of drivers licenses. The category of your drivers license determi=
-nes what size of car you are allowed to drive. Your drivers license is lega=
-l proof that you have the skills required to safely drive a car on public r=
-oads. What this means is that, you would get in trouble if you are caught d=
-riving a car on a public road without a drivers license. The words =E2=80=
-=9Cdriving permit=E2=80=9D are used in most international documents. It bas=
-ically means the same thing as 'drivers license'.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">In most countries, a drivers =
-license is plastic, and about the size of a credit card. Most jurisdictions=
- here in the United States issue a permit with the words =E2=80=9Cdriver li=
-cense=E2=80=9D printed on it. Others go with =E2=80=9Cdriver=E2=80=99s lice=
-nse=E2=80=9D. In Canada, both =E2=80=9Cdriver=E2=80=99s licence=E2=80=9D an=
-d =E2=80=9Cdriver licence=E2=80=9D are used. But the document serves the sa=
-me purpose.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal; min-height: 15px;"><br /></p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">We offer bulletproof USA Driv=
-ers License=C2=A0passports + SSN=C2=A0and Birth Certificate.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">We offer bulletproof USA pass=
-ports + SSN + Drivers License and Birth Certificate.UK=C2=A0Passports and G=
-erman passports.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">How we do it? Trade secret! B=
-ut we can assure you that you won=E2=80=99t have any problems with our pape=
-rs.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">We are shipping documents fro=
-m the USA, international shipping is no problem. You can use your own name =
-or a new name.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Information on how to send us=
- required info (scanned signature, biometric picture etc.) will be given af=
-ter purchase.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">For New Identity: Start fresh=
- with the docs listed below.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">New identity packages include=
- the following;</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Buy Birth Certificates*</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Buy Passport*</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Buy Driver license*</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Buy Social security*</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">BUY Bank account* (newly crea=
-ted with your info)</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Buy Credit cards</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">SUPPORT DOCUMENTS 24HRS or BU=
-Y DOCUMENTS ONLINE.Find out today how to buy passport online without having=
- any legal issues. If you choose to apply for passport online, we give you =
-best quality passport which is made with high quality. Get a passport that =
-will bypass all the security checkpoints without any problems. Learn how we=
- offer unique and untraceable travel documents to the whole world without a=
- single problem. Contact Us to Buy passport online.(manalon(@)protonmail.co=
-m).</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Do you need a new identity yo=
-u can use to travel without fear of being caught ?</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">or do you just need something=
- you can carry around for fancy ?</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Well I and my team have over =
-30000 thousand documents circulating round the world.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">With the right amount of mone=
-y you can get good paperwork done .</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">American passports for sale o=
-nline.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">If you're looking for an Amer=
-ican passport, then you've come to the right place. We have American passpo=
-rts for sale for all states of the United state and are valid for at least =
-5 years. We provide both fake and real. When we say fake, you don't need to=
- worry about getting caught using it because they have all the necessary se=
-curity features and look and feels like the original.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">The difference is that fake p=
-assports aren't found in the database of the country. So, should anyone ver=
-ify the passport, it won't be found in the database .</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">As for Real passports, these =
-a passports that are owned by real people and issued by the state. The seri=
-al number is in the database and contains all the information of the client=
-. These are more expensive but the client has no risk of using it.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">The last option for American =
-passports are real too but these are stolen passport. Some clients don=E2=
-=80=99t want to submit their information to the database for various securi=
-ty reasons but at the same time, they want a real passport. With this type,=
- a stolen passport is carefully altered and the client=E2=80=99s informatio=
-n is entered on the passport. With this, the passport is quite real but the=
- information in the database differs from the one on the passport. This is =
-perfect for traveling as airport authorities are only concerned about verif=
-ying the authenticity of a passport. Stolen passports are just as authentic=
- as the real passports we sell, giving our clients the convenience of going=
- wherever and whenever they please. The only clients who have difficulties =
-with our documents are those carrying contraband into another country.</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">We provide; Passports Drivers=
- license</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Permanent Residence Visas Soc=
-ial Security Work Permit Birth Certificate Death Certificates Diplomas Degr=
-ees Transcripts Pro Bank statements Bank transfers Driver records Credit ca=
-rds Erase Criminal records in most jurisdictions For New Identity: Start af=
-resh with the docs listed below. New identity packages include the followin=
-g; Birth Certificates* Passport* Driver license* Social security* Bank acco=
-unt* (newly created with your info) Credit cards Legit Business Documents??=
-Buy Passport online, Diplomatic passport, Registered Passport, Real Passpor=
-t... Passport of Types... Germany Passport, Australian Passport, British Pa=
-ssport, Mexico Passport, UAE Passport, United Arab Emirates Passport, Belgi=
-um Passport, France Passport, Brazil Passport, Malaysia Passport, Switzerla=
-nd passport, Ireland Passport ,Qatar Passport, Lebanon Passport,Germany Pas=
-sport, Australian Passport, British Passport, Mexico Passport, UAE Passport=
-, United Arab Emirates Passport, Belgium Passport, France Passport, Brazil =
-Passport, Malaysia Passport, Switzerland passport, Ireland Passport ,Qatar =
-Passport, Lebanon Passport, Singapore Passport,United Nation Passport,Reach=
- us on. UN Passport , Order Passport Online, Buy Driver License online , Dr=
-iver?s License, Drivers License for sale online, ID Card, Military Card, Id=
-entity Card,BUY TOEFL Certificate Online , BUY GRE Certificate Online Buy I=
-ETLS Certificate online, Buy Diploma for sale online, Buy GMAT Certificate =
-Online, Buy Genuine IELTS certificate, Buy IELTS certificate without exam ,=
- IELTS Certificate for sale, BUY LSAT CERTIFICATE online, Adoption Papers,U=
-tility Bills,Marijuana Card .You can contact me via: Email(@)_manalon(@)pro=
-tonmail.com</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Telegram(@)supremebill</p>
-<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
-font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
-: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
-nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
-zing: auto; font-variation-settings: normal;">Whatsapp +1(775)442-4473.</p>
+<br />Great Taste =E2=80=93 A chocolate bar that makes you trip your face o=
+ff. How could that not be the dream?<div>Clean High =E2=80=93 We formulated=
+ this chocolate bar to produce a clean high that won=E2=80=99t leave you cr=
+ashing after the initial peak. shroom chocolate</div><div>True Psychedelic =
+Experience -Just cause it doesn=E2=80=99t taste like mushrooms doesn=E2=80=
+=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any drop in th=
+e quality of your trip, in fact, you may even decide to switch to edibles!<=
+/div><div>Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but t=
+hat doesn=E2=80=99t necessarily mean you want to be seen stuffing your face=
+ with them. For those who want to keep it classy and discrete, nibbling on =
+some chocolate is the way to go. shroom chocolate bar</div><div>Versatile D=
+osage =E2=80=93 The combined 3.5g of mushrooms in this chocolate can be bro=
+ken up for versatile dosage. Each square of this chocolate bar contains app=
+roximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether it=
+=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got yo=
+u covered. shroom chocolate bar</div><div><br /></div><div>https://t.me/Ric=
+ko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div><div><br /><=
+/div><div>Buy Good Trip Mushroom Chocolate Bars Online</div><div>Have you e=
+ver wished mushrooms tasted better? We=E2=80=99re here to grant that wish b=
+y bringing you our Good Trip Mushroom Chocolate Bar. This bar is tasty, irr=
+esistible also, contains a total of 3.5g of Magic Mushrooms ( 6 grams per c=
+hocolate square). And can be broken off into squares for flexible shroom do=
+sage.</div><div><br /></div><div>https://t.me/Ricko_swavy8/product/good-tri=
+p-milk-chocolate-bars-for-sale/</div><div><br /></div><div>IT has an awesom=
+e taste and smells good too chocolate. Good Trip Mushroom Chocolate Bars ma=
+kes you trip your face off. So, how could that not be the dream?. =E2=80=A2=
+</div><div><br /></div><div>https://t.me/Ricko_swavy8/product/good-trip-mil=
+k-chocolate-bars-for-sale/</div><div><br /></div><div>Clean High =E2=80=93 =
+We formulated this chocolate bar to produce a clean high that won=E2=80=99t=
+ leave you crashing after the initial peak.</div><div><br /></div><div>http=
+s://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</div>=
+<div><br /></div><div>True Psychedelic Experience Just cause it doesn=E2=80=
+=99t taste like mushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. =
+You won=E2=80=99t find any drop in the quality of your trip, in fact, you m=
+ay even decide to switch to edibles!</div><div>:Sneaky-Sure, Magic Mushroom=
+s are legal in Canada but that doesn=E2=80=99t necessarily mean you want to=
+ be seen stuffing your face with them For those who want to keep it classy =
+and discrete, nibbling on some chocolate is the way to go. shroom chocolate=
+ bar =E2=80=A2</div><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"g=
+mail_attr">On Sunday, June 2, 2024 at 9:27:48=E2=80=AFAM UTC+1 Asah Randy w=
+rote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.=
+8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><div><a=
+ href=3D"https://t.me/prime_house00" target=3D"_blank" rel=3D"nofollow" dat=
+a-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.m=
+e/prime_house00&amp;source=3Dgmail&amp;ust=3D1717445789227000&amp;usg=3DAOv=
+Vaw2Y6rQUBkifyUWP4ZKtScnm">https://t.me/prime_house00</a></div><div><br></d=
+iv><div>Great Taste =E2=80=93 A chocolate bar that makes you trip your face=
+ off. How could that not be the dream?<br><br>Clean
+ High =E2=80=93 We formulated this chocolate bar to produce a clean high th=
+at=20
+won=E2=80=99t leave you crashing after the initial peak. shroom chocolate<b=
+r><br>True
+ Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushrooms=
+=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality=20
+of your trip, in fact, you may even decide to switch to edibles!<br><br>Sne=
+aky
+ =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=E2=80=
+=99t=20
+necessarily mean you want to be seen stuffing your face with them. For=20
+those who want to keep it classy and discrete, nibbling on some=20
+chocolate is the way to go. shroom chocolate bar<br><br>Versatile Dosage
+ =E2=80=93 The combined 3.5g of mushrooms in this chocolate can be broken u=
+p for
+ versatile dosage. Each square of this chocolate bar contains=20
+approximately .6g of Magic Mushrooms, while each bar contains 3.5g.=20
+Whether it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar =
+has=20
+got you covered. shroom chocolate bar<br><br></div><div><a href=3D"https://=
+t.me/prime_house00" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&a=
+mp;source=3Dgmail&amp;ust=3D1717445789227000&amp;usg=3DAOvVaw2Y6rQUBkifyUWP=
+4ZKtScnm">https://t.me/prime_house00</a></div><br><div><div dir=3D"auto">On=
+ Sunday, June 2, 2024 at 2:25:35=E2=80=AFAM UTC-6 Asah Randy wrote:<br></di=
+v><blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
+04,204,204);padding-left:1ex"><div><a href=3D"https://t.me/prime_house00" r=
+el=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.googl=
+e.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&amp;source=3Dgmail&amp=
+;ust=3D1717445789227000&amp;usg=3DAOvVaw2Y6rQUBkifyUWP4ZKtScnm">https://t.m=
+e/prime_house00</a></div><div><br></div><div>Buy Good Trip Mushroom Chocola=
+te Bars Online<br><br>Have you ever wished
+ mushrooms tasted better? We=E2=80=99re here to grant that wish by bringing=
+ you=20
+our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresistible=20
+also, contains a total of 3.5g of Magic Mushrooms ( 6 grams per=20
+chocolate square). And can be broken off into squares for flexible=20
+shroom dosage.</div><div><br></div><div><br></div><a href=3D"https://t.me/p=
+rime_house00" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"ht=
+tps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&amp;sou=
+rce=3Dgmail&amp;ust=3D1717445789227000&amp;usg=3DAOvVaw2Y6rQUBkifyUWP4ZKtSc=
+nm">https://t.me/prime_house00</a><br></blockquote></div></blockquote></div=
+>
 
 <p></p>
 
@@ -635,11 +329,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/eef6f0b6-c76c-42ad-81bb-232279e5c35bn%40googlegrou=
+om/d/msgid/jailhouse-dev/d733ed98-17be-4029-b96b-407142be4901n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/eef6f0b6-c76c-42ad-81bb-232279e5c35bn%40googlegroups.co=
+msgid/jailhouse-dev/d733ed98-17be-4029-b96b-407142be4901n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_102090_1754582501.1717340329219--
+------=_Part_403144_162819116.1717359460880--
 
-------=_Part_102089_588076029.1717340329219--
+------=_Part_403143_1765942555.1717359460880--
