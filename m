@@ -1,72 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRBFXC62ZAMGQEGDPPC5Q@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRBXHC62ZAMGQEPB3J7OA@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A188D81D5
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:03:37 +0200 (CEST)
-Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-dfa74682897sf4411395276.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:03:37 -0700 (PDT)
+Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52B4F8D81D9
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:04:47 +0200 (CEST)
+Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-dfa79b84623sf4410469276.2
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:04:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717416216; x=1718021016; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717416286; x=1718021086; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LS0hzYgdo9ZTTLtTwsl5hzQEVNLz9yjRli6W7kekuGA=;
-        b=SvgX7ULyP9XOwqEf5VJgUlZV2PnmH6CoxKVKM/XXiofTuxz22Jinrc3c5Vvtv4wIDD
-         DNbozGNO4VinAKVSEqPHzT5bKgdjQhL5laFulrpUj4sADw090PAQQ9Li0vWW1nuAGqSR
-         BBEXcjwpZSMs+HlJAg+kWL4cR7x4ShmpegUXh2BB2/VHSHuszuyXZ4nrXf2UNsElwt1i
-         01QbOO14mjzG848D9IN03FmLsN30nk8U7jEjrvi2fXIWqaZ4ehRcjGbAEVur4kGnrQpu
-         kWTvgVt/FMwlDJ39xLSZuQBNW7BHRhA8VMmjtIxCxTrOe2ZuXGdvbO0+V9mRn6jVltEj
-         /BOQ==
+        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
+        b=Dhx+YF+yq5QRB/v/51Q76OZVSPdF3ppK7XvRGPYPD1yO9/s99cfnOeDKOG7hvmBexG
+         ftJtqfWscTMvmCx8gsmqPrKp0podcKMn4Y1EFSXsJtoepJqp8jbi/RvtxEl3E8jXPkbD
+         Ax8FLwX+dT6EsSRM90uVefNKQuwd8PrNTFgCB+6g4QZZXI0lLjPXIQHfqiFtxlTEXHiO
+         7RSh4yBjhTw8GfjqKh4E8CyY0z6l3jhpSCywIfucHxdgt8uP95GP5mtP2iE4VKJS/npm
+         1qFcoym8LSLQWvSJB4ZsVIjlpaJMdQVmnNmZqWtvHQPf8udJ+hidRfukgID1jqiSTXJV
+         0WOw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717416216; x=1718021016; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717416286; x=1718021086; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LS0hzYgdo9ZTTLtTwsl5hzQEVNLz9yjRli6W7kekuGA=;
-        b=jZR3XyxPoeTtInWYEiZ+/MZyKIjHumEfXXjft/j+Zr2qw2vq1GOA+BMqv6afjwcf8I
-         WCCu8d6WwerhFJxlPGhFGGXW3EazWLqB5vPRlkXN1b7gz9+8QcrKvqxfVKNPWCH8I41g
-         Iqu+jKCnCA9wGRKkWAyENoa64LlrDVu6jzpyExhPc3z9XdqmelZMP3XHbr482AlK+a6u
-         TseXMkMLb/7oJlFl4IPC4sgzvEKRO2HqKfAO8oDQImmb9sAAThN9xt3tTMWb9ZA8UlCl
-         tg9lqOGtbCvjzLTjK09nYdau6jQ1PIaf5jEPpOICVxpJkSFOsJPD8LLpPrf4aRoma2Zm
-         Xo/Q==
+        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
+        b=XV74fNsteFZioiwAYdsH5eQeH5Fw7ar3FZn9ki26WtQrX3fL4beex8kAqcfzBYI4iH
+         Q9N2aYOSFgNy7NoLfbDIvtmglN3GXfziBvQ3S6UZtXfOHTaNS+YogNj5gNTdPTG6TLKl
+         6BwioqEr2nwmxhVvk0JFFJJ+oYZ1ohWm1Niq9E1ktFFmEFu2gpfiw7Yg2E0l2stXKRKn
+         jq6ugcxdkpigkW0qX/P60CNpUi64bKOj1YHtCq5cRueXuLZXarCGXMWPcJaVp8h77By1
+         N8PhlBQ1vPxvOjSjPoLAb1QJb7vXDHHNtO9feWGR8jZfHNuVD9lJ+o2aJ2FKCA9XUJh8
+         QRsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717416216; x=1718021016;
+        d=1e100.net; s=20230601; t=1717416286; x=1718021086;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LS0hzYgdo9ZTTLtTwsl5hzQEVNLz9yjRli6W7kekuGA=;
-        b=FuvOHivOJAwWCyFA+MPwpQVaXULW623L4s6SC+A7eae1p3IP0T+mIzsXfHAm+neacl
-         odUkyKfb9p6gsekeaU0+6LsWXZL5G1YrvBi4vgeGaOMBnaIBD3SfVGUyyPGGnjjdgQuZ
-         /jcX4O9sFc0S1NBBX6fTlUtn2VT63MFMg892VXeUIxa6JUw1IQyYN4lE9rrxHGwhtUoZ
-         2IOFpOONIalUiNneOoY482pOVsqu1te3m4JxNoJwdVg/uGf2nlN+5XpfaoDpgZv1wKXv
-         6gR2frOh9ZFxUnfFiqlqwWL2sAE2ddgtEuapuiokK9RXimZ8UMRbRWPdd9UGtriaR+ww
-         e5xg==
+        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
+        b=aW4l/AVsT7pOb9Q09ufAuaOcB6kuo+M6xIcPFI6SXlBjvQJtCs5Rw3BcdDjq8YhCKy
+         Dur5Z4Rn4f2zFCvMeU72I4BHF9Bp54D//e8xI692kCwMSCIL3FIvKxtDDY/3BiL1cltd
+         HXB5aRQJEVzhmz1izAwmO2jdyGve+xEEUJuIYJNIb4GyMwidF2vvntk8g/dEHTF0LIVq
+         rI4YrML/ZBWmlFf/m0SxGdshS+en2INU7j+rsQc0qDYnnHxMLi5L89WJVbHvOFIE9qU9
+         KAX9Oy4I7tr1QilNgrCYvCgaZoFsfRkK3dJ28hJfwH1j3WLLweW+XVqkpLnGyAAtCclJ
+         OrkA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVWHemxn/E3kAiPx3PPxWqU/fmr4u34XAjnYrg5W6l0tHOnetW6bMj6SPKZFwTh+7fE9p3gga4kgu35+T9Tl4aSxh03Adym7cMYG08=
-X-Gm-Message-State: AOJu0Yxtf01rNeyTjLclpkDH9II902CTDFXrAieW/Vwk4p/gZKAyPLar
-	ka5dyyBy2qs/CD737b6UQq7Y0z2l48AOlI4AdCwQTba6eKGF2LQz
-X-Google-Smtp-Source: AGHT+IHFrEdWaqiYtDU5fJC4X0ugklugTyaQyEXnFAun5XwLWOr2RHpF25AvziiN1j4SZw3lm7nDgQ==
-X-Received: by 2002:a25:8083:0:b0:df7:9295:ffc5 with SMTP id 3f1490d57ef6-dfa73be5231mr7936102276.5.1717416214820;
-        Mon, 03 Jun 2024 05:03:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUUrb0/Fd+aIYNXiRDJMOpkD6Hal9qhWXsttA4RJPPP9RRna7QKM6EfbIBx55VZsBSuTJMmpVXLRtMXDkcQXASmRwRuVgX3HPhrfuk=
+X-Gm-Message-State: AOJu0YyUq14spJ5NVkynN2kr9N85k6yXgs/q3waIdK5bjxgSaDGlOdDv
+	eFMYB0eqnGGJw7LsZNs/WldcARWceV413mgR69jiHMhPQMSyD6Vg
+X-Google-Smtp-Source: AGHT+IHu6uBJXSVdci8cB2Qdzo9DlD5Joncw5upsHwGcOKnqJUjDNp6iQNlHofAeNzcqDBzzzthnVw==
+X-Received: by 2002:a05:6902:1b8c:b0:df4:d5f4:3ef2 with SMTP id 3f1490d57ef6-dfa73be95f5mr9985134276.20.1717416284768;
+        Mon, 03 Jun 2024 05:04:44 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5b:d11:0:b0:df7:8e77:7d6b with SMTP id 3f1490d57ef6-dfa595af18dls615026276.0.-pod-prod-03-us;
- Mon, 03 Jun 2024 05:03:33 -0700 (PDT)
-X-Received: by 2002:a05:690c:dd3:b0:62c:67f4:4c4 with SMTP id 00721157ae682-62c798123d4mr28304497b3.7.1717416212708;
-        Mon, 03 Jun 2024 05:03:32 -0700 (PDT)
-Date: Mon, 3 Jun 2024 05:03:31 -0700 (PDT)
+Received: by 2002:a5b:d11:0:b0:df7:8e77:7d6b with SMTP id 3f1490d57ef6-dfa595af18dls616238276.0.-pod-prod-03-us;
+ Mon, 03 Jun 2024 05:04:43 -0700 (PDT)
+X-Received: by 2002:a05:6902:2b09:b0:dfa:6ea5:c8dd with SMTP id 3f1490d57ef6-dfa73bc1496mr904226276.3.1717416283375;
+        Mon, 03 Jun 2024 05:04:43 -0700 (PDT)
+Date: Mon, 3 Jun 2024 05:04:42 -0700 (PDT)
 From: Clarksville Pop <popclarksville@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <f4fb0b7c-dfe1-4238-9804-8042307e2764n@googlegroups.com>
-Subject: BUY MUSHROOM CHOCOLATE BARS ONLINE - BEST PSILOCYBIN MUSHROOMS
+Message-Id: <363625fd-5fdc-445b-850d-34f4637215cbn@googlegroups.com>
+Subject: BUY GOOD TRIP MAGIC MUSHROOM CHOCOLATE BARS - BEST MAGIC MUSHROOMS
  CHOCOLATE BARS ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_160060_1235469242.1717416211779"
+	boundary="----=_Part_160146_1607124300.1717416282572"
 X-Original-Sender: popclarksville@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -80,135 +80,111 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_160060_1235469242.1717416211779
+------=_Part_160146_1607124300.1717416282572
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_160061_815478398.1717416211779"
+	boundary="----=_Part_160147_990693528.1717416282572"
 
-------=_Part_160061_815478398.1717416211779
+------=_Part_160147_990693528.1717416282572
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Buy Wonder Psilocybin Gummies =E2=80=93 Everything you need to know
-/product/buy-mushroom-gummies-psilocybin
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-Wonder Magic Mushroom Infused Gummies are for you if you dislike the taste=
+BUY LSD ONLINE
+
+BUY 1P-LSD Blotters (100mcg) | Research Chemicals-1P-Lysergic Acid=20
+diethylamide
+
+BUY LSD ONLINE
+BUY LSD, or lysergic acid diethylamide, is a potent psychedelic substance=
 =20
-of consuming dried magic mushrooms.
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-These flavorful psilocybin-infused gummies come in a variety of flavors=20
-while still providing a potent kick. A great choice for those who are new=
+that belongs to the hallucinogen class of drugs. It was first synthesized=
 =20
-to Magic Mushrooms or experienced with psychedelics as each piece contains=
+in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived from a fungus=20
+known as ergot, which commonly grows on grains like rye.
+https://t.me/Mushies_12/product/buy-1p-lsd-online/
+https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+https://t.me/Mushies_12/product/buy-lsd-acid/
+https://t.me/Mushies_12/product/buy-lsd-liquid/
+LSD FOR SALE is chemically classified as a semi-synthetic compound, meaning=
 =20
-300mg of magic mushrooms.
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-Contents =E2=80=93 Whats inside
-/product/buy-joe-rogan-mushroom-gummies-psilocybin/
-Magic Mushroom Content
-Each pack contains 10 pieces (300mg/piece) for a total 3,000mg of mushrooms=
+it is derived from natural substances but requires chemical modification=20
+for use. Its chemical structure is characterized by a core molecule called=
+=20
+lysergic acid, to which an ethylamine side chain is attached. The chemical=
+=20
+formula for LSD is C20H25N3O.
+
+BUYING LSD
+LSD is a crystalline solid, typically available in the form of small=20
+squares of blotter paper. These squares, known as =E2=80=9Ctabs,=E2=80=9D a=
+re often=20
+decorated with colorful designs or images. LSD can also be found in the=20
+form of liquid, gelatin squares (windowpane), or even as a powder or=20
+crystal.
+https://t.me/Mushies_12/product/buy-1p-lsd-online/
+https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+https://t.me/Mushies_12/product/buy-lsd-acid/
+https://t.me/Mushies_12/product/buy-lsd-liquid/
+Pharmacology: LSD is known to primarily interact with serotonin receptors=
+=20
+in the brain, particularly the 5-HT2A receptor. It alters the normal=20
+functioning of serotonin, a neurotransmitter involved in mood regulation,=
+=20
+sensory perception, and cognition. LSD is a highly potent substance, and=20
+even very small doses (micrograms) can induce profound psychological=20
+effects.
+
+LSD EFFECTS
+The effects of LSD can vary widely depending on the individual, dosage,=20
+environment, and mindset. The onset of LSD typically occurs within 30 to 90=
+=20
+minutes after ingestion, with the effects lasting for 6 to 12 hours or=20
+longer. Some common effects include:
+https://t.me/Mushies_12/product/buy-1p-lsd-online/
+https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+https://t.me/Mushies_12/product/buy-lsd-acid/
+https://t.me/Mushies_12/product/buy-lsd-liquid/
+Altered Perception: LSD significantly alters perception, leading to visual,=
+=20
+auditory, and sensory distortions. Users may experience vivid and=20
+intensified colors, geometric patterns, trails, and enhanced or distorted=
+=20
+sounds.
+Intense Emotional States: LSD can induce a wide range of emotions, from=20
+euphoria and bliss to anxiety and confusion. Emotions may fluctuate=20
+rapidly, and the intensity of emotions can be heightened.
+Expanded Consciousness: Users often report a sense of interconnectedness=20
+and unity with the universe. They may experience a heightened awareness of=
+=20
+their thoughts, emotions, and surroundings, along with a deepened sense of=
+=20
+meaning and spirituality.
+Hallucinations: LSD can produce hallucinations, which are perceptual=20
+experiences of objects or events that are not actually present. These=20
+hallucinations can be both visual and auditory.
+Altered Time and Space Perception: Users may perceive time as distorted,=20
+with minutes feeling like hours or hours passing by quickly. The sense of=
+=20
+space can also be altered, with a distorted perception of distance and size=
 .
+Mindset and Set: LSD experiences are highly influenced by the user=E2=80=99=
+s=20
+mindset and the setting in which it is taken. A positive mindset and a=20
+comfortable, safe environment are generally recommended to reduce the risk=
+=20
+of a negative experience.
+Risks and Side Effects:
 
-Magic Mushroom Strain
-Psilocybe Cubensis.
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-Flavour
-Cranberry
-
-Dosage Instructions
-For a Museum Dose, consume 2 gummies very 90 minutes until desire effects=
+While LSD is not considered physiologically toxic, there are some potential=
 =20
-are achieved. For a Psychedelic Trip Dose, consume 6 gummies and add 3=20
-gummies every 90 minutes until desired effects are achieved.
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-Benefits of consuming gummies rather than traditional magic mushrooms
-/product/buy-joe-rogan-mushroom-gummies-psilocybin
-Much easier to digest, no more =E2=80=98gut rot=E2=80=99
-No more muscle aches and cramps
-Tastes much better than eating raw mushrooms
-Fast acting =E2=80=93 hits you within 30-45 minutes
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-Much nicer comedown, no sick feeling, no hangover
-Only lasts half as long as regular shrooms =E2=80=93 making it much easier =
-to=20
-control the length of your high
-Ingredients
-Sucrose, Water, Gelatin, Glucose Syrup, Citric Acid, Natural Flavours, Mct=
-=20
-Oil, Pectin, Carnauba Wax, Psilocybin Mushrooms.
-
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-
-True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mushro=
-oms=20
-doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You wo tvn=E2=80=99t find =
-any drop in the quality=20
-of your trip, in fact, you may even decide to switch to=20
-edibles!>https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
-> :Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=99=
-t=20
-necessarily mean you want to be seen stuffing your face with them For those=
-=20
-who want to keep it classy and discrete, nibbling on some chocolate is the=
-=20
-way to go. shroom chocolate bar =E2=80=A2
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12
->https://t.me/Mushies_12=20
-https://psilocybin/product-category/mushroom-products/
->https://t.me/Mushies_12
-> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in Good Trip Mu=
-shroom=20
-Chocolate Bars can be broken up for a versatile dosage. Each square of this=
-=20
-chocolate bar contains approximately .6g of Magic Mushrooms, while each bar=
-=20
-contains 3.5g. Whether it=E2=80=99s a micro-dose or a full-on journey, this=
-=20
-chocolate bar has got you covered. shroom chocolate bar
-> https://t.me/Mushies_12/products
->https://t.me/Mushies_12/products https://t.me/Mushies_12/products
->https://t.me/Mushies_12/products
-> Here=E2=80=99s a great idea, on the house! Go on a cookout with some frie=
-nds,=20
-enjoy some smoky BBQ and wash it down with some Magic Mushroom Chocolate=20
-for dessert. You=E2=80=99ll be thanking us when the whole gang starts peaki=
-ng! Get=20
-yours now! shroom chocolate bar join our exclusive telegram channel. Good=
-=20
-Trip Shrooms Chocolate Bars For Sale
->
-> PSILOCYBIN/
-https://t.me/https://t.me/mushies_12
-https://t.me/https://t.me/mushies_12
-https://t.me/https://t.me/mushies_12
-/product-category/mushroom-products/
->
->
-> Good Trip Shrooms Chocolate Bars For Sale
-> Buy psilo-gummy online, chocolate mushrooms for sale, Chocolates, edible,=
-=20
-Good Trip Mushroom Chocolate Bars, Gummy mushroom shaped candy, Mushroom=20
-chocolate bar UK, mushroom chocolate bars California, mushroom chocolat
+risks associated with its use, including:
+https://t.me/Mushies_12/product/buy-1p-lsd-online/
+https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+https://t.me/Mushies_12/product/buy-lsd-acid/
+https://t.me/Mushies_12/product/buy-lsd-liquid/
+Bad Trips: Negative experiences, known as =E2=80=9Cbad trips,=E2=80=9D can =
+occur, leading=20
+to intense anxiety, paranoia, and confusion. These experiences can be=20
+distressing and may result in long-lasting
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -216,80 +192,73 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f4fb0b7c-dfe1-4238-9804-8042307e2764n%40googlegroups.com.
+jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegroups.com.
 
-------=_Part_160061_815478398.1717416211779
+------=_Part_160147_990693528.1717416282572
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Buy Wonder Psilocybin Gummies =E2=80=93 Everything you need to know<div>/pr=
-oduct/buy-mushroom-gummies-psilocybin</div><div>&gt;https://t.me/Mushies_12=
-</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me/Mushies_1=
-2</div><div>Wonder Magic Mushroom Infused Gummies are for you if you dislik=
-e the taste of consuming dried magic mushrooms.</div><div>&gt;https://t.me/=
-Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me=
-/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>These flavorful=
- psilocybin-infused gummies come in a variety of flavors while still provid=
-ing a potent kick. A great choice for those who are new to Magic Mushrooms =
-or experienced with psychedelics as each piece contains 300mg of magic mush=
-rooms.</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me/Mus=
-hies_12</div><div>&gt;https://t.me/Mushies_12</div><div>Contents =E2=80=93 =
-Whats inside</div><div>/product/buy-joe-rogan-mushroom-gummies-psilocybin/<=
-/div><div>Magic Mushroom Content</div><div>Each pack contains 10 pieces (30=
-0mg/piece) for a total 3,000mg of mushrooms.</div><div><br /></div><div>Mag=
-ic Mushroom Strain</div><div>Psilocybe Cubensis.</div><div>&gt;https://t.me=
-/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.m=
-e/Mushies_12</div><div>Flavour</div><div>Cranberry</div><div><br /></div><d=
-iv>Dosage Instructions</div><div>For a Museum Dose, consume 2 gummies very =
-90 minutes until desire effects are achieved. For a Psychedelic Trip Dose, =
-consume 6 gummies and add 3 gummies every 90 minutes until desired effects =
-are achieved.</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t=
-.me/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>Benefits of =
-consuming gummies rather than traditional magic mushrooms</div><div>/produc=
-t/buy-joe-rogan-mushroom-gummies-psilocybin</div><div>Much easier to digest=
-, no more =E2=80=98gut rot=E2=80=99</div><div>No more muscle aches and cram=
-ps</div><div>Tastes much better than eating raw mushrooms</div><div>Fast ac=
-ting =E2=80=93 hits you within 30-45 minutes</div><div>&gt;https://t.me/Mus=
-hies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me/Mu=
-shies_12</div><div>Much nicer comedown, no sick feeling, no hangover</div><=
-div>Only lasts half as long as regular shrooms =E2=80=93 making it much eas=
-ier to control the length of your high</div><div>Ingredients</div><div>Sucr=
-ose, Water, Gelatin, Glucose Syrup, Citric Acid, Natural Flavours, Mct Oil,=
- Pectin, Carnauba Wax, Psilocybin Mushrooms.</div><div><br /></div><div>&gt=
-;https://t.me/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&g=
-t;https://t.me/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div><=
-br /></div><div>True Psychedelic Experience Just cause it doesn=E2=80=99t t=
-aste like mushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You wo=
- tvn=E2=80=99t find any drop in the quality of your trip, in fact, you may =
-even decide to switch to edibles!&gt;https://t.me/Mushies_12</div><div>&gt;=
-https://t.me/Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&gt=
-;https://t.me/Mushies_12</div><div>&gt; :Sneaky-Sure, Magic Mushrooms are l=
-egal in Canada but that doesn=E2=80=99t necessarily mean you want to be see=
-n stuffing your face with them For those who want to keep it classy and dis=
-crete, nibbling on some chocolate is the way to go. shroom chocolate bar =
-=E2=80=A2</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me/=
-Mushies_12</div><div>&gt;https://t.me/Mushies_12</div><div>&gt;https://t.me=
-/Mushies_12 https://psilocybin/product-category/mushroom-products/</div><di=
-v>&gt;https://t.me/Mushies_12</div><div>&gt; Versatile Dosage =E2=80=93 The=
- combined 3.5g of mushrooms in Good Trip Mushroom Chocolate Bars can be bro=
-ken up for a versatile dosage. Each square of this chocolate bar contains a=
-pproximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether =
-it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got =
-you covered. shroom chocolate bar</div><div>&gt; https://t.me/Mushies_12/pr=
-oducts</div><div>&gt;https://t.me/Mushies_12/products https://t.me/Mushies_=
-12/products</div><div>&gt;https://t.me/Mushies_12/products</div><div>&gt; H=
-ere=E2=80=99s a great idea, on the house! Go on a cookout with some friends=
-, enjoy some smoky BBQ and wash it down with some Magic Mushroom Chocolate =
-for dessert. You=E2=80=99ll be thanking us when the whole gang starts peaki=
-ng! Get yours now! shroom chocolate bar join our exclusive telegram channel=
-. Good Trip Shrooms Chocolate Bars For Sale</div><div>&gt;</div><div>&gt; P=
-SILOCYBIN/</div><div>https://t.me/https://t.me/mushies_12</div><div>https:/=
-/t.me/https://t.me/mushies_12</div><div>https://t.me/https://t.me/mushies_1=
-2</div><div>/product-category/mushroom-products/</div><div>&gt;</div><div>&=
-gt;</div><div>&gt; Good Trip Shrooms Chocolate Bars For Sale</div><div>&gt;=
- Buy psilo-gummy online, chocolate mushrooms for sale, Chocolates, edible, =
-Good Trip Mushroom Chocolate Bars, Gummy mushroom shaped candy, Mushroom ch=
-ocolate bar UK, mushroom chocolate bars California, mushroom chocolat</div>
+BUY LSD ONLINE<div><br /></div><div>BUY 1P-LSD Blotters (100mcg) | Research=
+ Chemicals-1P-Lysergic Acid diethylamide</div><div><br /></div><div>BUY LSD=
+ ONLINE</div><div>BUY LSD, or lysergic acid diethylamide, is a potent psych=
+edelic substance that belongs to the hallucinogen class of drugs. It was fi=
+rst synthesized in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived f=
+rom a fungus known as ergot, which commonly grows on grains like rye.</div>=
+<div>https://t.me/Mushies_12/product/buy-1p-lsd-online/</div><div>https://t=
+.me/Mushies_12/product/buy-lsd-gel-tabs/</div><div>https://t.me/Mushies_12/=
+product/buy-lsd-acid/</div><div>https://t.me/Mushies_12/product/buy-lsd-liq=
+uid/</div><div>LSD FOR SALE is chemically classified as a semi-synthetic co=
+mpound, meaning it is derived from natural substances but requires chemical=
+ modification for use. Its chemical structure is characterized by a core mo=
+lecule called lysergic acid, to which an ethylamine side chain is attached.=
+ The chemical formula for LSD is C20H25N3O.</div><div><br /></div><div>BUYI=
+NG LSD</div><div>LSD is a crystalline solid, typically available in the for=
+m of small squares of blotter paper. These squares, known as =E2=80=9Ctabs,=
+=E2=80=9D are often decorated with colorful designs or images. LSD can also=
+ be found in the form of liquid, gelatin squares (windowpane), or even as a=
+ powder or crystal.</div><div>https://t.me/Mushies_12/product/buy-1p-lsd-on=
+line/</div><div>https://t.me/Mushies_12/product/buy-lsd-gel-tabs/</div><div=
+>https://t.me/Mushies_12/product/buy-lsd-acid/</div><div>https://t.me/Mushi=
+es_12/product/buy-lsd-liquid/</div><div>Pharmacology: LSD is known to prima=
+rily interact with serotonin receptors in the brain, particularly the 5-HT2=
+A receptor. It alters the normal functioning of serotonin, a neurotransmitt=
+er involved in mood regulation, sensory perception, and cognition. LSD is a=
+ highly potent substance, and even very small doses (micrograms) can induce=
+ profound psychological effects.</div><div><br /></div><div>LSD EFFECTS</di=
+v><div>The effects of LSD can vary widely depending on the individual, dosa=
+ge, environment, and mindset. The onset of LSD typically occurs within 30 t=
+o 90 minutes after ingestion, with the effects lasting for 6 to 12 hours or=
+ longer. Some common effects include:</div><div>https://t.me/Mushies_12/pro=
+duct/buy-1p-lsd-online/</div><div>https://t.me/Mushies_12/product/buy-lsd-g=
+el-tabs/</div><div>https://t.me/Mushies_12/product/buy-lsd-acid/</div><div>=
+https://t.me/Mushies_12/product/buy-lsd-liquid/</div><div>Altered Perceptio=
+n: LSD significantly alters perception, leading to visual, auditory, and se=
+nsory distortions. Users may experience vivid and intensified colors, geome=
+tric patterns, trails, and enhanced or distorted sounds.</div><div>Intense =
+Emotional States: LSD can induce a wide range of emotions, from euphoria an=
+d bliss to anxiety and confusion. Emotions may fluctuate rapidly, and the i=
+ntensity of emotions can be heightened.</div><div>Expanded Consciousness: U=
+sers often report a sense of interconnectedness and unity with the universe=
+. They may experience a heightened awareness of their thoughts, emotions, a=
+nd surroundings, along with a deepened sense of meaning and spirituality.</=
+div><div>Hallucinations: LSD can produce hallucinations, which are perceptu=
+al experiences of objects or events that are not actually present. These ha=
+llucinations can be both visual and auditory.</div><div>Altered Time and Sp=
+ace Perception: Users may perceive time as distorted, with minutes feeling =
+like hours or hours passing by quickly. The sense of space can also be alte=
+red, with a distorted perception of distance and size.</div><div>Mindset an=
+d Set: LSD experiences are highly influenced by the user=E2=80=99s mindset =
+and the setting in which it is taken. A positive mindset and a comfortable,=
+ safe environment are generally recommended to reduce the risk of a negativ=
+e experience.</div><div>Risks and Side Effects:</div><div><br /></div><div>=
+While LSD is not considered physiologically toxic, there are some potential=
+ risks associated with its use, including:</div><div>https://t.me/Mushies_1=
+2/product/buy-1p-lsd-online/</div><div>https://t.me/Mushies_12/product/buy-=
+lsd-gel-tabs/</div><div>https://t.me/Mushies_12/product/buy-lsd-acid/</div>=
+<div>https://t.me/Mushies_12/product/buy-lsd-liquid/</div><div>Bad Trips: N=
+egative experiences, known as =E2=80=9Cbad trips,=E2=80=9D can occur, leadi=
+ng to intense anxiety, paranoia, and confusion. These experiences can be di=
+stressing and may result in long-lasting</div>
 
 <p></p>
 
@@ -300,11 +269,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/f4fb0b7c-dfe1-4238-9804-8042307e2764n%40googlegrou=
+om/d/msgid/jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/f4fb0b7c-dfe1-4238-9804-8042307e2764n%40googlegroups.co=
+msgid/jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_160061_815478398.1717416211779--
+------=_Part_160147_990693528.1717416282572--
 
-------=_Part_160060_1235469242.1717416211779--
+------=_Part_160146_1607124300.1717416282572--
