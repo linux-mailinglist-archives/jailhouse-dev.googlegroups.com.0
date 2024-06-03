@@ -1,72 +1,75 @@
-Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRBFHQ62ZAMGQETO4E2IA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRB5XS62ZAMGQEC2YOZTQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6FA8D8252
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:33:26 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-df771b5e942sf7282324276.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:33:26 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 284FF8D8279
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:39:20 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dfa73a21131sf4939879276.2
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:39:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717418005; x=1718022805; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717418359; x=1718023159; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uDtH4sU2lV1xWBfAS8QiUIfwavJ/vs7DgP/qK1Xo92I=;
-        b=i4XiFneaEFAuwhZIKeueN3awjVIQA7HUiXqoUFe30FPXv2MdZ1ZwA94ePIM0veGXTF
-         3HT0xLg8zbck/8bsipX7Y2TOqbwIRCdYc9wyZ4QiJB61r+ON2olQOeS9yj/NFwXiung8
-         SuHBRzv8zW3Yu3TsoBZgdc8bbAkt0JASIBA20RaigPPQlbAhl78aSh05wtoJWZ5bDPz5
-         6F2lxSNAqDAsD8hRatqW9r0HPDoDqwMTOPGoVdHvlS0/saVeWBulkOIN9p4SocNOWlhT
-         Y9iXy7LggPYk48QGbEOdfo4kW/KXtOOQbeg+d8tBN1j/rjCsxZ1oFcj0DmY+NN20gAQD
-         s5GA==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=dvcT3xBorGNWPIQj+XcJ1ikybZmK4OWeXNwxHKRikz0=;
+        b=rOhQE8mqD/InojRBuHqoQViBXwULSweO6wwBFgz5xi7B5wFV/C4KY8hXmM2wH66Eoy
+         jqnrMWQ7RUBQfY9AKeKUbWH3QZt4oLWWSIXOdb/E+ZzVE5nMALB9A0HFN9aG734jyic8
+         88MFA1q5c7Hu3Y+TKVlFUUZvDxunxJCVbX7HgozwF3Da/Jqh/w0mzfF+gp4JDzHH6VB7
+         BX70xBVwehlChwl6F/ZpM1hYDDRjxeLH4Z5NNUA4hIHjv3OA4DookCYQBYJ8HEWstzN8
+         R4LmSaZRhn5Z7q/xgYWUSL9Lx0WqJyk/7rlRQJrxxjD0EYm1slfRyAX+mqh3TYdjWzcC
+         ypuQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717418005; x=1718022805; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717418359; x=1718023159; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uDtH4sU2lV1xWBfAS8QiUIfwavJ/vs7DgP/qK1Xo92I=;
-        b=G7RCpocDDVrBk1H5ryCTALYPPNw3J7eL2PROYmpl9bDkC4cVPtrsqVfsYaDz8lAkwg
-         7bYaM3bRWRnPDwZIZzkFdjq7bCiuvEks4skc0VSM5fxANi/QkYwDCrhKKF+JAVypgyhA
-         JTwqIguC6iyFhHTALHSvLrHmVzfcISf3ORXpS5pvo1mwa4x+3VOmyrmnhmLnGJ+CS6Hw
-         hLkey0Qcg2qf90O8jA7lzDHuhuKgzp9rmjE+8N+RU4xoYuI8xaHnu5YNqoDvCDpSJ+hM
-         zM7axf2UWgEg32V8HI0wB2kFs0mSqtYBXRV6A47PnLmd1e5OSFDcz9dztmqODRIMnKR6
-         IjrA==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dvcT3xBorGNWPIQj+XcJ1ikybZmK4OWeXNwxHKRikz0=;
+        b=XQbRGFVsMQxU5wVmNYWvnJQ0rYgZtrb8PMCQ9kb6CzPtr99S17go7GP30A5ZjR40TE
+         7kcskqy4FYByUjuoAiNWRc59IfGpae3GYXOFxUyM5IPc+7mcl7Ucce0xeI3nnMfH1KU8
+         ust0mkI4CaXCpdxihlaLoU0DkETTVhyOyzXLgUdzI9gokr+zxrm7Cif7PFm0railBx+z
+         2vjQmPMoLuI/zJ2Gdjefx/suZnBtvyfyt48LBYgXhelTAo6wIqs0m3Ig/tCvaIBuV/J2
+         b56V/sVcaJadK3TyE+T7C3kYY/SsAzAfV0ZKx+/2AGNkT0O0hGHYeO6WXmJzeyCVdPRK
+         9vsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717418005; x=1718022805;
+        d=1e100.net; s=20230601; t=1717418359; x=1718023159;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uDtH4sU2lV1xWBfAS8QiUIfwavJ/vs7DgP/qK1Xo92I=;
-        b=KQvD7meWsfHzQfix8wutZwUYrWnKvPNf52mkmf0l24yv9GrHUxxolmGC8C5TDCxWR1
-         CVDyZT7p4pwba5GpB7ZYzOSeVSolVqzM05rMyHsNNsX9pm6Ccn5PZSFav9nRL3g8WPhm
-         2xWJtqb3mCKenSHpfM8GULwk2LnaeuObC1CmYiMe4To9rwC9a4jRXcyJ46aGffVdk3ll
-         3NIwdjH/nsnrAZ2OCCNrQ0XE7mYFc9vS/9oa1D6ttLkC3cWJweijQMl2tFETIpI6LfDp
-         DHQsU7g4ULhAN3SInYsPueMSH3/1Apk6EzwJO5rTW32eVQt2rtlcwH3n2nhOxYr2PQZI
-         tCqg==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=dvcT3xBorGNWPIQj+XcJ1ikybZmK4OWeXNwxHKRikz0=;
+        b=Y5Hnjbc79rWnTOVHII4K5tKn5ITWrSK/uSy6pCxJ7DN24MkAGPUsV3zjo/fJBPahVn
+         zsxgY29C+IhQmO5Kr+Q0FSBshEj8NMDnWyDeynKU0AyvvnGUjqqd0wMs4Sinq5pJs8nw
+         kPFTtDaFbBwC4lY7l3Ar1TQKwNgKhzFUmEEuneLO2eWspu8uLFDhSWm+NmmlOfQZbxxy
+         XzqhHIlGONK9sJID9QvkF2kY1ruMlgZD0kr2DO4003xN0p1fGcThDgDITR0xyPLPzfn9
+         Q5DbTMJOJF6Ab2AaAl8wvqad/oigk0gOwdVsPOlhCusNhavNuOhyOXDB3249NXzBGz/j
+         lQAg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCU56hHL6nVmxlQgWCFdCL9jsgXcnNABR4StA08PBWZK6n3H2kej6g/PAd+Fs40TK6XMH5Bj7C/Cwr7wPzZG2pSYKNwCiONkERkbj38=
-X-Gm-Message-State: AOJu0Ywpyjg40DtMj2TwvQPyrH0uvDFFUhWh51aUltbKhrY2/rFw3OQ7
-	NN80ywL7JkC+dFetjvt5S2FwcIsP99riOw05OBEUp3xfTQeYFG2r
-X-Google-Smtp-Source: AGHT+IELkGeOgTYVNb179OOEthQApgpEGV7nq+lto51xdlfSL9kqaxE1G589MUqrHWHigRx3fN+yqQ==
-X-Received: by 2002:a25:6b4b:0:b0:dcf:f9bd:fe05 with SMTP id 3f1490d57ef6-dfa73d9d171mr8379025276.48.1717418005269;
-        Mon, 03 Jun 2024 05:33:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXv4YCbJoefdHwKD3RZOq6Z24hwomLMqpQRV/RKEFvyGCmBL/4V/3dbhh5QicoQG5i3tFn35eUJ5z5343e7i9a/uiqaYcij71ZDcb0=
+X-Gm-Message-State: AOJu0YyivGPYbboZ5DQ9lnboW8y3sD79bO8UZW3PSNMuYvePgM9/OoBu
+	7dDnibMRt90yrZiNXso3vmIBbm2Qs/lonxgkdr9Obkev/IX0UVDQ
+X-Google-Smtp-Source: AGHT+IEVqXvO6gtfAfF3QiOGzObFmjyGWEcO2/vdsk4t/ynoEYtfiexVZsKyGX5YjsEuMg5GPmxSkw==
+X-Received: by 2002:a25:dccd:0:b0:dfa:4fe4:1b4f with SMTP id 3f1490d57ef6-dfa73c448demr8472398276.30.1717418359095;
+        Mon, 03 Jun 2024 05:39:19 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:a8d:b0:dfa:81ff:d907 with SMTP id
- 3f1490d57ef6-dfa81ffed66ls665117276.2.-pod-prod-08-us; Mon, 03 Jun 2024
- 05:33:24 -0700 (PDT)
-X-Received: by 2002:a05:6902:154d:b0:df7:b717:10c2 with SMTP id 3f1490d57ef6-dfa73bda088mr1396897276.2.1717418003809;
-        Mon, 03 Jun 2024 05:33:23 -0700 (PDT)
-Date: Mon, 3 Jun 2024 05:33:23 -0700 (PDT)
+Received: by 2002:a25:2fd3:0:b0:dfa:77ba:dc1f with SMTP id 3f1490d57ef6-dfa77bade59ls30566276.2.-pod-prod-06-us;
+ Mon, 03 Jun 2024 05:39:17 -0700 (PDT)
+X-Received: by 2002:a5b:bd0:0:b0:dfa:7278:b4c4 with SMTP id 3f1490d57ef6-dfa73be162emr2198828276.4.1717418357435;
+        Mon, 03 Jun 2024 05:39:17 -0700 (PDT)
+Date: Mon, 3 Jun 2024 05:39:16 -0700 (PDT)
 From: Clarksville Pop <popclarksville@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <ec68a154-64a0-43d1-a5c6-e6c4ee3cf81en@googlegroups.com>
-Subject: $ORDER DMT VAPES, CARTRIDGES WITH POWDER ONLINE CALIFORNIA
+Message-Id: <a9a3fb26-1527-4046-afa8-6ef75770f0een@googlegroups.com>
+In-Reply-To: <3adce3b4-4674-4ebf-8ce6-f41830b45e65n@googlegroups.com>
+References: <23ea410a-e2c3-426c-8b7d-3d2a82d94dbfn@googlegroups.com>
+ <28787421-30d1-4cbd-9da2-da23c674bf25n@googlegroups.com>
+ <3adce3b4-4674-4ebf-8ce6-f41830b45e65n@googlegroups.com>
+Subject: WHAT ARE GOLDEN TEACHER MUSHROOM AND WERE ARE THEY SOLD ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_479397_1509530471.1717418003139"
+	boundary="----=_Part_316847_1769836071.1717418356520"
 X-Original-Sender: popclarksville@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -80,149 +83,130 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_479397_1509530471.1717418003139
+------=_Part_316847_1769836071.1717418356520
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_479398_42917772.1717418003139"
+	boundary="----=_Part_316848_870494989.1717418356520"
 
-------=_Part_479398_42917772.1717418003139
+------=_Part_316848_870494989.1717418356520
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-DMT VAPE PEN AND CARTS ONLINE IN LONDON/ENGLAND /CANADA/SAN FRANCISCO
-
-
-DMT is the fastest-acting and most intense psychedelic available =E2=80=93 =
-it=E2=80=99s the=20
-best for new users who want an out-of-body experience that won=E2=80=99t la=
-st too=20
-long.
+https://t.me/Mushies_12 https://t.me/Mushies_12
+Golden teachers are one of the best-known strains of the magic mushroom=20
+species Psilocybe cubensis. They are renowned for producing huge fruits,=20
+even in suboptimal growing conditions. Therefore, they have become a=20
+favorite among cultivators and are a mainstay of spore suppliers worldwide.
 
 https://t.me/Mushies_12
 
-
-When you buy DMT in Canada =E2=80=93 vaping is the most common DMT product.
-https://t.me/Mushies_12
 https://t.me/Mushies_12
 
-Using a DMT vape cartridge can help mask the signature odour that is=20
-emitted when smoking DMT.
+Read on for our complete guide to golden teacher magic mushrooms, including=
+=20
+their effects, potency, and potential benefits. We will also provide a=20
+brief overview of the growing process and explain why they are many=20
+mushroom lovers=E2=80=99 go-to strain.
 
-There is something about vaping that makes DMT use more palatable despite=
-=20
-being the most powerful psychedelic in the world. DMT is used for oral=20
-consumption, inhaling through smoking, and mixed in brews (Ayahuasca) to=20
-create a longer-lasting high. If you want to buy DMT vapes in Canada =E2=80=
-=93=20
-TheFunguys is your source to buy psychedelics online in Canada; we have a=
-=20
-full-strength, high-quality DMT vape for sale online. Visit our website=20
-homepage for more information
-https://t.me/Mushies_12
 https://t.me/Mushies_12
 
-Our DMT vape pens function like any other vape by pressing the button and=
-=20
-pulling off the mouthpiece. The vape cartridge is loaded with a DMT liquid=
-=20
-of dissolved Dimethyltryptamine powder or DMT crystals. These DMT pens are=
-=20
-tiny and inconspicuous, with enough dosages to last 100 short trips or 30=
-=20
-to 50 regular trips. Our DMT vape carts have 1g of oil in them.
+Golden Teacher Mushrooms https://t.me/Mushies_12
+http://t.me/Mushies_12
+Golden teachers are one of the best-known strains of the magic mushroom=20
+species Psilocybe cubensis. They are renowned for producing huge fruits,=20
+even in suboptimal growing conditions. Therefore, they have become a=20
+favorite among cultivators and are a mainstay of spore suppliers worldwide.
 
-The battery is 350 mAh, 3.7v operation. 5 Clicks to turn the battery on/off=
+https://t.me/Mushies_12
+
+Read on for our complete guide to golden teacher magic mushrooms, including=
+=20
+their effects, potency, and potential benefits. We will also provide a=20
+brief overview of the growing process and explain why they are many=20
+mushroom lovers=E2=80=99 go-to strain.
+
+https://t.me/Mushies_12
+
+Golden Teacher Effects
+Like other cubensis strains, golden teachers=E2=80=99 primary active ingred=
+ient is=20
+psilocybin. The body breaks this chemical down into psilocin, which acts on=
+=20
+serotonin receptors to produce its psychedelic effects. It usually takes=20
+around 30=E2=80=9360 minutes for the effects to begin, although they can st=
+art=20
+after as little as 10=E2=80=9320 minutes
+
+https://t.me/Mushies_12
+
+In general, these effects include alterations in mood, sensations, and=20
+perception. Some people experience visual effects, such as enhanced colors=
+=20
+or shifting geometric patterns. However, visual effects are reported less=
+=20
+frequently with golden teachers than with some other mushroom varieties.=20
+Most users describe an insightful and spiritual journey, which aligns with=
+=20
+the =E2=80=9Cteacher=E2=80=9D part of their name.
+
+https://t.me/Mushies_12
+
+Anecdotal reports suggest that side effects such as anxiety and paranoia=20
+rarely occur with golden teachers. Furthermore, some state that the overall=
+=20
+experience is shorter than average, sometimes lasting just 2=E2=80=934 hour=
+s. For=20
+these reasons, golden teachers are sometimes considered an ideal choice for=
+=20
+those new to the world of psychedelics.
+
+https://t.me/Mushies_12
+
+Of course, other factors also play a crucial role, such as one=E2=80=99s mi=
+ndset,=20
+expectations, and environment. Dosage also has a significant impact on the=
+=20
+overall experience. Therefore, it is essential to understand golden=20
+teachers=E2=80=99 potency and prepare adequately before ingestion.
+
+https://t.me/Mushies_12
+
+Golden Teacher Mushrooms Potency
+Mushrooms are a natural product and can vary significantly in potency from=
+=20
+one specimen to the next. Therefore, it isn=E2=80=99t easy to give an accur=
+ate=20
+figure.
+
+https://t.me/Mushies_12
+
+However, golden teacher mushrooms=E2=80=99 potency is generally considered =
+moderate=20
+compared to other cubensis strains. For example, strains like penis envy=20
+and tidal wave are known for being much stronge
+
+https://t.me/Mushies_12
+
+In terms of psilocybin content, a 2021 review estimated that 1 gram of=20
+dried mushrooms contains approximately 10mg of psilocybin. However, the=20
+publication did not specify whether this figure applies to Psilocybe=20
+cubensis or another species.
+
+https://t.me/Mushies_12
+
+Golden Teacher Mushrooms Dosage
+There is no standard golden teacher mushrooms dosage because everybody=20
+responds differently. Also, as we mentioned, there can be significant=20
+variations in potency from one mushroom to the next. Myriad factors can=20
+also affect the experience, with dosage being just one part of the equation=
 .
 
-How Long Do The Effects Last?
-
-The great thing about DMT in vape form is you can regulate the effects by=
-=20
-the amount of the pull. Generally, one hit will last between 10-20 minutes,=
-=20
-but you can pull very lightly or strongly =E2=80=93 this is up to you; as w=
-e always=20
-say, start slow, go slow, and figure out how it affects you.
-
-Three large inhalations will provide a potent experience for the average=20
-person, giving you a high lasting for a maximum of 40 minutes. Four hits is=
-=20
-a high dose and will have a powerful effect.
-
-How to use the DMT Cartridge & Battery
-
-Once you have the vape, all you have to do is light it up using the button=
-=20
-and take a few puffs at a time.
-
-=E2=80=A2 Find a chill place to enjoy the effects of the DMT, perhaps with =
-a=20
-trusted friend.
-
-=E2=80=A2 You want to shake the pen before using it, as an unshaken cartrid=
-ge may=20
-leave you vaping only the solvent.
-
-=E2=80=A2 Click the button 5 times to turn on the vape
-
-=E2=80=A2 Hold the button as you pull on the vape
-
-=E2=80=A2 Exhale when ready
-
-=E2=80=A2 Feel the effects
-
-DMT Vape Pens FAQ:
-
-What is a DMT Pen?
-
-A DMT Vaporizer and cart is a vaporizing device that heats a liquid base of=
-=20
-DMT to create fumes of the drug that can be inhaled into the lungs. Like=20
-other vape pens and e-cigarettes, the DMT cartridges use e-liquids to=20
-control and ease use. Unfortunately we don=E2=80=99t sell a straight DMT ca=
-rtridge=20
-yet.
-
-
-https://t.me/Mushies_12
 https://t.me/Mushies_12
 
-This pen will allow users to vape DMT in small doses that provide short=20
-trips lasting 20 and 40 minutes. The term for the trips is =E2=80=98busines=
-s trip=E2=80=99=20
-since the effects are temporary and wear off quickly.
-https://t.me/Mushies_12
-https://t.me/Mushies_12
-
-The vape comes with a battery, a cartridge, and an enclosing case=E2=80=94t=
-he=20
-energy cell lights it up, and the cart stores the lit e-liquid (propylene=
+Anyone inexperienced with psychedelics should start at the lower end of the=
 =20
-glycol and other organic mixing agents) DMT base. When the=20
-n-Dimethyltryptamine (DMT), the active ingredient in the vapes, hits the=20
-coil, it vaporizes the liquid, providing a quick trip.
-
-The pen may utilize a standard vaporizer like an e-cigarette or one for=20
-marijuana vaping.
-https://t.me/Mushies_12
-https://t.me/Mushies_12
-
-
-
-Buying a DMT cartridge on its own can be interchangeable with regular 310=
+scale to see how golden teacher mushrooms affect them before increasing in=
 =20
-vape batteries, making them versatile and easily accessible. You can use=20
-the vape pen to smoke anything in 310 cartridges, including THC and CBD=20
-carts.
-
-What is DMT?
-
-DMT is a naturally occurring compound in Ayahuasca, n-dimethyltryptamine,=
-=20
-known as the =E2=80=9Cspirit molecule.=E2=80=9D A DMT trip is short and int=
-ense. This=20
-mind-altering substance can cause various, and some unpredictable, effects,=
-=20
-which can have potential benefits for personal growth. Some p
+dosage
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -230,81 +214,77 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/ec68a154-64a0-43d1-a5c6-e6c4ee3cf81en%40googlegroups.com.
+jailhouse-dev/a9a3fb26-1527-4046-afa8-6ef75770f0een%40googlegroups.com.
 
-------=_Part_479398_42917772.1717418003139
+------=_Part_316848_870494989.1717418356520
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-DMT VAPE PEN AND CARTS ONLINE IN LONDON/ENGLAND /CANADA/SAN FRANCISCO<div><=
-br /></div><div><br /></div><div>DMT is the fastest-acting and most intense=
- psychedelic available =E2=80=93 it=E2=80=99s the best for new=C2=A0users w=
-ho want an out-of-body experience that won=E2=80=99t last too long.</div><d=
-iv><br /></div><div>https://t.me/Mushies_12</div><div><br /></div><div><br =
-/></div><div>When you=C2=A0buy DMT in Canada=C2=A0=E2=80=93 vaping is the m=
-ost common DMT product.</div><div>https://t.me/Mushies_12</div><div>https:/=
-/t.me/Mushies_12</div><div><br /></div><div>Using a DMT vape cartridge can =
-help mask the signature odour that is emitted when smoking DMT.</div><div><=
-br /></div><div>There is something about vaping that makes DMT use more pal=
-atable despite being the most powerful psychedelic in the world. DMT is use=
-d for oral consumption, inhaling through smoking, and mixed in brews (Ayahu=
-asca) to create a longer-lasting high. If you want to=C2=A0buy DMT vapes in=
- Canada=C2=A0=E2=80=93 TheFunguys is your source to=C2=A0buy psychedelics o=
-nline in Canada; we have a full-strength, high-quality DMT vape for sale on=
-line. Visit our website homepage for more information</div><div>https://t.m=
-e/Mushies_12</div><div>https://t.me/Mushies_12</div><div><br /></div><div>O=
-ur DMT vape pens function like any other vape by pressing the button and pu=
-lling off the mouthpiece. The vape cartridge is loaded with a DMT liquid of=
- dissolved Dimethyltryptamine powder or DMT crystals. These DMT pens are ti=
-ny and inconspicuous, with=C2=A0enough dosages to last 100 short trips or 3=
-0 to 50 regular trips.=C2=A0Our DMT vape carts have=C2=A01g of oil=C2=A0in =
-them.</div><div><br /></div><div>The battery is 350 mAh, 3.7v operation.=C2=
-=A05 Clicks to turn the battery on/off.</div><div><br /></div><div>How Long=
- Do The Effects Last?</div><div><br /></div><div>The great thing about DMT =
-in vape form is you can regulate the effects by the amount of the pull. Gen=
-erally,=C2=A0one hit will last between 10-20 minutes, but you can pull very=
- lightly or strongly =E2=80=93 this is up to you; as we always say, start s=
-low, go slow, and figure out how it affects you.</div><div><br /></div><div=
->Three large inhalations will provide a potent experience for the average p=
-erson, giving you a high lasting for a maximum of 40 minutes. Four hits is =
-a high dose and will have a powerful effect.</div><div><br /></div><div>How=
- to use the DMT Cartridge &amp; Battery</div><div><br /></div><div>Once you=
- have the vape, all you have to do is light it up using the button and take=
- a few puffs at a time.</div><div><br /></div><div>=E2=80=A2 Find a chill p=
-lace to enjoy the effects of the DMT, perhaps with a trusted friend.</div><=
-div><br /></div><div>=E2=80=A2 You want to shake the pen before using it, a=
-s an unshaken cartridge may leave you vaping only the solvent.</div><div><b=
-r /></div><div>=E2=80=A2 Click the button 5 times to turn on the vape</div>=
-<div><br /></div><div>=E2=80=A2 Hold the button as you pull on the vape</di=
-v><div><br /></div><div>=E2=80=A2 Exhale when ready</div><div><br /></div><=
-div>=E2=80=A2 Feel the effects</div><div><br /></div><div>DMT Vape Pens FAQ=
-:</div><div><br /></div><div>What is a DMT Pen?</div><div><br /></div><div>=
-A DMT Vaporizer and cart is a vaporizing device that heats a liquid base of=
- DMT to create fumes of the drug that can be inhaled into the lungs. Like o=
-ther vape pens and e-cigarettes, the DMT cartridges use e-liquids to contro=
-l and ease use. Unfortunately we don=E2=80=99t sell a straight DMT cartridg=
-e yet.</div><div><br /></div><div><br /></div><div>https://t.me/Mushies_12<=
-/div><div>https://t.me/Mushies_12</div><div><br /></div><div>This pen will =
-allow users to vape DMT in small doses that provide short trips lasting 20 =
-and 40 minutes. The term for the trips is =E2=80=98business trip=E2=80=99 s=
-ince the effects are temporary and wear off quickly.</div><div>https://t.me=
-/Mushies_12</div><div>https://t.me/Mushies_12</div><div><br /></div><div>Th=
-e vape comes with a battery, a cartridge, and an enclosing case=E2=80=94the=
- energy cell lights it up, and the cart stores the lit e-liquid (propylene =
-glycol and other organic mixing agents) DMT base. When the n-Dimethyltrypta=
-mine (DMT), the active ingredient in the vapes, hits the coil, it vaporizes=
- the liquid, providing a quick trip.</div><div><br /></div><div>The pen may=
- utilize a standard vaporizer like an e-cigarette or one for marijuana vapi=
-ng.</div><div>https://t.me/Mushies_12</div><div>https://t.me/Mushies_12</di=
-v><div><br /></div><div><br /></div><div><br /></div><div>Buying a DMT cart=
-ridge on its own can be interchangeable with regular 310 vape batteries, ma=
-king them versatile and easily accessible. You can use the vape pen to smok=
-e anything in 310 cartridges, including THC and CBD carts.</div><div><br />=
-</div><div>What is DMT?</div><div><br /></div><div>DMT is a naturally occur=
-ring compound in Ayahuasca, n-dimethyltryptamine, known as the =E2=80=9Cspi=
-rit molecule.=E2=80=9D A DMT trip is short and intense. This mind-altering =
-substance can cause various, and some unpredictable, effects, which can hav=
-e potential benefits for personal growth. Some p</div>
+https://t.me/Mushies_12 https://t.me/Mushies_12<div>Golden teachers are one=
+ of the best-known strains of the magic mushroom species Psilocybe cubensis=
+. They are renowned for producing huge fruits, even in suboptimal growing c=
+onditions. Therefore, they have become a favorite among cultivators and are=
+ a mainstay of spore suppliers worldwide.</div><div><br /></div><div>https:=
+//t.me/Mushies_12</div><div><br /></div><div>https://t.me/Mushies_12</div><=
+div><br /></div><div>Read on for our complete guide to golden teacher magic=
+ mushrooms, including their effects, potency, and potential benefits. We wi=
+ll also provide a brief overview of the growing process and explain why the=
+y are many mushroom lovers=E2=80=99 go-to strain.</div><div><br /></div><di=
+v>https://t.me/Mushies_12</div><div><br /></div><div>Golden Teacher Mushroo=
+ms https://t.me/Mushies_12</div><div>http://t.me/Mushies_12</div><div>Golde=
+n teachers are one of the best-known strains of the magic mushroom species =
+Psilocybe cubensis. They are renowned for producing huge fruits, even in su=
+boptimal growing conditions. Therefore, they have become a favorite among c=
+ultivators and are a mainstay of spore suppliers worldwide.</div><div><br /=
+></div><div>https://t.me/Mushies_12</div><div><br /></div><div>Read on for =
+our complete guide to golden teacher magic mushrooms, including their effec=
+ts, potency, and potential benefits. We will also provide a brief overview =
+of the growing process and explain why they are many mushroom lovers=E2=80=
+=99 go-to strain.</div><div><br /></div><div>https://t.me/Mushies_12</div><=
+div><br /></div><div>Golden Teacher Effects</div><div>Like other cubensis s=
+trains, golden teachers=E2=80=99 primary active ingredient is psilocybin. T=
+he body breaks this chemical down into psilocin, which acts on serotonin re=
+ceptors to produce its psychedelic effects. It usually takes around 30=E2=
+=80=9360 minutes for the effects to begin, although they can start after as=
+ little as 10=E2=80=9320 minutes</div><div><br /></div><div>https://t.me/Mu=
+shies_12</div><div><br /></div><div>In general, these effects include alter=
+ations in mood, sensations, and perception. Some people experience visual e=
+ffects, such as enhanced colors or shifting geometric patterns. However, vi=
+sual effects are reported less frequently with golden teachers than with so=
+me other mushroom varieties. Most users describe an insightful and spiritua=
+l journey, which aligns with the =E2=80=9Cteacher=E2=80=9D part of their na=
+me.</div><div><br /></div><div>https://t.me/Mushies_12</div><div><br /></di=
+v><div>Anecdotal reports suggest that side effects such as anxiety and para=
+noia rarely occur with golden teachers. Furthermore, some state that the ov=
+erall experience is shorter than average, sometimes lasting just 2=E2=80=93=
+4 hours. For these reasons, golden teachers are sometimes considered an ide=
+al choice for those new to the world of psychedelics.</div><div><br /></div=
+><div>https://t.me/Mushies_12</div><div><br /></div><div>Of course, other f=
+actors also play a crucial role, such as one=E2=80=99s mindset, expectation=
+s, and environment. Dosage also has a significant impact on the overall exp=
+erience. Therefore, it is essential to understand golden teachers=E2=80=99 =
+potency and prepare adequately before ingestion.</div><div><br /></div><div=
+>https://t.me/Mushies_12</div><div><br /></div><div>Golden Teacher Mushroom=
+s Potency</div><div>Mushrooms are a natural product and can vary significan=
+tly in potency from one specimen to the next. Therefore, it isn=E2=80=99t e=
+asy to give an accurate figure.</div><div><br /></div><div>https://t.me/Mus=
+hies_12</div><div><br /></div><div>However, golden teacher mushrooms=E2=80=
+=99 potency is generally considered moderate compared to other cubensis str=
+ains. For example, strains like penis envy and tidal wave are known for bei=
+ng much stronge</div><div><br /></div><div>https://t.me/Mushies_12</div><di=
+v><br /></div><div>In terms of psilocybin content, a 2021 review estimated =
+that 1 gram of dried mushrooms contains approximately 10mg of psilocybin. H=
+owever, the publication did not specify whether this figure applies to Psil=
+ocybe cubensis or another species.</div><div><br /></div><div>https://t.me/=
+Mushies_12</div><div><br /></div><div>Golden Teacher Mushrooms Dosage</div>=
+<div>There is no standard golden teacher mushrooms dosage because everybody=
+ responds differently. Also, as we mentioned, there can be significant vari=
+ations in potency from one mushroom to the next. Myriad factors can also af=
+fect the experience, with dosage being just one part of the equation.</div>=
+<div><br /></div><div>https://t.me/Mushies_12</div><div><br /></div><div>An=
+yone inexperienced with psychedelics should start at the lower end of the s=
+cale to see how golden teacher mushrooms affect them before increasing in d=
+osage<br /><br /></div>
 
 <p></p>
 
@@ -315,11 +295,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/ec68a154-64a0-43d1-a5c6-e6c4ee3cf81en%40googlegrou=
+om/d/msgid/jailhouse-dev/a9a3fb26-1527-4046-afa8-6ef75770f0een%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/ec68a154-64a0-43d1-a5c6-e6c4ee3cf81en%40googlegroups.co=
+msgid/jailhouse-dev/a9a3fb26-1527-4046-afa8-6ef75770f0een%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_479398_42917772.1717418003139--
+------=_Part_316848_870494989.1717418356520--
 
-------=_Part_479397_1509530471.1717418003139--
+------=_Part_316847_1769836071.1717418356520--
