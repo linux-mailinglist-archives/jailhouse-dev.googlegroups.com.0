@@ -1,74 +1,74 @@
-Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBX766SZAMGQEVBFVOYY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBH776SZAMGQE3ZT7XII@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2508D7A9A
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 05:58:25 +0200 (CEST)
-Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-df796aaa57dsf4198519276.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 20:58:25 -0700 (PDT)
+Received: from mail-yw1-x113e.google.com (mail-yw1-x113e.google.com [IPv6:2607:f8b0:4864:20::113e])
+	by mail.lfdr.de (Postfix) with ESMTPS id 22FAD8D7AA0
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 05:59:29 +0200 (CEST)
+Received: by mail-yw1-x113e.google.com with SMTP id 00721157ae682-627eb3fb46csf65576547b3.2
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 20:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717387104; x=1717991904; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717387168; x=1717991968; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DiuT4MfE0NshhN3tcfv3DFmfvVcODQdzRWMSE8ZlOOg=;
-        b=akGuFAbTB2cTURNRksGwUidT3RkNLArRM5zPR4tugO26FyelyGaOiAeXG1C/2tKkS0
-         p4vzwmmU9ADPvwvRJ/WJ9dk3qRbwwWR+aqmzWStVD71FuHMAi7nWKQB3qJxM1oFaNY+r
-         sUiAHhWHVaDt4gZ2IlBcdYP6I+m5k9VQqJvC8rF55AgGql3tdRpkcnGMKChkP2KwWaEf
-         LvemFpP3gsVFyPb+bZvKGT7FuMGb5+S/r9rpIiZQNRH00E8v1nTE+1OpPVazK6LQHVyf
-         bChDSRrSw030k6R933HGtUI0lcKDQX/RuwAWXEb8ZvooZcyc4g8AKIyJ7F40nCMj1/B1
-         xyeA==
+        bh=hLRchWvObu6cUzbbjiU+olmX34f5XvBVuPSMos3Xm60=;
+        b=mqIEDQku6kruCERPZPNgWKH1WBtsW8vWwmJJgXJB3kO+QEP1VTkrDrkMj8dem6UOfD
+         NXz/vyv3nea+U7SKdTlXBQjuxBcTyU9wi6wvQskLz5jJHuDUwbA3HUWdY195ynTcm4va
+         ygnh1x4Q8kyVHaq+dUjkYJJk03z11QNAaRl45FfTs5qaKIPLm5OgK+EaR9EJGFrsgq1y
+         WQu1w4QIZcEL1XMt1wjNqkejeDKw10NF9HhfHCO7tO7Rh9IQQ1mn/JE4U+cxjuz78+KA
+         aoXe3eYc/tM+mOX6d84+G4IG8CbdGUhd15fZHW+b1NF8f/dISwJnj9VAkUz59zpNff0h
+         72uA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717387104; x=1717991904; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717387168; x=1717991968; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=DiuT4MfE0NshhN3tcfv3DFmfvVcODQdzRWMSE8ZlOOg=;
-        b=AMo5J9GKWDl/NLw7+q9En65wQ+SFqsznx08ucJnyBvJIdOc9N5TJ0DoXMyPUcYnMqA
-         T8hEsNyMK1KNmiL7Z8TEizozj1COPFQ1pbUfAmGSzGg4ViC54l40W2imAmccaomeGG9B
-         NbehgTUo/bXc6cFx3GjDeVqp68Ffl/xnwte3TcVsR/NOnodxw5lK6sBgY0zne/Q9iS6G
-         DBA+qX2uH3TIeb6Yl35DbLdfeKHRHBnQsY/D20S2mGYOMVQFopYQIx88sjpgphRaHeG7
-         2BRfh28wXnO5dzfmaluRKEoRyLghjq5DVbf0J8BL93MH9ijdqachrW+K0vrS7fMRyKzr
-         kMCw==
+        bh=hLRchWvObu6cUzbbjiU+olmX34f5XvBVuPSMos3Xm60=;
+        b=Bf3F4nMxftC2T3uqqpMccC7gq/QWxfye3Owawz2/mtZaE2i1D/D+yRgVrQpiVDgfsB
+         DzgXEEvLVsxTEdF0Ph88eJ8pVsrbjUYq12kQHWto/E8yXTdTVjJy4wbGyzU7htovgO+V
+         YHRGEYz4gT/K13px4etFo8h7oafPez9qXoysGqJnziR80GQq6gXA73NEjVWelT7NPb2r
+         mfHtHMdAHQWcYvnSwU6diQ+XKjYhYqOdPJcTyZWkHRNTzuJxjHh1PVr+1kA7Pv/lKvaO
+         1iX/+eFdT8fym9uzfQH62qptG96BGPPQIrUkw+VcwEVqW73QIW8tTbtqYPF1GKWCNDEb
+         VfTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717387104; x=1717991904;
+        d=1e100.net; s=20230601; t=1717387168; x=1717991968;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DiuT4MfE0NshhN3tcfv3DFmfvVcODQdzRWMSE8ZlOOg=;
-        b=FyJ3pQHCm+w359/CohKG0y+UfM/L5rTDcyPk0hkawDv7GW/4MPPRgFoUxwlFUijMfd
-         NMGhwbd2ARuHUZLBJs0QpnOiw9XzFiRju7sCbqbocDIeMD3aljXtr0ApUGjU/CBqefSj
-         zlL0yXNVlU+U0tnctOLhm5teisEozWa/ilNSfC3KULCVw0rD3kGamscA3RStX5NPeLSP
-         iNK5LpDM5ZjpitQM1pR3rkyJLmQbIqy9dwbkvNwAQm0Wosxfl3jWcVAQNs5RIPqW/mIn
-         4Gy9eNinZD1QRNN1tv9rxLKTVu0iROUBsccNpxLtVIxX/+LKRZM3UHx287brvmRjKb+0
-         k3Ow==
+        bh=hLRchWvObu6cUzbbjiU+olmX34f5XvBVuPSMos3Xm60=;
+        b=FJ3ie0rkiXIWD99pgO/aM10YVP2Nm3C2/sDsaKNjZnvRDXVjSnT5e7+cGe3eHG6ILT
+         Yg7AI4YVwPhrQ/uI17oADzmHnC1Le6i2W0QiuErHXoqbuo3uZb29pWIUGzIVogF24IGg
+         tngID2gq9z24wVXhBx24lLOm/kf84HHRGNzbiBeGABhANykPWvk9WpYPjgI9OXTKqGI9
+         hmUGKLGNsTEc+Q9bm4lHOT/8lTFR9Y9o16yeJ9ootELqwhekDiAmG4OVwGf35Yh7U2vx
+         qlNf+yY9lRHjGOeEmJWRswPdRdwGovOo0WyGRzoLBGa3TME5fzrKojIG0vUAhXWCaPKG
+         QcfQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCU2SDY0Tdx7OnfjGn4nQ3j6aj9UN7dlSqGasjJD2doGjBTRQLgEGBnLZmrTFuXNljHGnNfF8C3NPSbnJAqMkIFnP94AiWbHwEfodl8=
-X-Gm-Message-State: AOJu0YynS8Zu+5RSkfJBnEHiDCSn11Gry0YveJXbOYXWBpww4uiotdHz
-	BgbjNLEkpdB/bRn4x0f014mTIPf+PDvACaC88jpTExkUIW1u2oAb
-X-Google-Smtp-Source: AGHT+IFe21DJFCaTNLlPiikEl/AdlddCNoMAYtPjbyr5xu9WB0pLfBHE8GJuc+DC2q+Du0Rao8nNCA==
-X-Received: by 2002:a25:aba6:0:b0:df4:958e:6479 with SMTP id 3f1490d57ef6-dfa73d909fbmr7646863276.46.1717387104080;
-        Sun, 02 Jun 2024 20:58:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCU5/rzXHRO1zMLKgdW5ZuXPvtgFdRfdSI8m786IiHm09/wzPPp7v30I1pSvWRWw8Z9LHI39BUiK+n4Z7cF3jIY1PHqwmPK2INjT+Ho=
+X-Gm-Message-State: AOJu0YxYPM7MrleLuZyXGAhhJvKeVeWAilHBthbs6RmZhmzvXHdS7Fku
+	JMI+1JI+aGd+IViea9XI7mUSmIO8kfxMZTw90Ba/AZZH1J0SnciT
+X-Google-Smtp-Source: AGHT+IGrKfuDiBfo9aztu6mWfnrO7Bwc0Q6rKJKd+prl73rkxG3YHZ0cKUBG3+DqZjdrn5F0YSU/Gw==
+X-Received: by 2002:a25:d00c:0:b0:de5:5b9c:4452 with SMTP id 3f1490d57ef6-dfa73be92admr7971505276.21.1717387168071;
+        Sun, 02 Jun 2024 20:59:28 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:103:0:b0:df7:71d2:bccb with SMTP id 3f1490d57ef6-dfa59aef9f7ls164556276.1.-pod-prod-00-us;
- Sun, 02 Jun 2024 20:58:22 -0700 (PDT)
-X-Received: by 2002:a05:6902:2b88:b0:df4:8e99:f2 with SMTP id 3f1490d57ef6-dfa728683fdmr2597811276.5.1717387102454;
-        Sun, 02 Jun 2024 20:58:22 -0700 (PDT)
-Date: Sun, 2 Jun 2024 20:58:21 -0700 (PDT)
+Received: by 2002:a25:253:0:b0:de5:a5cb:9690 with SMTP id 3f1490d57ef6-dfa595d8a16ls485172276.0.-pod-prod-02-us;
+ Sun, 02 Jun 2024 20:59:26 -0700 (PDT)
+X-Received: by 2002:a25:2f4e:0:b0:dfa:57e8:a37 with SMTP id 3f1490d57ef6-dfa7426ccf7mr449256276.13.1717387166494;
+        Sun, 02 Jun 2024 20:59:26 -0700 (PDT)
+Date: Sun, 2 Jun 2024 20:59:25 -0700 (PDT)
 From: Asah Randy <asahrandy54@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <4706bf6e-e51a-4400-863a-f4bd5e2a9cd9n@googlegroups.com>
-In-Reply-To: <ae0f8511-da6a-4d53-9679-7d06697e8397n@googlegroups.com>
-References: <8b41dd4b-2df0-4408-bbc2-5c0597a5b5d7n@googlegroups.com>
- <ae0f8511-da6a-4d53-9679-7d06697e8397n@googlegroups.com>
-Subject: Re: K2 Sheets Spice K2 Spray +13348395202
+Message-Id: <8cc37e82-fcc9-43df-82a6-2c82c6ad9b85n@googlegroups.com>
+In-Reply-To: <28787421-30d1-4cbd-9da2-da23c674bf25n@googlegroups.com>
+References: <23ea410a-e2c3-426c-8b7d-3d2a82d94dbfn@googlegroups.com>
+ <28787421-30d1-4cbd-9da2-da23c674bf25n@googlegroups.com>
+Subject: Re: WHAT ARE GOLDEN TEACHER MUSHROOM AND WERE ARE THEY SOLD ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_315158_205385406.1717387101568"
+	boundary="----=_Part_435587_1535647835.1717387165797"
 X-Original-Sender: asahrandy54@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,235 +82,143 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_315158_205385406.1717387101568
+------=_Part_435587_1535647835.1717387165797
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_315159_1403914300.1717387101568"
+	boundary="----=_Part_435588_406919058.1717387165797"
 
-------=_Part_315159_1403914300.1717387101568
+------=_Part_435588_406919058.1717387165797
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 
+Asah Randy
+unread,
+Jun 1, 2024, 2:57:30=E2=80=AFPM (2 days ago)=20
+=EE=A0=BA
+=EE=85=9F
+=EE=97=94
+to Jailhouse
 https://t.me/motionking_caliweed_psychedelics
 
-Buy K2 Spice Paper,K2 Paper,K2 Spray,K2 Liquid,Buy K2 herb,Buy K2=20
-Chemicals.Every  K2 Sheets is infuse with 200 ml of the k2 liquid Diablo=20
-Incense.
-
-I have the k2 sheets already made, i have the k2 paper ,k2 spray ,k2 liquid=
-.
-
-I can infuse k2 sheets ,k2 envelopes ,k2 magazines ,k2 books.
-
-Cannabinoids | Noids | Synthetic Cannabinoids
-
-K2 Spice paper | K2 paper | K2 Spray | 5cladba | 5F-Mdmb2201 | JWH018 |=20
-SGT-78 | 5-CL-ADB-A | 4F-ADB | 5F-MDA19 | MDA-19
-
-5F-MDMB-2201 | 7add | 5F-Mdmb 2201 Pica | MDMB-4en-PINACA
-
-AB-PINACA | JWH-250 | 4f-mdmb-2201 | Amb-fubinaca | 4f-adb | 4FADB
-
-6Cladba | GBH | GBL | SGT 78 | Crack C | 6-APDB
-
-BMK-Oil | MDP2P | PMK Oil | 5F-AKB-48 | 5F-PB22 | 6-APB
-
-we do K2 Express overnight shipping and we can also make your k2 sheets=20
-come in the form of legal mail.
-
-#k2sheetsforsale
-
-#buyk2sheets=20
-
-#k2paperforsale
-
-#k2liquidforsale
-
-#k2spiceforsale
-
-#k2sprayforsale
-
-You can buy the k2 spice  sheets and write a nice loving letter to your pal=
-=20
-in prison.
-
-The k2 sheets are clean and have no stains and can pass all test to get=20
-into any and every facility without any problems.
-
-K2 Spice Spray Diablo. Diablo K2 liquid spray on paper is one of the best=
-=20
-selling item from the top-rated company Diablo. Diablo incense infused=20
-sheets.=20
-
-Diablo k2 spray on paper, Diablo K2 Liquid Spray on Paper, Buy Diablo K2=20
-paper, diablo k2 for sale, diablo incense spray, diablo k2 spray bottle.=20
-
-K2 Spray=20
-
-5F-MDMB2201=20
-
- 5CL-ADB-A=20
-
-Diablo k2 paper=20
-
-Cannabinoid k2 paper=20
-
-K2 eliquid paper=20
-
-JWH-018 k2 paper=20
-
-Bizzaro k2 papers=20
-
-White Tiger k2 paper=20
-
-Green Giant k2 paper=20
-
-Cloud 9 k2 paper=20
-
-Kush K2 paper=20
-
-Kratom k2 paper=20
-
-Mad Halloween k2 paper=20
-
-7H punch k2 paper=20
-
-Pink blossom k2 paper=20
-
-Mr. Nice guy k2 paper=20
-
-Kilmaxx k2 paper=20
-
-Green blossom k2 paper=20
-
-buy k2 liquid spice spray and papers online, get the best diablo spray=20
-infuse in 100% cotton papers. I have the k2 sheets, k2 envelopes, k2=20
-greeting cards, k2 books, k2 magazines.
-
-I can send it legal mail and can also make it look like it's coming=20
-directly from a bookstore.
-
-If you're looking for the k2 spice diablo sheets or liquid to give you that=
-=20
-man-down effect (Diablo!!).
-
-
-
+Golden Teachers are considered moderately potent among psilocybin=20
+mushrooms. Their effects can vary depending on factors such as growing=20
+conditions, individual tolerance, and dosage. Users generally report a=20
+balance between visual and introspective effects.
 
 https://t.me/motionking_caliweed_psychedelics
-On Monday, June 3, 2024 at 4:56:11=E2=80=AFAM UTC+1 Asah Randy wrote:
 
->
-> https://t.me/motionking_caliweed_psychedelics
->
->
-> Buy K2 Sheets ,Buy K2 Spice Paper,K2 Paper,K2 Spray,K2 Liquid,Buy K2=20
-> herb,Buy K2 Chemicals.Every  K2 Sheets is infuse with 200 ml of the k2=20
-> liquid Diablo Incense.
->
-> I have the k2 sheets already made, i have the k2 paper ,k2 spray ,k2=20
-> liquid.
->
-> I can infuse k2 sheets ,k2 envelopes ,k2 magazines ,k2 books.
->
-> Cannabinoids | Noids | Synthetic Cannabinoids
->
-> K2 Spice paper | K2 paper | K2 Spray | 5cladba | 5F-Mdmb2201 | JWH018 |=
+
+     Effects: Like other psilocybin-containing mushrooms, consuming Golden=
 =20
-> SGT-78 | 5-CL-ADB-A | 4F-ADB | 5F-MDA19 | MDA-19
->
-> 5F-MDMB-2201 | 7add | 5F-Mdmb 2201 Pica | MDMB-4en-PINACA
->
-> AB-PINACA | JWH-250 | 4f-mdmb-2201 | Amb-fubinaca | 4f-adb | 4FADB
->
-> 6Cladba | GBH | GBL | SGT 78 | Crack C | 6-APDB
->
-> BMK-Oil | MDP2P | PMK Oil | 5F-AKB-48 | 5F-PB22 | 6-APB
->
-> we do K2 Express overnight shipping and we can also make your k2 sheets=
+Teacher mushrooms can lead to altered states of consciousness characterized=
 =20
-> come in the form of legal mail.
->
-> #k2sheetsforsale
->
-> #buyk2sheets=20
->
-> #k2paperforsale
->
-> #k2liquidforsale
->
-> #k2spiceforsale
->
-> #k2sprayforsale
->
-> You can buy the k2 spice  sheets and write a nice loving letter to your=
+by visual and auditory hallucinations, changes in perception of time and=20
+space, introspection, and sometimes a sense of unity or connection with=20
+one's surroundings
+Some key characteristics of the Golden Teacher mushroom strain include:
+     Appearance: The Golden Teacher strain typically features large,=20
+golden-capped mushrooms with a distinct appearance. When mature, the caps=
 =20
-> pal in prison.
->
-> The k2 sheets are clean and have no stains and can pass all test to get=
+can take on a golden or caramel color, while the stem is usually thick and=
 =20
-> into any and every facility without any problems.
->
-> K2 Spice Spray Diablo. Diablo K2 liquid spray on paper is one of the best=
+white.
+     Potency: Golden Teachers are considered moderately potent among=20
+psilocybin mushrooms. Their effects can vary depending on factors such as=
 =20
-> selling item from the top-rated company Diablo. Diablo incense infused=20
-> sheets.=20
->
-> Diablo k2 spray on paper, Diablo K2 Liquid Spray on Paper, Buy Diablo K2=
+growing conditions, individual tolerance, and dosage. Users generally=20
+report a balance between visual and introspective effects.
+
+https://t.me/motionking_caliweed_psychedelics
+
+On Sunday, June 2, 2024 at 9:20:33=E2=80=AFPM UTC+1 Dwayne Mickey wrote:
+
+> Your best online shop to get plantimum quality microdosing psychedelics=
 =20
-> paper, diablo k2 for sale, diablo incense spray, diablo k2 spray bottle.=
+> products online, pain,anxiety pills, and research chemicals.
+> Be 100% assurance=20
+>
+> Buy DMT .5ml Purecybin =E2=80=93 300mg DMT Online: https;
+> t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-dmt-online/
+>
+> Buy Dmt Online: https:t.me/Ricko_swavy8/product-category/dmt/
+>
+> Buy LSD online: https:t.me/Ricko_swavy8/product-category/lsd/
+>
+>
+> Buy Magic Mushroom Online: https:
+> t.me/Ricko_swavy8/product-category/mushrooms/
+>
+> Buy DeadHead Chemist DMT Vape Cartridge: https:
+> t.me/Ricko_swavy8/product-category/dmt/
+>
+> Buy Exotic Marijuana Strains Online:
+>
+> Buy 5-MEO DMT .5ml 150mg Mushrooms Canada Online: https:
+> t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-mushrooms-canada-online=
+/
+>
+> Buy 5-Meo-DMT(Cartridge) 1mL Deadhead Chemist Online: https:
+> t.me/Ricko_swavy8/product/buy-5-meo-dmtcartridge-1ml-deadhead-chemist-onl=
+ine/
+>
+> Buy Microdose 4-AcO-DMT Deadhead Chemist Online:https:
+> t.me/Ricko_swavy8/product/buy-microdose-4-aco-dmt-deadhead-chemist-online=
+/
+>
+> Buy Deadhead Chemist DMT 3 Cartridges Deal 1mL Online: https:
+> t.me/Ricko_swavy8/product/buy-deadhead-chemist-dmt-3-cartridges-deal-1ml-=
+online/
+>
+> Buy PolkaDot Magic Mushroom Belgian Chocolate 4G:
+>
+> Buy Penis Envy Magic Mushrooms:=20
+> https://www.t.me/Ricko_swavy8/product/buy-new-penis-envy-mostly-stems-onl=
+ine/
+>
+> Buy DMT 1ml Purecybin =E2=80=93 700mg DMT Online:=20
+> https://www.t.me/Ricko_swavy8/product/buy-dmt-1ml-purecybin-700mg-dmt-onl=
+ine/
+>
+> Buy NN-DMT(Cartridge) 1mL | 800MG | MMD Cosmo Online:https:
+> t.me/Ricko_swavy8/product/buy-nn-dmtcartridge-1ml-800mg-mmd-cosmo-online/
+>
+> Golden Teacher Magic Mushrooms:
+>
+> Buy One Up =E2=80=93 Psilocybin Mushroom Chocolate Bar=20
+>
+> On Saturday, June 1, 2024 at 2:57:30=E2=80=AFPM UTC+1 Asah Randy wrote:
+>
+>> https://t.me/motionking_caliweed_psychedelics
+>>
+>> Golden Teachers are considered moderately potent among psilocybin=20
+>> mushrooms. Their effects can vary depending on factors such as growing=
 =20
->
-> K2 Spray=20
->
-> 5F-MDMB2201=20
->
->  5CL-ADB-A=20
->
-> Diablo k2 paper=20
->
-> Cannabinoid k2 paper=20
->
-> K2 eliquid paper=20
->
-> JWH-018 k2 paper=20
->
-> Bizzaro k2 papers=20
->
-> White Tiger k2 paper=20
->
-> Green Giant k2 paper=20
->
-> Cloud 9 k2 paper=20
->
-> Kush K2 paper=20
->
-> Kratom k2 paper=20
->
-> Mad Halloween k2 paper=20
->
-> 7H punch k2 paper=20
->
-> Pink blossom k2 paper=20
->
-> Mr. Nice guy k2 paper=20
->
-> Kilmaxx k2 paper=20
->
-> Green blossom k2 paper=20
->
-> buy k2 liquid spice spray and papers online, get the best diablo spray=20
-> infuse in 100% cotton papers. I have the k2 sheets, k2 envelopes, k2=20
-> greeting cards, k2 books, k2 magazines.
->
-> I can send it legal mail and can also make it look like it's coming=20
-> directly from a bookstore.
->
-> If you're looking for the k2 spice diablo sheets or liquid to give you=20
-> that man-down effect (Diablo!!).
->
->
-> https://t.me/motionking_caliweed_psychedelics
+>> conditions, individual tolerance, and dosage. Users generally report a=
+=20
+>> balance between visual and introspective effects.
+>>
+>> https://t.me/motionking_caliweed_psychedelics
+>>
+>>
+>>      Effects: Like other psilocybin-containing mushrooms, consuming=20
+>> Golden Teacher mushrooms can lead to altered states of consciousness=20
+>> characterized by visual and auditory hallucinations, changes in percepti=
+on=20
+>> of time and space, introspection, and sometimes a sense of unity or=20
+>> connection with one's surroundings
+>> Some key characteristics of the Golden Teacher mushroom strain include:
+>>      Appearance: The Golden Teacher strain typically features large,=20
+>> golden-capped mushrooms with a distinct appearance. When mature, the cap=
+s=20
+>> can take on a golden or caramel color, while the stem is usually thick a=
+nd=20
+>> white.
+>>      Potency: Golden Teachers are considered moderately potent among=20
+>> psilocybin mushrooms. Their effects can vary depending on factors such a=
+s=20
+>> growing conditions, individual tolerance, and dosage. Users generally=20
+>> report a balance between visual and introspective effects.
+>>
 >
 
 --=20
@@ -319,372 +227,221 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4706bf6e-e51a-4400-863a-f4bd5e2a9cd9n%40googlegroups.com.
+jailhouse-dev/8cc37e82-fcc9-43df-82a6-2c82c6ad9b85n%40googlegroups.com.
 
-------=_Part_315159_1403914300.1717387101568
+------=_Part_435588_406919058.1717387165797
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div><br /></div><div>https://t.me/motionking_caliweed_psychedelics<br /></=
-div><div><br /></div><p style=3D"font-variant-numeric: normal; font-variant=
--east-asian: normal; font-stretch: normal; font-size: 13px; line-height: no=
-rmal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: a=
-uto; font-feature-settings: normal;">Buy K2 Spice Paper,K2 Paper,K2 Spray,K=
-2 Liquid,Buy K2 herb,Buy K2 Chemicals.Every =C2=A0K2 Sheets is infuse with =
-200 ml of the k2 liquid Diablo Incense.<br /></p><p style=3D"font-variant-n=
-umeric: normal; font-variant-east-asian: normal; font-stretch: normal; font=
--size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; =
-margin: 0px; font-kerning: auto; font-feature-settings: normal;">I have the=
- k2 sheets already made, i have the k2 paper ,k2 spray ,k2 liquid.</p><p st=
-yle=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-=
-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;H=
-elvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings=
-: normal;">I can infuse k2 sheets ,k2 envelopes ,k2 magazines ,k2 books.</p=
-><p style=3D"font-variant-numeric: normal; font-variant-east-asian: normal;=
- font-stretch: normal; font-size: 13px; line-height: normal; font-family: &=
-quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-se=
-ttings: normal;">Cannabinoids | Noids | Synthetic Cannabinoids</p><p style=
-=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-str=
-etch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helv=
-etica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: n=
-ormal;">K2 Spice paper | K2 paper | K2 Spray | 5cladba | 5F-Mdmb2201 | JWH0=
-18 | SGT-78 | 5-CL-ADB-A | 4F-ADB | 5F-MDA19 | MDA-19</p><p style=3D"font-v=
-ariant-numeric: normal; font-variant-east-asian: normal; font-stretch: norm=
-al; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue=
-&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">5F=
--MDMB-2201 | 7add | 5F-Mdmb 2201 Pica | MDMB-4en-PINACA</p><p style=3D"font=
--variant-numeric: normal; font-variant-east-asian: normal; font-stretch: no=
-rmal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Ne=
-ue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">=
-AB-PINACA | JWH-250 | 4f-mdmb-2201 | Amb-fubinaca | 4f-adb | 4FADB</p><p st=
-yle=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-=
-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;H=
-elvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings=
-: normal;">6Cladba | GBH | GBL | SGT 78 | Crack C | 6-APDB</p><p style=3D"f=
-ont-variant-numeric: normal; font-variant-east-asian: normal; font-stretch:=
- normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica=
- Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal=
-;">BMK-Oil | MDP2P | PMK Oil | 5F-AKB-48 | 5F-PB22 | 6-APB</p><p style=3D"f=
-ont-variant-numeric: normal; font-variant-east-asian: normal; font-stretch:=
- normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica=
- Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal=
-;">we do K2 Express overnight shipping and we can also make your k2 sheets =
-come in the form of legal mail.</p><p style=3D"font-variant-numeric: normal=
-; font-variant-east-asian: normal; font-stretch: normal; font-size: 13px; l=
-ine-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; f=
-ont-kerning: auto; font-feature-settings: normal;">#k2sheetsforsale</p><p s=
-tyle=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font=
--stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;=
-Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-setting=
-s: normal;">#buyk2sheets=C2=A0</p><p style=3D"font-variant-numeric: normal;=
- font-variant-east-asian: normal; font-stretch: normal; font-size: 13px; li=
-ne-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; fo=
-nt-kerning: auto; font-feature-settings: normal;">#k2paperforsale</p><p sty=
-le=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-s=
-tretch: normal; font-size: 13px; line-height: normal; font-family: &quot;He=
-lvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings:=
- normal;">#k2liquidforsale</p><p style=3D"font-variant-numeric: normal; fon=
-t-variant-east-asian: normal; font-stretch: normal; font-size: 13px; line-h=
-eight: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-k=
-erning: auto; font-feature-settings: normal;">#k2spiceforsale</p><p style=
-=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-str=
-etch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helv=
-etica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: n=
-ormal;">#k2sprayforsale</p><p style=3D"font-variant-numeric: normal; font-v=
-ariant-east-asian: normal; font-stretch: normal; font-size: 13px; line-heig=
-ht: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kern=
-ing: auto; font-feature-settings: normal;">You can buy the k2 spice=C2=A0 s=
-heets and write a nice loving letter to your pal in prison.</p><p style=3D"=
-font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch=
-: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetic=
-a Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: norma=
-l;">The k2 sheets are clean and have no stains and can pass all test to get=
- into any and every facility without any problems.</p><p style=3D"font-vari=
-ant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal;=
- font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&qu=
-ot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">K2 Sp=
-ice Spray Diablo.=C2=A0Diablo K2=C2=A0liquid=C2=A0spray on paper=C2=A0is on=
-e of the best selling item from the top-rated company=C2=A0Diablo.=C2=A0Dia=
-blo=C2=A0incense infused sheets.=C2=A0</p><p style=3D"font-variant-numeric:=
- normal; font-variant-east-asian: normal; font-stretch: normal; font-size: =
-13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; margin:=
- 0px; font-kerning: auto; font-feature-settings: normal;">Diablo k2 spray o=
-n paper, Diablo K2 Liquid Spray on Paper, Buy Diablo K2 paper, diablo k2 fo=
-r sale, diablo incense spray, diablo k2 spray bottle.=C2=A0</p><p style=3D"=
-font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch=
-: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetic=
-a Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: norma=
-l;">K2 Spray=C2=A0</p><p style=3D"font-variant-numeric: normal; font-varian=
-t-east-asian: normal; font-stretch: normal; font-size: 13px; line-height: n=
-ormal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: =
-auto; font-feature-settings: normal;">5F-MDMB2201=C2=A0</p><p style=3D"font=
--variant-numeric: normal; font-variant-east-asian: normal; font-stretch: no=
-rmal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Ne=
-ue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">=
-=C2=A05CL-ADB-A=C2=A0</p><p style=3D"font-variant-numeric: normal; font-var=
-iant-east-asian: normal; font-stretch: normal; font-size: 13px; line-height=
-: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kernin=
-g: auto; font-feature-settings: normal;">Diablo k2 paper=C2=A0</p><p style=
-=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-str=
-etch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helv=
-etica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: n=
-ormal;">Cannabinoid k2 paper=C2=A0</p><p style=3D"font-variant-numeric: nor=
-mal; font-variant-east-asian: normal; font-stretch: normal; font-size: 13px=
-; line-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px=
-; font-kerning: auto; font-feature-settings: normal;">K2 eliquid paper=C2=
-=A0</p><p style=3D"font-variant-numeric: normal; font-variant-east-asian: n=
-ormal; font-stretch: normal; font-size: 13px; line-height: normal; font-fam=
-ily: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feat=
-ure-settings: normal;">JWH-018 k2 paper=C2=A0</p><p style=3D"font-variant-n=
-umeric: normal; font-variant-east-asian: normal; font-stretch: normal; font=
--size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; =
-margin: 0px; font-kerning: auto; font-feature-settings: normal;">Bizzaro k2=
- papers=C2=A0</p><p style=3D"font-variant-numeric: normal; font-variant-eas=
-t-asian: normal; font-stretch: normal; font-size: 13px; line-height: normal=
-; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto;=
- font-feature-settings: normal;">White Tiger k2 paper=C2=A0</p><p style=3D"=
-font-variant-numeric: normal; font-variant-east-asian: normal; font-stretch=
-: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetic=
-a Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings: norma=
-l;">Green Giant k2 paper=C2=A0</p><p style=3D"font-variant-numeric: normal;=
- font-variant-east-asian: normal; font-stretch: normal; font-size: 13px; li=
-ne-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; fo=
-nt-kerning: auto; font-feature-settings: normal;">Cloud 9 k2 paper=C2=A0</p=
-><p style=3D"font-variant-numeric: normal; font-variant-east-asian: normal;=
- font-stretch: normal; font-size: 13px; line-height: normal; font-family: &=
-quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-se=
-ttings: normal;">Kush K2 paper=C2=A0</p><p style=3D"font-variant-numeric: n=
-ormal; font-variant-east-asian: normal; font-stretch: normal; font-size: 13=
-px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0=
-px; font-kerning: auto; font-feature-settings: normal;">Kratom k2 paper=C2=
-=A0</p><p style=3D"font-variant-numeric: normal; font-variant-east-asian: n=
-ormal; font-stretch: normal; font-size: 13px; line-height: normal; font-fam=
-ily: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feat=
-ure-settings: normal;">Mad Halloween k2 paper=C2=A0</p><p style=3D"font-var=
-iant-numeric: normal; font-variant-east-asian: normal; font-stretch: normal=
-; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&q=
-uot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">7H p=
-unch k2 paper=C2=A0</p><p style=3D"font-variant-numeric: normal; font-varia=
-nt-east-asian: normal; font-stretch: normal; font-size: 13px; line-height: =
-normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning:=
- auto; font-feature-settings: normal;">Pink blossom k2 paper=C2=A0</p><p st=
-yle=3D"font-variant-numeric: normal; font-variant-east-asian: normal; font-=
-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;H=
-elvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-settings=
-: normal;">Mr. Nice guy k2 paper=C2=A0</p><p style=3D"font-variant-numeric:=
- normal; font-variant-east-asian: normal; font-stretch: normal; font-size: =
-13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; margin:=
- 0px; font-kerning: auto; font-feature-settings: normal;">Kilmaxx k2 paper=
-=C2=A0</p><p style=3D"font-variant-numeric: normal; font-variant-east-asian=
-: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-=
-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-f=
-eature-settings: normal;">Green blossom k2 paper=C2=A0</p><p style=3D"font-=
-variant-numeric: normal; font-variant-east-asian: normal; font-stretch: nor=
-mal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neu=
-e&quot;; margin: 0px; font-kerning: auto; font-feature-settings: normal;">b=
-uy k2 liquid spice spray and papers online, get the best diablo spray infus=
-e in 100% cotton papers.=C2=A0I have the k2 sheets, k2 envelopes, k2 greeti=
-ng cards, k2 books, k2 magazines.</p><p style=3D"font-variant-numeric: norm=
-al; font-variant-east-asian: normal; font-stretch: normal; font-size: 13px;=
- line-height: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px;=
- font-kerning: auto; font-feature-settings: normal;">I can send it legal ma=
-il and can also make it look like it's coming directly from a bookstore.</p=
-><p style=3D"font-variant-numeric: normal; font-variant-east-asian: normal;=
- font-stretch: normal; font-size: 13px; line-height: normal; font-family: &=
-quot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-se=
-ttings: normal;">If you're looking for the k2 spice diablo sheets or liquid=
- to give you that man-down effect (Diablo!!).</p><p style=3D"font-variant-n=
-umeric: normal; font-variant-east-asian: normal; font-stretch: normal; font=
--size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; =
-margin: 0px; font-kerning: auto; font-feature-settings: normal;"><br /></p>=
-<p style=3D"font-variant-numeric: normal; font-variant-east-asian: normal; =
-font-stretch: normal; font-size: 13px; line-height: normal; font-family: &q=
-uot;Helvetica Neue&quot;; margin: 0px; font-kerning: auto; font-feature-set=
-tings: normal;"><br /></p><p style=3D"font-variant-numeric: normal; font-va=
-riant-east-asian: normal; font-stretch: normal; font-size: 13px; line-heigh=
-t: normal; font-family: &quot;Helvetica Neue&quot;; margin: 0px; font-kerni=
-ng: auto; font-feature-settings: normal;"><br /></p>https://t.me/motionking=
-_caliweed_psychedelics<br /><div class=3D"gmail_quote"><div dir=3D"auto" cl=
-ass=3D"gmail_attr">On Monday, June 3, 2024 at 4:56:11=E2=80=AFAM UTC+1 Asah=
- Randy wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: =
-0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"=
-><div><br></div><div><a href=3D"https://t.me/motionking_caliweed_psychedeli=
-cs" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.=
-google.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelic=
-s&amp;source=3Dgmail&amp;ust=3D1717473372630000&amp;usg=3DAOvVaw0OdhQ4NFYEP=
-V5uTT2HC6Q-">https://t.me/motionking_caliweed_psychedelics</a><br></div><br=
-><p style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;fon=
-t-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;Helvet=
-ica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal"><=
-br></p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:norm=
-al;font-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;=
-Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:nor=
-mal">Buy K2 Sheets ,Buy K2 Spice Paper,K2 Paper,K2 Spray,K2 Liquid,Buy K2 h=
-erb,Buy K2 Chemicals.Every =C2=A0K2 Sheets is infuse with 200 ml of the k2 =
-liquid Diablo Incense.<br></p><p style=3D"font-variant-numeric:normal;font-=
-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-height:no=
-rmal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;fo=
-nt-feature-settings:normal">I have the k2 sheets already made, i have the k=
-2 paper ,k2 spray ,k2 liquid.</p><p style=3D"font-variant-numeric:normal;fo=
-nt-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-height=
-:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto=
-;font-feature-settings:normal">I can infuse k2 sheets ,k2 envelopes ,k2 mag=
-azines ,k2 books.</p><p style=3D"font-variant-numeric:normal;font-variant-e=
-ast-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font=
--family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-featur=
-e-settings:normal">Cannabinoids | Noids | Synthetic Cannabinoids</p><p styl=
-e=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-stretc=
-h:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue=
-&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">K2 Spice =
-paper | K2 paper | K2 Spray | 5cladba | 5F-Mdmb2201 | JWH018 | SGT-78 | 5-C=
-L-ADB-A | 4F-ADB | 5F-MDA19 | MDA-19</p><p style=3D"font-variant-numeric:no=
-rmal;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line=
--height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerni=
-ng:auto;font-feature-settings:normal">5F-MDMB-2201 | 7add | 5F-Mdmb 2201 Pi=
-ca | MDMB-4en-PINACA</p><p style=3D"font-variant-numeric:normal;font-varian=
-t-east-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;f=
-ont-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-fea=
-ture-settings:normal">AB-PINACA | JWH-250 | 4f-mdmb-2201 | Amb-fubinaca | 4=
-f-adb | 4FADB</p><p style=3D"font-variant-numeric:normal;font-variant-east-=
-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font-fam=
-ily:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-se=
-ttings:normal">6Cladba | GBH | GBL | SGT 78 | Crack C | 6-APDB</p><p style=
-=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch=
-:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&=
-quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">BMK-Oil | =
-MDP2P | PMK Oil | 5F-AKB-48 | 5F-PB22 | 6-APB</p><p style=3D"font-variant-n=
-umeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:=
-13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;f=
-ont-kerning:auto;font-feature-settings:normal">we do K2 Express overnight s=
-hipping and we can also make your k2 sheets come in the form of legal mail.=
-</p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;=
-font-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;Hel=
-vetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal=
-">#k2sheetsforsale</p><p style=3D"font-variant-numeric:normal;font-variant-=
-east-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;fon=
-t-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-featu=
-re-settings:normal">#buyk2sheets=C2=A0</p><p style=3D"font-variant-numeric:=
-normal;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;li=
-ne-height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-ker=
-ning:auto;font-feature-settings:normal">#k2paperforsale</p><p style=3D"font=
--variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;=
-font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;ma=
-rgin:0px;font-kerning:auto;font-feature-settings:normal">#k2liquidforsale</=
-p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;fo=
-nt-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;Helve=
-tica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">=
-#k2spiceforsale</p><p style=3D"font-variant-numeric:normal;font-variant-eas=
-t-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font-f=
-amily:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-=
-settings:normal">#k2sprayforsale</p><p style=3D"font-variant-numeric:normal=
-;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-hei=
-ght:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:a=
-uto;font-feature-settings:normal">You can buy the k2 spice=C2=A0 sheets and=
- write a nice loving letter to your pal in prison.</p><p style=3D"font-vari=
-ant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-=
-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;margin:=
-0px;font-kerning:auto;font-feature-settings:normal">The k2 sheets are clean=
- and have no stains and can pass all test to get into any and every facilit=
-y without any problems.</p><p style=3D"font-variant-numeric:normal;font-var=
-iant-east-asian:normal;font-stretch:normal;font-size:13px;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-=
-feature-settings:normal">K2 Spice Spray Diablo.=C2=A0Diablo K2=C2=A0liquid=
-=C2=A0spray on paper=C2=A0is one of the best selling item from the top-rate=
-d company=C2=A0Diablo.=C2=A0Diablo=C2=A0incense infused sheets.=C2=A0</p><p=
- style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-s=
-tretch:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetica=
- Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">Diab=
-lo k2 spray on paper, Diablo K2 Liquid Spray on Paper, Buy Diablo K2 paper,=
- diablo k2 for sale, diablo incense spray, diablo k2 spray bottle.=C2=A0</p=
-><p style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;fon=
-t-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;Helvet=
-ica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">K=
-2 Spray=C2=A0</p><p style=3D"font-variant-numeric:normal;font-variant-east-=
-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font-fam=
-ily:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-se=
-ttings:normal">5F-MDMB2201=C2=A0</p><p style=3D"font-variant-numeric:normal=
-;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-hei=
-ght:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:a=
-uto;font-feature-settings:normal">=C2=A05CL-ADB-A=C2=A0</p><p style=3D"font=
--variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;=
-font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;ma=
-rgin:0px;font-kerning:auto;font-feature-settings:normal">Diablo k2 paper=C2=
-=A0</p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:norm=
-al;font-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;=
-Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:nor=
-mal">Cannabinoid k2 paper=C2=A0</p><p style=3D"font-variant-numeric:normal;=
-font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-heig=
-ht:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:au=
-to;font-feature-settings:normal">K2 eliquid paper=C2=A0</p><p style=3D"font=
--variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;=
-font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;ma=
-rgin:0px;font-kerning:auto;font-feature-settings:normal">JWH-018 k2 paper=
-=C2=A0</p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:n=
-ormal;font-stretch:normal;font-size:13px;line-height:normal;font-family:&qu=
-ot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:=
-normal">Bizzaro k2 papers=C2=A0</p><p style=3D"font-variant-numeric:normal;=
-font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line-heig=
-ht:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:au=
-to;font-feature-settings:normal">White Tiger k2 paper=C2=A0</p><p style=3D"=
-font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:nor=
-mal;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot=
-;;margin:0px;font-kerning:auto;font-feature-settings:normal">Green Giant k2=
- paper=C2=A0</p><p style=3D"font-variant-numeric:normal;font-variant-east-a=
-sian:normal;font-stretch:normal;font-size:13px;line-height:normal;font-fami=
-ly:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-set=
-tings:normal">Cloud 9 k2 paper=C2=A0</p><p style=3D"font-variant-numeric:no=
-rmal;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line=
--height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerni=
-ng:auto;font-feature-settings:normal">Kush K2 paper=C2=A0</p><p style=3D"fo=
-nt-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:norma=
-l;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;=
-margin:0px;font-kerning:auto;font-feature-settings:normal">Kratom k2 paper=
-=C2=A0</p><p style=3D"font-variant-numeric:normal;font-variant-east-asian:n=
-ormal;font-stretch:normal;font-size:13px;line-height:normal;font-family:&qu=
-ot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:=
-normal">Mad Halloween k2 paper=C2=A0</p><p style=3D"font-variant-numeric:no=
-rmal;font-variant-east-asian:normal;font-stretch:normal;font-size:13px;line=
--height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerni=
-ng:auto;font-feature-settings:normal">7H punch k2 paper=C2=A0</p><p style=
-=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch=
-:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&=
-quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">Pink bloss=
-om k2 paper=C2=A0</p><p style=3D"font-variant-numeric:normal;font-variant-e=
-ast-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font=
--family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-featur=
-e-settings:normal">Mr. Nice guy k2 paper=C2=A0</p><p style=3D"font-variant-=
-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size=
-:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px;=
-font-kerning:auto;font-feature-settings:normal">Kilmaxx k2 paper=C2=A0</p><=
-p style=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-=
-stretch:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetic=
-a Neue&quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">Gre=
-en blossom k2 paper=C2=A0</p><p style=3D"font-variant-numeric:normal;font-v=
-ariant-east-asian:normal;font-stretch:normal;font-size:13px;line-height:nor=
-mal;font-family:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;fon=
-t-feature-settings:normal">buy k2 liquid spice spray and papers online, get=
- the best diablo spray infuse in 100% cotton papers.=C2=A0I have the k2 she=
-ets, k2 envelopes, k2 greeting cards, k2 books, k2 magazines.</p><p style=
-=3D"font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch=
-:normal;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&=
-quot;;margin:0px;font-kerning:auto;font-feature-settings:normal">I can send=
- it legal mail and can also make it look like it&#39;s coming directly from=
- a bookstore.</p><p style=3D"font-variant-numeric:normal;font-variant-east-=
-asian:normal;font-stretch:normal;font-size:13px;line-height:normal;font-fam=
-ily:&quot;Helvetica Neue&quot;;margin:0px;font-kerning:auto;font-feature-se=
-ttings:normal">If you&#39;re looking for the k2 spice diablo sheets or liqu=
-id to give you that man-down effect (Diablo!!).</p><p style=3D"font-variant=
--numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-siz=
-e:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;margin:0px=
-;font-kerning:auto;font-feature-settings:normal"><br></p><p style=3D"font-v=
-ariant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;fo=
-nt-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;marg=
-in:0px;font-kerning:auto;font-feature-settings:normal"><a href=3D"https://t=
-.me/motionking_caliweed_psychedelics" target=3D"_blank" rel=3D"nofollow" da=
-ta-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.=
-me/motionking_caliweed_psychedelics&amp;source=3Dgmail&amp;ust=3D1717473372=
-631000&amp;usg=3DAOvVaw1qZMWHDJmiyq4KDOq-9igr">https://t.me/motionking_cali=
-weed_psychedelics</a><br></p></blockquote></div>
+<div><div style=3D"align-items: center; color: rgb(95, 99, 104); display: f=
+lex; height: 48px; justify-content: space-between;"><div style=3D"overflow:=
+ hidden; text-overflow: ellipsis; white-space: nowrap;"><span style=3D"font=
+-family: Roboto, Arial, sans-serif; letter-spacing: 0.25px; line-height: 20=
+px; color: rgb(32, 33, 36); margin-top: 0px; margin-bottom: 0px; margin-rig=
+ht: 16px;"><br />Asah Randy</span></div><span style=3D"clip: rect(1px, 1px,=
+ 1px, 1px); height: 1px; margin: 0px; overflow: hidden; padding: 0px; posit=
+ion: absolute; white-space: nowrap; width: 1px; z-index: -1000;">unread,</s=
+pan><div style=3D"font-family: Roboto, Arial, sans-serif; font-size: 12px; =
+letter-spacing: 0.3px; line-height: 16px; align-items: center; display: fle=
+x;">Jun 1, 2024, 2:57:30=E2=80=AFPM=C2=A0(2 days ago)=C2=A0<div style=3D"he=
+ight: 48px; width: 48px;"><div role=3D"button" aria-label=3D"Not starred" t=
+abindex=3D"0" style=3D"user-select: none; transition: background 0.3s ease =
+0s; border: 0px; border-radius: 50%; cursor: pointer; display: inline-block=
+; flex-shrink: 0; height: 48px; outline: none; overflow: hidden; position: =
+relative; text-align: center; width: 48px; z-index: 0; fill: rgb(95, 99, 10=
+4);"><div style=3D"transform: translate(-50%, -50%) scale(0); transition: o=
+pacity 0.2s ease 0s, visibility 0s ease 0.2s, transform 0s ease 0.2s, -webk=
+it-transform 0s ease 0.2s; background-size: cover; left: 0px; opacity: 0; p=
+ointer-events: none; position: absolute; top: 0px; visibility: hidden; back=
+ground-image: radial-gradient(circle farthest-side, rgba(95, 99, 104, 0.16)=
+, rgba(95, 99, 104, 0.16) 80%, rgba(95, 99, 104, 0) 100%);"></div><span sty=
+le=3D"align-items: center; display: flex; height: 48px; justify-content: ce=
+nter; position: relative; width: 48px;"><span style=3D"display: flex; posit=
+ion: relative;"><span aria-hidden=3D"true" style=3D"font-family: &quot;Mate=
+rial Icons Extended&quot;; font-size: 20px; line-height: 1; letter-spacing:=
+ normal; text-rendering: optimizelegibility; display: inline-block; overflo=
+w-wrap: normal; direction: ltr; font-feature-settings: &quot;liga&quot;;">=
+=EE=A0=BA</span></span></span></div></div><div role=3D"button" aria-label=
+=3D"Reply all" tabindex=3D"0" style=3D"user-select: none; transition: backg=
+round 0.3s ease 0s; border: 0px; border-radius: 50%; cursor: pointer; displ=
+ay: inline-block; flex-shrink: 0; height: 48px; outline: none; overflow: hi=
+dden; position: relative; text-align: center; width: 48px; z-index: 0; fill=
+: rgb(95, 99, 104);"><div style=3D"transform: translate(-50%, -50%) scale(0=
+); transition: opacity 0.2s ease 0s, visibility 0s ease 0.2s, transform 0s =
+ease 0.2s, -webkit-transform 0s ease 0.2s; background-size: cover; left: 0p=
+x; opacity: 0; pointer-events: none; position: absolute; top: 0px; visibili=
+ty: hidden; background-image: radial-gradient(circle farthest-side, rgba(95=
+, 99, 104, 0.16), rgba(95, 99, 104, 0.16) 80%, rgba(95, 99, 104, 0) 100%);"=
+></div><span style=3D"align-items: center; display: flex; height: 48px; jus=
+tify-content: center; position: relative; width: 48px;"><span style=3D"disp=
+lay: flex; position: relative;"><span aria-hidden=3D"true" style=3D"font-fa=
+mily: &quot;Material Icons Extended&quot;; font-size: 20px; line-height: 1;=
+ letter-spacing: normal; text-rendering: optimizelegibility; display: inlin=
+e-block; overflow-wrap: normal; direction: ltr; font-feature-settings: &quo=
+t;liga&quot;;">=EE=85=9F</span></span></span></div><div role=3D"presentatio=
+n" style=3D"display: flex;"><div role=3D"button" aria-label=3D"More" aria-d=
+isabled=3D"false" tabindex=3D"0" aria-haspopup=3D"true" aria-expanded=3D"fa=
+lse" style=3D"user-select: none; transition: background 0.3s ease 0s; borde=
+r: 0px; border-radius: 50%; cursor: pointer; display: inline-block; fill: r=
+gb(95, 99, 104); flex-shrink: 0; height: 48px; outline: none; overflow: hid=
+den; position: relative; text-align: center; width: 48px; z-index: 0;"><div=
+ style=3D"transform: translate(-50%, -50%) scale(0); transition: opacity 0.=
+2s ease 0s; background-size: cover; left: 0px; opacity: 0; pointer-events: =
+none; position: absolute; top: 0px; visibility: hidden;"></div><span style=
+=3D"line-height: 44px; position: relative; display: flex; height: 48px; wid=
+th: 48px;"><span style=3D"margin: 0px; display: flex; align-items: center; =
+flex-grow: 1; justify-content: center;"><span aria-hidden=3D"true" style=3D=
+"font-family: &quot;Material Icons Extended&quot;; font-size: 20px; line-he=
+ight: 1; letter-spacing: normal; text-rendering: optimizelegibility; displa=
+y: inline-block; overflow-wrap: normal; direction: ltr; font-feature-settin=
+gs: &quot;liga&quot;;">=EE=97=94</span></span></span></div></div></div></di=
+v><div style=3D"margin: -10px 0px 10px;"><span style=3D"font-family: Roboto=
+, Arial, sans-serif; font-size: 12px; letter-spacing: 0.3px; line-height: 1=
+6px; color: rgb(95, 99, 104);">to=C2=A0Jailhouse</span></div></div><div rol=
+e=3D"region" aria-labelledby=3D"c31996" style=3D"margin: 12px 0px; overflow=
+: auto; padding-right: 20px;"><a href=3D"https://t.me/motionking_caliweed_p=
+sychedelics" target=3D"_blank" rel=3D"nofollow" style=3D"color: rgb(26, 115=
+, 232);">https://t.me/motionking_caliweed_psychedelics</a><br /><div><br />=
+</div><div>Golden Teachers are considered moderately potent among psilocybi=
+n mushrooms. Their effects can vary depending on factors such as growing co=
+nditions, individual tolerance, and dosage. Users generally report a balanc=
+e between visual and introspective effects.<br /><br /><a href=3D"https://t=
+.me/motionking_caliweed_psychedelics" target=3D"_blank" rel=3D"nofollow" st=
+yle=3D"color: rgb(26, 115, 232);">https://t.me/motionking_caliweed_psychede=
+lics</a></div><div><br /><br />=C2=A0 =C2=A0 =C2=A0Effects: Like other psil=
+ocybin-containing mushrooms, consuming Golden Teacher mushrooms can lead to=
+ altered states of consciousness characterized by visual and auditory hallu=
+cinations, changes in perception of time and space, introspection, and some=
+times a sense of unity or connection with one's surroundings<br />Some key =
+characteristics of the Golden Teacher mushroom strain include:<br />=C2=A0 =
+=C2=A0 =C2=A0Appearance: The Golden Teacher strain typically features large=
+, golden-capped mushrooms with a distinct appearance. When mature, the caps=
+ can take on a golden or caramel color, while the stem is usually thick and=
+ white.<br />=C2=A0 =C2=A0 =C2=A0Potency: Golden Teachers are considered mo=
+derately potent among psilocybin mushrooms. Their effects can vary dependin=
+g on factors such as growing conditions, individual tolerance, and dosage. =
+Users generally report a balance between visual and introspective effects.<=
+/div><div><br /></div><div><a href=3D"https://t.me/motionking_caliweed_psyc=
+hedelics" target=3D"_blank" rel=3D"nofollow" style=3D"color: rgb(26, 115, 2=
+32);">https://t.me/motionking_caliweed_psychedelics</a><br /></div></div><b=
+r /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Su=
+nday, June 2, 2024 at 9:20:33=E2=80=AFPM UTC+1 Dwayne Mickey wrote:<br/></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-l=
+eft: 1px solid rgb(204, 204, 204); padding-left: 1ex;">Your best online sho=
+p to get plantimum quality microdosing psychedelics products online, pain,a=
+nxiety pills, and research chemicals.<div>Be 100% assurance=C2=A0</div><div=
+><br></div><div>Buy DMT .5ml Purecybin =E2=80=93 300mg DMT Online:=C2=A0htt=
+ps;<a href=3D"http://t.me/Ricko_swavy8/product/buy-dmt-5ml-purecybin-300mg-=
+dmt-online/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
+ps://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product/bu=
+y-dmt-5ml-purecybin-300mg-dmt-online/&amp;source=3Dgmail&amp;ust=3D17174696=
+78764000&amp;usg=3DAOvVaw1neRGLVjHgAPFo7mNP9DQH">t.me/Ricko_swavy8/product/=
+buy-dmt-5ml-purecybin-300mg-dmt-online/</a></div><div><br></div><div>Buy Dm=
+t Online:=C2=A0https:<a href=3D"http://t.me/Ricko_swavy8/product-category/d=
+mt/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
+.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product-category/d=
+mt/&amp;source=3Dgmail&amp;ust=3D1717469678764000&amp;usg=3DAOvVaw09LZemaLh=
+P3HmGTPF8FdUw">t.me/Ricko_swavy8/product-category/dmt/</a></div><div><br></=
+div><div>Buy LSD online:=C2=A0https:<a href=3D"http://t.me/Ricko_swavy8/pro=
+duct-category/lsd/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
+=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/pro=
+duct-category/lsd/&amp;source=3Dgmail&amp;ust=3D1717469678764000&amp;usg=3D=
+AOvVaw3m0U30KWYK7WuTrP73z0lA">t.me/Ricko_swavy8/product-category/lsd/</a></=
+div><div><br></div><div><br></div><div>Buy Magic Mushroom Online:=C2=A0http=
+s:<a href=3D"http://t.me/Ricko_swavy8/product-category/mushrooms/" target=
+=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
+/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product-category/mushrooms/&a=
+mp;source=3Dgmail&amp;ust=3D1717469678764000&amp;usg=3DAOvVaw3iQp0aulTWfFYB=
+ILynmfdr">t.me/Ricko_swavy8/product-category/mushrooms/</a></div><div><br><=
+/div><div>Buy DeadHead Chemist DMT Vape Cartridge:=C2=A0https:<a href=3D"ht=
+tp://t.me/Ricko_swavy8/product-category/dmt/" target=3D"_blank" rel=3D"nofo=
+llow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dht=
+tp://t.me/Ricko_swavy8/product-category/dmt/&amp;source=3Dgmail&amp;ust=3D1=
+717469678764000&amp;usg=3DAOvVaw09LZemaLhP3HmGTPF8FdUw">t.me/Ricko_swavy8/p=
+roduct-category/dmt/</a></div><div><br></div><div>Buy Exotic Marijuana Stra=
+ins Online:</div><div><br></div><div>Buy 5-MEO DMT .5ml 150mg Mushrooms Can=
+ada Online:=C2=A0https:<a href=3D"http://t.me/Ricko_swavy8/product/buy-5-me=
+o-dmt-5ml-150mg-mushrooms-canada-online/" target=3D"_blank" rel=3D"nofollow=
+" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp:/=
+/t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-mushrooms-canada-online/=
+&amp;source=3Dgmail&amp;ust=3D1717469678764000&amp;usg=3DAOvVaw1MHeOqyzaKuN=
+DzKZ3MuejB">t.me/Ricko_swavy8/product/buy-5-meo-dmt-5ml-150mg-mushrooms-can=
+ada-online/</a></div><div><br></div><div>Buy 5-Meo-DMT(Cartridge) 1mL Deadh=
+ead Chemist Online:=C2=A0https:<a href=3D"http://t.me/Ricko_swavy8/product/=
+buy-5-meo-dmtcartridge-1ml-deadhead-chemist-online/" target=3D"_blank" rel=
+=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
+p;q=3Dhttp://t.me/Ricko_swavy8/product/buy-5-meo-dmtcartridge-1ml-deadhead-=
+chemist-online/&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAOv=
+Vaw3NqRKnfxTpJ83v-o_2qonm">t.me/Ricko_swavy8/product/buy-5-meo-dmtcartridge=
+-1ml-deadhead-chemist-online/</a></div><div><br></div><div>Buy Microdose 4-=
+AcO-DMT Deadhead Chemist Online:https:<a href=3D"http://t.me/Ricko_swavy8/p=
+roduct/buy-microdose-4-aco-dmt-deadhead-chemist-online/" target=3D"_blank" =
+rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den=
+&amp;q=3Dhttp://t.me/Ricko_swavy8/product/buy-microdose-4-aco-dmt-deadhead-=
+chemist-online/&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAOv=
+Vaw1waeBSpHysnG6ymVAtH0SO">t.me/Ricko_swavy8/product/buy-microdose-4-aco-dm=
+t-deadhead-chemist-online/</a></div><div><br></div><div>Buy Deadhead Chemis=
+t DMT 3 Cartridges Deal 1mL Online:=C2=A0https:<a href=3D"http://t.me/Ricko=
+_swavy8/product/buy-deadhead-chemist-dmt-3-cartridges-deal-1ml-online/" tar=
+get=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.=
+com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8/product/buy-deadhead-chemi=
+st-dmt-3-cartridges-deal-1ml-online/&amp;source=3Dgmail&amp;ust=3D171746967=
+8765000&amp;usg=3DAOvVaw05VKm8D7sLxigRT5WMhb8w">t.me/Ricko_swavy8/product/b=
+uy-deadhead-chemist-dmt-3-cartridges-deal-1ml-online/</a></div><div><br></d=
+iv><div>Buy PolkaDot Magic Mushroom Belgian Chocolate 4G:</div><div><br></d=
+iv><div>Buy Penis Envy Magic Mushrooms:=C2=A0<a href=3D"https://www.t.me/Ri=
+cko_swavy8/product/buy-new-penis-envy-mostly-stems-online/" target=3D"_blan=
+k" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=
+=3Den&amp;q=3Dhttps://www.t.me/Ricko_swavy8/product/buy-new-penis-envy-most=
+ly-stems-online/&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAO=
+vVaw3NC4419HXzMjPfzIhc9-eb">https://www.t.me/Ricko_swavy8/product/buy-new-p=
+enis-envy-mostly-stems-online/</a></div><div><br></div><div>Buy DMT 1ml Pur=
+ecybin =E2=80=93 700mg DMT Online:=C2=A0<a href=3D"https://www.t.me/Ricko_s=
+wavy8/product/buy-dmt-1ml-purecybin-700mg-dmt-online/" target=3D"_blank" re=
+l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&a=
+mp;q=3Dhttps://www.t.me/Ricko_swavy8/product/buy-dmt-1ml-purecybin-700mg-dm=
+t-online/&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAOvVaw27Q=
+YROmUGJ7-ZzMf_NgSZ6">https://www.t.me/Ricko_swavy8/product/buy-dmt-1ml-pure=
+cybin-700mg-dmt-online/</a></div><div><br></div><div>Buy NN-DMT(Cartridge) =
+1mL | 800MG | MMD Cosmo Online:https:<a href=3D"http://t.me/Ricko_swavy8/pr=
+oduct/buy-nn-dmtcartridge-1ml-800mg-mmd-cosmo-online/" target=3D"_blank" re=
+l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&a=
+mp;q=3Dhttp://t.me/Ricko_swavy8/product/buy-nn-dmtcartridge-1ml-800mg-mmd-c=
+osmo-online/&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAOvVaw=
+3bzUxySiktjHR0ixorc_eI">t.me/Ricko_swavy8/product/buy-nn-dmtcartridge-1ml-8=
+00mg-mmd-cosmo-online/</a></div><div><br></div><div>Golden Teacher Magic Mu=
+shrooms:</div><div><br></div><div>Buy One Up =E2=80=93 Psilocybin Mushroom =
+Chocolate Bar=C2=A0<br><br></div><div class=3D"gmail_quote"><div dir=3D"aut=
+o" class=3D"gmail_attr">On Saturday, June 1, 2024 at 2:57:30=E2=80=AFPM UTC=
++1 Asah Randy wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><=
+a href=3D"https://t.me/motionking_caliweed_psychedelics" rel=3D"nofollow" t=
+arget=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den=
+&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&a=
+mp;ust=3D1717469678765000&amp;usg=3DAOvVaw3IxTYqaLhAv_lTdRI71ezX">https://t=
+.me/motionking_caliweed_psychedelics</a><br><div><br></div><div>Golden Teac=
+hers are considered moderately potent among psilocybin mushrooms. Their eff=
+ects can vary depending on factors such as growing conditions, individual t=
+olerance, and dosage. Users generally report a balance between visual and i=
+ntrospective effects.<br><br><a href=3D"https://t.me/motionking_caliweed_ps=
+ychedelics" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"http=
+s://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psy=
+chedelics&amp;source=3Dgmail&amp;ust=3D1717469678765000&amp;usg=3DAOvVaw3Ix=
+TYqaLhAv_lTdRI71ezX">https://t.me/motionking_caliweed_psychedelics</a></div=
+><div><br><br>=C2=A0 =C2=A0 =C2=A0Effects: Like other psilocybin-containing=
+ mushrooms, consuming Golden Teacher mushrooms can lead to altered states o=
+f consciousness characterized by visual and auditory hallucinations, change=
+s in perception of time and space, introspection, and sometimes a sense of =
+unity or connection with one&#39;s surroundings<br>Some key characteristics=
+ of the Golden Teacher mushroom strain include:<br>=C2=A0 =C2=A0 =C2=A0Appe=
+arance: The Golden Teacher strain typically features large, golden-capped m=
+ushrooms with a distinct appearance. When mature, the caps can take on a go=
+lden or caramel color, while the stem is usually thick and white.<br>=C2=A0=
+ =C2=A0 =C2=A0Potency: Golden Teachers are considered moderately potent amo=
+ng psilocybin mushrooms. Their effects can vary depending on factors such a=
+s growing conditions, individual tolerance, and dosage. Users generally rep=
+ort a balance between visual and introspective effects.<br></div></blockquo=
+te></div></blockquote></div>
 
 <p></p>
 
@@ -695,11 +452,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/4706bf6e-e51a-4400-863a-f4bd5e2a9cd9n%40googlegrou=
+om/d/msgid/jailhouse-dev/8cc37e82-fcc9-43df-82a6-2c82c6ad9b85n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/4706bf6e-e51a-4400-863a-f4bd5e2a9cd9n%40googlegroups.co=
+msgid/jailhouse-dev/8cc37e82-fcc9-43df-82a6-2c82c6ad9b85n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_315159_1403914300.1717387101568--
+------=_Part_435588_406919058.1717387165797--
 
-------=_Part_315158_205385406.1717387101568--
+------=_Part_435587_1535647835.1717387165797--
