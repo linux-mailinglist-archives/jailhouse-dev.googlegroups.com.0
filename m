@@ -1,78 +1,76 @@
-Return-Path: <jailhouse-dev+bncBD37PS7EWQCRB3HD6SZAMGQEB4UNCKA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBRHG6SZAMGQEHFEHPCI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CCB8D7A4A
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 05:01:02 +0200 (CEST)
-Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-df4aa01edcasf802720276.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 20:01:02 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A55E8D7A5C
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 05:06:46 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dfa78a1b142sf3848343276.1
+        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 20:06:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717383661; x=1717988461; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717384005; x=1717988805; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=CWoTCDOVDdhk/2MQMqea/ldevN16sMVdL61AiDIIF+k=;
-        b=t0VbByVu7sKvxUUMzjtuOWqXKGwmL6o9THF1T2+P8A7x6RwzSTlrVX/jMWXbguRd1v
-         bluMsJ8UGDOTIlJdcTMu671JwnVddVlE7zU0SpoXIDSzsNc9LCbUDGc5DlHZ+WkQQDB5
-         qUr1K7MR+tO+WZJYykAT20FP6PaHhFxkQLj9DbVkhxutxP0kQ0T2oE4cwnWTbLCqlFlU
-         KQ/bQQHUizVWROFTdc+LOOIX9EtReu8nlu7oFh/QyE96uCkZ6oSSYhsY7vmhv14X0Hjv
-         8Ba4mnyAGkVor9OCSSYx+yImt2ES/D2VpaODF4E58GFS/N4eyfm3CMGIdaYceTwAbKFw
-         RbQA==
+        bh=amU6Zd0uh/1/KdOyxGkbnROR4DePCvxEMG25m0lNFtk=;
+        b=hlxKKPQOPNRGonvg8+vBIIBygAilzldWtTt623gmRiUPUhWX0CEFe5XBP6J4GLxLwM
+         PHGQImaa9Oee8fPElruyeq72aE7+a7u9wDJD+CT7tzo5VZeel0fUtFCBPWIQhcU9c/8r
+         cQeg3dee7bPqNSYEscPr0JvOGecbMQdfx72dwmch/GpQ5IxBccTxwoP15puccYBCxfqi
+         YHQcM649ag0LW5/lK0MwEodF6b9/4hSPeLrgRvF2dj7GZorN9byhyVqyoG0ynk3E6bnF
+         f9GqLfCRmqqsTiFMu09aufV06Z6VD3dhUWjknZnxkl2LtPsLBtJKx7xkujRyK5bZJgSO
+         2WXw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717383661; x=1717988461; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717384005; x=1717988805; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=CWoTCDOVDdhk/2MQMqea/ldevN16sMVdL61AiDIIF+k=;
-        b=Zb+aur4QUz2jLsS+uSamMAlS/QkbjBbCDhTnXg/GM+kAYUGEVIy1itxGY0U4AY3iLT
-         NCBtXSHEpuu36rJNTlQLwHKqGIGV0UnP59XH3ABTTsYnMlbDGLx+oaA8vDMD8NBK01kn
-         15bSS+b7aHNkjzaPnvgU1x59s3YMN0G6YDHRcDElEWvp/Lp+E+h42j7yL6ZBkRgexr+w
-         PWAPG5NPV5474MrQCEhL57sW1TZAhgOOCS6VkaUuz+8t/eVwvOy0TB+/2EyJ75Ppl68b
-         UTezZEQo2OWnfZ9SSJ75yIsnAAI4sbNbr5KFsgD4oueUCC/9U27rEhAzxQ4MbIQ+E3xh
-         0MwA==
+        bh=amU6Zd0uh/1/KdOyxGkbnROR4DePCvxEMG25m0lNFtk=;
+        b=Ne9KbYQg0tnxmo8F4MhF7/K0w8BCsz7QmZwlmN/oRRjWQiBSAPQaR8dfyBoBxY3iJv
+         eLDlxmgjh1oGFHD8PGoSGH3BURBU5loza1MKKz2jpYk0zAGP/LNJHsxNeWdKK9RMCvLk
+         k7UbRBcYXWsiyuTYncGYQt3XtqDEpM6o3E5lSOLRH1AgXlaB8YbLRsplKNG+wXBAfNOc
+         IyFTXj5IWq2Ww+y0qb+Hh5Qyw7INBKL7f+bKTKURQ0UNwObgNSwMF+5/lhLRZ21LVb3x
+         fYGeg8hzlYAyFU/SSB/f6kTc2Hs2IcxQ2hrvJ8VbSHd3J0uyedEK3Gt4GXidBiX4t8rC
+         9WiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717383661; x=1717988461;
+        d=1e100.net; s=20230601; t=1717384005; x=1717988805;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=CWoTCDOVDdhk/2MQMqea/ldevN16sMVdL61AiDIIF+k=;
-        b=JM6WlCGTUhNteAeVtbChXILucxcvly6RS2m9RGL05T8lJgfRkTxglKPNwCt2h39jxs
-         vdZ1qKFvWdg82Eiu4up51y0uD6KTnpjJFmtEJpVfNsUpVs7SejeNt3Y0aOtLONO3+eU8
-         cqvR0Oqvs6iXTbHQUIqcQVb+aHMFBVw1CMZcYGHqzNBAir8YX2WQ8d5DqHUJg9qCkq40
-         xDohF4ZNcVMnahDuvPeqTtXW8zDH+V9KfNGA/QWgtSGK+Lk1/s0nXiWrFFSUSqgSQD6m
-         dRa2iOZRgBcrE58thOrUmJOedPamLDhaIUznNcAD2UO6X1NeVUmmq05KIq1WaL/RhQ+i
-         pQiQ==
+        bh=amU6Zd0uh/1/KdOyxGkbnROR4DePCvxEMG25m0lNFtk=;
+        b=eTafSzu5TpUZSowL5i9gnHWgNvj/N3YYU3eFNBwuOKm0iD2MvhCqi+dMeAbm/rSll9
+         QIJmc5fO14BvL9/YVFh+1OVxKf/YNsos8QUSU3SHEvP/1ill1wxrXjKdSFMjVfldOcRG
+         y4LxM/PDgLuJvT9Y6Njp4GFdnYxKxY1QOPEDMwJ4skWP6MziQWUf2/RFbkOTqN0hjKZn
+         kFOoJzF4xShP0j2/3UEYm7aOewssI3B1ww3zxh12j0Vr5l2QoHzWIuFK4Y17y93DXHa+
+         cRtLoGQCWy9IbyUUS7VoKfLJankQH+FC3ATNw6vdG5u09/BEIQV5tbGVcCOMKk5a/jgM
+         FQ2A==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXnC9AvhwISc91b33/ZpCfJOsIc+OZl8Vci5HbFgEtEgfICTZQpfpMdV310ascJvLH518Ks82wYeQUl/RJh49HawWDerbaCjNQRWAo=
-X-Gm-Message-State: AOJu0YyMlX4xxdTOc0Xl3vcFg/tYVr+3LTYiR/n3ZiW0ia7hcTpxX7ZW
-	/VMJ3KH2akl1ikPzcLUA0+R5r91/rlVjKdbQdJnzWEtSpzN9kNvS
-X-Google-Smtp-Source: AGHT+IGdnagLSi7+7BRLVqCAn7JJRc+4Updp1BLqWOrZU//zipbuMlLP2p9aPIHo9dDe7ihwRsbj2Q==
-X-Received: by 2002:a05:6902:13cd:b0:dfa:705c:6e3e with SMTP id 3f1490d57ef6-dfa72ea2e47mr5766903276.0.1717383661619;
-        Sun, 02 Jun 2024 20:01:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUkxfMZWwvCjOfIIDydA1Alo/mRfQI5+IbTICc4Ye/4AuXs6ov/jHbuhB6QHw1bbTfMccmTbvHKqIrvjNeFpOFUe5W/FQ1tfD+Az+4=
+X-Gm-Message-State: AOJu0YwOkVoeZlkU+Qf5x+eoGEp9zUw36LT88fu4SVNZDlhTbB472RHH
+	zXcRLReGl3AogAg2fyB6GvpjLvWaTqYND4hTLtiJRpjt7dYSljBm
+X-Google-Smtp-Source: AGHT+IGceWPxrvUr1SQXFrQPSEHIM/gBwRQLmWlXTCqgRZWrWOcaUyLIbFppYlKEU+ro12nfdf9cHQ==
+X-Received: by 2002:a25:db04:0:b0:df4:46a6:77ed with SMTP id 3f1490d57ef6-dfa73c4df61mr8042366276.27.1717384005203;
+        Sun, 02 Jun 2024 20:06:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:e0c8:0:b0:df7:627d:ea39 with SMTP id 3f1490d57ef6-dfa59ac8e32ls132928276.1.-pod-prod-03-us;
- Sun, 02 Jun 2024 20:01:00 -0700 (PDT)
-X-Received: by 2002:a05:690c:61c3:b0:62c:efc:38b7 with SMTP id 00721157ae682-62c796462c2mr21066467b3.1.1717383659523;
-        Sun, 02 Jun 2024 20:00:59 -0700 (PDT)
-Date: Sun, 2 Jun 2024 20:00:58 -0700 (PDT)
+Received: by 2002:a25:bc3:0:b0:dfa:7e23:93a1 with SMTP id 3f1490d57ef6-dfa7e23962fls778576276.0.-pod-prod-06-us;
+ Sun, 02 Jun 2024 20:06:44 -0700 (PDT)
+X-Received: by 2002:a05:690c:f14:b0:61b:e15c:2b84 with SMTP id 00721157ae682-62c7981f3aemr28433407b3.6.1717384003649;
+        Sun, 02 Jun 2024 20:06:43 -0700 (PDT)
+Date: Sun, 2 Jun 2024 20:06:42 -0700 (PDT)
 From: Asah Randy <asahrandy54@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3e71b1ab-60e1-4a60-9121-394ccf2174cbn@googlegroups.com>
-In-Reply-To: <3504c143-dba7-4061-bfd1-07e529481994n@googlegroups.com>
-References: <ba978c38-a6be-4d27-ac21-31299ce61affn@googlegroups.com>
- <cb3b68b2-1d11-4956-842e-9d1ec707936an@googlegroups.com>
- <82a144e2-6359-4ef8-8919-a784e82897afn@googlegroups.com>
- <f2ee268a-9788-4c77-a180-8384ff1a1b5cn@googlegroups.com>
- <d733ed98-17be-4029-b96b-407142be4901n@googlegroups.com>
- <3504c143-dba7-4061-bfd1-07e529481994n@googlegroups.com>
-Subject: Re: BUY ONE UP MUSHROOM CHOCOLATE BARS ONLINE IN USA
+Message-Id: <5ac62ff7-670a-40a2-9271-700b1f8d7f86n@googlegroups.com>
+In-Reply-To: <aa79214c-06f5-482d-9b3a-18cdfd9a1909n@googlegroups.com>
+References: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
+ <b233e3c5-c126-4ff1-a109-8d2862e939ee@googlegroups.com>
+ <aa79214c-06f5-482d-9b3a-18cdfd9a1909n@googlegroups.com>
+Subject: Re: jailhouse + ZCU102 V1.0 + second UART problem + petalinux
+ 2017.4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_287642_521659690.1717383658824"
+	boundary="----=_Part_114612_1084070541.1717384002878"
 X-Original-Sender: asahrandy54@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -86,213 +84,187 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_287642_521659690.1717383658824
+------=_Part_114612_1084070541.1717384002878
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_287643_710857223.1717383658824"
+	boundary="----=_Part_114613_989140744.1717384002878"
 
-------=_Part_287643_710857223.1717383658824
+------=_Part_114613_989140744.1717384002878
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 
+
+=EE=A2=99
+17 of 3504
+=EE=90=88
+=EE=90=89
+4
+
+Skip to first unread message
+=EE=A5=84
+unread,
+Jun 27, 2018, 5:33:04=E2=80=AFPM=EE=97=94
 https://t.me/motionking_caliweed_psychedelics
 
-Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. Ho=
-w could=20
-that not be the dream?
-
-Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
-gh that=20
-won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
-
-True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
-ooms=20
-doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
- drop in the quality of=20
-your trip, in fact, you may even decide to switch to edibles!
-
-Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=
-=E2=80=99t=20
-necessarily mean you want to be seen stuffing your face with them. For=20
-those who want to keep it classy and discrete, nibbling on some chocolate=
-=20
-is the way to go. shroom chocolate bar
-
-Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocolate=
- can be=20
-broken up for versatile dosage. Each square of this chocolate bar contains=
-=20
-approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether=
-=20
-it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar has got =
-you=20
-covered. shroom chocolate bar
-
+i'm trying to make jailhouse work on my ZCU102 v1.0 (production)
+using petalinux 2017.4 following this documentation :
 
 https://t.me/motionking_caliweed_psychedelics
-On Monday, June 3, 2024 at 3:59:02=E2=80=AFAM UTC+1 Asah Randy wrote:
 
->
-> https://t.me/motionking_caliweed_psychedelics
->
-> Great Taste =E2=80=93 A chocolate bar that makes you trip your face off. =
-How could=20
-> that not be the dream?
-> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean =
-high that=20
-> won=E2=80=99t leave you crashing after the initial peak. shroom chocolate
-> True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mus=
-hrooms=20
-> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find a=
-ny drop in the quality of=20
-> your trip, in fact, you may even decide to switch to edibles!
-> Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that does=
-n=E2=80=99t=20
-> necessarily mean you want to be seen stuffing your face with them. For=20
-> those who want to keep it classy and discrete, nibbling on some chocolate=
+
+the second uart doesn't work. After a question on the Xilinx forum
+
+https://t.me/motionking_caliweed_psychedelics
+
+i can activate /dev/ttyPS1 on the zcu102 and verify it using
+
+echo hello > /dev/ttyPS1
+
+but i still can't use it with jailhouse.
+
+
+i have checked with the gic-demo and linux-demo without any success.
+i can use the debug console with gic-demo, but that's all.
+
+this command should work, but it doesn't :
+
+jailhouse cell linux zynqmp-zcu102-linux-demo.cell Image -d=20
+inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c "console=3DttyPS1,115200"
+
+
+in the zynqmp-zcu102-linux-demo.c file, the uart address is correct :
+
+.mem_regions =3D {
+/* UART */ {
+.phys_start =3D 0xff010000,
+.virt_start =3D 0xff010000,
+.size =3D 0x1000,
+.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED
+https://t.me/motionking_caliweed_psychedelics
+On Saturday, June 1, 2024 at 9:26:29=E2=80=AFAM UTC+1 Dwayne Mickey wrote:
+
+> Penis Envy magic mushrooms are three times more potent than other=20
+> mushrooms. The effects of Penis Envy magic mushrooms may come on quickly=
 =20
-> is the way to go. shroom chocolate bar
-> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocola=
-te can be=20
-> broken up for versatile dosage. Each square of this chocolate bar contain=
-s=20
-> approximately .6g of Magic Mushrooms, while each bar contains 3.5g. Wheth=
-er=20
-> it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar
->
-> https://t.me/motionking_caliweed_psychedelics
-> On Sunday, June 2, 2024 at 9:17:41=E2=80=AFPM UTC+1 Dwayne Mickey wrote:
->
->>
->> Great Taste =E2=80=93 A chocolate bar that makes you trip your face off.=
- How=20
->> could that not be the dream?
->> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean=
- high=20
->> that won=E2=80=99t leave you crashing after the initial peak. shroom cho=
-colate
->> True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mu=
-shrooms=20
->> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find =
-any drop in the quality of=20
->> your trip, in fact, you may even decide to switch to edibles!
->> Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doe=
-sn=E2=80=99t=20
->> necessarily mean you want to be seen stuffing your face with them. For=
-=20
->> those who want to keep it classy and discrete, nibbling on some chocolat=
+> due to higher levels of psilocin than psilocybin.
+> About Penis Envy
+> Penis Envy magic mushrooms can impact you differently based upon a variet=
+y=20
+> of factors, like your size, weight, your state of health, whether you hav=
 e=20
->> is the way to go. shroom chocolate bar
->> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this chocol=
-ate can=20
->> be broken up for versatile dosage. Each square of this chocolate bar=20
->> contains approximately .6g of Magic Mushrooms, while each bar contains=
-=20
->> 3.5g. Whether it=E2=80=99s a micro-dose or a full-on journey, this choco=
-late bar=20
->> has got you covered. shroom chocolate bar
->>
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->> Buy Good Trip Mushroom Chocolate Bars Online
->> Have you ever wished mushrooms tasted better? We=E2=80=99re here to gran=
-t that=20
->> wish by bringing you our Good Trip Mushroom Chocolate Bar. This bar is=
-=20
->> tasty, irresistible also, contains a total of 3.5g of Magic Mushrooms ( =
-6=20
->> grams per chocolate square). And can be broken off into squares for=20
->> flexible shroom dosage.
->>
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->> IT has an awesome taste and smells good too chocolate. Good Trip Mushroo=
+> taken them before, the amount you take, and more. The setting in which yo=
+u=20
+> are taking them and who you are with are critical factors. Being in natur=
+e,=20
+> in a safe, calm and tranquil setting, with no pending pressures or=20
+> obligations is ideal for the user.=20
+>
+> Trip Level 0: Microdosing
+> Recommended dosage: 0.2 =E2=80=93 0.5 g. dried mushrooms =E2=80=93 A micr=
+o-dose is a=20
+> sub-perceptual amount of mushrooms. Take this every 2-3 days to boost=20
+> creativity or feel less anxious. Microdosing trip levels capsules. Added =
+as=20
+> level 0, it=E2=80=99s meant to be taken along with your day-to-day routin=
+e.
+> Trip Level 1: Happy go lucky
+> Recommended dosage: 0.8 =E2=80=93 1 g. dried mushrooms =E2=80=93 The effe=
+cts are mild and=20
+> similar to being high on weed. Music starts to feel better, strangers see=
 m=20
->> Chocolate Bars makes you trip your face off. So, how could that not be t=
-he=20
->> dream?. =E2=80=A2
->>
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->> Clean High =E2=80=93 We formulated this chocolate bar to produce a clean=
- high=20
->> that won=E2=80=99t leave you crashing after the initial peak.
->>
->> https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale=
-/
->>
->> True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mus=
-hrooms=20
->> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find =
-any drop in the quality of=20
->> your trip, in fact, you may even decide to switch to edibles!
->> :Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=
-=99t=20
->> necessarily mean you want to be seen stuffing your face with them For th=
-ose=20
->> who want to keep it classy and discrete, nibbling on some chocolate is t=
-he=20
->> way to go. shroom chocolate bar =E2=80=A2
->> On Sunday, June 2, 2024 at 9:27:48=E2=80=AFAM UTC+1 Asah Randy wrote:
->>
->>> https://t.me/prime_house00
->>>
->>> Great Taste =E2=80=93 A chocolate bar that makes you trip your face off=
-. How=20
->>> could that not be the dream?
->>>
->>> Clean High =E2=80=93 We formulated this chocolate bar to produce a clea=
-n high=20
->>> that won=E2=80=99t leave you crashing after the initial peak. shroom ch=
-ocolate
->>>
->>> True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like m=
-ushrooms=20
->>> doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find=
- any drop in the quality of=20
->>> your trip, in fact, you may even decide to switch to edibles!
->>>
->>> Sneaky =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that do=
-esn=E2=80=99t=20
->>> necessarily mean you want to be seen stuffing your face with them. For=
+> more friendly and the mind is able to lose some control. You could have=
 =20
->>> those who want to keep it classy and discrete, nibbling on some chocola=
-te=20
->>> is the way to go. shroom chocolate bar
->>>
->>> Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this choco=
-late can=20
->>> be broken up for versatile dosage. Each square of this chocolate bar=20
->>> contains approximately .6g of Magic Mushrooms, while each bar contains=
+> mild visual enhancements or some sound distortion, but these will be subt=
+le.
+> Trip Level 2: Beginner=E2=80=99s paradise
+> Recommended dosage: 1 =E2=80=93 1.5 g. dried mushrooms =E2=80=93 Consiste=
+nt sensorial=20
+> accentuation, colors becoming brighter and a light body high. Level 2 can=
 =20
->>> 3.5g. Whether it=E2=80=99s a micro-dose or a full-on journey, this choc=
-olate bar=20
->>> has got you covered. shroom chocolate bar
->>>
->>> https://t.me/prime_house00
->>>
->>> On Sunday, June 2, 2024 at 2:25:35=E2=80=AFAM UTC-6 Asah Randy wrote:
->>>
->>> https://t.me/prime_house00
->>>
->>> Buy Good Trip Mushroom Chocolate Bars Online
->>>
->>> Have you ever wished mushrooms tasted better? We=E2=80=99re here to gra=
-nt that=20
->>> wish by bringing you our Good Trip Mushroom Chocolate Bar. This bar is=
+> be a more intense form of Trip Level 1, but with the right dosage it can =
+be=20
+> something more. Be prepared for the beginnings of visual and auditory=20
+> hallucinations: objects moving and coming to life along with geometrical=
 =20
->>> tasty, irresistible also, contains a total of 3.5g of Magic Mushrooms (=
- 6=20
->>> grams per chocolate square). And can be broken off into squares for=20
->>> flexible shroom dosage.
->>>
->>>
->>> https://t.me/prime_house00
->>>
->>>
+> forms when you close your eyes. It will be harder to concentrate and=20
+> communicate and you will notice an increase in creativity along with an=
+=20
+> enhanced sensation, lightness and euphoria.
+> Trip Level 3: Classic psychedelic trip
+> Recommended dosage: 1.5 =E2=80=93 3 g. dried mushrooms =E2=80=93 Trip Lev=
+el 3 is great for=20
+> beginners who want to jump in the =E2=80=9Creal=E2=80=9D psychedelic expe=
+rience, without=20
+> overdoing the dosage. This level is where visual hallucinations along wit=
+h=20
+> the appearance of patterns and fractals will be evident. No more hinting =
+or=20
+> subtle flashes of visuals, it=E2=80=99s happening for real. The surface o=
+f the=20
+> object you=E2=80=99re observing will become shiny and moving, as your fie=
+ld of=20
+> depth is altered. Distortions in the aptitude to measure the passage of=
+=20
+> time, might cause an 1 hour to feel like an eternity.
+> Level 4: Flying with the stars https:t.me/Ricko_swavy8
+> Recommended dosage: 3 =E2=80=93 4 g. dried mushrooms =E2=80=93 Strong hal=
+lucinations take=20
+> over: a psychedelic flood of shapes, contours and colors will blend=20
+> together and hit the shores of your consciousness. There=E2=80=99s no sto=
+pping the=20
+> waves in Level 4. There will be some moments when you will lose touch=20
+> reality. Random, non-existent objects will appear and the concept of time=
+=20
+> will fade away to the background. Intriguing to some, scary to others, th=
+is=20
+> is the level where psychedelics can really be powerful, life-altering and=
+=20
+> mind expanding. Keep in mind that this dosage is only recommend for=20
+> experience users.
+> Level 5
+> :https:t.me/Ricko_swavy8
+>
+> On Thursday, June 28, 2018 at 12:49:45=E2=80=AFPM UTC+1 christophe...@gma=
+il.com=20
+> wrote:
+>
+>> hi all,
+>>
+>> now i can see the output of the console and monitor the linux boot.
+>> And of course, linux doesn't boot and stop with a kernel panic :=20
+>>
+>> [ 9.148409] NET: Registered protocol family 1
+>> [ 9.200596] RPC: Registered named UNIX socket transport module.
+>> [ 9.271265] RPC: Registered udp transport module.
+>> [ 9.327501] RPC: Registered tcp transport module.
+>> [ 9.383752] RPC: Registered tcp NFSv4.1 backchannel transport module.
+>> [ 9.814860] Kernel panic - not syncing: write error
+>> [ 9.872207] CPU: 0 PID: 1 Comm: swapper/0 Not tainted=20
+>> 4.9.0-xilinx-v2017.4 #2
+>> [ 9.957622] Hardware name: Jailhouse cell on ZynqMP ZCU102 (DT)
+>> [ 10.028458] Call trace:
+>> [ 10.057635] [<ffffff8008088138>] dump_backtrace+0x0/0x198
+>> [ 10.122215] [<ffffff80080882e4>] show_stack+0x14/0x20
+>> [ 10.182634] [<ffffff80083de594>] dump_stack+0x94/0xb8
+>> [ 10.243054] [<ffffff800812e9f8>] panic+0x114/0x25c
+>> [ 10.300347] [<ffffff8008cc2d8c>] populate_rootfs+0x40/0x110
+>> [ 10.367014] [<ffffff80080830b8>] do_one_initcall+0x38/0x128
+>> [ 10.433683] [<ffffff8008cc0c94>] kernel_init_freeable+0x140/0x1e0
+>> [ 10.506604] [<ffffff80089494e0>] kernel_init+0x10/0x100
+>> [ 10.569104] [<ffffff8008082e80>] ret_from_fork+0x10/0x50
+>> [ 10.632647] SMP: stopping secondary CPUs
+>> [ 10.679537] ---[ end Kernel panic - not syncing: write error
+>>
+>> i can see a write error, but i don't know why.
+>> i have attached the boot log file.
+>>
+>> Any hints ?
+>>
+>> Regards=20
+>> C.Alexandre=20
+>>
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -300,184 +272,250 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3e71b1ab-60e1-4a60-9121-394ccf2174cbn%40googlegroups.com.
+jailhouse-dev/5ac62ff7-670a-40a2-9271-700b1f8d7f86n%40googlegroups.com.
 
-------=_Part_287643_710857223.1717383658824
+------=_Part_114613_989140744.1717384002878
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div><br /></div><div>https://t.me/motionking_caliweed_psychedelics<br /></=
-div><div><br /></div><span style=3D"color: rgb(80, 0, 80);">Great Taste =E2=
-=80=93 A chocolate bar that makes you trip your face off. How could that no=
-t be the dream?</span><br style=3D"color: rgb(80, 0, 80);" /><br style=3D"c=
-olor: rgb(80, 0, 80);" /><span style=3D"color: rgb(80, 0, 80);">Clean High =
-=E2=80=93 We formulated this chocolate bar to produce a clean high that won=
-=E2=80=99t leave you crashing after the initial peak. shroom chocolate</spa=
-n><br style=3D"color: rgb(80, 0, 80);" /><br style=3D"color: rgb(80, 0, 80)=
-;" /><span style=3D"color: rgb(80, 0, 80);">True Psychedelic Experience -Ju=
-st cause it doesn=E2=80=99t taste like mushrooms doesn=E2=80=99t mean it=E2=
-=80=99s not mushrooms. You won=E2=80=99t find any drop in the quality of yo=
-ur trip, in fact, you may even decide to switch to edibles!</span><br style=
-=3D"color: rgb(80, 0, 80);" /><br style=3D"color: rgb(80, 0, 80);" /><span =
-style=3D"color: rgb(80, 0, 80);">Sneaky =E2=80=93 Sure, Magic Mushrooms are=
- not legal in USA but that doesn=E2=80=99t necessarily mean you want to be =
-seen stuffing your face with them. For those who want to keep it classy and=
- discrete, nibbling on some chocolate is the way to go. shroom chocolate ba=
-r</span><br style=3D"color: rgb(80, 0, 80);" /><br style=3D"color: rgb(80, =
-0, 80);" /><div style=3D"color: rgb(80, 0, 80);">Versatile Dosage =E2=80=93=
- The combined 3.5g of mushrooms in this chocolate can be broken up for vers=
-atile dosage. Each square of this chocolate bar contains approximately .6g =
-of Magic Mushrooms, while each bar contains 3.5g. Whether it=E2=80=99s a mi=
-cro-dose or a full-on journey, this chocolate bar has got you covered. shro=
-om chocolate bar</div><div style=3D"color: rgb(80, 0, 80);"><br /></div><di=
-v style=3D"color: rgb(80, 0, 80);"><br /></div>https://t.me/motionking_cali=
-weed_psychedelics<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=
-=3D"gmail_attr">On Monday, June 3, 2024 at 3:59:02=E2=80=AFAM UTC+1 Asah Ra=
-ndy wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin: 0 0=
- 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;"><d=
-iv><br></div><div><a href=3D"https://t.me/motionking_caliweed_psychedelics"=
- target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goo=
-gle.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&a=
-mp;source=3Dgmail&amp;ust=3D1717469944107000&amp;usg=3DAOvVaw0LE0H_qw5KFd5f=
-F4IwMgtL">https://t.me/motionking_caliweed_psychedelics</a><br></div><br><s=
-pan style=3D"color:rgb(80,0,80)">Great Taste =E2=80=93 A chocolate bar that=
- makes you trip your face off. How could that not be the dream?</span><div =
-style=3D"color:rgb(80,0,80)">Clean High =E2=80=93 We formulated this chocol=
-ate bar to produce a clean high that won=E2=80=99t leave you crashing after=
- the initial peak. shroom chocolate</div><div style=3D"color:rgb(80,0,80)">=
-True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
-ooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t fin=
-d any drop in the quality of your trip, in fact, you may even decide to swi=
-tch to edibles!</div><div style=3D"color:rgb(80,0,80)">Sneaky =E2=80=93 Sur=
-e, Magic Mushrooms are not legal in USA but that doesn=E2=80=99t necessaril=
-y mean you want to be seen stuffing your face with them. For those who want=
- to keep it classy and discrete, nibbling on some chocolate is the way to g=
-o. shroom chocolate bar</div><div style=3D"color:rgb(80,0,80)">Versatile Do=
-sage =E2=80=93 The combined 3.5g of mushrooms in this chocolate can be brok=
-en up for versatile dosage. Each square of this chocolate bar contains appr=
-oximately .6g of Magic Mushrooms, while each bar contains 3.5g. Whether it=
-=E2=80=99s a micro-dose or a full-on journey, this chocolate bar</div><div =
-style=3D"color:rgb(80,0,80)"><br></div><div style=3D"color:rgb(80,0,80)"><a=
- href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank" r=
-el=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&=
-amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&am=
-p;ust=3D1717469944107000&amp;usg=3DAOvVaw0LE0H_qw5KFd5fF4IwMgtL">https://t.=
-me/motionking_caliweed_psychedelics</a><br></div><div class=3D"gmail_quote"=
-><div dir=3D"auto" class=3D"gmail_attr">On Sunday, June 2, 2024 at 9:17:41=
-=E2=80=AFPM UTC+1 Dwayne Mickey wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex"><br>Great Taste =E2=80=93 A chocolate bar that makes you t=
-rip your face off. How could that not be the dream?<div>Clean High =E2=80=
-=93 We formulated this chocolate bar to produce a clean high that won=E2=80=
-=99t leave you crashing after the initial peak. shroom chocolate</div><div>=
-True Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushr=
-ooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t fin=
-d any drop in the quality of your trip, in fact, you may even decide to swi=
-tch to edibles!</div><div>Sneaky =E2=80=93 Sure, Magic Mushrooms are not le=
-gal in USA but that doesn=E2=80=99t necessarily mean you want to be seen st=
-uffing your face with them. For those who want to keep it classy and discre=
-te, nibbling on some chocolate is the way to go. shroom chocolate bar</div>=
-<div>Versatile Dosage =E2=80=93 The combined 3.5g of mushrooms in this choc=
-olate can be broken up for versatile dosage. Each square of this chocolate =
-bar contains approximately .6g of Magic Mushrooms, while each bar contains =
-3.5g. Whether it=E2=80=99s a micro-dose or a full-on journey, this chocolat=
-e bar has got you covered. shroom chocolate bar</div><div><br></div><div><a=
- href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-fo=
-r-sale/" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https:/=
-/www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-=
-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D17174699441=
-07000&amp;usg=3DAOvVaw1gG6XCFaFRzfdk9AltMTcc">https://t.me/Ricko_swavy8/pro=
-duct/good-trip-milk-chocolate-bars-for-sale/</a></div><div><br></div><div>B=
-uy Good Trip Mushroom Chocolate Bars Online</div><div>Have you ever wished =
-mushrooms tasted better? We=E2=80=99re here to grant that wish by bringing =
-you our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresistible a=
-lso, contains a total of 3.5g of Magic Mushrooms ( 6 grams per chocolate sq=
-uare). And can be broken off into squares for flexible shroom dosage.</div>=
-<div><br></div><div><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-=
-milk-chocolate-bars-for-sale/" rel=3D"nofollow" target=3D"_blank" data-safe=
-redirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Rick=
-o_swavy8/product/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail=
-&amp;ust=3D1717469944107000&amp;usg=3DAOvVaw1gG6XCFaFRzfdk9AltMTcc">https:/=
-/t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/</a></div=
-><div><br></div><div>IT has an awesome taste and smells good too chocolate.=
- Good Trip Mushroom Chocolate Bars makes you trip your face off. So, how co=
-uld that not be the dream?. =E2=80=A2</div><div><br></div><div><a href=3D"h=
-ttps://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/" r=
-el=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.googl=
-e.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product/good-trip-milk-=
-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D1717469944107000&amp;=
-usg=3DAOvVaw1gG6XCFaFRzfdk9AltMTcc">https://t.me/Ricko_swavy8/product/good-=
-trip-milk-chocolate-bars-for-sale/</a></div><div><br></div><div>Clean High =
-=E2=80=93 We formulated this chocolate bar to produce a clean high that won=
-=E2=80=99t leave you crashing after the initial peak.</div><div><br></div><=
-div><a href=3D"https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-b=
-ars-for-sale/" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"h=
-ttps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Ricko_swavy8/product=
-/good-trip-milk-chocolate-bars-for-sale/&amp;source=3Dgmail&amp;ust=3D17174=
-69944107000&amp;usg=3DAOvVaw1gG6XCFaFRzfdk9AltMTcc">https://t.me/Ricko_swav=
-y8/product/good-trip-milk-chocolate-bars-for-sale/</a></div><div><br></div>=
-<div>True Psychedelic Experience Just cause it doesn=E2=80=99t taste like m=
-ushrooms doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t=
- find any drop in the quality of your trip, in fact, you may even decide to=
- switch to edibles!</div><div>:Sneaky-Sure, Magic Mushrooms are legal in Ca=
-nada but that doesn=E2=80=99t necessarily mean you want to be seen stuffing=
- your face with them For those who want to keep it classy and discrete, nib=
-bling on some chocolate is the way to go. shroom chocolate bar =E2=80=A2</d=
-iv><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Sun=
-day, June 2, 2024 at 9:27:48=E2=80=AFAM UTC+1 Asah Randy wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex"><div><a href=3D"https://t.me/prim=
-e_house00" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https=
-://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&amp;source=
-=3Dgmail&amp;ust=3D1717469944108000&amp;usg=3DAOvVaw2ETlOf1SHFCQ6FGyLVhEpk"=
->https://t.me/prime_house00</a></div><div><br></div><div>Great Taste =E2=80=
-=93 A chocolate bar that makes you trip your face off. How could that not b=
-e the dream?<br><br>Clean
- High =E2=80=93 We formulated this chocolate bar to produce a clean high th=
-at=20
-won=E2=80=99t leave you crashing after the initial peak. shroom chocolate<b=
-r><br>True
- Psychedelic Experience -Just cause it doesn=E2=80=99t taste like mushrooms=
-=20
-doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
- drop in the quality=20
-of your trip, in fact, you may even decide to switch to edibles!<br><br>Sne=
-aky
- =E2=80=93 Sure, Magic Mushrooms are not legal in USA but that doesn=E2=80=
-=99t=20
-necessarily mean you want to be seen stuffing your face with them. For=20
-those who want to keep it classy and discrete, nibbling on some=20
-chocolate is the way to go. shroom chocolate bar<br><br>Versatile Dosage
- =E2=80=93 The combined 3.5g of mushrooms in this chocolate can be broken u=
-p for
- versatile dosage. Each square of this chocolate bar contains=20
-approximately .6g of Magic Mushrooms, while each bar contains 3.5g.=20
-Whether it=E2=80=99s a micro-dose or a full-on journey, this chocolate bar =
-has=20
-got you covered. shroom chocolate bar<br><br></div><div><a href=3D"https://=
-t.me/prime_house00" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&a=
-mp;source=3Dgmail&amp;ust=3D1717469944108000&amp;usg=3DAOvVaw2ETlOf1SHFCQ6F=
-GyLVhEpk">https://t.me/prime_house00</a></div><br><div><div dir=3D"auto">On=
- Sunday, June 2, 2024 at 2:25:35=E2=80=AFAM UTC-6 Asah Randy wrote:<br></di=
-v><blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex"><div><a href=3D"https://t.me/prime_house00" r=
-el=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.googl=
-e.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&amp;source=3Dgmail&amp=
-;ust=3D1717469944108000&amp;usg=3DAOvVaw2ETlOf1SHFCQ6FGyLVhEpk">https://t.m=
-e/prime_house00</a></div><div><br></div><div>Buy Good Trip Mushroom Chocola=
-te Bars Online<br><br>Have you ever wished
- mushrooms tasted better? We=E2=80=99re here to grant that wish by bringing=
- you=20
-our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresistible=20
-also, contains a total of 3.5g of Magic Mushrooms ( 6 grams per=20
-chocolate square). And can be broken off into squares for flexible=20
-shroom dosage.</div><div><br></div><div><br></div><a href=3D"https://t.me/p=
-rime_house00" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"ht=
-tps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/prime_house00&amp;sou=
-rce=3Dgmail&amp;ust=3D1717469944108000&amp;usg=3DAOvVaw2ETlOf1SHFCQ6FGyLVhE=
-pk">https://t.me/prime_house00</a><br></blockquote></div></blockquote></div=
-></blockquote></div></blockquote></div>
+<div><br /></div><div style=3D"border-bottom: 1px solid rgb(232, 234, 237);=
+ display: flex; height: 51px;"><div style=3D"align-items: center; display: =
+flex; justify-content: center; margin-left: auto;"><br /><div style=3D"bord=
+er-left: 1px solid rgb(221, 221, 221); display: inline-block; height: 20px;=
+ margin: 12px;"></div><div role=3D"button" aria-label=3D"You need the conte=
+nt moderator permission to delete conversations" aria-disabled=3D"true" tab=
+index=3D"-1" style=3D"user-select: none; transition: background 0.3s ease 0=
+s; border: 0px; border-radius: 50%; cursor: default; display: inline-block;=
+ flex-shrink: 0; height: 40px; outline: none; overflow: hidden; position: r=
+elative; text-align: center; width: 40px; z-index: 0; color: rgb(154, 160, =
+166); fill: rgb(154, 160, 166);"><div style=3D"transform: translate(-50%, -=
+50%) scale(0); transition: opacity 0.2s ease 0s, visibility 0s ease 0.2s, t=
+ransform 0s ease 0.2s, -webkit-transform 0s ease 0.2s; background-size: cov=
+er; left: 0px; opacity: 0; pointer-events: none; position: absolute; top: 0=
+px; visibility: hidden; background-image: radial-gradient(circle farthest-s=
+ide, rgba(95, 99, 104, 0.16), rgba(95, 99, 104, 0.16) 80%, rgba(95, 99, 104=
+, 0) 100%);"></div><span style=3D"align-items: center; display: flex; heigh=
+t: 40px; justify-content: center; position: relative; width: 40px;"><span s=
+tyle=3D"display: flex; position: relative;"></span></span></div><div role=
+=3D"button" aria-label=3D"You need the content moderator permission to lock=
+ conversations" aria-disabled=3D"true" tabindex=3D"-1" style=3D"user-select=
+: none; transition: background 0.3s ease 0s; border: 0px; border-radius: 50=
+%; cursor: default; display: inline-block; flex-shrink: 0; height: 40px; ou=
+tline: none; overflow: hidden; position: relative; text-align: center; widt=
+h: 40px; z-index: 0; color: rgb(154, 160, 166); fill: rgb(154, 160, 166);">=
+<div style=3D"transform: translate(-50%, -50%) scale(0); transition: opacit=
+y 0.2s ease 0s, visibility 0s ease 0.2s, transform 0s ease 0.2s, -webkit-tr=
+ansform 0s ease 0.2s; background-size: cover; left: 0px; opacity: 0; pointe=
+r-events: none; position: absolute; top: 0px; visibility: hidden; backgroun=
+d-image: radial-gradient(circle farthest-side, rgba(95, 99, 104, 0.16), rgb=
+a(95, 99, 104, 0.16) 80%, rgba(95, 99, 104, 0) 100%);"></div><span style=3D=
+"align-items: center; display: flex; height: 40px; justify-content: center;=
+ position: relative; width: 40px;"><span style=3D"display: flex; position: =
+relative;"><span aria-hidden=3D"true" style=3D"font-family: &quot;Material =
+Icons Extended&quot;; font-size: 20px; line-height: 1; text-rendering: opti=
+mizelegibility; display: inline-block; overflow-wrap: normal; direction: lt=
+r; font-feature-settings: &quot;liga&quot;;">=EE=A2=99</span></span></span>=
+</div><div style=3D"border-left: 1px solid rgb(221, 221, 221); display: inl=
+ine-block; height: 20px; margin: 12px;"></div><div style=3D"align-items: ce=
+nter; display: flex; justify-content: center; margin-left: 8px;"><div><div =
+style=3D"align-items: center; display: flex; color: rgb(95, 99, 104); justi=
+fy-content: center; height: 32px;"><div style=3D"font-family: Roboto, Arial=
+, sans-serif; letter-spacing: 0.2px; line-height: 20px; align-self: center;=
+ display: flex; flex-shrink: 0; justify-content: center;">17 of 3504</div><=
+div role=3D"button" aria-label=3D"Previous" tabindex=3D"0" style=3D"user-se=
+lect: none; transition: background 0.3s ease 0s; border: 0px; border-radius=
+: 50%; cursor: pointer; display: inline-block; flex-shrink: 0; height: 48px=
+; outline: none; overflow: hidden; position: relative; text-align: center; =
+width: 48px; z-index: 0; fill: rgb(95, 99, 104);"><div style=3D"transform: =
+translate(-50%, -50%) scale(0); transition: opacity 0.2s ease 0s, visibilit=
+y 0s ease 0.2s, transform 0s ease 0.2s, -webkit-transform 0s ease 0.2s; bac=
+kground-size: cover; left: 0px; opacity: 0; pointer-events: none; position:=
+ absolute; top: 0px; visibility: hidden; background-image: radial-gradient(=
+circle farthest-side, rgba(95, 99, 104, 0.16), rgba(95, 99, 104, 0.16) 80%,=
+ rgba(95, 99, 104, 0) 100%);"></div><span style=3D"align-items: center; dis=
+play: flex; height: 48px; justify-content: center; position: relative; widt=
+h: 48px;"><span style=3D"display: flex; position: relative;"><span aria-hid=
+den=3D"true" style=3D"font-family: &quot;Material Icons Extended&quot;; fon=
+t-size: 24px; line-height: 1; text-rendering: optimizelegibility; display: =
+inline-block; overflow-wrap: normal; direction: ltr; font-feature-settings:=
+ &quot;liga&quot;;">=EE=90=88</span></span></span></div><div role=3D"button=
+" aria-label=3D"Next" tabindex=3D"0" style=3D"user-select: none; transition=
+: background 0.3s ease 0s; border: 0px; border-radius: 50%; cursor: pointer=
+; display: inline-block; flex-shrink: 0; height: 48px; outline: none; overf=
+low: hidden; position: relative; text-align: center; width: 48px; z-index: =
+0; fill: rgb(95, 99, 104);"><div style=3D"transform: translate(-50%, -50%) =
+scale(0); transition: opacity 0.2s ease 0s, visibility 0s ease 0.2s, transf=
+orm 0s ease 0.2s, -webkit-transform 0s ease 0.2s; background-size: cover; l=
+eft: 0px; opacity: 0; pointer-events: none; position: absolute; top: 0px; v=
+isibility: hidden; background-image: radial-gradient(circle farthest-side, =
+rgba(95, 99, 104, 0.16), rgba(95, 99, 104, 0.16) 80%, rgba(95, 99, 104, 0) =
+100%);"></div><span style=3D"align-items: center; display: flex; height: 48=
+px; justify-content: center; position: relative; width: 48px;"><span style=
+=3D"display: flex; position: relative;"><span aria-hidden=3D"true" style=3D=
+"font-family: &quot;Material Icons Extended&quot;; font-size: 24px; line-he=
+ight: 1; text-rendering: optimizelegibility; display: inline-block; overflo=
+w-wrap: normal; direction: ltr; font-feature-settings: &quot;liga&quot;;">=
+=EE=90=89</span></span></span></div></div></div></div></div></div><div styl=
+e=3D"overflow-y: auto; outline: none;"><div style=3D"align-items: baseline;=
+ display: flex; flex-flow: row; justify-content: space-between;"><div style=
+=3D"align-items: baseline; display: flex; flex-flow: row wrap; justify-cont=
+ent: flex-start; min-width: 0px;"><div style=3D"align-items: baseline; disp=
+lay: flex; flex-flow: row nowrap; justify-content: flex-start; padding: 16p=
+x 16px 16px 0px;"><span style=3D"display: inline-block; justify-content: sp=
+ace-between; padding: 0px; top: 0px; z-index: 1; font-family: &quot;Google =
+Sans&quot;, Roboto, Arial, sans-serif; font-size: 22px; line-height: 28px; =
+color: rgb(32, 33, 36); margin: 0px; outline: none; word-break: break-word;=
+">4</span></div><div style=3D"color: rgb(95, 99, 104); display: inline-bloc=
+k;"><br /></div></div><div style=3D"align-self: center; align-items: center=
+; display: flex; justify-content: flex-start;"><div role=3D"button" tabinde=
+x=3D"0" style=3D"user-select: none; transition: background 0.2s ease 0.1s; =
+border: 0px; border-radius: 4px; color: rgb(95, 99, 104); cursor: pointer; =
+display: inline-block; font-family: &quot;Google Sans&quot;, Roboto, Arial,=
+ sans-serif; letter-spacing: 0.25px; line-height: 36px; min-width: auto; ou=
+tline: none; overflow: hidden; position: relative; text-align: center; z-in=
+dex: 0; left: -99em; height: 1px;"><div style=3D"transform: translate(-50%,=
+ -50%) scale(0); transition: opacity 0.2s ease 0s, visibility 0s ease 0.2s,=
+ transform 0s ease 0.2s, -webkit-transform 0s ease 0.2s; background-size: c=
+over; left: 0px; opacity: 0; pointer-events: none; position: absolute; top:=
+ 0px; visibility: hidden; background-image: radial-gradient(circle farthest=
+-side, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12) 80%, rgba(0, 0, 0, 0) 100%)=
+;"></div><div style=3D"position: absolute; top: 0px; right: 0px; bottom: 0p=
+x; left: 0px; background-color: rgb(95, 99, 104); opacity: 0;"></div><span =
+style=3D"align-items: center; display: flex; position: relative; padding: 0=
+px 8px;"><span style=3D"display: inline-block; margin: 0px;">Skip to first =
+unread message</span></span></div><div><div role=3D"button" aria-label=3D"C=
+ollapse all" tabindex=3D"0" style=3D"user-select: none; transition: backgro=
+und 0.3s ease 0s; border: 0px; border-radius: 50%; cursor: pointer; display=
+: inline-block; flex-shrink: 0; height: 48px; outline: none; overflow: hidd=
+en; position: relative; text-align: center; width: 48px; z-index: 0; color:=
+ rgb(95, 99, 104); fill: rgb(95, 99, 104);"><div style=3D"transform: transl=
+ate(-50%, -50%) scale(0); transition: opacity 0.2s ease 0s, visibility 0s e=
+ase 0.2s, transform 0s ease 0.2s, -webkit-transform 0s ease 0.2s; backgroun=
+d-size: cover; left: 0px; opacity: 0; pointer-events: none; position: absol=
+ute; top: 0px; visibility: hidden; background-image: radial-gradient(circle=
+ farthest-side, rgba(95, 99, 104, 0.16), rgba(95, 99, 104, 0.16) 80%, rgba(=
+95, 99, 104, 0) 100%);"></div><span style=3D"align-items: center; display: =
+flex; height: 48px; justify-content: center; position: relative; width: 48p=
+x;"><span style=3D"display: flex; position: relative;"><span aria-hidden=3D=
+"true" style=3D"font-family: &quot;Material Icons Extended&quot;; font-size=
+: 20px; line-height: 1; text-rendering: optimizelegibility; display: inline=
+-block; overflow-wrap: normal; direction: ltr; font-feature-settings: &quot=
+;liga&quot;;">=EE=A5=84</span></span></span></div></div></div></div><div ro=
+le=3D"list" aria-label=3D"jailhouse + ZCU102 V1.0 + second UART problem + p=
+etalinux 2017.4"><span tabindex=3D"0" role=3D"listitem" aria-expanded=3D"tr=
+ue" style=3D"border-bottom: 1px solid rgb(232, 234, 237); padding-top: 8px;=
+ padding-left: 0px; border-left: 2px solid rgb(77, 144, 240);"><div tabinde=
+x=3D"-1" style=3D"outline: none;"><div style=3D"display: flex;"><div style=
+=3D"flex-grow: 1; min-width: 0px;"><div><div style=3D"align-items: center; =
+color: rgb(95, 99, 104); display: flex; height: 48px; justify-content: spac=
+e-between;"><span style=3D"clip: rect(1px, 1px, 1px, 1px); height: 1px; mar=
+gin: 0px; overflow: hidden; padding: 0px; position: absolute; white-space: =
+nowrap; width: 1px; z-index: -1000;">unread,</span><div style=3D"font-famil=
+y: Roboto, Arial, sans-serif; font-size: 12px; letter-spacing: 0.3px; line-=
+height: 16px; align-items: center; display: flex;">Jun 27, 2018, 5:33:04=E2=
+=80=AFPM<span style=3D"font-family: &quot;Material Icons Extended&quot;; fo=
+nt-size: 20px; letter-spacing: normal; text-align: center;">=EE=97=94</span=
+></div></div></div><div role=3D"region" aria-labelledby=3D"c14597" style=3D=
+"margin: 12px 0px; overflow: auto; padding-right: 20px;">https://t.me/motio=
+nking_caliweed_psychedelics<br /><p>i'm trying to make jailhouse work on my=
+ ZCU102 v1.0 (production)<br />using petalinux 2017.4 following this docume=
+ntation :</p><p>https://t.me/motionking_caliweed_psychedelics<br /></p><p><=
+br />the second uart doesn't work. After a question on the Xilinx forum</p>=
+<p>https://t.me/motionking_caliweed_psychedelics<br /></p><p>i can activate=
+ /dev/ttyPS1 on the zcu102 and verify it using</p><p>echo hello &gt; /dev/t=
+tyPS1</p><p>but i still can't use it with jailhouse.</p><p><br />i have che=
+cked with the gic-demo and linux-demo without any success.<br />i can use t=
+he debug console with gic-demo, but that's all.</p><p>this command should w=
+ork, but it doesn't :</p><p>jailhouse cell linux zynqmp-zcu102-linux-demo.c=
+ell Image -d inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c "console=3DttyPS1,1=
+15200"</p><p><br />in the zynqmp-zcu102-linux-demo.c file, the uart address=
+ is correct :</p><p>.mem_regions =3D {<br />/* UART */ {<br />.phys_start =
+=3D 0xff010000,<br />.virt_start =3D 0xff010000,<br />.size =3D 0x1000,<br =
+/>.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |<br />JAILHOUSE_MEM_=
+IO | JAILHOUSE_MEM_ROOTSHARED</p></div></div></div></div></span></div></div=
+>https://t.me/motionking_caliweed_psychedelics<br /><div class=3D"gmail_quo=
+te"><div dir=3D"auto" class=3D"gmail_attr">On Saturday, June 1, 2024 at 9:2=
+6:29=E2=80=AFAM UTC+1 Dwayne Mickey wrote:<br/></div><blockquote class=3D"g=
+mail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 2=
+04, 204); padding-left: 1ex;">Penis Envy magic mushrooms are three times mo=
+re potent than other mushrooms.  The effects of Penis Envy magic mushrooms =
+may come on quickly due to higher levels of psilocin than psilocybin.<div>A=
+bout Penis Envy</div><div>Penis Envy magic mushrooms can impact you differe=
+ntly based upon a variety of factors, like your size, weight, your state of=
+ health, whether you have taken them before, the amount you take, and more.=
+  The setting in which you are taking them and who you are with are critica=
+l factors.  Being in nature, in a safe, calm and tranquil setting, with no =
+pending pressures or obligations is ideal for the user.=C2=A0</div><div><br=
+></div><div>Trip Level 0: Microdosing</div><div>Recommended dosage: 0.2 =E2=
+=80=93 0.5 g. dried mushrooms =E2=80=93 A micro-dose is a sub-perceptual am=
+ount of mushrooms. Take this every 2-3 days to boost creativity or feel les=
+s anxious. Microdosing trip levels capsules. Added as level 0, it=E2=80=99s=
+ meant to be taken along with your day-to-day routine.</div><div>Trip Level=
+ 1: Happy go lucky</div><div>Recommended dosage: 0.8 =E2=80=93 1 g. dried m=
+ushrooms =E2=80=93 The effects are mild and similar to being high on weed. =
+Music starts to feel better, strangers seem more friendly and the mind is a=
+ble to lose some control. You could have mild visual enhancements or some s=
+ound distortion, but these will be subtle.</div><div>Trip Level 2: Beginner=
+=E2=80=99s paradise</div><div>Recommended dosage: 1 =E2=80=93 1.5 g. dried =
+mushrooms =E2=80=93 Consistent sensorial accentuation, colors becoming brig=
+hter and a light body high. Level 2 can be a more intense form of Trip Leve=
+l 1, but with the right dosage it can be something more. Be prepared for th=
+e beginnings of visual and auditory hallucinations: objects moving and comi=
+ng to life along with geometrical forms when you close your eyes. It will b=
+e harder to concentrate and communicate and you will notice an increase in =
+creativity along with an enhanced sensation, lightness and euphoria.</div><=
+div>Trip Level 3: Classic psychedelic trip</div><div>Recommended dosage: 1.=
+5 =E2=80=93 3 g. dried mushrooms =E2=80=93 Trip Level 3 is great for beginn=
+ers who want to jump in the =E2=80=9Creal=E2=80=9D psychedelic experience, =
+without overdoing the dosage. This level is where visual hallucinations alo=
+ng with the appearance of patterns and fractals will be evident. No more hi=
+nting or subtle flashes of visuals, it=E2=80=99s happening for real. The su=
+rface of the object you=E2=80=99re observing will become shiny and moving, =
+as your field of depth is altered. Distortions in the aptitude to measure t=
+he passage of time, might cause an 1 hour to feel like an eternity.</div><d=
+iv>Level 4: Flying with the stars https:<a href=3D"http://t.me/Ricko_swavy8=
+" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.go=
+ogle.com/url?hl=3Den&amp;q=3Dhttp://t.me/Ricko_swavy8&amp;source=3Dgmail&am=
+p;ust=3D1717470082902000&amp;usg=3DAOvVaw0kA4FW-SQFaSC4l8hRZIN2">t.me/Ricko=
+_swavy8</a></div><div>Recommended dosage: 3 =E2=80=93 4 g. dried mushrooms =
+=E2=80=93 Strong hallucinations take over: a psychedelic flood of shapes, c=
+ontours and colors will blend together and hit the shores of your conscious=
+ness. There=E2=80=99s no stopping the waves in Level 4. There will be some =
+moments when you will lose touch reality. Random, non-existent objects will=
+ appear and the concept of time will fade away to the background. Intriguin=
+g to some, scary to others, this is the level where psychedelics can really=
+ be powerful, life-altering and mind expanding. Keep in mind that this dosa=
+ge is only recommend for experience users.</div><div>Level 5</div><div>:htt=
+ps:<a href=3D"http://t.me/Ricko_swavy8" target=3D"_blank" rel=3D"nofollow" =
+data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://t=
+.me/Ricko_swavy8&amp;source=3Dgmail&amp;ust=3D1717470082902000&amp;usg=3DAO=
+vVaw0kA4FW-SQFaSC4l8hRZIN2">t.me/Ricko_swavy8</a><br><br></div><div class=
+=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Thursday, June 2=
+8, 2018 at 12:49:45=E2=80=AFPM UTC+1 <a href data-email-masked rel=3D"nofol=
+low">christophe...@gmail.com</a> wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);=
+padding-left:1ex">hi all,<p>now i can see the output of the console and mon=
+itor the linux boot.<br>And of course, linux doesn&#39;t boot and stop with=
+ a kernel panic : <p>[    9.148409] NET: Registered protocol family 1<br>[ =
+   9.200596] RPC: Registered named UNIX socket transport module.<br>[    9.=
+271265] RPC: Registered udp transport module.<br>[    9.327501] RPC: Regist=
+ered tcp transport module.<br>[    9.383752] RPC: Registered tcp NFSv4.1 ba=
+ckchannel transport module.<br>[    9.814860] Kernel panic - not syncing: w=
+rite error<br>[    9.872207] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 4.9.=
+0-xilinx-v2017.4 #2<br>[    9.957622] Hardware name: Jailhouse cell on Zynq=
+MP ZCU102 (DT)<br>[   10.028458] Call trace:<br>[   10.057635] [&lt;ffffff8=
+008088138&gt;] dump_backtrace+0x0/0x198<br>[   10.122215] [&lt;ffffff800808=
+82e4&gt;] show_stack+0x14/0x20<br>[   10.182634] [&lt;ffffff80083de594&gt;]=
+ dump_stack+0x94/0xb8<br>[   10.243054] [&lt;ffffff800812e9f8&gt;] panic+0x=
+114/0x25c<br>[   10.300347] [&lt;ffffff8008cc2d8c&gt;] populate_rootfs+0x40=
+/0x110<br>[   10.367014] [&lt;ffffff80080830b8&gt;] do_one_initcall+0x38/0x=
+128<br>[   10.433683] [&lt;ffffff8008cc0c94&gt;] kernel_init_freeable+0x140=
+/0x1e0<br>[   10.506604] [&lt;ffffff80089494e0&gt;] kernel_init+0x10/0x100<=
+br>[   10.569104] [&lt;ffffff8008082e80&gt;] ret_from_fork+0x10/0x50<br>[  =
+ 10.632647] SMP: stopping secondary CPUs<br>[   10.679537] ---[ end Kernel =
+panic - not syncing: write error<p>i can see a write error, but i don&#39;t=
+ know why.<br>i have attached the boot log file.<p>Any hints ?<p>Regards <b=
+r>C.Alexandre </p></p></p></p></p></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -488,11 +526,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3e71b1ab-60e1-4a60-9121-394ccf2174cbn%40googlegrou=
+om/d/msgid/jailhouse-dev/5ac62ff7-670a-40a2-9271-700b1f8d7f86n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3e71b1ab-60e1-4a60-9121-394ccf2174cbn%40googlegroups.co=
+msgid/jailhouse-dev/5ac62ff7-670a-40a2-9271-700b1f8d7f86n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_287643_710857223.1717383658824--
+------=_Part_114613_989140744.1717384002878--
 
-------=_Part_287642_521659690.1717383658824--
+------=_Part_114612_1084070541.1717384002878--
