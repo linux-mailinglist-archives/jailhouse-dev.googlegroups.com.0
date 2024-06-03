@@ -1,72 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRBXHC62ZAMGQEPB3J7OA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRB5PE62ZAMGQET52QEWY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52B4F8D81D9
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:04:47 +0200 (CEST)
-Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-dfa79b84623sf4410469276.2
-        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:04:47 -0700 (PDT)
+Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0948D81ED
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 14:09:27 +0200 (CEST)
+Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-dfa7a8147c3sf4783905276.3
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 05:09:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717416286; x=1718021086; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717416566; x=1718021366; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
-        b=Dhx+YF+yq5QRB/v/51Q76OZVSPdF3ppK7XvRGPYPD1yO9/s99cfnOeDKOG7hvmBexG
-         ftJtqfWscTMvmCx8gsmqPrKp0podcKMn4Y1EFSXsJtoepJqp8jbi/RvtxEl3E8jXPkbD
-         Ax8FLwX+dT6EsSRM90uVefNKQuwd8PrNTFgCB+6g4QZZXI0lLjPXIQHfqiFtxlTEXHiO
-         7RSh4yBjhTw8GfjqKh4E8CyY0z6l3jhpSCywIfucHxdgt8uP95GP5mtP2iE4VKJS/npm
-         1qFcoym8LSLQWvSJB4ZsVIjlpaJMdQVmnNmZqWtvHQPf8udJ+hidRfukgID1jqiSTXJV
-         0WOw==
+        bh=hAA9YUK/2BX8Zj9yxsFxf9RK414UTpdQqG4PKMuhGs0=;
+        b=dBYo7AqMbQD5uB737STpdmCSUU5McQvQNffGK/7Jn5dELL32wXdyV2Qn6WXxTxJ2XZ
+         vJkJSOLsMhWTAvHOUjgEyTyShl/VksfvcekY7BENKNRJEiMLaPWY5gyD93zfvW+y9skK
+         49KV+F9lunrnQKn5i2155hgVC/Rq4DKy304YShPelFVpdZ/NW7RSP/9YwnTLdmzcrUMt
+         G9CYTugqLunz+jHeHDs2rBOorka0W9XJzu+2PECAppesgc3l1QB3paXn6WB3BSaSQgn/
+         JtFp6wayqryTYYP4y1Z/cGcNlD5MSQzm/RBvDkW5PkWkTJfgbITvv6Fr12KA497+cbj0
+         TApw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717416286; x=1718021086; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717416566; x=1718021366; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
-        b=XV74fNsteFZioiwAYdsH5eQeH5Fw7ar3FZn9ki26WtQrX3fL4beex8kAqcfzBYI4iH
-         Q9N2aYOSFgNy7NoLfbDIvtmglN3GXfziBvQ3S6UZtXfOHTaNS+YogNj5gNTdPTG6TLKl
-         6BwioqEr2nwmxhVvk0JFFJJ+oYZ1ohWm1Niq9E1ktFFmEFu2gpfiw7Yg2E0l2stXKRKn
-         jq6ugcxdkpigkW0qX/P60CNpUi64bKOj1YHtCq5cRueXuLZXarCGXMWPcJaVp8h77By1
-         N8PhlBQ1vPxvOjSjPoLAb1QJb7vXDHHNtO9feWGR8jZfHNuVD9lJ+o2aJ2FKCA9XUJh8
-         QRsg==
+        bh=hAA9YUK/2BX8Zj9yxsFxf9RK414UTpdQqG4PKMuhGs0=;
+        b=BnzgpQ5i4HSrpiJeaHFEnUYzILStk7ZxUQ4Afvykl7+QKw8dSkwqRv6YvmpL544GcR
+         VpJKDfQ4mKz/DiEYk6TFoy/IryZE3lLYQLpGMwr8zhjpfmazo5QTOEFSTwju5G3Ms78r
+         ZxTrhW6EpRnZvzneAtmKetzJXP9yWugjLygrtYIHV5wxGAam2sVoT/e5pMktXLo9P4jv
+         3hzBhaVRnTARkcWQTmR4veRSgBpVJ24EvQFgE4sOzVwo75hV+TZClUddXYItWTsKYPIp
+         VqCHUCmgPM1dFKxm1cJw69b8atopGi+Twclxay/FxSlnH9x8yt9QlMZEy1/7QmHUyTT9
+         SxOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717416286; x=1718021086;
+        d=1e100.net; s=20230601; t=1717416566; x=1718021366;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q0/LyFDKYIm9yJJO7EfODHUxuFGRsOmcRPFQgEB4yVY=;
-        b=aW4l/AVsT7pOb9Q09ufAuaOcB6kuo+M6xIcPFI6SXlBjvQJtCs5Rw3BcdDjq8YhCKy
-         Dur5Z4Rn4f2zFCvMeU72I4BHF9Bp54D//e8xI692kCwMSCIL3FIvKxtDDY/3BiL1cltd
-         HXB5aRQJEVzhmz1izAwmO2jdyGve+xEEUJuIYJNIb4GyMwidF2vvntk8g/dEHTF0LIVq
-         rI4YrML/ZBWmlFf/m0SxGdshS+en2INU7j+rsQc0qDYnnHxMLi5L89WJVbHvOFIE9qU9
-         KAX9Oy4I7tr1QilNgrCYvCgaZoFsfRkK3dJ28hJfwH1j3WLLweW+XVqkpLnGyAAtCclJ
-         OrkA==
+        bh=hAA9YUK/2BX8Zj9yxsFxf9RK414UTpdQqG4PKMuhGs0=;
+        b=eIDdV1W93ZLsRhWWu/tmlA9X5iPZfObwlNF6eIlBCqOCDHzWPGhN3DC6D+UafNGdqx
+         DICmagLbab6b2N6l6KCCEgqUpHoGkwEUImSPdfxRFsoA5Q7YPwS9FmttpmxLY2SSvHHn
+         3cMUVgXmFmacoRifdvWmbLn7IgfDn7fdtMtpxbYnPk4QbB9Z0YF/1EdnWJq9ZYtIEtyg
+         NnbmM/z7uC5VepwOoMTFN+4ZzFSOpMcseHN4r9lg+CVk7xAuk2gl8MSMzcDQwOW0cEgk
+         7SnyCHkYLu45LzNUZhKokcjsfxYBPLRG4XrbgSGeHJCoOwpXFOfiOF6UzahvTeuLea3Q
+         TnLA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUUrb0/Fd+aIYNXiRDJMOpkD6Hal9qhWXsttA4RJPPP9RRna7QKM6EfbIBx55VZsBSuTJMmpVXLRtMXDkcQXASmRwRuVgX3HPhrfuk=
-X-Gm-Message-State: AOJu0YyUq14spJ5NVkynN2kr9N85k6yXgs/q3waIdK5bjxgSaDGlOdDv
-	eFMYB0eqnGGJw7LsZNs/WldcARWceV413mgR69jiHMhPQMSyD6Vg
-X-Google-Smtp-Source: AGHT+IHu6uBJXSVdci8cB2Qdzo9DlD5Joncw5upsHwGcOKnqJUjDNp6iQNlHofAeNzcqDBzzzthnVw==
-X-Received: by 2002:a05:6902:1b8c:b0:df4:d5f4:3ef2 with SMTP id 3f1490d57ef6-dfa73be95f5mr9985134276.20.1717416284768;
-        Mon, 03 Jun 2024 05:04:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVGsAcXeH2Wf+F3bYuN2amRs88xll9y5ZgPFeEt+NWRGrUDx8cMAOWXeRW9jy//XpRIhleR26HKUz3agzku6SKVnnDuLU3xJ35JL9U=
+X-Gm-Message-State: AOJu0YxG/cfD1DuEgL7nRUEh5ggk3Z3PJ8gHqSFnashlprxVxgEMNAjR
+	7kfhgJTzSprCSnQQG557j5+og7gMsLFmWk8pPKr7e6Dj/mkCQ9UV
+X-Google-Smtp-Source: AGHT+IEJ/qBCNcHPhGkiMBLQ05J+2nuz3SVSlwru6WZA664ko7nYXnxBxcRpAKipCwuu1kk0zCODaw==
+X-Received: by 2002:a25:ac89:0:b0:df7:955f:9ba4 with SMTP id 3f1490d57ef6-dfa73dbac92mr8435060276.51.1717416565893;
+        Mon, 03 Jun 2024 05:09:25 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5b:d11:0:b0:df7:8e77:7d6b with SMTP id 3f1490d57ef6-dfa595af18dls616238276.0.-pod-prod-03-us;
- Mon, 03 Jun 2024 05:04:43 -0700 (PDT)
-X-Received: by 2002:a05:6902:2b09:b0:dfa:6ea5:c8dd with SMTP id 3f1490d57ef6-dfa73bc1496mr904226276.3.1717416283375;
-        Mon, 03 Jun 2024 05:04:43 -0700 (PDT)
-Date: Mon, 3 Jun 2024 05:04:42 -0700 (PDT)
+Received: by 2002:a05:6902:a8d:b0:dfa:81ff:d907 with SMTP id
+ 3f1490d57ef6-dfa81ffed66ls636450276.2.-pod-prod-08-us; Mon, 03 Jun 2024
+ 05:09:24 -0700 (PDT)
+X-Received: by 2002:a05:6902:706:b0:dfa:6ea5:c8d5 with SMTP id 3f1490d57ef6-dfa73d9b762mr2249711276.10.1717416564335;
+        Mon, 03 Jun 2024 05:09:24 -0700 (PDT)
+Date: Mon, 3 Jun 2024 05:09:23 -0700 (PDT)
 From: Clarksville Pop <popclarksville@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <363625fd-5fdc-445b-850d-34f4637215cbn@googlegroups.com>
-Subject: BUY GOOD TRIP MAGIC MUSHROOM CHOCOLATE BARS - BEST MAGIC MUSHROOMS
- CHOCOLATE BARS ONLINE
+Message-Id: <842603fc-b313-4fc4-93cc-09484d5e62bcn@googlegroups.com>
+Subject: Buy top priority polkadot Whoppers mushroom Belgian ...
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_160146_1607124300.1717416282572"
+	boundary="----=_Part_505218_1011371649.1717416563706"
 X-Original-Sender: popclarksville@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -80,185 +80,204 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_160146_1607124300.1717416282572
+------=_Part_505218_1011371649.1717416563706
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_160147_990693528.1717416282572"
+	boundary="----=_Part_505219_905828737.1717416563706"
 
-------=_Part_160147_990693528.1717416282572
+------=_Part_505219_905828737.1717416563706
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-BUY LSD ONLINE
+Order Polka Dot Chocolate Bars Online - Magic shrooms dispensary
 
-BUY 1P-LSD Blotters (100mcg) | Research Chemicals-1P-Lysergic Acid=20
-diethylamide
 
-BUY LSD ONLINE
-BUY LSD, or lysergic acid diethylamide, is a potent psychedelic substance=
-=20
-that belongs to the hallucinogen class of drugs. It was first synthesized=
-=20
-in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived from a fungus=20
-known as ergot, which commonly grows on grains like rye.
-https://t.me/Mushies_12/product/buy-1p-lsd-online/
-https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
-https://t.me/Mushies_12/product/buy-lsd-acid/
-https://t.me/Mushies_12/product/buy-lsd-liquid/
-LSD FOR SALE is chemically classified as a semi-synthetic compound, meaning=
-=20
-it is derived from natural substances but requires chemical modification=20
-for use. Its chemical structure is characterized by a core molecule called=
-=20
-lysergic acid, to which an ethylamine side chain is attached. The chemical=
-=20
-formula for LSD is C20H25N3O.
 
-BUYING LSD
-LSD is a crystalline solid, typically available in the form of small=20
-squares of blotter paper. These squares, known as =E2=80=9Ctabs,=E2=80=9D a=
-re often=20
-decorated with colorful designs or images. LSD can also be found in the=20
-form of liquid, gelatin squares (windowpane), or even as a powder or=20
-crystal.
-https://t.me/Mushies_12/product/buy-1p-lsd-online/
-https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
-https://t.me/Mushies_12/product/buy-lsd-acid/
-https://t.me/Mushies_12/product/buy-lsd-liquid/
-Pharmacology: LSD is known to primarily interact with serotonin receptors=
-=20
-in the brain, particularly the 5-HT2A receptor. It alters the normal=20
-functioning of serotonin, a neurotransmitter involved in mood regulation,=
-=20
-sensory perception, and cognition. LSD is a highly potent substance, and=20
-even very small doses (micrograms) can induce profound psychological=20
-effects.
+Mushroom chocolate bars have captured the imagination of food enthusiasts 
+and health-conscion
 
-LSD EFFECTS
-The effects of LSD can vary widely depending on the individual, dosage,=20
-environment, and mindset. The onset of LSD typically occurs within 30 to 90=
-=20
-minutes after ingestion, with the effects lasting for 6 to 12 hours or=20
-longer. Some common effects include:
-https://t.me/Mushies_12/product/buy-1p-lsd-online/
-https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
-https://t.me/Mushies_12/product/buy-lsd-acid/
-https://t.me/Mushies_12/product/buy-lsd-liquid/
-Altered Perception: LSD significantly alters perception, leading to visual,=
-=20
-auditory, and sensory distortions. Users may experience vivid and=20
-intensified colors, geometric patterns, trails, and enhanced or distorted=
-=20
-sounds.
-Intense Emotional States: LSD can induce a wide range of emotions, from=20
-euphoria and bliss to anxiety and confusion. Emotions may fluctuate=20
-rapidly, and the intensity of emotions can be heightened.
-Expanded Consciousness: Users often report a sense of interconnectedness=20
-and unity with the universe. They may experience a heightened awareness of=
-=20
-their thoughts, emotions, and surroundings, along with a deepened sense of=
-=20
-meaning and spirituality.
-Hallucinations: LSD can produce hallucinations, which are perceptual=20
-experiences of objects or events that are not actually present. These=20
-hallucinations can be both visual and auditory.
-Altered Time and Space Perception: Users may perceive time as distorted,=20
-with minutes feeling like hours or hours passing by quickly. The sense of=
-=20
-space can also be altered, with a distorted perception of distance and size=
-.
-Mindset and Set: LSD experiences are highly influenced by the user=E2=80=99=
-s=20
-mindset and the setting in which it is taken. A positive mindset and a=20
-comfortable, safe environment are generally recommended to reduce the risk=
-=20
-of a negative experience.
-Risks and Side Effects:
+Order Polka Dot Chocolate Bars 
+Online.https://t.me/Mushies_12/product/buy-polka-dot-magic-
 
-While LSD is not considered physiologically toxic, there are some potential=
-=20
-risks associated with its use, including:
-https://t.me/Mushies_12/product/buy-1p-lsd-online/
-https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
-https://t.me/Mushies_12/product/buy-lsd-acid/
-https://t.me/Mushies_12/product/buy-lsd-liquid/
-Bad Trips: Negative experiences, known as =E2=80=9Cbad trips,=E2=80=9D can =
-occur, leading=20
-to intense anxiety, paranoia, and confusion. These experiences can be=20
-distressing and may result in long-lasting
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegroups.com.
 
-------=_Part_160147_990693528.1717416282572
+Buy all your psychedelic products with me including clone cards All 
+products are available for
+
+
+https://t.me/Mushies_12/ Polka Dot Mushroom Gummies For Sale Buy PolkaDot 
+mushroom gumming
+
+1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs 
+OF SHROOM IN UK
+
+: > 1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 
+4Gs OF SHROOMS IN USA
+
+
+1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs 
+OF SHROOMS IN USA >
+
+
+
+PolkaDot mushroom, also known as Fly Agaric or Amanita muscaria, here are 
+some ideas to help you
+
+
+If you wish to buy polka Dot at good prices and have it delivered overnight 
+to your address, then
+
+
+1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs 
+OF SHROOMS IN USA >
+
+If you wish to buy polka Dot chocolate bar at good prices and have it 
+delivered overnight to your
+
+>PolkaDot.Mushroom.magic.Belgian.chocolate
+https://t.me/Mushies_12
+
+https://t.me/Mushies_12
+
+buy polkadot mushroom chocolate bars, polkadot mushroom chocolate bars for 
+sale online, polka dot bars, magic mushroom belgian chocolate, magic 
+mushroom chocolate bar, magic mushroom chocolate bar for sale, mushroom 
+chocolate bars for sale, mushroom chocolate bars polka dot, polka dot bars, 
+polka dot chocolate mushroom, polka dot chocolates where to buy, polka dot 
+company chocolate, polka dot edibles, polka dot magic belgian chocolate 
+price, polka dot magic mushroom bar, polka dot magic mushroom reviews, 
+polka dot mushroom bar, polka dot mushroom bar review, polka dot mushroom 
+chocolate dc, polka dot mushroom chocolate dosage, polka dot mushroom 
+chocolate near me, polka dot psilocybin bars, polka dot psilocybin 
+chocolate bars, polkadot bar, polkadot chocolates, polkadot magic belgian 
+chocolate, polkadot magic belgian chocolate reviews, polkadot magic 
+mushroom belgian chocolate, polkadot mushroom belgian chocolate, Polkadot 
+Mushroom Chocolate Bars, polkadot shroom be
+
+https://t.me/Mushies_12
+https://t.me/Mushies_12
+
+Made with love with Oakland - one of the oldest and safest natural 
+medicines in the world, Health benefits from magic chocolate have been 
+known to reduce stress, depression, stimulate brain cell growth, increase 
+focus and sharpen your senses.
+
+The amazing therapeutic effects derived from the Polkadot mushroom 
+chocolate bars depend on the dosage. Each of our polkadot bars have 15 
+easily breakable pieces and the degree of effects you get from consuming 
+these shroom chocolate bars will depend o the number of pieces you consume.
+
+https://t.me/Mushies_12
+https://t.me/Mushies_12
+
+
+MICRODOSE (STIMULATE THE MIND) : 1-3 PIECES
+THERAPEUTIC (MINDFUL AND ELEVATED): 4-9 PIECES
+GOD MODE (WALLS MAY MELT) : 10-15 PIECES
+
+CAUTION: Consume slowly in a safe environment. Do not operate any motor 
+vehicles while using this product. Keep out of reach of children and pets.
+
+https://t.me/Mushies_12
+https://t.me/Mushies_12
+
+POLKADOT MUSHROOM CHOCOLATE BARS FOR SALE
+
+https://t.me/Mushies_12
+
+
+Polkadot mushroom chocolate bars are meant to help you conquer your fears 
+and brighten your mood. The adventure you embark on with these fantastic 
+mushroom chocolate bars depends on the dosage.
+
+The Polkadot Magic Mushroom Belgian milk chocolate is not only delicious 
+but an equivalent of 4 grams of psilocybin-containing mushrooms. Apart from 
+the fantastic trippy effects you get from eating the polka dot mushroom 
+chocolate bars, they are also a great way to microdose magic mushrooms. 
+Microdosing magic mushrooms in the form of consuming mushroom chocolate 
+bars have recently increased in popularity.
+
+Furthermore, if you can't stand the smell and "bad taste" of raw magic 
+mushrooms, the Polkadot magic mushroom chocolate bar is a great alternative.
+
+Psilocybin - the active ingredient in the polka dot mushroom ch0colate bar, 
+polkadot magic belgian chocolate
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/842603fc-b313-4fc4-93cc-09484d5e62bcn%40googlegroups.com.
+
+------=_Part_505219_905828737.1717416563706
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-BUY LSD ONLINE<div><br /></div><div>BUY 1P-LSD Blotters (100mcg) | Research=
- Chemicals-1P-Lysergic Acid diethylamide</div><div><br /></div><div>BUY LSD=
- ONLINE</div><div>BUY LSD, or lysergic acid diethylamide, is a potent psych=
-edelic substance that belongs to the hallucinogen class of drugs. It was fi=
-rst synthesized in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived f=
-rom a fungus known as ergot, which commonly grows on grains like rye.</div>=
-<div>https://t.me/Mushies_12/product/buy-1p-lsd-online/</div><div>https://t=
-.me/Mushies_12/product/buy-lsd-gel-tabs/</div><div>https://t.me/Mushies_12/=
-product/buy-lsd-acid/</div><div>https://t.me/Mushies_12/product/buy-lsd-liq=
-uid/</div><div>LSD FOR SALE is chemically classified as a semi-synthetic co=
-mpound, meaning it is derived from natural substances but requires chemical=
- modification for use. Its chemical structure is characterized by a core mo=
-lecule called lysergic acid, to which an ethylamine side chain is attached.=
- The chemical formula for LSD is C20H25N3O.</div><div><br /></div><div>BUYI=
-NG LSD</div><div>LSD is a crystalline solid, typically available in the for=
-m of small squares of blotter paper. These squares, known as =E2=80=9Ctabs,=
-=E2=80=9D are often decorated with colorful designs or images. LSD can also=
- be found in the form of liquid, gelatin squares (windowpane), or even as a=
- powder or crystal.</div><div>https://t.me/Mushies_12/product/buy-1p-lsd-on=
-line/</div><div>https://t.me/Mushies_12/product/buy-lsd-gel-tabs/</div><div=
->https://t.me/Mushies_12/product/buy-lsd-acid/</div><div>https://t.me/Mushi=
-es_12/product/buy-lsd-liquid/</div><div>Pharmacology: LSD is known to prima=
-rily interact with serotonin receptors in the brain, particularly the 5-HT2=
-A receptor. It alters the normal functioning of serotonin, a neurotransmitt=
-er involved in mood regulation, sensory perception, and cognition. LSD is a=
- highly potent substance, and even very small doses (micrograms) can induce=
- profound psychological effects.</div><div><br /></div><div>LSD EFFECTS</di=
-v><div>The effects of LSD can vary widely depending on the individual, dosa=
-ge, environment, and mindset. The onset of LSD typically occurs within 30 t=
-o 90 minutes after ingestion, with the effects lasting for 6 to 12 hours or=
- longer. Some common effects include:</div><div>https://t.me/Mushies_12/pro=
-duct/buy-1p-lsd-online/</div><div>https://t.me/Mushies_12/product/buy-lsd-g=
-el-tabs/</div><div>https://t.me/Mushies_12/product/buy-lsd-acid/</div><div>=
-https://t.me/Mushies_12/product/buy-lsd-liquid/</div><div>Altered Perceptio=
-n: LSD significantly alters perception, leading to visual, auditory, and se=
-nsory distortions. Users may experience vivid and intensified colors, geome=
-tric patterns, trails, and enhanced or distorted sounds.</div><div>Intense =
-Emotional States: LSD can induce a wide range of emotions, from euphoria an=
-d bliss to anxiety and confusion. Emotions may fluctuate rapidly, and the i=
-ntensity of emotions can be heightened.</div><div>Expanded Consciousness: U=
-sers often report a sense of interconnectedness and unity with the universe=
-. They may experience a heightened awareness of their thoughts, emotions, a=
-nd surroundings, along with a deepened sense of meaning and spirituality.</=
-div><div>Hallucinations: LSD can produce hallucinations, which are perceptu=
-al experiences of objects or events that are not actually present. These ha=
-llucinations can be both visual and auditory.</div><div>Altered Time and Sp=
-ace Perception: Users may perceive time as distorted, with minutes feeling =
-like hours or hours passing by quickly. The sense of space can also be alte=
-red, with a distorted perception of distance and size.</div><div>Mindset an=
-d Set: LSD experiences are highly influenced by the user=E2=80=99s mindset =
-and the setting in which it is taken. A positive mindset and a comfortable,=
- safe environment are generally recommended to reduce the risk of a negativ=
-e experience.</div><div>Risks and Side Effects:</div><div><br /></div><div>=
-While LSD is not considered physiologically toxic, there are some potential=
- risks associated with its use, including:</div><div>https://t.me/Mushies_1=
-2/product/buy-1p-lsd-online/</div><div>https://t.me/Mushies_12/product/buy-=
-lsd-gel-tabs/</div><div>https://t.me/Mushies_12/product/buy-lsd-acid/</div>=
-<div>https://t.me/Mushies_12/product/buy-lsd-liquid/</div><div>Bad Trips: N=
-egative experiences, known as =E2=80=9Cbad trips,=E2=80=9D can occur, leadi=
-ng to intense anxiety, paranoia, and confusion. These experiences can be di=
-stressing and may result in long-lasting</div>
+Order Polka Dot Chocolate Bars Online - Magic shrooms dispensary<div><br />=
+</div><div><br /></div><div><br /></div><div>Mushroom chocolate bars have c=
+aptured the imagination of food enthusiasts and health-conscion</div><div><=
+br /></div><div>Order Polka Dot Chocolate Bars Online.https://t.me/Mushies_=
+12/product/buy-polka-dot-magic-</div><div><br /></div><div><br /></div><div=
+><br /></div><div>Buy all your psychedelic products with me including clone=
+ cards All products are available for</div><div><br /></div><div><br /></di=
+v><div>https://t.me/Mushies_12/ Polka Dot Mushroom Gummies For Sale Buy Pol=
+kaDot mushroom gumming</div><div><br /></div><div>1N IN THE MARKET - PREMIU=
+M EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs OF SHROOM IN UK</div><div=
+><br /></div><div>: &gt; 1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUS=
+HROOM BAR WITH THEIR 4Gs OF SHROOMS IN USA</div><div><br /></div><div><br /=
+></div><div>1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WIT=
+H THEIR 4Gs OF SHROOMS IN USA &gt;</div><div><br /></div><div><br /></div><=
+div><br /></div><div>PolkaDot mushroom, also known as Fly Agaric or Amanita=
+ muscaria, here are some ideas to help you</div><div><br /></div><div><br /=
+></div><div>If you wish to buy polka Dot at good prices and have it deliver=
+ed overnight to your address, then</div><div><br /></div><div><br /></div><=
+div>1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR =
+4Gs OF SHROOMS IN USA &gt;</div><div><br /></div><div>If you wish to buy po=
+lka Dot chocolate bar at good prices and have it delivered overnight to you=
+r</div><div><br /></div><div>&gt;PolkaDot.Mushroom.magic.Belgian.chocolate<=
+/div><div>https://t.me/Mushies_12</div><div><br /></div><div>https://t.me/M=
+ushies_12</div><div><br /></div><div>buy polkadot mushroom chocolate bars, =
+polkadot mushroom chocolate bars for sale online, polka dot bars, magic mus=
+hroom belgian chocolate, magic mushroom chocolate bar, magic mushroom choco=
+late bar for sale, mushroom chocolate bars for sale, mushroom chocolate bar=
+s polka dot, polka dot bars, polka dot chocolate mushroom, polka dot chocol=
+ates where to buy, polka dot company chocolate, polka dot edibles, polka do=
+t magic belgian chocolate price, polka dot magic mushroom bar, polka dot ma=
+gic mushroom reviews, polka dot mushroom bar, polka dot mushroom bar review=
+, polka dot mushroom chocolate dc, polka dot mushroom chocolate dosage, pol=
+ka dot mushroom chocolate near me, polka dot psilocybin bars, polka dot psi=
+locybin chocolate bars, polkadot bar, polkadot chocolates, polkadot magic b=
+elgian chocolate, polkadot magic belgian chocolate reviews, polkadot magic =
+mushroom belgian chocolate, polkadot mushroom belgian chocolate, Polkadot M=
+ushroom Chocolate Bars, polkadot shroom be</div><div><br /></div><div>https=
+://t.me/Mushies_12</div><div>https://t.me/Mushies_12</div><div><br /></div>=
+<div>Made with love with Oakland - one of the oldest and safest natural med=
+icines in the world, Health benefits from magic chocolate have been known t=
+o reduce stress, depression, stimulate brain cell growth, increase focus an=
+d sharpen your senses.</div><div><br /></div><div>The amazing therapeutic e=
+ffects derived from the Polkadot mushroom chocolate bars depend on the dosa=
+ge. Each of our polkadot bars have 15 easily breakable pieces and the degre=
+e of effects you get from consuming these shroom chocolate bars will depend=
+ o the number of pieces you consume.</div><div><br /></div><div>https://t.m=
+e/Mushies_12</div><div>https://t.me/Mushies_12</div><div><br /></div><div><=
+br /></div><div>MICRODOSE (STIMULATE THE MIND) : 1-3 PIECES</div><div>THERA=
+PEUTIC (MINDFUL AND ELEVATED): 4-9 PIECES</div><div>GOD MODE (WALLS MAY MEL=
+T) : 10-15 PIECES</div><div><br /></div><div>CAUTION: Consume slowly in a s=
+afe environment. Do not operate any motor vehicles while using this product=
+. Keep out of reach of children and pets.</div><div><br /></div><div>https:=
+//t.me/Mushies_12</div><div>https://t.me/Mushies_12</div><div><br /></div><=
+div>POLKADOT MUSHROOM CHOCOLATE BARS FOR SALE</div><div><br /></div><div>ht=
+tps://t.me/Mushies_12</div><div><br /></div><div><br /></div><div>Polkadot =
+mushroom chocolate bars are meant to help you conquer your fears and bright=
+en your mood. The adventure you embark on with these fantastic mushroom cho=
+colate bars depends on the dosage.</div><div><br /></div><div>The Polkadot =
+Magic Mushroom Belgian milk chocolate is not only delicious but an equivale=
+nt of 4 grams of psilocybin-containing mushrooms. Apart from the fantastic =
+trippy effects you get from eating the polka dot mushroom chocolate bars, t=
+hey are also a great way to microdose magic mushrooms. Microdosing magic mu=
+shrooms in the form of consuming mushroom chocolate bars have recently incr=
+eased in popularity.</div><div><br /></div><div>Furthermore, if you can't s=
+tand the smell and "bad taste" of raw magic mushrooms, the Polkadot magic m=
+ushroom chocolate bar is a great alternative.</div><div><br /></div><div>Ps=
+ilocybin - the active ingredient in the polka dot mushroom ch0colate bar, p=
+olkadot magic belgian chocolate</div>
 
 <p></p>
 
@@ -269,11 +288,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegrou=
+om/d/msgid/jailhouse-dev/842603fc-b313-4fc4-93cc-09484d5e62bcn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/363625fd-5fdc-445b-850d-34f4637215cbn%40googlegroups.co=
+msgid/jailhouse-dev/842603fc-b313-4fc4-93cc-09484d5e62bcn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_160147_990693528.1717416282572--
+------=_Part_505219_905828737.1717416563706--
 
-------=_Part_160146_1607124300.1717416282572--
+------=_Part_505218_1011371649.1717416563706--
