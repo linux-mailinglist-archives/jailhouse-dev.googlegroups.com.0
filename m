@@ -1,73 +1,145 @@
-Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBFEG6WZAMGQE7K62JHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDUOFW62WYFBBSES62ZAMGQE3CMUXRY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb39.google.com (mail-yb1-xb39.google.com [IPv6:2607:f8b0:4864:20::b39])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B398D7AAF
-	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 06:14:14 +0200 (CEST)
-Received: by mail-yb1-xb39.google.com with SMTP id 3f1490d57ef6-df77196089esf5999989276.1
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 02 Jun 2024 21:14:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717388053; x=1717992853; darn=lfdr.de;
+Received: from mail-lj1-x23e.google.com (mail-lj1-x23e.google.com [IPv6:2a00:1450:4864:20::23e])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F3C8D7E36
+	for <lists+jailhouse-dev@lfdr.de>; Mon,  3 Jun 2024 11:13:46 +0200 (CEST)
+Received: by mail-lj1-x23e.google.com with SMTP id 38308e7fff4ca-2eaa77740desf11065731fa.0
+        for <lists+jailhouse-dev@lfdr.de>; Mon, 03 Jun 2024 02:13:46 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1717406026; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=BifRKw1AEvs1n8zsQXwz7eoYb3wWzxOsnvM+A2FttWcbwCsZ8lxbLn2pobGKzso3/G
+         fVpeTKx7axlvveIcAcAuIDpuKCEXddPdbM03LvrSJz7ceDIHgKU0jocSd89RCOltDUDG
+         LT5oT+GeF5CKBftLHpO2+9ymFyq6euCUvRXc2yI2OWHZSbHqaDlTe51kKgAyb4O5Z3B4
+         s2mm96SIbEnfcerEKcFbAdIWfCTGFRFZTrIewFEdWI/LmdrtviYKC1eaEUtqs1BQY43k
+         HP9JA9h5lepIVaKssmBjdxK1uUUBtCFzGYjYE0tCWoQC45yCY/ejo4iAyHc1n1QOD7DL
+         /Q6g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m4MzXD7VKrnKpj6J0dlK4J8LIhoT87elzud6NjhAbCo=;
-        b=BfcF5bSk9DC4W4JsGl+sQzKi9Kz41NR5KzzReI+1oDiBl9dfh57rmlFVAxbv9TNsWa
-         zeL4yb6iQ4af4y8of1dNJCSS/dqpgSIIx9jTOAQRR/oOMzyX2tK2NhjTgfkuFl9IlJ+U
-         +DET4CV8Huq5eIC0ItLZL0AAb2ldDQo5rR0jJvv6Oz1YWGuLHDI+RAHcQO2sLGD0Uhg7
-         qoSd2thkuIMBq0vNjEynPCnFY19BM3tvXnDp8nsMVgCPx5Ue+oU1z6vo5bqX/rrb4pgN
-         VdnvucXrVUoVq9ZF8UwA5Un8wkYLfb/CnzUUz6AsQJ3M7PgwElOu/s6gILZUT0Si9YOG
-         3/5w==
+         :list-id:mailing-list:precedence:in-reply-to:content-language:from
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :sender:dkim-signature;
+        bh=BKAH0AmHsGOyfOsC2z/nhjE0+4xsdejZljS2u6DaP/Y=;
+        fh=9p4168KMI5FfF0EMCa4KkgFAjt+FwNuERSjnHt9t76s=;
+        b=DFJ43zwtY+vO1Yd6pi46YwTARUQYQZxtnv1bxbWmTr0O3Y+OwaqFGvb07Lohs+0PPi
+         YA8ScjI7564qa4x5nnMbdZ7nCbIwGc6qI5tJ9fxgnY8JeB4M6s4c1w851VSWKdv3um/h
+         VmSuDVuhJvmGOuV7L4zRisSbfKGhd+Os1i/BNqmh4M+W7sJu2b+xYWsrlciT7VO6Lwmj
+         Ftnw/XJX93nLJRape3ztfwU8tolsrr0YRjocyhUmjcuopEjVN1FbnXcBWZKNgXhM0a3G
+         9dy9qkEJxSMf1R2igmRtnzZGF8rBT/lodxR6ox52d1b/tHtt8K5MEbZJAh3Rbp1mDK79
+         +xqw==;
+        darn=lfdr.de
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oEEofF85;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717388053; x=1717992853; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717406026; x=1718010826; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=m4MzXD7VKrnKpj6J0dlK4J8LIhoT87elzud6NjhAbCo=;
-        b=CP4VqJaRUqPLOA6o/nkA1cMSmo9ty+56epz8RvKzMAlVA8lqOwTr24nEEnlaebsfWL
-         ViURP4jJ7j+0fB5dbysAJ7f4IF4rQICcWwVsOb1jqR0gezekXcK4gGOr1dKQPmjJN0f8
-         ZP0jA0FyqFo1lwYPBwCYJcK5CFukmlrTZiOfn7VwNRBnM3LXxunTMOCSWqEvcQ1G5OTU
-         kiI5U4a+ANiLQgpYJVSnRawiYuazB5YccNzFW9LWlBWaXmx9bh0WPiLBstnid1fLwqiu
-         TF6ync3Sb8QGxiiMzAyTWaxzm3i2Bp1L16HnpZr8viGYsgYBBvFDV0Dbv++Ey80m0hZl
-         SbOg==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:in-reply-to:content-language:from:references:to
+         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BKAH0AmHsGOyfOsC2z/nhjE0+4xsdejZljS2u6DaP/Y=;
+        b=wtdUDUXe3FzvS+3uCzW1TgvUELgxpf2umUboNfxqcv40jY+RRtrULACXKC1C7v5LSQ
+         w7TQ/ADPE+1g6c8TVkbrr1Jry4jTpz/2rFUpO7rRLy1g+ckn8waAytta+Clm/oDx+Fjv
+         O7IDkkSjO1GuLlHcKMBT5X082EnwLBCcOdpNi5B9H/yJKGShxZcw+wQh2zZQn5ysyIWK
+         VQCuGq8YXpFQdYxkzYvPZtQ5kSfhMOAXY+rN0uJUl/KBEdXrO4jgr2WqI7U/sA82N0XY
+         xGg59GxTRtMxuWHoOXEasHjdlAdIYfTlL58JhYdxlo2HNUkkMxd18bSLUEIS2cvOAzUG
+         Nafw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717388053; x=1717992853;
+        d=1e100.net; s=20230601; t=1717406026; x=1718010826;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m4MzXD7VKrnKpj6J0dlK4J8LIhoT87elzud6NjhAbCo=;
-        b=RHP+pS1zg0/EcPHQ8C5AXqLZ+ty8vhxHwpWU+SFCPBEqLUBi68X/3kTB+oRiZf1mPI
-         oAHv/FqcRajj0m20TVfLcN/BbDStp3N+nNvGid1c7dUz3q7EA1/u87LnPAuzGbtx+BXy
-         cRwxUVxTbEO4KrJ2RO0i6deSlknR1DleIvH8EzxWWWo25u2j+jGXQZFyFz9FiEMv4paw
-         gUfS+/naM/z6SVjBwfulvRy1IFFlRPA27KDuZgYY6Fj8ZVBM6BsBM/T1qwzMf/e2Zunm
-         j9KV6oMoqiCTFL8XegmQfS+j1q4meqbE9dd36uv+miS+LUWbW7DWV82betVPDx9nK2Ht
-         XCkQ==
+         :x-original-authentication-results:x-original-sender:in-reply-to
+         :content-language:from:references:to:subject:user-agent:mime-version
+         :date:message-id:x-beenthere:x-gm-message-state:sender:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BKAH0AmHsGOyfOsC2z/nhjE0+4xsdejZljS2u6DaP/Y=;
+        b=Pu33b7JI7lEm71CapNHec5rYpVlGeB+Bfpl+gCrykTAtMTrpqEw81zIADOwNWoyGeO
+         Q8MEc2LH38ZASf2kMr7igoJhkNAQyoZ0Ol1v+EkqUxnHnJrXu5MiUt0c0Fow4JY3LRGS
+         wVP2Uq2xkGze44S0eHQYWQIle+JpFeFGPTtHD9LpF5WOkvtER1wMHbjoNSQ9VczcxBkI
+         oaWXeoFEowWaZrqcegh4HFU4tp/BV2Av3E+Jxv/v6jYio40jmZLIfzMrQ4x6sces0ZxH
+         nb5pYw94dJC0RvG+AChtm3T53vdr6f8cXEhfebyBvSY0Hqa9+92blgqzX8xKlj8OaFhp
+         ogew==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXa1wVlWmPOK7mwaO4cn3tebBWA0ZMH3A/0/4QVd37ygMY/sfWUyGkff0MYNy5qbWgrfBf6cMBHVj6nC8R2mmWu4W1XG+fjHmMQvgI=
-X-Gm-Message-State: AOJu0YyFRSeB55Xg6HnhOH0dKFbib4ztzAewQh7Pq353PTaptaEC4aMJ
-	j/igitFfMKkRpi/RS4bBUlBX6r09zphJU7mGDbevHXneNJyNncGN
-X-Google-Smtp-Source: AGHT+IE4fuEm2Hhy5dgvLgYZ4Ea+RZUc29dBF4JnQXgFGjXqWtw0v8f2FXPntrcNNpQkwADkgSAkhw==
-X-Received: by 2002:a25:8212:0:b0:df7:92ee:bb1a with SMTP id 3f1490d57ef6-dfa73d9d58dmr7544989276.52.1717388053565;
-        Sun, 02 Jun 2024 21:14:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCXy7z6RQFS9ygNMfh+FbTEV5H3JHL1apW86ZLI1Rv8ybbR+cMeQap+4atba+VSpkI3ynih2H/DKu3MUUBSeTR61HZSJfXdE3EJP4z8=
+X-Gm-Message-State: AOJu0YzD6PyOO8eQrjhT3gq7IIt0QT69vjCxwlocCtdIhPOUMLrddnMo
+	1QTNNiXOK/gaP54sMQUrpwWAbx8gX9uCZ0ie1c5zuTZdShRQt+L9
+X-Google-Smtp-Source: AGHT+IGt4WLlWvQfCOL/aufXnEENpWH1vm/j4nU7InPsnyVaz8MoNzL6LbWN5OJwDasLuRf+HQ3EHg==
+X-Received: by 2002:a2e:b5a9:0:b0:2de:7046:b8f8 with SMTP id 38308e7fff4ca-2ea950b55f5mr55025191fa.5.1717406025809;
+        Mon, 03 Jun 2024 02:13:45 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:103:0:b0:df7:71d2:bccb with SMTP id 3f1490d57ef6-dfa59aef9f7ls172807276.1.-pod-prod-00-us;
- Sun, 02 Jun 2024 21:14:12 -0700 (PDT)
-X-Received: by 2002:a5b:9d0:0:b0:df4:eb0b:8fd with SMTP id 3f1490d57ef6-dfa5dd7bfc8mr2189901276.2.1717388052026;
-        Sun, 02 Jun 2024 21:14:12 -0700 (PDT)
-Date: Sun, 2 Jun 2024 21:14:11 -0700 (PDT)
-From: Asah Randy <asahrandy54@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <65207c5f-b774-4161-ae9b-b774e1311f23n@googlegroups.com>
-Subject: BUY DMT CATRAGES, FLOWERS, CARTS, THC WAX ONLINE IN SYDNEY NEW
- AUSTRALIA
+Received: by 2002:a05:651c:102c:b0:2ea:9e06:e4aa with SMTP id
+ 38308e7fff4ca-2ea9e06e594ls8415031fa.0.-pod-prod-03-eu; Mon, 03 Jun 2024
+ 02:13:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCWWw++EhkQt9WOaE/vSd3bBBX1Ak2evf7vfZo4f1j9fUyQ3RyAYjd8LWQJGZVGIv30jZWvqROV+E90mSawtV9M/PZ52IaPXGzgw494UX3M=
+X-Received: by 2002:a2e:920e:0:b0:2e9:4a5b:b6c2 with SMTP id 38308e7fff4ca-2ea9519b62emr59405231fa.41.1717406022218;
+        Mon, 03 Jun 2024 02:13:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1717406022; cv=none;
+        d=google.com; s=arc-20160816;
+        b=xGUB/nBYrRhYJU7h2BMmFgX5xJMfeq9013ZvwDHueGROZFytRPUumtdlThMYDK6Dd+
+         y4PbR8q14XewPCXVU7Odj3YUs4Q+T2nXezl+fo272i72gtH1mGQp4rc3MU8UsaLGr1jl
+         Mj7K7eEyEI4N+xwE9zZjckxNALowr1h0EIHpQCPDywgutTNZCMHs5T1VtA6/L7jrFk7F
+         S9J23RQVLR+Cw+drLMsKM/kFaU8KPX3WaP4ipCGSdhprwK52z2VqZYtz//Lzzk1lpCB1
+         QJdwUM+PCLGk3nCloACH4uQINqZL56FedPPxwN2O5ewU6xlZ+kJwyxPD07lKy5K+V6By
+         KU+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :dkim-signature;
+        bh=k4VLG+QObAFMGeEhwAa5O9Y7y2k4lI6CMEqpRMsnzfc=;
+        fh=TIW4S0OzxcvW6HVqVfKWAMrwpiVuv27XCTRpHKYt82w=;
+        b=vLlGhTN1RtCV8NFslTOwzFs3vaiSjg2yT872dP/IcQld5+n/sN+dS8zplezmuSpees
+         8ExVKStQdM8cR7z+/wRtC3q1Y14YSjBxtwf6N49sIVO+3YZQWP3ZJkz49VYPzOAqyPVW
+         tVfKWDjQyx894aKs32oc29DnfVZ0utibtxkmLaWa0aSv/+LWB7MKhmgVUzUE8VVXFd+O
+         d5OFT4e3onGM8RIbXpEovQZawwKSttfIV4UVEbK2PuMdmRmf94HN+VXLRpZW1Gqyu3pj
+         fxay3HOHBJQKeN/atpYuSsGcr2R/WkgsvIZ6RoIe4F5JRrIzoregNYfttACx4UR4GNPQ
+         UBhQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oEEofF85;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=oth-regensburg.de
+Received: from a2752.mx.srv.dfn.de (a2752.mx.srv.dfn.de. [2001:638:d:c301:acdc:1979:2:f4])
+        by gmr-mx.google.com with ESMTPS id 5b1f17b1804b1-4214167a670si79875e9.0.2024.06.03.02.13.42
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Jun 2024 02:13:42 -0700 (PDT)
+Received-SPF: pass (google.com: domain of ralf.ramsauer@oth-regensburg.de designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender) client-ip=2001:638:d:c301:acdc:1979:2:f4;
+Received: from mta02.hs-regensburg.de (mta02.hs-regensburg.de [194.95.104.12])
+	by a2752.mx.srv.dfn.de (Postfix) with ESMTPS id EA41A2E01BA;
+	Mon,  3 Jun 2024 11:13:40 +0200 (CEST)
+Received: from E16S03.hs-regensburg.de (e16s03.hs-regensburg.de [IPv6:2001:638:a01:8013::93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(Client CN "E16S03", Issuer "E16S03" (not verified))
+	by mta02.hs-regensburg.de (Postfix) with ESMTPS id 4Vt7Lr4nNpzy5y;
+	Mon,  3 Jun 2024 11:13:40 +0200 (CEST)
+Received: from [IPV6:2001:638:a01:8068:d5bc:30b3:ace4:bf3d]
+ (2001:638:a01:8013::226) by E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 3 Jun
+ 2024 11:13:40 +0200
+Message-ID: <d0b5f0bc-4209-4e06-b8af-e12471f7c9a7@oth-regensburg.de>
+Date: Mon, 3 Jun 2024 11:13:39 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_282589_1810406093.1717388051352"
-X-Original-Sender: asahrandy54@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] README: drop IRC
+To: Josh Soref <jsoref@gmail.com>, <jailhouse-dev@googlegroups.com>
+References: <20240527202523.86372-1-jsoref@gmail.com>
+From: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
+Content-Language: en-US
+In-Reply-To: <20240527202523.86372-1-jsoref@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Originating-IP: [2001:638:a01:8013::226]
+X-ClientProxiedBy: E16S02.hs-regensburg.de (2001:638:a01:8013::92) To
+ E16S03.hs-regensburg.de (2001:638:a01:8013::93)
+X-Original-Sender: ralf.ramsauer@oth-regensburg.de
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@oth-regensburg.de header.s=mta02-20211122 header.b=oEEofF85;
+       spf=pass (google.com: domain of ralf.ramsauer@oth-regensburg.de
+ designates 2001:638:d:c301:acdc:1979:2:f4 as permitted sender)
+ smtp.mailfrom=ralf.ramsauer@oth-regensburg.de;       dmarc=pass (p=NONE
+ sp=NONE dis=NONE) header.from=oth-regensburg.de
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,96 +152,44 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_282589_1810406093.1717388051352
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_282590_952275709.1717388051352"
-
-------=_Part_282590_952275709.1717388051352
-Content-Type: text/plain; charset="UTF-8"
 
 
-https://t.me/motionking_caliweed_psychedelics
+On 27/05/2024 22:25, Josh Soref wrote:
+> From: Josh Soref <2119212+jsoref@users.noreply.github.com>
+> 
+> As noted in 2022 on the ML, irc has not been active:
+> https://groups.google.com/g/jailhouse-dev/c/qhWeA5n2TWo/m/oiShgDinAQAJ
+> 
+> Neither Freenode nor Libera appear to have a live #jailhouse channel
+> 
+> Signed-off-by: Josh Soref <2119212+jsoref@users.noreply.github.com>
 
-The Golden Teacher mushroom is a popular strain of psilocybin mushrooms, 
-scientifically known as Psilocybe cubensis. This strain is well-known and 
-often sought after by cultivators and users in the psychedelic community 
-due to its relatively easy cultivation and moderate potency.
+Acked-by: Ralf Ramsauer <ralf.ramsauer@oth-regensburg.de>
 
-am a supplier of good top quality medicated cannabis , peyote, MDMA, 
-Ketamine carts,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, dabs,THC 
-gummies, codine, syrup,wax, crumble catrages,hash, chocolate bars, flowers 
-and many more.
-tapin our telegram for quick response.
+Thanks,
+   Ralf
 
-Some key characteristics of the Golden Teacher mushroom strain include:
-Appearance: The Golden Teacher strain typically features large, 
-golden-capped mushrooms with a distinct appearance. When mature, the caps 
-can take on a golden or caramel color, while the stem is usually thick and 
-white.
-Potency: Golden Teachers are considered moderately potent among psilocybin 
-mushrooms. Their effects can vary depending on factors such as growing 
-conditions, individual tolerance, and dosage. Users generally report a 
-balance between visual and introspective effects.
-Effects: Like other psilocybin-containing mushrooms, consuming Golden 
-Teacher mushrooms can lead to altered states of consciousness characterized 
-by visual and auditory hallucinations, changes in perception of time and 
-space, introspection, and sometimes a sense of unity or connection with 
-one's surroundings.
-Cultivation: Golden Teachers are favored by cultivators due to their 
-relatively straightforward cultivation process. They are known for being 
-resilient and adaptable, making
-
-https://t.me/motionking_caliweed_psychedelics
+> ---
+>   README.md | 4 ----
+>   1 file changed, 4 deletions(-)
+> 
+> diff --git a/README.md b/README.md
+> index dc2c3af..ad7aa76 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -43,10 +43,6 @@ Frequently Asked Questions (FAQ):
+>   
+>    - See [FAQ file](FAQ.md)
+>   
+> -IRC channel:
+> -  - Freenode, irc.freenode.net, #jailhouse
+> -  - [![Webchat](https://img.shields.io/badge/irc-freenode-blue.svg "IRC Freenode")](https://webchat.freenode.net/?channels=jailhouse)
+> -
+>   Mailing list:
+>   
+>     - jailhouse-dev@googlegroups.com
 
 -- 
 You received this message because you are subscribed to the Google Groups "Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/65207c5f-b774-4161-ae9b-b774e1311f23n%40googlegroups.com.
-
-------=_Part_282590_952275709.1717388051352
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br /><div><div>https://t.me/motionking_caliweed_psychedelics<br /></div><b=
-r />The Golden Teacher mushroom is a popular strain of psilocybin mushrooms=
-, scientifically known as Psilocybe cubensis. This strain is well-known and=
- often sought after by cultivators and users in the psychedelic community d=
-ue to its relatively easy cultivation and moderate potency.<br /><br />am a=
- supplier of good top quality medicated cannabis , peyote, MDMA, Ketamine c=
-arts,shrooms, LSD, pills, edibles, cookies, vapes ,Dmt, dabs,THC gummies, c=
-odine, syrup,wax, crumble catrages,hash, chocolate bars, flowers and many m=
-ore.<br />tapin our telegram for quick response.<br /><br />Some key charac=
-teristics of the Golden Teacher mushroom strain include:<br />Appearance: T=
-he Golden Teacher strain typically features large, golden-capped mushrooms =
-with a distinct appearance. When mature, the caps can take on a golden or c=
-aramel color, while the stem is usually thick and white.<br />Potency: Gold=
-en Teachers are considered moderately potent among psilocybin mushrooms. Th=
-eir effects can vary depending on factors such as growing conditions, indiv=
-idual tolerance, and dosage. Users generally report a balance between visua=
-l and introspective effects.<br />Effects: Like other psilocybin-containing=
- mushrooms, consuming Golden Teacher mushrooms can lead to altered states o=
-f consciousness characterized by visual and auditory hallucinations, change=
-s in perception of time and space, introspection, and sometimes a sense of =
-unity or connection with one's surroundings.<br />Cultivation: Golden Teach=
-ers are favored by cultivators due to their relatively straightforward cult=
-ivation process. They are known for being resilient and adaptable, making<b=
-r /><div><br /></div><div>https://t.me/motionking_caliweed_psychedelics</di=
-v></div>
-
-<p></p>
-
--- <br />
-You received this message because you are subscribed to the Google Groups &=
-quot;Jailhouse&quot; group.<br />
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
-ouse-dev+unsubscribe@googlegroups.com</a>.<br />
-To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/65207c5f-b774-4161-ae9b-b774e1311f23n%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/65207c5f-b774-4161-ae9b-b774e1311f23n%40googlegroups.co=
-m</a>.<br />
-
-------=_Part_282590_952275709.1717388051352--
-
-------=_Part_282589_1810406093.1717388051352--
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/d0b5f0bc-4209-4e06-b8af-e12471f7c9a7%40oth-regensburg.de.
