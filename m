@@ -1,78 +1,81 @@
-Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBUOY7SZAMGQEGEAQ7SA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBXWZ7SZAMGQEB44RYJI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3a.google.com (mail-yb1-xb3a.google.com [IPv6:2607:f8b0:4864:20::b3a])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1737D8FB674
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Jun 2024 17:01:40 +0200 (CEST)
-Received: by mail-yb1-xb3a.google.com with SMTP id 3f1490d57ef6-dfa744fe2f9sf1824798276.0
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Jun 2024 08:01:40 -0700 (PDT)
+Received: from mail-oo1-xc37.google.com (mail-oo1-xc37.google.com [IPv6:2607:f8b0:4864:20::c37])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE9CD8FB67F
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  4 Jun 2024 17:04:00 +0200 (CEST)
+Received: by mail-oo1-xc37.google.com with SMTP id 006d021491bc7-5ba675232dfsf183921eaf.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 04 Jun 2024 08:04:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717513299; x=1718118099; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717513439; x=1718118239; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=c7guNmtsFHIiR0/lyMUpOV9gzDgnHMkXzXIYNLBdxRk=;
-        b=u2OZuB8x0W4J/b0eTo5vcWu9WHxhsBKg5Mym6R5GQy7aLrn9IQavQnQPQt1FuhYD0c
-         M/OTJ+uBC3z7AyAzjjA5eeTU10CuRdhHbwCBq+ebDNIAlFJm5GXGCWtOSUtWyxQMrjfd
-         U39TfeC8dNkzYOZiSbNNvIs5PljlA4EyKlazAlGYlxGZ6SUw2OgGC7Aza3p1a4w9J8+R
-         zw+fQU00AR1KD3JMw6lCLsRUGx222Pn71B5ZI3O8+k2TbbJGD7jb7f9GBkeImbR7syvi
-         O1ByGihgv50O2uJPHXyZ8mHWhEql6frzbHzgpUSeb5rLUN+qHS3e9GGKMpVWcJwVI3kW
-         jBBw==
+        bh=ART94Ndz9BEFi4PS8apH662+Pg9iEcAueHiYjyDUgoA=;
+        b=rskLPuMDcHJcDNnM3GEzkoI7160R7QUvKZDAWeVHfbeUa/sWP9USzfjYGLd+kJIeKk
+         Vf4tr2sxH3EKrpcQamNZ5zW9wcZEDl1uq0/YBj6haRK9KpXQQWsgf+3Z4+Ghp0CKqXBY
+         PZiLnLNFy8dc0g9nHBcqqBwSBTYys2E1j+rbo6z67lq+LzSVTHg1FTGnKPgG8j9XhXXY
+         djxflKbymYYnG4YK9GuMygLDp9+LPYyaQktAHzbdfISv5FtiUJ12Q/gnwuih7jd/iEuS
+         gx0WUx8YDJOKo0vGAduTcaCgx5bYgQJzlDnV02g6FgZFzQriWJ+5IktnvMrr/OBkx4Ke
+         U8Mg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717513299; x=1718118099; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717513439; x=1718118239; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=c7guNmtsFHIiR0/lyMUpOV9gzDgnHMkXzXIYNLBdxRk=;
-        b=axElJ2TNJo+puQcHXd4EXQhRa/uLHf3eqDagy/A7vdUcAqHg8Say9XPy09NI3PX3ks
-         24F2cDqSDU0prVjfygjpRnllIv7gkj+DNImsdF2Qp0zeEhUc1ULvyDSc+wufK05LP45N
-         vV0pSJ43yZn4rMFHwFm7rUlGawbflI74Zv/aAhHgvCTv2FWiADsBAVNrntxAQTGZIoXl
-         QwxxnLTRh3tqM4s8uk/rwwEJU0fv7pf2zwKozExUw4T7EclAmpc5SZA6gwws05QpPYX3
-         qU/F7aD6FOAhmabPPsehT87NyjHJFsMcUj7cRWZKu4hzFMXbXukfgqfSNuXVEARpWA/5
-         Vcvw==
+        bh=ART94Ndz9BEFi4PS8apH662+Pg9iEcAueHiYjyDUgoA=;
+        b=fNWaqEOugxmNB37CxaEOEkgtHFtwswPniTtLVSDy4g83SScL/11OVvDLOjARuGPr+n
+         oLg0lZVOkZcxvNzy/3dvBIoCGPICHwa7EXCYBALugoSSlhQPv/f+V2vD3LtJ/7ePTkqJ
+         HckrkzACD+MIk43zmisTeff2BNcDPjuOjiy+OeZg7e3gZKzqci7euEf8jnoXoH/anmQ1
+         5gIlP4IBoGPfwx+VxxTf97Y1p73dPGHnwkPVxKdUCikYXiICVLIC3LobaH0pWBw/vy4h
+         7KXo5HcDGipBHtXkTw6LKtsOlfFOgyZc6nCV8YigofahqzEPxZ8p3IdWXmqAs23cExnm
+         XIZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717513299; x=1718118099;
+        d=1e100.net; s=20230601; t=1717513439; x=1718118239;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=c7guNmtsFHIiR0/lyMUpOV9gzDgnHMkXzXIYNLBdxRk=;
-        b=UzxNKIK4XLYJ8g4diM3rLXfOEaKSOiF7IwZJvCu9ntBmvCW27fIjY/7On5HxD9rNPa
-         bPtS3U/iSJA11V0y5WnEHPt1NB04DcpKM8Jbp5k/8fZ0VjZ1OGzAIzWiWbCMlsKNSfCU
-         www6U7BTv/KXGCKu2tYp4Unm0ogLNBiTqDptcA5kYZI/j6vhPv6J4D+HP126YAjux0d3
-         3G5u8q13xjDdGxxEn/meqtqDh8QoRNghR9qmPgC3mY7qICHjm9GDtVIDNtDsb+a1ElzT
-         pgglTi0MxxnqpzS0kFEYfImHxrjMUezIEwIRDEMgGJ9ebWP+3q3fwCR87WXbKLbzOmLQ
-         VGow==
+        bh=ART94Ndz9BEFi4PS8apH662+Pg9iEcAueHiYjyDUgoA=;
+        b=VIz21CtE5DYTG6gOIo/McPUXChFEslkpDNF+4jTy6RYQrXH/zsNNoCK4Nt8isC3sLC
+         KX1d+u81nChWna5ksuwFSazvUpPE3GP6mLDOoZJ1Dq9hktOll4+qIquVJ6B32D8YNJGz
+         wd7JnoRkVCJ5WIlHJ/wr0ZxIChnr+crPBvDGZo9LBafTcwEV2qVQ56ixNUo8WuBqVTKa
+         RYca6skXmWOENRzBtxlHPzDOhURh4zdABSAM6h9tHMi3ubn50J9riQ9HliX6htikJVZF
+         v4BclfrQAKaoMltVVe3bX69kG8gxg2jIYIPD/1QRqil/3VNlrSsqO4x3vXQpeo3HrPRd
+         PszA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCUkUmc77qZUp8I/070Zb35ecc5v4CpXH8RPtRvuzWJwNo7ZAQGuGWqwkxr9Y2FZqj4lDhRfMw14QvBkWCR0RifQbJg358hetFtLRos=
-X-Gm-Message-State: AOJu0YwvuZDWRmJZTkGY5B+cwadoEungEmyqM59spd8cKNnNHhG94u9x
-	kqKNQTmaEMCU5MYZBg60wif/EVNoKpFtt8Bzy0pPAKBr1oOsRH/p
-X-Google-Smtp-Source: AGHT+IFZYGe3vz7n9M6zbQ99RVAztX5LbjjfZSSEi3mpIVK0vFMgvW/c/Kx4imEgMdr28+ECnZNZxQ==
-X-Received: by 2002:a25:ec0a:0:b0:dee:6323:e8e7 with SMTP id 3f1490d57ef6-dfa73bd0856mr11006631276.6.1717513298597;
-        Tue, 04 Jun 2024 08:01:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCUOruZLPUxs/N164+NM/0jEm3aEbNI2T4xIuYU48sEtDlLfTSLGQqKFgxPrSYr2jyiYCD6PsboGmael/2D/aIKLvpab/W2fm6jGbL4=
+X-Gm-Message-State: AOJu0YzAnYglnQlx1bTF1wujbDHugMt4EKZVor6NUdXXVA4tFR7w63lg
+	spjtqWkhtljmXfPB4YcGR4hlsPAZpTMfWas58rRVx8AHB1QUl+K+
+X-Google-Smtp-Source: AGHT+IEQiu3Bf77xwa5uDFTow0e9EosrEu1fCEgIungvG/BC08y9iIFJTWN2GSG1CAYDF5HmwGIdHA==
+X-Received: by 2002:a05:6358:2803:b0:199:432b:821f with SMTP id e5c5f4694b2df-19b482c1976mr1183305555d.0.1717513438996;
+        Tue, 04 Jun 2024 08:03:58 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a5b:bc9:0:b0:df4:e354:514c with SMTP id 3f1490d57ef6-dfa59ac4d0dls2768869276.1.-pod-prod-05-us;
- Tue, 04 Jun 2024 08:01:35 -0700 (PDT)
-X-Received: by 2002:a05:690c:6187:b0:627:dad9:bf54 with SMTP id 00721157ae682-62c79829ef3mr27732547b3.10.1717513294253;
-        Tue, 04 Jun 2024 08:01:34 -0700 (PDT)
-Date: Tue, 4 Jun 2024 08:01:33 -0700 (PDT)
+Received: by 2002:a05:6902:120b:b0:dfa:7e98:585 with SMTP id
+ 3f1490d57ef6-dfab64dbe30ls2255581276.2.-pod-prod-04-us; Tue, 04 Jun 2024
+ 08:03:57 -0700 (PDT)
+X-Received: by 2002:a05:690c:e:b0:627:c0ac:63f5 with SMTP id 00721157ae682-62c79688baemr36741517b3.2.1717513435679;
+        Tue, 04 Jun 2024 08:03:55 -0700 (PDT)
+Date: Tue, 4 Jun 2024 08:03:54 -0700 (PDT)
 From: Asah Randy <asahrandy54@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <3b79ccc4-a740-495a-9268-e012a6c72d51n@googlegroups.com>
-In-Reply-To: <804957c6-67b4-4d56-8398-1360a5b9ae31n@googlegroups.com>
-References: <23ea410a-e2c3-426c-8b7d-3d2a82d94dbfn@googlegroups.com>
- <28787421-30d1-4cbd-9da2-da23c674bf25n@googlegroups.com>
- <3adce3b4-4674-4ebf-8ce6-f41830b45e65n@googlegroups.com>
- <a9a3fb26-1527-4046-afa8-6ef75770f0een@googlegroups.com>
- <3f06a43c-1930-44a8-97a6-fe7028dcd202n@googlegroups.com>
- <804957c6-67b4-4d56-8398-1360a5b9ae31n@googlegroups.com>
-Subject: Re: WHAT ARE GOLDEN TEACHER MUSHROOM AND WERE ARE THEY SOLD ONLINE
+Message-Id: <0378a22b-af83-460d-8ef9-db8cf0101f79n@googlegroups.com>
+In-Reply-To: <50eb5272-0367-4db0-9bf0-37d99524b72fn@googlegroups.com>
+References: <795dc3b1-be89-41c7-9671-d30f85711eaan@googlegroups.com>
+ <0f3f8043-7aa0-4029-a9cc-8bf645291972n@googlegroups.com>
+ <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
+ <3d207a08-0b5e-445a-bb57-56e4822bc388n@googlegroups.com>
+ <e8805f00-c8bb-4331-97d4-8aaa48820bf6n@googlegroups.com>
+ <ef543eaf-4f84-4854-b391-4c3a04a27c3an@googlegroups.com>
+ <d92306e5-4a6d-4b20-891e-ec35109c98ecn@googlegroups.com>
+ <50eb5272-0367-4db0-9bf0-37d99524b72fn@googlegroups.com>
+Subject: Re: BUY MAGIC MUSHROOM ONLINE AUSTRALIA
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_7922_780185230.1717513293345"
+	boundary="----=_Part_12120_942336268.1717513434775"
 X-Original-Sender: asahrandy54@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -86,397 +89,54 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_7922_780185230.1717513293345
+------=_Part_12120_942336268.1717513434775
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_7923_1948262075.1717513293345"
+	boundary="----=_Part_12121_708824873.1717513434775"
 
-------=_Part_7923_1948262075.1717513293345
+------=_Part_12121_708824873.1717513434775
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
 https://t.me/motionking_caliweed_psychedelics
 
-Golden Teacher Mushrooms Dosage
-There is no standard golden teacher mushrooms dosage because everybody=20
-responds differently. Also, as we mentioned, there can be significant=20
-variations in potency from one mushroom to the next. Myriad factors can=20
-also affect the experience, with dosage being just one part of the equation=
-.
+Psilocybin Gummies - Mushroom Gummy Cubes 3.5g online | Buy Psilocybin 
+Gummies 100% Fast And Discreet Shipping
+
+Worldwide
+Buy Magic Mushrooms Online | Psychedelics For Sale USA | Mushroom Chocolate 
+Bars Online
+Buy Xanax 2mg bars, Hydrocodone, Diazepam, Dilaudid, Oxycotin, Roxycodone, 
+Suboxone, Subutex, Klonpin, Soma, Ritalin
+Buy microdosing psychedelics online | Buy magic mushrooms gummies online | 
+buy dmt carts online usa
+DMT for Sale | Order DMT Cartridges Online | Buy DMT Online | WHere to Buy 
+DMT in Australia
+NN DMT for Sale | Order DMT Cartridges Online | Buy DMT Online Europe | 
+WHere to Buy DMT Near Me |Buy DMT USA
+
 
 https://t.me/motionking_caliweed_psychedelics
-On Tuesday, June 4, 2024 at 4:00:47=E2=80=AFPM UTC+1 Asah Randy wrote:
 
-> https://t.me/motionking_caliweed_psychedelics
->
->
-> However, golden teacher mushrooms=E2=80=99 potency is generally considere=
-d=20
-> moderate compared to other cubensis strains. For example, strains like=20
-> penis envy and tidal wave are known for being much stronge
->
-> https://t.me/motionking_caliweed_psychedelics
-> On Tuesday, June 4, 2024 at 3:58:42=E2=80=AFPM UTC+1 Asah Randy wrote:
->
->>
->> https://t.me/motionking_caliweed_psychedelics
->> Effects: Like other psilocybin-containing mushrooms, consuming Golden=20
->> Teacher mushrooms can lead to altered states of consciousness characteri=
-zed=20
->> by visual and auditory hallucinations, changes in perception of time and=
-=20
->> space, introspection, and sometimes a sense of unity or connection with=
-=20
->> one's surroundings
->> Some key characteristics of the Golden Teacher mushroom strain include:
->>      Appearance: The Golden Teacher strain typically features large,=20
->> golden-capped mushrooms with a distinct appearance. When mature, the cap=
-s=20
->> can take on a golden or caramel color, while the stem is usually thick a=
-nd=20
->> white.
->>      Potency: Golden Teachers are considered moderately potent among=20
->> psilocybin mushrooms. Their effects can vary depending on factors such a=
-s=20
->> growing conditions, individual tolerance, and dosage. Users generally=20
->> report a balance between visual and introspective effects.
->>
->> https://t.me/motionking_caliweed_psychedelics
->>
->>
->>
->> On Monday, June 3, 2024 at 1:39:16=E2=80=AFPM UTC+1 Clarksville Pop wrot=
-e:
->>
->>> https://t.me/Mushies_12 https://t.me/Mushies_12
->>> Golden teachers are one of the best-known strains of the magic mushroom=
-=20
->>> species Psilocybe cubensis. They are renowned for producing huge fruits=
-,=20
->>> even in suboptimal growing conditions. Therefore, they have become a=20
->>> favorite among cultivators and are a mainstay of spore suppliers worldw=
-ide.
->>>
->>> https://t.me/Mushies_12
->>>
->>> https://t.me/Mushies_12
->>>
->>> Read on for our complete guide to golden teacher magic mushrooms,=20
->>> including their effects, potency, and potential benefits. We will also=
-=20
->>> provide a brief overview of the growing process and explain why they ar=
-e=20
->>> many mushroom lovers=E2=80=99 go-to strain.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Golden Teacher Mushrooms https://t.me/Mushies_12
->>> http://t.me/Mushies_12
->>> Golden teachers are one of the best-known strains of the magic mushroom=
-=20
->>> species Psilocybe cubensis. They are renowned for producing huge fruits=
-,=20
->>> even in suboptimal growing conditions. Therefore, they have become a=20
->>> favorite among cultivators and are a mainstay of spore suppliers worldw=
-ide.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Read on for our complete guide to golden teacher magic mushrooms,=20
->>> including their effects, potency, and potential benefits. We will also=
-=20
->>> provide a brief overview of the growing process and explain why they ar=
-e=20
->>> many mushroom lovers=E2=80=99 go-to strain.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Golden Teacher Effects
->>> Like other cubensis strains, golden teachers=E2=80=99 primary active in=
-gredient=20
->>> is psilocybin. The body breaks this chemical down into psilocin, which =
-acts=20
->>> on serotonin receptors to produce its psychedelic effects. It usually t=
-akes=20
->>> around 30=E2=80=9360 minutes for the effects to begin, although they ca=
-n start=20
->>> after as little as 10=E2=80=9320 minutes
->>>
->>> https://t.me/Mushies_12
->>>
->>> In general, these effects include alterations in mood, sensations, and=
-=20
->>> perception. Some people experience visual effects, such as enhanced col=
-ors=20
->>> or shifting geometric patterns. However, visual effects are reported le=
-ss=20
->>> frequently with golden teachers than with some other mushroom varieties=
-.=20
->>> Most users describe an insightful and spiritual journey, which aligns w=
-ith=20
->>> the =E2=80=9Cteacher=E2=80=9D part of their name.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Anecdotal reports suggest that side effects such as anxiety and paranoi=
-a=20
->>> rarely occur with golden teachers. Furthermore, some state that the ove=
-rall=20
->>> experience is shorter than average, sometimes lasting just 2=E2=80=934 =
-hours. For=20
->>> these reasons, golden teachers are sometimes considered an ideal choice=
- for=20
->>> those new to the world of psychedelics.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Of course, other factors also play a crucial role, such as one=E2=80=99=
-s=20
->>> mindset, expectations, and environment. Dosage also has a significant=
-=20
->>> impact on the overall experience. Therefore, it is essential to underst=
-and=20
->>> golden teachers=E2=80=99 potency and prepare adequately before ingestio=
-n.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Golden Teacher Mushrooms Potency
->>> Mushrooms are a natural product and can vary significantly in potency=
-=20
->>> from one specimen to the next. Therefore, it isn=E2=80=99t easy to give=
- an accurate=20
->>> figure.
->>>
->>> https://t.me/Mushies_12
->>>
->>> However, golden teacher mushrooms=E2=80=99 potency is generally conside=
-red=20
->>> moderate compared to other cubensis strains. For example, strains like=
-=20
->>> penis envy and tidal wave are known for being much stronge
->>>
->>> https://t.me/Mushies_12
->>>
->>> In terms of psilocybin content, a 2021 review estimated that 1 gram of=
-=20
->>> dried mushrooms contains approximately 10mg of psilocybin. However, the=
-=20
->>> publication did not specify whether this figure applies to Psilocybe=20
->>> cubensis or another species.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Golden Teacher Mushrooms Dosage
->>> There is no standard golden teacher mushrooms dosage because everybody=
-=20
->>> responds differently. Also, as we mentioned, there can be significant=
-=20
->>> variations in potency from one mushroom to the next. Myriad factors can=
-=20
->>> also affect the experience, with dosage being just one part of the equa=
-tion.
->>>
->>> https://t.me/Mushies_12
->>>
->>> Anyone inexperienced with psychedelics should start at the lower end of=
-=20
->>> the scale to see how golden teacher mushrooms affect them before increa=
-sing=20
->>> in dosage
->>>
->>>
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/0378a22b-af83-460d-8ef9-db8cf0101f79n%40googlegroups.com.
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/3b79ccc4-a740-495a-9268-e012a6c72d51n%40googlegroups.com.
-
-------=_Part_7923_1948262075.1717513293345
+------=_Part_12121_708824873.1717513434775
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div>https://t.me/motionking_caliweed_psychedelics<br /></div><div><br /></=
-div><div>Golden Teacher Mushrooms Dosage</div><div>There is no standard gol=
-den teacher mushrooms dosage because everybody responds differently. Also, =
-as we mentioned, there can be significant variations in potency from one mu=
-shroom to the next. Myriad factors can also affect the experience, with dos=
-age being just one part of the equation.</div><div><br /></div>https://t.me=
-/motionking_caliweed_psychedelics<br /><div class=3D"gmail_quote"><div dir=
-=3D"auto" class=3D"gmail_attr">On Tuesday, June 4, 2024 at 4:00:47=E2=80=AF=
-PM UTC+1 Asah Randy wrote:<br/></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); paddin=
-g-left: 1ex;"><div><a href=3D"https://t.me/motionking_caliweed_psychedelics=
-" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.go=
-ogle.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&=
-amp;source=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw0TjXKlK04tZgo=
-TyIthPRmI">https://t.me/motionking_caliweed_psychedelics</a><br></div><div>=
-<br></div><div><br></div>However, golden teacher mushrooms=E2=80=99 potency=
- is generally considered moderate compared to other cubensis strains. For e=
-xample, strains like penis envy and tidal wave are known for being much str=
-onge<br><br><div><a href=3D"https://t.me/motionking_caliweed_psychedelics" =
-target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goog=
-le.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&am=
-p;source=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw0TjXKlK04tZgoTy=
-IthPRmI">https://t.me/motionking_caliweed_psychedelics</a><br></div><div cl=
-ass=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Tuesday, June=
- 4, 2024 at 3:58:42=E2=80=AFPM UTC+1 Asah Randy wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0 0 0 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex"><div><br></div><div><a href=3D"https://t.m=
-e/motionking_caliweed_psychedelics" rel=3D"nofollow" style=3D"color:rgb(26,=
-115,232)" target=3D"_blank" data-saferedirecturl=3D"https://www.google.com/=
-url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;sourc=
-e=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw0TjXKlK04tZgoTyIthPRmI=
-">https://t.me/motionking_caliweed_psychedelics</a><br></div><div><div styl=
-e=3D"color:rgb(80,0,80)"><div role=3D"region" aria-labelledby=3D"c31996" st=
-yle=3D"margin:12px 0px;overflow:auto;padding-right:20px"><div>Effects: Like=
- other psilocybin-containing mushrooms, consuming Golden Teacher mushrooms =
-can lead to altered states of consciousness characterized by visual and aud=
-itory hallucinations, changes in perception of time and space, introspectio=
-n, and sometimes a sense of unity or connection with one&#39;s surroundings=
-<br>Some key characteristics of the Golden Teacher mushroom strain include:=
-<br>=C2=A0 =C2=A0 =C2=A0Appearance: The Golden Teacher strain typically fea=
-tures large, golden-capped mushrooms with a distinct appearance. When matur=
-e, the caps can take on a golden or caramel color, while the stem is usuall=
-y thick and white.<br>=C2=A0 =C2=A0 =C2=A0Potency: Golden Teachers are cons=
-idered moderately potent among psilocybin mushrooms. Their effects can vary=
- depending on factors such as growing conditions, individual tolerance, and=
- dosage. Users generally report a balance between visual and introspective =
-effects.</div><div><br></div></div></div><div role=3D"region" aria-labelled=
-by=3D"c31996" style=3D"margin:12px 0px;overflow:auto;padding-right:20px"><d=
-iv><a href=3D"https://t.me/motionking_caliweed_psychedelics" rel=3D"nofollo=
-w" style=3D"color:rgb(26,115,232)" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_cali=
-weed_psychedelics&amp;source=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DA=
-OvVaw0TjXKlK04tZgoTyIthPRmI">https://t.me/motionking_caliweed_psychedelics<=
-/a><br></div></div><br></div><br><br><div class=3D"gmail_quote"><div dir=3D=
-"auto" class=3D"gmail_attr">On Monday, June 3, 2024 at 1:39:16=E2=80=AFPM U=
-TC+1 Clarksville Pop wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex"><a href=3D"https://t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank=
-" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps:=
-//t.me/Mushies_12&amp;source=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DA=
-OvVaw286p7VA45kwPmw972QW7Wv">https://t.me/Mushies_12</a> <a href=3D"https:/=
-/t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;=
-source=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw286p7VA45kwPmw972=
-QW7Wv">https://t.me/Mushies_12</a><div>Golden teachers are one of the best-=
-known strains of the magic mushroom species Psilocybe cubensis. They are re=
-nowned for producing huge fruits, even in suboptimal growing conditions. Th=
-erefore, they have become a favorite among cultivators and are a mainstay o=
-f spore suppliers worldwide.</div><div><br></div><div><a href=3D"https://t.=
-me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"h=
-ttps://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;sourc=
-e=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw286p7VA45kwPmw972QW7Wv=
-">https://t.me/Mushies_12</a></div><div><br></div><div><a href=3D"https://t=
-.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"=
-https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;sour=
-ce=3Dgmail&amp;ust=3D1717599649417000&amp;usg=3DAOvVaw286p7VA45kwPmw972QW7W=
-v">https://t.me/Mushies_12</a></div><div><br></div><div>Read on for our com=
-plete guide to golden teacher magic mushrooms, including their effects, pot=
-ency, and potential benefits. We will also provide a brief overview of the =
-growing process and explain why they are many mushroom lovers=E2=80=99 go-t=
-o strain.</div><div><br></div><div><a href=3D"https://t.me/Mushies_12" rel=
-=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.google.=
-com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;source=3Dgmail&amp;ust=
-=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDvTfz_k">https://t.me/Mu=
-shies_12</a></div><div><br></div><div>Golden Teacher Mushrooms <a href=3D"h=
-ttps://t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirec=
-turl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&=
-amp;source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18=
-GoDvTfz_k">https://t.me/Mushies_12</a></div><div><a href=3D"http://t.me/Mus=
-hies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https:/=
-/www.google.com/url?hl=3Den&amp;q=3Dhttp://t.me/Mushies_12&amp;source=3Dgma=
-il&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw3SdTk9SerSymZGw_ZpRBAU">http:=
-//t.me/Mushies_12</a></div><div>Golden teachers are one of the best-known s=
-trains of the magic mushroom species Psilocybe cubensis. They are renowned =
-for producing huge fruits, even in suboptimal growing conditions. Therefore=
-, they have become a favorite among cultivators and are a mainstay of spore=
- suppliers worldwide.</div><div><br></div><div><a href=3D"https://t.me/Mush=
-ies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://=
-www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;source=3Dgma=
-il&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDvTfz_k">https=
-://t.me/Mushies_12</a></div><div><br></div><div>Read on for our complete gu=
-ide to golden teacher magic mushrooms, including their effects, potency, an=
-d potential benefits. We will also provide a brief overview of the growing =
-process and explain why they are many mushroom lovers=E2=80=99 go-to strain=
-.</div><div><br></div><div><a href=3D"https://t.me/Mushies_12" rel=3D"nofol=
-low" target=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?h=
-l=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;source=3Dgmail&amp;ust=3D1717599=
-649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDvTfz_k">https://t.me/Mushies_12</=
-a></div><div><br></div><div>Golden Teacher Effects</div><div>Like other cub=
-ensis strains, golden teachers=E2=80=99 primary active ingredient is psiloc=
-ybin. The body breaks this chemical down into psilocin, which acts on serot=
-onin receptors to produce its psychedelic effects. It usually takes around =
-30=E2=80=9360 minutes for the effects to begin, although they can start aft=
-er as little as 10=E2=80=9320 minutes</div><div><br></div><div><a href=3D"h=
-ttps://t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirec=
-turl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&=
-amp;source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18=
-GoDvTfz_k">https://t.me/Mushies_12</a></div><div><br></div><div>In general,=
- these effects include alterations in mood, sensations, and perception. Som=
-e people experience visual effects, such as enhanced colors or shifting geo=
-metric patterns. However, visual effects are reported less frequently with =
-golden teachers than with some other mushroom varieties. Most users describ=
-e an insightful and spiritual journey, which aligns with the =E2=80=9Cteach=
-er=E2=80=9D part of their name.</div><div><br></div><div><a href=3D"https:/=
-/t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;=
-source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDv=
-Tfz_k">https://t.me/Mushies_12</a></div><div><br></div><div>Anecdotal repor=
-ts suggest that side effects such as anxiety and paranoia rarely occur with=
- golden teachers. Furthermore, some state that the overall experience is sh=
-orter than average, sometimes lasting just 2=E2=80=934 hours. For these rea=
-sons, golden teachers are sometimes considered an ideal choice for those ne=
-w to the world of psychedelics.</div><div><br></div><div><a href=3D"https:/=
-/t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;=
-source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDv=
-Tfz_k">https://t.me/Mushies_12</a></div><div><br></div><div>Of course, othe=
-r factors also play a crucial role, such as one=E2=80=99s mindset, expectat=
-ions, and environment. Dosage also has a significant impact on the overall =
-experience. Therefore, it is essential to understand golden teachers=E2=80=
-=99 potency and prepare adequately before ingestion.</div><div><br></div><d=
-iv><a href=3D"https://t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" d=
-ata-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t=
-.me/Mushies_12&amp;source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvV=
-aw2HecDlbichN18GoDvTfz_k">https://t.me/Mushies_12</a></div><div><br></div><=
-div>Golden Teacher Mushrooms Potency</div><div>Mushrooms are a natural prod=
-uct and can vary significantly in potency from one specimen to the next. Th=
-erefore, it isn=E2=80=99t easy to give an accurate figure.</div><div><br></=
-div><div><a href=3D"https://t.me/Mushies_12" rel=3D"nofollow" target=3D"_bl=
-ank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhtt=
-ps://t.me/Mushies_12&amp;source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=
-=3DAOvVaw2HecDlbichN18GoDvTfz_k">https://t.me/Mushies_12</a></div><div><br>=
-</div><div>However, golden teacher mushrooms=E2=80=99 potency is generally =
-considered moderate compared to other cubensis strains. For example, strain=
-s like penis envy and tidal wave are known for being much stronge</div><div=
-><br></div><div><a href=3D"https://t.me/Mushies_12" rel=3D"nofollow" target=
-=3D"_blank" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;=
-q=3Dhttps://t.me/Mushies_12&amp;source=3Dgmail&amp;ust=3D1717599649418000&a=
-mp;usg=3DAOvVaw2HecDlbichN18GoDvTfz_k">https://t.me/Mushies_12</a></div><di=
-v><br></div><div>In terms of psilocybin content, a 2021 review estimated th=
-at 1 gram of dried mushrooms contains approximately 10mg of psilocybin. How=
-ever, the publication did not specify whether this figure applies to Psiloc=
-ybe cubensis or another species.</div><div><br></div><div><a href=3D"https:=
-//t.me/Mushies_12" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;=
-source=3Dgmail&amp;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDv=
-Tfz_k">https://t.me/Mushies_12</a></div><div><br></div><div>Golden Teacher =
-Mushrooms Dosage</div><div>There is no standard golden teacher mushrooms do=
-sage because everybody responds differently. Also, as we mentioned, there c=
-an be significant variations in potency from one mushroom to the next. Myri=
-ad factors can also affect the experience, with dosage being just one part =
-of the equation.</div><div><br></div><div><a href=3D"https://t.me/Mushies_1=
-2" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.g=
-oogle.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12&amp;source=3Dgmail&am=
-p;ust=3D1717599649418000&amp;usg=3DAOvVaw2HecDlbichN18GoDvTfz_k">https://t.=
-me/Mushies_12</a></div><div><br></div><div>Anyone inexperienced with psyche=
-delics should start at the lower end of the scale to see how golden teacher=
- mushrooms affect them before increasing in dosage<br><br></div></blockquot=
-e></div></blockquote></div></blockquote></div>
+div>Psilocybin Gummies - Mushroom Gummy Cubes 3.5g online | Buy Psilocybin =
+Gummies 100% Fast And Discreet Shipping<div><br /></div><div>Worldwide</div=
+><div>Buy Magic Mushrooms Online | Psychedelics For Sale USA | Mushroom Cho=
+colate Bars Online</div><div>Buy Xanax 2mg bars, Hydrocodone, Diazepam, Dil=
+audid, Oxycotin, Roxycodone, Suboxone, Subutex, Klonpin, Soma, Ritalin</div=
+><div>Buy microdosing psychedelics online | Buy magic mushrooms gummies onl=
+ine | buy dmt carts online usa</div><div>DMT for Sale | Order DMT Cartridge=
+s Online | Buy DMT Online | WHere to Buy DMT in Australia</div><div>NN DMT =
+for Sale | Order DMT Cartridges Online | Buy DMT Online Europe | WHere to B=
+uy DMT Near Me |Buy DMT USA</div><div><br /></div><div><br /></div><div>htt=
+ps://t.me/motionking_caliweed_psychedelics<br /></div><br />
 
 <p></p>
 
@@ -487,11 +147,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/3b79ccc4-a740-495a-9268-e012a6c72d51n%40googlegrou=
+om/d/msgid/jailhouse-dev/0378a22b-af83-460d-8ef9-db8cf0101f79n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/3b79ccc4-a740-495a-9268-e012a6c72d51n%40googlegroups.co=
+msgid/jailhouse-dev/0378a22b-af83-460d-8ef9-db8cf0101f79n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_7923_1948262075.1717513293345--
+------=_Part_12121_708824873.1717513434775--
 
-------=_Part_7922_780185230.1717513293345--
+------=_Part_12120_942336268.1717513434775--
