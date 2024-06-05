@@ -1,72 +1,75 @@
-Return-Path: <jailhouse-dev+bncBCMZLOEWZYNBBH6VQGZQMGQEC6YSIRY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCMKTTEX5MOBBI64QKZQMGQEJIPEO7Q@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A2E8FCF98
-	for <lists+jailhouse-dev@lfdr.de>; Wed,  5 Jun 2024 15:39:45 +0200 (CEST)
-Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-dc691f1f83asf602980276.1
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 05 Jun 2024 06:39:45 -0700 (PDT)
+Received: from mail-yw1-x113d.google.com (mail-yw1-x113d.google.com [IPv6:2607:f8b0:4864:20::113d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9938FD5B7
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  5 Jun 2024 20:27:49 +0200 (CEST)
+Received: by mail-yw1-x113d.google.com with SMTP id 00721157ae682-629f8a92145sf1061157b3.0
+        for <lists+jailhouse-dev@lfdr.de>; Wed, 05 Jun 2024 11:27:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717594784; x=1718199584; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717612068; x=1718216868; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=znZrwMME0JYL3WGJLvk8hwV+Ge4V92afTqrVEEv/pQ4=;
-        b=C74VvbQzcHrjosikNEKRZs+sj2AyZ8bDW+euBEibEXzpCTqSZaIUnSAkZXdYeCCB4I
-         hhzcqQ0BBPD+1Ri3X2GeMxdJV9bmayA0+imsmygFnWnMUEyUOElvHyR2Mjg/z/c+LSud
-         DUNLBrLtqhZtAIZShIQFf7utoaKScyJlZPUe1ckHj4UgBSu7eriRZIoB+Rck6MZOvek5
-         J97HKs80YWA+YMsg4TrZ5m5UTI6LOKudDkW10pKkGU4e7Ga3m/G48X7N+QTmM8C1GdzD
-         6/zDqiee7kClHVkE61eQ1sXLphOeK6N/tKRouRhPapJJa+oaR6JbRNF6bD9pNZa2bIea
-         5Qaw==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mSYyYnpsj6aeCcEpC4oNeOfxBWHvi6MtfXdwF6rA1vw=;
+        b=B+LOtg4eFAor/tByKzvO1+hizj2Cqy/v6i9ixn1PiXCS2Wa0XcPUe4arMt3cer+nHy
+         PSu42YrV1kRkbicJeT7Am+6QdwxMYdYVBWWxOtPSnZGlZEArANca1knSH0FY9SSTk+y1
+         2V2urAMnkLOgSYr9mCprpnQtfrR9EGiubExoAAX2DLFBLY0dzAYCBx23iESXh66irvqx
+         7bTv4B4MDckY6cQ6P5yaPd+U5bRIEHRx++1o3OiZSn/009v9oeGU4fnnmjiTvnHpfzjC
+         6EZgAin4N5h7dL20nUHx8qGNAhLfkkGTTCfsg8PkFJhojNfd+dDIXXa9VHhYmywBUBpH
+         eqVQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717594784; x=1718199584; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717612068; x=1718216868; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=znZrwMME0JYL3WGJLvk8hwV+Ge4V92afTqrVEEv/pQ4=;
-        b=dmDX9c1bu5JVkA7tV4cNOvbRlREPXK9zRfGtwbCu4TMuaLT+Im1Tl1V4492ID+66Vv
-         N4G+9fbS9H4FKRcXlegBehoqYzjKbVccxCfR77zdFEuj7iA/srba1idw+OYW2z02bZ4l
-         cO5Fi9SmXF88QgoEmTbtaA7aizLqyJ1ZK9h5QNU89p0+8phP+rJNxEjSPhzD6kvieMQW
-         oO7WiObLc3xsEdmF3/LWaphi6U7a6UuRCTzgkMbSplGziVlSE2YLWJLWmr1LVNZMPl0e
-         BD5i/NqRFteFQq5/vaAORCFWdxcax8F/l85nGOQs6p8DzyuYHnJfTu+5Cl+k5ORDc+Gt
-         AMEA==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mSYyYnpsj6aeCcEpC4oNeOfxBWHvi6MtfXdwF6rA1vw=;
+        b=kmfBxV7YDSjPElDvcg54GLzk7b217+jW7+m97v1Fe9hvLnrECJA5Dl2NV9McuC3f0d
+         SEXRadlm6q7FSQzXhka/YcdV6UNHAh1lrdjKyCepooUGNDRFvYbEHYkoZeXLi71qUfd9
+         9EvQSrmqaA4VSU9OcWfLiNqLnxfURRZhKeV1zy5rA98gaBcgj2Q1tI6/15Z/GFkXR9D+
+         nN2PMtIKN/5PD6wUtcaEbyPvRG7oVda0Ds5Rj/MdxvnJASU4wCzi9u5fdXoBzWwVMZ6t
+         Fhp13Cq3f7JpAgyfXC+Ycsg13D9h8vrgmzhGWDhi0T8gQjwZPPtVew2a8aTP5J6f45fQ
+         kMJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717594784; x=1718199584;
+        d=1e100.net; s=20230601; t=1717612068; x=1718216868;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=znZrwMME0JYL3WGJLvk8hwV+Ge4V92afTqrVEEv/pQ4=;
-        b=fmcA3PRCLNoay6oPFPEPxClXQCS1OVmCwy5liyaBO/0OQBdkwRkVLBHORKteRqirqi
-         3XBZ+eyVU6yZMMeehwJBiwV+VuccvSOs+KUem3zhtkQG+mpRZkt+JNCc8n6vCpgV762O
-         gcBCHzRmorwD/5KeKsRRwNTZrux3bHHwTi7vY0+i1Pjm2Su4UoYS5/U4EXEpyUnlW3vZ
-         zv/mlW1qZSxOnzeSI76EhR6URLyv7NuihUvJpr6N8D0Zf8J+8UEIeEGkD2eHrnHzlgd6
-         R96PwWSyCFDW2LCr0dMQ7RHCDFdESx+0TVmyVur8YgcGWqwEkezgw5CS1rcoEJtGDElq
-         MBKw==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=mSYyYnpsj6aeCcEpC4oNeOfxBWHvi6MtfXdwF6rA1vw=;
+        b=otN98zeMXNYm1O3x7dvvlFhgwrRxdCtHbNkbN7ImXsSAfxSvDyfgo4FRQzmNKStGNp
+         JzCPsvO7ku72e8KXkpAiy5NMs/bx+tgCwSP356cyRxzo1WWBnD2FgM6mDHTtEA8e83Oq
+         SGHsGAJJRnQlyD0R/B1oHP7i33+zBJe4fjT2r/2nVNgvIpl2ZptowkruwjHS2YmfgNiD
+         +YH9ZcqGjQnDxyxAVKJS9nC7750ETzQbH0mxGeQcX9B8L1yl9o7zealm/jRXlO3ehh1d
+         YobnoS9ToeCI5bcR06PkeiJmVtZ5787g6ayarYKUREC05QqVZPU037skYHFobqRZHqMQ
+         BHag==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVuJAw/4V1i5O14/ue0t5vZG2w8YsY4MkqbsugLaZfN8lgy9T5Fhu8GJ3sHG618uOYhJeY7YoydwULF1dkFzK2tzGS/TrAjDNd4PIE=
-X-Gm-Message-State: AOJu0YwRTK9/iR4Sm5QOrTy4HcjKb3Wj1naj6lxYEM1KcictY/fj2ViB
-	e7/mfWcLheeMJbHNUlOmKiadqFgsHytGWMlmxGVLtAj79pQq7G9/
-X-Google-Smtp-Source: AGHT+IEjdA2vX1GiQOfc2jRPic2LGZlDCLBeE3PKH+JEyw+x1WD03PNUmLceeJHtmECHur0Wt7o/+g==
-X-Received: by 2002:a25:d0c1:0:b0:dee:9e57:3e26 with SMTP id 3f1490d57ef6-dfab85239cbmr4606772276.4.1717594784401;
-        Wed, 05 Jun 2024 06:39:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVf3bf+QH9VnA3ACEukyipTz2WBLBFBKgHm4HcEWFpCDq64u9pGlnr0MpusC0lCfkFbcaupunUvAI4zyOJHbT7LFpiLCowYBf+dI2c=
+X-Gm-Message-State: AOJu0YzJbgNfArljcjAYhYW8yaLC+L9gWaoF+fF34c6bujPUjJ3sxnS/
+	fUOH0OOBDAp6apnEmQ80dNqt3C2rqin1OKOkBG7eV6LMoxO0O6xB
+X-Google-Smtp-Source: AGHT+IF9Qv2+c7pBaUFO5SaueXFYZlSuVt/CU4WOq53Zalk+vGEqBR/ZJ9BlGTQANuTgRgIjMmhC8w==
+X-Received: by 2002:a25:83c1:0:b0:df7:8b16:4f38 with SMTP id 3f1490d57ef6-dfaca989500mr3193080276.1.1717612067805;
+        Wed, 05 Jun 2024 11:27:47 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:b324:0:b0:df4:e1a7:3170 with SMTP id 3f1490d57ef6-dfa59b002a5ls1414529276.2.-pod-prod-03-us;
- Wed, 05 Jun 2024 06:39:42 -0700 (PDT)
-X-Received: by 2002:a05:690c:660c:b0:627:a97a:3bcc with SMTP id 00721157ae682-62cbb5dd177mr7047347b3.9.1717594781065;
-        Wed, 05 Jun 2024 06:39:41 -0700 (PDT)
-Date: Wed, 5 Jun 2024 06:39:40 -0700 (PDT)
-From: Syed Aftab Rashid <saftab.rashid@gmail.com>
+Received: by 2002:a25:7ac5:0:b0:dfa:56ce:d390 with SMTP id 3f1490d57ef6-dfacad239e7ls1165202276.0.-pod-prod-08-us;
+ Wed, 05 Jun 2024 11:27:46 -0700 (PDT)
+X-Received: by 2002:a05:6902:150b:b0:df4:8ff6:47f4 with SMTP id 3f1490d57ef6-dfacab2a3a4mr691281276.1.1717612065746;
+        Wed, 05 Jun 2024 11:27:45 -0700 (PDT)
+Date: Wed, 5 Jun 2024 11:27:44 -0700 (PDT)
+From: JAMES BRYANT <jambel420@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <24e28829-f60b-41b9-9c33-0b23156cc81en@googlegroups.com>
-Subject: Setting up Jailhouse on an Intel Xeon Machine
+Message-Id: <08963b0d-b25b-4bff-91f9-3fd443fa140dn@googlegroups.com>
+In-Reply-To: <363625fd-5fdc-445b-850d-34f4637215cbn@googlegroups.com>
+References: <363625fd-5fdc-445b-850d-34f4637215cbn@googlegroups.com>
+Subject: Re: BUY GOOD TRIP MAGIC MUSHROOM CHOCOLATE BARS - BEST MAGIC
+ MUSHROOMS CHOCOLATE BARS ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_88993_2113463324.1717594780239"
-X-Original-Sender: saftab.rashid@gmail.com
+	boundary="----=_Part_2904_1373556150.1717612064788"
+X-Original-Sender: jambel420@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -79,103 +82,317 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_88993_2113463324.1717594780239
+------=_Part_2904_1373556150.1717612064788
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_88994_953586320.1717594780239"
+	boundary="----=_Part_2905_906115468.1717612064788"
 
-------=_Part_88994_953586320.1717594780239
+------=_Part_2905_906115468.1717612064788
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Buy Good Trip Mushroom Chocolate Bars Online
+Have you ever wished mushrooms tasted better? We=E2=80=99re here to grant t=
+hat wish=20
+by bringing you our Good Trip Mushroom Chocolate Bar. This bar is tasty,=20
+irresistible also, contains a total of 3.5g of Magic Mushrooms ( 6 grams=20
+per chocolate square). And can be broken off into squares for flexible=20
+shroom dosage.
 
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
 
-I have managed to successfully install and use Jailhouse on an old x86 
-machine. However, I have recently got a relatively new intel Xeon machine 
-that supports CAT etc so I want to test Jailhouse on that machine. The 
-machine specs are given here HP Z4 G5 PTC certified, Intel Xeon W3-2435 SSD 
-PCIe , NVIDIA RTX A4000 , Win10 Pro/Win (Xeon W, 64 GB, 1000 GB, SSD, 
-GeForce RTX 4000 Ada) - digitec 
-<https://www.digitec.ch/en/s1/product/hp-z4-g5-ptc-certified-intel-xeon-w3-2435-ssd-pcie-nvidia-rtx-a4000-win10-prowin-xeon-w-64-gb-1000-g-39689571>
+IT has an awesome taste and smells good too chocolate. Good Trip Mushroom=
+=20
+Chocolate Bars makes you trip your face off. So, how could that not be the=
+=20
+dream?. =E2=80=A2
 
-I have jailhouse installed on the system, however when I try to enable the 
-root cell the system hangs. I have a serial console and the output on the 
-serial console is as follows
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
 
-Initializing Jailhouse hypervisor v0.12 (342-gd6e64f90) on CPU 5
-Code location: 0xfffffffff0000050
-Using x2APIC
-Page pool usage after early setup: mem 135/32207, remap 0/131072
-Initializing processors:
-CPU 5...
+Clean High =E2=80=93 We formulated this chocolate bar to produce a clean hi=
+gh that=20
+won=E2=80=99t leave you crashing after the initial peak.
 
-the system hangs afterward and there is no more output on the serial port.
+https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/
 
+True Psychedelic Experience Just cause it doesn=E2=80=99t taste like mushro=
+oms=20
+doesn=E2=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any=
+ drop in the quality of=20
+your trip, in fact, you may even decide to switch to edibles!
+:Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=80=99t=
+=20
+necessarily mean you want to be seen stuffing your face with them For those=
+=20
+who want to keep it classy and discrete, nibbling on some chocolate is the=
+=20
+way to go. shroom chocolate bar=20
 
-I have traced the problem and it seems to be at this function call in 
-jailhouse/hypervisor/arch/x86/setup.c 
+On Monday, June 3, 2024 at 5:04:42=E2=80=AFAM UTC-7 Clarksville Pop wrote:
 
+> BUY LSD ONLINE
+>
+> BUY 1P-LSD Blotters (100mcg) | Research Chemicals-1P-Lysergic Acid=20
+> diethylamide
+>
+> BUY LSD ONLINE
+> BUY LSD, or lysergic acid diethylamide, is a potent psychedelic substance=
+=20
+> that belongs to the hallucinogen class of drugs. It was first synthesized=
+=20
+> in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived from a fungus=
+=20
+> known as ergot, which commonly grows on grains like rye.
+> https://t.me/Mushies_12/product/buy-1p-lsd-online/
+> https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+> https://t.me/Mushies_12/product/buy-lsd-acid/
+> https://t.me/Mushies_12/product/buy-lsd-liquid/
+> LSD FOR SALE is chemically classified as a semi-synthetic compound,=20
+> meaning it is derived from natural substances but requires chemical=20
+> modification for use. Its chemical structure is characterized by a core=
+=20
+> molecule called lysergic acid, to which an ethylamine side chain is=20
+> attached. The chemical formula for LSD is C20H25N3O.
+>
+> BUYING LSD
+> LSD is a crystalline solid, typically available in the form of small=20
+> squares of blotter paper. These squares, known as =E2=80=9Ctabs,=E2=80=9D=
+ are often=20
+> decorated with colorful designs or images. LSD can also be found in the=
+=20
+> form of liquid, gelatin squares (windowpane), or even as a powder or=20
+> crystal.
+> https://t.me/Mushies_12/product/buy-1p-lsd-online/
+> https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+> https://t.me/Mushies_12/product/buy-lsd-acid/
+> https://t.me/Mushies_12/product/buy-lsd-liquid/
+> Pharmacology: LSD is known to primarily interact with serotonin receptors=
+=20
+> in the brain, particularly the 5-HT2A receptor. It alters the normal=20
+> functioning of serotonin, a neurotransmitter involved in mood regulation,=
+=20
+> sensory perception, and cognition. LSD is a highly potent substance, and=
+=20
+> even very small doses (micrograms) can induce profound psychological=20
+> effects.
+>
+> LSD EFFECTS
+> The effects of LSD can vary widely depending on the individual, dosage,=
+=20
+> environment, and mindset. The onset of LSD typically occurs within 30 to =
+90=20
+> minutes after ingestion, with the effects lasting for 6 to 12 hours or=20
+> longer. Some common effects include:
+> https://t.me/Mushies_12/product/buy-1p-lsd-online/
+> https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+> https://t.me/Mushies_12/product/buy-lsd-acid/
+> https://t.me/Mushies_12/product/buy-lsd-liquid/
+> Altered Perception: LSD significantly alters perception, leading to=20
+> visual, auditory, and sensory distortions. Users may experience vivid and=
+=20
+> intensified colors, geometric patterns, trails, and enhanced or distorted=
+=20
+> sounds.
+> Intense Emotional States: LSD can induce a wide range of emotions, from=
+=20
+> euphoria and bliss to anxiety and confusion. Emotions may fluctuate=20
+> rapidly, and the intensity of emotions can be heightened.
+> Expanded Consciousness: Users often report a sense of interconnectedness=
+=20
+> and unity with the universe. They may experience a heightened awareness o=
+f=20
+> their thoughts, emotions, and surroundings, along with a deepened sense o=
+f=20
+> meaning and spirituality.
+> Hallucinations: LSD can produce hallucinations, which are perceptual=20
+> experiences of objects or events that are not actually present. These=20
+> hallucinations can be both visual and auditory.
+> Altered Time and Space Perception: Users may perceive time as distorted,=
+=20
+> with minutes feeling like hours or hours passing by quickly. The sense of=
+=20
+> space can also be altered, with a distorted perception of distance and si=
+ze.
+> Mindset and Set: LSD experiences are highly influenced by the user=E2=80=
+=99s=20
+> mindset and the setting in which it is taken. A positive mindset and a=20
+> comfortable, safe environment are generally recommended to reduce the ris=
+k=20
+> of a negative experience.
+> Risks and Side Effects:
+>
+> While LSD is not considered physiologically toxic, there are some=20
+> potential risks associated with its use, including:
+> https://t.me/Mushies_12/product/buy-1p-lsd-online/
+> https://t.me/Mushies_12/product/buy-lsd-gel-tabs/
+> https://t.me/Mushies_12/product/buy-lsd-acid/
+> https://t.me/Mushies_12/product/buy-lsd-liquid/
+> Bad Trips: Negative experiences, known as =E2=80=9Cbad trips,=E2=80=9D ca=
+n occur, leading=20
+> to intense anxiety, paranoia, and confusion. These experiences can be=20
+> distressing and may result in long-lasting
+>
 
-write_msr(MSR_IA32_PAT, PAT_HOST_VALUE);
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/08963b0d-b25b-4bff-91f9-3fd443fa140dn%40googlegroups.com.
 
-the code never returns from this function when initializing the first 
-processor and hangs. What might be the problem? The function is as follows
-
-
-static inline void write_msr(unsigned int msr, unsigned long val)
-{
-asm volatile("wrmsr"
-: /* no output */
-: "c" (msr), "a" (val), "d" (val >> 32)
-: "memory");
-}
-
-The problem seems to be in writing the MSR_IA32_PAT register. I have tried 
-to write the same value I read from the register as well, e.g., 
-
-cpu_data->pat = read_msr(MSR_IA32_PAT);
-write_msr(MSR_IA32_PAT,  cpu_data->pat ); 
-
-but the behavior is the same. Any insights on what can the problem be?
-
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/24e28829-f60b-41b9-9c33-0b23156cc81en%40googlegroups.com.
-
-------=_Part_88994_953586320.1717594780239
+------=_Part_2905_906115468.1717612064788
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,<br /><br /><br />I have managed to successfully install and use Jai=
-lhouse on an old x86 machine. However, I have recently got a relatively new=
- intel Xeon machine that supports CAT etc so I want to test Jailhouse on th=
-at machine. The machine specs are given here <a href=3D"https://www.digitec=
-.ch/en/s1/product/hp-z4-g5-ptc-certified-intel-xeon-w3-2435-ssd-pcie-nvidia=
--rtx-a4000-win10-prowin-xeon-w-64-gb-1000-g-39689571">HP Z4 G5 PTC certifie=
-d, Intel Xeon W3-2435 SSD PCIe , NVIDIA RTX A4000 , Win10 Pro/Win (Xeon W, =
-64 GB, 1000 GB, SSD, GeForce RTX 4000 Ada) - digitec</a><br /><br />I have =
-jailhouse installed on the system, however when I try to enable the root ce=
-ll the system hangs. I have a serial console and the output on the serial c=
-onsole is as follows<br /><br />Initializing Jailhouse hypervisor v0.12 (34=
-2-gd6e64f90) on CPU 5<br />Code location: 0xfffffffff0000050<br />Using x2A=
-PIC<br />Page pool usage after early setup: mem 135/32207, remap 0/131072<b=
-r />Initializing processors:<br /> CPU 5...<br /><br />the system hangs aft=
-erward and there is no more output on the serial port.<br /><br /><br />I h=
-ave traced the problem and it seems to be at this function call in jailhous=
-e/hypervisor/arch/x86/setup.c <br /><br /><br />write_msr(MSR_IA32_PAT, PAT=
-_HOST_VALUE);<br /><br />the code never returns from this function when ini=
-tializing the first processor and hangs. What might be the problem? The fun=
-ction is as follows<br /><br /><br />static inline void write_msr(unsigned =
-int msr, unsigned long val)<br />{<br />asm volatile("wrmsr"<br />: /* no o=
-utput */<br />: "c" (msr), "a" (val), "d" (val &gt;&gt; 32)<br />: "memory"=
-);<br />}<br /><div><br /></div><div>The problem seems to be in writing the=
- MSR_IA32_PAT register. I have tried to write the same value I read from th=
-e register as well, e.g.,=C2=A0</div><div><br /></div>cpu_data-&gt;pat =3D =
-read_msr(MSR_IA32_PAT);<br /><div>write_msr(MSR_IA32_PAT,=C2=A0
-
-cpu_data-&gt;pat=C2=A0);=C2=A0</div><div><br /></div><div>but the behavior =
-is the same. Any insights on what can the problem be?</div><div><br /></div=
->
+Buy Good Trip Mushroom Chocolate Bars Online<br />Have you ever wished mush=
+rooms tasted better? We=E2=80=99re here to grant that wish by bringing you =
+our Good Trip Mushroom Chocolate Bar. This bar is tasty, irresistible also,=
+ contains a total of 3.5g of Magic Mushrooms ( 6 grams per chocolate square=
+). And can be broken off into squares for flexible shroom dosage.<br /><br =
+/>https://t.me/Ricko_swavy8/product/good-trip-milk-chocolate-bars-for-sale/=
+<br /><br />IT has an awesome taste and smells good too chocolate. Good Tri=
+p Mushroom Chocolate Bars makes you trip your face off. So, how could that =
+not be the dream?. =E2=80=A2<br /><br />https://t.me/Ricko_swavy8/product/g=
+ood-trip-milk-chocolate-bars-for-sale/<br /><br />Clean High =E2=80=93 We f=
+ormulated this chocolate bar to produce a clean high that won=E2=80=99t lea=
+ve you crashing after the initial peak.<br /><br />https://t.me/Ricko_swavy=
+8/product/good-trip-milk-chocolate-bars-for-sale/<br /><br />True Psychedel=
+ic Experience Just cause it doesn=E2=80=99t taste like mushrooms doesn=E2=
+=80=99t mean it=E2=80=99s not mushrooms. You won=E2=80=99t find any drop in=
+ the quality of your trip, in fact, you may even decide to switch to edible=
+s!<br />:Sneaky-Sure, Magic Mushrooms are legal in Canada but that doesn=E2=
+=80=99t necessarily mean you want to be seen stuffing your face with them F=
+or those who want to keep it classy and discrete, nibbling on some chocolat=
+e is the way to go. shroom chocolate bar=C2=A0<br /><br /><div class=3D"gma=
+il_quote"><div dir=3D"auto" class=3D"gmail_attr">On Monday, June 3, 2024 at=
+ 5:04:42=E2=80=AFAM UTC-7 Clarksville Pop wrote:<br/></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(=
+204, 204, 204); padding-left: 1ex;">BUY LSD ONLINE<div><br></div><div>BUY 1=
+P-LSD Blotters (100mcg) | Research Chemicals-1P-Lysergic Acid diethylamide<=
+/div><div><br></div><div>BUY LSD ONLINE</div><div>BUY LSD, or lysergic acid=
+ diethylamide, is a potent psychedelic substance that belongs to the halluc=
+inogen class of drugs. It was first synthesized in 1938 by Swiss chemist Al=
+bert Hofmann.1P-LSD is derived from a fungus known as ergot, which commonly=
+ grows on grains like rye.</div><div><a href=3D"https://t.me/Mushies_12/pro=
+duct/buy-1p-lsd-online/" target=3D"_blank" rel=3D"nofollow" data-saferedire=
+cturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12=
+/product/buy-1p-lsd-online/&amp;source=3Dgmail&amp;ust=3D1717698339218000&a=
+mp;usg=3DAOvVaw0j3jodjoROYMtq3CEddI1c">https://t.me/Mushies_12/product/buy-=
+1p-lsd-online/</a></div><div><a href=3D"https://t.me/Mushies_12/product/buy=
+-lsd-gel-tabs/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"=
+https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/=
+buy-lsd-gel-tabs/&amp;source=3Dgmail&amp;ust=3D1717698339218000&amp;usg=3DA=
+OvVaw2V95SU8d-RX2DEEpNHYREG">https://t.me/Mushies_12/product/buy-lsd-gel-ta=
+bs/</a></div><div><a href=3D"https://t.me/Mushies_12/product/buy-lsd-acid/"=
+ target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goo=
+gle.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-acid/&a=
+mp;source=3Dgmail&amp;ust=3D1717698339218000&amp;usg=3DAOvVaw0fyMJhaaicLe7q=
+tgBG0IpK">https://t.me/Mushies_12/product/buy-lsd-acid/</a></div><div><a hr=
+ef=3D"https://t.me/Mushies_12/product/buy-lsd-liquid/" target=3D"_blank" re=
+l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&a=
+mp;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-liquid/&amp;source=3Dgmail&a=
+mp;ust=3D1717698339218000&amp;usg=3DAOvVaw1x1BqhoR3QCIxElQiPyrbp">https://t=
+.me/Mushies_12/product/buy-lsd-liquid/</a></div><div>LSD FOR SALE is chemic=
+ally classified as a semi-synthetic compound, meaning it is derived from na=
+tural substances but requires chemical modification for use. Its chemical s=
+tructure is characterized by a core molecule called lysergic acid, to which=
+ an ethylamine side chain is attached. The chemical formula for LSD is C20H=
+25N3O.</div><div><br></div><div>BUYING LSD</div><div>LSD is a crystalline s=
+olid, typically available in the form of small squares of blotter paper. Th=
+ese squares, known as =E2=80=9Ctabs,=E2=80=9D are often decorated with colo=
+rful designs or images. LSD can also be found in the form of liquid, gelati=
+n squares (windowpane), or even as a powder or crystal.</div><div><a href=
+=3D"https://t.me/Mushies_12/product/buy-1p-lsd-online/" target=3D"_blank" r=
+el=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&=
+amp;q=3Dhttps://t.me/Mushies_12/product/buy-1p-lsd-online/&amp;source=3Dgma=
+il&amp;ust=3D1717698339218000&amp;usg=3DAOvVaw0j3jodjoROYMtq3CEddI1c">https=
+://t.me/Mushies_12/product/buy-1p-lsd-online/</a></div><div><a href=3D"http=
+s://t.me/Mushies_12/product/buy-lsd-gel-tabs/" target=3D"_blank" rel=3D"nof=
+ollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dh=
+ttps://t.me/Mushies_12/product/buy-lsd-gel-tabs/&amp;source=3Dgmail&amp;ust=
+=3D1717698339218000&amp;usg=3DAOvVaw2V95SU8d-RX2DEEpNHYREG">https://t.me/Mu=
+shies_12/product/buy-lsd-gel-tabs/</a></div><div><a href=3D"https://t.me/Mu=
+shies_12/product/buy-lsd-acid/" target=3D"_blank" rel=3D"nofollow" data-saf=
+eredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mus=
+hies_12/product/buy-lsd-acid/&amp;source=3Dgmail&amp;ust=3D1717698339218000=
+&amp;usg=3DAOvVaw0fyMJhaaicLe7qtgBG0IpK">https://t.me/Mushies_12/product/bu=
+y-lsd-acid/</a></div><div><a href=3D"https://t.me/Mushies_12/product/buy-ls=
+d-liquid/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https=
+://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-l=
+sd-liquid/&amp;source=3Dgmail&amp;ust=3D1717698339218000&amp;usg=3DAOvVaw1x=
+1BqhoR3QCIxElQiPyrbp">https://t.me/Mushies_12/product/buy-lsd-liquid/</a></=
+div><div>Pharmacology: LSD is known to primarily interact with serotonin re=
+ceptors in the brain, particularly the 5-HT2A receptor. It alters the norma=
+l functioning of serotonin, a neurotransmitter involved in mood regulation,=
+ sensory perception, and cognition. LSD is a highly potent substance, and e=
+ven very small doses (micrograms) can induce profound psychological effects=
+.</div><div><br></div><div>LSD EFFECTS</div><div>The effects of LSD can var=
+y widely depending on the individual, dosage, environment, and mindset. The=
+ onset of LSD typically occurs within 30 to 90 minutes after ingestion, wit=
+h the effects lasting for 6 to 12 hours or longer. Some common effects incl=
+ude:</div><div><a href=3D"https://t.me/Mushies_12/product/buy-1p-lsd-online=
+/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.g=
+oogle.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-1p-lsd-on=
+line/&amp;source=3Dgmail&amp;ust=3D1717698339219000&amp;usg=3DAOvVaw1FhIPDr=
+PGYR-yS2yYYFhRe">https://t.me/Mushies_12/product/buy-1p-lsd-online/</a></di=
+v><div><a href=3D"https://t.me/Mushies_12/product/buy-lsd-gel-tabs/" target=
+=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
+/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-gel-tabs/&amp;=
+source=3Dgmail&amp;ust=3D1717698339219000&amp;usg=3DAOvVaw2Cp05g1mnZIhbVYLV=
+dYKZi">https://t.me/Mushies_12/product/buy-lsd-gel-tabs/</a></div><div><a h=
+ref=3D"https://t.me/Mushies_12/product/buy-lsd-acid/" target=3D"_blank" rel=
+=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&am=
+p;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-acid/&amp;source=3Dgmail&amp;=
+ust=3D1717698339219000&amp;usg=3DAOvVaw1xohWm_TiUPPuP_75iJszM">https://t.me=
+/Mushies_12/product/buy-lsd-acid/</a></div><div><a href=3D"https://t.me/Mus=
+hies_12/product/buy-lsd-liquid/" target=3D"_blank" rel=3D"nofollow" data-sa=
+feredirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mu=
+shies_12/product/buy-lsd-liquid/&amp;source=3Dgmail&amp;ust=3D1717698339219=
+000&amp;usg=3DAOvVaw3LeM6sSbchE6VqZ1l-_KDX">https://t.me/Mushies_12/product=
+/buy-lsd-liquid/</a></div><div>Altered Perception: LSD significantly alters=
+ perception, leading to visual, auditory, and sensory distortions. Users ma=
+y experience vivid and intensified colors, geometric patterns, trails, and =
+enhanced or distorted sounds.</div><div>Intense Emotional States: LSD can i=
+nduce a wide range of emotions, from euphoria and bliss to anxiety and conf=
+usion. Emotions may fluctuate rapidly, and the intensity of emotions can be=
+ heightened.</div><div>Expanded Consciousness: Users often report a sense o=
+f interconnectedness and unity with the universe. They may experience a hei=
+ghtened awareness of their thoughts, emotions, and surroundings, along with=
+ a deepened sense of meaning and spirituality.</div><div>Hallucinations: LS=
+D can produce hallucinations, which are perceptual experiences of objects o=
+r events that are not actually present. These hallucinations can be both vi=
+sual and auditory.</div><div>Altered Time and Space Perception: Users may p=
+erceive time as distorted, with minutes feeling like hours or hours passing=
+ by quickly. The sense of space can also be altered, with a distorted perce=
+ption of distance and size.</div><div>Mindset and Set: LSD experiences are =
+highly influenced by the user=E2=80=99s mindset and the setting in which it=
+ is taken. A positive mindset and a comfortable, safe environment are gener=
+ally recommended to reduce the risk of a negative experience.</div><div>Ris=
+ks and Side Effects:</div><div><br></div><div>While LSD is not considered p=
+hysiologically toxic, there are some potential risks associated with its us=
+e, including:</div><div><a href=3D"https://t.me/Mushies_12/product/buy-1p-l=
+sd-online/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"http=
+s://www.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-=
+1p-lsd-online/&amp;source=3Dgmail&amp;ust=3D1717698339219000&amp;usg=3DAOvV=
+aw1FhIPDrPGYR-yS2yYYFhRe">https://t.me/Mushies_12/product/buy-1p-lsd-online=
+/</a></div><div><a href=3D"https://t.me/Mushies_12/product/buy-lsd-gel-tabs=
+/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.g=
+oogle.com/url?hl=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-gel-t=
+abs/&amp;source=3Dgmail&amp;ust=3D1717698339219000&amp;usg=3DAOvVaw2Cp05g1m=
+nZIhbVYLVdYKZi">https://t.me/Mushies_12/product/buy-lsd-gel-tabs/</a></div>=
+<div><a href=3D"https://t.me/Mushies_12/product/buy-lsd-acid/" target=3D"_b=
+lank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?h=
+l=3Den&amp;q=3Dhttps://t.me/Mushies_12/product/buy-lsd-acid/&amp;source=3Dg=
+mail&amp;ust=3D1717698339219000&amp;usg=3DAOvVaw1xohWm_TiUPPuP_75iJszM">htt=
+ps://t.me/Mushies_12/product/buy-lsd-acid/</a></div><div><a href=3D"https:/=
+/t.me/Mushies_12/product/buy-lsd-liquid/" target=3D"_blank" rel=3D"nofollow=
+" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps:=
+//t.me/Mushies_12/product/buy-lsd-liquid/&amp;source=3Dgmail&amp;ust=3D1717=
+698339219000&amp;usg=3DAOvVaw3LeM6sSbchE6VqZ1l-_KDX">https://t.me/Mushies_1=
+2/product/buy-lsd-liquid/</a></div><div>Bad Trips: Negative experiences, kn=
+own as =E2=80=9Cbad trips,=E2=80=9D can occur, leading to intense anxiety, =
+paranoia, and confusion. These experiences can be distressing and may resul=
+t in long-lasting</div></blockquote></div>
 
 <p></p>
 
@@ -186,11 +403,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/24e28829-f60b-41b9-9c33-0b23156cc81en%40googlegrou=
+om/d/msgid/jailhouse-dev/08963b0d-b25b-4bff-91f9-3fd443fa140dn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/24e28829-f60b-41b9-9c33-0b23156cc81en%40googlegroups.co=
+msgid/jailhouse-dev/08963b0d-b25b-4bff-91f9-3fd443fa140dn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_88994_953586320.1717594780239--
+------=_Part_2905_906115468.1717612064788--
 
-------=_Part_88993_2113463324.1717594780239--
+------=_Part_2904_1373556150.1717612064788--
