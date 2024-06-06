@@ -1,74 +1,77 @@
-Return-Path: <jailhouse-dev+bncBCVZDQ5D3IBBBZ7OQWZQMGQECEZGYEA@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCVZDQ5D3IBBBWP3QWZQMGQE5TQCIKY@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3b.google.com (mail-yb1-xb3b.google.com [IPv6:2607:f8b0:4864:20::b3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8984A8FE160
-	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Jun 2024 10:46:33 +0200 (CEST)
-Received: by mail-yb1-xb3b.google.com with SMTP id 3f1490d57ef6-df79945652esf1271927276.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2024 01:46:33 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8E1F8FE23B
+	for <lists+jailhouse-dev@lfdr.de>; Thu,  6 Jun 2024 11:14:03 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-dfa73db88dcsf1239899276.0
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 06 Jun 2024 02:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717663592; x=1718268392; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717665243; x=1718270043; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gCV/gi15YRQyN+UZeYqWFjWcEbwyb7bajcMYGBAaIFs=;
-        b=fxYt+NFqA5r4hUMroyivojRZRJrb1ok8agXWf+P50+Tk6GmoVbF8D/+cAlBqGbt3n3
-         3fAUu2eTlQZ8nXdG8GXu/7dv6qY/ubSc0ujRt14+cZx9uLuJ3qCn4jHu7Ebl/S1QkL/y
-         W3E0O3mePlG3WwbSCTIvQGxqIAIqDTtqfpfiL6wjZMtSbJV/KM8jChOIV9e3/+EY23+b
-         UJm08U3SbBNiKm3Ih5nLulho6Ecxz3sBymmMYwPe/3DRKX1JHdnbe/hBa9LOB+dfr4pe
-         bel/3mOIMhf3cGJ22anFo0cl2nC2OBdqBGrvc68+xNNb3DxMedFCJiOzV2XiqewPYqIP
-         aSoQ==
+        bh=89eQb7T/ZtIMFiRWZb1LoZk6QpoqbgvVfGf/pkIItkA=;
+        b=bstSt5Fqcd5fSLYCvICHkosLcxE48aqvOA1AvPDowSuYb0Gf/+n33b24QlV0yZPV9e
+         l56BGHnBpBerFdxb3lvMwwKImtS2ru3oqs+gGJ8QC5UA7uL00rm6RSNwhrPmkrj9JzcW
+         SWWDXAz+Z75/ZzPkXVqr4orpdwnUDdfBDH6F2MYmcVb2VxRYFy4RMqvP6oU2/v0e9Krp
+         OtMhyVuWFjuyxQnoxr14XOu3y/AbJhNYTjNp7GNSGMtZEW4YDHYeEob+OkGnUha9XsoR
+         VxwmLzMpeCI+YiiV9KJ387IaCcs0qQpqR62jctbapTDrtRAbzGHX9awtmD+TGjzkekqX
+         /O+A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717663592; x=1718268392; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717665243; x=1718270043; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=gCV/gi15YRQyN+UZeYqWFjWcEbwyb7bajcMYGBAaIFs=;
-        b=NNq8JwIZdk49MKjtXuDjxNmfUMZEm04UsxhQsKdtKRdTG9hUII1fwx7CQ+vqk297y+
-         OEK+xAQDLdaz6ca6mbNcTFUQGkmnuNma8DxBzWRgf2wMGhduUuIlxd42Q5u69UbToaFf
-         z7DMxu/GRqTOlN0+kZtwraMR5fBTshWC35UpZ/l2SJbmNtnGculoVzfSd5pYQlzTryO3
-         tEqnLZjdP/dmlw8hqNBL/UPgGA36lQPsx30AdP+LrETkJvsKaPWXZJsuEKuA0Ume424v
-         C3UedwCCcyU9XRDxKgjNlI7tDX7ii6gZk/l0m/M5AQ/Lf39IvC+83mGjt6lT8GShaBjn
-         8oqw==
+        bh=89eQb7T/ZtIMFiRWZb1LoZk6QpoqbgvVfGf/pkIItkA=;
+        b=H7Ze0zL4ycL34IuyL0uTbnsxZUJy8dAMTuFc+/ylvhfc98hGmaTajgG4TsrWLvgxiu
+         MMPio3yFmyZhvq4oJuwCA7txVNuH9/QbkJSxKffZbsrlXF6Jq+bynRkULUjMboBZrlkQ
+         YZFZPaSTi8XqP+5imJ16Lczixepevt4IqxKNtqBOm9o8FAPqzU+paCaAaCMT+NAG04Jw
+         VnEcK9yc/Ro7CsY/koGA3vIVSiU0ltr8i+dyoOe2lWBacX8WstSPDac6zsQF70/Yz4Gh
+         gt4Uxz/2cJQT7e+AqStfCSSo/nze682zRyt9gMbJkB8jo8W1PVWYC9L0oWF18CJ9V75+
+         5CRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717663592; x=1718268392;
+        d=1e100.net; s=20230601; t=1717665243; x=1718270043;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gCV/gi15YRQyN+UZeYqWFjWcEbwyb7bajcMYGBAaIFs=;
-        b=dqmb4478AvFeYy+6zR493bP6CGYiHAfhE3YNvuFj8oFhFVXpHuOS7BSd1XmEyZ1oa0
-         yAEsXKBZKldfMgKDa6mav7so3lsZW1FE+WhgQrlhTy1GGkcrFrSyKGnqjxuHenTZdoB/
-         VY0VQAIFLuHiN7mvMNKqmBJARah+mbWZALd2Zn/9lzKO29Amm3dx1UrTca+PpQdVGEWK
-         yBg5PaTj9qsoeYwFG6zKhTAodLe4gB3I8ETC+yZAh7u/F/92voUDxTDtoDPj4p3924zG
-         rcwxtDCq4NR9zcuz/bFua2Dk2kN2TP1+ego8MjNKdjRH82hMiud5KYVvRSw5QGlIetgN
-         qp1Q==
+        bh=89eQb7T/ZtIMFiRWZb1LoZk6QpoqbgvVfGf/pkIItkA=;
+        b=TtTeA6xRDvVItfR8uvu+xDWBR1/VGEEsq+AWpztNY7aO+zj7wlkPj0Jm8uPBrSJsiJ
+         emXS9kPVzjshXeS1slPCQfcP2wAusMPyZK2NsTdsHFsyWzK2hHSnoBoduuTS0dN7KO0k
+         /wsF4zqDG6lqmzFeNloJuaCXdndUXQZA2Dcgy5YTTJpYOmKoLDXaeYU0m6XCDeeM+0qv
+         XBSDoQTBndy0t/MrWaK5xjUAkv1JPEfOGSrQM6k68KFz0CzH6Luy/58dFcm8/E9m5bq3
+         XgU9FJEMQhviy6RZcjUzE8STo9KhHinGnQi2ZhOrEfh/GNfRLGoI3OjArnqQGaoSkaIw
+         Jk0A==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWZwkBwBGwXOos5kmyETOuiYBOv1ZJVczvlkX7fpXHTN8fBJ0xtCtrE6PiZPpaVnjNGYdsrSTgnSsUCsbU20R0OUVG8Mkpf1ygjON4=
-X-Gm-Message-State: AOJu0YxGeR4upxVOV2rmnzENiOKsvfoV97PF/f4gc9lhXjqN88O37GyJ
-	SEIN+OQI/0I539DrRUHWP1lByzaxfJWIjyD7sCCyeyMBWH28c+49
-X-Google-Smtp-Source: AGHT+IH+4pa0Co8X9YfJ3/kUNAH7hfyR5HRdlGDEGxjlxemnAgkEFCOMudfvi3Lmz4lyfjQ3ivq1rw==
-X-Received: by 2002:a25:d0d1:0:b0:df1:d115:5e72 with SMTP id 3f1490d57ef6-dfacac7586fmr5244103276.30.1717663591926;
-        Thu, 06 Jun 2024 01:46:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXzgq/deUUJg84H1vI62EcP/XlW2WoURjWwAxuomUudaX3ZfO45fiPbdZyYGKcPzO1i6zEETg5A5lwqpRKDjDN3sYZMDPcxpYwDx/s=
+X-Gm-Message-State: AOJu0YyrN371WXnbWfAtAqwwPiDZcVSC7wucW9hJtdTm8q+hNeXy/0W3
+	VQ564g9rAD8xFJI4KSbFU+mRbXX02mCoiAaKpSQHd5TK5D1uwWE3
+X-Google-Smtp-Source: AGHT+IE7cs+smnuUvdYsYQVZhkC/s/mqPFnJTnweQEND3yqKspgxzGsrOmdPi7SwraXTkSamKMo8/Q==
+X-Received: by 2002:a25:9348:0:b0:dfa:5a37:41d0 with SMTP id 3f1490d57ef6-dfacab2914fmr5004451276.7.1717665242684;
+        Thu, 06 Jun 2024 02:14:02 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:550b:0:b0:dfa:7b7c:c81 with SMTP id 3f1490d57ef6-dfa7b7c0ffcls919637276.2.-pod-prod-07-us;
- Thu, 06 Jun 2024 01:46:30 -0700 (PDT)
-X-Received: by 2002:a05:690c:4a12:b0:627:a962:4252 with SMTP id 00721157ae682-62cbb5c24acmr8574237b3.7.1717663590191;
-        Thu, 06 Jun 2024 01:46:30 -0700 (PDT)
-Date: Thu, 6 Jun 2024 01:46:29 -0700 (PDT)
+Received: by 2002:a05:6902:68e:b0:dfa:77ba:dc1f with SMTP id
+ 3f1490d57ef6-dfae02c576bls947166276.2.-pod-prod-06-us; Thu, 06 Jun 2024
+ 02:14:01 -0700 (PDT)
+X-Received: by 2002:a05:6902:2b8f:b0:df7:6584:5d6f with SMTP id 3f1490d57ef6-dfacad1c386mr1205450276.13.1717665241028;
+        Thu, 06 Jun 2024 02:14:01 -0700 (PDT)
+Date: Thu, 6 Jun 2024 02:14:00 -0700 (PDT)
 From: Harry Conor <harryconor237@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c7951ae6-63ae-4039-bded-de14a8e33d7bn@googlegroups.com>
-In-Reply-To: <73461ad5-1f07-47e3-976b-72a1e7780017n@googlegroups.com>
-References: <842603fc-b313-4fc4-93cc-09484d5e62bcn@googlegroups.com>
- <73461ad5-1f07-47e3-976b-72a1e7780017n@googlegroups.com>
-Subject: Re: Buy top priority polkadot Whoppers mushroom Belgian ...
+Message-Id: <664395be-cbb3-409b-9168-c126f275f76bn@googlegroups.com>
+In-Reply-To: <3cfbeaa7-2125-4a25-af33-d8ce5b7522e3n@googlegroups.com>
+References: <3cfbeaa7-2125-4a25-af33-d8ce5b7522e3n@googlegroups.com>
+Subject: Re: WHERE CAN I BUY LSD-CAN YOU BUY LSD ONLINE-WHERE TO BUY LSD
+ ONLINE-1P LSD WHERE TO BUY-1P LSD BUY ONLINE-BUY 1P LSD ONLINE-BUY
+ 1P-LSD-BUY 1P LSD USA-LSD FOR SALE-1P LSD FOR SALE-1P-LSD FOR SALE-1P LSD
+ FOR SALE USA-LSD FOR SALE ONLINE-LSD TABS FOR
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_59731_377227399.1717663589596"
+	boundary="----=_Part_62070_1108941861.1717665240497"
 X-Original-Sender: harryconor237@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -82,14 +85,13 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_59731_377227399.1717663589596
+------=_Part_62070_1108941861.1717665240497
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_59732_698720685.1717663589596"
+	boundary="----=_Part_62071_400670642.1717665240497"
 
-------=_Part_59732_698720685.1717663589596
+------=_Part_62071_400670642.1717665240497
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-
 
 Buy your psychedelic products fast and safe delivery=20
 
@@ -118,22 +120,22 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/c7951ae6-63ae-4039-bded-de14a8e33d7bn%40googlegroups.com.
+jailhouse-dev/664395be-cbb3-409b-9168-c126f275f76bn%40googlegroups.com.
 
-------=_Part_59732_698720685.1717663589596
+------=_Part_62071_400670642.1717665240497
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Buy your psychedelic products fast and safe delivery <br /><br />http=
-s://t.me/calif6<br />https://t.me/calif6<br />https://t.me/calif6<br /><br =
-/>&gt; =E2=9C=94US-US Delivery <br />&gt; =E2=9C=94Fast Shipping <br />&gt;=
- =E2=9C=94Secure Payment Options <br />&gt; =E2=9C=94100% Satisfaction Guar=
-anteed <br />&gt; =E2=9C=943 Days Refund Policy <br />&gt; =E2=9C=94100% Mo=
-ney-Back if any issue with the product <br />&gt; =E2=9C=94Shipping Service=
-: Express/Standard/Economy <br />&gt; =E2=9C=94Estimated Delivery Time: Exp=
-ress &amp; 3-5 Days <br />&gt; =E2=9C=94Discounts: Get up to 20% off <br />=
-<br />https://t.me/calif6<br />https://t.me/calif6<br />https://t.me/calif6=
-<br />https://t.me/calif6<br />
+Buy your psychedelic products fast and safe delivery <br /><br />https://t.=
+me/calif6<br />https://t.me/calif6<br />https://t.me/calif6<br /><br />&gt;=
+ =E2=9C=94US-US Delivery <br />&gt; =E2=9C=94Fast Shipping <br />&gt; =E2=
+=9C=94Secure Payment Options <br />&gt; =E2=9C=94100% Satisfaction Guarante=
+ed <br />&gt; =E2=9C=943 Days Refund Policy <br />&gt; =E2=9C=94100% Money-=
+Back if any issue with the product <br />&gt; =E2=9C=94Shipping Service: Ex=
+press/Standard/Economy <br />&gt; =E2=9C=94Estimated Delivery Time: Express=
+ &amp; 3-5 Days <br />&gt; =E2=9C=94Discounts: Get up to 20% off <br /><br =
+/>https://t.me/calif6<br />https://t.me/calif6<br />https://t.me/calif6<br =
+/>https://t.me/calif6<br /><br />
 
 <p></p>
 
@@ -144,11 +146,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/c7951ae6-63ae-4039-bded-de14a8e33d7bn%40googlegrou=
+om/d/msgid/jailhouse-dev/664395be-cbb3-409b-9168-c126f275f76bn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/c7951ae6-63ae-4039-bded-de14a8e33d7bn%40googlegroups.co=
+msgid/jailhouse-dev/664395be-cbb3-409b-9168-c126f275f76bn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_59732_698720685.1717663589596--
+------=_Part_62071_400670642.1717665240497--
 
-------=_Part_59731_377227399.1717663589596--
+------=_Part_62070_1108941861.1717665240497--
