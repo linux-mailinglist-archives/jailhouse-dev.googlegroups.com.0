@@ -1,80 +1,87 @@
-Return-Path: <jailhouse-dev+bncBCVZJANLUQORB4E6R6ZQMGQE4RH5DCQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCVZJANLUQORB7VFR6ZQMGQE4ZXICHI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3b.google.com (mail-yb1-xb3b.google.com [IPv6:2607:f8b0:4864:20::b3b])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286DD900F52
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  8 Jun 2024 05:26:42 +0200 (CEST)
-Received: by mail-yb1-xb3b.google.com with SMTP id 3f1490d57ef6-df771b5e942sf4549602276.2
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2024 20:26:42 -0700 (PDT)
+Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
+	by mail.lfdr.de (Postfix) with ESMTPS id 21DB0900F5A
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  8 Jun 2024 05:41:52 +0200 (CEST)
+Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-df7a6530373sf5067353276.0
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2024 20:41:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717817201; x=1718422001; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717818111; x=1718422911; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=qZxfnmm4JGxLyWF2d0U+4hFCLdy0fvhL5xOlWCp4pAI=;
-        b=vT9opAAei9dah0iP33Gc62KTpLge9eCCO1tXU69LIhR9J9OsooYktNp/OA1ihGt7tK
-         hjw9V2oSJpFK5oQK6IHgUCMGuDVegt0jOYbOraF+YUCeZCcNetcTg5V/jD/MclDL4K+k
-         wcpBlqCNgSXU+jVgEpuq1svafT/4FEzDnHTPrK/4TujIw05AZLbdM52fpjWiYN5hMGQG
-         VEl5o4laGkiIo7eZAaMf55zNFS5QUVjV4DVD0z682Ldvgei93ADUlw9x/7xTikEC5zBd
-         wqSUKPVtzADuuv5Z86mAlGDt6Hw9J1Oof1oCYfRW9ahdHfJfOLeHVDx0nRLRUvDdHGM8
-         iX9A==
+        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
+        b=LxpJIotRQzkOewqx62/Q6IRUU3QgDVbl3vTxlgk9IlgynqdAkpsAZ3ELo8QjQpT3D7
+         0oxbq1I5wweHNJXrU+BbPsUwvATRPweiZMUM3kRsAPMX6ZjbD97D3f0PR+8wcX6dHjaA
+         P2TBh444V1miEytlJ8hMeITnYpzq/yV1FysEz1vmECN3V05PF6NMLM7g1f5Gx3MhY8Gl
+         U9xI4cPWhh+JDUgLpgfs/4UD5am069sSoy4Srz3UuP63PfqVGtE3PbZYPA2Bp/uf8eDU
+         Ye0kkLTn4nLLJGoIUn8UiOFhU1rnTMxkoeQ1BgBhQ/5YH7EaTO1QKOx3wMkn/0gWT6Uc
+         kEyA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717817201; x=1718422001; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717818111; x=1718422911; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
          :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qZxfnmm4JGxLyWF2d0U+4hFCLdy0fvhL5xOlWCp4pAI=;
-        b=E/MBMdgB5WGP9Fk/Yf63JYp0Hq7sZgBrelu7Khx8fo1ItA3Ov+9Hv8NdQM1a+VLgnI
-         FJ3b9WVy3yzE/4MOe2hTvCbF9YmxWyRgSawUqHyg9ZSNCd8zS+OsUcN820KaRCvRf8Lq
-         HqEat1BFGbdip24o55pv1wvaX10dHPfVZQAk7L9AskseewcOxbne2o6OJG9Yv+f0CHAG
-         +301qhNdC+ciwCkXLrnVaPFg9onc0haikJKhB43o7bwCqUDV0rCLw/5/2qKtaXgyHX6Y
-         s6ZcJlUkYOC86KC/A/rNM5ZY4gCR6+oowl6vUKiAbmVYv6d8VfAta5zt1SLKQG4xbEqH
-         82OQ==
+        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
+        b=HsdH60FsuMIIzsQptXnBeCCz1o1QUmk/dYVuTexgMZQlPrwg89G1MBt4vPzIdouRZj
+         51LG/R+fUzUKfC/GdJmJzmAusdOXklAvZVNKhMaaRS6BsRTRbElf9FFuUM/tCacU9okQ
+         QCAZSQlLkcGHCyEphXwxErBWJ6twesfK8+IIu7Dxn7lZffBQiKSZX50Rq6jIZ4REhLoG
+         vEqbN8lTIMT6oWY3d/HMcGB50p5WEwo+5Pxuak+EZbsjvMuI48p7XtMsT05a78nFcpiy
+         Bum1YR7dmR7qXwADPr3d9/qdWXqAvQH+Zdat5wOBZXbrjFV4MoLpYfqJNSn5yipMT+Q+
+         3UXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717817201; x=1718422001;
+        d=1e100.net; s=20230601; t=1717818111; x=1718422911;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
          :x-original-sender:mime-version:subject:references:in-reply-to
          :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=qZxfnmm4JGxLyWF2d0U+4hFCLdy0fvhL5xOlWCp4pAI=;
-        b=Fv8sVj2UyzaPpWf/+kPnM0Lx727xbVNmVfrFHYKQA6yv4ze/hRu9ohJbdz3fU6x8zK
-         DvFFmaqnskNJQ+CQkDIvb2cGV7cGCgDrzhI8kODBFrw8ZIyryfPcLS0YLoOuh+ruzILR
-         VRGYIvvBYtSKQHKx6b/h1ei/AJEN7rnPPmeYr6sIWiHTlAu08OQuKDhLoDuRBX+u/K0t
-         yyHjr0tMhOr6f+PVOHisTvEMhMMHJqhHPGNpLlT140ANysplJ42dmnFnkvcAMiKu8BAh
-         4iVPm+pAdeFGgc4GRvt3OG96x3QxwmkhoqElKYwM1jIoFtao+IzKx7v+llpD/gMLtEd7
-         8vWA==
+        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
+        b=cPnfIx9RGBLF5ORB8oWcM5LXl9WJBu6W1MT5biEawcNwTD+zcM3tVOqgq+dWVVqtQx
+         11TxUBE3g4bK3nIC3hK02IL3bVwqAtn6VLJyuIqmI1KdazFM9e8NkYps5b2147IK8NOU
+         qfs3WsLQS6GR03BbU7R89AOkEi8qCB4FlBacJ/TcseQoo8BoQ0ZL9bLivmeiDk6M23JE
+         CUKXXgZ1pD5EKrGBYmbs/7ztVJpdQ+VCsj9wxFIFquQ8GsFamGCPcHUMQKFKukweFR7I
+         /B4Mq16sD1JwNNZxMmj8YKgCWdXjALwM1U2ZQhLVmtLLaHnFwkSpN8J+bk3DXD/9jZiq
+         b6og==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCX4wuUbSab5pz5AktLVWrR8tIT5QcK2ZcBvfZefh/br0FnY1SJo9ZGvu21oZ36Xi4PYSOiTd5USHHIEYP8HWKdAdxmJp0OCtMjzR2E=
-X-Gm-Message-State: AOJu0YwsIPF9wHlDWpQfDOpZzdaewTaK+2wX9xruQ2clBUjh16LDc8jL
-	bGh0SnUaCTys5+PrOAFHZI4Z9vTFEROvELlHKiebmdX/sPVSEXSn
-X-Google-Smtp-Source: AGHT+IElvF1aCEHNDWnqyitRF15pV3WRS4emZ+O36aIC54tuFcZkFK2fAqlmWw9tCVnit4K84vBj6w==
-X-Received: by 2002:a25:ade6:0:b0:dfb:44b:d5b with SMTP id 3f1490d57ef6-dfb044b1077mr2748729276.57.1717817200942;
-        Fri, 07 Jun 2024 20:26:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXrP4kunZtlIJEjWI8Gih/+D+CcE2HDkabx3lBwDLYJthvCtavZgTleUA3DACwJlOjyNQhJXMik6fXPjXswwGVxJPwGMqDyNZbVoIg=
+X-Gm-Message-State: AOJu0Ywii/SOT7VJyz2dlfkFsGgWs1jLNZ0sbnjSL62qZ+IIxKOdeNgA
+	Vst1y/SagYtX06eMI/BhJkq/9s5QF5ZPZJ5aCso+hyhH0OU7HV8x
+X-Google-Smtp-Source: AGHT+IH9Ld1uPWI7GHS3w9a40SoUFvpeBesqsAI8hUY1qaXrEn6NmgDV01j6COEFJBPDO53noIn4Yw==
+X-Received: by 2002:a25:ae4f:0:b0:dfb:912:9713 with SMTP id 3f1490d57ef6-dfb0912983emr1884772276.11.1717818110754;
+        Fri, 07 Jun 2024 20:41:50 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:9745:0:b0:dfa:8028:8bc9 with SMTP id 3f1490d57ef6-dfaf15f6c00ls2497703276.1.-pod-prod-06-us;
- Fri, 07 Jun 2024 20:26:39 -0700 (PDT)
-X-Received: by 2002:a05:6902:188f:b0:df7:8c1b:430a with SMTP id 3f1490d57ef6-dfaf64ea35emr1288150276.3.1717817199175;
-        Fri, 07 Jun 2024 20:26:39 -0700 (PDT)
-Date: Fri, 7 Jun 2024 20:26:38 -0700 (PDT)
+Received: by 2002:a25:fc09:0:b0:dfa:77ba:dc1f with SMTP id 3f1490d57ef6-dfaf162a805ls2123910276.2.-pod-prod-06-us;
+ Fri, 07 Jun 2024 20:41:49 -0700 (PDT)
+X-Received: by 2002:a05:690c:6d0d:b0:61b:e6d8:1c01 with SMTP id 00721157ae682-62cd568ca3dmr9545177b3.10.1717818108514;
+        Fri, 07 Jun 2024 20:41:48 -0700 (PDT)
+Date: Fri, 7 Jun 2024 20:41:47 -0700 (PDT)
 From: Smith Crower <crowersmith440@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <4cfd8828-73c6-4873-84d4-01eeddebac45n@googlegroups.com>
-In-Reply-To: <a2f1ef7f-5a4d-40e5-a34d-65f040bf10e8n@googlegroups.com>
-References: <20386664-e1de-4554-a68e-cb40ec82036cn@googlegroups.com>
- <60398463-b922-46d6-8472-3259aa26b5d6n@googlegroups.com>
- <d5a1a6f4-91a8-462e-9750-3a0268433255n@googlegroups.com>
- <88b31542-2fed-47c2-94eb-c4d585904cc6n@googlegroups.com>
- <a40a6d9a-30b7-4bde-a22e-317a8b959309n@googlegroups.com>
- <c09dcde8-54ee-4034-84ae-8882957215c1n@googlegroups.com>
- <0cbdc9c2-c312-4ecc-a78a-2715367eaa8bn@googlegroups.com>
- <a2f1ef7f-5a4d-40e5-a34d-65f040bf10e8n@googlegroups.com>
-Subject: Re: BUY ONE UP MUSHROOM CHOCOLATE BARS ONLINE IN USA
+Message-Id: <d83ab8a9-1856-4d2b-9367-3de6f931feddn@googlegroups.com>
+In-Reply-To: <2fa40b8d-4aac-4759-9f10-11d5347ff6bdn@googlegroups.com>
+References: <795dc3b1-be89-41c7-9671-d30f85711eaan@googlegroups.com>
+ <0f3f8043-7aa0-4029-a9cc-8bf645291972n@googlegroups.com>
+ <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
+ <3d207a08-0b5e-445a-bb57-56e4822bc388n@googlegroups.com>
+ <e8805f00-c8bb-4331-97d4-8aaa48820bf6n@googlegroups.com>
+ <ef543eaf-4f84-4854-b391-4c3a04a27c3an@googlegroups.com>
+ <d92306e5-4a6d-4b20-891e-ec35109c98ecn@googlegroups.com>
+ <50eb5272-0367-4db0-9bf0-37d99524b72fn@googlegroups.com>
+ <0378a22b-af83-460d-8ef9-db8cf0101f79n@googlegroups.com>
+ <12017ac0-3bfd-48aa-901f-8955cfc43b6cn@googlegroups.com>
+ <262bafc5-d42f-4e09-9f1a-887c4e3bcf35n@googlegroups.com>
+ <da1f9334-ae6d-4cef-8b08-347a8ac13f2bn@googlegroups.com>
+ <19f5f391-6330-4cc1-837e-6c1e6afb456bn@googlegroups.com>
+ <d080ec3f-e2fd-4272-b9b6-996567bcac09n@googlegroups.com>
+ <2fa40b8d-4aac-4759-9f10-11d5347ff6bdn@googlegroups.com>
+Subject: Re: Buy DMT VAPE PEN, ECSTACY MOLLY ONLINE
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_280917_1595460867.1717817198378"
+	boundary="----=_Part_87023_724601698.1717818107639"
 X-Original-Sender: crowersmith440@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -88,13 +95,14 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_280917_1595460867.1717817198378
+------=_Part_87023_724601698.1717818107639
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_280918_717951261.1717817198378"
+	boundary="----=_Part_87024_1373167081.1717818107639"
 
-------=_Part_280918_717951261.1717817198378
+------=_Part_87024_1373167081.1717818107639
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+
 
 Buy all your psychedelic products with me including clone cards
 All products are available for deliveries and drop offs
@@ -118,79 +126,29 @@ https://t.me/trippycross1
 You can let me know anytime with your orders
 Prices are also slightly negotiable depending on the quantity needed
 
-On Friday 7 June 2024 at 21:34:50 UTC+1 Macurley denzy wrote:
-
-> Buy all your psychedelic products with me including clone cards
-> All products are available for deliveries and drop offs
-> Fast shipping and delivery of packages to all locations worldwide
-> Let me know with your orders
-> Text me on telegram @michaelhardy33
-> You can also join my channel for more products and reviews,link below
->
-> https://t.me/psychedelicfakenotes
-> https://t.me/psychedelicfakenotes
-> https://t.me/psychedelicfakenotes
-> https://t.me/psychedelicfakenotes
->
-> You can let me know anytime with your orders
-> Prices are also slightly negotiable depending on the quantity needed
->
-> Call or text +12099894742 <(209)%20989-4742>
->
->
-
 --=20
 You received this message because you are subscribed to the Google Groups "=
 Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/4cfd8828-73c6-4873-84d4-01eeddebac45n%40googlegroups.com.
+jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegroups.com.
 
-------=_Part_280918_717951261.1717817198378
+------=_Part_87024_1373167081.1717818107639
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Buy all your psychedelic products with me including clone cards<br />All pr=
-oducts are available for deliveries and drop offs<br />Fast shipping and de=
-livery of packages to all locations worldwide <br />Let me know with your o=
-rders<br />Text me on telegram @Carlantonn01<br />You can also join my chan=
-nel for more products and reviews,link below<br /><br />https://t.me/psycho=
-worldwide01<br />https://t.me/psychoworldwide01<br />https://t.me/psychowor=
-ldwide01<br />https://t.me/psychoworldwide01<br /><br />Backup channel belo=
-w=F0=9F=91=87=F0=9F=91=87=F0=9F=91=87<br /><br />https://t.me/trippycross1<=
-br />https://t.me/trippycross1<br />https://t.me/trippycross1<br /><br /><b=
-r />You can let me know anytime with your orders<br />Prices are also sligh=
-tly negotiable depending on the quantity needed<br /><br /><div class=3D"gm=
-ail_quote"><div dir=3D"auto" class=3D"gmail_attr">On Friday 7 June 2024 at =
-21:34:50 UTC+1 Macurley denzy wrote:<br/></div><blockquote class=3D"gmail_q=
-uote" style=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 20=
-4); padding-left: 1ex;">Buy all your psychedelic products with me including=
- clone cards<br>All products are available for deliveries and drop offs<br>=
-Fast shipping and delivery of packages to all locations worldwide<br>Let me=
- know with your orders<br>Text me on telegram @michaelhardy33<br>You can al=
-so join my channel for more products and reviews,link below<br><br><a href=
-=3D"https://t.me/psychedelicfakenotes" target=3D"_blank" rel=3D"nofollow" d=
-ata-saferedirecturl=3D"https://www.google.com/url?hl=3Den-GB&amp;q=3Dhttps:=
-//t.me/psychedelicfakenotes&amp;source=3Dgmail&amp;ust=3D1717903581631000&a=
-mp;usg=3DAOvVaw3CtFE0_brhABFg77xKO7uk">https://t.me/psychedelicfakenotes</a=
-><br><a href=3D"https://t.me/psychedelicfakenotes" target=3D"_blank" rel=3D=
-"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den-GB&am=
-p;q=3Dhttps://t.me/psychedelicfakenotes&amp;source=3Dgmail&amp;ust=3D171790=
-3581631000&amp;usg=3DAOvVaw3CtFE0_brhABFg77xKO7uk">https://t.me/psychedelic=
-fakenotes</a><br><a href=3D"https://t.me/psychedelicfakenotes" target=3D"_b=
-lank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?h=
-l=3Den-GB&amp;q=3Dhttps://t.me/psychedelicfakenotes&amp;source=3Dgmail&amp;=
-ust=3D1717903581631000&amp;usg=3DAOvVaw3CtFE0_brhABFg77xKO7uk">https://t.me=
-/psychedelicfakenotes</a><br><a href=3D"https://t.me/psychedelicfakenotes" =
-target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goog=
-le.com/url?hl=3Den-GB&amp;q=3Dhttps://t.me/psychedelicfakenotes&amp;source=
-=3Dgmail&amp;ust=3D1717903581631000&amp;usg=3DAOvVaw3CtFE0_brhABFg77xKO7uk"=
->https://t.me/psychedelicfakenotes</a><br><br>You can let me know anytime w=
-ith your orders<br>Prices are also slightly negotiable depending on the qua=
-ntity needed<br><br>Call or text <a href=3D"tel:(209)%20989-4742" value=3D"=
-+12099894742" target=3D"_blank" rel=3D"nofollow">+12099894742</a><br><br></=
-blockquote></div>
+<br />Buy all your psychedelic products with me including clone cards<br />=
+All products are available for deliveries and drop offs<br />Fast shipping =
+and delivery of packages to all locations worldwide <br />Let me know with =
+your orders<br />Text me on telegram @Carlantonn01<br />You can also join m=
+y channel for more products and reviews,link below<br /><br />https://t.me/=
+psychoworldwide01<br />https://t.me/psychoworldwide01<br />https://t.me/psy=
+choworldwide01<br />https://t.me/psychoworldwide01<br /><br />Backup channe=
+l below=F0=9F=91=87=F0=9F=91=87=F0=9F=91=87<br /><br />https://t.me/trippyc=
+ross1<br />https://t.me/trippycross1<br />https://t.me/trippycross1<br /><b=
+r /><br />You can let me know anytime with your orders<br />Prices are also=
+ slightly negotiable depending on the quantity needed<br />
 
 <p></p>
 
@@ -201,11 +159,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/4cfd8828-73c6-4873-84d4-01eeddebac45n%40googlegrou=
+om/d/msgid/jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/4cfd8828-73c6-4873-84d4-01eeddebac45n%40googlegroups.co=
+msgid/jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_280918_717951261.1717817198378--
+------=_Part_87024_1373167081.1717818107639--
 
-------=_Part_280917_1595460867.1717817198378--
+------=_Part_87023_724601698.1717818107639--
