@@ -1,88 +1,73 @@
-Return-Path: <jailhouse-dev+bncBCVZJANLUQORB7VFR6ZQMGQE4ZXICHI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBDYO7FNATYOBBV6NSCZQMGQE32V35QI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21DB0900F5A
-	for <lists+jailhouse-dev@lfdr.de>; Sat,  8 Jun 2024 05:41:52 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-df7a6530373sf5067353276.0
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 07 Jun 2024 20:41:52 -0700 (PDT)
+Received: from mail-yb1-xb37.google.com (mail-yb1-xb37.google.com [IPv6:2607:f8b0:4864:20::b37])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C6190112A
+	for <lists+jailhouse-dev@lfdr.de>; Sat,  8 Jun 2024 11:39:37 +0200 (CEST)
+Received: by mail-yb1-xb37.google.com with SMTP id 3f1490d57ef6-dfa744fe2f9sf5027489276.0
+        for <lists+jailhouse-dev@lfdr.de>; Sat, 08 Jun 2024 02:39:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717818111; x=1718422911; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1717839576; x=1718444376; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
-        b=LxpJIotRQzkOewqx62/Q6IRUU3QgDVbl3vTxlgk9IlgynqdAkpsAZ3ELo8QjQpT3D7
-         0oxbq1I5wweHNJXrU+BbPsUwvATRPweiZMUM3kRsAPMX6ZjbD97D3f0PR+8wcX6dHjaA
-         P2TBh444V1miEytlJ8hMeITnYpzq/yV1FysEz1vmECN3V05PF6NMLM7g1f5Gx3MhY8Gl
-         U9xI4cPWhh+JDUgLpgfs/4UD5am069sSoy4Srz3UuP63PfqVGtE3PbZYPA2Bp/uf8eDU
-         Ye0kkLTn4nLLJGoIUn8UiOFhU1rnTMxkoeQ1BgBhQ/5YH7EaTO1QKOx3wMkn/0gWT6Uc
-         kEyA==
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YadC0ss7DTsQSE0TO+207AQkB8m6p4LHO/oNCPtQXoo=;
+        b=LB08CR4gwn1nsU/uIMTVUrwbr2Ok+8Ol1zhY9c5eX2/4DZJBbiQyPSdR0oc/HrHalr
+         oUl6GCy2ev/NwjaKLULw9DvWxjQ/gRBYU9MF2KJ1DCrOtvyQrsfeLGMIsHe+ZWC4FcQ7
+         ZhNe2tlNxxflLhDFmMvEBGCLKou57FxURXIG3KFuqJWasTJ74Fh5hHIN99pFsU1je4oz
+         1hsIPEmpcnfLAgFw5iUJid3Dq/Aay7eKi1UByscMZT8BJou16XVUrjyKgcTarFFo750a
+         5QOhyXNkY7XXQsHulbLfakTFHf4tzE6PpcrO81ppdg/nwfZQXAJ4b6+WzCI834m/Qma1
+         7kmA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717818111; x=1718422911; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1717839576; x=1718444376; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
-        b=HsdH60FsuMIIzsQptXnBeCCz1o1QUmk/dYVuTexgMZQlPrwg89G1MBt4vPzIdouRZj
-         51LG/R+fUzUKfC/GdJmJzmAusdOXklAvZVNKhMaaRS6BsRTRbElf9FFuUM/tCacU9okQ
-         QCAZSQlLkcGHCyEphXwxErBWJ6twesfK8+IIu7Dxn7lZffBQiKSZX50Rq6jIZ4REhLoG
-         vEqbN8lTIMT6oWY3d/HMcGB50p5WEwo+5Pxuak+EZbsjvMuI48p7XtMsT05a78nFcpiy
-         Bum1YR7dmR7qXwADPr3d9/qdWXqAvQH+Zdat5wOBZXbrjFV4MoLpYfqJNSn5yipMT+Q+
-         3UXg==
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YadC0ss7DTsQSE0TO+207AQkB8m6p4LHO/oNCPtQXoo=;
+        b=eQjjXMsnJZ7idps5yx53VwZWHUYSM98MTJ139+SRKhsSnKBg8c3s8rk8AoDIKguM8M
+         Rek7M85TToWNSp6kCg2GrqlqbRszySFbO8QJol0xlDJjjRFnYazoSeTEa3yAwsmUt6dI
+         LIVFfpi3q0O9S3nyP8qSiI8xezZexZGCb1cWt/ZTYzxuBeb8LjghUHkUMMVpUaVRSBO5
+         TEKh2aZVMXKI8t8p3xrHBrqwwdGA/i4hfJrKkBbCjnKxwMajpwOt6wXKBFG3DMiZDpfq
+         vfXPq+PiKi7078rZE3pytlb5bvHSOx0/qWcuR0Z5WTJwKcTerVUu6HJR+ZoznJ6cHrAw
+         KlMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717818111; x=1718422911;
+        d=1e100.net; s=20230601; t=1717839576; x=1718444376;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wj67pvPlomgCXMT0vxVW/nBMJddg93KSU4vQnb8YRnU=;
-        b=cPnfIx9RGBLF5ORB8oWcM5LXl9WJBu6W1MT5biEawcNwTD+zcM3tVOqgq+dWVVqtQx
-         11TxUBE3g4bK3nIC3hK02IL3bVwqAtn6VLJyuIqmI1KdazFM9e8NkYps5b2147IK8NOU
-         qfs3WsLQS6GR03BbU7R89AOkEi8qCB4FlBacJ/TcseQoo8BoQ0ZL9bLivmeiDk6M23JE
-         CUKXXgZ1pD5EKrGBYmbs/7ztVJpdQ+VCsj9wxFIFquQ8GsFamGCPcHUMQKFKukweFR7I
-         /B4Mq16sD1JwNNZxMmj8YKgCWdXjALwM1U2ZQhLVmtLLaHnFwkSpN8J+bk3DXD/9jZiq
-         b6og==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YadC0ss7DTsQSE0TO+207AQkB8m6p4LHO/oNCPtQXoo=;
+        b=HTppXeqNWDPi7t9biQ4iX3ViTnd3Y5+PXSRMMyxqTVX6VxilgiltOTX2WDDI4dYc2k
+         rx1K9AYhl1D5hNYS2OVUBklgxseZ8fb0+XR4ZQOn1f5rdGbTxalgtTIrxErLz7RssUUI
+         +i+1Vgia+H59EAsGtrtcK2ATl+vWWNB1Q0OyLyDypxVbfiJhklkfNuOeNTxFlR2QaAkd
+         KUDi1EPCrLzUWL/8XPtYZVLHplKxPe8N0xSBn5jaIKpVMje3LFI3JYfMdS4CQ/BLM9nU
+         ezwkf5bKogga+vkCFlgFZG3HbONgs9Ber2qa03pC9UGHdRWdcA2dUjmkrKCy+xXe6/hD
+         KlUQ==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXrP4kunZtlIJEjWI8Gih/+D+CcE2HDkabx3lBwDLYJthvCtavZgTleUA3DACwJlOjyNQhJXMik6fXPjXswwGVxJPwGMqDyNZbVoIg=
-X-Gm-Message-State: AOJu0Ywii/SOT7VJyz2dlfkFsGgWs1jLNZ0sbnjSL62qZ+IIxKOdeNgA
-	Vst1y/SagYtX06eMI/BhJkq/9s5QF5ZPZJ5aCso+hyhH0OU7HV8x
-X-Google-Smtp-Source: AGHT+IH9Ld1uPWI7GHS3w9a40SoUFvpeBesqsAI8hUY1qaXrEn6NmgDV01j6COEFJBPDO53noIn4Yw==
-X-Received: by 2002:a25:ae4f:0:b0:dfb:912:9713 with SMTP id 3f1490d57ef6-dfb0912983emr1884772276.11.1717818110754;
-        Fri, 07 Jun 2024 20:41:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCVSUH0xrGFOD+SFngjPcIVnAuvZbhl5tpAdYlvecMe62wwcnsgK1yg6/S76/6bDYZTgoL/qNqslVRc3k5wgeZnNbErfRhIdO7NsdUE=
+X-Gm-Message-State: AOJu0YyklDG9KMO4RGe7ROCOMbciuw10aulVQP8UJfQXWuHEPJWeppgq
+	FaHSgfdTXbskBeKdVkF6oirHQ/MC2AnU5gvSWjM0GDM1ZXaHTxSG
+X-Google-Smtp-Source: AGHT+IE9o3ERjUldH8DcouMuc3FVQ3jAYZNVPW81JXVFkblnWnUb5m8LS/j/DqO12eIKgaAtRhQ2mA==
+X-Received: by 2002:a05:6902:2002:b0:dfa:c544:52dc with SMTP id 3f1490d57ef6-dfaf666ac47mr5359437276.28.1717839576167;
+        Sat, 08 Jun 2024 02:39:36 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:fc09:0:b0:dfa:77ba:dc1f with SMTP id 3f1490d57ef6-dfaf162a805ls2123910276.2.-pod-prod-06-us;
- Fri, 07 Jun 2024 20:41:49 -0700 (PDT)
-X-Received: by 2002:a05:690c:6d0d:b0:61b:e6d8:1c01 with SMTP id 00721157ae682-62cd568ca3dmr9545177b3.10.1717818108514;
-        Fri, 07 Jun 2024 20:41:48 -0700 (PDT)
-Date: Fri, 7 Jun 2024 20:41:47 -0700 (PDT)
-From: Smith Crower <crowersmith440@gmail.com>
+Received: by 2002:a25:9745:0:b0:dfa:8028:8bc9 with SMTP id 3f1490d57ef6-dfaf15f6c00ls2717256276.1.-pod-prod-06-us;
+ Sat, 08 Jun 2024 02:39:34 -0700 (PDT)
+X-Received: by 2002:a05:6902:1208:b0:df4:a381:5cc9 with SMTP id 3f1490d57ef6-dfaf66267bdmr1356842276.8.1717839574487;
+        Sat, 08 Jun 2024 02:39:34 -0700 (PDT)
+Date: Sat, 8 Jun 2024 02:39:33 -0700 (PDT)
+From: Hansel Zimmerof mason <masonhanselzimmerof@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <d83ab8a9-1856-4d2b-9367-3de6f931feddn@googlegroups.com>
-In-Reply-To: <2fa40b8d-4aac-4759-9f10-11d5347ff6bdn@googlegroups.com>
-References: <795dc3b1-be89-41c7-9671-d30f85711eaan@googlegroups.com>
- <0f3f8043-7aa0-4029-a9cc-8bf645291972n@googlegroups.com>
- <8369a91d-4047-4519-b342-65b33be6cf6en@googlegroups.com>
- <3d207a08-0b5e-445a-bb57-56e4822bc388n@googlegroups.com>
- <e8805f00-c8bb-4331-97d4-8aaa48820bf6n@googlegroups.com>
- <ef543eaf-4f84-4854-b391-4c3a04a27c3an@googlegroups.com>
- <d92306e5-4a6d-4b20-891e-ec35109c98ecn@googlegroups.com>
- <50eb5272-0367-4db0-9bf0-37d99524b72fn@googlegroups.com>
- <0378a22b-af83-460d-8ef9-db8cf0101f79n@googlegroups.com>
- <12017ac0-3bfd-48aa-901f-8955cfc43b6cn@googlegroups.com>
- <262bafc5-d42f-4e09-9f1a-887c4e3bcf35n@googlegroups.com>
- <da1f9334-ae6d-4cef-8b08-347a8ac13f2bn@googlegroups.com>
- <19f5f391-6330-4cc1-837e-6c1e6afb456bn@googlegroups.com>
- <d080ec3f-e2fd-4272-b9b6-996567bcac09n@googlegroups.com>
- <2fa40b8d-4aac-4759-9f10-11d5347ff6bdn@googlegroups.com>
-Subject: Re: Buy DMT VAPE PEN, ECSTACY MOLLY ONLINE
+Message-Id: <a30dad99-60c4-4cb2-acf2-a1927511e7dan@googlegroups.com>
+Subject: =?UTF-8?Q?+13348395202_K2_Papers,_K2_Sheets,_K2_Spice_Papers,=C2=A0_K2_?=
+ =?UTF-8?Q?Infused_Papers,_K2_Infused_Sheets,K2_e-Liquid,K2_Liquid.?=
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_87023_724601698.1717818107639"
-X-Original-Sender: crowersmith440@gmail.com
+	boundary="----=_Part_264902_1902579821.1717839573670"
+X-Original-Sender: masonhanselzimmerof@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -95,60 +80,112 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_87023_724601698.1717818107639
+------=_Part_264902_1902579821.1717839573670
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_87024_1373167081.1717818107639"
+	boundary="----=_Part_264903_336829481.1717839573670"
 
-------=_Part_87024_1373167081.1717818107639
+------=_Part_264903_336829481.1717839573670
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+
+Text/call/whatsapp  +1(334)839-5202. Buy K2 Spice Sheets and Spray Online.
+The quality is super gas (Diablo )
+Each k2 sheets Is infused with 300 ml of the k2 liquid diablo incense.
+I have the k2 sheets, k2 liquid and k2 chemicals or powder 
+(jwh-018/5cla-adb-a)
+
+I can infuse anything sheets, envelopes ,greeting cards, magazines etc .
+
+You can buy the infused A4 Plain paper and write a letter to send to your 
+buddy in prison. 
+
+This paper is odorless and colorless. 
+
+K2 paper for sale Australia, K2 spice paper for sale USA, K2 spray paper 
+for sale Quebec, K2 liquid for sale Canada, K2 for sale United States, Buy 
+K2 paper Nevada, Buy K2 liquid California, Buy K2 spray England, K2 sheets 
+for sale London Buy K2 sheets Germany, K2 prison papers USA, K2 spice 
+papers for sale in UK, Order K2 Spray Online, K2 Liquid Spray, K2 Spaice 
+Spray, Liquid K2 On Paper.
+
+Text/call/whatsapp +1(334)839-5202.
+
+Email _manalon(@)protonmail.com
+
+Telegram_Supremebill.
 
 
-Buy all your psychedelic products with me including clone cards
-All products are available for deliveries and drop offs
-Fast shipping and delivery of packages to all locations worldwide=20
-Let me know with your orders
-Text me on telegram @Carlantonn01
-You can also join my channel for more products and reviews,link below
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/a30dad99-60c4-4cb2-acf2-a1927511e7dan%40googlegroups.com.
 
-https://t.me/psychoworldwide01
-https://t.me/psychoworldwide01
-https://t.me/psychoworldwide01
-https://t.me/psychoworldwide01
-
-Backup channel below=F0=9F=91=87=F0=9F=91=87=F0=9F=91=87
-
-https://t.me/trippycross1
-https://t.me/trippycross1
-https://t.me/trippycross1
-
-
-You can let me know anytime with your orders
-Prices are also slightly negotiable depending on the quantity needed
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegroups.com.
-
-------=_Part_87024_1373167081.1717818107639
+------=_Part_264903_336829481.1717839573670
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Buy all your psychedelic products with me including clone cards<br />=
-All products are available for deliveries and drop offs<br />Fast shipping =
-and delivery of packages to all locations worldwide <br />Let me know with =
-your orders<br />Text me on telegram @Carlantonn01<br />You can also join m=
-y channel for more products and reviews,link below<br /><br />https://t.me/=
-psychoworldwide01<br />https://t.me/psychoworldwide01<br />https://t.me/psy=
-choworldwide01<br />https://t.me/psychoworldwide01<br /><br />Backup channe=
-l below=F0=9F=91=87=F0=9F=91=87=F0=9F=91=87<br /><br />https://t.me/trippyc=
-ross1<br />https://t.me/trippycross1<br />https://t.me/trippycross1<br /><b=
-r /><br />You can let me know anytime with your orders<br />Prices are also=
- slightly negotiable depending on the quantity needed<br />
+Text/call/whatsapp =C2=A0+1(334)839-5202. Buy K2 Spice Sheets and Spray Onl=
+ine.<div>The quality is super gas (Diablo )</div><div>Each k2 sheets Is inf=
+used with 300 ml of the k2 liquid diablo incense.</div><div>I have the k2 s=
+heets, k2 liquid and k2 chemicals or powder (jwh-018/5cla-adb-a)</div><div>=
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">I can infuse anything sheets,=
+ envelopes ,greeting cards, magazines etc .</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">You can buy the infused A4 Pl=
+ain paper and write a letter to send to your buddy in prison.=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">This paper is odorless and co=
+lorless.=C2=A0</p><p style=3D"margin: 0px; font-stretch: normal; font-size:=
+ 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; font-s=
+ize-adjust: none; font-kerning: auto; font-variant-alternates: normal; font=
+-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east=
+-asian: normal; font-variant-position: normal; font-feature-settings: norma=
+l; font-optical-sizing: auto; font-variation-settings: normal;">K2 paper fo=
+r sale Australia, K2 spice paper for sale USA, K2 spray paper for sale Queb=
+ec, K2 liquid for sale Canada, K2 for sale United States, Buy K2 paper Neva=
+da, Buy K2 liquid California, Buy K2 spray England, K2 sheets for sale Lond=
+on Buy K2 sheets Germany, K2 prison papers USA, K2 spice papers for sale in=
+ UK,=C2=A0Order K2 Spray Online, K2 Liquid Spray, K2 Spaice Spray, Liquid K=
+2 On Paper.</p><p style=3D"margin: 0px; font-stretch: normal; font-size: 13=
+px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; font-size=
+-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-va=
+riant-ligatures: normal; font-variant-numeric: normal; font-variant-east-as=
+ian: normal; font-variant-position: normal; font-feature-settings: normal; =
+font-optical-sizing: auto; font-variation-settings: normal;">Text/call/what=
+sapp +1(334)839-5202.</p><p style=3D"margin: 0px; font-stretch: normal; fon=
+t-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;;=
+ font-size-adjust: none; font-kerning: auto; font-variant-alternates: norma=
+l; font-variant-ligatures: normal; font-variant-numeric: normal; font-varia=
+nt-east-asian: normal; font-variant-position: normal; font-feature-settings=
+: normal; font-optical-sizing: auto; font-variation-settings: normal;">Emai=
+l _manalon(@)protonmail.com</p><p style=3D"margin: 0px; font-stretch: norma=
+l; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&=
+quot;; font-size-adjust: none; font-kerning: auto; font-variant-alternates:=
+ normal; font-variant-ligatures: normal; font-variant-numeric: normal; font=
+-variant-east-asian: normal; font-variant-position: normal; font-feature-se=
+ttings: normal; font-optical-sizing: auto; font-variation-settings: normal;=
+">Telegram_Supremebill.</p><p style=3D"margin: 0px; font-stretch: normal; f=
+ont-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot=
+;; font-size-adjust: none; font-kerning: auto; font-variant-alternates: nor=
+mal; font-variant-ligatures: normal; font-variant-numeric: normal; font-var=
+iant-east-asian: normal; font-variant-position: normal; font-feature-settin=
+gs: normal; font-optical-sizing: auto; font-variation-settings: normal;">
+
+
+
+<br /></p></div>
 
 <p></p>
 
@@ -159,11 +196,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegrou=
+om/d/msgid/jailhouse-dev/a30dad99-60c4-4cb2-acf2-a1927511e7dan%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/d83ab8a9-1856-4d2b-9367-3de6f931feddn%40googlegroups.co=
+msgid/jailhouse-dev/a30dad99-60c4-4cb2-acf2-a1927511e7dan%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_87024_1373167081.1717818107639--
+------=_Part_264903_336829481.1717839573670--
 
-------=_Part_87023_724601698.1717818107639--
+------=_Part_264902_1902579821.1717839573670--
