@@ -1,75 +1,75 @@
-Return-Path: <jailhouse-dev+bncBDHL5ROYQ4LRBEEAS2ZQMGQEGCY4BPI@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD2MTMWYXMHRBFOZUCZQMGQEKGXQ4HI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 798E1901582
-	for <lists+jailhouse-dev@lfdr.de>; Sun,  9 Jun 2024 12:12:34 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-df771b5e942sf5827239276.2
-        for <lists+jailhouse-dev@lfdr.de>; Sun, 09 Jun 2024 03:12:34 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8F9B903956
+	for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2024 12:53:11 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-df7bdb0455bsf8486232276.2
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 11 Jun 2024 03:53:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1717927953; x=1718532753; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1718103190; x=1718707990; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WE1hhUEz4qy6ob5c7kFRajC27NZJWubbsbTxuy8pc4I=;
-        b=pZ2hJwJwAVMB5flsYvDjzlmJSLxlG4F30x7GxNhSTeQ9cLOvNvqH694UM72k3a3xJ2
-         vzJbryk46RSArmJ69z0kCIeBA1Y2TLGnTedA4RWE0n0oAr8/qc3iLIgZpavKB9MRHgw4
-         07COTeBiKkPPWsoAQrzI/wehrTM9/3X0HRNDcAolG0HzMFUt6HFOxjR899csBLdYccnD
-         jA77voaEvQzUX/RkIXVGDLCZDsqkzYRqOSpjMIq2Q4W6nfSj6OtDwaXuaH+P1EsYfsMS
-         cBOvXT226SkAFnMcNLMG6qNLMXN37m7+BbXhGgVHIVGO+eY3zrFdH0qgy3GqAzu8JHkt
-         261w==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lPPO2g6KPmcad8ODGqlFmy0oppFpvAXGRkuzTCTGm9s=;
+        b=ui5HlU7lOVRVWH3KLh7YS0pCu9nIkzJ4+v8QGkh3C6u/V2JM8jIsXDHmekLMf33z5S
+         7jRX2pqy0F7hbGRpr8FLFjmy3as7dPDMRD75pcooDzbRV9wBPLHRTrJDNWQkBtk9pURb
+         /tCFs8woC8Zu4LqPpo6dUMgcX+AE+/HisUO0ymc6to4nhnoyYreYgkaF1TleuzyXIWw/
+         Q6o5cn2W2YWQ3731y5cLgesnmOqNlXeLbXvBuUg8QstARSqKNatqn9Cq3jYUSvEejiZW
+         LOh5XevADFlYULTqrov3X95VZYb2uVVaWeWU8Ur/VN5QaBCtcNeNrHoEK2WKWOxxv0w8
+         qGag==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1717927953; x=1718532753; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1718103190; x=1718707990; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WE1hhUEz4qy6ob5c7kFRajC27NZJWubbsbTxuy8pc4I=;
-        b=LZ3BLpS3DYLYYfSyEHmejhq783Ld2GCGu2vMtYlzJfBYbSkPqh9lpYp+xdiwkgJetB
-         c8zQpH+9T7H7HJr6metyvES84f8kofrIt3Z+hKBVBpheW9EqL15JZL9sfTE15NFzFL/N
-         U8TRWU1NRoFEa+s2IAvvsaCm5ktCX9vyZoJwuYZrDdx32XfVdfefI2gzf80cMQXXn8VE
-         k8FqF4YIvVIe8C0s4IkH8Pu03bayxAHG/xtdQMwp7YDfdZ/Y2bmDmqOfX70iCVAkgHqm
-         1nmkv58X81DUM5ZXNrqpUgbDMegbO7hLc1yU43QebRlgZ+QTVW5Msj6IzvBF7GdwJqjg
-         tusQ==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lPPO2g6KPmcad8ODGqlFmy0oppFpvAXGRkuzTCTGm9s=;
+        b=W66+WZ67PHpYj4+nZFU/oQgPZM1RW4neN0YALWkKuWs6yBjedBHM8HVKunz3g3at46
+         vPylkGnylJE8g8Weth6RFhP2DRPpR3wVRP4v05t0zbYZFd0TUSfVH9TbHeCFQLwey+PA
+         q1pkNfU5OgwOvEAaVxlxg+NW/Kwwdph3n1DqOD7ZDykUtIDlAdluIzApbTnG7kbAva7W
+         /LtfZ5JXiVDqSI2a8Nt5QtDLHmm8Dx3hnPN01IUlEhGlj+hTMzZnaNgWlMkBsX7sXGJt
+         1Y5ToT4bokJ2rDc1PivL5ChPOi79p3OcsStdjggNyIZrw88OL4rhoi5+Qj/f+uuh3VLd
+         yJhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1717927953; x=1718532753;
+        d=1e100.net; s=20230601; t=1718103190; x=1718707990;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WE1hhUEz4qy6ob5c7kFRajC27NZJWubbsbTxuy8pc4I=;
-        b=uHIjdlIe51eM4MybYLFwb+25V0B3leiTRswb/m/KLCo3x+vUdB4Y0s7NmGOyKE+UfR
-         0KMrEQ0m7el5BzFirSqUJYNQUUwDdx8k3v8ctteLB2Vt+xsOUMD+kvCVGxB3mVUACSrY
-         6VnipbbvL115d8bIuByl3IGRdSB9SzjPUB/gN+tcL6jjo4yQpoIURa6kaALJKIxHRUla
-         Cj2FBBjj1wJBJAbwsevgfR7kth5x0dbfJ1SOxl8gLfyVnkRzTsyYtF43cU0q2lg+zMUf
-         mtat9IWmqG/UVb+9Oo04c7SrHAaLGOiCbyt6KnGL6kb5orbia5d+uxJ/AsNEsVu10+rT
-         TuyA==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lPPO2g6KPmcad8ODGqlFmy0oppFpvAXGRkuzTCTGm9s=;
+        b=faHpNcQv6y3qsR55cqjDkzun9uvA/x8lyuyB8ocELiY7Rk+qUjVXP4bA+tUrE5Ewgj
+         q5c0XRBJwiYbVrplGFQyFhR8IR1edxgrdzHVcT7kwVdO+LTveztrTbbSN1yeuoMeI2QT
+         9ANyIqeHgu9t50BGSTDfzeBbBxSFm2AgD1t8HFL7cI2aqZgfRuyTLh1Rq3XuA8GMyAWN
+         c2ahXLF9FVS3nFa1IYn7lQbtSMN9gUgcHyLTSblti4m7tBsrUabK9z7HtbEBq2yn/IXZ
+         cAJj1fGqhdyfbxnB2p6kd1v7WOTNIxqsQozp+Uqu8P6RhnYslQyk2gL1jFfZQYyaUVVn
+         nReg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXQcVJpeE0CC9I5Wq0Ak61DY2CDQiToyZQNlYxTE8t2z60ifBu176k4cMYpV1CNjCxgiEstgB9EwvgwIue4jyPDseB9O40dPv81c10=
-X-Gm-Message-State: AOJu0YxS/rnaUwiUujYjH08NQg9TSPX9Ps7ofuuQ5Iu4/NHvg8ypemPh
-	JcbouVciYRlK4FWb9qcg57XgxB5U7342MRqXYfWxSVLdJu4IuzGg
-X-Google-Smtp-Source: AGHT+IGqJZJ5Ph3dQTIX2NVbtMIeFB+Fimhhr5MTNtwBT8lKPfARiP18HG+GFosZhSF8ZyQ+CuQx6Q==
-X-Received: by 2002:a25:ad26:0:b0:dfa:6e39:95b0 with SMTP id 3f1490d57ef6-dfaf6737c0dmr6951543276.49.1717927953279;
-        Sun, 09 Jun 2024 03:12:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCW5eA4EjcuuDTj6wEXkDuvQ9sjx9xzxjF6bzj0oubXW3VmV0pcM0rYNV9tbc5smjW+j7Y2E1RIULcNiWBvFtqutWqnFn1DYZrCR6GM=
+X-Gm-Message-State: AOJu0YxoSfIL8xZx6I2VeEQxrMPusjwdQVE4ShFedBSvXznj80srdPgT
+	aMCjdv0m7zI0a6FovyQMbkTU8qIdtY3u635X4ure3B0VbLEFzzR1
+X-Google-Smtp-Source: AGHT+IHakxwtMfxxiZPc1TLaenl54q8jqVFFT0Pup7i04hvDIz9TmaW/hANcYNCFJQMxCvw2tCFQPQ==
+X-Received: by 2002:a25:b21d:0:b0:dfa:b4f5:2bae with SMTP id 3f1490d57ef6-dfaf65e640bmr11032882276.16.1718103190367;
+        Tue, 11 Jun 2024 03:53:10 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a25:2f4a:0:b0:dfb:3d7:1f4c with SMTP id 3f1490d57ef6-dfb03d722edls2346417276.1.-pod-prod-04-us;
- Sun, 09 Jun 2024 03:12:32 -0700 (PDT)
-X-Received: by 2002:a05:690c:4442:b0:62c:fa1a:21e7 with SMTP id 00721157ae682-62cfa1a2944mr8181397b3.6.1717927951632;
-        Sun, 09 Jun 2024 03:12:31 -0700 (PDT)
-Date: Sun, 9 Jun 2024 03:12:30 -0700 (PDT)
-From: Hassan Mefire <mefirehassan00@gmail.com>
+Received: by 2002:a25:fc09:0:b0:dfa:77ba:dc1f with SMTP id 3f1490d57ef6-dfaf162a805ls6122037276.2.-pod-prod-06-us;
+ Tue, 11 Jun 2024 03:53:08 -0700 (PDT)
+X-Received: by 2002:a25:6f08:0:b0:deb:88f5:fa10 with SMTP id 3f1490d57ef6-dfaf652eb7bmr2759965276.5.1718103187761;
+        Tue, 11 Jun 2024 03:53:07 -0700 (PDT)
+Date: Tue, 11 Jun 2024 03:53:06 -0700 (PDT)
+From: "https://deltacartstore.com/" <thomasfrankline0@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <a552e667-3e99-4d6b-ac26-d2c68c10ae52n@googlegroups.com>
-Subject: WHERE CAN I BUY LSD-CAN YOU BUY LSD ONLINE-WHERE TO BUY LSD
- ONLINE-1P LSD WHERE TO BUY-1P LSD BUY ONLINE-BUY 1P LSD ONLINE-BUY
- 1P-LSD-BUY 1P LSD USA-LSD FOR SALE-1P LSD FOR SALE-1P-LSD FOR SALE-1P LSD
- FOR SALE USA-LSD FOR SALE ONLINE-LSD TABS FOR SAL
+Message-Id: <13550f2d-5902-468a-8fcc-849a5daafb01n@googlegroups.com>
+In-Reply-To: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
+References: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
+Subject: Re: jailhouse + ZCU102 V1.0 + second UART problem + petalinux
+ 2017.4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_242780_999022174.1717927950965"
-X-Original-Sender: mefirehassan00@gmail.com
+	boundary="----=_Part_67659_342420944.1718103186701"
+X-Original-Sender: thomasfrankline0@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -82,111 +82,87 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_242780_999022174.1717927950965
+------=_Part_67659_342420944.1718103186701
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_242781_628343245.1717927950965"
+	boundary="----=_Part_67660_88985125.1718103186701"
 
-------=_Part_242781_628343245.1717927950965
+------=_Part_67660_88985125.1718103186701
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-BUY LSD ONLINE
+We are world wide best online psychedelic  shop, more importantly, you can=
+=20
+easily get your stuffs discreetly and fast, again where to buy magic=20
+mushrooms online in USA ship discreet. Buying magic mushrooms online is one=
+=20
+of the difficulties depressed people face daily. In Australia, USA, UK,=20
+Canada etc. Buy Magic Mushrooms Online Seattle.=20
 
-BUY 1P-LSD Blotters (100mcg) | Research Chemicals-1P-Lysergic Acid=20
-diethylamide
 
-BUY LSD ONLINE
-BUY LSD, or lysergic acid diethylamide, is a potent psychedelic substance=
-=20
-that belongs to the hallucinogen class of drugs. It was first synthesized=
-=20
-in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived from a fungus=20
-known as ergot, which commonly grows on grains like rye.
-https://t.me/psystoreoeg/product/buy-1p-lsd-online/
-https://t.me/psystoreoeg/product/buy-lsd-gel-tabs/
-https://t.me/psystoreoeg/product/buy-lsd-acid/
-https://t.me/psystoreoeg/product/buy-lsd-liquid/
-LSD FOR SALE is chemically classified as a semi-synthetic compound, meaning=
-=20
-it is derived from natural substances but requires chemical modification=20
-for use. Its chemical structure is characterized by a core molecule called=
-=20
-lysergic acid, to which an ethylamine side chain is attached. The chemical=
-=20
-formula for LSD is C20H25N3O.
+ order directly from our website=20
 
-BUYING LSD
-LSD is a crystalline solid, typically available in the form of small=20
-squares of blotter paper. These squares, known as =E2=80=9Ctabs,=E2=80=9D a=
-re often=20
-decorated with colorful designs or images. LSD can also be found in the=20
-form of liquid, gelatin squares (windowpane), or even as a powder or=20
-crystal.
-https://t.me/psystoreoeg/product/buy-1p-lsd-online/https://t.me/psystoreoeg=
-/product/buy-lsd-gel-tabs/
-https://t.me/psystoreoeg/product/buy-lsd-acid/
-https://t.me/psystoreoeg/product/buy-lsd-liquid/
-Pharmacology: LSD is known to primarily interact with serotonin receptors=
-=20
-in the brain, particularly the 5-HT2A receptor. It alters the normal=20
-functioning of serotonin, a neurotransmitter involved in mood regulation,=
-=20
-sensory perception, and cognition. LSD is a highly potent substance, and=20
-even very small doses (micrograms) can induce profound psychological=20
-effects.
+https://deltacartstore.com/
+https://deltacartstore.com/
+https://deltacartstore.com/
 
-LSD EFFECTS
-The effects of LSD can vary widely depending on the individual, dosage,=20
-environment, and mindset. The onset of LSD typically occurs within 30 to 90=
-=20
-minutes after ingestion, with the effects lasting for 6 to 12 hours or=20
-longer. Some common effects include:
-https://t.me/psystoreoeg/product/buy-1p-lsd-online/
-https://t.me/psystoreoeg/product/buy-lsd-gel-tabs/
-https://t.me/psystoreoeg/product/buy-lsd-acid/
-https://t.me/psystoreoeg/product/buy-lsd-liquid/
-Altered Perception: LSD significantly alters perception, leading to visual,=
-=20
-auditory, and sensory distortions. Users may experience vivid and=20
-intensified colors, geometric patterns, trails, and enhanced or distorted=
-=20
-sounds.
-Intense Emotional States: LSD can induce a wide range of emotions, from=20
-euphoria and bliss to anxiety and confusion. Emotions may fluctuate=20
-rapidly, and the intensity of emotions can be heightened.
-Expanded Consciousness: Users often report a sense of interconnectedness=20
-and unity with the universe. They may experience a heightened awareness of=
-=20
-their thoughts, emotions, and surroundings, along with a deepened sense of=
-=20
-meaning and spirituality.
-Hallucinations: LSD can produce hallucinations, which are perceptual=20
-experiences of objects or events that are not actually present. These=20
-hallucinations can be both visual and auditory.
-Altered Time and Space Perception: Users may perceive time as distorted,=20
-with minutes feeling like hours or hours passing by quickly. The sense of=
-=20
-space can also be altered, with a distorted perception of distance and size=
-.
-Mindset and Set: LSD experiences are highly influenced by the user=E2=80=99=
-s=20
-mindset and the setting in which it is taken. A positive mindset and a=20
-comfortable, safe environment are generally recommended to reduce the risk=
-=20
-of a negative experience.
-Risks and Side Effects:
+100% discreet and confidential,
+-Your personal information is 100% SECURE.
+-Your orders are 100% secure and anonymous.
+-Fast delivery worldwide (you can track the shipment with the provided=20
+tracking number).   =20
 
-While LSD is not considered physiologically toxic, there are some potential=
-=20
-risks associated with its use, including:
-https://t.me/psystoreoeg/product/buy-1p-lsd-online/
-https://t.me/psystoreoeg/product/buy-lsd-gel-tabs/
-https://t.me/psystoreoeg/product/buy-lsd-acid/https:/t.me/psystoreoeg/produ=
-ct/buy-lsd-liquid/
-Bad Trips: Negative experiences, known as =E2=80=9Cbad trips,=E2=80=9D can =
-occur, leading=20
-to intense anxiety, paranoia, and confusion. These experiences can be=20
-distressing and may result in long-lasting
+On Wednesday, June 27, 2018 at 9:33:04=E2=80=AFAM UTC-7 christophe...@gmail=
+.com=20
+wrote:
+
+> hi all,
+>
+> i'm trying to make jailhouse work on my ZCU102 v1.0 (production)
+> using petalinux 2017.4 following this documentation :=20
+>
+>
+> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-z=
+ynqmp-zcu102.md
+>
+>
+> the second uart doesn't work. After a question on the Xilinx forum
+>
+>
+> https://forums.xilinx.com/t5/Embedded-Linux/ZCU102-V1-0-petalinux-2017-4-=
+ttyPS1-uart-doesn-t-work/m-p/867113/highlight/false#M26987
+>
+> i can activate /dev/ttyPS1 on the zcu102 and verify it using=20
+>
+> echo hello > /dev/ttyPS1
+>
+> but i still can't use it with jailhouse.
+>
+>
+> i have checked with the gic-demo and linux-demo without any success.
+> i can use the debug console with gic-demo, but that's all.
+>
+> this command should work, but it doesn't :=20
+>
+> jailhouse cell linux zynqmp-zcu102-linux-demo.cell Image -d=20
+> inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c "console=3DttyPS1,115200"
+>
+>
+> in the zynqmp-zcu102-linux-demo.c file, the uart address is correct :=20
+>
+> .mem_regions =3D {
+> /* UART */ {
+> .phys_start =3D 0xff010000,
+> .virt_start =3D 0xff010000,
+> .size =3D 0x1000,
+> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+> },
+>
+> what can i do ?
+>
+> regards
+> C.Alexandre
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -194,73 +170,56 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/a552e667-3e99-4d6b-ac26-d2c68c10ae52n%40googlegroups.com.
+jailhouse-dev/13550f2d-5902-468a-8fcc-849a5daafb01n%40googlegroups.com.
 
-------=_Part_242781_628343245.1717927950965
+------=_Part_67660_88985125.1718103186701
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-BUY LSD ONLINE<div><br /></div><div>BUY 1P-LSD Blotters (100mcg) | Research=
- Chemicals-1P-Lysergic Acid diethylamide</div><div><br /></div><div>BUY LSD=
- ONLINE</div><div>BUY LSD, or lysergic acid diethylamide, is a potent psych=
-edelic substance that belongs to the hallucinogen class of drugs. It was fi=
-rst synthesized in 1938 by Swiss chemist Albert Hofmann.1P-LSD is derived f=
-rom a fungus known as ergot, which commonly grows on grains like rye.</div>=
-<div>https://t.me/psystoreoeg/product/buy-1p-lsd-online/</div><div>https://=
-t.me/psystoreoeg/product/buy-lsd-gel-tabs/</div><div>https://t.me/psystoreo=
-eg/product/buy-lsd-acid/</div><div>https://t.me/psystoreoeg/product/buy-lsd=
--liquid/</div><div>LSD FOR SALE is chemically classified as a semi-syntheti=
-c compound, meaning it is derived from natural substances but requires chem=
-ical modification for use. Its chemical structure is characterized by a cor=
-e molecule called lysergic acid, to which an ethylamine side chain is attac=
-hed. The chemical formula for LSD is C20H25N3O.</div><div><br /></div><div>=
-BUYING LSD</div><div>LSD is a crystalline solid, typically available in the=
- form of small squares of blotter paper. These squares, known as =E2=80=9Ct=
-abs,=E2=80=9D are often decorated with colorful designs or images. LSD can =
-also be found in the form of liquid, gelatin squares (windowpane), or even =
-as a powder or crystal.</div><div>https://t.me/psystoreoeg/product/buy-1p-l=
-sd-online/https://t.me/psystoreoeg/product/buy-lsd-gel-tabs/</div><div>http=
-s://t.me/psystoreoeg/product/buy-lsd-acid/</div><div>https://t.me/psystoreo=
-eg/product/buy-lsd-liquid/</div><div>Pharmacology: LSD is known to primaril=
-y interact with serotonin receptors in the brain, particularly the 5-HT2A r=
-eceptor. It alters the normal functioning of serotonin, a neurotransmitter =
-involved in mood regulation, sensory perception, and cognition. LSD is a hi=
-ghly potent substance, and even very small doses (micrograms) can induce pr=
-ofound psychological effects.</div><div><br /></div><div>LSD EFFECTS</div><=
-div>The effects of LSD can vary widely depending on the individual, dosage,=
- environment, and mindset. The onset of LSD typically occurs within 30 to 9=
-0 minutes after ingestion, with the effects lasting for 6 to 12 hours or lo=
-nger. Some common effects include:</div><div>https://t.me/psystoreoeg/produ=
-ct/buy-1p-lsd-online/</div><div>https://t.me/psystoreoeg/product/buy-lsd-ge=
-l-tabs/</div><div>https://t.me/psystoreoeg/product/buy-lsd-acid/</div><div>=
-https://t.me/psystoreoeg/product/buy-lsd-liquid/</div><div>Altered Percepti=
-on: LSD significantly alters perception, leading to visual, auditory, and s=
-ensory distortions. Users may experience vivid and intensified colors, geom=
-etric patterns, trails, and enhanced or distorted sounds.</div><div>Intense=
- Emotional States: LSD can induce a wide range of emotions, from euphoria a=
-nd bliss to anxiety and confusion. Emotions may fluctuate rapidly, and the =
-intensity of emotions can be heightened.</div><div>Expanded Consciousness: =
-Users often report a sense of interconnectedness and unity with the univers=
-e. They may experience a heightened awareness of their thoughts, emotions, =
-and surroundings, along with a deepened sense of meaning and spirituality.<=
-/div><div>Hallucinations: LSD can produce hallucinations, which are percept=
-ual experiences of objects or events that are not actually present. These h=
-allucinations can be both visual and auditory.</div><div>Altered Time and S=
-pace Perception: Users may perceive time as distorted, with minutes feeling=
- like hours or hours passing by quickly. The sense of space can also be alt=
-ered, with a distorted perception of distance and size.</div><div>Mindset a=
-nd Set: LSD experiences are highly influenced by the user=E2=80=99s mindset=
- and the setting in which it is taken. A positive mindset and a comfortable=
-, safe environment are generally recommended to reduce the risk of a negati=
-ve experience.</div><div>Risks and Side Effects:</div><div><br /></div><div=
->While LSD is not considered physiologically toxic, there are some potentia=
-l risks associated with its use, including:</div><div>https://t.me/psystore=
-oeg/product/buy-1p-lsd-online/</div><div>https://t.me/psystoreoeg/product/b=
-uy-lsd-gel-tabs/</div><div>https://t.me/psystoreoeg/product/buy-lsd-acid/ht=
-tps:/t.me/psystoreoeg/product/buy-lsd-liquid/</div><div>Bad Trips: Negative=
- experiences, known as =E2=80=9Cbad trips,=E2=80=9D can occur, leading to i=
-ntense anxiety, paranoia, and confusion. These experiences can be distressi=
-ng and may result in long-lasting</div>
+We are world wide best online psychedelic =C2=A0shop, more importantly, you=
+ can easily get your stuffs discreetly and fast, again where to buy magic m=
+ushrooms online in USA ship discreet. Buying magic mushrooms online is one =
+of the difficulties depressed people face daily. In Australia, USA, UK, Can=
+ada etc. Buy Magic Mushrooms Online Seattle. <br /><br /><br />=C2=A0order =
+directly from our website <br /><br />https://deltacartstore.com/<br />http=
+s://deltacartstore.com/<br />https://deltacartstore.com/<br /><br />100% di=
+screet and confidential,<br />-Your personal information is 100% SECURE.<br=
+ />-Your orders are 100% secure and anonymous.<br />-Fast delivery worldwid=
+e (you can track the shipment with the provided tracking number).=C2=A0 =C2=
+=A0=C2=A0<br /><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"=
+gmail_attr">On Wednesday, June 27, 2018 at 9:33:04=E2=80=AFAM UTC-7 christo=
+phe...@gmail.com wrote:<br/></div><blockquote class=3D"gmail_quote" style=
+=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding=
+-left: 1ex;">hi all,<p>i&#39;m trying to make jailhouse work on my ZCU102 v=
+1.0 (production)<br>using petalinux 2017.4 following this documentation : <=
+p><a href=3D"https://github.com/siemens/jailhouse/blob/master/Documentation=
+/setup-on-zynqmp-zcu102.md" target=3D"_blank" rel=3D"nofollow" data-safered=
+irecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/s=
+iemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-zcu102.md&amp;so=
+urce=3Dgmail&amp;ust=3D1718189563050000&amp;usg=3DAOvVaw3kfxSLzB4Tff7Mja5Y_=
+mwG">https://github.com/siemens/jailhouse/blob/master/Documentation/setup-o=
+n-zynqmp-zcu102.md</a><p><br>the second uart doesn&#39;t work. After a ques=
+tion on the Xilinx forum<p><a href=3D"https://forums.xilinx.com/t5/Embedded=
+-Linux/ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/hig=
+hlight/false#M26987" target=3D"_blank" rel=3D"nofollow" data-saferedirectur=
+l=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://forums.xilinx.com/t=
+5/Embedded-Linux/ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/=
+867113/highlight/false%23M26987&amp;source=3Dgmail&amp;ust=3D17181895630500=
+00&amp;usg=3DAOvVaw0rhH9aryG0NTwVnFimyw4N">https://forums.xilinx.com/t5/Emb=
+edded-Linux/ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/86711=
+3/highlight/false#M26987</a><p>i can activate /dev/ttyPS1 on the zcu102 and=
+ verify it using <p> echo hello &gt; /dev/ttyPS1<p>but i still can&#39;t us=
+e it with jailhouse.<p><br>i have checked with the gic-demo and linux-demo =
+without any success.<br>i can use the debug console with gic-demo, but that=
+&#39;s all.<p>this command should work, but it doesn&#39;t : <p>jailhouse c=
+ell linux zynqmp-zcu102-linux-demo.cell Image -d inmate-zynqmp-zcu102.dtb -=
+i rootfs.cpio -c &quot;console=3DttyPS1,115200&quot;<p><br>in the zynqmp-zc=
+u102-linux-demo.c file, the uart address is correct : <p>	.mem_regions =3D =
+{<br>		/* UART */ {<br>			.phys_start =3D 0xff010000,<br>			.virt_start =3D=
+ 0xff010000,<br>			.size =3D 0x1000,<br>			.flags =3D JAILHOUSE_MEM_READ | =
+JAILHOUSE_MEM_WRITE |<br>				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,<b=
+r>		},<p>what can i do ?<p>regards<br>C.Alexandre</p></p></p></p></p></p></=
+p></p></p></p></p></p></p></p></blockquote></div>
 
 <p></p>
 
@@ -271,11 +230,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/a552e667-3e99-4d6b-ac26-d2c68c10ae52n%40googlegrou=
+om/d/msgid/jailhouse-dev/13550f2d-5902-468a-8fcc-849a5daafb01n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/a552e667-3e99-4d6b-ac26-d2c68c10ae52n%40googlegroups.co=
+msgid/jailhouse-dev/13550f2d-5902-468a-8fcc-849a5daafb01n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_242781_628343245.1717927950965--
+------=_Part_67660_88985125.1718103186701--
 
-------=_Part_242780_999022174.1717927950965--
+------=_Part_67659_342420944.1718103186701--
