@@ -1,75 +1,72 @@
-Return-Path: <jailhouse-dev+bncBCIZLH6PVMJRBFV4WKZQMGQEDKZY3II@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCIZLH6PVMJRBUF4WKZQMGQENS2NMUQ@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3c.google.com (mail-yb1-xb3c.google.com [IPv6:2607:f8b0:4864:20::b3c])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32612909312
-	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 21:46:33 +0200 (CEST)
-Received: by mail-yb1-xb3c.google.com with SMTP id 3f1490d57ef6-dfec7058deesf4793084276.2
-        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 12:46:33 -0700 (PDT)
+Received: from mail-yb1-xb39.google.com (mail-yb1-xb39.google.com [IPv6:2607:f8b0:4864:20::b39])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0BF909313
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 21:47:30 +0200 (CEST)
+Received: by mail-yb1-xb39.google.com with SMTP id 3f1490d57ef6-df771b5e942sf3992700276.2
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 12:47:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1718394392; x=1718999192; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1718394449; x=1718999249; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WY+NQNwrWv7cGpJ6GNmwssVuI4xKABjPyVM+riKXiqM=;
-        b=PJDkSQBEqO49bg66hiDCsFhuajXAlAiSvbIHJ01POj1GDhBDOLSxc1CGzi5WV3BXxI
-         R8LWyAYGMi2K0rQHXYmWs3qrgFaysHG6vwfOyqxhTvrHNarIFAlgStNGOcjIx3wdQ9Px
-         aB89wvfgZANAbNmXdOAmyvSQpJLsuKYogXmiAkuKTS5k0PNyPC4c2cJzEHEte+oOwnbS
-         ZkQjJjgRx8/DcVVD6YUjiUHbzMLGT30yYusGKGvpIoebDh+lsmKxpg4GIlHLalUc0//w
-         08DQtt1ndjN842qfyAp8xNMTqOrHFN3LK8IsImlfNHGHmoAq8Yi6uLgMtan8IAyKAAY4
-         qtFg==
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mJbv4C7d+fV16HlZjCgtqVKz+HgguZ2B4AdoliCUAD8=;
+        b=oEXGi3aAH2oBslUdyqOnWR0M1smsfeOKfpC8yj8we9/xlXGgwltPhd63wsAoUHFWMz
+         qrQ6sHvEv9m0YdUa8PbbKGsTKK4J/jcTffalBFHIHHE7fRBvipN8WWIwR3bsusAmsbkH
+         DW0IPk0+CYSJ3vI6YyMxXY2Y3B+FJJtnTcsQXNvaWPf+pQzKU9kIQyftAtMVhv6SnaJb
+         vfpvCN+UqtnSWim/Y3LzgvYldbNakoYFJMydRQQrkpi8UW/xpyi1/V5BrF2zNTDATVym
+         +b0uImy0WAZ0/gkMl3htETqdIFQwj6/qFguH4HCZPKVwciT7noW2m+QAp7dHJvnKJ5B4
+         0x0A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718394392; x=1718999192; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1718394449; x=1718999249; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WY+NQNwrWv7cGpJ6GNmwssVuI4xKABjPyVM+riKXiqM=;
-        b=Rf6/OZcgBYEPy7Vm/DzH4NlRHStOrrwmwvfpCOGFFec9dafgSXxn7nhP/rmC+pW9Qj
-         S080X1n2wI2ZhQSNYfDEVF9kmqtkj1WGi0P5IEeyuxR7QDxOvTC23QM6afoIme4SkuSA
-         POjwSMjABf0jkvth677ANNfNNe8wrOeBu1sqPvZUl4+uSaEhBNGTr8yLquLE7VaG5F88
-         mWvOoOVXwJxkLzCZDiXhh3hFFXliLiSLR4KiC3AHDJE4GvSa7HopH5P+lLf/qlqqZhDS
-         O0a4fmMZGy20cllTL1YT8FSq2CqsrB/LqNpe9I426o8+cHUlgPHRR+jm/g9NwiN0NjdI
-         pcVw==
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mJbv4C7d+fV16HlZjCgtqVKz+HgguZ2B4AdoliCUAD8=;
+        b=ecZa5PsR89smiY70y4xgW9JtMaPYGCheNsWZBbr5q3rkZwsGCBF5+4fCfR/F9vqLen
+         BRdcdzJyN6UoG3CTKRaiezFwMfrEuaoVLZtbUJfi/0eiGnGvLjzCEGRgZzqwDg19IFg1
+         iXPxhIkoIkkKoMHWdtJ9HobyWKGcbzuvTTkr/KOBRkZM8OAF0RNWlkiyOG13WZ2LOukV
+         peBv4NjSp/Bv5fXsMPenIfCk6SVSOTPcudFb+CyhBRkIAjcv/ejvx4CtqYoIa6RcISLk
+         nkYpTCq5rjM2N/tF/zlOIF/2KEyOo6D4ED2w9FKpwtNUyow8siseybdiHQWc5u4/j0q2
+         j0Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718394392; x=1718999192;
+        d=1e100.net; s=20230601; t=1718394449; x=1718999249;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:references:in-reply-to
-         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WY+NQNwrWv7cGpJ6GNmwssVuI4xKABjPyVM+riKXiqM=;
-        b=kM+0s+XnsLWmfIDxZCGywLvI/zKSuaY/2JkqxgWFI3ChNF7aL6L6lqFxePTAe8+zWK
-         zmMEEXqLlaEOBiZvnns2woX41paKNStfIf1frVmMbkNz/s9Ed+T3Or9JQxqLuhhc3ZtD
-         +WQLHatCstmhIawxCpIF6DzKluIAGb8AhEgYCMflhDWMu5aKnxngVknjEs9ptwvQTdak
-         ihH4TZI+W/n5fDHhPxSOHAK58xsI3Y1KHotv+tH857Vf8QUZ0K94ZAbC0AHtWVpcHXfe
-         euAfGIg93b+3kv3HInf7zJEg9n0bdcM2mnkPpTV+6a7mNX9/VW7JHMQ9wRBhnZDlM32a
-         JbgQ==
+         :x-original-sender:mime-version:subject:message-id:to:from:date
+         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mJbv4C7d+fV16HlZjCgtqVKz+HgguZ2B4AdoliCUAD8=;
+        b=LRM5NHWk95/LXkwvAVv5VPU2GxZQaIpzQ3xDpdouZdFezXfjybVAaLKWbCc3Dl9JJM
+         q6VgIVXIpWXkmqdb0T0FfeU1KUgdHiVXKjRgG18nEcXA9rKgsrajwx9kGr10L6740Mbd
+         LuERqrpexx7f/ljj2yoHiCokb0tbHVgt3a6+QssNIyMIBtUMSzkaIeXyrnrKtjlnXtfE
+         njKfAsC/BNRQcHrmseuJ/Ya7me2j3dnVgOYGED+UQl9b78kD7tR0mH9n6ygInXOMByvi
+         SVae2Zm0qNXP40MGM/pudyPp6+u5T3oqe8Hg4zDM6CWcrCZ1hz00YpimoJo3wGmTtj0E
+         WXuw==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXJRuS1qENx0me5DfGfYFLpLc+p79xmb0I8+MEa4vG1JTGBCe2zeDWWFTI6+Rhq3TeHxv77CMkxBYQXJPbDPL5N0oNe+JCQcVMzgFw=
-X-Gm-Message-State: AOJu0YwaMuImmIs8XT0711wBh3TdEaRE6yV5PKy7eGOrFb1/sfpVKxXO
-	DUF6jGTR7TIlIUKNDD/9Mrc+sH1eNtZ5Ijn4ekojneeeaNC1AmMf
-X-Google-Smtp-Source: AGHT+IErHJXz+EMYne8J5xvKxeRhKArC47CWKQEm4K5tPfKthr5/tOpzmDHvfjh7E8aQJ8A/zip0xA==
-X-Received: by 2002:a25:186:0:b0:dfa:599e:8b74 with SMTP id 3f1490d57ef6-dff15345993mr3495249276.10.1718394391823;
-        Fri, 14 Jun 2024 12:46:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWOKZavXT4xtxyMb5BV03mtEUgQdPcCzDXDRAITRDEg5RmzFeYYlVv58CwYhkg0VvpNDIc582sQ/CAvwHFwo5mqgYw8abO1guG1rZM=
+X-Gm-Message-State: AOJu0Yw0C/X+3Etp+1iDkYtNk5uYN0gx+mgRp7NxziaRfcgIqR2fYmlU
+	99x/6xg0I0EAHL9iALqryI137Nl0gXzu7J0FquRAxt92KwT55YpW
+X-Google-Smtp-Source: AGHT+IHT4nQeCAvaOPJO1J5Mu9BkvBi3b9kGD6I5A+42DYwrgJFoh/DEHIaDYvum68KSoGGVI4KqPw==
+X-Received: by 2002:a25:aa14:0:b0:deb:c07d:7f5d with SMTP id 3f1490d57ef6-dff1534d96bmr3628970276.11.1718394449148;
+        Fri, 14 Jun 2024 12:47:29 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:1022:b0:dfe:d0d8:ea2d with SMTP id
- 3f1490d57ef6-dfefe73785fls2392365276.0.-pod-prod-00-us; Fri, 14 Jun 2024
- 12:46:30 -0700 (PDT)
-X-Received: by 2002:a05:6902:18ca:b0:dfe:fca5:2b9c with SMTP id 3f1490d57ef6-dff1389defemr1081640276.2.1718394389880;
-        Fri, 14 Jun 2024 12:46:29 -0700 (PDT)
-Date: Fri, 14 Jun 2024 12:46:28 -0700 (PDT)
+Received: by 2002:a05:6902:1249:b0:dfe:54e6:8233 with SMTP id
+ 3f1490d57ef6-dfefe6e2bacls3407914276.0.-pod-prod-08-us; Fri, 14 Jun 2024
+ 12:47:27 -0700 (PDT)
+X-Received: by 2002:a05:6902:2b91:b0:dfd:9f4b:9173 with SMTP id 3f1490d57ef6-dff15372594mr925479276.4.1718394447082;
+        Fri, 14 Jun 2024 12:47:27 -0700 (PDT)
+Date: Fri, 14 Jun 2024 12:47:26 -0700 (PDT)
 From: karly banks <karlybnks@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <c8c17894-b200-4b14-b32b-97bb316645c7n@googlegroups.com>
-In-Reply-To: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
-References: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
-Subject: Re: jailhouse + ZCU102 V1.0 + second UART problem + petalinux
- 2017.4
+Message-Id: <534a5d47-65dc-46d9-b338-1a253e3d224fn@googlegroups.com>
+Subject: Best place to order Ecstasy pills
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_27596_1174173678.1718394388763"
+	boundary="----=_Part_36341_1072308531.1718394446236"
 X-Original-Sender: karlybnks@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -83,11 +80,11 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_27596_1174173678.1718394388763
+------=_Part_36341_1072308531.1718394446236
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_27597_519015632.1718394388763"
+	boundary="----=_Part_36342_925970272.1718394446236"
 
-------=_Part_27597_519015632.1718394388763
+------=_Part_36342_925970272.1718394446236
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -216,69 +213,15 @@ https://t.me/ukverifiedv/2246
 
 
 
-
-On Wednesday, June 27, 2018 at 9:33:04=E2=80=AFAM UTC-7 christophe...@gmail=
-.com=20
-wrote:
-
-> hi all,
->
-> i'm trying to make jailhouse work on my ZCU102 v1.0 (production)
-> using petalinux 2017.4 following this documentation :=20
->
->
-> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-z=
-ynqmp-zcu102.md
->
->
-> the second uart doesn't work. After a question on the Xilinx forum
->
->
-> https://forums.xilinx.com/t5/Embedded-Linux/ZCU102-V1-0-petalinux-2017-4-=
-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/false#M26987
->
-> i can activate /dev/ttyPS1 on the zcu102 and verify it using=20
->
-> echo hello > /dev/ttyPS1
->
-> but i still can't use it with jailhouse.
->
->
-> i have checked with the gic-demo and linux-demo without any success.
-> i can use the debug console with gic-demo, but that's all.
->
-> this command should work, but it doesn't :=20
->
-> jailhouse cell linux zynqmp-zcu102-linux-demo.cell Image -d=20
-> inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c "console=3DttyPS1,115200"
->
->
-> in the zynqmp-zcu102-linux-demo.c file, the uart address is correct :=20
->
-> .mem_regions =3D {
-> /* UART */ {
-> .phys_start =3D 0xff010000,
-> .virt_start =3D 0xff010000,
-> .size =3D 0x1000,
-> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
-> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
-> },
->
-> what can i do ?
->
-> regards
-> C.Alexandre
->
-
 --=20
 You received this message because you are subscribed to the Google Groups "=
 Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/c8c17894-b200-4b14-b32b-97bb316645c7n%40googlegroups.com.
+jailhouse-dev/534a5d47-65dc-46d9-b338-1a253e3d224fn%40googlegroups.com.
 
-------=_Part_27597_519015632.1718394388763
+------=_Part_36342_925970272.1718394446236
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -336,40 +279,7 @@ ayment Options <br />&gt; =E2=9C=94100% Satisfaction Guaranteed <br />&gt; =
 sue with the product <br />&gt; =E2=9C=94Shipping Service: Express/Standard=
 /Economy <br />&gt; =E2=9C=94Estimated Delivery Time: Express &amp; 3-5 Day=
 s <br />&gt; =E2=9C=94Discounts: Get up to 20% off <br /><br /><br /><br />=
-<br /><br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gmail_att=
-r">On Wednesday, June 27, 2018 at 9:33:04=E2=80=AFAM UTC-7 christophe...@gm=
-ail.com wrote:<br/></div><blockquote class=3D"gmail_quote" style=3D"margin:=
- 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;=
-">hi all,<p>i&#39;m trying to make jailhouse work on my ZCU102 v1.0 (produc=
-tion)<br>using petalinux 2017.4 following this documentation : <p><a href=
-=3D"https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on=
--zynqmp-zcu102.md" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=
-=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/siemens/j=
-ailhouse/blob/master/Documentation/setup-on-zynqmp-zcu102.md&amp;source=3Dg=
-mail&amp;ust=3D1718480772778000&amp;usg=3DAOvVaw3O-2ZK6g46T00cB9mfX8Jw">htt=
-ps://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp=
--zcu102.md</a><p><br>the second uart doesn&#39;t work. After a question on =
-the Xilinx forum<p><a href=3D"https://forums.xilinx.com/t5/Embedded-Linux/Z=
-CU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/f=
-alse#M26987" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"htt=
-ps://www.google.com/url?hl=3Den&amp;q=3Dhttps://forums.xilinx.com/t5/Embedd=
-ed-Linux/ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/h=
-ighlight/false%23M26987&amp;source=3Dgmail&amp;ust=3D1718480772778000&amp;u=
-sg=3DAOvVaw0FwX95_ekMUBeHGubyvyL3">https://forums.xilinx.com/t5/Embedded-Li=
-nux/ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/highli=
-ght/false#M26987</a><p>i can activate /dev/ttyPS1 on the zcu102 and verify =
-it using <p> echo hello &gt; /dev/ttyPS1<p>but i still can&#39;t use it wit=
-h jailhouse.<p><br>i have checked with the gic-demo and linux-demo without =
-any success.<br>i can use the debug console with gic-demo, but that&#39;s a=
-ll.<p>this command should work, but it doesn&#39;t : <p>jailhouse cell linu=
-x zynqmp-zcu102-linux-demo.cell Image -d inmate-zynqmp-zcu102.dtb -i rootfs=
-.cpio -c &quot;console=3DttyPS1,115200&quot;<p><br>in the zynqmp-zcu102-lin=
-ux-demo.c file, the uart address is correct : <p>	.mem_regions =3D {<br>		/=
-* UART */ {<br>			.phys_start =3D 0xff010000,<br>			.virt_start =3D 0xff010=
-000,<br>			.size =3D 0x1000,<br>			.flags =3D JAILHOUSE_MEM_READ | JAILHOUS=
-E_MEM_WRITE |<br>				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,<br>		},<p=
->what can i do ?<p>regards<br>C.Alexandre</p></p></p></p></p></p></p></p></=
-p></p></p></p></p></p></blockquote></div>
+<br />
 
 <p></p>
 
@@ -380,11 +290,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/c8c17894-b200-4b14-b32b-97bb316645c7n%40googlegrou=
+om/d/msgid/jailhouse-dev/534a5d47-65dc-46d9-b338-1a253e3d224fn%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/c8c17894-b200-4b14-b32b-97bb316645c7n%40googlegroups.co=
+msgid/jailhouse-dev/534a5d47-65dc-46d9-b338-1a253e3d224fn%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_27597_519015632.1718394388763--
+------=_Part_36342_925970272.1718394446236--
 
-------=_Part_27596_1174173678.1718394388763--
+------=_Part_36341_1072308531.1718394446236--
