@@ -1,73 +1,76 @@
-Return-Path: <jailhouse-dev+bncBDE23PUG2EPRB5HTVGZQMGQEI2YDZ7Y@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCCMRLPB2UFRBRWNWCZQMGQE7BNQDSI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3f.google.com (mail-yb1-xb3f.google.com [IPv6:2607:f8b0:4864:20::b3f])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA43906327
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 13 Jun 2024 06:47:50 +0200 (CEST)
-Received: by mail-yb1-xb3f.google.com with SMTP id 3f1490d57ef6-dfe4d67ed8esf886568276.2
-        for <lists+jailhouse-dev@lfdr.de>; Wed, 12 Jun 2024 21:47:50 -0700 (PDT)
+Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ADED908AB1
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 13:17:28 +0200 (CEST)
+Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-dfe2488aec9sf352956276.3
+        for <lists+jailhouse-dev@lfdr.de>; Fri, 14 Jun 2024 04:17:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1718254069; x=1718858869; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1718363847; x=1718968647; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=29LLLtRLMM6aUVRcjb/8mGzc4acIf9tX/vAmivhlsVo=;
-        b=HFWcd6k6c0q9G4ynuTkhszB2dyl6KhTxujZBGjciRhHobBvztWa9aXCAWlWdDmIzNO
-         W0nL8T6mBHS/3Hh3axW4SZwW+/Q7QDydqC6N7qRaHxjn30MjoYp4J8Oc5BZMmS5Tvz0P
-         ZbQ9FGSebou8LaQP8h5scMRc/XCL5mAQDACLLS09Q13fhQLLzQz/GFbZznSaLz4kUDX1
-         l8zPefP2UOLRqjCUXrH8uXORlBratrOr/VnKRlOjFI9l8s2pDC2aUWrje67LPcW9KYWB
-         REWEAGMad/5T8ip3mcegfpMgwq2DQLTr5E6C3lhBEy4tD8cAZs7ynG8Fck42Xmn6jeEm
-         TfDA==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WCD9FZb8/6k0E+wkToQRG/LJf/aw4+X/Mbi8wUpvMPY=;
+        b=EdNxXLQefOJxqVLM+EpliYChm8akQB28QmVwIhGXI6tTgfVOjvQdZMSiQ50AHGzkKd
+         xfUNMW0RiatF+0IxmZVOEWYpV/oxgLjQdTRQ/Cs+EMR6KbQQhQ4pG8JOrZcCqhjJRJlO
+         6Ccl+mZzjtnOFt9QbKsebmC0ed7y+9HgDDok0W6u0g7C01Mc6qAtMCWia1BgYEoZmHGV
+         /d/i4XDKs2nx/99CsT3uD53k3axSLRs5Q3RCufexngujxeJfDYxWo3UP2kEEtPORf2ne
+         qNVo1P6QA80CR5EYSCsLQMzEnU2vIC+MQJ2kBWtYFbOyR7RIm+qhPDKuQiaeqYPKjVIY
+         kztg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718254069; x=1718858869; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1718363847; x=1718968647; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=29LLLtRLMM6aUVRcjb/8mGzc4acIf9tX/vAmivhlsVo=;
-        b=DYFEhVOKmLc3hPdMGMFZNyQg9zLvNmhGAt57FifBX9eSAC1Q6f3Smh+uXEmvlOz8ZW
-         kw6rwaUH0W2AC6mKuFMfxx3oNXIuRLeta9D1l/a4ryVIKTEG4OPhG2YHMXZPxNp4sYI1
-         bAAuc51oDMgMakJ6HyCRHx4bKLNY3IvIecHBrdQ4zRX3bWVG53Ejc1SRZ7hFz8qmJ9Yy
-         mRoDpkH14NBVuObun7y6mQMhqD3WznXKeBk44EaakRjOEEuhOkfR/ma3jEbbHAZY9dvj
-         UXRVdvl7erelk0SrH/sy3Wwl6afTx9t5a2d2rp0eVWfddyPiL0hY/dbV+527guRTn/dH
-         xFgg==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WCD9FZb8/6k0E+wkToQRG/LJf/aw4+X/Mbi8wUpvMPY=;
+        b=KtetnSdGCqn5bslygNPwSHa/CMXKYqFXY6W5Y9WTk37btslpxPMVx8PuvEBr9ldI53
+         6lEcSstnnAQA5M18peEsQmoWS30P4hQHN9E/zq2tha53B9zW8R2FN/V+BUcY1aeDQbHC
+         PEwvGUvCDr2J7SmVrPJNIYUqfzz8VjnSU6RH1TkCZXOb2jokfmcn7WM3ysXoEJPzSdsS
+         v2pyTMalOuq0MvkJyKf4ozTU2IhpSs7PQcecIbQ5byS0yq+yT7zmd3lqin3vZt3zZFBk
+         jpCirH4VS8adFlhXJJcrNWlrFTUzPMWCK0G0eaKogrNMuwaNJGKOQ+wwRSdfBy8vo135
+         By6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718254069; x=1718858869;
+        d=1e100.net; s=20230601; t=1718363847; x=1718968647;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=29LLLtRLMM6aUVRcjb/8mGzc4acIf9tX/vAmivhlsVo=;
-        b=noJDN5Kvg/ztuv7pO6uhJ2Ilm72+uK7hEJrJdwCZye81QVhs9TwlmiZVHapFlR4m/o
-         q1vwYntpeSMrEbv7CORbEJSbuJp3ZMOKS+0q0acxgcwIYlwoy4r/f8I9Au4YdvPaVz7M
-         L3HifAOZcbNdR5FgzLOC/gi4FpwmrbDx+6rnMXZ7tPThHV44VCgbdWF6FsOwnGUz42SE
-         eKuKMUz96wZi75jATEuKiLlPVakWdIAwViDUbQP/sTWU+zJk0kT+a30/0dUlKZiO5w5G
-         VXWjWRRiUC/McMs7htlCUbrbFgEWhh0huk63D4BbSWGnL86+N2qksLYNVvf8T+dCQfqh
-         KDbA==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WCD9FZb8/6k0E+wkToQRG/LJf/aw4+X/Mbi8wUpvMPY=;
+        b=ZUS9cknkDdbuFgqLReRPTrEyCyk3CBLYbfiFiVCDLe+QNf7pa9N/0+qDz76836J7wC
+         uEJHmSD+U/V58+itKiqnenFxQ8lxnf1hvAbh9GpHpOnpjhS1zZpO4FRBNeNG3+F5IIMV
+         fm8UK+54n9p8/1ZNyVgjL1+La9I+b1nGYwoFhygvtGabKeRb/sDBZgFp3QsdZ2xJ8Y/B
+         sTgKsIRgo63+AMPQzHnWq3SabqY66kkOWWEMVrSKKqpSUZrxthNaDPFBj2xHI9ydyAer
+         u/EIBxdXqoqhig9nfM1ly/7yictj5lTcxubd9Kr+m7fRDAl+TWCDYuqL1zOpNwLSKop+
+         PaOA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCXtcMfTurU69LZ+6Q4BDdPgYW4XOcONQdqM2QDuf0VTjhzzVo5RlK013+SEHr6JZc6G3bKZxfQYWc1jqyXUYNfrcjF9hpekqXc8i08=
-X-Gm-Message-State: AOJu0YxkFnpmeDPeKKZ9hxB8WW7djF2cwDoiPJr7hksRLgXZsdfYvrEe
-	2fXuDB2IzPSCVUrWc4peFSCZIuODGXX4j2vdEnHwNTbgErhRBgiY
-X-Google-Smtp-Source: AGHT+IHvoLj27wmQzoWl88F7ynzDMrkXjvjsG8dHMQ4pOfw1kNzmKDo2lQfU9ZXQRNCJo7Rt+wZu6A==
-X-Received: by 2002:a25:ab04:0:b0:df7:6c37:5bb3 with SMTP id 3f1490d57ef6-dfe66b63b1cmr4001528276.15.1718254069259;
-        Wed, 12 Jun 2024 21:47:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXej9DxnKipEHBWAxN6/1kdFxuBJGCUAkWEB+A5ayrRIesrhPGPjZ/hFXK/53YwEkILG3HpPs1GJbpOvnPA+OrmGB1Om2xjRcrcfVk=
+X-Gm-Message-State: AOJu0YxIoHe+T0dnQ5Wi0U+tKc8LxIr9A54QsNwFFfVDdaYv5qcGoYjV
+	j0u5HjNS6BHBUue+5WVR99kn61jx+mDvvnTvXmWthI6THc6Axoa1
+X-Google-Smtp-Source: AGHT+IHTKDhxYHotAXyFOJ0CwkE5mMw+4rYE9sJXIXM3igkBjnYbPwttJAL6L5DUReJUlSIIFZtpDQ==
+X-Received: by 2002:a25:74c5:0:b0:dfb:54b:fbc1 with SMTP id 3f1490d57ef6-dff150e1ebemr1972876276.0.1718363847017;
+        Fri, 14 Jun 2024 04:17:27 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:154a:b0:dfa:ce69:d4d5 with SMTP id
- 3f1490d57ef6-dfefeb2690els867687276.1.-pod-prod-09-us; Wed, 12 Jun 2024
- 21:47:48 -0700 (PDT)
-X-Received: by 2002:a05:690c:dc8:b0:61b:791a:9850 with SMTP id 00721157ae682-62fbc2de343mr11880627b3.9.1718254067695;
-        Wed, 12 Jun 2024 21:47:47 -0700 (PDT)
-Date: Wed, 12 Jun 2024 21:47:46 -0700 (PDT)
-From: Globalmenu <globalmenu850@gmail.com>
+Received: by 2002:a05:6902:150a:b0:dfd:ee2e:d48e with SMTP id
+ 3f1490d57ef6-dfefeb05de1ls3150749276.2.-pod-prod-05-us; Fri, 14 Jun 2024
+ 04:17:25 -0700 (PDT)
+X-Received: by 2002:a25:6942:0:b0:dff:2349:bd59 with SMTP id 3f1490d57ef6-dff2349c28emr45458276.1.1718363844101;
+        Fri, 14 Jun 2024 04:17:24 -0700 (PDT)
+Date: Fri, 14 Jun 2024 04:17:22 -0700 (PDT)
+From: Clarksville Pop <popclarksville@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <16119fef-9f40-4c96-b134-94067a285f4fn@googlegroups.com>
-Subject: Buy mushrooms dmt chocolate cake and bars online
+Message-Id: <41ab4c3d-e91c-4322-9282-9d7c4ff85749n@googlegroups.com>
+In-Reply-To: <13550f2d-5902-468a-8fcc-849a5daafb01n@googlegroups.com>
+References: <00efaad9-c84e-4a0f-b16e-512d1351ca2c@googlegroups.com>
+ <13550f2d-5902-468a-8fcc-849a5daafb01n@googlegroups.com>
+Subject: jailhouse + ZCU102 V1.0 + second UART problem + petalinux 2017.4
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_24161_2073706311.1718254066983"
-X-Original-Sender: globalmenu850@gmail.com
+	boundary="----=_Part_1654_1523626120.1718363842995"
+X-Original-Sender: popclarksville@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,221 +83,174 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_24161_2073706311.1718254066983
+------=_Part_1654_1523626120.1718363842995
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_24162_53052906.1718254066983"
+	boundary="----=_Part_1655_1947163120.1718363842995"
 
-------=_Part_24162_53052906.1718254066983
+------=_Part_1655_1947163120.1718363842995
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-
-BUY GOOD TRIP MAGIC MUSHROOM CHOCOLATE BARS - BEST MAGIC MUSHROOMS=20
-CHOCOLATE BARS ONLINE
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-Order Polka Dot Chocolate Bars Online - Magic shrooms dispensary
-
-
-
-
-Mushroom chocolate bars have captured the imagination of food enthusiasts=
-=20
-and health-conscion
-
-
-Order Polka Dot Chocolate Bars Online.
-
-https://t.me/official_boobiiez
-
-product/buy-polka-dot-magic-
-
-
-
-
-Buy all your psychedelic products with me including clone cards All=20
-products are available for
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-Polka Dot Mushroom Gummies For Sale Buy PolkaDot mushroom gumming
-
-
-1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs=
-=20
-OF SHROOM IN UK
-
-
-: > 1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR=
-=20
-4Gs OF SHROOMS IN USA
-
-
-
-1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs=
-=20
-OF SHROOMS IN USA >
-
-
 
 
 PolkaDot mushroom, also known as Fly Agaric or Amanita muscaria, here are=
 =20
-some ideas to help you
-
-
-
-If you wish to buy polka Dot at good prices and have it delivered overnight=
+some ideas to help you stand out:
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+. The Enigmatic World of the PolkaDot Mushroom: Craft an article that=20
+explores the fascinating characteristics, cultural significance, and=20
+historical uses of the PolkaDot mushroom. Discuss its distinctive=20
+appearance, natural habitats, and the myths or folklore associated with=20
+this iconic mushroom.
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+ Psychedelic Potential of the PolkaDot Mushroom: Investigate the=20
+psychoactive properties and effects of the PolkaDot mushroom. Provide a=20
+balanced exploration of its hallucinogenic compounds, experiential=20
+accounts, and potential therapeutic applications. Emphasize responsible=20
+use, safe practices, and the importance of understanding the risks=20
+associated with consuming this mushroom.
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+ Foraging Tips and Ethical Harvesting of PolkaDot Mushrooms: Create a guide=
 =20
-to your address, then
-
-
-
-1N IN THE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs=
+for those interested in foraging for PolkaDot mushrooms. Discuss the ideal=
 =20
-OF SHROOMS IN USA >
-
-
-If you wish to buy polka Dot chocolate bar at good prices and have it=20
-delivered overnight to your
-
-
->PolkaDot.Mushroom.magic.Belgian.chocolate
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-buy polkadot mushroom chocolate bars, polkadot mushroom chocolate bars for=
+growing conditions, identification techniques, and precautions for safe=20
+mushroom harvesting. Emphasize the importance of sustainable foraging=20
+practices, including leaving a minimal ecological footprint and respecting=
 =20
-sale online, polka dot bars, magic mushroom belgian chocolate, magic=20
-mushroom chocolate bar, magic mushroom chocolate bar for sale, mushroom=20
-chocolate bars for sale, mushroom chocolate bars polka dot, polka dot bars,=
+local regulations.
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+PolkaDot Mushroom in Art and Culture: Explore the presence of the PolkaDot=
 =20
-polka dot chocolate mushroom, polka dot chocolates where to buy, polka dot=
+mushroom in various art forms, including literature, visual arts, and=20
+mythology. Highlight famous artworks, literary works, and cultural=20
+references that have depicted or mentioned the iconic mushroom. Discuss how=
 =20
-company chocolate, polka dot edibles, polka dot magic belgian chocolate=20
-price, polka dot magic mushroom bar, polka dot magic mushroom reviews,=20
-polka dot mushroom bar, polka dot mushroom bar review, polka dot mushroom=
+it has been symbolically interpreted and its role in different cultural=20
+traditions/ order products=20
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
+. The Science Behind the PolkaDot Mushroom: Offer a scientific perspective=
 =20
-chocolate dc, polka dot mushroom chocolate dosage, polka dot mushroom=20
-chocolate near me, polka dot psilocybin bars, polka dot psilocybin=20
-chocolate bars, polkadot bar, polkadot chocolates, polkadot magic belgian=
+on the biology, taxonomy, and chemistry of the PolkaDot mushroom. Discuss=
 =20
-chocolate, polkadot magic belgian chocolate reviews, polkadot magic=20
-mushroom belgian chocolate, polkadot mushroom belgian chocolate, Polkadot=
+its unique features, mycological relationship, and the chemical compounds=
 =20
-Mushroom Chocolate Bars, polkadot shroom be
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-Made with love with Oakland - one of the oldest and safest natural=20
-medicines in the world, Health benefits from magic chocolate have been=20
-known to reduce stress, depression, stimulate brain cell growth, increase=
+responsible for its psychoactive effects. Cite relevant scientific studies=
 =20
-focus and sharpen your senses.
+and provide insights into ongoing research in this field./
+https://psychedelicsdreams.com/
+https://psychedelicsdreams.com/
 
-
-The amazing therapeutic effects derived from the Polkadot mushroom=20
-chocolate bars depend on the dosage. Each of our polkadot bars have 15=20
-easily breakable pieces and the degree of effects you get from consuming=20
-these shroom chocolate bars will depend o the number of pieces you consume.
-
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-
-
-MICRODOSE (STIMULATE THE MIND) : 1-3 PIECES
-
-THERAPEUTIC (MINDFUL AND ELEVATED): 4-9 PIECES
-
-GOD MODE (WALLS MAY MELT) : 10-15 PIECES
-
-
-CAUTION: Consume slowly in a safe environment. Do not operate any motor=20
-vehicles while using this product. Keep out of reach of children and pets.
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-POLKADOT MUSHROOM CHOCOLATE BARS FOR SALE
-
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-
-
-Polkadot mushroom chocolate bars are meant to help you conquer your fears=
+ Safety Precautions and Identifying Look-Alike Mushrooms: Educate readers=
 =20
-and brighten your mood. The adventure you embark on with these fantastic=20
-mushroom chocolate bars depends on the dosage.
-
-
-The Polkadot Magic Mushroom Belgian milk chocolate is not only delicious=20
-but an equivalent of 4 grams of psilocybin-containing mushrooms. Apart from=
+on how to differentiate the PolkaDot mushroom from similar-looking species=
 =20
-the fantastic trippy effects you get from eating the polka dot mushroom=20
-chocolate bars, they are also a great way to microdose magic mushrooms.=20
-Microdosing magic mushrooms in the form of consuming mushroom chocolate=20
-bars have recently increased in popularity.
-
-
-Furthermore, if you can't stand the smell and "bad taste" of raw magic=20
-mushrooms, the Polkadot magic mushroom chocolate bar is a great alternative=
-.
-
-
-Psilocybin - the active ingredient in the polka dot mushroom ch0colate bar,=
+and potential look-alikes. Provide clear guidelines, images, and=20
+descriptions to help readers make accurate identifications and avoid=20
+harmful or poisonous fungi.
+https://psychedelicsdreams.com/
+Culinary Uses and Traditional Recipes: Explore the culinary traditions=20
+surrounding the PolkaDot mushroom and share creative and traditional=20
+recipes that utilize this unique ingredient. Highlight cooking methods,=20
+flavor profiles, and cultural dishes that incorporate the mushroom. Include=
 =20
-polkadot magic belgian chocolate
-
-=EF=BF=BC
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
-
-
-buy polkadot mushroom chocolate bars, polkadot mushroom chocolate bars for=
+safety considerations and proper preparation techniques to neutralize its=
 =20
-sale online, polka dot bars, magic mushroom belgian chocolate, magic=20
-mushroom chocolate bar, magic mushroom chocolate bar for sale, mushroom=20
-chocolate bars for sale, mushroom chocolate bars polka dot, polka dot bars,=
-=20
-polka dot chocolate mushroom, polka dot chocolates where to buy, polka dot=
-=20
-company chocolate, polka dot edibles, polka dot magic belgian chocolate=20
-price, polka dot magic mushroom bar, polka dot magic mushroom reviews,=20
-polka dot mushroom bar, polka dot mushroom bar review, polka dot mushroom=
-=20
-chocolate dc, polka dot mushroom chocolate dosage, polka dot mushroom=20
-chocolate near me, polka dot psilocybin bars, polka dot psilocybin=20
-chocolate bars, polkadot bar, polkadot chocolates, polkadot magic belgian=
-=20
-chocolate, polkadot magic belgian chocolate reviews, polkadot magic=20
-mushroom belgian chocolate, polkadot mushroom belgian chocolate, Polkadot=
-=20
-Mushroom Chocolate Bars, polkadot shroom be
+psychoactive compounds.
 
+https://psychedelicsdreams.com/
+On Tuesday, June 11, 2024 at 11:53:06=E2=80=AFAM UTC+1 https://deltacartsto=
+re.com/=20
+wrote:
 
-
-https://t.me/official_boobiiez
-
-https://t.me/official_boobiiez
+> We are world wide best online psychedelic  shop, more importantly, you ca=
+n=20
+> easily get your stuffs discreetly and fast, again where to buy magic=20
+> mushrooms online in USA ship discreet. Buying magic mushrooms online is o=
+ne=20
+> of the difficulties depressed people face daily. In Australia, USA, UK,=
+=20
+> Canada etc. Buy Magic Mushrooms Online Seattle.=20
+>
+>
+>  order directly from our website=20
+>
+> https://deltacartstore.com/
+> https://deltacartstore.com/
+> https://deltacartstore.com/
+>
+> 100% discreet and confidential,
+> -Your personal information is 100% SECURE.
+> -Your orders are 100% secure and anonymous.
+> -Fast delivery worldwide (you can track the shipment with the provided=20
+> tracking number).   =20
+>
+> On Wednesday, June 27, 2018 at 9:33:04=E2=80=AFAM UTC-7 christophe...@gma=
+il.com=20
+> wrote:
+>
+>> hi all,
+>>
+>> i'm trying to make jailhouse work on my ZCU102 v1.0 (production)
+>> using petalinux 2017.4 following this documentation :=20
+>>
+>>
+>> https://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-=
+zynqmp-zcu102.md
+>>
+>>
+>> the second uart doesn't work. After a question on the Xilinx forum
+>>
+>>
+>> https://forums.xilinx.com/t5/Embedded-Linux/ZCU102-V1-0-petalinux-2017-4=
+-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/false#M26987
+>>
+>> i can activate /dev/ttyPS1 on the zcu102 and verify it using=20
+>>
+>> echo hello > /dev/ttyPS1
+>>
+>> but i still can't use it with jailhouse.
+>>
+>>
+>> i have checked with the gic-demo and linux-demo without any success.
+>> i can use the debug console with gic-demo, but that's all.
+>>
+>> this command should work, but it doesn't :=20
+>>
+>> jailhouse cell linux zynqmp-zcu102-linux-demo.cell Image -d=20
+>> inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c "console=3DttyPS1,115200"
+>>
+>>
+>> in the zynqmp-zcu102-linux-demo.c file, the uart address is correct :=20
+>>
+>> .mem_regions =3D {
+>> /* UART */ {
+>> .phys_start =3D 0xff010000,
+>> .virt_start =3D 0xff010000,
+>> .size =3D 0x1000,
+>> .flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRITE |
+>> JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,
+>> },
+>>
+>> what can i do ?
+>>
+>> regards
+>> C.Alexandre
+>>
+>
 
 --=20
 You received this message because you are subscribed to the Google Groups "=
@@ -302,96 +258,118 @@ Jailhouse" group.
 To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to jailhouse-dev+unsubscribe@googlegroups.com.
 To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/16119fef-9f40-4c96-b134-94067a285f4fn%40googlegroups.com.
+jailhouse-dev/41ab4c3d-e91c-4322-9282-9d7c4ff85749n%40googlegroups.com.
 
-------=_Part_24162_53052906.1718254066983
+------=_Part_1655_1947163120.1718363842995
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-BUY GOOD TRIP MAGIC MUSHROOM CHOCOLATE BARS - BEST MAGIC MUSHROOMS CHOCOLAT=
-E BARS ONLINE<br /><br />https://t.me/official_boobiiez<br /><br />https://=
-t.me/official_boobiiez<br /><br />Order Polka Dot Chocolate Bars Online - M=
-agic shrooms dispensary<br /><br /><br /><br /><br />Mushroom chocolate bar=
-s have captured the imagination of food enthusiasts and health-conscion<br =
-/><br /><br />Order Polka Dot Chocolate Bars Online.<br /><br />https://t.m=
-e/official_boobiiez<br /><br />product/buy-polka-dot-magic-<br /><br /><br =
-/><br /><br />Buy all your psychedelic products with me including clone car=
-ds All products are available for<br /><br />https://t.me/official_boobiiez=
-<br /><br />https://t.me/official_boobiiez<br /><br />Polka Dot Mushroom Gu=
-mmies For Sale Buy PolkaDot mushroom gumming<br /><br /><br />1N IN THE MAR=
-KET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs OF SHROOM IN =
-UK<br /><br /><br />: &gt; 1N IN THE MARKET - PREMIUM EDITION OF POLKADOT M=
-USHROOM BAR WITH THEIR 4Gs OF SHROOMS IN USA<br /><br /><br /><br />1N IN T=
-HE MARKET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs OF SHRO=
-OMS IN USA &gt;<br /><br /><br /><br /><br />PolkaDot mushroom, also known =
-as Fly Agaric or Amanita muscaria, here are some ideas to help you<br /><br=
- /><br /><br />If you wish to buy polka Dot at good prices and have it deli=
-vered overnight to your address, then<br /><br /><br /><br />1N IN THE MARK=
-ET - PREMIUM EDITION OF POLKADOT MUSHROOM BAR WITH THEIR 4Gs OF SHROOMS IN =
-USA &gt;<br /><br /><br />If you wish to buy polka Dot chocolate bar at goo=
-d prices and have it delivered overnight to your<br /><br /><br />&gt;Polka=
-Dot.Mushroom.magic.Belgian.chocolate<br /><br />https://t.me/official_boobi=
-iez<br /><br />https://t.me/official_boobiiez<br /><br />buy polkadot mushr=
-oom chocolate bars, polkadot mushroom chocolate bars for sale online, polka=
- dot bars, magic mushroom belgian chocolate, magic mushroom chocolate bar, =
-magic mushroom chocolate bar for sale, mushroom chocolate bars for sale, mu=
-shroom chocolate bars polka dot, polka dot bars, polka dot chocolate mushro=
-om, polka dot chocolates where to buy, polka dot company chocolate, polka d=
-ot edibles, polka dot magic belgian chocolate price, polka dot magic mushro=
-om bar, polka dot magic mushroom reviews, polka dot mushroom bar, polka dot=
- mushroom bar review, polka dot mushroom chocolate dc, polka dot mushroom c=
-hocolate dosage, polka dot mushroom chocolate near me, polka dot psilocybin=
- bars, polka dot psilocybin chocolate bars, polkadot bar, polkadot chocolat=
-es, polkadot magic belgian chocolate, polkadot magic belgian chocolate revi=
-ews, polkadot magic mushroom belgian chocolate, polkadot mushroom belgian c=
-hocolate, Polkadot Mushroom Chocolate Bars, polkadot shroom be<br /><br />h=
-ttps://t.me/official_boobiiez<br /><br />https://t.me/official_boobiiez<br =
-/><br />https://t.me/official_boobiiez<br /><br />Made with love with Oakla=
-nd - one of the oldest and safest natural medicines in the world, Health be=
-nefits from magic chocolate have been known to reduce stress, depression, s=
-timulate brain cell growth, increase focus and sharpen your senses.<br /><b=
-r /><br />The amazing therapeutic effects derived from the Polkadot mushroo=
-m chocolate bars depend on the dosage. Each of our polkadot bars have 15 ea=
-sily breakable pieces and the degree of effects you get from consuming thes=
-e shroom chocolate bars will depend o the number of pieces you consume.<br =
-/><br /><br />https://t.me/official_boobiiez<br /><br />https://t.me/offici=
-al_boobiiez<br /><br /><br /><br />MICRODOSE (STIMULATE THE MIND) : 1-3 PIE=
-CES<br /><br />THERAPEUTIC (MINDFUL AND ELEVATED): 4-9 PIECES<br /><br />GO=
-D MODE (WALLS MAY MELT) : 10-15 PIECES<br /><br /><br />CAUTION: Consume sl=
-owly in a safe environment. Do not operate any motor vehicles while using t=
-his product. Keep out of reach of children and pets.<br /><br />https://t.m=
-e/official_boobiiez<br /><br />https://t.me/official_boobiiez<br /><br />PO=
-LKADOT MUSHROOM CHOCOLATE BARS FOR SALE<br /><br /><br />https://t.me/offic=
-ial_boobiiez<br /><br />https://t.me/official_boobiiez<br /><br /><br /><br=
- />Polkadot mushroom chocolate bars are meant to help you conquer your fear=
-s and brighten your mood. The adventure you embark on with these fantastic =
-mushroom chocolate bars depends on the dosage.<br /><br /><br />The Polkado=
-t Magic Mushroom Belgian milk chocolate is not only delicious but an equiva=
-lent of 4 grams of psilocybin-containing mushrooms. Apart from the fantasti=
-c trippy effects you get from eating the polka dot mushroom chocolate bars,=
- they are also a great way to microdose magic mushrooms. Microdosing magic =
-mushrooms in the form of consuming mushroom chocolate bars have recently in=
-creased in popularity.<br /><br /><br />Furthermore, if you can't stand the=
- smell and "bad taste" of raw magic mushrooms, the Polkadot magic mushroom =
-chocolate bar is a great alternative.<br /><br /><br />Psilocybin - the act=
-ive ingredient in the polka dot mushroom ch0colate bar, polkadot magic belg=
-ian chocolate<br /><br />=EF=BF=BC<br /><br />https://t.me/official_boobiie=
-z<br /><br />https://t.me/official_boobiiez<br /><br /><br />buy polkadot m=
-ushroom chocolate bars, polkadot mushroom chocolate bars for sale online, p=
-olka dot bars, magic mushroom belgian chocolate, magic mushroom chocolate b=
-ar, magic mushroom chocolate bar for sale, mushroom chocolate bars for sale=
-, mushroom chocolate bars polka dot, polka dot bars, polka dot chocolate mu=
-shroom, polka dot chocolates where to buy, polka dot company chocolate, pol=
-ka dot edibles, polka dot magic belgian chocolate price, polka dot magic mu=
-shroom bar, polka dot magic mushroom reviews, polka dot mushroom bar, polka=
- dot mushroom bar review, polka dot mushroom chocolate dc, polka dot mushro=
-om chocolate dosage, polka dot mushroom chocolate near me, polka dot psiloc=
-ybin bars, polka dot psilocybin chocolate bars, polkadot bar, polkadot choc=
-olates, polkadot magic belgian chocolate, polkadot magic belgian chocolate =
-reviews, polkadot magic mushroom belgian chocolate, polkadot mushroom belgi=
-an chocolate, Polkadot Mushroom Chocolate Bars, polkadot shroom be<br /><br=
- /><br /><br />https://t.me/official_boobiiez<br /><br />https://t.me/offic=
-ial_boobiiez<br />
+<br />PolkaDot mushroom, also known as Fly Agaric or Amanita muscaria, here=
+ are some ideas to help you stand out:<br />https://psychedelicsdreams.com/=
+<br />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/<=
+br />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/<b=
+r />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/<br=
+ />. The Enigmatic World of the PolkaDot Mushroom: Craft an article that ex=
+plores the fascinating characteristics, cultural significance, and historic=
+al uses of the PolkaDot mushroom. Discuss its distinctive appearance, natur=
+al habitats, and the myths or folklore associated with this iconic mushroom=
+.<br />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/=
+<br />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/<=
+br />=C2=A0Psychedelic Potential of the PolkaDot Mushroom: Investigate the =
+psychoactive properties and effects of the PolkaDot mushroom. Provide a bal=
+anced exploration of its hallucinogenic compounds, experiential accounts, a=
+nd potential therapeutic applications. Emphasize responsible use, safe prac=
+tices, and the importance of understanding the risks associated with consum=
+ing this mushroom.<br />https://psychedelicsdreams.com/<br />https://psyche=
+delicsdreams.com/<br />=C2=A0Foraging Tips and Ethical Harvesting of PolkaD=
+ot Mushrooms: Create a guide for those interested in foraging for PolkaDot =
+mushrooms. Discuss the ideal growing conditions, identification techniques,=
+ and precautions for safe mushroom harvesting. Emphasize the importance of =
+sustainable foraging practices, including leaving a minimal ecological foot=
+print and respecting local regulations.<br />https://psychedelicsdreams.com=
+/<br />https://psychedelicsdreams.com/<br />https://psychedelicsdreams.com/=
+<br />PolkaDot Mushroom in Art and Culture: Explore the presence of the Pol=
+kaDot mushroom in various art forms, including literature, visual arts, and=
+ mythology. Highlight famous artworks, literary works, and cultural referen=
+ces that have depicted or mentioned the iconic mushroom. Discuss how it has=
+ been symbolically interpreted and its role in different cultural tradition=
+s/ order products <br />https://psychedelicsdreams.com/<br />https://psyche=
+delicsdreams.com/<br />https://psychedelicsdreams.com/<br />. The Science B=
+ehind the PolkaDot Mushroom: Offer a scientific perspective on the biology,=
+ taxonomy, and chemistry of the PolkaDot mushroom. Discuss its unique featu=
+res, mycological relationship, and the chemical compounds responsible for i=
+ts psychoactive effects. Cite relevant scientific studies and provide insig=
+hts into ongoing research in this field./<br />https://psychedelicsdreams.c=
+om/<br />https://psychedelicsdreams.com/<br /><br />=C2=A0Safety Precaution=
+s and Identifying Look-Alike Mushrooms: Educate readers on how to different=
+iate the PolkaDot mushroom from similar-looking species and potential look-=
+alikes. Provide clear guidelines, images, and descriptions to help readers =
+make accurate identifications and avoid harmful or poisonous fungi.<br />ht=
+tps://psychedelicsdreams.com/<br />Culinary Uses and Traditional Recipes: E=
+xplore the culinary traditions surrounding the PolkaDot mushroom and share =
+creative and traditional recipes that utilize this unique ingredient. Highl=
+ight cooking methods, flavor profiles, and cultural dishes that incorporate=
+ the mushroom. Include safety considerations and proper preparation techniq=
+ues to neutralize its psychoactive compounds.<br /><br />https://psychedeli=
+csdreams.com/<br /><div class=3D"gmail_quote"><div dir=3D"auto" class=3D"gm=
+ail_attr">On Tuesday, June 11, 2024 at 11:53:06=E2=80=AFAM UTC+1 https://de=
+ltacartstore.com/ wrote:<br/></div><blockquote class=3D"gmail_quote" style=
+=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); padding=
+-left: 1ex;">We are world wide best online psychedelic =C2=A0shop, more imp=
+ortantly, you can easily get your stuffs discreetly and fast, again where t=
+o buy magic mushrooms online in USA ship discreet. Buying magic mushrooms o=
+nline is one of the difficulties depressed people face daily. In Australia,=
+ USA, UK, Canada etc. Buy Magic Mushrooms Online Seattle. <br><br><br>=C2=
+=A0order directly from our website <br><br><a href=3D"https://deltacartstor=
+e.com/" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://=
+www.google.com/url?hl=3Den&amp;q=3Dhttps://deltacartstore.com/&amp;source=
+=3Dgmail&amp;ust=3D1718450203493000&amp;usg=3DAOvVaw0HRoR7iKyP4Tnn6fTR2V3m"=
+>https://deltacartstore.com/</a><br><a href=3D"https://deltacartstore.com/"=
+ target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.goo=
+gle.com/url?hl=3Den&amp;q=3Dhttps://deltacartstore.com/&amp;source=3Dgmail&=
+amp;ust=3D1718450203493000&amp;usg=3DAOvVaw0HRoR7iKyP4Tnn6fTR2V3m">https://=
+deltacartstore.com/</a><br><a href=3D"https://deltacartstore.com/" target=
+=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com=
+/url?hl=3Den&amp;q=3Dhttps://deltacartstore.com/&amp;source=3Dgmail&amp;ust=
+=3D1718450203493000&amp;usg=3DAOvVaw0HRoR7iKyP4Tnn6fTR2V3m">https://deltaca=
+rtstore.com/</a><br><br>100% discreet and confidential,<br>-Your personal i=
+nformation is 100% SECURE.<br>-Your orders are 100% secure and anonymous.<b=
+r>-Fast delivery worldwide (you can track the shipment with the provided tr=
+acking number).=C2=A0 =C2=A0=C2=A0<br><br><div class=3D"gmail_quote"><div d=
+ir=3D"auto" class=3D"gmail_attr">On Wednesday, June 27, 2018 at 9:33:04=E2=
+=80=AFAM UTC-7 <a href data-email-masked rel=3D"nofollow">christophe...@gma=
+il.com</a> wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0 0 0 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">hi a=
+ll,<p>i&#39;m trying to make jailhouse work on my ZCU102 v1.0 (production)<=
+br>using petalinux 2017.4 following this documentation : <p><a href=3D"http=
+s://github.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-=
+zcu102.md" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https=
+://www.google.com/url?hl=3Den&amp;q=3Dhttps://github.com/siemens/jailhouse/=
+blob/master/Documentation/setup-on-zynqmp-zcu102.md&amp;source=3Dgmail&amp;=
+ust=3D1718450203493000&amp;usg=3DAOvVaw3UFC0rf5a8LKXPmzzd5-34">https://gith=
+ub.com/siemens/jailhouse/blob/master/Documentation/setup-on-zynqmp-zcu102.m=
+d</a><p><br>the second uart doesn&#39;t work. After a question on the Xilin=
+x forum<p><a href=3D"https://forums.xilinx.com/t5/Embedded-Linux/ZCU102-V1-=
+0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/false#M269=
+87" rel=3D"nofollow" target=3D"_blank" data-saferedirecturl=3D"https://www.=
+google.com/url?hl=3Den&amp;q=3Dhttps://forums.xilinx.com/t5/Embedded-Linux/=
+ZCU102-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/=
+false%23M26987&amp;source=3Dgmail&amp;ust=3D1718450203493000&amp;usg=3DAOvV=
+aw0Ek51ae__0BhOoiOuw3z8Z">https://forums.xilinx.com/t5/Embedded-Linux/ZCU10=
+2-V1-0-petalinux-2017-4-ttyPS1-uart-doesn-t-work/m-p/867113/highlight/false=
+#M26987</a><p>i can activate /dev/ttyPS1 on the zcu102 and verify it using =
+<p> echo hello &gt; /dev/ttyPS1<p>but i still can&#39;t use it with jailhou=
+se.<p><br>i have checked with the gic-demo and linux-demo without any succe=
+ss.<br>i can use the debug console with gic-demo, but that&#39;s all.<p>thi=
+s command should work, but it doesn&#39;t : <p>jailhouse cell linux zynqmp-=
+zcu102-linux-demo.cell Image -d inmate-zynqmp-zcu102.dtb -i rootfs.cpio -c =
+&quot;console=3DttyPS1,115200&quot;<p><br>in the zynqmp-zcu102-linux-demo.c=
+ file, the uart address is correct : <p>	.mem_regions =3D {<br>		/* UART */=
+ {<br>			.phys_start =3D 0xff010000,<br>			.virt_start =3D 0xff010000,<br>	=
+		.size =3D 0x1000,<br>			.flags =3D JAILHOUSE_MEM_READ | JAILHOUSE_MEM_WRI=
+TE |<br>				JAILHOUSE_MEM_IO | JAILHOUSE_MEM_ROOTSHARED,<br>		},<p>what can=
+ i do ?<p>regards<br>C.Alexandre</p></p></p></p></p></p></p></p></p></p></p=
+></p></p></p></blockquote></div></blockquote></div>
 
 <p></p>
 
@@ -402,11 +380,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/16119fef-9f40-4c96-b134-94067a285f4fn%40googlegrou=
+om/d/msgid/jailhouse-dev/41ab4c3d-e91c-4322-9282-9d7c4ff85749n%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/16119fef-9f40-4c96-b134-94067a285f4fn%40googlegroups.co=
+msgid/jailhouse-dev/41ab4c3d-e91c-4322-9282-9d7c4ff85749n%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_24162_53052906.1718254066983--
+------=_Part_1655_1947163120.1718363842995--
 
-------=_Part_24161_2073706311.1718254066983--
+------=_Part_1654_1523626120.1718363842995--
