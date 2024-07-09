@@ -1,73 +1,75 @@
-Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBV7UWS2AMGQESC7IZFY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD37PS7EWQCRBJXVWS2AMGQEFXI5E4Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb38.google.com (mail-yb1-xb38.google.com [IPv6:2607:f8b0:4864:20::b38])
-	by mail.lfdr.de (Postfix) with ESMTPS id 238CB92BAFB
-	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jul 2024 15:25:45 +0200 (CEST)
-Received: by mail-yb1-xb38.google.com with SMTP id 3f1490d57ef6-e03a92302d1sf9054091276.1
-        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jul 2024 06:25:45 -0700 (PDT)
+Received: from mail-yb1-xb40.google.com (mail-yb1-xb40.google.com [IPv6:2607:f8b0:4864:20::b40])
+	by mail.lfdr.de (Postfix) with ESMTPS id 887F992BAFF
+	for <lists+jailhouse-dev@lfdr.de>; Tue,  9 Jul 2024 15:27:04 +0200 (CEST)
+Received: by mail-yb1-xb40.google.com with SMTP id 3f1490d57ef6-e03ab732455sf1415549276.1
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 09 Jul 2024 06:27:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1720531544; x=1721136344; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1720531623; x=1721136423; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IqVg3kpwKevOTzXR2CC1fJlL313pKqhUHhzJ8uE1YCU=;
-        b=SIi0qiZAOofW+rsL9OdVeZHQjmU3G1/SfDXoFOoN2kjST806FJFWxs3trgDxikKmxe
-         22nPCnR8kQunq/2iCEq13XILtt5tz3SJj70ut3Ovpj3eDGYD5ZiYUx2Fy9Vdk1FncWaf
-         PSs2ks57O2GpUj9f2mpKNMBAxVY2Cy9gt2YPh0cFpFJM7bHAUfVgWabETkQIY0vq+M7o
-         5heE4dtM1zkpYNC6YNnAYaPPMYcfL82Jx6BRbT2SHHzdUiZ263vJnmq+ISh/DTzPjC+p
-         hIzDsP4r4+9dBU67nS6jcZlbV+DHJ/mXDOxkMFKmu3/U7VlnfoC1mtEE0G5lfLY+y9a3
-         tqvw==
+         :subject:references:in-reply-to:message-id:to:from:date:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0YPSX/M3aE4aIP2ES7wvqOH+9rStwNCs4EmPcyTVzvg=;
+        b=c44GND0oVX1a47rXApKuVyzqRcmOEcNJwj1P9n7AP92q1Cx61eyQ5RRLNX22uHfHSF
+         l1QijkCLj9c1fqlhjl7O80Q1a/kmfSRrpyILBDdTZRm8v3l1WsjmZUEQLP9YozWedan4
+         ivNwSGGaK1FGlmIPJam7xvZz1tZjSQem5EvEjY5uxR65Tf3Jhk1AwvdcAyQ4NFQ4ZdLQ
+         A7WBiR9yvG3S6YhNuJXzpxjIACklU3mGgyVYiWOBQAj+JdripzeJN4RCYdloKm0CqLFT
+         Ez+iUu7iQj//s7FWrh9px8M+NFiI1PKqILtiVzV+ge1iGxGu8XHLDZSKjO5Nh+eu1mZZ
+         AQbw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720531544; x=1721136344; darn=lfdr.de;
+        d=gmail.com; s=20230601; t=1720531623; x=1721136423; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IqVg3kpwKevOTzXR2CC1fJlL313pKqhUHhzJ8uE1YCU=;
-        b=Cw3cQTv4OSW3hhtNiNbbcA9DynTJy+DuyNhlxyL4FR40ZpS6qVIeEM7ibUyPxzsijL
-         LEvmyFA9Trf+Nc6VAn552UPQH3fQcRxaKH/Ib4LhwS2Z66ispmrnUoRNlcbbPO+NGEIJ
-         PqIEMC09iuFq2Xz+PFqja2Hu/66+y6c06s+B3d/f8Pbkj7H+Mj3WBm+/Lwpi0LBvP0L3
-         I8NKBXKPKqG8zDqg5bak+djMVcveBj+xT3Q01iPNqmIIs6HcoRUZNCyGb4qMfmxmBz/k
-         b9hr36N6sERnI35md0aXQGmYlOCTieky2rJ6RBLvkrgScnJ6ei0Yzzmp1SCnl8T8K/n2
-         aocA==
+         :subject:references:in-reply-to:message-id:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0YPSX/M3aE4aIP2ES7wvqOH+9rStwNCs4EmPcyTVzvg=;
+        b=LAgOfj5AQrQCgoYXdTTvPjaSqUZP7TL3Q7sZohLZqArDESt7D9SyZYILg7AImXo2H9
+         eLG8Gn0Wkm4q9wmd0/Rd6geAKP0AqC46mlS0rBxTCxXbZac8yN94o1iLL4rJSP6F1esm
+         gM1DdU1HbQjSXoeaQX+S8v/hGY+Nwwd/UzJbVp1zuvoeg0u6cfcIPxxyZ+WClTr69t9N
+         6OvboAIf0bH1ul+2Hvzz8BIgmVPg+bd9wqCwnbahnsLIndw7anOr1rhAe6UR/UKRd2Sf
+         nIW1YY8ErtEF0vlIpR9OP99k+OHfgRv1+Fw8ukSGRtAGilHaQQhFbBsFj/Bp9uHZzxJg
+         K0kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720531544; x=1721136344;
+        d=1e100.net; s=20230601; t=1720531623; x=1721136423;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IqVg3kpwKevOTzXR2CC1fJlL313pKqhUHhzJ8uE1YCU=;
-        b=Y8f64xlJftJOK8GRBxaUhhNFZAZ5oLVlZiuERmkbFt7UBFSTsCvBZupQYrAJ8qAk6W
-         ul4zr7PFSynfdjjaoCAO6qWriBJOfOQ0Kmpl4cLeirObvpddzj3DkfTTFF2k/oYxUJiI
-         Z2Gr1k5NQljO+5uu6TMgxtQ1YLKJmxSY82dYokRHYRsH1NsS1kXHTiPFaPvAX1N99DWu
-         VN7qMxCS/GxzNjVrur8V/NY5GC2tYsm3j1pH7LxygCWPvWSyDhspNoky3Qeupr8aET5j
-         lGfMsGrRAnlB8anV8qAKx5GP3zRyhk2OWNGx6OeQn9XjYmVtcLNRXRjKFAZ8QC2D8MON
-         HqiA==
+         :x-original-sender:mime-version:subject:references:in-reply-to
+         :message-id:to:from:date:x-beenthere:x-gm-message-state:sender:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=0YPSX/M3aE4aIP2ES7wvqOH+9rStwNCs4EmPcyTVzvg=;
+        b=PeIvs/HzyFapPzuZmjC2YCrANGucaPPa5vbFChHv0Y0CtdziBrORupdDHeAtvV+HEK
+         V4YUhiSXnMi41BvLhQRVafA/opQvS9RhoPtanJWMDc96O21OsNIV4V23UZE+23up4VDW
+         IeqNiiNwoLSQEiEku+QIxATEZCBuwMVJ2xV0N7itkPsqxqz8kiQ5zuaptEcEJBNLIv+E
+         PWCujTSDs/ZBq0u56/TuYBExXr2EV/pKgMoVTtAkTRtys7hiyNUqQALX1TQ/IiPpYbH6
+         XXc+NhjfrwFlUrpTCwgZNFNx8vY6Wptt1wRhvR44z6s1PIM4/voKmhnH1YsbO/N5bA1h
+         lIEg==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCVFdenaRBaZLDw47N0L1gA7WaTi3iv89brQzOxVffCX2Hehxe59S7ejbK8HvP6T30zv1BkXoNB8JmkUeSApCpMPxDorIcq6Ne0qDp8=
-X-Gm-Message-State: AOJu0YyTtexI/UH0haOzzXPZB99JH+GuD862vculXT83oB6FFSonGE/G
-	QasrSKpcJp6Y01PKZTyksdtTLpgUEllTfmSez5WLnA1zOal3pHlF
-X-Google-Smtp-Source: AGHT+IFFrFNae7YJ5ER06bf/oBmylJkWKsK9hZKeQ0/BD6eS72OXZclRa+eadtaL+/YXvmh5zLzp1w==
-X-Received: by 2002:a5b:b50:0:b0:e03:cd9b:f37c with SMTP id 3f1490d57ef6-e041b054c54mr3058656276.18.1720531544037;
-        Tue, 09 Jul 2024 06:25:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCWQoav1neTCMwH1BNfP65WbvKZ9Ej5xDQb257Si/Vin67MEkRugfQC3BALsGzoXxd17izBnyit+iGAuHSYSm+mHJJ38I7pgV+Hlk/c=
+X-Gm-Message-State: AOJu0YxaCI+a8FbYXrS6f7oDRsdRtYMsQlU2H9deKRKvgUmYrI37J+I5
+	Bjf2jHK+qtQUtcIc8yusedM8QqCoQAQzbZ9zpKwoBLCQdTGcmN9F
+X-Google-Smtp-Source: AGHT+IHhnQaEFzohNJ0HGgn15RFNOJO29gDW7cSxXiEMsfHH00gcL5vC2cLYXyX4ZAys0D/CVnH5+g==
+X-Received: by 2002:a25:8801:0:b0:e03:4bab:49b5 with SMTP id 3f1490d57ef6-e041b039952mr2375622276.1.1720531623478;
+        Tue, 09 Jul 2024 06:27:03 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:1886:b0:e03:aded:7d3a with SMTP id
- 3f1490d57ef6-e03bd035889ls8392376276.1.-pod-prod-06-us; Tue, 09 Jul 2024
- 06:25:42 -0700 (PDT)
-X-Received: by 2002:a05:6902:2192:b0:e03:4bf0:b21e with SMTP id 3f1490d57ef6-e041b03fe4amr187221276.1.1720531542496;
-        Tue, 09 Jul 2024 06:25:42 -0700 (PDT)
-Date: Tue, 9 Jul 2024 06:25:41 -0700 (PDT)
+Received: by 2002:a05:6902:120d:b0:e02:b40e:8e90 with SMTP id
+ 3f1490d57ef6-e03bd1d5d32ls2159994276.2.-pod-prod-09-us; Tue, 09 Jul 2024
+ 06:27:02 -0700 (PDT)
+X-Received: by 2002:a05:6902:2386:b0:e03:9d57:57ee with SMTP id 3f1490d57ef6-e041b0545c2mr140327276.4.1720531622028;
+        Tue, 09 Jul 2024 06:27:02 -0700 (PDT)
+Date: Tue, 9 Jul 2024 06:27:01 -0700 (PDT)
 From: Asah Randy <asahrandy54@gmail.com>
 To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <717d828e-db8b-4978-81c0-d4701b5cd5a6n@googlegroups.com>
-Subject: Mushroom Belgian Milk Chocolate is not only delicious, but it
+Message-Id: <0a1d2b6c-6168-4572-9677-b1ca4325470en@googlegroups.com>
+In-Reply-To: <717d828e-db8b-4978-81c0-d4701b5cd5a6n@googlegroups.com>
+References: <717d828e-db8b-4978-81c0-d4701b5cd5a6n@googlegroups.com>
+Subject: Re: Mushroom Belgian Milk Chocolate is not only delicious, but it
  equates to 4 grams of
 MIME-Version: 1.0
 Content-Type: multipart/mixed; 
-	boundary="----=_Part_134770_1808003718.1720531541634"
+	boundary="----=_Part_138596_1295873180.1720531621381"
 X-Original-Sender: asahrandy54@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
@@ -81,48 +83,118 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_134770_1808003718.1720531541634
+------=_Part_138596_1295873180.1720531621381
 Content-Type: multipart/alternative; 
-	boundary="----=_Part_134771_1470910424.1720531541634"
+	boundary="----=_Part_138597_599101038.1720531621381"
 
-------=_Part_134771_1470910424.1720531541634
+------=_Part_138597_599101038.1720531621381
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
 
 https://t.me/motionking_caliweed_psychedelics
 
-Mushroom Belgian Milk Chocolate is not only delicious, but it equates to 4 
-grams of   
+Mushroom Belgian Milk Chocolate is not only delicious, but it equates to 4=
+=20
+grams of  =20
 
 https://t.me/motionking_caliweed_psychedelics
 
-  psilocybin-containing mushrooms. Aside from the fantastic, mind-blowing 
-effects, you get from eating the Mushroom and polka dot company chocolate, 
-they are also a great way to microdose magic mushrooms. Microdosing magic 
-mushrooms in the form of consuming mushroom chocolate bars have recently 
-increased in popularity.  https://t.me/motionking_caliweed_psychedelics 
+  psilocybin-containing mushrooms. Aside from the fantastic, mind-blowing=
+=20
+effects, you get from eating the Mushroom and polka dot company chocolate,=
+=20
+they are also a great way to microdose magic mushrooms. Microdosing magic=
+=20
+mushrooms in the form of consuming mushroom chocolate bars have recently=20
+increased in popularity.  https://t.me/motionking_caliweed_psychedelics=20
 
 https://t.me/motionking_caliweed_psychedelics
 
--- 
-You received this message because you are subscribed to the Google Groups "Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/717d828e-db8b-4978-81c0-d4701b5cd5a6n%40googlegroups.com.
+On Tuesday, July 9, 2024 at 7:25:41=E2=80=AFAM UTC-6 Asah Randy wrote:
 
-------=_Part_134771_1470910424.1720531541634
+> https://t.me/motionking_caliweed_psychedelics
+>
+> Mushroom Belgian Milk Chocolate is not only delicious, but it equates to =
+4=20
+> grams of  =20
+>
+> https://t.me/motionking_caliweed_psychedelics
+>
+>   psilocybin-containing mushrooms. Aside from the fantastic, mind-blowing=
+=20
+> effects, you get from eating the Mushroom and polka dot company chocolate=
+,=20
+> they are also a great way to microdose magic mushrooms. Microdosing magic=
+=20
+> mushrooms in the form of consuming mushroom chocolate bars have recently=
+=20
+> increased in popularity.  https://t.me/motionking_caliweed_psychedelics=
+=20
+>
+> https://t.me/motionking_caliweed_psychedelics
+>
+
+--=20
+You received this message because you are subscribed to the Google Groups "=
+Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an e=
+mail to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/=
+jailhouse-dev/0a1d2b6c-6168-4572-9677-b1ca4325470en%40googlegroups.com.
+
+------=_Part_138597_599101038.1720531621381
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>https://t.me/motionking_caliweed_psychedelics</div><div><br /></div><d=
-iv>Mushroom Belgian Milk Chocolate is not only delicious, but it equates to=
- 4 grams of=C2=A0=C2=A0=C2=A0</div><div><br /></div><div>https://t.me/motio=
-nking_caliweed_psychedelics</div><div><br /></div><div>=C2=A0
+<div><br /></div><div><div role=3D"region" aria-labelledby=3D"c163"><div><a=
+ href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank" r=
+el=3D"nofollow">https://t.me/motionking_caliweed_psychedelics</a></div><div=
+><br /></div><div>Mushroom Belgian Milk Chocolate is not only delicious, bu=
+t it equates to 4 grams of=C2=A0=C2=A0=C2=A0</div><div><br /></div><div><a =
+href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank" re=
+l=3D"nofollow">https://t.me/motionking_caliweed_psychedelics</a></div><div>=
+<br /></div><div>=C2=A0
+psilocybin-containing mushrooms. Aside from the fantastic, mind-blowing=20
+effects, you get from eating the Mushroom and polka dot company=20
+chocolate, they are also a great way to microdose magic mushrooms.=20
+Microdosing magic mushrooms in the form of consuming mushroom chocolate=20
+bars have recently increased in popularity.=C2=A0
+<a href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank"=
+ rel=3D"nofollow">https://t.me/motionking_caliweed_psychedelics</a> <br /><=
+/div><div><br /></div><div><a href=3D"https://t.me/motionking_caliweed_psyc=
+hedelics" target=3D"_blank" rel=3D"nofollow">https://t.me/motionking_caliwe=
+ed_psychedelics</a></div></div></div><br /><div class=3D"gmail_quote"><div =
+dir=3D"auto" class=3D"gmail_attr">On Tuesday, July 9, 2024 at 7:25:41=E2=80=
+=AFAM UTC-6 Asah Randy wrote:<br/></div><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin: 0 0 0 0.8ex; border-left: 1px solid rgb(204, 204, 204); pad=
+ding-left: 1ex;"><div><a href=3D"https://t.me/motionking_caliweed_psychedel=
+ics" target=3D"_blank" rel=3D"nofollow" data-saferedirecturl=3D"https://www=
+.google.com/url?hl=3Den&amp;q=3Dhttps://t.me/motionking_caliweed_psychedeli=
+cs&amp;source=3Dgmail&amp;ust=3D1720617987688000&amp;usg=3DAOvVaw094IqyaIVX=
+lNXuTk1BtMPE">https://t.me/motionking_caliweed_psychedelics</a></div><div><=
+br></div><div>Mushroom Belgian Milk Chocolate is not only delicious, but it=
+ equates to 4 grams of=C2=A0=C2=A0=C2=A0</div><div><br></div><div><a href=
+=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank" rel=3D=
+"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&amp;q=
+=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&amp;ust=
+=3D1720617987688000&amp;usg=3DAOvVaw094IqyaIVXlNXuTk1BtMPE">https://t.me/mo=
+tionking_caliweed_psychedelics</a></div><div><br></div><div>=C2=A0
 psilocybin-containing mushrooms. Aside from the fantastic, mind-blowing eff=
 ects, you get from eating the Mushroom and polka dot company chocolate, the=
 y are also a great way to microdose magic mushrooms. Microdosing magic mush=
 rooms in the form of consuming mushroom chocolate bars have recently increa=
 sed in popularity.=C2=A0
-https://t.me/motionking_caliweed_psychedelics <br /></div><div><br /></div>=
-<div>https://t.me/motionking_caliweed_psychedelics</div>
+<a href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank"=
+ rel=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3De=
+n&amp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&=
+amp;ust=3D1720617987688000&amp;usg=3DAOvVaw094IqyaIVXlNXuTk1BtMPE">https://=
+t.me/motionking_caliweed_psychedelics</a> <br></div><div><br></div><div><a =
+href=3D"https://t.me/motionking_caliweed_psychedelics" target=3D"_blank" re=
+l=3D"nofollow" data-saferedirecturl=3D"https://www.google.com/url?hl=3Den&a=
+mp;q=3Dhttps://t.me/motionking_caliweed_psychedelics&amp;source=3Dgmail&amp=
+;ust=3D1720617987688000&amp;usg=3DAOvVaw094IqyaIVXlNXuTk1BtMPE">https://t.m=
+e/motionking_caliweed_psychedelics</a></div></blockquote></div>
 
 <p></p>
 
@@ -133,11 +205,11 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/717d828e-db8b-4978-81c0-d4701b5cd5a6n%40googlegrou=
+om/d/msgid/jailhouse-dev/0a1d2b6c-6168-4572-9677-b1ca4325470en%40googlegrou=
 ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/717d828e-db8b-4978-81c0-d4701b5cd5a6n%40googlegroups.co=
+msgid/jailhouse-dev/0a1d2b6c-6168-4572-9677-b1ca4325470en%40googlegroups.co=
 m</a>.<br />
 
-------=_Part_134771_1470910424.1720531541634--
+------=_Part_138597_599101038.1720531621381--
 
-------=_Part_134770_1808003718.1720531541634--
+------=_Part_138596_1295873180.1720531621381--
