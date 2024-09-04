@@ -1,73 +1,138 @@
-Return-Path: <jailhouse-dev+bncBDCMDV5GZQLRB45XYG3AMGQEJWNS4LY@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBCS35VONUYNBB4NK363AMGQEFIOF5EI@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-yb1-xb3d.google.com (mail-yb1-xb3d.google.com [IPv6:2607:f8b0:4864:20::b3d])
-	by mail.lfdr.de (Postfix) with ESMTPS id E595A9642FF
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2024 13:31:01 +0200 (CEST)
-Received: by mail-yb1-xb3d.google.com with SMTP id 3f1490d57ef6-e03b3f48c65sf1082749276.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 29 Aug 2024 04:31:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1724931060; x=1725535860; darn=lfdr.de;
+Received: from mail-il1-x139.google.com (mail-il1-x139.google.com [IPv6:2607:f8b0:4864:20::139])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB12096AF7B
+	for <lists+jailhouse-dev@lfdr.de>; Wed,  4 Sep 2024 05:35:15 +0200 (CEST)
+Received: by mail-il1-x139.google.com with SMTP id e9e14a558f8ab-39d4ba9c42asf72846455ab.3
+        for <lists+jailhouse-dev@lfdr.de>; Tue, 03 Sep 2024 20:35:15 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1725420914; cv=pass;
+        d=google.com; s=arc-20240605;
+        b=NhpltztiuuCRGNyJVK/DQFtu+YdpFETjN01EY0yGIGjHVK7KcoYnp+LAYX5WWIkwPJ
+         IstPcPENQu7LdtxuswJvKy+OgPxjeEl2jhIxib7fQ528jkem77kspXbC6EhTkOCgDNV7
+         1ETjIgM4DQ3z3SR54Bcq4WupBwSrHCppmvXieQwNcKRWZXRJiw0wZ4/Ln3uSqaliBiFg
+         n0WXpJBY8Q1mwPoGCylm772VyCNDcSIDScBCk3Iu25NCusPqEK+/8DCKVUemog24RHZq
+         D7UcfapfeNf0G87Xm7zNDHgm54ydP92JjV/0mBY7cKP6tvv5Ap+NYIky7lguR0pgnC6c
+         36FA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ke4jKGhHRxN7+0A+A1gQXHfx4V+vK3ZsUCaD/V7jO+0=;
-        b=Lld9JFfxK2u8cZrbkT6z3XR0iifR9bmAfKtbRdY32+LAy8T3kmqNSOxrYihvXA2X1D
-         j1JjIPzpe72eQYbqbIysK5Uz8TAJsYVIFFtcVHWVbsCjqRSoXsT13jJg5LPG4qix8Ouf
-         JdC3zrFJ21ITCRNpWLN32IKG6aZ738IAJnRem5f9pZInXqBmP8v+J/5o/MwYzvs5jzth
-         +3H+evZJhgycDVDuiarritTmjXI0wTb6CWeCRfHnQbo37eznm9dSJnk8BrIhjsYxudcC
-         WVgGEqd6A2NrSujQFg+OSdk8uOxlYl4oe7KeXSLemEQG6f+xaO591qQDH32w5mxjANd/
-         9PQw==
+         :list-id:mailing-list:precedence:to:subject:message-id:date:from
+         :mime-version:sender:dkim-signature:dkim-signature;
+        bh=Z6a4LE3aTs7nPHIIqT+yoZT4BkA+EPEybwmMnRWQSE0=;
+        fh=aaB93SeYeU/p3nD2mrXf9PgfFFiX4J7vjCA5XmKihBs=;
+        b=DQ5fMsXstfhtVfa8aDd6Sla6MxcuFHFFnfMSaXZVoF9g0O56595E5nURmNpbBmgiZ6
+         XSOSgNrH82plAmMWRhuCkYTcjL2+MJu/zdGo+nDYCP5wNOhNEovh9PiyJljSFxpsSI12
+         sOLJ9e9w5D3v90QRkacc9735dDFzZoEffiWx0enThHrrErMQs+GlXNVmlcSRJrZ/mWBp
+         4yiWiXdgSgy9yN1guDopUwTJvNGwX9xwT4sAB8UCM2dHp0vOFvE/sjdY52QbA9Dr9AUQ
+         GrpTC0wiX39Whv/L+Yp39sGUumYc5hjqHziWh082dyy9D+9tv/3N9ojgtKGh97JQ1fYI
+         Cw6Q==;
+        darn=lfdr.de
+ARC-Authentication-Results: i=2; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=dFvHSlqO;
+       spf=pass (google.com: domain of qiangxu431@gmail.com designates 2607:f8b0:4864:20::102a as permitted sender) smtp.mailfrom=qiangxu431@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@googlegroups.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724931060; x=1725535860; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1725420914; x=1726025714; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-sender:mime-version
-         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ke4jKGhHRxN7+0A+A1gQXHfx4V+vK3ZsUCaD/V7jO+0=;
-        b=WdjbrgbprF2vx4Z4ugN3Tqpo9PvI+xAv/4K5zA4U2ZC9PDxTDC2kOjvqsh1+3+CAJo
-         t+9cx2hu1WIwaOMdUOBk47RPuH3wlnbbrq6LiRhdJyV0uLfN9m3EJi5j8oLtBmpJ0cw3
-         GnQ3XHyYhU026GsipH6ff2B3OZ+7sR+6XqIsPXyyOJ7Ln8mUeyaTHveqjVCJsBIAt//z
-         mnY/Kvmzwcapcf4g+oG/gJexP5ZdTNIl4MYxtvtFaOXqVWVQMI5gH630adc8cGx2X0lR
-         s1l0cuevEwJ6sKuXZHxy5M/wY3KpXPSXHv1n91uuuZw3uSUtt9aXLK8MubOX8d3Dp8GG
-         FglA==
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:to:subject:message-id:date:from:mime-version
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z6a4LE3aTs7nPHIIqT+yoZT4BkA+EPEybwmMnRWQSE0=;
+        b=h1ew+w8vFRlfI3vCWk6eeujRRVVR1sTvvGx3rVBKN4KJU7isH+uvW3fKoK81H7gVTo
+         +Q9Y+MBFxFBmbzuPIcW/8npwwEN7XV0dyvOZ8tJoccfXbzrx4B79LVmnMG3QLQQ4fP7u
+         4dtsLnI5oXUvLU+XKlSFVQQZFoAnvxqRrww7HzRiv/NseKs1etBBheg/GHb1goCnS80m
+         Bxi/F3RGJ2p5toE07z70FpsTSH/7FyFvIB+yAjVyS2D1HGYAP11xThVaUG5trXp423EX
+         L/sRkoVAhpqiNA5Huoaf0ay9iU5CCLOWUkd2yNiNdCAsQYrlmafF0oFQyA69AcrufzdZ
+         Xm8w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1725420914; x=1726025714; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-authentication-results
+         :x-original-sender:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Z6a4LE3aTs7nPHIIqT+yoZT4BkA+EPEybwmMnRWQSE0=;
+        b=GEnX/kf7tCclnHyP9tDmidwKspU34o9+Gcdy5AK8Ez0EcLiXAFEWe5k6BC6QEqOT2J
+         SZ/nuB/AAUWDQJTOt79qzC+rXziZZa1wCMJCq909WWZpVZpbIxlgyZh0tDyOn+wgjPRu
+         y06e2uP4iBzbG/gq9J8pYORfYCk0rWEzoQLt0uVY/LMm6Y41pz7aRc3+tM7gix5BSiWe
+         QoGvQRdBETLFqIJ1ShjcD55SVSxSRaECyzKvy+GFWSd847c3rP5v8yioixal1nNfPb3Z
+         jeMiR3HoVDbhmaSQxsjX1Dy1f1o83vLuP+S/+GDtKU+rMLztuSp5v6D7C8d7WeI5PE4w
+         0KCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724931060; x=1725535860;
+        d=1e100.net; s=20230601; t=1725420914; x=1726025714;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-sender:mime-version:subject:message-id:to:from:date
-         :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ke4jKGhHRxN7+0A+A1gQXHfx4V+vK3ZsUCaD/V7jO+0=;
-        b=wsRTC/QKDo6juXCkP374kylo5WYhOgI6VL6v6OVV57liHtOwbdQqvz7VYk8XS6ypKK
-         Gp0JIkmfIFBlcfbkNgz1HZrr6MXHeODOTD9M1uG5oci3Iwd8mWUfnvckwVcO8zUF1oWN
-         G6YAM7WHVaLe0fH5T4+g3UFwibFai36g9CrlL4tDx5zazEP/jTjI5LtLQ4ddrEYF8s9i
-         Ne62GsKZ2Dpmur26h34BMQXUOHj/PyBcDzOLyBB+ZzD0XavW/D+C6FfWcK/Bu1G+ecf/
-         lD2u1oPJqdxCMNFbM5ad4Avj9Fbs5GyjhMncoAIbYTLJ0zHy+ivFTH5rf7EG0MfGWi+k
-         EdNA==
+         :x-original-authentication-results:x-original-sender:to:subject
+         :message-id:date:from:mime-version:x-beenthere:x-gm-message-state
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z6a4LE3aTs7nPHIIqT+yoZT4BkA+EPEybwmMnRWQSE0=;
+        b=VNKZXOFu79v41btCYCJNniNCkjlTb3EkCNyEkuSrkqxcr4Njwkqo4eWQS0oV8nMRwN
+         LJzA5xAyopsPjokgETzM4tqpGz3wESBGWCrS5tWRNg9Kr/EB5Jk62uC0HOAVdBEVyoBR
+         ITTuaYi64IXBvmbzEujYEzC35XyIztbexeBPa07ujhOhZ/4MkKJ3tlV28zVMrtUkMRtz
+         fPs3Cvfkrb6pFvUns1xh8EbREf7cK2SQ6CMxftIqi1zrXwEm4VebuKdlltIZHUmtQk6M
+         8AoymJFNbee+4gPVAAFLE3bf0e6FHRKmZMbvS82OpUCyBHukyJPkf24RKSWcG5CnyYUM
+         75JA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=1; AJvYcCWh5PZVwUjKXdDDndkay97xdU+zAa3EBAo/krJqVDEM1tkBRwNGpc+VcytgMwjmAkPlLAeyug==@lfdr.de
-X-Gm-Message-State: AOJu0YwUw5tvVT3jEp/bsZCZEyEIJLSdWoSH5C2z9OXt/jmVTnqDn1YT
-	OwQI9Qzy3deDAFt+FYVQZbFjR7824+eYlQDO7VFhwUQLWaYhxd8W
-X-Google-Smtp-Source: AGHT+IH+4vg6qICiBXFFmtzqU+0TqxONZSJi7Xf6KVWKXje6N8gEWTY6Sd8IQPtk9pZ6NqNMWYUnxQ==
-X-Received: by 2002:a05:6902:e0a:b0:e11:7d53:e415 with SMTP id 3f1490d57ef6-e1a5ab461d9mr2602613276.10.1724931060401;
-        Thu, 29 Aug 2024 04:31:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=2; AJvYcCVObNH9imknMpE6g+i5ikCJON5VWUXsNOEtTvoF780+CNb0CYVZkNYSiyo+PnOnYptM/qs4Vg==@lfdr.de
+X-Gm-Message-State: AOJu0Yw2f5UGYQ0fmbEc8HQgxNfFqAfvQMFYXvba4EIOdgkGzPmSfHjA
+	tLaJl0UewcZvsBxA6AY6lTFZOvcmmHkcVSQ26ogc2GSOU6RTe4W7
+X-Google-Smtp-Source: AGHT+IGIlpnv1kTQfx5+Me3bH1FqF862jbvd8x7rflsI9oqoMSwq3GNLzCByr9qzhcy5yccpna1/Lw==
+X-Received: by 2002:a05:6e02:52c:b0:39f:558a:e404 with SMTP id e9e14a558f8ab-39f558ae637mr106147995ab.4.1725420914288;
+        Tue, 03 Sep 2024 20:35:14 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6902:1204:b0:e13:df92:d2cc with SMTP id
- 3f1490d57ef6-e1a5822ef3fls678584276.1.-pod-prod-01-us; Thu, 29 Aug 2024
- 04:30:58 -0700 (PDT)
-X-Received: by 2002:a05:690c:110:b0:6af:b0cc:abda with SMTP id 00721157ae682-6d27804b2fcmr21552897b3.40.1724931058270;
-        Thu, 29 Aug 2024 04:30:58 -0700 (PDT)
-Date: Thu, 29 Aug 2024 04:30:57 -0700 (PDT)
-From: Bladu 22 <bladu8014@gmail.com>
-To: Jailhouse <jailhouse-dev@googlegroups.com>
-Message-Id: <e1b103a6-6be4-4fc9-b58d-1f64e9559dddn@googlegroups.com>
-Subject: buy vaped dmt and powerder dmt vapes online
+Received: by 2002:a05:6e02:4aa:b0:39f:5281:28bb with SMTP id
+ e9e14a558f8ab-39f52812f72ls18601475ab.0.-pod-prod-08-us; Tue, 03 Sep 2024
+ 20:35:12 -0700 (PDT)
+X-Received: by 2002:a05:6e02:1c2f:b0:39f:3227:8d27 with SMTP id e9e14a558f8ab-39f378566ccmr229045375ab.24.1725420912724;
+        Tue, 03 Sep 2024 20:35:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1725420912; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OLRwV2RlCTXb6dIaEAbJb0zTXpPGfnJGm9VYkVPc5JJk3HgrJYXVxgb6sZPUxa8fRu
+         GQNZnoAcCNjTIEnTta3C7ZG6N8ppzsWqqLD7T41NmQwAZ0UVOX37YTFf554bWosY+mFp
+         13oRDxSDwcQdZnWe8fecNvMQUY+72Q/uTeNgMn4L/LSph/Fec5m2rNUvwOhMBFyng4Ue
+         7Y2qJ2KT73am+Xl2QF0Z/HRr21nZDfW0D+Y12cQwAD40+x0DjJmVvmd8sKcHFNsC36c2
+         9pc4+P1h3N4dovhS+BBo+uyqyDV0/MyTT98Qc+OYFvadvA2E/I2uObLl/rDIaN9vqp3I
+         ANSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=moW7qgdF4+i3XdB51YVE069CybMh0P0+fov8qulShbI=;
+        fh=2tQzQ7BDCTqJm82PDY7f/SoNACc8xWmtm+Icohy5zLg=;
+        b=XXktvqb7r/Bh4fYPORxW4a1aAVRmYYAtyrA3qXSDKMY83SQVRVTGS+yrNsa2ht/h7b
+         CEuDI++qKC5q4nWI4J4eNosXHyIYeCpnn9kcU1OW/FXilKCHn97w6/KVnCrNe2y+xrRM
+         DU76AJ7ml3WhyRnpINrNbQF25J875K6HYLPmLa8WKHc5WSVohMNAnL8S8OK/vaOferzp
+         EusG+R+nMCKNL+YYfWKsun/GM/wyHARQOYrcQdHjBqWkbYizt2sOO7X6JVn8Zao6QNzG
+         kSPxLjvKIcV3Pv+x0Opj3iYgHXtCItH7zY9sQEpzREor3d7r/NDn/W++zzVUhqMKF1Zp
+         0xEw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; gmr-mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=dFvHSlqO;
+       spf=pass (google.com: domain of qiangxu431@gmail.com designates 2607:f8b0:4864:20::102a as permitted sender) smtp.mailfrom=qiangxu431@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@googlegroups.com
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com. [2607:f8b0:4864:20::102a])
+        by gmr-mx.google.com with ESMTPS id e9e14a558f8ab-39f47386fe2si3272535ab.5.2024.09.03.20.35.12
+        for <jailhouse-dev@googlegroups.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Sep 2024 20:35:12 -0700 (PDT)
+Received-SPF: pass (google.com: domain of qiangxu431@gmail.com designates 2607:f8b0:4864:20::102a as permitted sender) client-ip=2607:f8b0:4864:20::102a;
+Received: by mail-pj1-x102a.google.com with SMTP id 98e67ed59e1d1-2d8b679d7f2so2353604a91.1
+        for <jailhouse-dev@googlegroups.com>; Tue, 03 Sep 2024 20:35:12 -0700 (PDT)
+X-Received: by 2002:a17:90a:c38a:b0:2d8:8cef:3d64 with SMTP id
+ 98e67ed59e1d1-2da7482c228mr3941334a91.6.1725420911584; Tue, 03 Sep 2024
+ 20:35:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_53880_350887746.1724931057554"
-X-Original-Sender: bladu8014@gmail.com
+From: qiang xu <qiangxu431@gmail.com>
+Date: Wed, 4 Sep 2024 11:35:00 +0800
+Message-ID: <CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm+5WSxvr3-A@mail.gmail.com>
+Subject: Jailhouse triggered exception #14
+To: jailhouse-dev@googlegroups.com
+Content-Type: multipart/alternative; boundary="00000000000085ef3a062142dc63"
+X-Original-Sender: qiangxu431@gmail.com
+X-Original-Authentication-Results: gmr-mx.google.com;       dkim=pass
+ header.i=@gmail.com header.s=20230601 header.b=dFvHSlqO;       spf=pass
+ (google.com: domain of qiangxu431@gmail.com designates 2607:f8b0:4864:20::102a
+ as permitted sender) smtp.mailfrom=qiangxu431@gmail.com;       dmarc=pass
+ (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;       dara=pass header.i=@googlegroups.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -80,267 +145,116 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-------=_Part_53880_350887746.1724931057554
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_53881_847667897.1724931057554"
-
-------=_Part_53881_847667897.1724931057554
+--00000000000085ef3a062142dc63
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
+Hi Jailhouse Team,
 
-Buy dmt vape pen DMT (Cartridge) 1mL
-https://t.me/TheBackEndGarden19                                            =
-=20
-                                                                           =
-=20
-                   Buy dmt vape pen DMT (N, N-Dimethyltryptamine) is a=20
-hallucinogenic tryptamine 5meo dmt for sale found in a variety of plant=20
-species. Which have been employed in religious ceremonies and practices.=20
-Because of its strong hallucinogenic impact, it is also known as the=20
-=E2=80=9Cspirit molecule.=E2=80=9D buy 5 meo DMT. buy 5meo DMT. 4 aco dmt b=
-uy
-https://t.me/TheBackEndGarden19
-DMT is the primary element of ayahuasca, a traditional South American=20
-brewed tea that is utilized for its hallucinogenic and psychedelic=20
-properties. One of the most often reported favorable side effects of the=20
-medication is =E2=80=9Cspiritual enlightenment.=E2=80=9D DMT=E2=80=99s prim=
-ary effect is=20
-psychological. And with extreme psychedelic visual and auditory pleasure,=
-=20
-as well as a changed sense of space, body, and time.
-1mL
-800mg DMT
-Spirit molecule psychedelic experience
-Cartridge included
-Buy DMT Cartridge Online | buy 5 meo dmt
-Watch this YouTube Video on =E2=80=98What is DMT=E2=80=99 to learn more abo=
-ut this compound=20
-and what you can expect on a DMT trip. buy 5meo dmt
-https://t.me/TheBackEndGarden19
-Dosage Guidelines =E2=80=93 PLEASE READ CAREFULLY BEFORE USE:
+    I am trying to run Jailhouse on a real physical machine(x86).When I run
+jailhouse enable xx.cell. I encounter the following error. I'm not sure
+what is happening. Can you help me?
 
-25mg DMT per 3-second pull
+'Initializing Jailhouse hypervisor v0.12 on CPU 2
+Code location: 0xfffffffff0000050
+Using x2APIC
+Page pool usage after early setup: mem 48/974, remap 0/131072
+Initializing processors:
+ CPU 2... (APIC ID 4) OK
+ CPU 3... (APIC ID 6) OK
+ CPU 1... (APIC ID 2) OK
+ CPU 0... (APIC ID 0) OK
+Initializing unit: VT-d
+DMAR unit @0xfed90000/0x1000
+DMAR unit @0xfed91000/0x1000
+Reserving 120 interrupt(s) for device f0:1f.0 at index 0
+Initializing unit: IOAPIC
+Initializing unit: Cache Allocation Technology
+Initializing unit: PCI
+Adding PCI device 00:00.0 to cell "RootCell"
+Adding PCI device 00:01.0 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:01.0 at index 120
+Adding PCI device 00:02.0 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:02.0 at index 121
+Adding PCI device 00:14.0 to cell "RootCell"
+Reserving 8 interrupt(s) for device 00:14.0 at index 122
+Adding PCI device 00:14.2 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:14.2 at index 130
+Adding PCI device 00:16.0 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:16.0 at index 131
+Adding PCI device 00:17.0 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:17.0 at index 132
+Adding PCI device 00:1c.0 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:1c.0 at index 133
+Adding PCI device 00:1f.0 to cell "RootCell"
+Adding PCI device 00:1f.2 to cell "RootCell"
+Adding PCI device 00:1f.3 to cell "RootCell"
+Reserving 1 interrupt(s) for device 00:1f.3 at index 134
+Adding PCI device 00:1f.4 to cell "RootCell"
+Adding PCI device 01:00.0 to cell "RootCell"
+Reserving 8 interrupt(s) for device 01:00.0 at index 135
+Adding PCI device 01:00.1 to cell "RootCell"
+Reserving 4 interrupt(s) for device 01:00.1 at index 143
+Adding PCI device 01:00.2 to cell "RootCell"
+Reserving 3 interrupt(s) for device 01:00.2 at index 147
+Adding PCI device 01:03.0 to cell "RootCell"
+Reserving 16 interrupt(s) for device 01:03.0 at index 150
+FATAL: Jailhouse triggered exception #14
+Error code: 9
+Physical CPU ID: 4
+RIP: 0xfffffffff000b250 RSP: 0xfffffffff023ef50 FLAGS: 10093
+CR2: 0xffffff800400b000
+Stopping CPU 2 (Cell: "RootCell")'
 
-Light =E2=80=93 1 Pull (3 seconds) buy 5meo DMT
+Regards,
+Qiang
 
-Medium =E2=80=93 1 Pull (5 seconds)
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm%2B5WSxvr3-A%40mail.gmail.com.
 
-Extremely Potent =E2=80=93 2+ Pulls (5 seconds)
-
-Begin slowly and low with 1 tiny pull (under 25 mg). Hold the vapor in your=
-=20
-lungs for as long as you can before expelling. Allow a few minutes for the=
-=20
-effects to take effect. DMT dosages differ from person to person. A dose of=
-=20
-25mg typically generates very few psychotropic and physical effects. A=20
-25-50mg dose produces a more strong experience, with excursions lasting 5=
-=20
-to 15 minutes. This dose level may or may not cause whole-body=20
-hallucinations or an out-of-body experience, depending on the individual. A=
-=20
-dose of more than 50mg is regarded as highly powerful and is not=20
-recommended for beginners. In many aspects, the experience at this dose has=
-=20
-been described as full-bodied, powerful, and transforming. This quantity=20
-should not be consumed.
-https://t.me/TheBackEndGarden19
-WARNING =E2=80=93 PLEASE READ CAREFULLY BEFORE USE buy 5 meo dmt
-Physical effects of DMT can include: 4 aco dmt buy
-
-Rapid heart rate
-Increased blood pressure
-Visual disturbances
-Dizziness
-Dilated pupils
-Agitation
-Paranoia
-Rapid rhythmic eye movements
-Chest pain or tightness
-Diarrhea
-Nausea or vomiting
-The physical side effects of DMT, which include increased heart rate and=20
-blood pressure, might be dangerous, especially if you have cardiac disease=
-=20
-or already have high blood pressure. Seizures, lack of motor coordination,=
-=20
-and 5meo dmt for sale are all possible side effects of DMT usage. DMT, like=
-=20
-other hallucinogenic substances, has the potential to produce chronic=20
-psychosis and hallucinogen-persisting perception disease (HPPD). Both are=
-=20
-uncommon and more likely to occur in persons who have a history of mental=
-=20
-illness. buy 5 meo DMT
-https://t.me/TheBackEndGarden19
-If you are using DMT, DO NOT mix with:
-Alcohol
-Antidepressants
-Antihistamines
-Muscle relaxants
-Opioids
-Benzodiazepines
-Amphetamines
-LSD, aka acid
-Magic mushrooms 4 aco dmt buy
-Ketamine
-Gamma-hydroxybutyric acid (GHB), aka liquid V and liquid G
-Cocaine
-Cannabis
-There has been no medical research indicating that DMT is addictive.
-
-Safety Tips When Consuming DMT
-Find a buddy. Do not consume DMT alone. Make sure to have at least 1 sober=
-=20
-person with you in case things take a turn
-Be in a comfortable setting. Take DMT in a safe environment where you are=
-=20
-comfortable. Sit or lie down to avoid the risk of falling and injuring=20
-yourself while on the trip
-Don=E2=80=99t mix. Do not mix DMT with alcohol or any other drugs buy 5 meo=
- DMT
-Positive mental state. Be sure to pick the right time to use DMT =E2=80=93 =
-when you=20
-are in a positive place and state of mind
-DO NOT use DMT if you are taking antidepressants, have a heart condition,=
-=20
-or have high blood pressure
-What is DMT?
-Have you ever longed to disconnect from the outside world and get buried in=
-=20
-your thoughts?
-Dimethyltryptamine (DMT) is a naturally 5meo dmt for sale hallucinogenic=20
-tryptamine substance that has been utilized for generations in religious=20
-shaman ceremonies and rituals. It=E2=80=99s also called as the =E2=80=9Cspi=
-rit molecule=E2=80=9D=20
-because of its powerful psychedelic effects, which can include altered=20
-perception of space and time while taking you on a =E2=80=9Cbusinessman=E2=
-=80=99s trip.=E2=80=9D
-DMT is a naturally occurring hallucinogenic substance found in plants such=
-=20
-as Acacia bark, among others. Religious shamans have long identified it as=
-=20
-one of God=E2=80=99s messengers because when smoked during ayahuasca ritual=
-s, it=20
-allowed them to speak with spirits=E2=80=94aided by hallucinations so power=
-ful that=20
-they believed these otherworldly entities lived outside of themselves.
-You may have heard of it before, but there is now a new method to enjoy=20
-this potent chemical without ingesting it or smoking it. Budlyft is now=20
-available!
-We provide a number of options for you to enjoy DMT, including vape pens=20
-and e-liquids. buy 5 meo DMT
-And we ensure that all of our products are lab-verified for purity so you=
-=20
-can be confident that what is going into your body is safe and effective.
-                                                                           =
-=20
-                                                                     =20
- https://t.me/TheBackEndGarden19
-
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
-To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/e1b103a6-6be4-4fc9-b58d-1f64e9559dddn%40googlegroups.com.
-
-------=_Part_53881_847667897.1724931057554
+--00000000000085ef3a062142dc63
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<br />Buy dmt vape pen DMT (Cartridge) 1mL<br />https://t.me/TheBackEndGard=
-en19 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Buy dmt vape pen DMT (N=
-, N-Dimethyltryptamine) is a hallucinogenic tryptamine 5meo dmt for sale fo=
-und in a variety of plant species. Which have been employed in religious ce=
-remonies and practices. Because of its strong hallucinogenic impact, it is =
-also known as the =E2=80=9Cspirit molecule.=E2=80=9D buy 5 meo DMT. buy 5me=
-o DMT. 4 aco dmt buy<br />https://t.me/TheBackEndGarden19<br />DMT is the p=
-rimary element of ayahuasca, a traditional South American brewed tea that i=
-s utilized for its hallucinogenic and psychedelic properties. One of the mo=
-st often reported favorable side effects of the medication is =E2=80=9Cspir=
-itual enlightenment.=E2=80=9D DMT=E2=80=99s primary effect is psychological=
-. And with extreme psychedelic visual and auditory pleasure, as well as a c=
-hanged sense of space, body, and time.<br />1mL<br />800mg DMT<br />Spirit =
-molecule psychedelic experience<br />Cartridge included<br />Buy DMT Cartri=
-dge Online | buy 5 meo dmt<br />Watch this YouTube Video on =E2=80=98What i=
-s DMT=E2=80=99 to learn more about this compound and what you can expect on=
- a DMT trip. buy 5meo dmt<br />https://t.me/TheBackEndGarden19<br />Dosage =
-Guidelines =E2=80=93 PLEASE READ CAREFULLY BEFORE USE:<br /><br />25mg DMT =
-per 3-second pull<br /><br />Light =E2=80=93 1 Pull (3 seconds) buy 5meo DM=
-T<br /><br />Medium =E2=80=93 1 Pull (5 seconds)<br /><br />Extremely Poten=
-t =E2=80=93 2+ Pulls (5 seconds)<br /><br />Begin slowly and low with 1 tin=
-y pull (under 25 mg). Hold the vapor in your lungs for as long as you can b=
-efore expelling. Allow a few minutes for the effects to take effect. DMT do=
-sages differ from person to person. A dose of 25mg typically generates very=
- few psychotropic and physical effects. A 25-50mg dose produces a more stro=
-ng experience, with excursions lasting 5 to 15 minutes. This dose level may=
- or may not cause whole-body hallucinations or an out-of-body experience, d=
-epending on the individual. A dose of more than 50mg is regarded as highly =
-powerful and is not recommended for beginners. In many aspects, the experie=
-nce at this dose has been described as full-bodied, powerful, and transform=
-ing. This quantity should not be consumed.<br />https://t.me/TheBackEndGard=
-en19<br />WARNING =E2=80=93 PLEASE READ CAREFULLY BEFORE USE buy 5 meo dmt<=
-br />Physical effects of DMT can include: 4 aco dmt buy<br /><br />Rapid he=
-art rate<br />Increased blood pressure<br />Visual disturbances<br />Dizzin=
-ess<br />Dilated pupils<br />Agitation<br />Paranoia<br />Rapid rhythmic ey=
-e movements<br />Chest pain or tightness<br />Diarrhea<br />Nausea or vomit=
-ing<br />The physical side effects of DMT, which include increased heart ra=
-te and blood pressure, might be dangerous, especially if you have cardiac d=
-isease or already have high blood pressure. Seizures, lack of motor coordin=
-ation, and 5meo dmt for sale are all possible side effects of DMT usage. DM=
-T, like other hallucinogenic substances, has the potential to produce chron=
-ic psychosis and hallucinogen-persisting perception disease (HPPD). Both ar=
-e uncommon and more likely to occur in persons who have a history of mental=
- illness. buy 5 meo DMT<br />https://t.me/TheBackEndGarden19<br />If you ar=
-e using DMT, DO NOT mix with:<br />Alcohol<br />Antidepressants<br />Antihi=
-stamines<br />Muscle relaxants<br />Opioids<br />Benzodiazepines<br />Amphe=
-tamines<br />LSD, aka acid<br />Magic mushrooms 4 aco dmt buy<br />Ketamine=
-<br />Gamma-hydroxybutyric acid (GHB), aka liquid V and liquid G<br />Cocai=
-ne<br />Cannabis<br />There has been no medical research indicating that DM=
-T is addictive.<br /><br />Safety Tips When Consuming DMT<br />Find a buddy=
-. Do not consume DMT alone. Make sure to have at least 1 sober person with =
-you in case things take a turn<br />Be in a comfortable setting. Take DMT i=
-n a safe environment where you are comfortable. Sit or lie down to avoid th=
-e risk of falling and injuring yourself while on the trip<br />Don=E2=80=99=
-t mix. Do not mix DMT with alcohol or any other drugs buy 5 meo DMT<br />Po=
-sitive mental state. Be sure to pick the right time to use DMT =E2=80=93 wh=
-en you are in a positive place and state of mind<br />DO NOT use DMT if you=
- are taking antidepressants, have a heart condition, or have high blood pre=
-ssure<br />What is DMT?<br />Have you ever longed to disconnect from the ou=
-tside world and get buried in your thoughts?<br />Dimethyltryptamine (DMT) =
-is a naturally 5meo dmt for sale hallucinogenic tryptamine substance that h=
-as been utilized for generations in religious shaman ceremonies and rituals=
-. It=E2=80=99s also called as the =E2=80=9Cspirit molecule=E2=80=9D because=
- of its powerful psychedelic effects, which can include altered perception =
-of space and time while taking you on a =E2=80=9Cbusinessman=E2=80=99s trip=
-.=E2=80=9D<br />DMT is a naturally occurring hallucinogenic substance found=
- in plants such as Acacia bark, among others. Religious shamans have long i=
-dentified it as one of God=E2=80=99s messengers because when smoked during =
-ayahuasca rituals, it allowed them to speak with spirits=E2=80=94aided by h=
-allucinations so powerful that they believed these otherworldly entities li=
-ved outside of themselves.<br />You may have heard of it before, but there =
-is now a new method to enjoy this potent chemical without ingesting it or s=
-moking it. Budlyft is now available!<br />We provide a number of options fo=
-r you to enjoy DMT, including vape pens and e-liquids. buy 5 meo DMT<br />A=
-nd we ensure that all of our products are lab-verified for purity so you ca=
-n be confident that what is going into your body is safe and effective.<br =
-/>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0https://t.me/TheBackEndGarden19
+<div dir=3D"ltr">Hi Jailhouse Team,<div><br>=C2=A0 =C2=A0 I am trying to ru=
+n Jailhouse on a real physical machine(x86).When I run jailhouse enable xx.=
+cell. I encounter the following error. I&#39;m not sure what is happening. =
+Can you help me?</div><div><br>&#39;Initializing Jailhouse hypervisor v0.12=
+ on CPU 2<br>Code location: 0xfffffffff0000050<br>Using x2APIC<br>Page pool=
+ usage after early setup: mem 48/974, remap 0/131072<br>Initializing proces=
+sors:<br>=C2=A0CPU 2... (APIC ID 4) OK<br>=C2=A0CPU 3... (APIC ID 6) OK<br>=
+=C2=A0CPU 1... (APIC ID 2) OK<br>=C2=A0CPU 0... (APIC ID 0) OK<br>Initializ=
+ing unit: VT-d<br>DMAR unit @0xfed90000/0x1000<br>DMAR unit @0xfed91000/0x1=
+000<br>Reserving 120 interrupt(s) for device f0:1f.0 at index 0<br>Initiali=
+zing unit: IOAPIC<br>Initializing unit: Cache Allocation Technology<br>Init=
+ializing unit: PCI<br>Adding PCI device 00:00.0 to cell &quot;RootCell&quot=
+;<br>Adding PCI device 00:01.0 to cell &quot;RootCell&quot;<br>Reserving 1 =
+interrupt(s) for device 00:01.0 at index 120<br>Adding PCI device 00:02.0 t=
+o cell &quot;RootCell&quot;<br>Reserving 1 interrupt(s) for device 00:02.0 =
+at index 121<br>Adding PCI device 00:14.0 to cell &quot;RootCell&quot;<br>R=
+eserving 8 interrupt(s) for device 00:14.0 at index 122<br>Adding PCI devic=
+e 00:14.2 to cell &quot;RootCell&quot;<br>Reserving 1 interrupt(s) for devi=
+ce 00:14.2 at index 130<br>Adding PCI device 00:16.0 to cell &quot;RootCell=
+&quot;<br>Reserving 1 interrupt(s) for device 00:16.0 at index 131<br>Addin=
+g PCI device 00:17.0 to cell &quot;RootCell&quot;<br>Reserving 1 interrupt(=
+s) for device 00:17.0 at index 132<br>Adding PCI device 00:1c.0 to cell &qu=
+ot;RootCell&quot;<br>Reserving 1 interrupt(s) for device 00:1c.0 at index 1=
+33<br>Adding PCI device 00:1f.0 to cell &quot;RootCell&quot;<br>Adding PCI =
+device 00:1f.2 to cell &quot;RootCell&quot;<br>Adding PCI device 00:1f.3 to=
+ cell &quot;RootCell&quot;<br>Reserving 1 interrupt(s) for device 00:1f.3 a=
+t index 134<br>Adding PCI device 00:1f.4 to cell &quot;RootCell&quot;<br>Ad=
+ding PCI device 01:00.0 to cell &quot;RootCell&quot;<br>Reserving 8 interru=
+pt(s) for device 01:00.0 at index 135<br>Adding PCI device 01:00.1 to cell =
+&quot;RootCell&quot;<br>Reserving 4 interrupt(s) for device 01:00.1 at inde=
+x 143<br>Adding PCI device 01:00.2 to cell &quot;RootCell&quot;<br>Reservin=
+g 3 interrupt(s) for device 01:00.2 at index 147<br>Adding PCI device 01:03=
+.0 to cell &quot;RootCell&quot;<br>Reserving 16 interrupt(s) for device 01:=
+03.0 at index 150<br>FATAL: Jailhouse triggered exception #14<br>Error code=
+: 9<br>Physical CPU ID: 4<br>RIP: 0xfffffffff000b250 RSP: 0xfffffffff023ef5=
+0 FLAGS: 10093<br>CR2: 0xffffff800400b000<br>Stopping CPU 2 (Cell: &quot;Ro=
+otCell&quot;)&#39;<br></div><div><br>Regards,<br>Qiang</div><div><br></div>=
+</div>
 
 <p></p>
 
@@ -351,11 +265,9 @@ To unsubscribe from this group and stop receiving emails from it, send an e=
 mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
 ouse-dev+unsubscribe@googlegroups.com</a>.<br />
 To view this discussion on the web visit <a href=3D"https://groups.google.c=
-om/d/msgid/jailhouse-dev/e1b103a6-6be4-4fc9-b58d-1f64e9559dddn%40googlegrou=
-ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
-msgid/jailhouse-dev/e1b103a6-6be4-4fc9-b58d-1f64e9559dddn%40googlegroups.co=
-m</a>.<br />
+om/d/msgid/jailhouse-dev/CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm%2B5WSxvr=
+3-A%40mail.gmail.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups=
+.google.com/d/msgid/jailhouse-dev/CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm=
+%2B5WSxvr3-A%40mail.gmail.com</a>.<br />
 
-------=_Part_53881_847667897.1724931057554--
-
-------=_Part_53880_350887746.1724931057554--
+--00000000000085ef3a062142dc63--
