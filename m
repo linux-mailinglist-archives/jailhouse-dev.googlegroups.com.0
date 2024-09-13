@@ -1,136 +1,75 @@
-Return-Path: <jailhouse-dev+bncBCMKJ4OZ6MLBBFVBRO3QMGQEKGMNWIQ@googlegroups.com>
+Return-Path: <jailhouse-dev+bncBD47XGVBYMKBB4UHR23QMGQE7LUZZ3Y@googlegroups.com>
 X-Original-To: lists+jailhouse-dev@lfdr.de
 Delivered-To: lists+jailhouse-dev@lfdr.de
-Received: from mail-lf1-x13a.google.com (mail-lf1-x13a.google.com [IPv6:2a00:1450:4864:20::13a])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD739767E1
-	for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Sep 2024 13:29:28 +0200 (CEST)
-Received: by mail-lf1-x13a.google.com with SMTP id 2adb3069b0e04-53654420f0csf782387e87.0
-        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Sep 2024 04:29:28 -0700 (PDT)
-ARC-Seal: i=2; a=rsa-sha256; t=1726140568; cv=pass;
-        d=google.com; s=arc-20240605;
-        b=OQcaO/ATLcV8p51bx2FwDl0nGZCeDtB6fiM1tQkaWyM31BDl3R8U5n9QFJFecWAJUz
-         9nXTAVGXIMqISZEAfOMxByDD4urPFWB++XCcYWrE6aZhmb4oTRAAgGXPYTQYpqhV0ttH
-         UhwqZZ+2DGZat4ph8u4dPPjnyhnzesl3x7bpX1O85vyMDFAE2JPA0ymrqkKCrCAcyEDb
-         SVCQonndVfTyDA2QOzRW14Tkk7tIFvGsCzEI4Y0Phnk3bDME2sAwj67NtYbcdT+MtnhT
-         ExUbIXFOXhTNRghUT9J2RdzwvUkO/xHgubFwTSPo+Cv0qa6stBPyHHr2PPKUhFsvMpsl
-         BzHg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:content-transfer-encoding
-         :in-reply-to:content-language:from:references:to:subject:user-agent
-         :mime-version:date:message-id:sender:dkim-signature;
-        bh=GQz3enGPt2wLyT4loW32pdE4/f7U/0tpkYgLCliwU38=;
-        fh=FpflL4dEPiRheTulwePvaOulF2fLdHcX59Wb/IAiQqQ=;
-        b=MT5ajq5evzow0ujkfClJ/LmJ32t2qM5mn7RvBbVHtixAGtBlBiz5Ps1URPCPoMHuKU
-         TV65krukigNQpNMY7grykCqXQpJZH8Xd+dKtSjQ8VPvl6ZivW/g1IiFEspvDitaq/nDg
-         RNmVNaUtMdknlTukIpJSMkIENSXhY7KNOMhYEIgB/RmkM++dtcpFqYruogQoQAtYOm3q
-         7/K4BtqHi6jcHaK+uscZLoITekSJ09Hv0wKOYPuoFAwJ4E4WiWhOdcJXz+nbOwI5nlym
-         pg1C2ucYStvVfHlsV7Ded+26bcWSLLeA2cQhdBcmpdEp4D8u7FtMdn7wBpeN5x8hs6du
-         fsIQ==;
-        darn=lfdr.de
-ARC-Authentication-Results: i=2; gmr-mx.google.com;
-       dkim=neutral (invalid public key) header.i=@vmexit.de header.s=20180813 header.b=JbasKyg2;
-       spf=pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) smtp.mailfrom=ralf@vmexit.de
+Received: from mail-yw1-x1140.google.com (mail-yw1-x1140.google.com [IPv6:2607:f8b0:4864:20::1140])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7252C9775EF
+	for <lists+jailhouse-dev@lfdr.de>; Fri, 13 Sep 2024 02:14:44 +0200 (CEST)
+Received: by mail-yw1-x1140.google.com with SMTP id 00721157ae682-69a0536b23asf32034137b3.3
+        for <lists+jailhouse-dev@lfdr.de>; Thu, 12 Sep 2024 17:14:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlegroups.com; s=20230601; t=1726140568; x=1726745368; darn=lfdr.de;
+        d=googlegroups.com; s=20230601; t=1726186483; x=1726791283; darn=lfdr.de;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
-         :list-id:mailing-list:precedence:x-original-authentication-results
-         :x-original-sender:content-transfer-encoding:in-reply-to
-         :content-language:from:references:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=GQz3enGPt2wLyT4loW32pdE4/f7U/0tpkYgLCliwU38=;
-        b=xwwkg70NRr86/GQ1xTwxiGm97fUOBi12fVI2SbArizZ0WBfN5BRI2ZQ7uuT5elJhN/
-         cwWIFCoVGjJV/UBWR95dD+DwmBH4cXTDs3xOfNvytrsx4DDsZAh64Z9EucRnULzi0fix
-         ZNoTcIFD6LgGDwm0jEs0DPr1ylpW2PO/B9jZNU1kmSVGqgpc73BPsGRRC1oygPasvosZ
-         fvsS09F6YI6qfmaTc1efcq7pKzggcqDT9pFwtiGvb9fv64i/aJK6Kx7UYOUbCRD6h1At
-         tV2olGTa1zNCvHSN3IoZ+X9o3uOo6IEIv2rwMpqR3mqFMlQYKgKIoNMcGlO/YUz7ZaqF
-         yUrw==
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XxGFNLoNUPOVKguF7hV62LB/UK4rzaPSaITPFIeav7A=;
+        b=GmUd7zBMiTNnr+IGLhyfYVVULzF/yrCIcql74lwbSoHjla/T3Wh5rF/RMIDGWtOYEB
+         0mhte2kv6Ew41n9+rJOYuI84v4i+ei+ma2OyEn+nbfvHNrqQZOIc/zp2fpvuqrl/BkKK
+         l4DCOVGsF2UY49gnTxPt+vsiCeoZw7QkHEZ24nD+OVpc1CYN/7br39RUi/gGxRXoDaSi
+         PG3c58fYdZTIzQivAfmuEdzoqkeSdmwqXqjbp+PAWBdB+50g1+f9x4Ah3yI1LEQkFPzC
+         jpnLxCCrxy4JbHEKjALSEoMU2MssmFR0sYX/FHqQG9X1icRftp/+MZlYjmWAx/BxK/tY
+         vzSw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726186483; x=1726791283; darn=lfdr.de;
+        h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
+         :list-id:mailing-list:precedence:x-original-sender:mime-version
+         :subject:message-id:to:from:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XxGFNLoNUPOVKguF7hV62LB/UK4rzaPSaITPFIeav7A=;
+        b=NcxMf2Lgt1/PsbP8PVfqne/EzOtKWIUtaJkZdTYCX2vzkj1flyxScBVNYOCCMbRf+m
+         1uZQjdRmgD8hSNIRz4ReToh7sdPfz5VBrJDp4jtGkAVcycJAAA2fW8woQh3sXVa3ER+L
+         bKvFtaaOpsVW1L6wuGEUh3D9TfaLKMeEC3lMH1Nx1kebowkyunhuu7OgZyoDlceqJ8kq
+         Q4DmtaQ8jTct8rBs/sbIJyetcmU0nkR/TVhSbfyFipxNdTxXSffY2Wo5tClXh2r/Tcyg
+         8zQymeG8Bm9+NrA8KUAIe1sJv3nEY4K0KVVcJYSRqBEFQ24dbnI7gS1PeIUE+3QOQ97x
+         xyjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726140568; x=1726745368;
+        d=1e100.net; s=20230601; t=1726186483; x=1726791283;
         h=list-unsubscribe:list-subscribe:list-archive:list-help:list-post
          :x-spam-checked-in-group:list-id:mailing-list:precedence
-         :x-original-authentication-results:x-original-sender
-         :content-transfer-encoding:in-reply-to:content-language:from
-         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-original-sender:mime-version:subject:message-id:to:from:date
          :x-beenthere:x-gm-message-state:sender:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GQz3enGPt2wLyT4loW32pdE4/f7U/0tpkYgLCliwU38=;
-        b=dsXYly5fBFI/M0z2xjLRxzfCyYxd6urbAJSk9tkv0GmA91UCawXn+sOuOukHV//sCX
-         p8GbmXdT4aGNQ5paxy9UP38ep/uKZCTs1YkvTAV+eB/Fb4xVvprcpamymgS85eukhacS
-         PuX33upKgmDSYZsYh5x+ymoJr2cZfHzUhI7PMNU7+auV8+43amfzbCDDXa+jGdVgcjvB
-         cwayUL6InFiL/YhcxEo6BcdXM/so+JTJJ7dNe9crbcTh9JciPjpQVxAtlcoC0xsDrjA/
-         p6gWSpq4KEzE1od2CodHxoH6eCzVuDjJZdYIgHJ7nZbjeAsvtJjWSwquZSQos56rP1Q1
-         j1/w==
+        bh=XxGFNLoNUPOVKguF7hV62LB/UK4rzaPSaITPFIeav7A=;
+        b=wDvVBmLvRwZWrImV6WwznsNYTMen2VPbQCDw9f8JEYsNlSyMoYaBcYnJcHMY1LPSgb
+         KvHyra84Rp7A4G0J7oJHKNZlyjUE6fzJM+LcT6bqqDoflgSs8DLJSZsgARzxgLyqLHyg
+         49qnwMJ9o9qA4vzXa9GgSW1Jg+i7rHHdvMoSJK3t4djmloK3X9XhTyTb+NOcfJmv677D
+         OYZQEc5om6sD6cuecj+QjJFoeTv/ai4qnHM8ogekn/ZWyVuaYJfDcdGRCl6CyoiUt97p
+         ZeIeq7SiT6Nscu+K3JcCxMgRtCGBfNKpBAG6EjEVr93V03ytlwpbMS+0USrlMptg7zZs
+         o0PA==
 Sender: jailhouse-dev@googlegroups.com
-X-Forwarded-Encrypted: i=2; AJvYcCX2EJxURItOuoU+ZxUj4y+3LpuHPePVOiMxj6YlfY1eBQs6YhN5hEM3olyZekWXDlx+Cw/BiQ==@lfdr.de
-X-Gm-Message-State: AOJu0Yy0GxvCJ9kipOfQnPRHOw3UnEfFUPaeAqT+1lGiEKsVSlhRb7vL
-	QeQpGJpOfb57nlftHUA0uFK+/C5YIxFeSQzN0ajOb95Mx/Y23lqE
-X-Google-Smtp-Source: AGHT+IGn8X0cEPRoOjcNojzqc6Sz1g7fsggI0D3FtBvTQtd1Phl1viBRmgM7Ho0BxodZbJQUeEYk7Q==
-X-Received: by 2002:a05:6512:a91:b0:52e:74d5:89ae with SMTP id 2adb3069b0e04-53678feb07bmr1480268e87.39.1726140567365;
-        Thu, 12 Sep 2024 04:29:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AJvYcCXXQYxzSkF4rwRqLBBYeXlXQx/A5SKxWgDGiC6waf3+DtXbaXSVYeuQ/rbxGHO/QAMpSXoo+Q==@lfdr.de
+X-Gm-Message-State: AOJu0YyHzvmH9tVYlb28QKT3aT93k3NGbqd1+mvNfYqVKI0d1tvkiatF
+	+aD/9cmnTO+TF7DE0+yGN+twfoPA/a+P9Xjsk0H2nwXisPES0drL
+X-Google-Smtp-Source: AGHT+IHrvagNU0ccuiRanMUG/PEQbYPksKo3Jug1v33JYB+tZNUvMl30ZS/6xY6tnDIKYZghwzlnsg==
+X-Received: by 2002:a05:6902:2805:b0:e1a:82d3:b5b8 with SMTP id 3f1490d57ef6-e1d9dc4845emr4352455276.52.1726186482881;
+        Thu, 12 Sep 2024 17:14:42 -0700 (PDT)
 X-BeenThere: jailhouse-dev@googlegroups.com
-Received: by 2002:a05:6512:acf:b0:52e:9923:a1c2 with SMTP id
- 2adb3069b0e04-53678f67aefls397197e87.1.-pod-prod-03-eu; Thu, 12 Sep 2024
- 04:29:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=2; AJvYcCWPG6BpJwgcy5dtXbpd6day/xqUcX2/k9fbDSyUh4RrUaDNwRCgCswIx0zcAAkZ/zcLntXjpRlknsbGXy0Y@googlegroups.com
-X-Received: by 2002:ac2:4e0a:0:b0:535:d4e9:28cf with SMTP id 2adb3069b0e04-53678ff48b4mr1720173e87.59.1726140563919;
-        Thu, 12 Sep 2024 04:29:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1726140563; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Pvog5W7tovoYMhWmthtIxxYykvYhdscwW82+Unhd9GFDRI6rUI16tpkhWF+tt3vwVa
-         XWI1o+eIZLdWgp0GxpTuB0mfN9mQ12HMxpwWyMfkmZczRBHwUm2buwYrIsXDbKXa/oqX
-         04reS7psVxHCnfpa/7hsWdmP4Hs0T89rrZf7WjnE1CAAY5O44iIwCJChkwEK2uajOvzP
-         AjlI/nZFC6kxpHoR2ZvSozQpOtTcYTHoWz0REKqjyUBxRE7N4z5zwgO32xMEojij82y9
-         4PDhCNBm/AdIXSeQgjaDNX44ImPmHwg5ryidz35arBLvAnIV6EM6PpQbdgLWwwpha5Ua
-         /8xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :dkim-signature;
-        bh=nvJ9UKA+Ifcasj2TJqtviywI7rj7SKxBmPOcqonebYM=;
-        fh=62lsEkyVSihdTwo9DXwVNrMR047Fyy3yKVbi/YBy210=;
-        b=YtHJ/qkMMHib9U+xQcChrCTHLaQzv7trRavIu2RmMTBGTaO4GpePaifOi5CD93d9Ax
-         sMGpf0omp7u56NbEe2TVIEBsj+XWk+K/dQAYqpKaRNk1UMvs37zVeJNLdyzI7gL/fYYJ
-         hfkaN4zyowjBdOkcSAqx4Xv0PhoEd+u43hYA6utF4zgCgqw82K+MF9Gxz5G2b46bM7kz
-         ZxfNoKM1s46FS9Bqu4ZmClobca4J+HF3XH53xlq09siToZP/4AJGDxqqQbZPVWFUOUNt
-         SeuAmP6q+b0kzZzhNAb5xvutk7alHatv3RAZE67abv1IEufQRq279fhf1whS4NEd1Nbe
-         Ibnw==;
-        dara=google.com
-ARC-Authentication-Results: i=1; gmr-mx.google.com;
-       dkim=neutral (invalid public key) header.i=@vmexit.de header.s=20180813 header.b=JbasKyg2;
-       spf=pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) smtp.mailfrom=ralf@vmexit.de
-Received: from mail.vmexit.de (vmexit.de. [2a03:4000:6:8069::2])
-        by gmr-mx.google.com with ESMTPS id 2adb3069b0e04-5365f8c6eabsi255924e87.10.2024.09.12.04.29.23
-        for <jailhouse-dev@googlegroups.com>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Sep 2024 04:29:23 -0700 (PDT)
-Received-SPF: pass (google.com: domain of ralf@vmexit.de designates 2a03:4000:6:8069::2 as permitted sender) client-ip=2a03:4000:6:8069::2;
-Received: from [172.16.2.23] (unknown [212.77.164.140])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.vmexit.de (Postfix) with ESMTPSA id 48AF1CD7DDE3;
-	Thu, 12 Sep 2024 13:29:28 +0200 (CEST)
-Message-ID: <f9f09503-807d-4393-8757-9da544d82a39@vmexit.de>
-Date: Thu, 12 Sep 2024 13:29:22 +0200
+Received: by 2002:a05:6902:1896:b0:e1c:eeec:3175 with SMTP id
+ 3f1490d57ef6-e1d9d48584els1670703276.1.-pod-prod-02-us; Thu, 12 Sep 2024
+ 17:14:41 -0700 (PDT)
+X-Received: by 2002:a05:690c:6e05:b0:6db:cecd:b889 with SMTP id 00721157ae682-6dbcecdba86mr5324837b3.37.1726186481484;
+        Thu, 12 Sep 2024 17:14:41 -0700 (PDT)
+Date: Thu, 12 Sep 2024 17:14:40 -0700 (PDT)
+From: Sexyreal Siliconwives <sexyrealsilliconwives@gmail.com>
+To: Jailhouse <jailhouse-dev@googlegroups.com>
+Message-Id: <adf3d94a-9093-4c73-8e7a-64840e310716n@googlegroups.com>
+Subject: TXT/CALL/WHATSAPP.+1(334)839-5202.K2 Sheets Super quality
+ Diablo!!,K2 Spice Paper,K2 Spice Sheets ,K2 Paper,K2 Spray ,k2
+ Liquid,JWH-018,5CL-ADB-A
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Jailhouse triggered exception #14
-To: qiang xu <qiangxu431@gmail.com>,
- Jailhouse <jailhouse-dev@googlegroups.com>
-References: <CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm+5WSxvr3-A@mail.gmail.com>
- <56b684d3-7bcd-444e-b7d0-2f01429fdc72@oth-regensburg.de>
- <e934ce47-a4c0-435e-95f8-204ff6b2e76an@googlegroups.com>
-From: Ralf Ramsauer <ralf@vmexit.de>
-Content-Language: en-US
-In-Reply-To: <e934ce47-a4c0-435e-95f8-204ff6b2e76an@googlegroups.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Original-Sender: ralf@vmexit.de
-X-Original-Authentication-Results: gmr-mx.google.com;       dkim=neutral
- (invalid public key) header.i=@vmexit.de header.s=20180813 header.b=JbasKyg2;
-       spf=pass (google.com: domain of ralf@vmexit.de designates
- 2a03:4000:6:8069::2 as permitted sender) smtp.mailfrom=ralf@vmexit.de
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_9586_1468687597.1726186480567"
+X-Original-Sender: sexyrealsilliconwives@gmail.com
 Precedence: list
 Mailing-list: list jailhouse-dev@googlegroups.com; contact jailhouse-dev+owners@googlegroups.com
 List-ID: <jailhouse-dev.googlegroups.com>
@@ -143,163 +82,187 @@ List-Subscribe: <https://groups.google.com/group/jailhouse-dev/subscribe>, <mail
 List-Unsubscribe: <mailto:googlegroups-manage+175645748590+unsubscribe@googlegroups.com>,
  <https://groups.google.com/group/jailhouse-dev/subscribe>
 
-Hi,
+------=_Part_9586_1468687597.1726186480567
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_9587_255510703.1726186480567"
 
-On 11/09/2024 08:17, qiang xu wrote:
-> Hi Rlf=EF=BC=8C
->=20
-> Thank you for your reply. I solved the issue based on your suggestions.=
-=20
-> However, I've encountered another problem. As shown in the image below,=
-=20
-> I found that the MSI Capabilities of a PCIe device are being read=20
-> incorrectly as '0xff'. When I don't enable the Root Cell, the readings=20
-> with setpci are normal. However, when the Root Cell is enabled, the=20
+------=_Part_9587_255510703.1726186480567
+Content-Type: text/plain; charset="UTF-8"
 
-Please don't use images, it's very hard to understand what's going on.=20
-Please describe your issue in a temporal flow.
 
-> device hangs, and after adding print statements, I found that reading=20
 
-What means the device hangs? Does Jailhouse crash?
+Buy K2 Spice paper 
+Buy K2 paper 
+Buy Mamba paper 
+Buy K2 Spray 
 
-> msi_registers.raw is abnormal. I have verified that mmcfg_addr is=20
-> correct, but the read values are still incorrect. How should I proceed=20
-> with further debugging?
+Buy K2 Liquid 
 
-Would you please share (as text attachments):
-   - lspci -vvv (before enabling jailhouse)
-   - jailhouse-config-collect yoursystem.tar
-   - Jailhouse System Configuration as C Source
+Buy 5F-MDMB2201 
+Buy 5CL-ADB-A 
 
-Why are you trying to change in PCI config space, what are you writing,=20
-and what would you expect?
+k2 spice spray | k2 spray | k2 spray on paper | strongest k2 spray for sale 
+| k2 spice spray diablo amazon | strongest k2 spray on paper | k2 spray 
+that get you high for sale | strongest k2 spray | k2 liquid spray on paper 
+| diablo k2 spray | k2 spice spray on paper | k2 liquid spray | strongest 
+k2 spice spray | k2 spice spray walmart | k2 spice spray smoke shop | how 
+to spray k2 on paper | k2 liquid spray on paper for sale | liquid k2 spray 
+for sell | k2 spice spray diablo | k2 spray for paper | liquid k2 spray | 
+k2 spray for sale online | diablo k2 spray on paper | k2 paper spray | k2 
+synthetic spray | synthetic k2 spray | k2 spray amazon | liquid k2 spray on 
+paper | k2 spray diablo | k2 synthetic weed spray | diablo k2 spray near me 
+| where can i buy k2 spray online | spray k2 | k2 diablo spray | liquid | 
+k2 spray near me | how to put k2 spray on paper | k2 spice liquid spray on 
+paper | k2 spray paper | k2 weed spray | wholesale k2 spray | herbal empire 
+k2 spray | black mamba k2 spray | what is the strongest k2 spray | how to 
+make k2 spray | k2 spray for sale | d3 k2 spray | what is k2 spray | spray 
+on k2 | diablo k2 spray for sale | k2 spray on paper for sale 
 
-The device should not hang and there should be no need for you to modify=20
-config space after enabling jailhouse, the device should continue=20
-working as before.
+K2 Sheets for sale,K2 Spice Sheets,Buy K2 Sheets,Buy K2 Spray,Buy K2 
+Liquid,Buy 5CL-ADB-A,Buy JWH-018. 
 
-Thanks,
-   Ralf
+Buy Top Quality infused k2 sheets.You can buy this sheets and write a nice 
+loving letter to your pal or fam behind the walls. 
 
->=20
-> Screenshot from 2024-09-11 14-02-51.pngScreenshot from 2024-09-11=20
-> 14-03-23.pngScreenshot from 2024-09-11 13-55-20.png
->=20
-> Regards,
-> Qiang
-> On Wednesday, September 4, 2024 at 6:51:03=E2=80=AFPM UTC+8 Ralf Ramsauer=
- wrote:
->=20
->     Hi,
->=20
->     On 04/09/2024 05:35, qiang xu wrote:
->      > Hi Jailhouse Team,
->      >
->      > =C2=A0 =C2=A0 I am trying to run Jailhouse on a real physical
->     machine(x86).When I
->      > run jailhouse enable xx.cell. I encounter the following error.
->     I'm not
->      > sure what is happening. Can you help me?
->      >
->      > 'Initializing Jailhouse hypervisor v0.12 on CPU 2
->      > Code location: 0xfffffffff0000050
->      > Using x2APIC
->      > Page pool usage after early setup: mem 48/974, remap 0/131072
->      > Initializing processors:
->      > =C2=A0CPU 2... (APIC ID 4) OK
->      > =C2=A0CPU 3... (APIC ID 6) OK
->      > =C2=A0CPU 1... (APIC ID 2) OK
->      > =C2=A0CPU 0... (APIC ID 0) OK
->      > Initializing unit: VT-d
->      > DMAR unit @0xfed90000/0x1000
->      > DMAR unit @0xfed91000/0x1000
->      > Reserving 120 interrupt(s) for device f0:1f.0 at index 0
->      > Initializing unit: IOAPIC
->      > Initializing unit: Cache Allocation Technology
->      > Initializing unit: PCI
->      > Adding PCI device 00:00.0 to cell "RootCell"
->      > Adding PCI device 00:01.0 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:01.0 at index 120
->      > Adding PCI device 00:02.0 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:02.0 at index 121
->      > Adding PCI device 00:14.0 to cell "RootCell"
->      > Reserving 8 interrupt(s) for device 00:14.0 at index 122
->      > Adding PCI device 00:14.2 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:14.2 at index 130
->      > Adding PCI device 00:16.0 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:16.0 at index 131
->      > Adding PCI device 00:17.0 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:17.0 at index 132
->      > Adding PCI device 00:1c.0 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:1c.0 at index 133
->      > Adding PCI device 00:1f.0 to cell "RootCell"
->      > Adding PCI device 00:1f.2 to cell "RootCell"
->      > Adding PCI device 00:1f.3 to cell "RootCell"
->      > Reserving 1 interrupt(s) for device 00:1f.3 at index 134
->      > Adding PCI device 00:1f.4 to cell "RootCell"
->      > Adding PCI device 01:00.0 to cell "RootCell"
->      > Reserving 8 interrupt(s) for device 01:00.0 at index 135
->      > Adding PCI device 01:00.1 to cell "RootCell"
->      > Reserving 4 interrupt(s) for device 01:00.1 at index 143
->      > Adding PCI device 01:00.2 to cell "RootCell"
->      > Reserving 3 interrupt(s) for device 01:00.2 at index 147
->      > Adding PCI device 01:03.0 to cell "RootCell"
->      > Reserving 16 interrupt(s) for device 01:03.0 at index 150
->      > FATAL: Jailhouse triggered exception #14
->      > Error code: 9
->      > Physical CPU ID: 4
->      > RIP: 0xfffffffff000b250 RSP: 0xfffffffff023ef50 FLAGS: 10093
->      > CR2: 0xffffff800400b000
->=20
->     would you please disassemble your hypervisor binary with objdump, and
->     see what routine executed behind 0xfffffffff000b250?
->=20
->     Rlf
->=20
->      > Stopping CPU 2 (Cell: "RootCell")'
->      >
->      > Regards,
->      > Qiang
->      >
->      > --
->      > You received this message because you are subscribed to the Google
->      > Groups "Jailhouse" group.
->      > To unsubscribe from this group and stop receiving emails from it,
->     send
->      > an email to jailhouse-de...@googlegroups.com
->      > <mailto:jailhouse-de...@googlegroups.com>.
->      > To view this discussion on the web visit
->      >
->     https://groups.google.com/d/msgid/jailhouse-dev/CACFR-a7pkHV775KSG-Jn=
-_Yn70mWSZ66jcU4-RRKm%2B5WSxvr3-A%40mail.gmail.com <https://groups.google.co=
-m/d/msgid/jailhouse-dev/CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm%2B5WSxvr3=
--A%40mail.gmail.com> <https://groups.google.com/d/msgid/jailhouse-dev/CACFR=
--a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm%2B5WSxvr3-A%40mail.gmail.com?utm_mediu=
-m=3Demail&utm_source=3Dfooter <https://groups.google.com/d/msgid/jailhouse-=
-dev/CACFR-a7pkHV775KSG-Jn_Yn70mWSZ66jcU4-RRKm%2B5WSxvr3-A%40mail.gmail.com?=
-utm_medium=3Demail&utm_source=3Dfooter>>.
->=20
-> --=20
-> You received this message because you are subscribed to the Google=20
-> Groups "Jailhouse" group.
-> To unsubscribe from this group and stop receiving emails from it, send=20
-> an email to jailhouse-dev+unsubscribe@googlegroups.com=20
-> <mailto:jailhouse-dev+unsubscribe@googlegroups.com>.
-> To view this discussion on the web visit=20
-> https://groups.google.com/d/msgid/jailhouse-dev/e934ce47-a4c0-435e-95f8-2=
-04ff6b2e76an%40googlegroups.com <https://groups.google.com/d/msgid/jailhous=
-e-dev/e934ce47-a4c0-435e-95f8-204ff6b2e76an%40googlegroups.com?utm_medium=
-=3Demail&utm_source=3Dfooter>.
+The sheets have 50 ml infused of the diablo k2 spray to give you the 
+perfect trip experience . 
 
---=20
-Ralf Ramsauer
-PGP: 0xC85252CC
+I have the k2 spray (K2 Liquid) available too. 
 
---=20
-You received this message because you are subscribed to the Google Groups "=
-Jailhouse" group.
+Text or call +1(334)839-5202
+
+Whatsapp +1(334)839-5202
+
+Telegram _Supremebill. 
+
+Email _manalon(@)protonmail.com. 
+
+-- 
+You received this message because you are subscribed to the Google Groups "Jailhouse" group.
+To unsubscribe from this group and stop receiving emails from it, send an email to jailhouse-dev+unsubscribe@googlegroups.com.
+To view this discussion on the web visit https://groups.google.com/d/msgid/jailhouse-dev/adf3d94a-9093-4c73-8e7a-64840e310716n%40googlegroups.com.
+
+------=_Part_9587_255510703.1726186480567
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Buy K2 Spice paper <br />
+Buy K2 paper <br />
+Buy Mamba paper <br />
+Buy K2 Spray=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Buy K2 Liquid=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Buy 5F-MDMB2201 <br />
+Buy 5CL-ADB-A=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">k2 spice spray | k2 spray | k=
+2 spray on paper | strongest k2 spray for sale | k2 spice spray diablo amaz=
+on | strongest k2 spray on paper | k2 spray that get you high for sale | st=
+rongest k2 spray | k2 liquid spray on paper | diablo k2 spray | k2 spice sp=
+ray on paper | k2 liquid spray | strongest k2 spice spray | k2 spice spray =
+walmart | k2 spice spray smoke shop | how to spray k2 on paper | k2 liquid =
+spray on paper for sale | liquid k2 spray for sell | k2 spice spray diablo =
+| k2 spray for paper | liquid k2 spray | k2 spray for sale online | diablo =
+k2 spray on paper | k2 paper spray | k2 synthetic spray | synthetic k2 spra=
+y | k2 spray amazon | liquid k2 spray on paper | k2 spray diablo | k2 synth=
+etic weed spray | diablo k2 spray near me | where can i buy k2 spray online=
+ | spray k2 | k2 diablo spray | liquid | k2 spray near me | how to put k2 s=
+pray on paper | k2 spice liquid spray on paper | k2 spray paper | k2 weed s=
+pray | wholesale k2 spray | herbal empire k2 spray | black mamba k2 spray |=
+ what is the strongest k2 spray | how to make k2 spray | k2 spray for sale =
+| d3 k2 spray | what is k2 spray | spray on k2 | diablo k2 spray for sale |=
+ k2 spray on paper for sale=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">K2 Sheets for sale,K2 Spice S=
+heets,Buy K2 Sheets,Buy K2 Spray,Buy K2 Liquid,Buy 5CL-ADB-A,Buy JWH-018.=
+=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Buy Top Quality infused k2 sh=
+eets.You can buy this sheets and write a nice loving letter to your pal or =
+fam behind the walls.=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">The sheets have 50 ml infused=
+ of the diablo k2 spray to give you the perfect trip experience .=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">I have the k2 spray (K2 Liqui=
+d) available too.=C2=A0</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Text or call <a>+1(</a>334)83=
+9-5202</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Whatsapp <a>+1(</a>334)839-52=
+02</p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Telegram _Supremebill.=C2=A0<=
+/p>
+<p style=3D"margin: 0px; font-stretch: normal; font-size: 13px; line-height=
+: normal; font-family: &quot;Helvetica Neue&quot;; font-size-adjust: none; =
+font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures=
+: normal; font-variant-numeric: normal; font-variant-east-asian: normal; fo=
+nt-variant-position: normal; font-feature-settings: normal; font-optical-si=
+zing: auto; font-variation-settings: normal;">Email _manalon(@)<a href=3D"h=
+ttp://protonmail.com/">protonmail.com</a>.=C2=A0</p>
+
+<p></p>
+
+-- <br />
+You received this message because you are subscribed to the Google Groups &=
+quot;Jailhouse&quot; group.<br />
 To unsubscribe from this group and stop receiving emails from it, send an e=
-mail to jailhouse-dev+unsubscribe@googlegroups.com.
-To view this discussion on the web visit https://groups.google.com/d/msgid/=
-jailhouse-dev/f9f09503-807d-4393-8757-9da544d82a39%40vmexit.de.
+mail to <a href=3D"mailto:jailhouse-dev+unsubscribe@googlegroups.com">jailh=
+ouse-dev+unsubscribe@googlegroups.com</a>.<br />
+To view this discussion on the web visit <a href=3D"https://groups.google.c=
+om/d/msgid/jailhouse-dev/adf3d94a-9093-4c73-8e7a-64840e310716n%40googlegrou=
+ps.com?utm_medium=3Demail&utm_source=3Dfooter">https://groups.google.com/d/=
+msgid/jailhouse-dev/adf3d94a-9093-4c73-8e7a-64840e310716n%40googlegroups.co=
+m</a>.<br />
+
+------=_Part_9587_255510703.1726186480567--
+
+------=_Part_9586_1468687597.1726186480567--
